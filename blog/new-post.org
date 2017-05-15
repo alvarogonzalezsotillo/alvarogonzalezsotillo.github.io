@@ -1,0 +1,14 @@
+# -*- coding: utf-8-unix; -*-
+#+TITLE:       <Insert Your Title Here>
+#+AUTHOR:      alvaro
+#+EMAIL:       alvaro@alvaro-vaio
+#+DATE:        2017-05-15 lun
+
+# #+URI:         /blog/%y/%m/%d/%t/ Or /blog/%t/
+# #+KEYWORDS:    keyword1, keyword2, keyword3
+# #+TAGS:        tag1, tag2, tag3
+# #+DESCRIPTION: <Add description here>
+
+#+LANGUAGE:    en
+#+OPTIONS:     H:7 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+Estoy haciendo un post con el template por defecto
