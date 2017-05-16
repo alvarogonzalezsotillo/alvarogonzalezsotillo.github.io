@@ -14,8 +14,8 @@
 (setq op/them nil)
 
 
-(setq op/personal-avatar "octaedron.png" )
+(setq op/personal-avatar "/octaedron.png" )
 (setq op/theme-root-directory "/home/alvaro/github/alvarogonzalezsotillo.github.io/themes/")
-(setq op/theme 'mdo)
+(setq op/theme 'alvaro)
 ;;; the configuration below are optional
 ;(setq op/personal-google-analytics-id "your_google_analytics_id")
