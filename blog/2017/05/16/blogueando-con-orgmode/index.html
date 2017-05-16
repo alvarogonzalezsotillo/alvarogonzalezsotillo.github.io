@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Blogueando con orgmode - org-page</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="alvaro" />
+    <meta name="description" content="Es posible crear un blog sin (casi) salir de emacs." />
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
+  </head>
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">org-page</a></h1>
+        <p>static site generator</p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="https://github.com/kelvinh/org-page">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="//www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Search">
+          <input type="hidden" name="as_sitesearch" value="alvarogonzalezsotillo.github.io">
+        </form>
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>Blogueando con orgmode</h1>
+<p>
+<a href="https://www.gnu.org/software/emacs/">Emacs</a> no es solo un editor de texto. Una vez que te decides a probarlo, no puedes parar de pensar en <i>qué más puedo hacer sin salir de Emacs</i>. Este sitio web está hecho con <a href="http://orgmode.org/">Orgmode</a>, un <i><a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Major-Modes.html">major mode</a></i> de Emacs que permite generar documentos a partir de ficheros de texto plano (como <a href="https://en.wikipedia.org/wiki/Markdown">markdown</a>, aunque con más funcionalidad).
+</p>
+
+<p>
+Basados en Orgmode, existen <a href="http://orgmode.org/worg/org-blog-wiki.html">varios sistemas para generar un sitio web</a>, y después de probar algunos me he decidido por <a href="https://github.com/kelvinh/org-page">org-page</a>, aunque con un tema propio.
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-left">org-page</th>
+<th scope="col" class="org-left">Google Sites</th>
+<th scope="col" class="org-left">Wordpress</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Hosting</td>
+<td class="org-left">Cualquiera con páginas estáticas</td>
+<td class="org-left">Sólo Google</td>
+<td class="org-left">Cualquiera con páginas dinámicas (PHP, MySql)</td>
+</tr>
+
+<tr>
+<td class="org-left">Trabajo /offline</td>
+<td class="org-left">Si</td>
+<td class="org-left">No</td>
+<td class="org-left">No</td>
+</tr>
+
+<tr>
+<td class="org-left">Versionado</td>
+<td class="org-left">Git</td>
+<td class="org-left">No</td>
+<td class="org-left">No</td>
+</tr>
+
+<tr>
+<td class="org-left">Copias de seguridad</td>
+<td class="org-left">Repositorios Git</td>
+<td class="org-left">Google no se cae</td>
+<td class="org-left">Posibles</td>
+</tr>
+
+<tr>
+<td class="org-left"><i>Mirrors</i></td>
+<td class="org-left">Si</td>
+<td class="org-left">Google no necesita <i>mirror</i></td>
+<td class="org-left">Posible, pero laborioso</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2017-05-16</span>
+        <span title="last modification date" class="post-info">2017-05-16</span>
+        <span title="tags" class="post-info"><a href="/tags/emacs/">emacs</a>, <a href="/tags/orgmode/">orgmode</a></span>
+        <span title="author" class="post-info">alvaro</span>
+      </div>
+      <section>
+        <h1>Comments</h1>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+          //var disqus_developer = 1;
+          var disqus_identifier = "/blog/2017/05/16/blogueando-con-orgmode/";
+          var disqus_url = "https://alvarogonzalezsotillo.github.io/blog/2017/05/16/blogueando-con-orgmode/";
+          var disqus_shortname = 'your_disqus_shortname';
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="//disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+       <div id="hashover"></div>
+       <script type="text/javascript" src="/hashover.php"></script>
+       <noscript>You must have JavaScript enabled to use the comments.</noscript>
+      </section>
+      <script src="//code.jquery.com/jquery-latest.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+      <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="/media/js/main.js"></script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:alvaro &lt;at&gt; alvaro-vaio">alvaro</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>
