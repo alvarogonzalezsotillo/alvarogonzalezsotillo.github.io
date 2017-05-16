@@ -1,0 +1,37 @@
+# -*- coding: utf-8-unix; -*-
+#+TITLE:       Controlando el universo: mi propio reloj de sol
+#+AUTHOR:      alvaro
+#+EMAIL:       alvaro@alvaro-vaio
+#+DATE:        2012-10-10
+
+# #+URI:         /blog/%y/%m/%d/%t/ Or /blog/%t/
+# #+KEYWORDS:    keyword1, keyword2, keyword3
+# #+TAGS:        tag1, tag2, tag3
+# #+DESCRIPTION: Tras algún trauma infantil, y 6 años de trabajo (muy) intermitente, ya tengo mi reloj de sol. Y funciona.
+
+#+LANGUAGE:    es
+#+OPTIONS:     H:7 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+
+
+
+[[file:-47-small.png]]
+
+El primer reloj de sol que me interesó fue el de Tico, el personaje de la serie animada [[http://es.wikipedia.org/wiki/La_vuelta_al_mundo_de_Willy_Fog][La vuelta al mundo de Willi Fog]]. Es un reloj de sol [[http://www.radiocable.com/el-reloj-solar-de-tico-willy-fog-lo-invento-un-monje-benedictino6545.html][benedictino]], que marca la hora sobre un anillo al atravesar el sol un agujero sobre el mismo. El agujero es regulable para reflejar los cambios estacionales en la altura del sol.
+
+El caso es que con 9 años conseguí una reproducción de las que regalaban con los [[http://www.fotolog.com/ladytronik/10941353/][yogures]]. Salí absolutamente emocionado al patio de mi casa, coloqué el agujero en la F de Febrero, y conseguí ver una hora que difería en 1 hora y media con la del vídeo VHS (hora de referencia en mi casa). Después de un rato, conseguí ver la hora correcta, a cambio de no usar el mes en el que estaba.
+Mis padres me explicaron que era un juguete, y que no tenía por qué dar la hora correcta. A partir de entonces seguí interesado en todos los relojes de sol que encontraba. Luego me enteré que todos marcaban con exactitud la [[http://es.wikipedia.org/wiki/Tiempo_solar][hora solar]], algo bastante inútil si lo que querías saber era la [[http://www.portalciencia.net/relojsol/horalegal.html][hora legal]].
+
+Cuando tuve mi primer acceso a Internet conseguí el código fuente de una librería de cálculo de posiciones de objetos celestes, Ephem (ahora [[http://www.clearskyinstitute.com/xephem/][XEphem]]). Realicé un programa muy básico que pintaba los [[http://es.wikipedia.org/wiki/Analema][analemas]] de cada una de las horas del día, y los proyectaba como si fuera un reloj de sol. Me quedó algo muy parecido a [[http://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Sundial_face_with_analemmatic_hour_lines.png/800px-Sundial_face_with_analemmatic_hour_lines.png][esto]], por lo que estaba claro que, simplemente, no se podía hacer un reloj de sol que permitiera conocer durante todo el año la hora legal. 
+ 
+En el 2008 comencé en serio la creación de mi particular reloj de sol. Por cuestiones geométricas, y de orientación de mi casa, no me era posible hacer un reloj con un dial suficientemente amplio, así que me decidí por una versión de un [[http://en.wikipedia.org/wiki/File:Avenches_Cadran_solaire_cropped_smaller.JPG][noon mark]] . Mi reloj de sol incluye líneas de día para los 15 de cada mes, y el analema de la hora en la que el cruce del analema coincide con el sol justo enfrente de la pared. [[file:-47.pdf][Este es el fichero vectorial de uno de mis relojes, el del lado este]]. 
+
+[[file:esquina-small.jpg]]
+
+Las líneas pueden interpretarse de la siguiente forma:
+- Las líneas de lado a lado marcan un día. La sombra del estilete recorre esa línea en un día.
+- Las líneas marcadas corresponden al 15 de cada mes. Así que se puede saber más o menos el día del año viendo la hora en cualquier momento.
+- Cada línea se recorre dos veces al año: el sol /sube/ hasta el solsticio de verano, y /baja/ hasta el invierno. En los dos equinoccios el sol va por la misma línea (que pasa por el cruce del analema)
+- La sombra siempre llega a la misma hora al analema. En el ejemplo, a las 11:17 (en un horario GMT+1, sin hora extra en verano)
+
+
+ El [[https://github.com/alvarogonzalezsotillo/sundial][código fuente del programa está en github]]. Es algo desastroso, ya que es un programa hecho en ratos libres, y que ha cambiado 3 veces de tecnología en 6 años (AWT, Java2D, [[http://xmlgraphics.apache.org/batik/][Batik]]). Se utiliza una versión propia [[http://code.google.com/p/sideralis2/][Sideralis2]] como librería de cálculos astronómicos. Aún así, es aprovechable si alguien quiere intentar poner su propio reloj de sol en casa.
