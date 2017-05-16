@@ -1,0 +1,49 @@
+# -*- coding: utf-8-unix; -*-
+#+TITLE:       Test de Bongard
+#+AUTHOR:      Álvaro González Sotillo
+#+EMAIL:       alvaro@alvaro-vaio
+#+DATE:        2017-05-16 mar
+
+# #+URI:         /blog/%y/%m/%d/%t/ Or /blog/%t/
+# #+KEYWORDS:    keyword1, keyword2, keyword3
+#+TAGS:        programacion, java, IA
+#+DESCRIPTION: A pesar de ser jugador de videojuegos y programador durante años, nunca había hecho uno. Los tests de Bongard me dan una buena oportunidad de programar uno.
+
+#+LANGUAGE:    en
+#+OPTIONS:     H:7 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+
+
+#+ATTR_HTML: :style float:left;
+[[file:test-de-bongard.gif]]
+
+
+El [[http://es.wikipedia.org/wiki/G%25C3%25B6del,_Escher,_Bach:_un_Eterno_y_Gr%25C3%25A1cil_Bucle][libro de Escher, Gödel, Bach: Un eterno y grácil bucle]] es uno de mis favoritos. De entre el montón de cosas realmente interesantes que se tratan en él, me llamó especialmente la atención un intento para aislar la inteligencia en su forma más abstracta y alejada de cualquier componente cultural o de experiencia previa: el test de Bongard.
+
+Básicamente, se trata de un test para detectar la inteligencia, no para medirla.Sólo se necesita que el sujeto del test sea capaz de ver en dos dimensiones, y en dos colores. Por no necesitarse, ni siquiera se necesita comunicación: el sujeto, cuando resuelve cada uno de los test, simplemente lo sabe. 
+
+Se presentan dos conjuntos de fichas. Las de la derecha tienen algo en común. Las de la izquierda no tienen esa característica común que comparten las de la derecha. El test consiste en encontrar esa característica común. Una explicación (en inglés) de estos test se encuentra en la [[http://www.foundalis.com/res/diss_research.html][página de Harry Foundalis]]. Intentar resolver los test es divertido, y te da una buena ración de [[http://en.wikipedia.org/wiki/Eureka_effect][momentos ajá]] que le suben a uno la moral (eso sí, no sin su esfuerzo).
+
+Generalmente, cuando uno encuentra la solución esta se convierte en autoevidente y no se necesita más ayuda. Pero hay veces que no llega la inspiración, y se echa de menos la capacidad que tienen otros test de "probar a ver si acierto". Se me ocurrió que se podían convertir los test de Bongard en un videojuego de la sigiuente forma:
+- Se barajan las fichas de cada conjunto
+- Se quita una de cada conjunto
+- Se presentan las 5 fichas de cada conjunto, y una de las que hemos quitado
+- El juego consiste en emparejar de nuevo la ficha solitaria con su conjunto original
+
+Además, es posible que un año de estos me toque impartir una asignatura que incluye la creación de videojuegos ([[http://www.aapri.es/curriculo/fp/dam/programacion-multimedia-y-dispositivos-moviles][Programación multimedia y dispositivos móviles]]), así que he decidido lanzarme y crear un juego, que me valga para explicar conceptos básicos a los alumnos:
+- Programación en Java (J2SE)
+- Programación en Android
+- Corrutinas
+- Interaccción con el usuario
+- Programación por eventos
+- Programación en tiempo real (quiero decir, sincronizada con el tiempo real)
+- Sistemas de coordenadas y transformadas afines
+- Persistencia del estado
+- Algo parecio a programación multiplataforma
+
+
+El código fuente del juego está en  [[https://github.com/alvarogonzalezsotillo/Bongard][https://github.com/alvarogonzalezsotillo/Bongard]], e incluye una versión para Java con AWT, otra como Applet, y una versión en Android. El applet puede ejecutarse más abajo, si se tienen los plugin necesarios. Si no:
+- Se puede intentar usar el fichero JNLP para ejecutarlo, con la orden =javaws https://bit.ly/GAiQSy=
+- Se puede bajar el fichero JAR y ejecutarlo con el usual =java -jar bongard.jar=
+- Se puede bajar el fichero APK e instalarlo en tu Android
+
+

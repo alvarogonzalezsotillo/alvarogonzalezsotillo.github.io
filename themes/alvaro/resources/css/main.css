@@ -397,7 +397,6 @@
     }
 
     .post img {
-        border: 5px solid white;
         max-width: 100%;
     }
 
@@ -1181,6 +1180,18 @@
             overflow: auto;
         }
     }
+
+
+    /* ALVARO GONZALEZ SOTILLO */
+
+    .post img {
+        border: 10px solid white;
+    }
+
+    pre.src{
+        background: #222222;
+    }
+
 } /* END OF @media all */
 
 @media screen
@@ -1235,3 +1246,4 @@
         display: none;
     }
 } /* END OF @media (min-width:800px)  */
+

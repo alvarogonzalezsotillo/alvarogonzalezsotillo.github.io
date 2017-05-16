@@ -14,7 +14,7 @@
 
 
 #+ATTR_HTML: :style float:left;
-[[file:-47.pdf][file:-47-small.png]]
+[[file:47.png][file:47-small.png]]
 
 El primer reloj de sol que me interesó fue el de Tico, el personaje de la serie animada [[http://es.wikipedia.org/wiki/La_vuelta_al_mundo_de_Willy_Fog][La vuelta al mundo de Willi Fog]]. Es un reloj de sol [[http://www.radiocable.com/el-reloj-solar-de-tico-willy-fog-lo-invento-un-monje-benedictino6545.html][benedictino]], que marca la hora sobre un anillo al atravesar el sol un agujero sobre el mismo. El agujero es regulable para reflejar los cambios estacionales en la altura del sol.
 
@@ -24,7 +24,7 @@ Mis padres me explicaron que era un juguete, y que no tenía por qué dar la hor
 
 Cuando tuve mi primer acceso a Internet conseguí el código fuente de una librería de cálculo de posiciones de objetos celestes, Ephem (ahora [[http://www.clearskyinstitute.com/xephem/][XEphem]]). Realicé un programa muy básico que pintaba los [[http://es.wikipedia.org/wiki/Analema][analemas]] de cada una de las horas del día, y los proyectaba como si fuera un reloj de sol. Me quedó algo muy parecido a [[http://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Sundial_face_with_analemmatic_hour_lines.png/800px-Sundial_face_with_analemmatic_hour_lines.png][esto]], por lo que estaba claro que, simplemente, no se podía hacer un reloj de sol que permitiera conocer durante todo el año la hora legal. 
  
-En el 2008 comencé en serio la creación de mi particular reloj de sol. Por cuestiones geométricas, y de orientación de mi casa, no me era posible hacer un reloj con un dial suficientemente amplio, así que me decidí por una versión de un [[http://en.wikipedia.org/wiki/File:Avenches_Cadran_solaire_cropped_smaller.JPG][noon mark]] . Mi reloj de sol incluye líneas de día para los 15 de cada mes, y el analema de la hora en la que el cruce del analema coincide con el sol justo enfrente de la pared. [[file:-47.pdf][Este es el fichero vectorial de uno de mis relojes, el del lado este]]. 
+En el 2008 comencé en serio la creación de mi particular reloj de sol. Por cuestiones geométricas, y de orientación de mi casa, no me era posible hacer un reloj con un dial suficientemente amplio, así que me decidí por una versión de un [[http://en.wikipedia.org/wiki/File:Avenches_Cadran_solaire_cropped_smaller.JPG][noon mark]] . Mi reloj de sol incluye líneas de día para los 15 de cada mes, y el analema de la hora en la que el cruce del analema coincide con el sol justo enfrente de la pared. [[file:47.pdf][Este es el fichero vectorial de uno de mis relojes, el del lado este]]. 
 
 #+ATTR_HTML: :style float:right;
 [[file:esquina.jpg][file:esquina-small.jpg]]
