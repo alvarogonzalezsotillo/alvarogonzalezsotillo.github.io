@@ -20,7 +20,7 @@ Basados en Orgmode, existen [[http://orgmode.org/worg/org-blog-wiki.html][varios
 |                     | org-page                         | Google Sites                | Wordpress                                     |
 |---------------------+----------------------------------+-----------------------------+-----------------------------------------------|
 | Hosting             | Cualquiera con páginas estáticas | Sólo Google                 | Cualquiera con páginas dinámicas (PHP, MySql) |
-| Trabajo /offline    | Si                               | No                          | No                                            |
+| Trabajo /offline/   | Si                               | No                          | No                                            |
 | Versionado          | Git                              | No                          | No                                            |
 | Copias de seguridad | Repositorios Git                 | Google no se cae            | Posibles                                      |
 | /Mirrors/           | Si                               | Google no necesita /mirror/ | Posible, pero laborioso                       |
