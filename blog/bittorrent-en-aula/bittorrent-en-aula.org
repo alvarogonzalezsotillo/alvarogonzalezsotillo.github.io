@@ -49,14 +49,10 @@ El problema fundamental del servidor de ficheros es que una sola conexión debe 
 Estos [[http://en.wikipedia.org/wiki/Back-of-the-envelope_calculation][cálculos de servilleta]] muestran que el uso de [[http://en.wikipedia.org/wiki/BitTorrent][BitTorrent]] puede ser muy interesante para repartir estos grandes ficheros en el aula. En [[http://www.rarst.net/software/torrent-deploy-files/][rarst.net]] se dan unas instrucciones muy completas, que yo he adaptado a mis aulas.  El resultado final es que, con la simple ejecución de un fichero BAT desde el puesto del profesor, ficheros de gran tamaño se distribuyen a todo el aula sin intervención de los alumnos :
 1. Copiar el fichero en una carpeta compartida (preferiblemente, de un servidor de aula). De esta forma, el fichero puede ser accedido "manualmente" con posterioridad.
 2. Instalar de [[http://www.utorrent.com/][μTorrent]] en el ordenador del profesor. Anotar el puerto utilizado para el protocolo BitTorrent (por ejemplo, 21212)
-3. Activar el tracker en el ordenador del profesor incluido en μTorrent:  Options > Preferences > Advanced > bt.enable_tracker > set true
+3. Activar el tracker en el ordenador del profesor incluido en μTorrent:  =Options > Preferences > Advanced > bt.enable_tracker > set true=
 4. Crear un torrent con  μTorrent  desde el ordenador del profesor con los ficheros deseados. Los ficheros se pueden especificar con la ruta UNC, o utilizar una copia local. El tracker a utilizar será  http://hostname:port/announce , cambiando =hostname= por la IP del ordenador del profesor, y port por el puerto usado en el punto 2. [[file:crear-torrent.png]]
 5. El fichero torrent se grabará en la carpeta compartida junto al fichero a distribuir y el programa  μTorrent.exe [[file:listado-ficheros.png]]
 6. Utilizar =psexec= para ejecutar de forma remota μTorrent en todos los ordenadores de los alumnos, por ejemplo con un fichero BAT. Utilizo =start /b= para que el proceso se haga en forma paralela, sin tener que esperar a un ordenador para lanzar la orden en el siguiente:
-
-
-
-#+caption: distribuir-ubuntu-12.04.1-desktop-i386.iso.bat
 #+begin_src bat
 set SLEEP=ping 192.0.2.2 -n 1 -w 10000 
 
@@ -80,8 +76,7 @@ for /f %%i in ( 'type %FICHEROIPDEALUMNOS%' ) do start /b psexec \\%%i -d cmd /c
 REM SE EJECUTA EL TORRENT
 for /f %%i in ( 'type %FICHEROIPDEALUMNOS%' ) do start /b psexec \\%%i -c -v -d -s -i %~dp0\utorrent.exe /NOINSTALL /HIDE /DIRECTORY %DIRECTORIO% %FICHEROTORRENT%
 #+end_src
-
-Y por último, comprobar que está funcionando. El fichero "aparecerá" en los ordenadores del aula en pocos minutos ☺
+Tras esto, basta con comprobar que está funcionando. El fichero "aparecerá" en los ordenadores del aula en pocos minutos ☺
 
 Posibles problemas con =PsExec=
 - En algunos sistemas, no es posible arrancar un servicio que interactue simultáneamente con la red y el entorno gráfico. Puesto que =PsExec= arranca =utorrent.exe= como un servicio, a veces será necesario arrancarlo sin el parámetro =-i=
