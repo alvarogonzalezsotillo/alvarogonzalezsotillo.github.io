@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Bittorrent en el aula - org-page</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="alvaro" />
+    <meta name="description" content="BitTorrent es un protocolo p2p para el intercambio de ficheros. Se suele asociar a descargas ilegales, pero puede ser muy útil en el aula de informática." />
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
+  </head>
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">org-page</a></h1>
+        <p>static site generator</p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="https://github.com/kelvinh/org-page">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="//www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Search">
+          <input type="hidden" name="as_sitesearch" value="alvarogonzalezsotillo.github.io">
+        </form>
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>Bittorrent en el aula</h1>
+<p style="float:left;">
+<img src="/assets/blog/2017/05/16/bittorrent-en-el-aula/utorrent-small.jpg" alt="/assets/blog/2017/05/16/bittorrent-en-el-aula/utorrent-small.jpg" style="float:left;" />
+Durante el desarrollo de ciclos formativos de grado medio y superior, es muy común la necesidad de compartir ficheros con los alumnos. Para ilustrar el problema, supondremos que el profesor necesita distribuir una ISO de instalación de Ubuntu (1.6 GBytes) en un aula con 15 ordenadores.
+</p>
+
+<div id="outline-container-org85e0cea" class="outline-2">
+<h2 id="org85e0cea">Solución 1: Uso de <i>pen drive</i></h2>
+<div class="outline-text-2" id="text-org85e0cea">
+<p style="float:right;">
+<img src="/assets/blog/2017/05/16/bittorrent-en-el-aula/pendrive-small.jpg" alt="/assets/blog/2017/05/16/bittorrent-en-el-aula/pendrive-small.jpg" style="float:right;" />
+El profesor pasa por cada puesto de alumno, copiando desde un disco duro externo o <i>pen drive</i> el fichero deseado. Suponiendo una  tasa de transferencia de 25 MBytes/segundo, cada alumno necesita unos 60 segundos para conseguir su copia. Incluyendo el proceso de conexión y desconexión cada alumno necesita unos 2 minutos. Esto hace un total de 30 minutos para distribuir el fichero.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf8da948" class="outline-2">
+<h2 id="orgf8da948">Solución 2: Uso de pen drive y copias de alumnos</h2>
+<div class="outline-text-2" id="text-orgf8da948">
+<p>
+Si cada alumno que consigue el fichero lo  copia a un pen drive propio y lo distribuye a otros alumnos, puede copiarse el fichero mucho más rápido. Esta es una posibilidad teórica más que real, puesto que los alumnos no suelen entender el proceso y se tarda más en explicarlo que en aplicar la primera solución.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org44c63a0" class="outline-2">
+<h2 id="org44c63a0">Solución 3: Uso de un servidor de ficheros</h2>
+<div class="outline-text-2" id="text-org44c63a0">
+
+<div class="figure">
+<p><img src="/assets/blog/2017/05/16/bittorrent-en-el-aula/sharedfolder-small.jpg" alt="/assets/blog/2017/05/16/bittorrent-en-el-aula/sharedfolder-small.jpg" style="float:right;" />
+</p>
+</div>
+<p style="float:none;">
+El fichero puede hacerse accesible desde la red, y cada alumno baja su propia copia. Este enfoque tiene algunas particularidades:
+</p>
+
+<ul class="org-ul">
+<li>En una red a 100 MB (con una tasa efectiva de 10 MBytes/s) la transferencia a un solo alumno tardaría unos dos minutos. El problema es que el servidor debe compartir su enlace entre todos los alumnos, por lo que el tiempo total empleado sería de 30 minutos</li>
+<li>En una red a 1 GB solo se necesitarían 3 minutos. Desgraciadamente, las aulas no suelen tener switches de estas velocidades</li>
+<li>Si se utiliza un servidor web en vez de un servidor de ficheros, las transferencias suelen comprimirse. En este caso, los tiempos pueden bajar a la mitad, e incluso menos (HTTP suele ser más eficiente que CIFS).</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org02e5969" class="outline-2">
+<h2 id="org02e5969">Solución 4: Uso de un protocolo de red p2p</h2>
+<div class="outline-text-2" id="text-org02e5969">
+<p style="float:right;">
+<img src="/assets/blog/2017/05/16/bittorrent-en-el-aula/utorrent.jpg" alt="/assets/blog/2017/05/16/bittorrent-en-el-aula/utorrent.jpg" style="float:right;" />
+El problema fundamental del servidor de ficheros es que una sola conexión debe dar servicio a todos los alumnos. Si conseguimos que cada alumno comparta su conexión con los demás, este cuello de botella queda resuelto. De esta forma, se consigue una transferencia casi simultánea a todos los alumnos del fichero, necesitando solo 3 minutos para una red a 100 MB.
+</p>
+
+<p>
+Estos <a href="http://en.wikipedia.org/wiki/Back-of-the-envelope_calculation">cálculos de servilleta</a> muestran que el uso de <a href="http://en.wikipedia.org/wiki/BitTorrent">BitTorrent</a> puede ser muy interesante para repartir estos grandes ficheros en el aula. En <a href="http://www.rarst.net/software/torrent-deploy-files/">rarst.net</a> se dan unas instrucciones muy completas, que yo he adaptado a mis aulas.  El resultado final es que, con la simple ejecución de un fichero BAT desde el puesto del profesor, ficheros de gran tamaño se distribuyen a todo el aula sin intervención de los alumnos :
+</p>
+<ol class="org-ol">
+<li>Copiar el fichero en una carpeta compartida (preferiblemente, de un servidor de aula). De esta forma, el fichero puede ser accedido "manualmente" con posterioridad.</li>
+<li>Instalar de <a href="http://www.utorrent.com/">μTorrent</a> en el ordenador del profesor. Anotar el puerto utilizado para el protocolo BitTorrent (por ejemplo, 21212)</li>
+<li>Activar el tracker en el ordenador del profesor incluido en μTorrent:  <code>Options &gt; Preferences &gt; Advanced &gt; bt.enable_tracker &gt; set true</code></li>
+<li>Crear un torrent con  μTorrent  desde el ordenador del profesor con los ficheros deseados. Los ficheros se pueden especificar con la ruta UNC, o utilizar una copia local. El tracker a utilizar será  <a href="http://hostname%3Aport/announce">http://hostname:port/announce</a> , cambiando <code>hostname</code> por la IP del ordenador del profesor, y port por el puerto usado en el punto 2. <img src="/assets/blog/2017/05/16/bittorrent-en-el-aula/crear-torrent.png" alt="/assets/blog/2017/05/16/bittorrent-en-el-aula/crear-torrent.png" /></li>
+<li>El fichero torrent se grabará en la carpeta compartida junto al fichero a distribuir y el programa  μTorrent.exe <img src="/assets/blog/2017/05/16/bittorrent-en-el-aula/listado-ficheros.png" alt="/assets/blog/2017/05/16/bittorrent-en-el-aula/listado-ficheros.png" /></li>
+<li>Utilizar <code>psexec</code> para ejecutar de forma remota μTorrent en todos los ordenadores de los alumnos, por ejemplo con un fichero BAT. Utilizo <code>start /b</code> para que el proceso se haga en forma paralela, sin tener que esperar a un ordenador para lanzar la orden en el siguiente:</li>
+</ol>
+<div class="org-src-container">
+<pre class="src src-bat">set SLEEP=ping 192.0.2.2 -n 1 -w 10000 
+
+
+set DIRECTORIO=f:\isos 
+set FICHEROTORRENT=%~dp0\ubuntu-12.04.1-desktop-i386.iso.torrent 
+set FICHEROIPDEALUMNOS=%~dp0\IPS_ALUMNOS_a223.txt 
+
+
+REM SE MATAN LOS UTORRENT DE EJECUCIONES ANTERIORES
+for /f %%i in ( 'type %FICHEROIPDEALUMNOS%' ) do start /b psexec \\%%i -d -s cmd /c taskkill /IM utorrent.exe /F
+
+%SLEEP%
+
+REM SE CREA EL DIRECTORIO
+for /f %%i in ( 'type %FICHEROIPDEALUMNOS%' ) do start /b psexec \\%%i -d cmd /c mkdir %DIRECTORIO%
+
+
+%SLEEP%
+
+REM SE EJECUTA EL TORRENT
+for /f %%i in ( 'type %FICHEROIPDEALUMNOS%' ) do start /b psexec \\%%i -c -v -d -s -i %~dp0\utorrent.exe /NOINSTALL /HIDE /DIRECTORY %DIRECTORIO% %FICHEROTORRENT%
+</pre>
+</div>
+<p>
+Tras esto, basta con comprobar que está funcionando. El fichero "aparecerá" en los ordenadores del aula en pocos minutos ☺
+</p>
+
+<p>
+Posibles problemas con <code>PsExec</code>
+</p>
+<ul class="org-ul">
+<li>En algunos sistemas, no es posible arrancar un servicio que interactue simultáneamente con la red y el entorno gráfico. Puesto que <code>PsExec</code> arranca <code>utorrent.exe</code> como un servicio, a veces será necesario arrancarlo sin el parámetro <code>-i</code></li>
+<li>En algunos sistemas, la cuenta <code>SYSTEM</code> puede no tener permisos para acceder a una unidad compartida. En ese caso pueden usarse los parámetros <code>-u</code> y <code>-p</code> para especificar un usuario y una contraseña.</li>
+</ul>
+</div>
+</div>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2017-05-16</span>
+        <span title="last modification date" class="post-info">2017-05-16</span>
+        <span title="tags" class="post-info"><a href="/tags/bittorrent/">bittorrent</a></span>
+        <span title="author" class="post-info">alvaro</span>
+      </div>
+      <section>
+        <h1>Comments</h1>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+          //var disqus_developer = 1;
+          var disqus_identifier = "/blog/2017/05/16/bittorrent-en-el-aula/";
+          var disqus_url = "https://alvarogonzalezsotillo.github.io/blog/2017/05/16/bittorrent-en-el-aula/";
+          var disqus_shortname = 'your_disqus_shortname';
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="//disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+       <div id="hashover"></div>
+       <script type="text/javascript" src="/hashover.php"></script>
+       <noscript>You must have JavaScript enabled to use the comments.</noscript>
+      </section>
+      <script src="//code.jquery.com/jquery-latest.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+      <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="/media/js/main.js"></script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:alvaro &lt;at&gt; alvaro-vaio">alvaro</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>
