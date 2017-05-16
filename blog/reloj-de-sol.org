@@ -1,13 +1,13 @@
 # -*- coding: utf-8-unix; -*-
 #+TITLE:       Controlando el universo: mi propio reloj de sol
-#+AUTHOR:      alvaro
-#+EMAIL:       alvaro@alvaro-vaio
+#+AUTHOR:      Álvaro González Sotillo
+#+EMAIL:       alvarogonzalezsotillo@gmail.com
 #+DATE:        2012-10-10
 
 # #+URI:         /blog/%y/%m/%d/%t/ Or /blog/%t/
 # #+KEYWORDS:    keyword1, keyword2, keyword3
-# #+TAGS:        tag1, tag2, tag3
-# #+DESCRIPTION: Tras algún trauma infantil, y 6 años de trabajo (muy) intermitente, ya tengo mi reloj de sol. Y funciona.
+#+TAGS: Astronomia, programacion
+#+DESCRIPTION: Tras algún trauma infantil, y 6 años de trabajo (muy) intermitente, ya tengo mi reloj de sol. Y funciona.
 
 #+LANGUAGE:    es
 #+OPTIONS:     H:7 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
