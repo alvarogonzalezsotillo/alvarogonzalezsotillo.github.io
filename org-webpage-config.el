@@ -9,5 +9,5 @@
    :force-absolute-url nil
    :theme-root-directory "/home/alvaro/github/alvarogonzalezsotillo.github.io/themes"
    :theme (alvaro)
-   ;; :source-browse-url ("Github" "https://github.com/alvarogonzalezsotillo/alvarogonzalezsotillo.github.io"
+   :source-browse-url ("Github" "https://github.com/alvarogonzalezsotillo"
    ))
