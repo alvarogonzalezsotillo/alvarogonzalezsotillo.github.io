@@ -36,4 +36,4 @@ Las líneas pueden interpretarse de la siguiente forma:
 - La sombra siempre llega a la misma hora al analema. En el ejemplo, a las 11:17 (en un horario GMT+1, sin hora extra en verano)
 
 
- El [[https://github.com/alvarogonzalezsotillo/sundial][código fuente del programa está en github]]. Es algo desastroso, ya que es un programa hecho en ratos libres, y que ha cambiado 3 veces de tecnología en 6 años (AWT, Java2D, [[http://xmlgraphics.apache.org/batik/][Batik]]). Se utiliza una versión propia [[http://code.google.com/p/sideralis2/][Sideralis2]] como librería de cálculos astronómicos. Aún así, es aprovechable si alguien quiere intentar poner su propio reloj de sol en casa.
+ El [[https://github.com/alvarogonzalezsotillo/sundial][código fuente del programa está en github]]. No esperéis un código ejemplar, ya que ha cambiado 3 veces de tecnología en 6 años (AWT, Java2D, [[http://xmlgraphics.apache.org/batik/][Batik]]). Se utiliza una versión propia [[http://code.google.com/p/sideralis2/][Sideralis2]] como librería de cálculos astronómicos. Aún así, es aprovechable si alguien quiere intentar poner su propio reloj de sol en casa.
