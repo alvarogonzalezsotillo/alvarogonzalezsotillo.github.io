@@ -18,5 +18,4 @@
 ;;; the configuration below are optional
 ;(setq op/personal-google-analytics-id "your_google_analytics_id")
 
-(op/do-publication)
 (op/do-publication-and-preview-site op/site-preview-directory)

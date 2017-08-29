@@ -386,3 +386,7 @@ table th.right, table td.right {
     max-width: 80%;
 }
 
+h1:before{
+    content: "";
+}
+
