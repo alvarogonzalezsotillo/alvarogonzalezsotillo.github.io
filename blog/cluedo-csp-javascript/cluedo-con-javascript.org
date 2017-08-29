@@ -7,4 +7,7 @@
 #+TAGS:        cluedo,javascript,AI,programación
 #+LANGUAGE:    en
 #+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
-#+DESCRIPTION: Descripción del post
+#+DESCRIPTION: El cluedo es considerado un juego para niños, pero bajo su superficie hay un interesante problema de lógica de primer orden
+
+
+Aquí va el texto con cosas
