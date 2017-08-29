@@ -1,0 +1,10 @@
+#+TITLE:       El cluedo como problema de lógica
+#+AUTHOR:      alvaro
+#+EMAIL:       alvaro@alvaro-vaio
+#+DATE:        2017-08-29 mar
+#+URI:         /blog/%y/%m/%d/el-cluedo-como-problema-de-lógica
+#+KEYWORDS:    AI,programación,javascript
+#+TAGS:        cluedo,javascript,AI,programación
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: Descripción del post
