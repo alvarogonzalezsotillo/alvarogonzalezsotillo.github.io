@@ -1,4 +1,4 @@
-#+TITLE:       El cluedo como problema de lógica
+#+TITLE:       El Cluedo como problema de lógica de segundo orden
 #+AUTHOR:      alvaro
 #+EMAIL:       alvaro@alvaro-vaio
 #+DATE:        2017-08-29 mar
@@ -7,7 +7,26 @@
 #+TAGS:        cluedo,javascript,AI,programación
 #+LANGUAGE:    en
 #+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
-#+DESCRIPTION: El cluedo es considerado un juego para niños, pero bajo su superficie hay un interesante problema de lógica de primer orden
+#+DESCRIPTION: El Cluedo es considerado un juego para niños, pero bajo su superficie hay un interesante problema de lógica de segundo orden.
 
 
-Aquí va el texto con cosas
+El Cluedo es un juego infantil en el que se reparten las cartas de un mazo entre los jugadores, dejando tres cartas ocultas en un sobre. Los jugadores deben deducir qué cartas están ocultas mediante sus preguntas. En cada turno, un jugador hace una /predicción/ de tres cartas, y el jugador a su derecha debe mostrar una de esas cartas al jugador que ha preguntado (si es poseedor de ellas). Si no posee ninguna, debe admitirlo y se hace la misma pregunta al siguiente jugador, hasta que algún jugador muestra una carta. En las normas completas del juego se utilizan también dados y fichas sobre un tablero, pero esas normas no son importantes para el problema de lógica.
+
+Las cartas tienen tres categorías: *personajes*, *herramientas* y *lugar*. Hay una carta de cada categoría oculta en el sobre.
+
+Con el material del juego se incluyen unas plantillas de ayuda a los jugadores, donde hay una casilla por cada posible carta. En las instrucciones se indica que se debe apuntar cada carta que se posea, o que se descubra mediante preguntas que otros jugadores tienen. Al final, las tres cartas que queden sin apuntar serán las cartas ocultas. 
+
+Aunque este enfoque es correcto, es mejorable utilizando el resto de información disponible para cada jugador. Como se verá posteriormente, cada respuesta a una pregunta puede representarse como una fórmula lógica de primer orden, permite realizar muchas más deducciones.
+
+* Variables lógicas
+Supongamos que hay $J$ jugadores, $P$ cartas de personaje, $H$ cartas de herramientas y $L$ cartas de lugar. En total habrá $C=J+P+H$ cartas. El sobre puede considerarse un jugador más (por ejemplo, el número $0$). Para cada carta y jugador tendremos en cuenta una variable que indica si ese jugador posee esa carta, $c_{ij}$, con los subíndices variando entre los posibles valores de jugadores y cartas ($i \in C, j \in J$).
+
+En el resto de la discusión, supondremos que el valor lógico $verdadero$ equivale al valor numérico $1$, y que $falso$ equivale a $0$.
+
+La propia estructura del problema ya impone varias condiciones sobre las variables $c_{ij}$:
+- Si un jugador posee una carta, el resto de jugadores no pueden tenerla: ${\sum_{j} c_{ij} = 1}, \forall i \in C$
+- Cada jugador tiene un número de cartas $n_j$, por lo que $\sum_{i} c_{ij} = n_j$. Por ejemplo, en el sobre (jugador $0$) siembre hay tres cartas, por lo que $\sum_{i} c_{i0} = 3$.
+- En el sobre hay una carta de cada tipo. Por tanto $\sum_{i \in J} c_{i0} = 1}$, $\sum_{i \in P} c_{i0} = 1}$, $\sum_{i \in L} c_{i0} = 1}$ 
+- Si el jugador $j$ nos muestra la carta $i$, podemos asignar el valor $c_{ij}=1$.
+- Si el jugador $j$ reconoce no tener ninguna de las cartas $a,b,c$ podemos asignar los valores $c_{aj}=0$
+

@@ -11,7 +11,7 @@
 
 
 
-(setq op/personal-avatar "/assets/octaedron.png" )
+(setq op/personal-avatar "/media/img/octaedron.png" )
 (setq op/theme-root-directory "/home/alvaro/github/alvarogonzalezsotillo.github.io/themes/")
 (setq op/theme 'alvaro)
 
