@@ -98,5 +98,74 @@ Pueden distinguirse dos direcciones en la propagación: desde los elementos de u
   - Si hay $n$ variables $true$, entonces todas las $l$ variables sin definir son $false$ (se les quita $true$)
   - Si hay $n-l$ variables a $true$, entonces todas las $l$ variables son $true$ (se les quita $false$)
   
+** Prueba y error (/branch and bound/) 
+El algoritmo de progagación descrito no es capaz de deducir todos los valores posibles por sí mismo. Para mejorarlo, puede seguirse el siguiente procedimiento:
+1. Sea $U$ el conjunto de las variables $c_{ij}$ tales que su dominio no está definido.
+2. Por cada $c \in U$
+   - Se quita $true$ del dominio de $c$ y se realiza la propagación. Si alguna variable se queda con el dominio vacío, es que $c$ no puede ser $false$, así que se quita $false$ de su dominio.
+   - Se quita $false$ del dominio de $c$ y se realiza la propagación. Si alguna variable se queda con el dominio vacío, es que $c$ no puede ser $true$, así que se quita $true$ de su dominio.
+   
+
+* Implementación
 
 
+#+begin_src javascript
+var facts = [
+    // NÚMERO DE JUGADORES Y CARTAS DE CADA UNO
+    new PlayersFact( [4,4,4,3,3] ),
+
+    // CARTAS PROPIAS
+    new PlayerHasSomeFact(0,["Herramienta"]),
+    new PlayerHasSomeFact(0,["Candelabro"]),
+    new PlayerHasSomeFact(0,["Amapola"]),
+    new PlayerHasSomeFact(0,["Biblioteca"]),
+
+    // PREGUNTAS Y RESPUESTAS
+    new PlayerDoesntHaveAnyFact(3,["Sala de billar","Puñal","Rubio"]),
+    new PlayerHasSomeFact(2,["Sala de billar","Puñal","Rubio"]),
+    new PlayerHasSomeFact(2,["Puñal"]),
+    new PlayerHasSomeFact( 1, ["Rubio"] ),
+    new PlayerDoesntHaveAnyFact( 1, ["Amapola", "Biblioteca", "Pistola" ] ),
+    new PlayerDoesntHaveAnyFact(3, ["Pistola", "Mora", "Sala de billar" ] ),
+    new PlayerHasSomeFact(2, ["Pistola", "Mora", "Sala de billar" ] ), 
+    new PlayerDoesntHaveAnyFact( 3, ["Sala de baile", "Cuerda", "Mora" ]),
+    new PlayerHasSomeFact( 2, ["Sala de baile", "Cuerda", "Mora" ] ),
+    new PlayerDoesntHaveAnyFact(  4 ,  ["Sala de baile", "Mora", "Candelabro" ] ),
+    new PlayerDoesntHaveAnyFact(  3 ,  ["Sala de baile", "Mora", "Candelabro" ] ),
+    new PlayerHasSomeFact( 2, ["Sala de baile"] ),
+    new PlayerHasSomeFact( 4, ["Prado", "Pistola", "Invernadero" ] ),
+    new PlayerDoesntHaveAnyFact(  1 ,  ["Vestíbulo", "Cuerda", "Prado" ] ),
+    new PlayerDoesntHaveAnyFact(  3 ,  ["Vestíbulo", "Cuerda", "Prado" ] ),
+    new PlayerDoesntHaveAnyFact(  4 ,  ["Vestíbulo", "Cuerda", "Prado" ] ),
+    new PlayerDoesntHaveAnyFact(  2 ,  ["Prado", "Cuerda", "Invernadero" ] ),
+    new PlayerDoesntHaveAnyFact(  1 ,  ["Prado", "Cuerda", "Invernadero" ] ),
+    new PlayerDoesntHaveAnyFact(  0 ,  ["Prado", "Cuerda", "Invernadero" ] ),
+    new PlayerDoesntHaveAnyFact(  4 ,  ["Prado", "Cuerda", "Invernadero" ] ),
+    new PlayerDoesntHaveAnyFact(  3 ,  ["Tubería", "Cocina", "Celeste" ] ),
+    new PlayerHasSomeFact(  2 ,  ["Tubería", "Cocina", "Celeste" ] ),
+    new PlayerHasSomeFact(  4 ,  ["Pistola" ] ),
+    new PlayerHasSomeFact(  2, ["Salón", "Prado", "Tubería" ] ),
+];
+#+end_src
+
+
+#+begin_src javascript
+
+    var flavor = {
+        flavorName : "El gran juego de detectives (con Orquídea)",
+        characterNames : ["Amapola", "Celeste", "Orquídea", "Prado", "Mora", "Rubio"],
+        toolNames : ["Candelabro", "Tubería", "Cuerda", "Puñal", "Pistola", "Herramienta"],
+        placeNames : ["Sala de billar", "Salón", "Estudio", "Comedor", "Sala de baile", "Cocina", "Biblioteca", "Invernadero", "Vestíbulo"]
+    };
+
+
+    var c = new Cluedo(flavor,facts);
+
+    // CARTAS DEDUCIDAS POR PROPAGACIÓN
+    c.printCards(c.cards());
+
+    // CARTAS MEJORADAS CON PRUEBA Y ERROR
+    c.improveByGuessing();
+    c.printCards(c.cards());
+
+#+end_src
