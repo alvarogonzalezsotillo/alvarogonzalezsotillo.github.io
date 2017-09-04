@@ -107,8 +107,57 @@ El algoritmo de progagación descrito no es capaz de deducir todos los valores p
    
 
 * Implementación
+El sistema de programación por restricciones para variables booleanas puede consultarse [[https://github.com/alvarogonzalezsotillo/cluedo/blob/master/js/cp.js][aquí]], y su interfaz puede verse en [[https://github.com/alvarogonzalezsotillo/cluedo/blob/master/js/cp.simple.test.js][varios casos de prueba]]. 
+
+En el siguiente ejemplo, se comprueba la propagación del equivalente a la función $V_n()$:
+
+#+begin_src javascript
+            // CREACIÓN DE 4 VARIABLES
+            var CP = new CPManager();
+            var a = CP.Boolean("a");
+            var b = CP.Boolean("b");
+            var c = CP.Boolean("c");
+            var d = CP.Boolean("d");
+
+            // EXPRESIÓN: DE LAS 4, UNA ES VERDADERA
+            var st = CP.SomeTrue([a,b,c,d],1);
+
+            // LA EXPRESIÓN ES CIERTA
+            st.remove(false);
+
+            // a NO PUEDE SER FALSE
+            a.remove(false);
+
+            // LA PROPAGACIÓN HACE QUE EL RESTO DE VARIABLES TENGA QUE SER FALSA
+            assert(b.isFalse());
+            assert(c.isFalse());
+            assert(d.isFalse());
+
+#+end_src 
+
+Y este es un ejemplo de propagación de la expresión $\lor$ (o lógico):
+#+begin_src javascript
+            // CREACIÓN DE 3 VARIABLES
+            var CP = new CPManager();
+            var a = CP.Boolean("a");
+            var b = CP.Boolean("b");
+            var c = CP.Boolean("c");
+            var or = CP.Or([a,b,c]);
+
+            // LA EXPRESIÓN or ES CIERTA, PERO a Y b SON FALSAS
+            or.remove(false);
+            a.remove(true);
+            b.remove(true);
+            
+            // POR TANTO, c ES OBLIGATORIAMENTE CIERTA
+            assert(a.isFalse());
+            assert(b.isFalse());
+            assert(c.isTrue());
+
+#+end_src
 
 
+Con estas primitivas lógicas, puede implementarse el juego del Cluedo ([[https://github.com/alvarogonzalezsotillo/cluedo/blob/master/js/cluedo.js][aquí el código fuente]]). Primero se prepara una lista de hechos, con las preguntas y respuestas del juego. Este es un ejemplo de una partida real:
 #+begin_src javascript
 var facts = [
     // NÚMERO DE JUGADORES Y CARTAS DE CADA UNO
@@ -148,6 +197,7 @@ var facts = [
 ];
 #+end_src
 
+Después, se definen las cartas posibles en el juego (hay bastantes versiones):
 
 #+begin_src javascript
 
@@ -158,14 +208,78 @@ var facts = [
         placeNames : ["Sala de billar", "Salón", "Estudio", "Comedor", "Sala de baile", "Cocina", "Biblioteca", "Invernadero", "Vestíbulo"]
     };
 
+#+end_src
+
+Por último se calculan los posibles valores de las cartas:
+
+#+begin_src javascript
 
     var c = new Cluedo(flavor,facts);
 
     // CARTAS DEDUCIDAS POR PROPAGACIÓN
     c.printCards(c.cards());
 
+#+end_src
+
+La salida del programa es la siguiente (=V= indica que la carta está ahí, =x= que la carta no está ahí, y =.= indica que no se sabe si está o no está):
+
+#+begin_src 
+                    Player 0  Player 1  Player 2  Player 3  Player 4  Envelope  
+Candelabro          V         x         x         x         x         x         
+Tubería             x         .         .         x         .         x         
+Cuerda              x         x         x         x         x         V         
+Puñal               x         x         V         x         x         x         
+Pistola             x         x         x         x         V         x         
+Herramienta         V         x         x         x         x         x         
+Sala de billar      x         .         .         x         .         .         
+Salón               x         .         .         .         .         .         
+Estudio             x         .         .         .         .         .         
+Comedor             x         .         .         .         .         .         
+Sala de baile       x         x         V         x         x         x         
+Cocina              x         .         .         x         .         .         
+Biblioteca          V         x         x         x         x         x         
+Invernadero         x         x         x         .         x         .         
+Vestíbulo           x         x         .         x         x         .         
+Amapola             V         x         x         x         x         x         
+Celeste             x         .         .         x         .         x         
+Orquídea            x         .         .         .         .         x         
+Prado               x         x         x         x         x         V         
+Mora                x         .         .         x         x         x         
+Rubio               x         V         x         x         x         x    
+#+end_src
+
+Las deducciones pueden mejorarse con la prueba y error:
+
+#+begin_src javascript
     // CARTAS MEJORADAS CON PRUEBA Y ERROR
     c.improveByGuessing();
     c.printCards(c.cards());
+#+end_src
 
+Que da lugar al descubrimiento de que dos cartas no pueden estar en el sobre:
+
+#+begin_src
+Hechos deducidos:[{"_factType":"EnvelopeDoesntHaveFact","_cards":["Sala de billar"]},{"_factType":"EnvelopeDoesntHaveFact","_cards":["Salón"]}]
+                    Player 0  Player 1  Player 2  Player 3  Player 4  Envelope  
+Candelabro          V         x         x         x         x         x         
+Tubería             x         .         .         x         .         x         
+Cuerda              x         x         x         x         x         V         
+Puñal               x         x         V         x         x         x         
+Pistola             x         x         x         x         V         x         
+Herramienta         V         x         x         x         x         x         
+Sala de billar      x         .         .         x         .         x         
+Salón               x         .         .         .         .         x         
+Estudio             x         .         .         .         .         .         
+Comedor             x         .         .         .         .         .         
+Sala de baile       x         x         V         x         x         x         
+Cocina              x         .         .         x         .         .         
+Biblioteca          V         x         x         x         x         x         
+Invernadero         x         x         x         .         x         .         
+Vestíbulo           x         x         .         x         x         .         
+Amapola             V         x         x         x         x         x         
+Celeste             x         .         .         x         .         x         
+Orquídea            x         .         .         .         .         x         
+Prado               x         x         x         x         x         V         
+Mora                x         .         .         x         x         x         
+Rubio               x         V         x         x         x         x  
 #+end_src
