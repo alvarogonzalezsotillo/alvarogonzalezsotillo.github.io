@@ -379,3 +379,14 @@ table th.right, table td.right {
         padding: 30px;
     }
 }
+
+/* ALVARO */
+.container {
+    margin: 20px auto;
+    max-width: 80%;
+}
+
+h1:before{
+    content: "";
+}
+
