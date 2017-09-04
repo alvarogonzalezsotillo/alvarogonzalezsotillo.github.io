@@ -1,7 +1,7 @@
 (require 'org-page)
 (setq op/repository-directory "/home/alvaro/github/alvarogonzalezsotillo.github.io")
 (setq op/repository-org-branch "source")
-(setq op/repository-html-branch "gh-pages")
+(setq op/repository-html-branch "master")
 (setq op/site-domain "https://alvarogonzalezsotillo.github.io/")
 ;;; for commenting, you can choose either disqus, duoshuo or hashover
 (setq op/personal-disqus-shortname "alvarogonzalezsotillo")
