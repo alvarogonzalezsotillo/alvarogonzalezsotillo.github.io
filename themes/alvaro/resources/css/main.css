@@ -383,10 +383,14 @@ table th.right, table td.right {
 /* ALVARO */
 .container {
     margin: 20px auto;
-    max-width: 80%;
+    max-width: 90%;
 }
 
 h1:before{
     content: "";
 }
 
+
+ul, ol {
+    margin: 0px 2em 20px;
+}

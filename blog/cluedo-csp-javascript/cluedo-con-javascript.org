@@ -29,7 +29,7 @@ Con el material del juego se incluyen unas plantillas de ayuda a los jugadores, 
 Aunque este enfoque es correcto, es mejorable utilizando el resto de información disponible para cada jugador. Como se verá posteriormente, cada respuesta a una pregunta puede representarse como una fórmula lógica de primer orden, permite realizar muchas más deducciones.
 
 * Variables lógicas
-Supongamos que hay $J$ jugadores, $P$ cartas de personaje, $H$ cartas de herramientas y $L$ cartas de lugar. En total habrá $M=J+P+H$ cartas. El sobre puede considerarse un jugador más (por ejemplo, el número $0$). Para cada carta y jugador tendremos en cuenta una variable que indica si ese jugador posee esa carta, $c_{ij}$, con los subíndices variando entre los posibles valores de jugadores y cartas ($i \in M, j \in J$).
+Supongamos que hay $J$ jugadores, $P$ cartas de personaje, $H$ cartas de herramientas y $L$ cartas de lugar. En total habrá $M=P+H+L$ cartas. El sobre puede considerarse un jugador más (por ejemplo, el número $0$). Para cada carta y jugador tendremos en cuenta una variable que indica si ese jugador posee esa carta, $c_{ij}$, con los subíndices variando entre los posibles valores de jugadores y cartas ($i \in M, j \in J$).
 
 En el resto de la discusión, supondremos que el valor lógico $verdadero$ equivale a $1$ al utilizarse con operadores numéricos, y que $falso$ equivale a $0$.
 
