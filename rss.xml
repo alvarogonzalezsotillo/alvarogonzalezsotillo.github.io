@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0">
   <channel>
-    <title>org-page</title>
+    <title>Álvaro González Sotillo</title>
     <link>https://alvarogonzalezsotillo.github.io/</link>
-    <description>static site generator</description>
-    <pubDate>lun, 04 sep 2017 11:20:45 CEST</pubDate>
-    <lastBuildDate>lun, 04 sep 2017 11:20:45 CEST</lastBuildDate>
+    <description>Para decir que tengo un blog</description>
+    <pubDate>lun, 04 sep 2017 13:21:18 CEST</pubDate>
+    <lastBuildDate>lun, 04 sep 2017 13:21:18 CEST</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
     <item>
