@@ -35,8 +35,8 @@ En el resto de la discusión, supondremos que el valor lógico $verdadero$ equiv
 
 La estructura del problema impone varias condiciones sobre las variables $c_{ij}$:
 - Si un jugador posee una carta, el resto de jugadores no pueden tenerla: ${\sum_{j} c_{ij} = 1}, \forall i \in M$
-- Cada jugador tiene un número de cartas $n_j$, por lo que $\sum_{i} c_{ij} = n_j$. Por ejemplo, en el sobre (jugador $0$) siembre hay tres cartas, por lo que $\sum_{i} c_{i0} = 3$.
-- En el sobre hay una carta de cada tipo. Por tanto $\sum_{i \in J} c_{i0} = 1}$, $\sum_{i \in P} c_{i0} = 1}$, $\sum_{i \in L} c_{i0} = 1}$ 
+- Cada jugador tiene un número de cartas $n_j$, por lo que $\sum_{i} c_{ij} = n_j$. Por ejemplo, en el sobre (jugador $0$) siempre hay tres cartas, por lo que $\sum_{i} c_{i0} = 3$.
+- En el sobre hay una carta de cada tipo. Por tanto $\sum_{i \in J} c_{i0} = 1$, $\sum_{i \in P} c_{i0} = 1$, $\sum_{i \in L} c_{i0} = 1$ 
 - Si el jugador $j$ nos muestra la carta $i$, podemos asignar el valor $c_{ij}=true$.
 - Si el jugador $j$ reconoce no tener ninguna de las cartas $x,y,z$ podemos asignar los valores $c_{xj}=false$ ,  $c_{yj}=false$ ,  $c_{zj}=false$
 - Si el jugador $j$ reconoce tener alguna de las cartas $x,y,z$ a otro jugador, podemos deducir que $(c_{xj} \lor c_{yj} \lor c_{zj}) = true$
@@ -50,7 +50,7 @@ En el punto anterior, se vio que puede modelarse el problema utilizando las func
 
 De estas funciones, sólo $\lnot$ y $V_n()$ son primitivas:
 - $a_1 \land a_2 \land \ldots \land a_n$ puede expresarse como $V_n(a_1, a_2, \ldots, a_n)$
-- $a_1 \lor a_2 \lor \ldots \lor a_n$ puede expresarse como $\lnot( \lnot a_1 \land \lnot a_2 \land \ldots \lad \lnot a_n)$ (leyes de Morgan)
+- $a_1 \lor a_2 \lor \ldots \lor a_n$ puede expresarse como $\lnot( \lnot a_1 \land \lnot a_2 \land \ldots \land \lnot a_n)$ (leyes de Morgan)
 
 * Programación por restricciones
 La programación por restricciones es una técnica para dar valores a variables de una forma coherente con las restricciones impuestas entre ellas.
