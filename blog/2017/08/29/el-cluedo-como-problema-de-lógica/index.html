@@ -32,8 +32,14 @@
 <div>
 <div class="post">
 <h1>El Cluedo como problema de lógica de segundo orden</h1>
+
+<div class="figure">
+<p><img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/Cluedo_Clue_pack_logo.png/250px-Cluedo_Clue_pack_logo.png" alt="250px-Cluedo_Clue_pack_logo.png" style="float:left;" />
+</p>
+</div>
+
 <p>
-El Cluedo es un juego infantil cuyas normas pueden resumirse en las siguientes:
+El <a href="https://en.wikipedia.org/wiki/Cluedo">Cluedo</a> es un juego infantil cuyas normas resumidas son:
 </p>
 <ul class="org-ul">
 <li>Las cartas tienen tres categorías: <b>personajes</b>, <b>herramientas</b> y <b>lugar</b>.</li>
@@ -62,9 +68,9 @@ Con el material del juego se incluyen unas plantillas de ayuda a los jugadores, 
 Aunque este enfoque es correcto, es mejorable utilizando el resto de información disponible para cada jugador. Como se verá posteriormente, cada respuesta a una pregunta puede representarse como una fórmula lógica de primer orden, permite realizar muchas más deducciones.
 </p>
 
-<div id="outline-container-org7eeb960" class="outline-2">
-<h2 id="org7eeb960">Variables lógicas</h2>
-<div class="outline-text-2" id="text-org7eeb960">
+<div id="outline-container-org90f2016" class="outline-2">
+<h2 id="org90f2016">Variables lógicas</h2>
+<div class="outline-text-2" id="text-org90f2016">
 <p>
 Supongamos que hay \(J\) jugadores, \(P\) cartas de personaje, \(H\) cartas de herramientas y \(L\) cartas de lugar. En total habrá \(M=P+H+L\) cartas. El sobre puede considerarse un jugador más (por ejemplo, el número \(0\)). Para cada carta y jugador tendremos en cuenta una variable que indica si ese jugador posee esa carta, \(c_{ij}\), con los subíndices variando entre los posibles valores de jugadores y cartas (\(i \in M, j \in J\)).
 </p>
@@ -93,9 +99,9 @@ Puede verse que cada una de estas ecuaciones es una <b>restricción</b> que debe
 </div>
 </div>
 
-<div id="outline-container-org03059e3" class="outline-2">
-<h2 id="org03059e3">Expresiones lógicas</h2>
-<div class="outline-text-2" id="text-org03059e3">
+<div id="outline-container-org6ceae16" class="outline-2">
+<h2 id="org6ceae16">Expresiones lógicas</h2>
+<div class="outline-text-2" id="text-org6ceae16">
 <p>
 En el punto anterior, se vio que puede modelarse el problema utilizando las funciones lógicas \(\lnot\) (negación), \(\land\) (conjunción), \(\lor\) (disyunción), y una función que cuente si el número de variables con valor \(true\) es un número determinado \(n\), que llamaremos \(V_n()\).
 </p>
@@ -110,11 +116,11 @@ De estas funciones, sólo \(\lnot\) y \(V_n()\) son primitivas:
 </div>
 </div>
 
-<div id="outline-container-org3f856d6" class="outline-2">
-<h2 id="org3f856d6">Programación por restricciones</h2>
-<div class="outline-text-2" id="text-org3f856d6">
+<div id="outline-container-org64370a3" class="outline-2">
+<h2 id="org64370a3">Programación por restricciones</h2>
+<div class="outline-text-2" id="text-org64370a3">
 <p>
-La programación por restricciones es una técnica para dar valores a variables de una forma coherente con las restricciones impuestas entre ellas.
+La <a href="https://es.wikipedia.org/wiki/Programaci%C3%B3n_con_restricciones">programación por restricciones</a> es una técnica para dar valores a variables de una forma coherente con las restricciones impuestas entre ellas.
 </p>
 
 <p>
@@ -128,9 +134,9 @@ Los elementos de un sistema de programación por restricciones son:
 </ul>
 </div>
 
-<div id="outline-container-org3c36123" class="outline-3">
-<h3 id="org3c36123">Variables</h3>
-<div class="outline-text-3" id="text-org3c36123">
+<div id="outline-container-org340723b" class="outline-3">
+<h3 id="org340723b">Variables</h3>
+<div class="outline-text-3" id="text-org340723b">
 <p>
 Las variables tienen un dominio inicial, que es el conjunto de sus valores posibles. Como son variables lógicas, este dominio es \(\{true,false\}\). Es importante señalar que durante la propagación y la búsqueda este dominio nunca se amplía, sino que se reduce. 
 </p>
@@ -145,27 +151,27 @@ Si alguna variable llega a tener un dominio sin posibles valores (dominio vacío
 </div>
 </div>
 
-<div id="outline-container-org8bf9bc0" class="outline-3">
-<h3 id="org8bf9bc0">Expresiones</h3>
-<div class="outline-text-3" id="text-org8bf9bc0">
+<div id="outline-container-org0c783e1" class="outline-3">
+<h3 id="org0c783e1">Expresiones</h3>
+<div class="outline-text-3" id="text-org0c783e1">
 <p>
 Las expresiones pueden verse también como variables. Por ejemplo, si el dominio de \(a\) y \(b\) es \(\{true,false\}\), \(a \land b\) tiene el mismo dominio. Pero si el dominio de \(b\) se reduce a \(\{false\}\), el dominio de \(a \land b\) también se reduce (ya no puede ser \(true\)). Esto hace que una <i>expresión</i> pueda utilizarse como una variable más.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org495ebcb" class="outline-3">
-<h3 id="org495ebcb">Restricciones</h3>
-<div class="outline-text-3" id="text-org495ebcb">
+<div id="outline-container-orgb2239ad" class="outline-3">
+<h3 id="orgb2239ad">Restricciones</h3>
+<div class="outline-text-3" id="text-orgb2239ad">
 <p>
 Una restricción es una expresión a la que se fija un valor. Por ejemplo, \(a \land b\) es una expresión, pero \(a \land b = false\) se convierte en una restricción. Es importante recalcar que las restricciones <b>eliminan</b> valores del dominio de una variable, por lo que no hay forma de <b>incrementar</b> el dominio.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org54be1e0" class="outline-3">
-<h3 id="org54be1e0">Propagación</h3>
-<div class="outline-text-3" id="text-org54be1e0">
+<div id="outline-container-org486db8a" class="outline-3">
+<h3 id="org486db8a">Propagación</h3>
+<div class="outline-text-3" id="text-org486db8a">
 <p>
 En la propagación se extraen consecuencias de las expresiones y los dominios de variables. Basta con estudiar \(\lnot\) y \(V_n()\), puesto que las demás pueden basarse en estas.
 </p>
@@ -175,9 +181,9 @@ Pueden distinguirse dos direcciones en la propagación: desde los elementos de u
 </p>
 </div>
 
-<div id="outline-container-org0de8273" class="outline-4">
-<h4 id="org0de8273">Propagación hacia <i>arriba</i></h4>
-<div class="outline-text-4" id="text-org0de8273">
+<div id="outline-container-org4c225cc" class="outline-4">
+<h4 id="org4c225cc">Propagación hacia <i>arriba</i></h4>
+<div class="outline-text-4" id="text-org4c225cc">
 <ul class="org-ul">
 <li>Si se elimina \(true\) de \(a\), puede eliminarse \(false\) de \(\lnot a\).</li>
 <li>Si se elimina \(false\) de  \(a\), puede eliminarse \(true\) de \(\lnot a\).</li>
@@ -192,9 +198,9 @@ Pueden distinguirse dos direcciones en la propagación: desde los elementos de u
 </div>
 
 
-<div id="outline-container-orgf88f7fb" class="outline-4">
-<h4 id="orgf88f7fb">Propagación hacia <i>abajo</i></h4>
-<div class="outline-text-4" id="text-orgf88f7fb">
+<div id="outline-container-org611c522" class="outline-4">
+<h4 id="org611c522">Propagación hacia <i>abajo</i></h4>
+<div class="outline-text-4" id="text-org611c522">
 <ul class="org-ul">
 <li>Si se elimina \(true\) de \(\lnot a\), puede eliminarse \(false\) de \(a\).</li>
 <li>Si se elimina \(false\) de  \(\lnot a\), puede eliminarse \(true\) de \(a\).</li>
@@ -213,11 +219,11 @@ Pueden distinguirse dos direcciones en la propagación: desde los elementos de u
 </div>
 </div>
 
-<div id="outline-container-orgd5d926d" class="outline-3">
-<h3 id="orgd5d926d">Prueba y error (<i>branch and bound</i>)</h3>
-<div class="outline-text-3" id="text-orgd5d926d">
+<div id="outline-container-orgca3137a" class="outline-3">
+<h3 id="orgca3137a">Prueba y error (<i>branch and bound</i>)</h3>
+<div class="outline-text-3" id="text-orgca3137a">
 <p>
-El algoritmo de progagación descrito no es capaz de deducir todos los valores posibles por sí mismo. Para mejorarlo, puede seguirse el siguiente procedimiento:
+El algoritmo de propagación descrito no es capaz de deducir todos los valores posibles por sí mismo. Para mejorarlo, puede seguirse el siguiente procedimiento:
 </p>
 <ol class="org-ol">
 <li>Sea \(U\) el conjunto de las variables \(c_{ij}\) tales que su dominio no está definido.</li>
@@ -232,9 +238,9 @@ El algoritmo de progagación descrito no es capaz de deducir todos los valores p
 </div>
 
 
-<div id="outline-container-orgc09ac49" class="outline-2">
-<h2 id="orgc09ac49">Implementación</h2>
-<div class="outline-text-2" id="text-orgc09ac49">
+<div id="outline-container-org1dfebeb" class="outline-2">
+<h2 id="org1dfebeb">Implementación</h2>
+<div class="outline-text-2" id="text-org1dfebeb">
 <p>
 El sistema de programación por restricciones para variables booleanas puede consultarse <a href="https://github.com/alvarogonzalezsotillo/cluedo/blob/master/js/cp.js">aquí</a>, y su interfaz puede verse en <a href="https://github.com/alvarogonzalezsotillo/cluedo/blob/master/js/cp.simple.test.js">varios casos de prueba</a>. 
 </p>
@@ -410,8 +416,8 @@ c.printCards(c.cards());
 Que da lugar al descubrimiento de que dos cartas no pueden estar en el sobre:
 </p>
 
-<pre class="example">
-Hechos deducidos:[{"_factType":"EnvelopeDoesntHaveFact","_cards":["Sala de billar"]},{"_factType":"EnvelopeDoesntHaveFact","_cards":["Salón"]}]
+<div class="org-src-container">
+<pre class="src src-text">Hechos deducidos:[{"_factType":"EnvelopeDoesntHaveFact","_cards":["Sala de billar"]},{"_factType":"EnvelopeDoesntHaveFact","_cards":["Salón"]}]
                     Player 0  Player 1  Player 2  Player 3  Player 4  Envelope  
 Candelabro          V         x         x         x         x         x         
 Tubería             x         .         .         x         .         x         
@@ -436,6 +442,35 @@ Mora                x         .         .         x         x         x
 Rubio               x         V         x         x         x         x  
 </pre>
 </div>
+
+<div class="org-src-container">
+<pre class="src src-html">Hechos deducidos:[{"_factType":"EnvelopeDoesntHaveFact","_cards":["Sala de billar"]},{"_factType":"EnvelopeDoesntHaveFact","_cards":["Salón"]}]
+                    Player 0  Player 1  Player 2  Player 3  Player 4  Envelope  
+Candelabro          V         x         x         x         x         x         
+Tubería             x         .         .         x         .         x         
+Cuerda              x         x         x         x         x         V         
+Puñal               x         x         V         x         x         x         
+Pistola             x         x         x         x         V         x         
+Herramienta         V         x         x         x         x         x         
+Sala de billar      x         .         .         x         .         x         
+Salón               x         .         .         .         .         x         
+Estudio             x         .         .         .         .         .         
+Comedor             x         .         .         .         .         .         
+Sala de baile       x         x         V         x         x         x         
+Cocina              x         .         .         x         .         .         
+Biblioteca          V         x         x         x         x         x         
+Invernadero         x         x         x         .         x         .         
+Vestíbulo           x         x         .         x         x         .         
+Amapola             V         x         x         x         x         x         
+Celeste             x         .         .         x         .         x         
+Orquídea            x         .         .         .         .         x         
+Prado               x         x         x         x         x         V         
+Mora                x         .         .         x         x         x         
+Rubio               x         V         x         x         x         x  
+
+</pre>
+</div>
+</div>
 </div>
 
 </div>
@@ -443,7 +478,7 @@ Rubio               x         V         x         x         x         x
     <div>
       <div class="post-meta">
         <span title="post date" class="post-info">2017-08-29</span>
-        <span title="last modification date" class="post-info">2017-09-04</span>
+        <span title="last modification date" class="post-info">2017-09-05</span>
         <span title="tags" class="post-info"><a href="/tags/cluedo/">cluedo</a>, <a href="/tags/javascript/">javascript</a>, <a href="/tags/ai/">AI</a>, <a href="/tags/programación/">programación</a></span>
         <span title="author" class="post-info">alvaro</span>
       </div>
