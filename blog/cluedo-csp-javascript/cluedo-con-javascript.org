@@ -225,7 +225,7 @@ Por último se calculan los posibles valores de las cartas:
 
 La salida del programa es la siguiente (=V= indica que la carta la tiene ese jugador, =x= que la carta no la tiene ese jugador, y =.= indica que no se puede saber con los datos introducidos):
 
-#+begin_html
+#+begin_src html
                     Player 0  Player 1  Player 2  Player 3  Player 4  Envelope  
 Candelabro          V         x         x         x         x         x         
 Tubería             x         .         .         x         .         x         
