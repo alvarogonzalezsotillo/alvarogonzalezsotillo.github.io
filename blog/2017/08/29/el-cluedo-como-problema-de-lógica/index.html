@@ -68,9 +68,9 @@ Con el material del juego se incluyen unas plantillas de ayuda a los jugadores, 
 Aunque este enfoque es correcto, es mejorable utilizando el resto de información disponible para cada jugador. Como se verá posteriormente, cada respuesta a una pregunta puede representarse como una fórmula lógica de primer orden, permite realizar muchas más deducciones.
 </p>
 
-<div id="outline-container-org90f2016" class="outline-2">
-<h2 id="org90f2016">Variables lógicas</h2>
-<div class="outline-text-2" id="text-org90f2016">
+<div id="outline-container-org0df7f1d" class="outline-2">
+<h2 id="org0df7f1d">Variables lógicas</h2>
+<div class="outline-text-2" id="text-org0df7f1d">
 <p>
 Supongamos que hay \(J\) jugadores, \(P\) cartas de personaje, \(H\) cartas de herramientas y \(L\) cartas de lugar. En total habrá \(M=P+H+L\) cartas. El sobre puede considerarse un jugador más (por ejemplo, el número \(0\)). Para cada carta y jugador tendremos en cuenta una variable que indica si ese jugador posee esa carta, \(c_{ij}\), con los subíndices variando entre los posibles valores de jugadores y cartas (\(i \in M, j \in J\)).
 </p>
@@ -99,9 +99,9 @@ Puede verse que cada una de estas ecuaciones es una <b>restricción</b> que debe
 </div>
 </div>
 
-<div id="outline-container-org6ceae16" class="outline-2">
-<h2 id="org6ceae16">Expresiones lógicas</h2>
-<div class="outline-text-2" id="text-org6ceae16">
+<div id="outline-container-org0be0d5f" class="outline-2">
+<h2 id="org0be0d5f">Expresiones lógicas</h2>
+<div class="outline-text-2" id="text-org0be0d5f">
 <p>
 En el punto anterior, se vio que puede modelarse el problema utilizando las funciones lógicas \(\lnot\) (negación), \(\land\) (conjunción), \(\lor\) (disyunción), y una función que cuente si el número de variables con valor \(true\) es un número determinado \(n\), que llamaremos \(V_n()\).
 </p>
@@ -116,9 +116,9 @@ De estas funciones, sólo \(\lnot\) y \(V_n()\) son primitivas:
 </div>
 </div>
 
-<div id="outline-container-org64370a3" class="outline-2">
-<h2 id="org64370a3">Programación por restricciones</h2>
-<div class="outline-text-2" id="text-org64370a3">
+<div id="outline-container-org8d1c0a5" class="outline-2">
+<h2 id="org8d1c0a5">Programación por restricciones</h2>
+<div class="outline-text-2" id="text-org8d1c0a5">
 <p>
 La <a href="https://es.wikipedia.org/wiki/Programaci%C3%B3n_con_restricciones">programación por restricciones</a> es una técnica para dar valores a variables de una forma coherente con las restricciones impuestas entre ellas.
 </p>
@@ -134,9 +134,9 @@ Los elementos de un sistema de programación por restricciones son:
 </ul>
 </div>
 
-<div id="outline-container-org340723b" class="outline-3">
-<h3 id="org340723b">Variables</h3>
-<div class="outline-text-3" id="text-org340723b">
+<div id="outline-container-orgf67c3e4" class="outline-3">
+<h3 id="orgf67c3e4">Variables</h3>
+<div class="outline-text-3" id="text-orgf67c3e4">
 <p>
 Las variables tienen un dominio inicial, que es el conjunto de sus valores posibles. Como son variables lógicas, este dominio es \(\{true,false\}\). Es importante señalar que durante la propagación y la búsqueda este dominio nunca se amplía, sino que se reduce. 
 </p>
@@ -151,27 +151,27 @@ Si alguna variable llega a tener un dominio sin posibles valores (dominio vacío
 </div>
 </div>
 
-<div id="outline-container-org0c783e1" class="outline-3">
-<h3 id="org0c783e1">Expresiones</h3>
-<div class="outline-text-3" id="text-org0c783e1">
+<div id="outline-container-orgc159ceb" class="outline-3">
+<h3 id="orgc159ceb">Expresiones</h3>
+<div class="outline-text-3" id="text-orgc159ceb">
 <p>
 Las expresiones pueden verse también como variables. Por ejemplo, si el dominio de \(a\) y \(b\) es \(\{true,false\}\), \(a \land b\) tiene el mismo dominio. Pero si el dominio de \(b\) se reduce a \(\{false\}\), el dominio de \(a \land b\) también se reduce (ya no puede ser \(true\)). Esto hace que una <i>expresión</i> pueda utilizarse como una variable más.
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgb2239ad" class="outline-3">
-<h3 id="orgb2239ad">Restricciones</h3>
-<div class="outline-text-3" id="text-orgb2239ad">
+<div id="outline-container-org784b04f" class="outline-3">
+<h3 id="org784b04f">Restricciones</h3>
+<div class="outline-text-3" id="text-org784b04f">
 <p>
 Una restricción es una expresión a la que se fija un valor. Por ejemplo, \(a \land b\) es una expresión, pero \(a \land b = false\) se convierte en una restricción. Es importante recalcar que las restricciones <b>eliminan</b> valores del dominio de una variable, por lo que no hay forma de <b>incrementar</b> el dominio.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org486db8a" class="outline-3">
-<h3 id="org486db8a">Propagación</h3>
-<div class="outline-text-3" id="text-org486db8a">
+<div id="outline-container-orgdff052c" class="outline-3">
+<h3 id="orgdff052c">Propagación</h3>
+<div class="outline-text-3" id="text-orgdff052c">
 <p>
 En la propagación se extraen consecuencias de las expresiones y los dominios de variables. Basta con estudiar \(\lnot\) y \(V_n()\), puesto que las demás pueden basarse en estas.
 </p>
@@ -181,9 +181,9 @@ Pueden distinguirse dos direcciones en la propagación: desde los elementos de u
 </p>
 </div>
 
-<div id="outline-container-org4c225cc" class="outline-4">
-<h4 id="org4c225cc">Propagación hacia <i>arriba</i></h4>
-<div class="outline-text-4" id="text-org4c225cc">
+<div id="outline-container-orga36e468" class="outline-4">
+<h4 id="orga36e468">Propagación hacia <i>arriba</i></h4>
+<div class="outline-text-4" id="text-orga36e468">
 <ul class="org-ul">
 <li>Si se elimina \(true\) de \(a\), puede eliminarse \(false\) de \(\lnot a\).</li>
 <li>Si se elimina \(false\) de  \(a\), puede eliminarse \(true\) de \(\lnot a\).</li>
@@ -198,9 +198,9 @@ Pueden distinguirse dos direcciones en la propagación: desde los elementos de u
 </div>
 
 
-<div id="outline-container-org611c522" class="outline-4">
-<h4 id="org611c522">Propagación hacia <i>abajo</i></h4>
-<div class="outline-text-4" id="text-org611c522">
+<div id="outline-container-orgfb1b9c2" class="outline-4">
+<h4 id="orgfb1b9c2">Propagación hacia <i>abajo</i></h4>
+<div class="outline-text-4" id="text-orgfb1b9c2">
 <ul class="org-ul">
 <li>Si se elimina \(true\) de \(\lnot a\), puede eliminarse \(false\) de \(a\).</li>
 <li>Si se elimina \(false\) de  \(\lnot a\), puede eliminarse \(true\) de \(a\).</li>
@@ -219,9 +219,9 @@ Pueden distinguirse dos direcciones en la propagación: desde los elementos de u
 </div>
 </div>
 
-<div id="outline-container-orgca3137a" class="outline-3">
-<h3 id="orgca3137a">Prueba y error (<i>branch and bound</i>)</h3>
-<div class="outline-text-3" id="text-orgca3137a">
+<div id="outline-container-orgfb81cfd" class="outline-3">
+<h3 id="orgfb81cfd">Prueba y error (<i>branch and bound</i>)</h3>
+<div class="outline-text-3" id="text-orgfb81cfd">
 <p>
 El algoritmo de propagación descrito no es capaz de deducir todos los valores posibles por sí mismo. Para mejorarlo, puede seguirse el siguiente procedimiento:
 </p>
@@ -238,9 +238,9 @@ El algoritmo de propagación descrito no es capaz de deducir todos los valores p
 </div>
 
 
-<div id="outline-container-org1dfebeb" class="outline-2">
-<h2 id="org1dfebeb">Implementación</h2>
-<div class="outline-text-2" id="text-org1dfebeb">
+<div id="outline-container-orgf353395" class="outline-2">
+<h2 id="orgf353395">Implementación</h2>
+<div class="outline-text-2" id="text-orgf353395">
 <p>
 El sistema de programación por restricciones para variables booleanas puede consultarse <a href="https://github.com/alvarogonzalezsotillo/cluedo/blob/master/js/cp.js">aquí</a>, y su interfaz puede verse en <a href="https://github.com/alvarogonzalezsotillo/cluedo/blob/master/js/cp.simple.test.js">varios casos de prueba</a>. 
 </p>
@@ -373,10 +373,11 @@ c.printCards(c.cards());
 </div>
 
 <p>
-La salida del programa es la siguiente (<code>V</code> indica que la carta está ahí, <code>x</code> que la carta no está ahí, y <code>.</code> indica que no se sabe si está o no está):
+La salida del programa es la siguiente (<code>V</code> indica que la carta la tiene ese jugador, <code>x</code> que la carta no la tiene ese jugador, y <code>.</code> indica que no se puede saber con los datos introducidos):
 </p>
 
-<pre class="example">
+<p>
+#+begin_html
                     Player 0  Player 1  Player 2  Player 3  Player 4  Envelope  
 Candelabro          V         x         x         x         x         x         
 Tubería             x         .         .         x         .         x         
@@ -399,7 +400,8 @@ Orquídea            x         .         .         .         .         x
 Prado               x         x         x         x         x         V         
 Mora                x         .         .         x         x         x         
 Rubio               x         V         x         x         x         x    
-</pre>
+#+end_src
+</p>
 
 <p>
 Las deducciones pueden mejorarse con la prueba y error:
@@ -416,32 +418,6 @@ c.printCards(c.cards());
 Que da lugar al descubrimiento de que dos cartas no pueden estar en el sobre:
 </p>
 
-<div class="org-src-container">
-<pre class="src src-text">Hechos deducidos:[{"_factType":"EnvelopeDoesntHaveFact","_cards":["Sala de billar"]},{"_factType":"EnvelopeDoesntHaveFact","_cards":["Salón"]}]
-                    Player 0  Player 1  Player 2  Player 3  Player 4  Envelope  
-Candelabro          V         x         x         x         x         x         
-Tubería             x         .         .         x         .         x         
-Cuerda              x         x         x         x         x         V         
-Puñal               x         x         V         x         x         x         
-Pistola             x         x         x         x         V         x         
-Herramienta         V         x         x         x         x         x         
-Sala de billar      x         .         .         x         .         x         
-Salón               x         .         .         .         .         x         
-Estudio             x         .         .         .         .         .         
-Comedor             x         .         .         .         .         .         
-Sala de baile       x         x         V         x         x         x         
-Cocina              x         .         .         x         .         .         
-Biblioteca          V         x         x         x         x         x         
-Invernadero         x         x         x         .         x         .         
-Vestíbulo           x         x         .         x         x         .         
-Amapola             V         x         x         x         x         x         
-Celeste             x         .         .         x         .         x         
-Orquídea            x         .         .         .         .         x         
-Prado               x         x         x         x         x         V         
-Mora                x         .         .         x         x         x         
-Rubio               x         V         x         x         x         x  
-</pre>
-</div>
 
 <div class="org-src-container">
 <pre class="src src-html">Hechos deducidos:[{"_factType":"EnvelopeDoesntHaveFact","_cards":["Sala de billar"]},{"_factType":"EnvelopeDoesntHaveFact","_cards":["Salón"]}]
