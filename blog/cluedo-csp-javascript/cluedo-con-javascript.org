@@ -9,8 +9,10 @@
 #+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 #+DESCRIPTION: El Cluedo es considerado un juego para niños, pero bajo su superficie hay un interesante problema de lógica de segundo orden.
 
+#+ATTR_HTML: :style float:left;
+[[https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/Cluedo_Clue_pack_logo.png/250px-Cluedo_Clue_pack_logo.png]]
 
-El Cluedo es un juego infantil cuyas normas pueden resumirse en las siguientes:
+El [[https://en.wikipedia.org/wiki/Cluedo][Cluedo]] es un juego infantil cuyas normas resumidas son:
 - Las cartas tienen tres categorías: *personajes*, *herramientas* y *lugar*. 
 - Se oculta una carta de cada tipo en un sobre.
 - El resto de cartas se reparte entre los jugadores
@@ -53,7 +55,7 @@ De estas funciones, sólo $\lnot$ y $V_n()$ son primitivas:
 - $a_1 \lor a_2 \lor \ldots \lor a_n$ puede expresarse como $\lnot( \lnot a_1 \land \lnot a_2 \land \ldots \land \lnot a_n)$ (leyes de Morgan)
 
 * Programación por restricciones
-La programación por restricciones es una técnica para dar valores a variables de una forma coherente con las restricciones impuestas entre ellas.
+La [[https://es.wikipedia.org/wiki/Programaci%25C3%25B3n_con_restricciones][programación por restricciones]] es una técnica para dar valores a variables de una forma coherente con las restricciones impuestas entre ellas.
 
 Los elementos de un sistema de programación por restricciones son:
 - Las variables (nuestras $c_{ij}$)
@@ -99,7 +101,7 @@ Pueden distinguirse dos direcciones en la propagación: desde los elementos de u
   - Si hay $n-l$ variables a $true$, entonces todas las $l$ variables son $true$ (se les quita $false$)
   
 ** Prueba y error (/branch and bound/) 
-El algoritmo de progagación descrito no es capaz de deducir todos los valores posibles por sí mismo. Para mejorarlo, puede seguirse el siguiente procedimiento:
+El algoritmo de propagación descrito no es capaz de deducir todos los valores posibles por sí mismo. Para mejorarlo, puede seguirse el siguiente procedimiento:
 1. Sea $U$ el conjunto de las variables $c_{ij}$ tales que su dominio no está definido.
 2. Por cada $c \in U$
    - Se quita $true$ del dominio de $c$ y se realiza la propagación. Si alguna variable se queda con el dominio vacío, es que $c$ no puede ser $false$, así que se quita $false$ de su dominio.
@@ -258,7 +260,7 @@ Las deducciones pueden mejorarse con la prueba y error:
 
 Que da lugar al descubrimiento de que dos cartas no pueden estar en el sobre:
 
-#+begin_src
+#+begin_src text
 Hechos deducidos:[{"_factType":"EnvelopeDoesntHaveFact","_cards":["Sala de billar"]},{"_factType":"EnvelopeDoesntHaveFact","_cards":["Salón"]}]
                     Player 0  Player 1  Player 2  Player 3  Player 4  Envelope  
 Candelabro          V         x         x         x         x         x         
@@ -283,3 +285,30 @@ Prado               x         x         x         x         x         V
 Mora                x         .         .         x         x         x         
 Rubio               x         V         x         x         x         x  
 #+end_src
+
+#+BEGIN_SRC html 
+Hechos deducidos:[{"_factType":"EnvelopeDoesntHaveFact","_cards":["Sala de billar"]},{"_factType":"EnvelopeDoesntHaveFact","_cards":["Salón"]}]
+                    Player 0  Player 1  Player 2  Player 3  Player 4  Envelope  
+Candelabro          V         x         x         x         x         x         
+Tubería             x         .         .         x         .         x         
+Cuerda              x         x         x         x         x         V         
+Puñal               x         x         V         x         x         x         
+Pistola             x         x         x         x         V         x         
+Herramienta         V         x         x         x         x         x         
+Sala de billar      x         .         .         x         .         x         
+Salón               x         .         .         .         .         x         
+Estudio             x         .         .         .         .         .         
+Comedor             x         .         .         .         .         .         
+Sala de baile       x         x         V         x         x         x         
+Cocina              x         .         .         x         .         .         
+Biblioteca          V         x         x         x         x         x         
+Invernadero         x         x         x         .         x         .         
+Vestíbulo           x         x         .         x         x         .         
+Amapola             V         x         x         x         x         x         
+Celeste             x         .         .         x         .         x         
+Orquídea            x         .         .         .         .         x         
+Prado               x         x         x         x         x         V         
+Mora                x         .         .         x         x         x         
+Rubio               x         V         x         x         x         x  
+
+#+END_SRC

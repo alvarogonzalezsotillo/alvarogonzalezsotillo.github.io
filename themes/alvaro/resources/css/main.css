@@ -394,3 +394,11 @@ h1:before{
 ul, ol {
     margin: 0px 2em 20px;
 }
+
+.prettyprint {
+    font-size: 0.75em;
+}
+
+body {
+    font-family: Menlo, Monaco, monospace;
+}
