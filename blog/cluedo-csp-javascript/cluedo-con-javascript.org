@@ -9,7 +9,7 @@
 #+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 #+DESCRIPTION: El Cluedo es considerado un juego para niños, pero bajo su superficie hay un interesante problema de lógica de segundo orden.
 
-#+ATTR_HTML: :style float:left;
+#+ATTR_HTML: :style float:right;
 [[https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/Cluedo_Clue_pack_logo.png/250px-Cluedo_Clue_pack_logo.png]]
 
 El [[https://en.wikipedia.org/wiki/Cluedo][Cluedo]] es un juego infantil cuyas normas resumidas son:
@@ -109,7 +109,7 @@ El algoritmo de propagación descrito no es capaz de deducir todos los valores p
    
 
 * Implementación
-El sistema de programación por restricciones para variables booleanas puede consultarse [[https://github.com/alvarogonzalezsotillo/cluedo/blob/master/js/cp.js][aquí]], y su interfaz puede verse en [[https://github.com/alvarogonzalezsotillo/cluedo/blob/master/js/cp.simple.test.js][varios casos de prueba]]. 
+[[https://github.com/alvarogonzalezsotillo/cluedo/blob/master/js/cp.js][La implementación del sistema de restricciones para variables booleanas]] está disponible en [[https://github.com/alvarogonzalezsotillo/cluedo/blob/master/js/cp.js][Github]], y su interfaz puede verse en [[https://github.com/alvarogonzalezsotillo/cluedo/blob/master/js/cp.simple.test.js][varios casos de prueba]]. 
 
 En el siguiente ejemplo, se comprueba la propagación del equivalente a la función $V_n()$:
 
@@ -159,7 +159,7 @@ Y este es un ejemplo de propagación de la expresión $\lor$ (o lógico):
 #+end_src
 
 
-Con estas primitivas lógicas, puede implementarse el juego del Cluedo ([[https://github.com/alvarogonzalezsotillo/cluedo/blob/master/js/cluedo.js][aquí el código fuente]]). Primero se prepara una lista de hechos, con las preguntas y respuestas del juego. Este es un ejemplo de una partida real:
+Con estas primitivas lógicas, se ha implementado el juego del Cluedo ([[https://github.com/alvarogonzalezsotillo/cluedo/blob/master/js/cluedo.js][código fuente del Cluedo]]). Primero se prepara una lista de hechos, con las preguntas y respuestas del juego. Este es un ejemplo de una partida real:
 #+begin_src javascript
 var facts = [
     // NÚMERO DE JUGADORES Y CARTAS DE CADA UNO
