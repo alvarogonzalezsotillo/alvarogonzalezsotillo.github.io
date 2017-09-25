@@ -1,6 +1,4 @@
-console.log( "en el main.js");
 $(document).ready(function() {
-    console.log("En el ready de document");
     /*******************************************************************
      * 1. replace css class "src" and "example" with "prettyprint", for
      *    prettify.js to render
@@ -36,5 +34,5 @@ $(document).ready(function() {
     /*******************************************************************
      * pretty print all code blocks
      ******************************************************************/
-    prettyPrint();
+    //prettyPrint(); no necesario con el último prettify
 });
