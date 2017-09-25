@@ -3,11 +3,25 @@
   <channel>
     <title>Álvaro González Sotillo</title>
     <link>https://alvarogonzalezsotillo.github.io/</link>
-    <description>Para decir que tengo un blog</description>
-    <pubDate>lun, 25 sep 2017 18:06:55 CEST</pubDate>
-    <lastBuildDate>lun, 25 sep 2017 18:06:55 CEST</lastBuildDate>
+    <description></description>
+    <pubDate>lun, 25 sep 2017 21:41:22 CEST</pubDate>
+    <lastBuildDate>lun, 25 sep 2017 21:41:22 CEST</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
+    <item>
+      <title>Bittorrent en el aula</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/2017/05/16/bittorrent-en-el-aula/</link>
+      <description><![CDATA[BitTorrent es un protocolo p2p para el intercambio de ficheros. Se suele asociar a descargas ilegales, pero puede ser muy útil en el aula de informática.]]></description>
+      <pubDate>2017-09-25</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/2017/05/16/bittorrent-en-el-aula/</guid>
+    </item>
+    <item>
+      <title>Blogueando con orgmode</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/2017/05/16/blogueando-con-orgmode/</link>
+      <description><![CDATA[Es posible crear un blog sin (casi) salir de emacs.]]></description>
+      <pubDate>2017-09-25</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/2017/05/16/blogueando-con-orgmode/</guid>
+    </item>
     <item>
       <title>El Cluedo como problema de lógica de segundo orden</title>
       <link>https://alvarogonzalezsotillo.github.io/blog/2017/08/29/el-cluedo-como-problema-de-lógica</link>
@@ -16,11 +30,11 @@
       <guid>https://alvarogonzalezsotillo.github.io/blog/2017/08/29/el-cluedo-como-problema-de-lógica</guid>
     </item>
     <item>
-      <title>Blogueando con orgmode</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/2017/05/16/blogueando-con-orgmode/</link>
-      <description><![CDATA[Es posible crear un blog sin (casi) salir de emacs.]]></description>
-      <pubDate>2017-08-29</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/2017/05/16/blogueando-con-orgmode/</guid>
+      <title>Test de Bongard</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/2017/05/16/test-de-bongard/</link>
+      <description><![CDATA[A pesar de ser jugador de videojuegos y programador durante años, nunca había hecho uno. Los tests de Bongard me dan una buena oportunidad de programar uno.]]></description>
+      <pubDate>2017-09-25</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/2017/05/16/test-de-bongard/</guid>
     </item>
     <item>
       <title>Controlando el universo: mi propio reloj de sol</title>
@@ -28,20 +42,6 @@
       <description><![CDATA[Tras algún trauma infantil, y 6 años de trabajo (muy) intermitente, ya tengo mi reloj de sol. Y funciona.]]></description>
       <pubDate>2017-08-29</pubDate>
       <guid>https://alvarogonzalezsotillo.github.io/blog/2012/10/10/controlando-el-universo-mi-propio-reloj-de-sol/</guid>
-    </item>
-    <item>
-      <title>Bittorrent en el aula</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/2017/05/16/bittorrent-en-el-aula/</link>
-      <description><![CDATA[BitTorrent es un protocolo p2p para el intercambio de ficheros. Se suele asociar a descargas ilegales, pero puede ser muy útil en el aula de informática.]]></description>
-      <pubDate>2017-05-16</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/2017/05/16/bittorrent-en-el-aula/</guid>
-    </item>
-    <item>
-      <title>Test de Bongard</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/2017/05/16/test-de-bongard/</link>
-      <description><![CDATA[A pesar de ser jugador de videojuegos y programador durante años, nunca había hecho uno. Los tests de Bongard me dan una buena oportunidad de programar uno.]]></description>
-      <pubDate>2017-05-16</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/2017/05/16/test-de-bongard/</guid>
     </item>
   </channel>
 </rss>
