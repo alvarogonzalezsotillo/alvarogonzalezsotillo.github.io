@@ -381,6 +381,20 @@ table th.right, table td.right {
 }
 
 /* ALVARO */
+
+
+/*
+@import url('https://fonts.googleapis.com/css?family=Cardo');
+*/
+
+
+@font-face {
+    font-family: 'Cardo';
+    src: url('/media/css/Cardo-Regular.ttf');
+}
+
+
+
 .container {
     margin: 20px auto;
     max-width: 90%;
@@ -392,7 +406,18 @@ h1:before{
 
 
 ul, ol {
-    margin: 0px 2em 20px;
+    margin-top: 0px;
+    margin-right: 0em;
+    margin-bottom: 20px;
+    margin-left: 2em;
+}
+
+.post ul li:before{
+    color: #333;
+}
+
+.post ol li:before{
+    color: #333;
 }
 
 .prettyprint {
@@ -400,5 +425,66 @@ ul, ol {
 }
 
 body {
-    font-family: Menlo, Monaco, monospace;
+    font-family: 'Cardo', serif;
+    font-size: 20px;
+    color: #333;
+
+}
+
+h1:before {
+    content: "";
+}
+h2:before {
+    content: "";
+}
+h3:before {
+    content: "";
+}
+
+i, em, b, strong {
+    padding-left: 0em;
+    padding-right: 0em;
+}
+
+b:before, b:after, strong:before, strong:after {
+    content: "";
+}
+
+i:before, i:after, em:before, em:after {
+    content: "";
+}
+
+a {
+    border-bottom: 1px solid black;
+}
+
+a:hover {
+    text-decoration: none;
+    border-bottom: 2px solid black;
+
+}
+
+pre{
+    font-size: 16px;
+    line-height: 1em;
+}
+
+code:before, code:after {
+    content: "";
+}
+
+h1{
+    font-size: 1.5em;
+}
+
+h2{
+    font-size: 1.2em;
+}
+
+h3{
+    font-size: 1.1em;
+}
+
+h4{
+    font-size: 1em;
 }

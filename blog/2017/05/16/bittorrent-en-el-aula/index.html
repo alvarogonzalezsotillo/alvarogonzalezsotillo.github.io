@@ -36,9 +36,9 @@
 Durante el desarrollo de ciclos formativos de grado medio y superior, es muy común la necesidad de compartir ficheros con los alumnos. Para ilustrar el problema, supondremos que el profesor necesita distribuir una ISO de instalación de Ubuntu (1.6 GBytes) en un aula con 15 ordenadores.
 </p>
 
-<div id="outline-container-orga534a12" class="outline-2">
-<h2 id="orga534a12">Solución 1: Uso de <i>pen drive</i></h2>
-<div class="outline-text-2" id="text-orga534a12">
+<div id="outline-container-orgc6e0436" class="outline-2">
+<h2 id="orgc6e0436">Solución 1: Uso de <i>pen drive</i></h2>
+<div class="outline-text-2" id="text-orgc6e0436">
 <p style="float:right;">
 <img src="/assets/blog/2017/05/16/bittorrent-en-el-aula/pendrive-small.jpg" alt="/assets/blog/2017/05/16/bittorrent-en-el-aula/pendrive-small.jpg" style="float:right;" />
 El profesor pasa por cada puesto de alumno, copiando desde un disco duro externo o <i>pen drive</i> el fichero deseado. Suponiendo una  tasa de transferencia de 25 MBytes/segundo, cada alumno necesita unos 60 segundos para conseguir su copia. Incluyendo el proceso de conexión y desconexión cada alumno necesita unos 2 minutos. Esto hace un total de 30 minutos para distribuir el fichero.
@@ -46,18 +46,18 @@ El profesor pasa por cada puesto de alumno, copiando desde un disco duro externo
 </div>
 </div>
 
-<div id="outline-container-org7bc6103" class="outline-2">
-<h2 id="org7bc6103">Solución 2: Uso de pen drive y copias de alumnos</h2>
-<div class="outline-text-2" id="text-org7bc6103">
+<div id="outline-container-org9cbbe78" class="outline-2">
+<h2 id="org9cbbe78">Solución 2: Uso de pen drive y copias de alumnos</h2>
+<div class="outline-text-2" id="text-org9cbbe78">
 <p>
 Si cada alumno que consigue el fichero lo  copia a un pen drive propio y lo distribuye a otros alumnos, puede copiarse el fichero mucho más rápido. Esta es una posibilidad teórica más que real, puesto que los alumnos no suelen entender el proceso y se tarda más en explicarlo que en aplicar la primera solución.
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgfaeb543" class="outline-2">
-<h2 id="orgfaeb543">Solución 3: Uso de un servidor de ficheros</h2>
-<div class="outline-text-2" id="text-orgfaeb543">
+<div id="outline-container-orgbd9c47f" class="outline-2">
+<h2 id="orgbd9c47f">Solución 3: Uso de un servidor de ficheros</h2>
+<div class="outline-text-2" id="text-orgbd9c47f">
 
 <div class="figure">
 <p><img src="/assets/blog/2017/05/16/bittorrent-en-el-aula/sharedfolder-small.jpg" alt="/assets/blog/2017/05/16/bittorrent-en-el-aula/sharedfolder-small.jpg" style="float:right;" />
@@ -75,9 +75,9 @@ El fichero puede hacerse accesible desde la red, y cada alumno baja su propia co
 </div>
 </div>
 
-<div id="outline-container-org7b48eb8" class="outline-2">
-<h2 id="org7b48eb8">Solución 4: Uso de un protocolo de red p2p</h2>
-<div class="outline-text-2" id="text-org7b48eb8">
+<div id="outline-container-orge4c4a23" class="outline-2">
+<h2 id="orge4c4a23">Solución 4: Uso de un protocolo de red p2p</h2>
+<div class="outline-text-2" id="text-orge4c4a23">
 <p style="float:right;">
 <img src="/assets/blog/2017/05/16/bittorrent-en-el-aula/utorrent.jpg" alt="/assets/blog/2017/05/16/bittorrent-en-el-aula/utorrent.jpg" style="float:right;" />
 El problema fundamental del servidor de ficheros es que una sola conexión debe dar servicio a todos los alumnos. Si conseguimos que cada alumno comparta su conexión con los demás, este cuello de botella queda resuelto. De esta forma, se consigue una transferencia casi simultánea a todos los alumnos del fichero, necesitando solo 3 minutos para una red a 100 MB.
@@ -95,7 +95,7 @@ Estos <a href="http://en.wikipedia.org/wiki/Back-of-the-envelope_calculation">c�
 <li>Utilizar <code>psexec</code> para ejecutar de forma remota μTorrent en todos los ordenadores de los alumnos, por ejemplo con un fichero BAT. Utilizo <code>start /b</code> para que el proceso se haga en forma paralela, sin tener que esperar a un ordenador para lanzar la orden en el siguiente:</li>
 </ol>
 <div class="org-src-container">
-<pre class="src src-bat">set SLEEP=ping 192.0.2.2 -n 1 -w 10000 
+<pre><code class="src src-bat">set SLEEP=ping 192.0.2.2 -n 1 -w 10000 
 
 
 set DIRECTORIO=f:\isos 
@@ -116,7 +116,7 @@ for /f %%i in ( 'type %FICHEROIPDEALUMNOS%' ) do start /b psexec \\%%i -d cmd /c
 
 REM SE EJECUTA EL TORRENT
 for /f %%i in ( 'type %FICHEROIPDEALUMNOS%' ) do start /b psexec \\%%i -c -v -d -s -i %~dp0\utorrent.exe /NOINSTALL /HIDE /DIRECTORY %DIRECTORIO% %FICHEROTORRENT%
-</pre>
+</code></pre>
 </div>
 <p>
 Tras esto, basta con comprobar que está funcionando. El fichero "aparecerá" en los ordenadores del aula en pocos minutos ☺
@@ -159,9 +159,12 @@ Posibles problemas con <code>PsExec</code>
         <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
         <a href="//disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
       </section>
-      <script src="//code.jquery.com/jquery-latest.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
-      <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <!-- <script src="//code.jquery.com/jquery-latest.min.js"></script> -->
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->
+      <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>  -->
+      <script src="/media/js/jquery-3.2.1.min.js">
+      <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
       <script src="/media/js/main.js"></script>
       <div class="footer">
         <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>

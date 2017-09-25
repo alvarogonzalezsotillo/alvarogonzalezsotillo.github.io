@@ -5,7 +5,7 @@ $(document).ready(function() {
      * 2. replace detail language css class, e.g. "src-scheme" to
      *    "lang-scheme" per the description of prettify.js
      ******************************************************************/
-    var $blocks = $('pre.src');
+    var $blocks = $('code.src');
     $blocks.each(function(index) {
         var self = $(this);
         var classes = self.removeClass('src').attr('class').split(/\s+/);
@@ -34,5 +34,5 @@ $(document).ready(function() {
     /*******************************************************************
      * pretty print all code blocks
      ******************************************************************/
-    prettyPrint();
+    //prettyPrint(); no necesario con el último prettify
 });
