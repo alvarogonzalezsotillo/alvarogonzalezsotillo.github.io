@@ -412,6 +412,14 @@ ul, ol {
     margin-left: 2em;
 }
 
+.post ul li:before{
+    color: #333;
+}
+
+.post ol li:before{
+    color: #333;
+}
+
 .prettyprint {
     font-size: 0.75em;
 }
