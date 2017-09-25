@@ -1,11 +1,13 @@
+console.log( "en el main.js");
 $(document).ready(function() {
+    console.log("En el ready de document");
     /*******************************************************************
      * 1. replace css class "src" and "example" with "prettyprint", for
      *    prettify.js to render
      * 2. replace detail language css class, e.g. "src-scheme" to
      *    "lang-scheme" per the description of prettify.js
      ******************************************************************/
-    var $blocks = $('pre.src');
+    var $blocks = $('code.src');
     $blocks.each(function(index) {
         var self = $(this);
         var classes = self.removeClass('src').attr('class').split(/\s+/);

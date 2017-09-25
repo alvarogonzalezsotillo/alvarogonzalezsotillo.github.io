@@ -466,6 +466,7 @@ a:hover {
 
 pre{
     font-size: 16px;
+    line-height: 1em;
 }
 
 code:before, code:after {
