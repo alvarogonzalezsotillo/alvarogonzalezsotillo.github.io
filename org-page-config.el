@@ -16,7 +16,7 @@
 (setq op/theme 'alvaro)
 
 (setq op/site-main-title "Álvaro González Sotillo")
-(setq op/site-sub-title "Para decir que tengo un blog")
+(setq op/site-sub-title "")
 
 ;;; the configuration below are optional
 ;(setq op/personal-google-analytics-id "your_google_analytics_id")

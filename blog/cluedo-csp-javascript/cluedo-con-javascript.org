@@ -1,6 +1,6 @@
 #+TITLE:       El Cluedo como problema de lógica de segundo orden
-#+AUTHOR:      alvaro
-#+EMAIL:       alvaro@alvaro-vaio
+#+AUTHOR:      Álvaro González Sotillo
+#+EMAIL:       alvarogonzalezsotillo@gmail.com
 #+DATE:        2017-08-29 mar
 #+URI:         /blog/%y/%m/%d/el-cluedo-como-problema-de-lógica
 #+KEYWORDS:    AI,programación,javascript

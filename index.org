@@ -1,2 +1,5 @@
-Este es el índice del blog, creo
+#+TITLE: El blog
+#+AUTHOR:      Álvaro González Sotillo
+#+EMAIL:       alvarogonzalezsotillo@gmail.com
 
+Si has llegado aquí, seguramente quieras [[file:/blog/][ir al blog]].

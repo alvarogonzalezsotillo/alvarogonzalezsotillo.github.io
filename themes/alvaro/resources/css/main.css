@@ -491,18 +491,20 @@ h4{
 
 #searchform {
     position: absolute;
-    top: 54px;
-    right: 10px;
+    top: 4em;
+    right: 8%;
 }
 
 .masthead img.avatar {
-    position: relative;
+    display: none;
+}
+
+.masthead ul{
+    display: block-inline;
+
+    position: absolute;
     float: right;
-    margin-top: -200px;
-    margin-bottom: 0%;
-    margin-right: 10%;
-    width: 100px;
-    background-color: #fff;
+    right: 8%;
 }
 
 .masthead:after, hr:after, .post:after, .post-meta:after {
@@ -512,3 +514,6 @@ h4{
     content: '';
 }
 
+.masthead-title a{
+    border-bottom: 0px;
+}

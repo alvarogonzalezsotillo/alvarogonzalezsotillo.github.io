@@ -1,7 +1,7 @@
 # -*- coding: utf-8-unix; -*-
 #+TITLE:       Test de Bongard
 #+AUTHOR:      Álvaro González Sotillo
-#+EMAIL:       alvaro@alvaro-vaio
+#+EMAIL:       alvarogonzalezsotillo@gmail.com
 #+DATE:        2017-05-16 mar
 
 # #+URI:         /blog/%y/%m/%d/%t/ Or /blog/%t/
