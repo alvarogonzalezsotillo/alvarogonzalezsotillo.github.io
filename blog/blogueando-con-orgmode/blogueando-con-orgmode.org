@@ -13,46 +13,90 @@
 #+OPTIONS:     H:7 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 
 
-[[https://www.gnu.org/software/emacs/][Emacs]] no es solo un editor de texto. Una vez que te decides a probarlo, no puedes parar de pensar en /qué más puedo hacer sin salir de Emacs/. Este sitio web está hecho con [[http://orgmode.org/][Orgmode]], un /[[https://www.gnu.org/software/emacs/manual/html_node/emacs/Major-Modes.html][major mode]]/ de Emacs que permite generar documentos a partir de ficheros de texto plano (como [[https://en.wikipedia.org/wiki/Markdown][markdown]], aunque con más funcionalidad).
+[[https://www.gnu.org/software/emacs/][*Emacs*]] no es solo un editor de texto. Una vez que te decides a probarlo, no puedes parar de pensar en /qué más puedo hacer sin salir de Emacs/. Este sitio web está hecho con [[http://orgmode.org/][*Orgmode*]], un /[[https://www.gnu.org/software/emacs/manual/html_node/emacs/Major-Modes.html][major mode]]/ de Emacs que permite generar documentos a partir de ficheros de texto plano (muy al estilo de [[https://en.wikipedia.org/wiki/Markdown][markdown]]).
 
-Basados en Orgmode, existen [[http://orgmode.org/worg/org-blog-wiki.html][varios sistemas para generar un sitio web]], y después de probar algunos me he decidido por [[https://github.com/kelvinh/org-page][org-page]], aunque con un tema propio.
+Basados en Orgmode, existen [[http://orgmode.org/worg/org-blog-wiki.html][varios sistemas para generar un sitio web estático]], y después de probar algunos me he decidido por [[https://github.com/kelvinh/org-page][*org-page*]], aunque con un tema propio.
 
-|                     | org-page                         | Google Sites                | Wordpress                                     |
-|---------------------+----------------------------------+-----------------------------+-----------------------------------------------|
-| Hosting             | Cualquiera con páginas estáticas | Sólo Google                 | Cualquiera con páginas dinámicas (PHP, MySql) |
-| Trabajo /offline/   | Si                               | No                          | No                                            |
-| Versionado          | Git                              | No                          | No                                            |
-| Copias de seguridad | Repositorios Git                 | Google no se cae            | Posibles                                      |
-| /Mirrors/           | Si                               | Google no necesita /mirror/ | Posible, pero laborioso                       |
 
 
 * Instalación de *org-page*
 La forma más simple es utilizar el sistema de paquetes de *Emacs*. Basta con ejecutar =alt-x= =package-install org-page=
 
 * Creación del sitio
-Ejecutar =alt-x= =op/new-repository=. *Org-page* creará el directorio donde se almacenarán los ficheros fuente del blog.
+Ejecutar =alt-x= =op/new-repository=. *Org-page* creará el directorio donde se almacenarán los ficheros fuente del blog, e inicializará un repositorio *git*. Como se verá más adelante, *org-page* utiliza diferentes ramas para crear la publicación.
 
 * Configuración de *org-page*
-*Org-page* solo puede manejar un sitio a la vez. En mi caso, he creado un fichero de configuración en la raíz del sitio creado en el punto anterior, con el siguiente contenido:
+*Org-page* solo puede manejar un sitio a la vez. En mi caso, he creado un fichero de configuración en la raíz del sitio creado en el punto anterior, que ejecuto para generar el sitio.
 
+#+CAPTION: [[https://github.com/alvarogonzalezsotillo/alvarogonzalezsotillo.github.io/blob/source/org-page-config.el][Fichero de configuración del sitio]]
 #+begin_src lisp
 (require 'org-page)
 (setq op/repository-directory "/home/alvaro/github/alvarogonzalezsotillo.github.io")
+(setq op/repository-org-branch "source")
+(setq op/repository-html-branch "master")
 (setq op/site-domain "https://alvarogonzalezsotillo.github.io/")
-;;; for commenting, you can choose either disqus, duoshuo or hashover
-(setq op/personal-disqus-shortname "your_disqus_shortname")
-(setq op/hashover-comments t)
-
+(setq op/personal-disqus-shortname "alvarogonzalezsotillo")
+(setq op/hashover-comments nil)
 (setq op/personal-github-link "https://github.com/alvarogonzalezsotillo")
-
-(setq op/personal-avatar nil)
-(setq op/theme-root-directo nil)
-(setq op/them nil)
-
-
-(setq op/personal-avatar "/octaedron.png" )
+(setq op/personal-avatar "/media/img/octaedron.png" )
 (setq op/theme-root-directory "/home/alvaro/github/alvarogonzalezsotillo.github.io/themes/")
 (setq op/theme 'alvaro)
-;;; the configuration below are optional
-;(setq op/personal-google-analytics-id "your_google_analytics_id")
+(setq op/site-main-title "Álvaro González Sotillo")
+(setq op/site-sub-title "")
+
+;; TRAS LA CONFIGURACIÓN, GENERO EL SITIO DE PRUEBA
+(op/do-publication-and-preview-site op/site-preview-directory)
 #+end_src
+
+La mayoría de variables son autoexplicativas. Las variables relativas a la integración con *git* son:
+- =op/repository-org-branch= : Indica la rama del repositorio donde se almancenan los ficheros fuentes del sitio. Aquí residen los ficheros *org* y los ficheros de medios.
+- =op/repository-html-branch= : Sobre esta rama se generará el sitio web. Los ficheros *org* se convertirán a *html*, y se incluirán los ficheros de medios.
+- =op/theme-root-directory= : Fichero raíz con los temas del sitio
+- =op/theme= : Subdirectorio dentro de =op/theme-root-directory= con el tema del sitio. En mi caso, he decidido modificar un tema incluido en *org-page*, por lo que lo incluyo también en el repositorio *git*. Los ficheros del tema acaban incluidos en el sitio web, dentro del directorio =/media=.
+
+* Publicación de una entrada
+Una vez configurado, para crear una entrada puede ejecutarse =alt-x= =op/new-post=, que simplemente crea un nuevo fichero *org* en el subdirectorio =/blog=. La próxima vez que se genere el sitio será tenido en cuenta. Por ejemplo, este es el [[https://github.com/alvarogonzalezsotillo/alvarogonzalezsotillo.github.io/blob/source/blog/blogueando-con-orgmode/blogueando-con-orgmode.org][código fuente de esta entrada.]]
+
+#+CAPTION: Ejemplo de fichero *org*
+#+begin_src org
+
+# -*- coding: utf-8-unix; -*-
+#+TITLE:       Blogueando con orgmode
+#+AUTHOR:      Álvaro González Sotillo
+#+EMAIL:       alvarogonzalezsotillo@gmail.com
+#+DATE:        2017-05-16 mar
+
+# #+URI:         /blog/%y/%m/%d/%t/ Or /blog/%t/
+# #+KEYWORDS:    keyword1, keyword2, keyword3
+#+TAGS:        emacs, orgmode
+#+DESCRIPTION: Es posible crear un blog sin (casi) salir de emacs.
+
+#+LANGUAGE:    es
+#+OPTIONS:     H:7 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+
+
+[[https://www.gnu.org/software/emacs/][Emacs]] no es solo un editor de texto. Una vez que te decides a probarlo, no puedes parar de pensar en /qué más puedo hacer sin salir de Emacs/. Este sitio web está hecho con [[http://orgmode.org/][Orgmode]], un /[[https://www.gnu.org/software/emacs/manual/html_node/emacs/Major-Modes.html][major mode]]/ de Emacs que permite generar documentos a partir de ficheros de texto plano (muy al estilo de [[https://en.wikipedia.org/wiki/Markdown][markdown]]).
+
+Basados en Orgmode, existen [[http://orgmode.org/worg/org-blog-wiki.html][varios sistemas para generar un sitio web estático]], y después de probar algunos me he decidido por [[https://github.com/kelvinh/org-page][org-page]], aunque con un tema propio.
+
+[...]
+#+end_src
+
+* Resultado final
+Este sitio está generado con *org-page*, como era de esperar 😃. Utiliza la publicación de [[https://pages.github.com/][páginas estáticas de *github*]] basándose en el repositorio [[https://github.com/alvarogonzalezsotillo/alvarogonzalezsotillo.github.io][https://github.com/alvarogonzalezsotillo/alvarogonzalezsotillo.github.io]]
+
+
+* ¿Y por qué no usas *Wordpress*?
+
+Trabajar con *emacs* y *git* ya es razón suficiente, pero hay otras razones: posibilidad de trabajo /offline/ y el versionado de las páginas.
+
+#+CAPTION: Comparación entre varios sistemas de publicación 
+|                     | org-page                         | Google Sites                | Wordpress                                     |
+|---------------------+----------------------------------+-----------------------------+-----------------------------------------------|
+| /                   | <                                |                             |                                               |
+| Hosting             | Cualquiera con páginas estáticas | Sólo Google                 | Cualquiera con páginas dinámicas (PHP, MySql) |
+| Trabajo /offline/   | *Si*                             | No                          | No                                            |
+| Versionado          | *Git*                            | No                          | No                                            |
+| Copias de seguridad | Repositorios Git                 | Google no se cae            | Posibles                                      |
+| /Mirrors/           | Si                               | Google no necesita /mirror/ | Posible, pero laborioso                       |
+

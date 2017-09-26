@@ -2,4 +2,4 @@
 #+AUTHOR:      Álvaro González Sotillo
 #+EMAIL:       alvarogonzalezsotillo@gmail.com
 
-Si has llegado aquí, seguramente quieras [[file:/blog/][ir al blog]].
+Si has llegado aquí, seguramente quieras [[file:blog/index.html][ir al blog]].

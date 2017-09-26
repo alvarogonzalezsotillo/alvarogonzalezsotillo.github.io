@@ -431,6 +431,12 @@ body {
 
 }
 
+b, strong {
+    font-weight: bold;
+    color: #333;
+}
+
+
 h1:before {
     content: "";
 }
@@ -516,4 +522,21 @@ h4{
 
 .masthead-title a{
     border-bottom: 0px;
+}
+
+label{
+    font-size: 0.7em;
+    width: 100%;
+    display: block;
+    text-align: center;
+}
+
+caption{
+    font-size: 0.7em;
+    text-align: center;
+}
+
+div.post{
+    margin-top: 3em;
+    margin-bottom: 2em;
 }
