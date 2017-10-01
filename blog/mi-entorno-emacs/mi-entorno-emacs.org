@@ -21,13 +21,13 @@ Para ello tengo preparados un par de /scripts/ para facilitar el proceso. En uno
 
 * Ubuntu
 1. Instalación de *Emacs* 25 y *git*
-  #+begin_src bash
+  #+begin_src sh
   sudo add-apt-repository ppa:kelleyk/emacs
   sudo apt-get update
   sudo apt-get install emacs25 git
   #+end_src
 2. Instalación de *Latex*
-  #+begin_src bash 
+  #+begin_src sh 
   sudo apt-get install texlive-collection-binextra \
   texlive-latex-recommended \
   texlive-extra-utils \
@@ -35,8 +35,9 @@ Para ello tengo preparados un par de /scripts/ para facilitar el proceso. En uno
   texlive-collection-latex \
   texlive-collection-latexextra \
   #+end_src
-3. Opciones de *Emacs*:
-  #+begin_src bash
+3. Mi configuración de *Emacs*:
+  #+begin_src sh
+  cd $HOME
   git clone https://github.com/alvarogonzalezsotillo/.emacs.d.git
   #+end_src
 4. Para instalar los paquetes de *Emacs* necesarios, ejecuto dentro de *Emacs* este código *elisp*
