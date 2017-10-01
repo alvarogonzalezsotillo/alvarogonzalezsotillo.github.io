@@ -1,0 +1,108 @@
+#+TITLE:       Cómo preparo mi entorno con Emacs
+#+AUTHOR:      Álvaro González Sotillo
+#+EMAIL:       alvarogonzalezsotillo@gmail.com
+#+DATE:        2017-10-01 dom
+#+URI:         /blog/%y/%m/%d/cómo-preparo-mi-entorno-con-emacs
+#+KEYWORDS:    <TODO: insert your keywords here>
+#+TAGS:        <TODO: insert your tags here>
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: Cada vez que llego a un nuevo ordenador tengo que preparar mi entorno, y se puede hacer fácilmente con un par de /scripts/
+
+
+Como profesor, mi trabajo con el ordenador se centra en *Emacs* y *git* para:
+- Elaborar transparencias con *Emacs* y *[[https://github.com/yjwen/org-reveal][org-reveal]]*
+- Elaborar ejercicios y exámenes con *[[https://www.gnu.org/software/auctex/][auctex]]* y *[[https://www.latex-project.org/][latex]]*
+- Publicar los materiales con *[[https://pages.github.com/][github pages]]*
+
+Trabajar con mi portátil es simple, porque el entorno ya está instalado y configurado. Pero cada vez que llego a un PC nuevo (en el aula, en un nuevo departamento,...) necesito reinstalar todo de nuevo.
+
+Para ello tengo preparados un par de /scripts/ para facilitar el proceso. En unos pocos minutos, dependiendo de la conexión de red, el entorno está listo 😄.
+
+* Ubuntu
+1. Instalación de *Emacs* 25 y *git*
+  #+begin_src bash
+  sudo add-apt-repository ppa:kelleyk/emacs
+  sudo apt-get update
+  sudo apt-get install emacs25 git
+  #+end_src
+2. Instalación de *Latex*
+  #+begin_src bash 
+  sudo apt-get install texlive-collection-binextra \
+  texlive-latex-recommended \
+  texlive-extra-utils \
+  texlive-collection-langspanish \
+  texlive-collection-latex \
+  texlive-collection-latexextra \
+  #+end_src
+3. Opciones de *Emacs*:
+  #+begin_src bash
+  git clone https://github.com/alvarogonzalezsotillo/.emacs.d.git
+  #+end_src
+4. Para instalar los paquetes de *Emacs* necesarios, ejecuto dentro de *Emacs* este código *elisp*
+  #+begin_src elisp
+;; REINSTALAR LOS PAQUETES (SI ES UN EMACS NUEVO)
+(defun reinstalar-paquetes-en-emacs-nuevo() 
+
+  (interactive) 
+  ;; LISTA DE PAQUETES INSTALADOS (C-h v package-selected-packages)
+  (setq package-selected-packages '(company-restclient ob-restclient restclient-helm restclient transmission hl-line+ treemacs paradox gift-mode org-webpage plsql org-page company-web company-shell company-quickhelp company-emoji company-c-headers company company-auctex helm-company highlight-indent-guides which-key dumb-jump dired-narrow org markdown-mode magit popup-complete scad-preview scad-mode org-attach-screenshot bm yafolding web-mode transpose-frame tablist switch-window swiper sr-speedbar smartparens scala-outline-popup request-deferred rectangle-utils rainbow-delimiters php-mode page-break-lines ox-reveal org-present neotree multiple-cursors image+ htmlize helm-projectile github-browse-file git-timemachine git-link flycheck find-file-in-project expand-region epresent ensime discover diffview crappy-jsp-mode chess calfw browse-at-remote auto-highlight-symbol alert adaptive-wrap))
+  
+  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+
+  (package-refresh-contents)
+  (package-initialize)  
+
+  (package-install-selected-packages))
+
+(require 'package)
+(reinstalar-paquetes-en-emacs-nuevo)
+  #+end_src
+
+* *Windows* con *Cygwin*
+Si necesito instalar mi sistema en *Windows* utilizo *Cygwin*, para evitar problemas de integración de paquetes (por ejemplo, *[[https://github.com/magit/magit][magit]]* no funciona correctamente). Eso sí, el rendimiento es bastante peor que con herramientas de *Windows* nativas. El procedimiento es el siguiente:
+1. Descargar el fichero [[https://www.cygwin.com/setup-x86_64.exe]]
+2. Realizar una instalación básica, añadiendo el paquete =wget=
+3. Instalar =apt-cyg=
+  #+begin_src bash  
+  wget rawgit.com/transcode-open/apt-cyg/master/apt-cyg > apt-cyg
+  install apt-cyg /bin
+  #+end_src
+4. Instalar *git*
+  #+begin_src bash
+  apt-cyg install git
+  
+  # Solución al problema de petición de contraseña con magit (requiere XOrg)
+  apt-cyg install git git-gui xorg
+  git config --global core.askpass /usr/libexec/git-core/git-gui--askpass
+  #+end_src
+5. Instalar *Emacs*
+  #+begin_src bash 
+  apt-cyg install emacs-w32
+  #+end_src
+6. Instalar *Latex*
+  #+begin_src bash
+  apt-cyg install texlive \ 
+  texlive-collection-basic \ 
+  texlive-collection-binextra \ 
+  texlive-collection-fontsextra \ 
+  texlive-collection-fontsrecommended \ 
+  texlive-collection-fontutils \ 
+  texlive-collection-formatsextra \ 
+  texlive-collection-genericextra \ 
+  texlive-collection-genericrecommended \ 
+  texlive-collection-langenglish \ 
+  texlive-collection-langeuropean \ 
+  texlive-collection-langspanish \ 
+  texlive-collection-latex \ 
+  texlive-collection-latexextra \ 
+  texlive-collection-latexrecommended \ 
+  texlive-collection-pictures \ 
+  texlive-collection-plainextra \ 
+  texlive-collection-pstricks
+  
+  texconfig rehash
+  mktexlsr
+  #+end_src
+7. Los pasos para configurar *emacs* son equivalentes a los de la instalación en *ubuntu*
+
