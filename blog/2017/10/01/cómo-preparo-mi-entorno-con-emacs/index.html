@@ -50,15 +50,15 @@ Trabajar con mi portátil es simple, porque el entorno ya está instalado y conf
 Para ello tengo preparados un par de <i>scripts</i> para facilitar el proceso. En unos pocos minutos, dependiendo de la conexión de red, el entorno está listo 😄.
 </p>
 
-<div id="outline-container-org4c84c0b" class="outline-2">
-<h2 id="org4c84c0b">Ubuntu</h2>
-<div class="outline-text-2" id="text-org4c84c0b">
+<div id="outline-container-org37cfeae" class="outline-2">
+<h2 id="org37cfeae">Ubuntu</h2>
+<div class="outline-text-2" id="text-org37cfeae">
 <ol class="org-ol">
 <li><p>
 Instalación de <b>Emacs</b> 25 y <b>git</b>
 </p>
 <div class="org-src-container">
-<pre class="src src-bash">sudo add-apt-repository ppa:kelleyk/emacs
+<pre class="src src-sh">sudo add-apt-repository ppa:kelleyk/emacs
 sudo apt-get update
 sudo apt-get install emacs25 git
 </pre>
@@ -67,7 +67,7 @@ sudo apt-get install emacs25 git
 Instalación de <b>Latex</b>
 </p>
 <div class="org-src-container">
-<pre class="src src-bash">sudo apt-get install texlive-collection-binextra \
+<pre class="src src-sh">sudo apt-get install texlive-collection-binextra \
 texlive-latex-recommended \
 texlive-extra-utils \
 texlive-collection-langspanish \
@@ -76,10 +76,11 @@ texlive-collection-latexextra \
 </pre>
 </div></li>
 <li><p>
-Opciones de <b>Emacs</b>:
+Mi configuración de <b>Emacs</b>:
 </p>
 <div class="org-src-container">
-<pre class="src src-bash">git clone https://github.com/alvarogonzalezsotillo/.emacs.d.git
+<pre class="src src-sh">cd $HOME
+git clone https://github.com/alvarogonzalezsotillo/.emacs.d.git
 </pre>
 </div></li>
 <li><p>
@@ -108,9 +109,9 @@ Para instalar los paquetes de <b>Emacs</b> necesarios, ejecuto dentro de <b>Emac
 </div>
 </div>
 
-<div id="outline-container-org5ffb79f" class="outline-2">
-<h2 id="org5ffb79f"><b>Windows</b> con <b>Cygwin</b></h2>
-<div class="outline-text-2" id="text-org5ffb79f">
+<div id="outline-container-orgc962e29" class="outline-2">
+<h2 id="orgc962e29"><b>Windows</b> con <b>Cygwin</b></h2>
+<div class="outline-text-2" id="text-orgc962e29">
 <p>
 Si necesito instalar mi sistema en <b>Windows</b> utilizo <b>Cygwin</b>, para evitar problemas de integración de paquetes (por ejemplo, <b><a href="https://github.com/magit/magit">magit</a></b> no funciona correctamente). Eso sí, el rendimiento es bastante peor que con herramientas de <b>Windows</b> nativas. El procedimiento es el siguiente:
 </p>
