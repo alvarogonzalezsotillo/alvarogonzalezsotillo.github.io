@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Blogueando con orgmode - Álvaro González Sotillo</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Álvaro González Sotillo" />
+    <meta name="description" content="Es posible crear un blog sin (casi) salir de emacs." />
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
+  </head>
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">Álvaro González Sotillo</a></h1>
+        <p></p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/media/">Media</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">Acerca de mí</a></li>
+          <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="//www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Search">
+          <input type="hidden" name="as_sitesearch" value="alvarogonzalezsotillo.github.io">
+        </form>
+        <img class="avatar" src="/media/img/octaedron.png" />
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>Blogueando con orgmode</h1>
+<p>
+<b><a href="https://www.gnu.org/software/emacs/">Emacs</a></b> no es solo un editor de texto. Una vez que te decides a probarlo, no puedes parar de pensar en <i>qué más puedo hacer sin salir de Emacs</i>. Este sitio web está hecho con <b><a href="http://orgmode.org/">Orgmode</a></b>, un <i><a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Major-Modes.html">major mode</a></i> de Emacs que permite generar documentos a partir de ficheros de texto plano (muy al estilo de <a href="https://en.wikipedia.org/wiki/Markdown">markdown</a>).
+</p>
+
+<p>
+Basados en Orgmode, existen <a href="http://orgmode.org/worg/org-blog-wiki.html">varios sistemas para generar un sitio web estático</a>, y después de probar algunos me he decidido por <b><a href="https://github.com/kelvinh/org-page">org-page</a></b>, aunque con un tema propio.
+</p>
+
+
+
+<div id="outline-container-org84b12aa" class="outline-2">
+<h2 id="org84b12aa">Instalación de <b>org-page</b></h2>
+<div class="outline-text-2" id="text-org84b12aa">
+<p>
+La forma más simple es utilizar el sistema de paquetes de <b>Emacs</b>. Basta con ejecutar <code>alt-x</code> <code>package-install org-page</code>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb54932a" class="outline-2">
+<h2 id="orgb54932a">Creación del sitio</h2>
+<div class="outline-text-2" id="text-orgb54932a">
+<p>
+Ejecutar <code>alt-x</code> <code>op/new-repository</code>. <b>Org-page</b> creará el directorio donde se almacenarán los ficheros fuente del blog, e inicializará un repositorio <b>git</b>. Como se verá más adelante, <b>org-page</b> utiliza diferentes ramas para crear la publicación.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orge440c86" class="outline-2">
+<h2 id="orge440c86">Configuración de <b>org-page</b></h2>
+<div class="outline-text-2" id="text-orge440c86">
+<p>
+<b>Org-page</b> solo puede manejar un sitio a la vez. En mi caso, he creado un fichero de configuración en la raíz del sitio creado en el punto anterior, que ejecuto para generar el sitio.
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 1 </span><a href="https://github.com/alvarogonzalezsotillo/alvarogonzalezsotillo.github.io/blob/source/org-page-config.el">Fichero de configuración del sitio</a></label><pre class="src src-lisp">(require 'org-page)
+(setq op/repository-directory "/home/alvaro/github/alvarogonzalezsotillo.github.io")
+(setq op/repository-org-branch "source")
+(setq op/repository-html-branch "master")
+(setq op/site-domain "https://alvarogonzalezsotillo.github.io/")
+(setq op/personal-disqus-shortname "alvarogonzalezsotillo")
+(setq op/hashover-comments nil)
+(setq op/personal-github-link "https://github.com/alvarogonzalezsotillo")
+(setq op/personal-avatar "/media/img/octaedron.png" )
+(setq op/theme-root-directory "/home/alvaro/github/alvarogonzalezsotillo.github.io/themes/")
+(setq op/theme 'alvaro)
+(setq op/site-main-title "Álvaro González Sotillo")
+(setq op/site-sub-title "")
+
+;; TRAS LA CONFIGURACIÓN, GENERO EL SITIO DE PRUEBA
+(op/do-publication-and-preview-site op/site-preview-directory)
+</pre>
+</div>
+
+<p>
+La mayoría de variables son autoexplicativas. Las variables relativas a la integración con <b>git</b> son:
+</p>
+<ul class="org-ul">
+<li><code>op/repository-org-branch</code> : Indica la rama del repositorio donde se almancenan los ficheros fuentes del sitio. Aquí residen los ficheros <b>org</b> y los ficheros de medios.</li>
+<li><code>op/repository-html-branch</code> : Sobre esta rama se generará el sitio web. Los ficheros <b>org</b> se convertirán a <b>html</b>, y se incluirán los ficheros de medios.</li>
+<li><code>op/theme-root-directory</code> : Fichero raíz con los temas del sitio</li>
+<li><code>op/theme</code> : Subdirectorio dentro de <code>op/theme-root-directory</code> con el tema del sitio. En mi caso, he decidido modificar un tema incluido en <b>org-page</b>, por lo que lo incluyo también en el repositorio <b>git</b>. Los ficheros del tema acaban incluidos en el sitio web, dentro del directorio <code>/media</code>.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org0987178" class="outline-2">
+<h2 id="org0987178">Publicación de una entrada</h2>
+<div class="outline-text-2" id="text-org0987178">
+<p>
+Una vez configurado, para crear una entrada puede ejecutarse <code>alt-x</code> <code>op/new-post</code>, que simplemente crea un nuevo fichero <b>org</b> en el subdirectorio <code>/blog</code>. La próxima vez que se genere el sitio será tenido en cuenta. Por ejemplo, este es el <a href="https://github.com/alvarogonzalezsotillo/alvarogonzalezsotillo.github.io/blob/source/blog/blogueando-con-orgmode/blogueando-con-orgmode.org">código fuente de esta entrada.</a>
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 2 </span>Ejemplo de fichero <b>org</b></label><pre class="src src-org">
+# -*- coding: utf-8-unix; -*-
+#+TITLE:       Blogueando con orgmode
+#+AUTHOR:      Álvaro González Sotillo
+#+EMAIL:       alvarogonzalezsotillo@gmail.com
+#+DATE:        2017-05-16 mar
+
+# #+URI:         /blog/%y/%m/%d/%t/ Or /blog/%t/
+# #+KEYWORDS:    keyword1, keyword2, keyword3
+#+TAGS:        emacs, orgmode
+#+DESCRIPTION: Es posible crear un blog sin (casi) salir de emacs.
+
+#+LANGUAGE:    es
+#+OPTIONS:     H:7 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t &lt;:t
+
+
+[[https://www.gnu.org/software/emacs/][Emacs]] no es solo un editor de texto. Una vez que te decides a probarlo, no puedes parar de pensar en /qué más puedo hacer sin salir de Emacs/. Este sitio web está hecho con [[http://orgmode.org/][Orgmode]], un /[[https://www.gnu.org/software/emacs/manual/html_node/emacs/Major-Modes.html][major mode]]/ de Emacs que permite generar documentos a partir de ficheros de texto plano (muy al estilo de [[https://en.wikipedia.org/wiki/Markdown][markdown]]).
+
+Basados en Orgmode, existen [[http://orgmode.org/worg/org-blog-wiki.html][varios sistemas para generar un sitio web estático]], y después de probar algunos me he decidido por [[https://github.com/kelvinh/org-page][org-page]], aunque con un tema propio.
+
+[...]
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgb2531b3" class="outline-2">
+<h2 id="orgb2531b3">Resultado final</h2>
+<div class="outline-text-2" id="text-orgb2531b3">
+<p>
+Este sitio está generado con <b>org-page</b>, como era de esperar 😃. Utiliza la publicación de <b><a href="https://pages.github.com/">páginas estáticas de github</a></b> basándose en el repositorio <a href="https://github.com/alvarogonzalezsotillo/alvarogonzalezsotillo.github.io">https://github.com/alvarogonzalezsotillo/alvarogonzalezsotillo.github.io</a>
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orge29fa74" class="outline-2">
+<h2 id="orge29fa74">¿Y por qué no usas <b>Wordpress</b>?</h2>
+<div class="outline-text-2" id="text-orge29fa74">
+<p>
+Trabajar con <b>emacs</b> y <b>git</b> ya es razón suficiente, pero hay otras razones: posibilidad de trabajo <i>offline</i> y el versionado de las páginas.
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption class="t-bottom"><span class="table-number">Tabla 1</span> Comparación entre varios sistemas de publicación</caption>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-left">org-page</th>
+<th scope="col" class="org-left">Google Sites</th>
+<th scope="col" class="org-left">Wordpress</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Hosting</td>
+<td class="org-left">Cualquiera con páginas estáticas</td>
+<td class="org-left">Sólo Google</td>
+<td class="org-left">Cualquiera con páginas dinámicas (PHP, MySql)</td>
+</tr>
+
+<tr>
+<td class="org-left">Trabajo <i>offline</i></td>
+<td class="org-left"><b>Si</b></td>
+<td class="org-left">No</td>
+<td class="org-left">No</td>
+</tr>
+
+<tr>
+<td class="org-left">Versionado</td>
+<td class="org-left"><b>Git</b></td>
+<td class="org-left">No</td>
+<td class="org-left">No</td>
+</tr>
+
+<tr>
+<td class="org-left">Copias de seguridad</td>
+<td class="org-left">Repositorios Git</td>
+<td class="org-left">Google no se cae</td>
+<td class="org-left">Posibles</td>
+</tr>
+
+<tr>
+<td class="org-left"><i>Mirrors</i></td>
+<td class="org-left">Si</td>
+<td class="org-left">Google no necesita <i>mirror</i></td>
+<td class="org-left">Posible, pero laborioso</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2017-05-16</span>
+        <span title="last modification date" class="post-info">2017-10-01</span>
+        <span title="tags" class="post-info"><a href="/tags/emacs/">emacs</a>, <a href="/tags/orgmode/">orgmode</a></span>
+        <span title="author" class="post-info">Álvaro González Sotillo</span>
+      </div>
+      <section>
+        <h1>Comments</h1>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+          //var disqus_developer = 1;
+          var disqus_identifier = "/blog/bloqueando-con-orgmode";
+          var disqus_url = "https://alvarogonzalezsotillo.github.io/blog/bloqueando-con-orgmode";
+          var disqus_shortname = 'alvarogonzalezsotillo';
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="//disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      </section>
+      <!-- <script src="//code.jquery.com/jquery-latest.min.js"></script> -->
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->
+      <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>  -->
+      <script src="/media/js/jquery-3.2.1.min.js"></script>
+      <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+      <script src="/media/js/main.js"></script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:alvarogonzalezsotillo <at> gmail <dot> com">Álvaro González Sotillo</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>

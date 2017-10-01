@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Cómo preparo mi entorno con Emacs - Álvaro González Sotillo</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Álvaro González Sotillo" />
+    <meta name="description" content="Cada vez que llego a un nuevo ordenador tengo que preparar mi entorno, y se puede hacer fácilmente con un par de /scripts/" />
+    <meta name="keywords" content="Emacs, magit, git, latex, reveal" />
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
+  </head>
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">Álvaro González Sotillo</a></h1>
+        <p></p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/media/">Media</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">Acerca de mí</a></li>
+          <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="//www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Search">
+          <input type="hidden" name="as_sitesearch" value="alvarogonzalezsotillo.github.io">
+        </form>
+        <img class="avatar" src="/media/img/octaedron.png" />
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>Cómo preparo mi entorno con Emacs</h1>
+<p>
+Como profesor, mi trabajo con el ordenador se centra en <b>Emacs</b> y <b>git</b> para:
+</p>
+<ul class="org-ul">
+<li>Elaborar transparencias con <b>Emacs</b> y <b><a href="https://github.com/yjwen/org-reveal">org-reveal</a></b></li>
+<li>Elaborar ejercicios y exámenes con <b><a href="https://www.gnu.org/software/auctex/">auctex</a></b> y <b><a href="https://www.latex-project.org/">latex</a></b></li>
+<li>Publicar los materiales con <b><a href="https://pages.github.com/">github pages</a></b></li>
+</ul>
+
+<p>
+Trabajar con mi portátil es simple, porque el entorno ya está instalado y configurado. Pero cada vez que llego a un PC nuevo (en el aula, en un nuevo departamento,...) necesito reinstalar todo de nuevo.
+</p>
+
+<p>
+Para ello tengo preparados un par de <i>scripts</i> para facilitar el proceso. En unos pocos minutos, dependiendo de la conexión de red, el entorno está listo 😄.
+</p>
+
+<div id="outline-container-orgd3dab2c" class="outline-2">
+<h2 id="orgd3dab2c">Ubuntu</h2>
+<div class="outline-text-2" id="text-orgd3dab2c">
+<ol class="org-ol">
+<li><p>
+Instalación de <b>Emacs</b> 25 y <b>git</b>
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">sudo add-apt-repository ppa:kelleyk/emacs
+sudo apt-get update
+sudo apt-get install emacs25 git
+</pre>
+</div></li>
+<li><p>
+Instalación de <b>Latex</b>
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">sudo apt-get install texlive-collection-binextra \
+texlive-latex-recommended \
+texlive-extra-utils \
+texlive-collection-langspanish \
+texlive-collection-latex \
+texlive-collection-latexextra \
+</pre>
+</div></li>
+<li><p>
+Mi configuración de <b>Emacs</b>:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">cd $HOME
+git clone https://github.com/alvarogonzalezsotillo/.emacs.d.git
+</pre>
+</div></li>
+<li><p>
+Para instalar los paquetes de <b>Emacs</b> necesarios, ejecuto dentro de <b>Emacs</b> este código <b>elisp</b>
+</p>
+<div class="org-src-container">
+<pre class="src src-lisp">;; REINSTALAR LOS PAQUETES (SI ES UN EMACS NUEVO)
+(defun reinstalar-paquetes-en-emacs-nuevo() 
+
+  (interactive) 
+  ;; LISTA DE PAQUETES INSTALADOS (C-h v package-selected-packages)
+  (setq package-selected-packages '(company-restclient ob-restclient restclient-helm restclient transmission hl-line+ treemacs paradox gift-mode org-webpage plsql org-page company-web company-shell company-quickhelp company-emoji company-c-headers company company-auctex helm-company highlight-indent-guides which-key dumb-jump dired-narrow org markdown-mode magit popup-complete scad-preview scad-mode org-attach-screenshot bm yafolding web-mode transpose-frame tablist switch-window swiper sr-speedbar smartparens scala-outline-popup request-deferred rectangle-utils rainbow-delimiters php-mode page-break-lines ox-reveal org-present neotree multiple-cursors image+ htmlize helm-projectile github-browse-file git-timemachine git-link flycheck find-file-in-project expand-region epresent ensime discover diffview crappy-jsp-mode chess calfw browse-at-remote auto-highlight-symbol alert adaptive-wrap))
+
+  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+
+  (package-refresh-contents)
+  (package-initialize)  
+
+  (package-install-selected-packages))
+
+(require 'package)
+(reinstalar-paquetes-en-emacs-nuevo)
+</pre>
+</div></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org2bd9a4c" class="outline-2">
+<h2 id="org2bd9a4c"><b>Windows</b> con <b>Cygwin</b></h2>
+<div class="outline-text-2" id="text-org2bd9a4c">
+<p>
+Si necesito instalar mi sistema en <b>Windows</b> utilizo <b>Cygwin</b>, para evitar problemas de integración de paquetes (por ejemplo, <b><a href="https://github.com/magit/magit">magit</a></b> no funciona correctamente). Eso sí, el rendimiento es bastante peor que con herramientas de <b>Windows</b> nativas. El procedimiento es el siguiente:
+</p>
+<ol class="org-ol">
+<li>Descargar el fichero <a href="https://www.cygwin.com/setup-x86_64.exe">https://www.cygwin.com/setup-x86_64.exe</a></li>
+<li>Realizar una instalación básica, añadiendo el paquete <code>wget</code></li>
+<li><p>
+Instalar <code>apt-cyg</code>
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">wget rawgit.com/transcode-open/apt-cyg/master/apt-cyg &gt; apt-cyg
+install apt-cyg /bin
+</pre>
+</div></li>
+<li><p>
+Instalar <b>git</b>
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">apt-cyg install git
+
+# Solución al problema de petición de contraseña con magit (requiere XOrg)
+apt-cyg install git git-gui xorg
+git config --global core.askpass /usr/libexec/git-core/git-gui--askpass
+</pre>
+</div></li>
+<li><p>
+Instalar <b>Emacs</b>
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">apt-cyg install emacs-w32
+</pre>
+</div></li>
+<li><p>
+Instalar <b>Latex</b>
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">apt-cyg install texlive \ 
+texlive-collection-basic \ 
+texlive-collection-binextra \ 
+texlive-collection-fontsextra \ 
+texlive-collection-fontsrecommended \ 
+texlive-collection-fontutils \ 
+texlive-collection-formatsextra \ 
+texlive-collection-genericextra \ 
+texlive-collection-genericrecommended \ 
+texlive-collection-langenglish \ 
+texlive-collection-langeuropean \ 
+texlive-collection-langspanish \ 
+texlive-collection-latex \ 
+texlive-collection-latexextra \ 
+texlive-collection-latexrecommended \ 
+texlive-collection-pictures \ 
+texlive-collection-plainextra \ 
+texlive-collection-pstricks
+
+texconfig rehash
+mktexlsr
+</pre>
+</div></li>
+<li>Los pasos para configurar <b>emacs</b> son equivalentes a los de la instalación en <b>ubuntu</b></li>
+</ol>
+</div>
+</div>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2017-10-01</span>
+        <span title="last modification date" class="post-info">2017-10-01</span>
+        <span title="tags" class="post-info"><a href="/tags/emacs/">Emacs</a>, <a href="/tags/latex/">latex</a></span>
+        <span title="author" class="post-info">Álvaro González Sotillo</span>
+      </div>
+      <section>
+        <h1>Comments</h1>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+          //var disqus_developer = 1;
+          var disqus_identifier = "/blog/como-preparo-mi-entorno-con-emacs";
+          var disqus_url = "https://alvarogonzalezsotillo.github.io/blog/como-preparo-mi-entorno-con-emacs";
+          var disqus_shortname = 'alvarogonzalezsotillo';
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="//disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      </section>
+      <!-- <script src="//code.jquery.com/jquery-latest.min.js"></script> -->
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->
+      <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>  -->
+      <script src="/media/js/jquery-3.2.1.min.js"></script>
+      <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+      <script src="/media/js/main.js"></script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:alvarogonzalezsotillo <at> gmail <dot> com">Álvaro González Sotillo</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>
