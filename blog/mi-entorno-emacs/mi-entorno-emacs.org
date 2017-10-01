@@ -40,7 +40,7 @@ Para ello tengo preparados un par de /scripts/ para facilitar el proceso. En uno
   git clone https://github.com/alvarogonzalezsotillo/.emacs.d.git
   #+end_src
 4. Para instalar los paquetes de *Emacs* necesarios, ejecuto dentro de *Emacs* este código *elisp*
-   #+begin_src elisp
+   #+begin_src lisp
  ;; REINSTALAR LOS PAQUETES (SI ES UN EMACS NUEVO)
  (defun reinstalar-paquetes-en-emacs-nuevo() 
  
