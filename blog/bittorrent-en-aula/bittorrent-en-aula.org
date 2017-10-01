@@ -3,9 +3,7 @@
 #+AUTHOR:      Álvaro González Sotillo
 #+EMAIL:       alvarogonzalezsotillo@gmail.com
 #+DATE:        2017-05-16 mar
-
-# #+URI:         /blog/%y/%m/%d/%t/ Or /blog/%t/
-# #+KEYWORDS:    keyword1, keyword2, keyword3
+#+URI:         /blog/bittorent-en-el-aula
 #+TAGS:        bittorrent
 #+DESCRIPTION: BitTorrent es un protocolo p2p para el intercambio de ficheros. Se suele asociar a descargas ilegales, pero puede ser muy útil en el aula de informática.
 

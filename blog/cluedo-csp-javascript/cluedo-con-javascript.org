@@ -2,7 +2,7 @@
 #+AUTHOR:      Álvaro González Sotillo
 #+EMAIL:       alvarogonzalezsotillo@gmail.com
 #+DATE:        2017-08-29 mar
-#+URI:         /blog/%y/%m/%d/el-cluedo-como-problema-de-lógica
+#+URI:         /blog/el-cluedo-como-problema-de-logica
 #+KEYWORDS:    AI,programación,javascript
 #+TAGS:        cluedo,javascript,AI,programación
 #+LANGUAGE:    en

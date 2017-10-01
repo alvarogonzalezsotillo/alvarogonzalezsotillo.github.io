@@ -3,9 +3,7 @@
 #+AUTHOR:      Álvaro González Sotillo
 #+EMAIL:       alvarogonzalezsotillo@gmail.com
 #+DATE:        2017-05-16 mar
-
-# #+URI:         /blog/%y/%m/%d/%t/ Or /blog/%t/
-# #+KEYWORDS:    keyword1, keyword2, keyword3
+#+URI:         /blog/bloqueando-con-orgmode
 #+TAGS:        emacs, orgmode
 #+DESCRIPTION: Es posible crear un blog sin (casi) salir de emacs.
 

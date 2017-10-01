@@ -4,8 +4,6 @@
 #+EMAIL:       alvarogonzalezsotillo@gmail.com
 #+DATE:        2012-10-10
 
-# #+URI:         /blog/%y/%m/%d/%t/ Or /blog/%t/
-# #+KEYWORDS:    keyword1, keyword2, keyword3
 #+TAGS: Astronomia, programacion
 #+DESCRIPTION: Tras algún trauma infantil, y 6 años de trabajo (muy) intermitente, ya tengo mi reloj de sol. Y funciona.
 

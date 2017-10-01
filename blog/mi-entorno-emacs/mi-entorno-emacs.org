@@ -2,7 +2,7 @@
 #+AUTHOR:      Álvaro González Sotillo
 #+EMAIL:       alvarogonzalezsotillo@gmail.com
 #+DATE:        2017-10-01 dom
-#+URI:         /blog/%y/%m/%d/como-preparo-mi-entorno-con-emacs
+#+URI:         /blog/como-preparo-mi-entorno-con-emacs
 #+KEYWORDS:    Emacs, magit, git, latex, reveal
 #+TAGS:        Emacs, latex
 #+LANGUAGE:    en
