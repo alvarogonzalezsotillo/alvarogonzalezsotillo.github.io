@@ -13,9 +13,9 @@
 #+OPTIONS:     H:7 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 
 
-*[[https://www.gnu.org/software/emacs/][Emacs]]* no es solo un editor de texto. Una vez que te decides a probarlo, no puedes parar de pensar en /qué más puedo hacer sin salir de Emacs/. Este sitio web está hecho con [[http://orgmode.org/][*Orgmode*]], un /[[https://www.gnu.org/software/emacs/manual/html_node/emacs/Major-Modes.html][major mode]]/ de Emacs que permite generar documentos a partir de ficheros de texto plano (muy al estilo de [[https://en.wikipedia.org/wiki/Markdown][markdown]]).
+*[[https://www.gnu.org/software/emacs/][Emacs]]* no es solo un editor de texto. Una vez que te decides a probarlo, no puedes parar de pensar en /qué más puedo hacer sin salir de Emacs/. Este sitio web está hecho con *[[http://orgmode.org/][Orgmode]]*, un /[[https://www.gnu.org/software/emacs/manual/html_node/emacs/Major-Modes.html][major mode]]/ de Emacs que permite generar documentos a partir de ficheros de texto plano (muy al estilo de [[https://en.wikipedia.org/wiki/Markdown][markdown]]).
 
-Basados en Orgmode, existen [[http://orgmode.org/worg/org-blog-wiki.html][varios sistemas para generar un sitio web estático]], y después de probar algunos me he decidido por [[https://github.com/kelvinh/org-page][*org-page*]], aunque con un tema propio.
+Basados en Orgmode, existen [[http://orgmode.org/worg/org-blog-wiki.html][varios sistemas para generar un sitio web estático]], y después de probar algunos me he decidido por *[[https://github.com/kelvinh/org-page][org-page]]*, aunque con un tema propio.
 
 
 
@@ -83,7 +83,7 @@ Basados en Orgmode, existen [[http://orgmode.org/worg/org-blog-wiki.html][varios
 #+end_src
 
 * Resultado final
-Este sitio está generado con *org-page*, como era de esperar 😃. Utiliza la publicación de [[https://pages.github.com/][páginas estáticas de *github*]] basándose en el repositorio [[https://github.com/alvarogonzalezsotillo/alvarogonzalezsotillo.github.io][https://github.com/alvarogonzalezsotillo/alvarogonzalezsotillo.github.io]]
+Este sitio está generado con *org-page*, como era de esperar 😃. Utiliza la publicación de *[[https://pages.github.com/][páginas estáticas de github]]* basándose en el repositorio [[https://github.com/alvarogonzalezsotillo/alvarogonzalezsotillo.github.io][https://github.com/alvarogonzalezsotillo/alvarogonzalezsotillo.github.io]]
 
 
 * ¿Y por qué no usas *Wordpress*?
