@@ -33,36 +33,36 @@
 <div class="post">
 <h1>Blogueando con orgmode</h1>
 <p>
-<a href="https://www.gnu.org/software/emacs/"><b>Emacs</b></a> no es solo un editor de texto. Una vez que te decides a probarlo, no puedes parar de pensar en <i>qué más puedo hacer sin salir de Emacs</i>. Este sitio web está hecho con <a href="http://orgmode.org/"><b>Orgmode</b></a>, un <i><a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Major-Modes.html">major mode</a></i> de Emacs que permite generar documentos a partir de ficheros de texto plano (muy al estilo de <a href="https://en.wikipedia.org/wiki/Markdown">markdown</a>).
+<b><a href="https://www.gnu.org/software/emacs/">Emacs</a></b> no es solo un editor de texto. Una vez que te decides a probarlo, no puedes parar de pensar en <i>qué más puedo hacer sin salir de Emacs</i>. Este sitio web está hecho con <b><a href="http://orgmode.org/">Orgmode</a></b>, un <i><a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Major-Modes.html">major mode</a></i> de Emacs que permite generar documentos a partir de ficheros de texto plano (muy al estilo de <a href="https://en.wikipedia.org/wiki/Markdown">markdown</a>).
 </p>
 
 <p>
-Basados en Orgmode, existen <a href="http://orgmode.org/worg/org-blog-wiki.html">varios sistemas para generar un sitio web estático</a>, y después de probar algunos me he decidido por <a href="https://github.com/kelvinh/org-page"><b>org-page</b></a>, aunque con un tema propio.
+Basados en Orgmode, existen <a href="http://orgmode.org/worg/org-blog-wiki.html">varios sistemas para generar un sitio web estático</a>, y después de probar algunos me he decidido por <b><a href="https://github.com/kelvinh/org-page">org-page</a></b>, aunque con un tema propio.
 </p>
 
 
 
-<div id="outline-container-org9223fed" class="outline-2">
-<h2 id="org9223fed">Instalación de <b>org-page</b></h2>
-<div class="outline-text-2" id="text-org9223fed">
+<div id="outline-container-org0a4eea5" class="outline-2">
+<h2 id="org0a4eea5">Instalación de <b>org-page</b></h2>
+<div class="outline-text-2" id="text-org0a4eea5">
 <p>
 La forma más simple es utilizar el sistema de paquetes de <b>Emacs</b>. Basta con ejecutar <code>alt-x</code> <code>package-install org-page</code>
 </p>
 </div>
 </div>
 
-<div id="outline-container-org2aeb49d" class="outline-2">
-<h2 id="org2aeb49d">Creación del sitio</h2>
-<div class="outline-text-2" id="text-org2aeb49d">
+<div id="outline-container-orgbe49773" class="outline-2">
+<h2 id="orgbe49773">Creación del sitio</h2>
+<div class="outline-text-2" id="text-orgbe49773">
 <p>
 Ejecutar <code>alt-x</code> <code>op/new-repository</code>. <b>Org-page</b> creará el directorio donde se almacenarán los ficheros fuente del blog, e inicializará un repositorio <b>git</b>. Como se verá más adelante, <b>org-page</b> utiliza diferentes ramas para crear la publicación.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org3d78bea" class="outline-2">
-<h2 id="org3d78bea">Configuración de <b>org-page</b></h2>
-<div class="outline-text-2" id="text-org3d78bea">
+<div id="outline-container-orgc95c254" class="outline-2">
+<h2 id="orgc95c254">Configuración de <b>org-page</b></h2>
+<div class="outline-text-2" id="text-orgc95c254">
 <p>
 <b>Org-page</b> solo puede manejar un sitio a la vez. En mi caso, he creado un fichero de configuración en la raíz del sitio creado en el punto anterior, que ejecuto para generar el sitio.
 </p>
@@ -99,9 +99,9 @@ La mayoría de variables son autoexplicativas. Las variables relativas a la inte
 </div>
 </div>
 
-<div id="outline-container-orgde1a3ed" class="outline-2">
-<h2 id="orgde1a3ed">Publicación de una entrada</h2>
-<div class="outline-text-2" id="text-orgde1a3ed">
+<div id="outline-container-org2f8eafd" class="outline-2">
+<h2 id="org2f8eafd">Publicación de una entrada</h2>
+<div class="outline-text-2" id="text-org2f8eafd">
 <p>
 Una vez configurado, para crear una entrada puede ejecutarse <code>alt-x</code> <code>op/new-post</code>, que simplemente crea un nuevo fichero <b>org</b> en el subdirectorio <code>/blog</code>. La próxima vez que se genere el sitio será tenido en cuenta. Por ejemplo, este es el <a href="https://github.com/alvarogonzalezsotillo/alvarogonzalezsotillo.github.io/blob/source/blog/blogueando-con-orgmode/blogueando-con-orgmode.org">código fuente de esta entrada.</a>
 </p>
@@ -133,19 +133,19 @@ Basados en Orgmode, existen [[http://orgmode.org/worg/org-blog-wiki.html][varios
 </div>
 </div>
 
-<div id="outline-container-org2e6946d" class="outline-2">
-<h2 id="org2e6946d">Resultado final</h2>
-<div class="outline-text-2" id="text-org2e6946d">
+<div id="outline-container-org45aaa27" class="outline-2">
+<h2 id="org45aaa27">Resultado final</h2>
+<div class="outline-text-2" id="text-org45aaa27">
 <p>
-Este sitio está generado con <b>org-page</b>, como era de esperar 😃. Utiliza la publicación de <a href="https://pages.github.com/">páginas estáticas de <b>github</b></a> basándose en el repositorio <a href="https://github.com/alvarogonzalezsotillo/alvarogonzalezsotillo.github.io">https://github.com/alvarogonzalezsotillo/alvarogonzalezsotillo.github.io</a>
+Este sitio está generado con <b>org-page</b>, como era de esperar 😃. Utiliza la publicación de <b><a href="https://pages.github.com/">páginas estáticas de github</a></b> basándose en el repositorio <a href="https://github.com/alvarogonzalezsotillo/alvarogonzalezsotillo.github.io">https://github.com/alvarogonzalezsotillo/alvarogonzalezsotillo.github.io</a>
 </p>
 </div>
 </div>
 
 
-<div id="outline-container-org21ee61a" class="outline-2">
-<h2 id="org21ee61a">¿Y por qué no usas <b>Wordpress</b>?</h2>
-<div class="outline-text-2" id="text-org21ee61a">
+<div id="outline-container-org4fba64f" class="outline-2">
+<h2 id="org4fba64f">¿Y por qué no usas <b>Wordpress</b>?</h2>
+<div class="outline-text-2" id="text-org4fba64f">
 <p>
 Trabajar con <b>emacs</b> y <b>git</b> ya es razón suficiente, pero hay otras razones: posibilidad de trabajo <i>offline</i> y el versionado de las páginas.
 </p>
@@ -217,7 +217,7 @@ Trabajar con <b>emacs</b> y <b>git</b> ya es razón suficiente, pero hay otras r
     <div>
       <div class="post-meta">
         <span title="post date" class="post-info">2017-05-16</span>
-        <span title="last modification date" class="post-info">2017-09-26</span>
+        <span title="last modification date" class="post-info">2017-10-01</span>
         <span title="tags" class="post-info"><a href="/tags/emacs/">emacs</a>, <a href="/tags/orgmode/">orgmode</a></span>
         <span title="author" class="post-info">Álvaro González Sotillo</span>
       </div>
