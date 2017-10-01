@@ -3,8 +3,8 @@
 #+EMAIL:       alvarogonzalezsotillo@gmail.com
 #+DATE:        2017-10-01 dom
 #+URI:         /blog/%y/%m/%d/cómo-preparo-mi-entorno-con-emacs
-#+KEYWORDS:    <TODO: insert your keywords here>
-#+TAGS:        <TODO: insert your tags here>
+#+KEYWORDS:    Emacs, magit, git, latex, reveal
+#+TAGS:        Emacs, latex
 #+LANGUAGE:    en
 #+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 #+DESCRIPTION: Cada vez que llego a un nuevo ordenador tengo que preparar mi entorno, y se puede hacer fácilmente con un par de /scripts/
@@ -40,25 +40,25 @@ Para ello tengo preparados un par de /scripts/ para facilitar el proceso. En uno
   git clone https://github.com/alvarogonzalezsotillo/.emacs.d.git
   #+end_src
 4. Para instalar los paquetes de *Emacs* necesarios, ejecuto dentro de *Emacs* este código *elisp*
-  #+begin_src elisp
-;; REINSTALAR LOS PAQUETES (SI ES UN EMACS NUEVO)
-(defun reinstalar-paquetes-en-emacs-nuevo() 
-
-  (interactive) 
-  ;; LISTA DE PAQUETES INSTALADOS (C-h v package-selected-packages)
-  (setq package-selected-packages '(company-restclient ob-restclient restclient-helm restclient transmission hl-line+ treemacs paradox gift-mode org-webpage plsql org-page company-web company-shell company-quickhelp company-emoji company-c-headers company company-auctex helm-company highlight-indent-guides which-key dumb-jump dired-narrow org markdown-mode magit popup-complete scad-preview scad-mode org-attach-screenshot bm yafolding web-mode transpose-frame tablist switch-window swiper sr-speedbar smartparens scala-outline-popup request-deferred rectangle-utils rainbow-delimiters php-mode page-break-lines ox-reveal org-present neotree multiple-cursors image+ htmlize helm-projectile github-browse-file git-timemachine git-link flycheck find-file-in-project expand-region epresent ensime discover diffview crappy-jsp-mode chess calfw browse-at-remote auto-highlight-symbol alert adaptive-wrap))
-  
-  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
-
-  (package-refresh-contents)
-  (package-initialize)  
-
-  (package-install-selected-packages))
-
-(require 'package)
-(reinstalar-paquetes-en-emacs-nuevo)
-  #+end_src
-
+   #+begin_src elisp
+ ;; REINSTALAR LOS PAQUETES (SI ES UN EMACS NUEVO)
+ (defun reinstalar-paquetes-en-emacs-nuevo() 
+ 
+   (interactive) 
+   ;; LISTA DE PAQUETES INSTALADOS (C-h v package-selected-packages)
+   (setq package-selected-packages '(company-restclient ob-restclient restclient-helm restclient transmission hl-line+ treemacs paradox gift-mode org-webpage plsql org-page company-web company-shell company-quickhelp company-emoji company-c-headers company company-auctex helm-company highlight-indent-guides which-key dumb-jump dired-narrow org markdown-mode magit popup-complete scad-preview scad-mode org-attach-screenshot bm yafolding web-mode transpose-frame tablist switch-window swiper sr-speedbar smartparens scala-outline-popup request-deferred rectangle-utils rainbow-delimiters php-mode page-break-lines ox-reveal org-present neotree multiple-cursors image+ htmlize helm-projectile github-browse-file git-timemachine git-link flycheck find-file-in-project expand-region epresent ensime discover diffview crappy-jsp-mode chess calfw browse-at-remote auto-highlight-symbol alert adaptive-wrap))
+   
+   (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+ 
+   (package-refresh-contents)
+   (package-initialize)  
+ 
+   (package-install-selected-packages))
+ 
+ (require 'package)
+ (reinstalar-paquetes-en-emacs-nuevo)
+   #+end_src
+ 
 * *Windows* con *Cygwin*
 Si necesito instalar mi sistema en *Windows* utilizo *Cygwin*, para evitar problemas de integración de paquetes (por ejemplo, *[[https://github.com/magit/magit][magit]]* no funciona correctamente). Eso sí, el rendimiento es bastante peor que con herramientas de *Windows* nativas. El procedimiento es el siguiente:
 1. Descargar el fichero [[https://www.cygwin.com/setup-x86_64.exe]]
