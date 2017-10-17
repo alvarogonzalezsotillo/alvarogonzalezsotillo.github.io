@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Controlando el universo: mi propio reloj de sol - Álvaro González Sotillo</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Álvaro González Sotillo" />
+    <meta name="description" content="Tras algún trauma infantil, y 6 años de trabajo (muy) intermitente, ya tengo mi reloj de sol. Y funciona." />
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
+  </head>
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">Álvaro González Sotillo</a></h1>
+        <p></p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">Acerca de mí</a></li>
+          <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="//www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Search">
+          <input type="hidden" name="as_sitesearch" value="alvarogonzalezsotillo.github.io">
+        </form>
+        <img class="avatar" src="/media/img/octaedron.png" />
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>Controlando el universo: mi propio reloj de sol</h1>
+
+<div class="figure">
+<p><a href="/assets/blog/relog-de-sol/47.png" style="float:left;"><img src="/assets/blog/relog-de-sol/47-small.png" alt="/assets/blog/relog-de-sol/47-small.png" style="float:left;" /></a>
+</p>
+</div>
+
+<p>
+El primer reloj de sol que me interesó fue el de Tico, el personaje de la serie animada <a href="http://es.wikipedia.org/wiki/La_vuelta_al_mundo_de_Willy_Fog">La vuelta al mundo de Willi Fog</a>. Es un reloj de sol <a href="http://www.radiocable.com/el-reloj-solar-de-tico-willy-fog-lo-invento-un-monje-benedictino6545.html">benedictino</a>, que marca la hora sobre un anillo al atravesar el sol un agujero sobre el mismo. El agujero es regulable para reflejar los cambios estacionales en la altura del sol.
+</p>
+
+<p>
+El caso es que con 9 años conseguí una reproducción de las que regalaban con los <a href="http://www.fotolog.com/ladytronik/10941353/">yogures</a>. Salí absolutamente emocionado al patio de mi casa, coloqué el agujero en la F de Febrero, y conseguí ver una hora que difería en 1 hora y media con la del vídeo VHS (hora de referencia en mi casa). Después de un rato, conseguí ver la hora correcta, a cambio de no usar el mes en el que estaba.
+</p>
+
+<p>
+Mis padres me explicaron que era un juguete, y que no tenía por qué dar la hora correcta. A partir de entonces seguí interesado en todos los relojes de sol que encontraba. Luego me enteré que todos marcaban con exactitud la <a href="http://es.wikipedia.org/wiki/Tiempo_solar">hora solar</a>, algo bastante inútil si lo que querías saber era la <a href="http://www.portalciencia.net/relojsol/horalegal.html">hora legal</a>.
+</p>
+
+<p>
+Cuando tuve mi primer acceso a Internet conseguí el código fuente de una librería de cálculo de posiciones de objetos celestes, Ephem (ahora <a href="http://www.clearskyinstitute.com/xephem/">XEphem</a>). Realicé un programa muy básico que pintaba los <a href="http://es.wikipedia.org/wiki/Analema">analemas</a> de cada una de las horas del día, y los proyectaba como si fuera un reloj de sol. Me quedó algo muy parecido a <a href="http://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Sundial_face_with_analemmatic_hour_lines.png/800px-Sundial_face_with_analemmatic_hour_lines.png">esto</a>, por lo que estaba claro que, simplemente, no se podía hacer un reloj de sol que permitiera conocer durante todo el año la hora legal. 
+</p>
+
+<p>
+En el 2008 comencé en serio la creación de mi particular reloj de sol. Por cuestiones geométricas, y de orientación de mi casa, no me era posible hacer un reloj con un dial suficientemente amplio, así que me decidí por una versión de un <a href="http://en.wikipedia.org/wiki/File:Avenches_Cadran_solaire_cropped_smaller.JPG">noon mark</a> . Mi reloj de sol incluye líneas de día para los 15 de cada mes, y el analema de la hora en la que el cruce del analema coincide con el sol justo enfrente de la pared. <a href="/assets/blog/relog-de-sol/47.pdf">Este es el fichero vectorial de uno de mis relojes, el del lado este</a>. 
+</p>
+
+
+<div class="figure">
+<p><a href="/assets/blog/relog-de-sol/esquina.jpg" style="float:right;"><img src="/assets/blog/relog-de-sol/esquina-small.jpg" alt="/assets/blog/relog-de-sol/esquina-small.jpg" style="float:right;" /></a>
+</p>
+</div>
+
+<p>
+Las líneas pueden interpretarse de la siguiente forma:
+</p>
+<ul class="org-ul">
+<li>Las líneas de lado a lado marcan un día. La sombra del estilete recorre esa línea en un día.</li>
+<li>Las líneas marcadas corresponden al 15 de cada mes. Así que se puede saber más o menos el día del año viendo la hora en cualquier momento.</li>
+<li>Cada línea se recorre dos veces al año: el sol <i>sube</i> hasta el solsticio de verano, y <i>baja</i> hasta el invierno. En los dos equinoccios el sol va por la misma línea (que pasa por el cruce del analema)</li>
+<li>La sombra siempre llega a la misma hora al analema. En el ejemplo, a las 11:17 (en un horario GMT+1, sin hora extra en verano)</li>
+</ul>
+
+
+<p>
+El <a href="https://github.com/alvarogonzalezsotillo/sundial">código fuente del programa está en github</a>. No esperéis un código ejemplar, ya que ha cambiado 3 veces de tecnología en 6 años (AWT, Java2D, <a href="http://xmlgraphics.apache.org/batik/">Batik</a>). Se utiliza una versión propia <a href="http://code.google.com/p/sideralis2/">Sideralis2</a> como librería de cálculos astronómicos. Aún así, es aprovechable si alguien quiere intentar poner su propio reloj de sol en casa.
+</p>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2012-10-10</span>
+        <span title="last modification date" class="post-info">2017-10-17</span>
+        <span title="tags" class="post-info"><a href="/tags/astronomia/">Astronomia</a>, <a href="/tags/programacion/">programacion</a></span>
+        <span title="author" class="post-info">Álvaro González Sotillo</span>
+      </div>
+      <section>
+        <h1>Comments</h1>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+          //var disqus_developer = 1;
+          var disqus_identifier = "/blog/relog-de-sol";
+          var disqus_url = "https://alvarogonzalezsotillo.github.io/blog/relog-de-sol";
+          var disqus_shortname = 'alvarogonzalezsotillo';
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="//disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      </section>
+      <!-- <script src="//code.jquery.com/jquery-latest.min.js"></script> -->
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->
+      <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>  -->
+      <script src="/media/js/jquery-3.2.1.min.js"></script>
+      <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+      <script src="/media/js/main.js"></script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:alvarogonzalezsotillo <at> gmail <dot> com">Álvaro González Sotillo</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>

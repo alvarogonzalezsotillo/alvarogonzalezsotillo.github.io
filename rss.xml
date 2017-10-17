@@ -4,10 +4,17 @@
     <title>Álvaro González Sotillo</title>
     <link>https://alvarogonzalezsotillo.github.io/</link>
     <description></description>
-    <pubDate>mar, 17 oct 2017 11:47:34 CEST</pubDate>
-    <lastBuildDate>mar, 17 oct 2017 11:47:34 CEST</lastBuildDate>
+    <pubDate>mar, 17 oct 2017 11:50:17 CEST</pubDate>
+    <lastBuildDate>mar, 17 oct 2017 11:50:17 CEST</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
+    <item>
+      <title>Controlando el universo: mi propio reloj de sol</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/relog-de-sol</link>
+      <description><![CDATA[Tras algún trauma infantil, y 6 años de trabajo (muy) intermitente, ya tengo mi reloj de sol. Y funciona.]]></description>
+      <pubDate>2017-10-17</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/relog-de-sol</guid>
+    </item>
     <item>
       <title>Bittorrent en el aula</title>
       <link>https://alvarogonzalezsotillo.github.io/blog/bittorent-en-el-aula</link>
@@ -35,13 +42,6 @@
       <description><![CDATA[Cada vez que llego a un nuevo ordenador tengo que preparar mi entorno, y se puede hacer fácilmente con un par de /scripts/]]></description>
       <pubDate>2017-10-01</pubDate>
       <guid>https://alvarogonzalezsotillo.github.io/blog/como-preparo-mi-entorno-con-emacs</guid>
-    </item>
-    <item>
-      <title>Controlando el universo: mi propio reloj de sol</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/2012/10/10/controlando-el-universo-mi-propio-reloj-de-sol/</link>
-      <description><![CDATA[Tras algún trauma infantil, y 6 años de trabajo (muy) intermitente, ya tengo mi reloj de sol. Y funciona.]]></description>
-      <pubDate>2017-10-01</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/2012/10/10/controlando-el-universo-mi-propio-reloj-de-sol/</guid>
     </item>
     <item>
       <title>Test de Bongard</title>

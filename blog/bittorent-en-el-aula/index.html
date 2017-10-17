@@ -36,9 +36,9 @@
 Durante el desarrollo de ciclos formativos de grado medio y superior, es muy común la necesidad de compartir ficheros con los alumnos. Para ilustrar el problema, supondremos que el profesor necesita distribuir una ISO de instalación de Ubuntu (1.6 GBytes) en un aula con 15 ordenadores.
 </p>
 
-<div id="outline-container-org349c5ec" class="outline-2">
-<h2 id="org349c5ec">Solución 1: Uso de <i>pen drive</i></h2>
-<div class="outline-text-2" id="text-org349c5ec">
+<div id="outline-container-org6d14e81" class="outline-2">
+<h2 id="org6d14e81">Solución 1: Uso de <i>pen drive</i></h2>
+<div class="outline-text-2" id="text-org6d14e81">
 <p style="float:right;">
 <img src="/assets/blog/bittorent-en-el-aula/pendrive-small.jpg" alt="/assets/blog/bittorent-en-el-aula/pendrive-small.jpg" style="float:right;" />
 El profesor pasa por cada puesto de alumno, copiando desde un disco duro externo o <i>pen drive</i> el fichero deseado. Suponiendo una  tasa de transferencia de 25 MBytes/segundo, cada alumno necesita unos 60 segundos para conseguir su copia. Incluyendo el proceso de conexión y desconexión cada alumno necesita unos 2 minutos. Esto hace un total de 30 minutos para distribuir el fichero.
@@ -46,18 +46,18 @@ El profesor pasa por cada puesto de alumno, copiando desde un disco duro externo
 </div>
 </div>
 
-<div id="outline-container-org4621c5c" class="outline-2">
-<h2 id="org4621c5c">Solución 2: Uso de pen drive y copias de alumnos</h2>
-<div class="outline-text-2" id="text-org4621c5c">
+<div id="outline-container-orgf3be0be" class="outline-2">
+<h2 id="orgf3be0be">Solución 2: Uso de pen drive y copias de alumnos</h2>
+<div class="outline-text-2" id="text-orgf3be0be">
 <p>
 Si cada alumno que consigue el fichero lo  copia a un pen drive propio y lo distribuye a otros alumnos, puede copiarse el fichero mucho más rápido. Esta es una posibilidad teórica más que real, puesto que los alumnos no suelen entender el proceso y se tarda más en explicarlo que en aplicar la primera solución.
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgb95feeb" class="outline-2">
-<h2 id="orgb95feeb">Solución 3: Uso de un servidor de ficheros</h2>
-<div class="outline-text-2" id="text-orgb95feeb">
+<div id="outline-container-orgc9053c2" class="outline-2">
+<h2 id="orgc9053c2">Solución 3: Uso de un servidor de ficheros</h2>
+<div class="outline-text-2" id="text-orgc9053c2">
 
 <div class="figure">
 <p><img src="/assets/blog/bittorent-en-el-aula/sharedfolder-small.jpg" alt="/assets/blog/bittorent-en-el-aula/sharedfolder-small.jpg" style="float:right;" />
@@ -75,9 +75,9 @@ El fichero puede hacerse accesible desde la red, y cada alumno baja su propia co
 </div>
 </div>
 
-<div id="outline-container-org44ab6a3" class="outline-2">
-<h2 id="org44ab6a3">Solución 4: Uso de un protocolo de red p2p</h2>
-<div class="outline-text-2" id="text-org44ab6a3">
+<div id="outline-container-orgc16f94e" class="outline-2">
+<h2 id="orgc16f94e">Solución 4: Uso de un protocolo de red p2p</h2>
+<div class="outline-text-2" id="text-orgc16f94e">
 <p style="float:right;">
 <img src="/assets/blog/bittorent-en-el-aula/utorrent.jpg" alt="/assets/blog/bittorent-en-el-aula/utorrent.jpg" style="float:right;" />
 El problema fundamental del servidor de ficheros es que una sola conexión debe dar servicio a todos los alumnos. Si conseguimos que cada alumno comparta su conexión con los demás, este cuello de botella queda resuelto. De esta forma, se consigue una transferencia casi simultánea a todos los alumnos del fichero, necesitando solo 3 minutos para una red a 100 MB.
