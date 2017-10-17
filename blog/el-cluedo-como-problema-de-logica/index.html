@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>El Cluedo como problema de lógica de segundo orden - Álvaro González Sotillo</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Álvaro González Sotillo" />
+    <meta name="description" content="El Cluedo es considerado un juego para niños, pero bajo su superficie hay un interesante problema de lógica de segundo orden." />
+    <meta name="keywords" content="AI,programación,javascript" />
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
+  </head>
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">Álvaro González Sotillo</a></h1>
+        <p></p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">Acerca de mí</a></li>
+          <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="//www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Search">
+          <input type="hidden" name="as_sitesearch" value="alvarogonzalezsotillo.github.io">
+        </form>
+        <img class="avatar" src="/media/img/octaedron.png" />
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>El Cluedo como problema de lógica de segundo orden</h1>
+
+<div class="figure">
+<p><img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/Cluedo_Clue_pack_logo.png/250px-Cluedo_Clue_pack_logo.png" alt="250px-Cluedo_Clue_pack_logo.png" style="float:right;" />
+</p>
+</div>
+
+<p>
+El <a href="https://en.wikipedia.org/wiki/Cluedo">Cluedo</a> es un juego infantil cuyas normas resumidas son:
+</p>
+<ul class="org-ul">
+<li>Las cartas tienen tres categorías: <b>personajes</b>, <b>herramientas</b> y <b>lugar</b>.</li>
+<li>Se oculta una carta de cada tipo en un sobre.</li>
+<li>El resto de cartas se reparte entre los jugadores</li>
+<li>Los jugadores deben deducir qué cartas están ocultas mediante sus preguntas.</li>
+<li>En cada turno, un jugador hace una <i>predicción</i> de tres cartas
+<ul class="org-ul">
+<li>El jugador a su derecha debe mostrar una de esas cartas al jugador que ha preguntado (si es poseedor de ellas).</li>
+<li>Si no posee ninguna, debe admitirlo y se hace la misma pregunta al siguiente jugador, hasta que algún jugador muestra una carta, o se llega de nuevo al jugador que hizo la pregunta.</li>
+</ul></li>
+<li>Cuando un jugador crea tener la combinación oculta en el sobre, debe hacer una <i>acusación</i>, diciendo en alto esas tres cartas.
+<ul class="org-ul">
+<li>Comprobará él mismo si ha acertado con las tres cartas, en cuyo caso ha ganado el juego.</li>
+<li>Si no ha acertado, seguirá jugando, pero sin la posibilidad de ganar.</li>
+</ul></li>
+<li>En las normas completas del juego se utilizan también dados y fichas sobre un tablero, pero esas normas no son importantes para el problema de lógica.</li>
+</ul>
+
+
+<p>
+Con el material del juego se incluyen unas plantillas de ayuda a los jugadores, donde hay una casilla por cada posible carta. En las instrucciones se indica que se debe apuntar cada carta que se posea, o que se descubra mediante preguntas que otros jugadores tienen. Al final, las tres cartas que queden sin apuntar serán las cartas ocultas. 
+</p>
+
+<p>
+Aunque este enfoque es correcto, es mejorable utilizando el resto de información disponible para cada jugador. Como se verá posteriormente, cada respuesta a una pregunta puede representarse como una fórmula lógica de primer orden, permite realizar muchas más deducciones.
+</p>
+
+<div id="outline-container-org545285b" class="outline-2">
+<h2 id="org545285b">Variables lógicas</h2>
+<div class="outline-text-2" id="text-org545285b">
+<p>
+Supongamos que hay \(J\) jugadores, \(P\) cartas de personaje, \(H\) cartas de herramientas y \(L\) cartas de lugar. En total habrá \(M=P+H+L\) cartas. El sobre puede considerarse un jugador más (por ejemplo, el número \(0\)). Para cada carta y jugador tendremos en cuenta una variable que indica si ese jugador posee esa carta, \(c_{ij}\), con los subíndices variando entre los posibles valores de jugadores y cartas (\(i \in M, j \in J\)).
+</p>
+
+<p>
+En el resto de la discusión, supondremos que el valor lógico \(verdadero\) equivale a \(1\) al utilizarse con operadores numéricos, y que \(falso\) equivale a \(0\).
+</p>
+
+<p>
+La estructura del problema impone varias condiciones sobre las variables \(c_{ij}\):
+</p>
+<ul class="org-ul">
+<li>Si un jugador posee una carta, el resto de jugadores no pueden tenerla: \({\sum_{j} c_{ij} = 1}, \forall i \in M\)</li>
+<li>Cada jugador tiene un número de cartas \(n_j\), por lo que \(\sum_{i} c_{ij} = n_j\). Por ejemplo, en el sobre (jugador \(0\)) siempre hay tres cartas, por lo que \(\sum_{i} c_{i0} = 3\).</li>
+<li>En el sobre hay una carta de cada tipo. Por tanto \(\sum_{i \in J} c_{i0} = 1\), \(\sum_{i \in P} c_{i0} = 1\), \(\sum_{i \in L} c_{i0} = 1\)</li>
+<li>Si el jugador \(j\) nos muestra la carta \(i\), podemos asignar el valor \(c_{ij}=true\).</li>
+<li>Si el jugador \(j\) reconoce no tener ninguna de las cartas \(x,y,z\) podemos asignar los valores \(c_{xj}=false\) ,  \(c_{yj}=false\) ,  \(c_{zj}=false\)</li>
+<li>Si el jugador \(j\) reconoce tener alguna de las cartas \(x,y,z\) a otro jugador, podemos deducir que \((c_{xj} \lor c_{yj} \lor c_{zj}) = true\)</li>
+<li>Si un jugador hace una <i>acusación</i> con cartas \(x,y,z\), pero no acierta, podemos deducir que \(\lnot(c_{x0} \land c_{y0} \land c_{z0}) = true\).</li>
+</ul>
+
+
+<p>
+Puede verse que cada una de estas ecuaciones es una <b>restricción</b> que deben cumplir las variables \(c_{ij}\). Las restricciones impiden que todos los valores sean válidos.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf76dd67" class="outline-2">
+<h2 id="orgf76dd67">Expresiones lógicas</h2>
+<div class="outline-text-2" id="text-orgf76dd67">
+<p>
+En el punto anterior, se vio que puede modelarse el problema utilizando las funciones lógicas \(\lnot\) (negación), \(\land\) (conjunción), \(\lor\) (disyunción), y una función que cuente si el número de variables con valor \(true\) es un número determinado \(n\), que llamaremos \(V_n()\).
+</p>
+
+<p>
+De estas funciones, sólo \(\lnot\) y \(V_n()\) son primitivas:
+</p>
+<ul class="org-ul">
+<li>\(a_1 \land a_2 \land \ldots \land a_n\) puede expresarse como \(V_n(a_1, a_2, \ldots, a_n)\)</li>
+<li>\(a_1 \lor a_2 \lor \ldots \lor a_n\) puede expresarse como \(\lnot( \lnot a_1 \land \lnot a_2 \land \ldots \land \lnot a_n)\) (leyes de Morgan)</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org330dfe5" class="outline-2">
+<h2 id="org330dfe5">Programación por restricciones</h2>
+<div class="outline-text-2" id="text-org330dfe5">
+<p>
+La <a href="https://es.wikipedia.org/wiki/Programaci%C3%B3n_con_restricciones">programación por restricciones</a> es una técnica para dar valores a variables de una forma coherente con las restricciones impuestas entre ellas.
+</p>
+
+<p>
+Los elementos de un sistema de programación por restricciones son:
+</p>
+<ul class="org-ul">
+<li>Las variables (nuestras \(c_{ij}\))</li>
+<li>Las restricciones entre ellas</li>
+<li>Una forma de <b>propagar</b> las restricciones: aplicar las consecuencias de los valores de variables y restricciones en los posibles valores de otras variables</li>
+<li>Un sistema de <b>prueba y error</b>: cuando la propagación no es suficiente para dar valor a todas las variables, se realiza una búsqueda entre los posibles valores hasta encontrar un conjunto coherente.</li>
+</ul>
+</div>
+
+<div id="outline-container-org76ccf2c" class="outline-3">
+<h3 id="org76ccf2c">Variables</h3>
+<div class="outline-text-3" id="text-org76ccf2c">
+<p>
+Las variables tienen un dominio inicial, que es el conjunto de sus valores posibles. Como son variables lógicas, este dominio es \(\{true,false\}\). Es importante señalar que durante la propagación y la búsqueda este dominio nunca se amplía, sino que se reduce. 
+</p>
+
+<p>
+Si una variable tiene solo un valor en su dominio, se considera que ese es su valor, y la variable está <b>definida</b>.
+</p>
+
+<p>
+Si alguna variable llega a tener un dominio sin posibles valores (dominio vacío), es porque dicha variable no puede tener ningún valor posible, por lo que las restricciones y los dominios de las demás variables no son coherentes.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orga823a95" class="outline-3">
+<h3 id="orga823a95">Expresiones</h3>
+<div class="outline-text-3" id="text-orga823a95">
+<p>
+Las expresiones pueden verse también como variables. Por ejemplo, si el dominio de \(a\) y \(b\) es \(\{true,false\}\), \(a \land b\) tiene el mismo dominio. Pero si el dominio de \(b\) se reduce a \(\{false\}\), el dominio de \(a \land b\) también se reduce (ya no puede ser \(true\)). Esto hace que una <i>expresión</i> pueda utilizarse como una variable más.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org8162c23" class="outline-3">
+<h3 id="org8162c23">Restricciones</h3>
+<div class="outline-text-3" id="text-org8162c23">
+<p>
+Una restricción es una expresión a la que se fija un valor. Por ejemplo, \(a \land b\) es una expresión, pero \(a \land b = false\) se convierte en una restricción. Es importante recalcar que las restricciones <b>eliminan</b> valores del dominio de una variable, por lo que no hay forma de <b>incrementar</b> el dominio.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf39dcb9" class="outline-3">
+<h3 id="orgf39dcb9">Propagación</h3>
+<div class="outline-text-3" id="text-orgf39dcb9">
+<p>
+En la propagación se extraen consecuencias de las expresiones y los dominios de variables. Basta con estudiar \(\lnot\) y \(V_n()\), puesto que las demás pueden basarse en estas.
+</p>
+
+<p>
+Pueden distinguirse dos direcciones en la propagación: desde los elementos de una expresión hacia la expresión (hacia <i>arriba</i>), y desde la expresión hacia sus elementos (hacia <i>abajo</i>)
+</p>
+</div>
+
+<div id="outline-container-org06495b9" class="outline-4">
+<h4 id="org06495b9">Propagación hacia <i>arriba</i></h4>
+<div class="outline-text-4" id="text-org06495b9">
+<ul class="org-ul">
+<li>Si se elimina \(true\) de \(a\), puede eliminarse \(false\) de \(\lnot a\).</li>
+<li>Si se elimina \(false\) de  \(a\), puede eliminarse \(true\) de \(\lnot a\).</li>
+<li>Para \(V_n(a_1,a_2,\ldots,a_m)\)
+<ul class="org-ul">
+<li>Si hay más de \(n\) variables definidas a \(true\), la expresión es \(false\) (se elimina \(true\) del dominio de la expresión)</li>
+<li>Si hay más de \(m-n\) variables definidas a \(false\), la expresión es \(false\) (se elimina \(true\) del dominio de la expresión)</li>
+<li>Si están definidas todas las variables y hay \(n\) a \(true\), se elimina \(false\) del dominio de la expresión.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-orgbe1d7f7" class="outline-4">
+<h4 id="orgbe1d7f7">Propagación hacia <i>abajo</i></h4>
+<div class="outline-text-4" id="text-orgbe1d7f7">
+<ul class="org-ul">
+<li>Si se elimina \(true\) de \(\lnot a\), puede eliminarse \(false\) de \(a\).</li>
+<li>Si se elimina \(false\) de  \(\lnot a\), puede eliminarse \(true\) de \(a\).</li>
+<li>Si \(V_n(a_1,a_2,\ldots,a_m)\) es \(false\) y todas las variables están definidas menos \(a_i\)
+<ul class="org-ul">
+<li>Si hay \(n-1\) variables \(true\), entonces \(a_i\) es \(false\) (se le quita \(true\))</li>
+<li>Si hay n variables a \(true\), entonces \(a_i\) es \(true\) (se le quita \(false\))</li>
+</ul></li>
+<li>Si \(V_n(a_1,a_2,\ldots,a_m)\) es \(true\) y todas las variables están definidas menos \(l\) de ellas:
+<ul class="org-ul">
+<li>Si hay \(n\) variables \(true\), entonces todas las \(l\) variables sin definir son \(false\) (se les quita \(true\))</li>
+<li>Si hay \(n-l\) variables a \(true\), entonces todas las \(l\) variables son \(true\) (se les quita \(false\))</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgeefcbcd" class="outline-3">
+<h3 id="orgeefcbcd">Prueba y error (<i>branch and bound</i>)</h3>
+<div class="outline-text-3" id="text-orgeefcbcd">
+<p>
+El algoritmo de propagación descrito no es capaz de deducir todos los valores posibles por sí mismo. Para mejorarlo, puede seguirse el siguiente procedimiento:
+</p>
+<ol class="org-ol">
+<li>Sea \(U\) el conjunto de las variables \(c_{ij}\) tales que su dominio no está definido.</li>
+<li>Por cada \(c \in U\)
+<ul class="org-ul">
+<li>Se quita \(true\) del dominio de \(c\) y se realiza la propagación. Si alguna variable se queda con el dominio vacío, es que \(c\) no puede ser \(false\), así que se quita \(false\) de su dominio.</li>
+<li>Se quita \(false\) del dominio de \(c\) y se realiza la propagación. Si alguna variable se queda con el dominio vacío, es que \(c\) no puede ser \(true\), así que se quita \(true\) de su dominio.</li>
+</ul></li>
+</ol>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org10ba615" class="outline-2">
+<h2 id="org10ba615">Implementación</h2>
+<div class="outline-text-2" id="text-org10ba615">
+<p>
+<a href="https://github.com/alvarogonzalezsotillo/cluedo/blob/master/js/cp.js">La implementación del sistema de restricciones para variables booleanas</a> está disponible en <a href="https://github.com/alvarogonzalezsotillo/cluedo/blob/master/js/cp.js">Github</a>, y su interfaz puede verse en <a href="https://github.com/alvarogonzalezsotillo/cluedo/blob/master/js/cp.simple.test.js">varios casos de prueba</a>. 
+</p>
+
+<p>
+En el siguiente ejemplo, se comprueba la propagación del equivalente a la función \(V_n()\):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-javascript">// CREACIÓN DE 4 VARIABLES
+var CP = new CPManager();
+var a = CP.Boolean("a");
+var b = CP.Boolean("b");
+var c = CP.Boolean("c");
+var d = CP.Boolean("d");
+
+// EXPRESIÓN: DE LAS 4, UNA ES VERDADERA
+var st = CP.SomeTrue([a,b,c,d],1);
+
+// LA EXPRESIÓN ES CIERTA
+st.remove(false);
+
+// a NO PUEDE SER FALSE
+a.remove(false);
+
+// LA PROPAGACIÓN HACE QUE EL RESTO DE VARIABLES TENGA QUE SER FALSA
+assert(b.isFalse());
+assert(c.isFalse());
+assert(d.isFalse());
+
+</pre>
+</div>
+
+<p>
+Y este es un ejemplo de propagación de la expresión \(\lor\) (o lógico):
+</p>
+<div class="org-src-container">
+<pre class="src src-javascript">// CREACIÓN DE 3 VARIABLES
+var CP = new CPManager();
+var a = CP.Boolean("a");
+var b = CP.Boolean("b");
+var c = CP.Boolean("c");
+var or = CP.Or([a,b,c]);
+
+// LA EXPRESIÓN or ES CIERTA, PERO a Y b SON FALSAS
+or.remove(false);
+a.remove(true);
+b.remove(true);
+
+// POR TANTO, c ES OBLIGATORIAMENTE CIERTA
+assert(a.isFalse());
+assert(b.isFalse());
+assert(c.isTrue());
+
+</pre>
+</div>
+
+
+<p>
+Con estas primitivas lógicas, se ha implementado el juego del Cluedo (<a href="https://github.com/alvarogonzalezsotillo/cluedo/blob/master/js/cluedo.js">código fuente del Cluedo</a>). Primero se prepara una lista de hechos, con las preguntas y respuestas del juego. Este es un ejemplo de una partida real:
+</p>
+<div class="org-src-container">
+<pre class="src src-javascript">var facts = [
+    // NÚMERO DE JUGADORES Y CARTAS DE CADA UNO
+    new PlayersFact( [4,4,4,3,3] ),
+
+    // CARTAS PROPIAS
+    new PlayerHasSomeFact(0,["Herramienta"]),
+    new PlayerHasSomeFact(0,["Candelabro"]),
+    new PlayerHasSomeFact(0,["Amapola"]),
+    new PlayerHasSomeFact(0,["Biblioteca"]),
+
+    // PREGUNTAS Y RESPUESTAS
+    new PlayerDoesntHaveAnyFact(3,["Sala de billar","Puñal","Rubio"]),
+    new PlayerHasSomeFact(2,["Sala de billar","Puñal","Rubio"]),
+    new PlayerHasSomeFact(2,["Puñal"]),
+    new PlayerHasSomeFact( 1, ["Rubio"] ),
+    new PlayerDoesntHaveAnyFact( 1, ["Amapola", "Biblioteca", "Pistola" ] ),
+    new PlayerDoesntHaveAnyFact(3, ["Pistola", "Mora", "Sala de billar" ] ),
+    new PlayerHasSomeFact(2, ["Pistola", "Mora", "Sala de billar" ] ), 
+    new PlayerDoesntHaveAnyFact( 3, ["Sala de baile", "Cuerda", "Mora" ]),
+    new PlayerHasSomeFact( 2, ["Sala de baile", "Cuerda", "Mora" ] ),
+    new PlayerDoesntHaveAnyFact(  4 ,  ["Sala de baile", "Mora", "Candelabro" ] ),
+    new PlayerDoesntHaveAnyFact(  3 ,  ["Sala de baile", "Mora", "Candelabro" ] ),
+    new PlayerHasSomeFact( 2, ["Sala de baile"] ),
+    new PlayerHasSomeFact( 4, ["Prado", "Pistola", "Invernadero" ] ),
+    new PlayerDoesntHaveAnyFact(  1 ,  ["Vestíbulo", "Cuerda", "Prado" ] ),
+    new PlayerDoesntHaveAnyFact(  3 ,  ["Vestíbulo", "Cuerda", "Prado" ] ),
+    new PlayerDoesntHaveAnyFact(  4 ,  ["Vestíbulo", "Cuerda", "Prado" ] ),
+    new PlayerDoesntHaveAnyFact(  2 ,  ["Prado", "Cuerda", "Invernadero" ] ),
+    new PlayerDoesntHaveAnyFact(  1 ,  ["Prado", "Cuerda", "Invernadero" ] ),
+    new PlayerDoesntHaveAnyFact(  0 ,  ["Prado", "Cuerda", "Invernadero" ] ),
+    new PlayerDoesntHaveAnyFact(  4 ,  ["Prado", "Cuerda", "Invernadero" ] ),
+    new PlayerDoesntHaveAnyFact(  3 ,  ["Tubería", "Cocina", "Celeste" ] ),
+    new PlayerHasSomeFact(  2 ,  ["Tubería", "Cocina", "Celeste" ] ),
+    new PlayerHasSomeFact(  4 ,  ["Pistola" ] ),
+    new PlayerHasSomeFact(  2, ["Salón", "Prado", "Tubería" ] ),
+];
+</pre>
+</div>
+
+<p>
+Después, se definen las cartas posibles en el juego (hay bastantes versiones):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-javascript">
+var flavor = {
+    flavorName : "El gran juego de detectives (con Orquídea)",
+    characterNames : ["Amapola", "Celeste", "Orquídea", "Prado", "Mora", "Rubio"],
+    toolNames : ["Candelabro", "Tubería", "Cuerda", "Puñal", "Pistola", "Herramienta"],
+    placeNames : ["Sala de billar", "Salón", "Estudio", "Comedor", "Sala de baile", "Cocina", "Biblioteca", "Invernadero", "Vestíbulo"]
+};
+
+</pre>
+</div>
+
+<p>
+Por último se calculan los posibles valores de las cartas:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-javascript">
+var c = new Cluedo(flavor,facts);
+
+// CARTAS DEDUCIDAS POR PROPAGACIÓN
+c.printCards(c.cards());
+
+</pre>
+</div>
+
+<p>
+La salida del programa es la siguiente (<code>V</code> indica que la carta la tiene ese jugador, <code>x</code> que la carta no la tiene ese jugador, y <code>.</code> indica que no se puede saber con los datos introducidos):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-html">                    Player 0  Player 1  Player 2  Player 3  Player 4  Envelope  
+Candelabro          V         x         x         x         x         x         
+Tubería             x         .         .         x         .         x         
+Cuerda              x         x         x         x         x         V         
+Puñal               x         x         V         x         x         x         
+Pistola             x         x         x         x         V         x         
+Herramienta         V         x         x         x         x         x         
+Sala de billar      x         .         .         x         .         .         
+Salón               x         .         .         .         .         .         
+Estudio             x         .         .         .         .         .         
+Comedor             x         .         .         .         .         .         
+Sala de baile       x         x         V         x         x         x         
+Cocina              x         .         .         x         .         .         
+Biblioteca          V         x         x         x         x         x         
+Invernadero         x         x         x         .         x         .         
+Vestíbulo           x         x         .         x         x         .         
+Amapola             V         x         x         x         x         x         
+Celeste             x         .         .         x         .         x         
+Orquídea            x         .         .         .         .         x         
+Prado               x         x         x         x         x         V         
+Mora                x         .         .         x         x         x         
+Rubio               x         V         x         x         x         x    
+</pre>
+</div>
+
+<p>
+Las deducciones pueden mejorarse con la prueba y error:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-javascript">// CARTAS MEJORADAS CON PRUEBA Y ERROR
+c.improveByGuessing();
+c.printCards(c.cards());
+</pre>
+</div>
+
+<p>
+Que da lugar al descubrimiento de que dos cartas no pueden estar en el sobre:
+</p>
+
+
+<div class="org-src-container">
+<pre class="src src-html">Hechos deducidos:[{"_factType":"EnvelopeDoesntHaveFact","_cards":["Sala de billar"]},{"_factType":"EnvelopeDoesntHaveFact","_cards":["Salón"]}]
+                    Player 0  Player 1  Player 2  Player 3  Player 4  Envelope  
+Candelabro          V         x         x         x         x         x         
+Tubería             x         .         .         x         .         x         
+Cuerda              x         x         x         x         x         V         
+Puñal               x         x         V         x         x         x         
+Pistola             x         x         x         x         V         x         
+Herramienta         V         x         x         x         x         x         
+Sala de billar      x         .         .         x         .         x         
+Salón               x         .         .         .         .         x         
+Estudio             x         .         .         .         .         .         
+Comedor             x         .         .         .         .         .         
+Sala de baile       x         x         V         x         x         x         
+Cocina              x         .         .         x         .         .         
+Biblioteca          V         x         x         x         x         x         
+Invernadero         x         x         x         .         x         .         
+Vestíbulo           x         x         .         x         x         .         
+Amapola             V         x         x         x         x         x         
+Celeste             x         .         .         x         .         x         
+Orquídea            x         .         .         .         .         x         
+Prado               x         x         x         x         x         V         
+Mora                x         .         .         x         x         x         
+Rubio               x         V         x         x         x         x  
+
+</pre>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2017-08-29</span>
+        <span title="last modification date" class="post-info">2017-10-01</span>
+        <span title="tags" class="post-info"><a href="/tags/cluedo/">cluedo</a>, <a href="/tags/javascript/">javascript</a>, <a href="/tags/ai/">AI</a>, <a href="/tags/programación/">programación</a></span>
+        <span title="author" class="post-info">Álvaro González Sotillo</span>
+      </div>
+      <section>
+        <h1>Comments</h1>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+          //var disqus_developer = 1;
+          var disqus_identifier = "/blog/el-cluedo-como-problema-de-logica";
+          var disqus_url = "https://alvarogonzalezsotillo.github.io/blog/el-cluedo-como-problema-de-logica";
+          var disqus_shortname = 'alvarogonzalezsotillo';
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="//disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      </section>
+      <!-- <script src="//code.jquery.com/jquery-latest.min.js"></script> -->
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->
+      <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>  -->
+      <script src="/media/js/jquery-3.2.1.min.js"></script>
+      <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+      <script src="/media/js/main.js"></script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:alvarogonzalezsotillo <at> gmail <dot> com">Álvaro González Sotillo</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>
