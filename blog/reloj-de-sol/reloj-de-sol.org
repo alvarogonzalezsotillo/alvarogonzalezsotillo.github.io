@@ -3,7 +3,7 @@
 #+AUTHOR:      Álvaro González Sotillo
 #+EMAIL:       alvarogonzalezsotillo@gmail.com
 #+DATE:        2012-10-10
-#+URI:         /blog/relog-de-sol
+#+URI:         /blog/reloj-de-sol
 
 #+TAGS: Astronomia, programacion
 #+DESCRIPTION: Tras algún trauma infantil, y 6 años de trabajo (muy) intermitente, ya tengo mi reloj de sol. Y funciona.
