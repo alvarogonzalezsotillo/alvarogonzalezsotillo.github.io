@@ -2,4 +2,5 @@
 #+AUTHOR:      Álvaro González Sotillo
 #+EMAIL:       alvarogonzalezsotillo@gmail.com
 
-Esta es la página de about. Seguramente prefieras [[file:blog/index.html][el blog]].
+Esta es la página de about. Seguramente prefieras [[file:../blog/index.html][el blog]].
+
