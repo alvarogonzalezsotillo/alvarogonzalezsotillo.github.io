@@ -1,0 +1,48 @@
+#+TITLE:       Plantila Latex para exámenes tipo test
+#+AUTHOR:      Álvaro González Sotillo
+#+EMAIL:       alvarogonzalezsotillo@gmail.com
+#+DATE:        2017-10-17 mar
+#+URI:         /blog/plantila-latex-para-examenes-tipo-test
+#+KEYWORDS:    latex
+#+TAGS:        latex
+#+LANGUAGE:    es
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: Utilizando una plantilla latex pueden generarse exámenes de una forma cómoda y con buena legibilidad.
+
+
+https://github.com/alvarogonzalezsotillo/grading-questionnaire/blob/master/questionnaire-from-gift/src/main/resources/giftToLatex/QuestionnaireGradingTest.template.tex
+
+
+Desde hace un tiempo utilizo Latex para escribir mis exámenes. Al final he creado una plantilla con varias macros de Latex para facilitar la creación preguntas cerradas (de tipo /test/), preguntas abiertas de distinta longitud, y una tabla de respuestas inicial.
+
+* Preguntas cerradas 
+Las preguntas cerradas son las que tienen un enunciado y varias opciones a elegir, de las cuales solo una es correcta. 
+
+Para escribir un bloque de estas preguntas basta con abrir un entorno =QuestionaireQuestions=, e incluir varias =QuestionaireQuestion= en su interior. Cada =QuestionaireQuestion= puede incluir varios =\item=
+
+#+begin_src tex
+
+\begin{QuestionnaireQuestions}
+  \begin{QuestionnaireQuestion}[Los siguientes tipos de redes están colocados de mayor a menor extensión geográfica]
+    \item WAN, LAN, MAN
+    \item WAN, MAN, LAN
+    \item PAN, CAN, WAN
+    \item PAN, WAN, LAN
+  \end{QuestionnaireQuestion}
+  \begin{QuestionnaireQuestion}[Se quiere construir una red que abarque el municipio de Fuenlabrada (unos 5 Km de diámetro)]
+    \item LAN
+    \item WAN
+    \item PAN
+    \item MAN
+  \end{QuestionnaireQuestion}
+
+  [...]
+
+\end{QuestonaireQuestions}
+
+#+end_src
+
+las preguntas aparecerán numeradas. Para aprovechar el espacio en el papel las preguntas se escriben a [[https://es.sharelatex.com/learn/Multiple_columns][doble columna]]. El enunciado de cada pregunta y todas sus opciones se escriben siempre en la misma columna para facilitar su lectura, utilizando una [[http://www.sascha-frank.com/latex-minipage.html][minipage]].
+
+#+caption: Ejemplo de página con preguntas cerradas
+[[file:plantilla-latex-para-examenes.tex][file:preguntas-cerradas.png]]
