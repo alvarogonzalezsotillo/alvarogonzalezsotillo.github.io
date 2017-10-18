@@ -8,13 +8,14 @@
 #+DESCRIPTION: Es posible crear un blog sin (casi) salir de emacs.
 
 #+LANGUAGE:    es
-#+OPTIONS:     H:7 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+OPTIONS:     H:7 num:t toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 
 
 *[[https://www.gnu.org/software/emacs/][Emacs]]* no es solo un editor de texto. Una vez que te decides a probarlo, no puedes parar de pensar en /qué más puedo hacer sin salir de Emacs/. Este sitio web está hecho con *[[http://orgmode.org/][Orgmode]]*, un /[[https://www.gnu.org/software/emacs/manual/html_node/emacs/Major-Modes.html][major mode]]/ de Emacs que permite generar documentos a partir de ficheros de texto plano (muy al estilo de [[https://en.wikipedia.org/wiki/Markdown][markdown]]).
 
 Basados en Orgmode, existen [[http://orgmode.org/worg/org-blog-wiki.html][varios sistemas para generar un sitio web estático]], y después de probar algunos me he decidido por *[[https://github.com/kelvinh/org-page][org-page]]*, aunque con un tema propio.
 
+#+TOC: headlines 2 local
 
 
 * Instalación de *org-page*

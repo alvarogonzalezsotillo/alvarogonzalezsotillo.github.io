@@ -6,7 +6,7 @@
 #+KEYWORDS:    AI,programación,javascript
 #+TAGS:        cluedo,javascript,AI,programación
 #+LANGUAGE:    en
-#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+OPTIONS:     H:3 num:t toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 #+DESCRIPTION: El Cluedo es considerado un juego para niños, pero bajo su superficie hay un interesante problema de lógica de segundo orden.
 
 #+ATTR_HTML: :style float:right;
@@ -29,6 +29,9 @@ El [[https://en.wikipedia.org/wiki/Cluedo][Cluedo]] es un juego infantil cuyas n
 Con el material del juego se incluyen unas plantillas de ayuda a los jugadores, donde hay una casilla por cada posible carta. En las instrucciones se indica que se debe apuntar cada carta que se posea, o que se descubra mediante preguntas que otros jugadores tienen. Al final, las tres cartas que queden sin apuntar serán las cartas ocultas. 
 
 Aunque este enfoque es correcto, es mejorable utilizando el resto de información disponible para cada jugador. Como se verá posteriormente, cada respuesta a una pregunta puede representarse como una fórmula lógica de primer orden, permite realizar muchas más deducciones.
+
+#+TOC: headlines 2 local
+
 
 * Variables lógicas
 Supongamos que hay $J$ jugadores, $P$ cartas de personaje, $H$ cartas de herramientas y $L$ cartas de lugar. En total habrá $M=P+H+L$ cartas. El sobre puede considerarse un jugador más (por ejemplo, el número $0$). Para cada carta y jugador tendremos en cuenta una variable que indica si ese jugador posee esa carta, $c_{ij}$, con los subíndices variando entre los posibles valores de jugadores y cartas ($i \in M, j \in J$).
