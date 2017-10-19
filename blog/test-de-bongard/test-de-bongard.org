@@ -4,7 +4,7 @@
 #+EMAIL:       alvarogonzalezsotillo@gmail.com
 #+DATE:        2017-05-16 mar
 #+URI:         /blog/test-de-bongard
-#+TAGS:        programacion, java, IA
+#+TAGS:        programación, java, IA
 #+DESCRIPTION: A pesar de ser jugador de videojuegos y programador durante años, nunca había hecho uno. Los tests de Bongard me dan una buena oportunidad de programar uno.
 
 #+LANGUAGE:    en
