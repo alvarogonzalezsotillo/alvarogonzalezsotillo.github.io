@@ -51,7 +51,7 @@
 
 
 |-----------------------------------------|
-| Este artícullo tiene una [[file:electrostatic-polyhedron.pdf][versión en pdf]] |
+| Este artículo tiene una [[file:electrostatic-polyhedron.pdf][versión en pdf]]  |
 |-----------------------------------------|
                                           
 
@@ -315,7 +315,7 @@ A diferencia de la mayoría de lenguajes, *OpenSCAD* no ofrece bucles de tipo *m
 
 
 
-Los bucles =for= siempre forman parte de un /for comprehension/, lo que implica que su resultado no puee ser un valor único, sino una lista con una posición por cada vuelta. Para conseguir acumular la distancia total entre dos listas de puntos es necesario, por tanto, un bucle =for= y un bucle =while= implementado como función recursiva (ver listado [[orgsrcblock6]]). Las fuerzas aplicadas en cada carga se calculan también como un /for comprehension/, como se muestra en el listado [[orgsrcblock7]]
+Los bucles =for= siempre forman parte de un /for comprehension/, lo que implica que su resultado no puede ser un valor único, sino una lista con una posición por cada vuelta. Para conseguir acumular la distancia total entre dos listas de puntos es necesario, por tanto, un bucle =for= y un bucle =while= implementado como función recursiva (ver listado [[orgsrcblock6]]). Las fuerzas aplicadas en cada carga se calculan también como un /for comprehension/, como se muestra en el listado [[orgsrcblock7]]
 
 #+name: orgsrcblock6
  #+caption: Suma de distancias entre dos listas de puntos
@@ -331,7 +331,7 @@ Los bucles =for= siempre forman parte de un /for comprehension/, lo que implica 
 
 
 #+name: orgsrcblock7
- #+caption: Cálclo de las fuerzas que actúan sobre una carga
+ #+caption: Cálculo de las fuerzas que actúan sobre una carga
  #+begin_src java
   function fuerzasParaPunto( p, puntos ) = [
    for( punto = puntos )
