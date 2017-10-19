@@ -95,7 +95,7 @@ La figura [[fig:algoritmo]] muestra gráficamente el proceso del cálculo de la 
 #+name: fig:algoritmo
 #+attr_html: :width 30%
 #+attr_latex: :width .3\linewidth
-[[file:algoritmo.svg]]
+[[file:algoritmo.png]]
 
 #+latex:  }
 ** Cubrimiento convexo de los vértices
@@ -557,7 +557,7 @@ Para que *OpenSCAD* genere algún volumen hay que utilizar un =module= predefini
   aristasAPalos(aristasSinDuplicados,vertices,5);
 #+end_src
 
-Si se desea visualizar un sólido tradicional, basta con que *OpenSCAD* calcule el cubrimiento de los vértices. En este caso, los vérices se modelan como pequeñas esferas (listado [[orgsrcblock16]])
+Si se desea visualizar un sólido tradicional, basta con que *OpenSCAD* calcule el cubrimiento de los vértices. En este caso, los vértices se modelan como pequeñas esferas (listado [[orgsrcblock16]])
 
 #+name: orgsrcblock16
 #+caption: Generación de un poliedro sólido 
