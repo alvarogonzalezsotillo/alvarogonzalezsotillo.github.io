@@ -4,10 +4,17 @@
     <title>Álvaro González Sotillo</title>
     <link>https://alvarogonzalezsotillo.github.io/</link>
     <description></description>
-    <pubDate>mié, 18 oct 2017 22:20:43 CEST</pubDate>
-    <lastBuildDate>mié, 18 oct 2017 22:20:43 CEST</lastBuildDate>
+    <pubDate>jue, 19 oct 2017 12:58:44 CEST</pubDate>
+    <lastBuildDate>jue, 19 oct 2017 12:58:44 CEST</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
+    <item>
+      <title>Poliedros basados en configuraciones de mínima energía entre vértices</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/electrostatic-polyedron</link>
+      <description><![CDATA[La distribución de cargas que se repelen en la superficie de una esfera da lugar a interesantes poliedros al calcular su recubrimiento convexo.]]></description>
+      <pubDate>2017-10-19</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/electrostatic-polyedron</guid>
+    </item>
     <item>
       <title>Blogueando con orgmode</title>
       <link>https://alvarogonzalezsotillo.github.io/blog/bloqueando-con-orgmode</link>
@@ -21,13 +28,6 @@
       <description><![CDATA[El Cluedo es considerado un juego para niños, pero bajo su superficie hay un interesante problema de lógica de segundo orden.]]></description>
       <pubDate>2017-10-18</pubDate>
       <guid>https://alvarogonzalezsotillo.github.io/blog/el-cluedo-como-problema-de-logica</guid>
-    </item>
-    <item>
-      <title>Poliedros basados en configuraciones de mínima energía entre vértices</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/electrostatic-polyedron</link>
-      <description><![CDATA[La distribución de cargas que se repelen en la superficie de una esfera da lugar a interesantes poliedros al calcular su recubrimiento convexo.]]></description>
-      <pubDate>2017-10-18</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/electrostatic-polyedron</guid>
     </item>
     <item>
       <title>Cómo preparo mi entorno con Emacs</title>
