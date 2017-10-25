@@ -1,6 +1,6 @@
 #+TITLE:       Cómo publico materiales para clase
-#+AUTHOR:      alvaro
-#+EMAIL:       alvaro@alvaro-vaio
+#+AUTHOR:      Álvaro González Sotillo
+#+EMAIL:       alvarogonzalezsotillo@gmail.com
 #+DATE:        2017-10-25 mié
 #+URI:         /blog/mi-publicación-de-materiales-para-clase
 #+KEYWORDS:    latex,emacs,org-mode,reveal,git,github,github pages
@@ -16,9 +16,12 @@ La rutina de muchos profesores suele ser la siguiente:
 - Los materiales sufren cambios, como:
   - Corrección de erratas
   - Modificación de los contenidos entre cursos
-- Los cambios se pueden hacer desde diferentes ordenadores: departamento, aula, ordenador personal...
-- Durante el proceso, es necesario hacer copias de seguridad
 
+Este /flujo de trabajo/ se complica porque la creación y los cambios se pueden hacer desde diferentes ordenadores (departamento, aula, ordenador personal). Además, durante el proceso es necesario hacer copias de seguridad. Y de vez en cuando uno se equivoca y hay que volver a alguna versión anterior. Y, lamentablemente, el acceso a Internet sigue sin estar garantizado al 100% en las aulas de los institutos
+
+En esta entrada describo qué solución utilizo, que combina repositorios Git, tecnología /offline/ y servicios gratuitos de Internet.
+
+[[file:materiales-para-clase.svg.png]]
 
 
 * Copias de seguridad
@@ -54,7 +57,7 @@ Estas ventajas no son tan claras con ficheros binarios. Por eso, los únicos fic
 ** URL de los contenidos
 Una vez publicados en *Github Pages*, basta con utilizar la URL del recurso en Moodle para enlazarlo. Para facilitar la tarea, utilizo un /script/ que imprime las URL de los ficheros pasados como párametro. Suelo utilizarlo desde dentro de Emacs con =C-U M-! ghpages *=.
 
-#+caption /Script/ utilizado para conocer la URL de un fichero en *Github Pages*
+#+caption: /Script/ utilizado para conocer la URL de un fichero en *Github Pages*
 #+begin_src sh
 #!/bin/bash
 

@@ -567,4 +567,6 @@ div#text-table-of-contents li:before{
 .post img{
     margin-right: auto;
     margin-left: auto;
+    max-height: 80%;
+    max-width: 80%;
 }
