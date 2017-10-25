@@ -1,0 +1,103 @@
+#+TITLE:       Cómo publico materiales para clase
+#+AUTHOR:      alvaro
+#+EMAIL:       alvaro@alvaro-vaio
+#+DATE:        2017-10-25 mié
+#+URI:         /blog/mi-publicación-de-materiales-para-clase
+#+KEYWORDS:    latex,emacs,org-mode,reveal,git,github,github pages
+#+TAGS:        latex,emacs,org-mode,reveal,git,github,github pages
+#+LANGUAGE:    es
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: Los materiales que preparamos los profesores se distribuyen entre los alumnos mediante plataformas de aprendizaje como Moodle. Lo interesante es cómo llegan esos materiales a la plataforma.
+
+
+La rutina de muchos profesores suele ser la siguiente:
+- Se crea (o se adopta) algún tipo de material para clase: transparencias, ejercicios, actividades...
+- Se publica en la plataforma de aprendizaje
+- Los materiales sufren cambios, como:
+  - Corrección de erratas
+  - Modificación de los contenidos entre cursos
+- Los cambios se pueden hacer desde diferentes ordenadores: departamento, aula, ordenador personal...
+- Durante el proceso, es necesario hacer copias de seguridad
+
+
+
+* Copias de seguridad
+Utilizo tres sistemas de copias de seguridad para el directorio con los ficheros de clase:
+- MegaSync sincroniza continuamente los cambios, siempre que haya acceso Internet
+- FreeFileSync sincroniza los ficheros bajo demanda con una memoria USB.
+- GitHub contiene los ficheros públicos, y BitBucket contiene también los privados.
+
+* Publicación de contenidos
+Moodle 3 ha mejorado bastante la publicación de ficheros desde la versión anterior, ya que ahora basta /arrastrar y soltar/ para que aparezcan en el curso. De todas formas, sigue siendo engorroso realizar manualmente las actualizaciones, sobre todo si son varias a la vez.
+
+Mi opción es utilizar un servidor intermedio, GitHub Pages. Los contenidos se sirven desde GitHub, y en Moodle sólo hay enlaces a dichos contenidos.
+
+** Repositorios y ramas *Git*
+Utilizo un solo repositorio para todas las asignaturas (en el pasado tenía uno por asignatura, pero era demasiado farragoso). El repositorio tiene dos ramas
+- =gh-pages=: contenidos públicos 
+  - Apuntes, enunciados de prácticas, documentos, presentaciones, imágenes...
+- =profesor=: contenidos privados
+  - Exámenes y su corrección
+  - Prácticas entregadas
+  - Notas de los alumnos
+
+El repositorio tiene dos /remote/
+- Uno público en *github*, con la rama =gh-pages=, donde se publican mediate Github Pages
+- Uno privado en *bitbucket*, con las ramas =gh-pages= y =profesor=, como copia de seguridad
+
+Utilizar repositorios *git* con ficheros de texto plano tiene ventajas evidentes, como:
+- Posibilidad de trabajo /offiline/
+- Posibilidad de modificaciones desde cualquier ordenador con *git* y acceso a Internet.
+
+Estas ventajas no son tan claras con ficheros binarios. Por eso, los únicos ficheros binarios que utilizo son hojas de cálculo para el cálculo de las notas de los alumnos.
+
+** URL de los contenidos
+Una vez publicados en *Github Pages*, basta con utilizar la URL del recurso en Moodle para enlazarlo. Para facilitar la tarea, utilizo un /script/ que imprime las URL de los ficheros pasados como párametro. Suelo utilizarlo desde dentro de Emacs con =C-U M-! ghpages *=.
+
+#+caption /Script/ utilizado para conocer la URL de un fichero en *Github Pages*
+#+begin_src sh
+#!/bin/bash
+
+# DIRECTORIO ABSOLUTO DEL REPOSITORIO ACTUAL
+git_repo(){
+    git rev-parse --show-toplevel
+}
+
+# DIRECTORIO DEL REPOSITORIO ACTUAL
+git_repo_name(){
+    basename $(git_repo)
+}
+
+# RUTA ABSOLUTA A PARTIR DE RUTA RELATIVA
+absolute_filename(){
+    local F=$1
+    readlink -f $F
+}
+
+# RUTA RELATIVA DE UN FICHERO EN EL REPOSITORIO
+filename_relative_to_git_repo(){
+    local F=$(absolute_filename $1)
+    local REPO=$(git_repo)
+    local LENGTHR=${#REPO}
+    local RET=${F:$LENGTHR}
+    echo $RET
+}
+
+for FILENAME in $*
+do
+    echo https://alvarogonzalezsotillo.github.io/$(git_repo_name)$( filename_relative_to_git_repo $FILENAME)
+done
+#+end_src
+
+
+* Creación de los materiales
+Para disfrutar de las ventajas que *git* ofrece, utilizo ficheros de texto. Mi opción es el formato =org-mode=, que me permite sin salir de Emacs:
+- Generar presentaciones, con *org-reveal*
+- Generar una versión *pdf* de las presentaciones, que los alumnos pueden imprimir
+- Generar apuntes tanto en *pdf* como en *html*
+- Si necesito afinar en el formato o la apariencia (prácticas, exámenes) recurro a Latex. Por ejemplo, utilizo esta [[file:~/github/alvarogonzalezsotillo.github.io/blog/plantilla-latex-para-examenes/plantilla-latex-para-examenes.org][plantilla para exámenes]].
+
+De todas formas, aún mantento algunos ficheros binarios
+- Ficheros *docx* como plantillas de trabajo para los alumnos
+- Ficheros *xlsx* para el cálculo de notas
+
