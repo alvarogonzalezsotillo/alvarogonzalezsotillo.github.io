@@ -5,7 +5,7 @@
 #+DATE:        2017-10-17
 #+URI:         /blog/electrostatic-polyedron
 
-#+TAGS: programacion
+#+TAGS: programación,openscad
 #+DESCRIPTION: La distribución de cargas que se repelen en la superficie de una esfera da lugar a interesantes poliedros al calcular su recubrimiento convexo.
 
 
