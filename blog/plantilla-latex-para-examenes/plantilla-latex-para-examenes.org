@@ -46,3 +46,47 @@ las preguntas aparecerán numeradas. Para aprovechar el espacio en el papel las 
 
 #+caption: Ejemplo de página con preguntas cerradas
 [[file:plantilla-latex-para-examenes.tex][file:preguntas-cerradas.png]]
+
+* Preguntas abiertas
+Para las preguntas abiertas, en las que los alumnos deben desarrollar una respuesta, se pueden utilizar varios entornos dependiendo de la extensión de página que se espera ocupe dicha respuesta:
+- =FullPageOpenQuestion=
+- =HalfPageOpenQuestion=
+- =QuarterPageOpenQuestion=
+
+#+begin_src tex
+\begin{HalfPageOpenQuestion}
+  Compara un sistema de comunicación basado en conexión con otro no basado en conexión. Indica las ventajas e inconvenientes de cada uno
+\end{HalfPageOpenQuestion}
+
+\begin{HalfPageOpenQuestion}
+  Describe las topologías de red en bus, anillo y malla completa. Ilustra los conceptos con esquemas o dibujos.
+\end{HalfPageOpenQuestion}
+
+[...]
+
+#+end_src
+
+#+caption: Ejemplo de página con preguntas abiertas
+[[file:plantilla-latex-para-examenes.tex][file:preguntas-abiertas.png]]
+
+* Primera página
+En la primera página del examen se incluye un cuadro para la identificación del alumno, la tabla de respuestas para las preguntas cerradas y las instrucciones del examen.
+
+La tabla de respuestas tiene las siguientes variantes:
+- Vertical u horizontal: algunos alumnos prefieren que las respuestas se coloquen de arriba a abajo (como el orden de lectura japonés), y otros de izquierda a derecha (como el orden de lectura occidental)
+- Marcas o letras: en el espacio para la respuesta puede escribirse la letra de la opción, o puede marcarse una casilla.
+
+Además hay que tener en cuenta que:
+- El número de casillas de la tabla de respuestas debe ser el mismo que el de preguntas
+- El peso que se asignará a las preguntas tipo test y a las preguntas abiertas.
+
+Todos estos parámetros se especifican en la llamada a =FirstPage=
+
+#+begin_src tex
+% 60% PARA PREGUNTAS ABIERTAS
+% 40% PARA PREGUNTAS CERRADAS (TIPO TEST)
+% 30 PREGUNTAS TIPO TEST
+% LA TABLA DE RESPUESTAS SE RELLENA DE IZQUIERDA A DERECHA
+% EN LA TABLA DE RESPUESTAS SE ESCRIBE LA LETRA CORRECTA, EN VEZ DE MARCAR UNA CASILLA
+\FirstPage{60}{40}{30}{true}{false}
+#+end_src
