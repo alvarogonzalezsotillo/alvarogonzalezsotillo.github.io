@@ -2,7 +2,7 @@
 #+AUTHOR:      Álvaro González Sotillo
 #+EMAIL:       alvarogonzalezsotillo@gmail.com
 #+DATE:        2017-10-25 mié
-#+URI:         /blog/mi-publicación-de-materiales-para-clase
+#+URI:         /blog/mi-publicacion-de-materiales-para-clase
 #+KEYWORDS:    latex,emacs,org-mode,reveal,git,github,github pages
 #+TAGS:        latex,emacs,org-mode,reveal,git,github,github pages
 #+LANGUAGE:    es
@@ -98,9 +98,10 @@ Para disfrutar de las ventajas que *git* ofrece, utilizo ficheros de texto. Mi o
 - Generar presentaciones, con *org-reveal*
 - Generar una versión *pdf* de las presentaciones, que los alumnos pueden imprimir
 - Generar apuntes tanto en *pdf* como en *html*
-- Si necesito afinar en el formato o la apariencia (prácticas, exámenes) recurro a Latex. Por ejemplo, utilizo esta [[file:~/github/alvarogonzalezsotillo.github.io/blog/plantilla-latex-para-examenes/plantilla-latex-para-examenes.org][plantilla para exámenes]].
+- Si necesito afinar en el formato o la apariencia (prácticas, exámenes) recurro a Latex. Por ejemplo, utilizo esta [[/blog/plantilla-latex-para-examenes/index.html][plantilla para exámenes]].
 
 De todas formas, aún mantento algunos ficheros binarios
 - Ficheros *docx* como plantillas de trabajo para los alumnos
 - Ficheros *xlsx* para el cálculo de notas
 
+  
