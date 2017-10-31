@@ -21,6 +21,7 @@ Este /flujo de trabajo/ se complica porque la creación y los cambios se pueden 
 
 En esta entrada describo qué solución utilizo, que combina repositorios Git, tecnología /offline/ y servicios gratuitos de Internet.
 
+#+caption: Diagrama de los soportes de información utilizados
 [[file:materiales-para-clase.svg.png]]
 
 
@@ -98,9 +99,9 @@ Para disfrutar de las ventajas que *git* ofrece, utilizo ficheros de texto. Mi o
 - Generar presentaciones, con *org-reveal*
 - Generar una versión *pdf* de las presentaciones, que los alumnos pueden imprimir
 - Generar apuntes tanto en *pdf* como en *html*
-- Si necesito afinar en el formato o la apariencia (prácticas, exámenes) recurro a Latex. Por ejemplo, utilizo esta [[/blog/plantilla-latex-para-examenes/index.html][plantilla para exámenes]].
+- Si necesito afinar en el formato o la apariencia (prácticas, exámenes) recurro a Latex. Por ejemplo, utilizo esta [[../../blog/plantilla-latex-para-examenes/index.html][plantilla para exámenes]].
 
-De todas formas, aún mantento algunos ficheros binarios
+De todas formas, aún mantengo algunos ficheros binarios
 - Ficheros *docx* como plantillas de trabajo para los alumnos
 - Ficheros *xlsx* para el cálculo de notas
 

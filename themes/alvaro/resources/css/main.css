@@ -570,3 +570,8 @@ div#text-table-of-contents li:before{
     max-height: 80%;
     max-width: 80%;
 }
+
+div.figure p{
+    text-align: center;
+    font-size: 0.7em;
+}

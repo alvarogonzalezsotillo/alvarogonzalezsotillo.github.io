@@ -2,7 +2,7 @@
 #+AUTHOR:      Álvaro González Sotillo
 #+EMAIL:       alvarogonzalezsotillo@gmail.com
 #+DATE:        2017-10-17 mar
-#+URI:         /blog/plantila-latex-para-examenes-tipo-test
+#+URI:         /blog/plantilla-latex-para-examenes
 #+KEYWORDS:    latex
 #+TAGS:        latex
 #+LANGUAGE:    es
@@ -28,6 +28,7 @@ Además hay que tener en cuenta que:
 
 Todos estos parámetros se especifican en la llamada a =FirstPage=
 
+#+caption: Definición de la primera página
 #+begin_src tex
 % 60% PARA PREGUNTAS ABIERTAS
 % 40% PARA PREGUNTAS CERRADAS (TIPO TEST)
@@ -45,6 +46,7 @@ Las preguntas cerradas son las que tienen un enunciado y varias opciones a elegi
 
 Para escribir un bloque de estas preguntas basta con abrir un entorno =QuestionaireQuestions=, e incluir varias =QuestionaireQuestion= en su interior. Cada =QuestionaireQuestion= puede incluir varios =\item=
 
+#+caption: Definición de la preguntas cerradas
 #+begin_src tex
 
 \begin{QuestionnaireQuestions}
@@ -78,6 +80,7 @@ Para las preguntas abiertas, en las que los alumnos deben desarrollar una respue
 - =HalfPageOpenQuestion=
 - =QuarterPageOpenQuestion=
 
+#+caption: Definición de las preguntas abiertas
 #+begin_src tex
 \begin{HalfPageOpenQuestion}
   Compara un sistema de comunicación basado en conexión con otro no basado en conexión. Indica las ventajas e inconvenientes de cada uno
