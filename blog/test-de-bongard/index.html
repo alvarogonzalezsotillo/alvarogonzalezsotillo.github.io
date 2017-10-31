@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Test de Bongard - Álvaro González Sotillo</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Álvaro González Sotillo" />
+    <meta name="description" content="A pesar de ser jugador de videojuegos y programador durante años, nunca había hecho uno. Los tests de Bongard me dan una buena oportunidad de programar uno." />
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
+  </head>
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">Álvaro González Sotillo</a></h1>
+        <p></p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">Acerca de mí</a></li>
+          <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="//www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Search">
+          <input type="hidden" name="as_sitesearch" value="alvarogonzalezsotillo.github.io">
+        </form>
+        <img class="avatar" src="/media/img/octaedron.png" />
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>Test de Bongard</h1>
+
+<div class="figure">
+<p><img src="/assets/blog/test-de-bongard/test-de-bongard.gif" alt="/assets/blog/test-de-bongard/test-de-bongard.gif" style="float:left;" />
+</p>
+</div>
+
+
+<p>
+El <a href="http://es.wikipedia.org/wiki/G%C3%B6del,_Escher,_Bach:_un_Eterno_y_Gr%C3%A1cil_Bucle">libro de Escher, Gödel, Bach: Un eterno y grácil bucle</a> es uno de mis favoritos. De entre el montón de cosas realmente interesantes que se tratan en él, me llamó especialmente la atención un intento para aislar la inteligencia en su forma más abstracta y alejada de cualquier componente cultural o de experiencia previa: el test de Bongard.
+</p>
+
+<p>
+Básicamente, se trata de un test para detectar la inteligencia, no para medirla.Sólo se necesita que el sujeto del test sea capaz de ver en dos dimensiones, y en dos colores. Por no necesitarse, ni siquiera se necesita comunicación: el sujeto, cuando resuelve cada uno de los test, simplemente lo sabe. 
+</p>
+
+<p>
+Se presentan dos conjuntos de fichas. Las de la derecha tienen algo en común. Las de la izquierda no tienen esa característica común que comparten las de la derecha. El test consiste en encontrar esa característica común. Una explicación (en inglés) de estos test se encuentra en la <a href="http://www.foundalis.com/res/diss_research.html">página de Harry Foundalis</a>. Intentar resolver los test es divertido, y te da una buena ración de <a href="http://en.wikipedia.org/wiki/Eureka_effect">momentos ajá</a> que le suben a uno la moral (eso sí, no sin su esfuerzo).
+</p>
+
+<p>
+Generalmente, cuando uno encuentra la solución esta se convierte en autoevidente y no se necesita más ayuda. Pero hay veces que no llega la inspiración, y se echa de menos la capacidad que tienen otros test de "probar a ver si acierto". Se me ocurrió que se podían convertir los test de Bongard en un videojuego de la sigiuente forma:
+</p>
+<ul class="org-ul">
+<li>Se barajan las fichas de cada conjunto</li>
+<li>Se quita una de cada conjunto</li>
+<li>Se presentan las 5 fichas de cada conjunto, y una de las que hemos quitado</li>
+<li>El juego consiste en emparejar de nuevo la ficha solitaria con su conjunto original</li>
+</ul>
+
+<p>
+Además, es posible que un año de estos me toque impartir una asignatura que incluye la creación de videojuegos (<a href="http://www.aapri.es/curriculo/fp/dam/programacion-multimedia-y-dispositivos-moviles">Programación multimedia y dispositivos móviles</a>), así que he decidido lanzarme y crear un juego, que me valga para explicar conceptos básicos a los alumnos:
+</p>
+<ul class="org-ul">
+<li>Programación en Java (J2SE)</li>
+<li>Programación en Android</li>
+<li>Corrutinas</li>
+<li>Interaccción con el usuario</li>
+<li>Programación por eventos</li>
+<li>Programación en tiempo real (quiero decir, sincronizada con el tiempo real)</li>
+<li>Sistemas de coordenadas y transformadas afines</li>
+<li>Persistencia del estado</li>
+<li>Algo parecio a programación multiplataforma</li>
+</ul>
+
+
+<p>
+El código fuente del juego está en  <a href="https://github.com/alvarogonzalezsotillo/Bongard">https://github.com/alvarogonzalezsotillo/Bongard</a>, e incluye una versión para Java con AWT, otra como Applet, y una versión en Android. El applet puede ejecutarse más abajo, si se tienen los plugin necesarios. Si no:
+</p>
+<ul class="org-ul">
+<li>Se puede intentar usar el fichero JNLP para ejecutarlo, con la orden <code>javaws https://bit.ly/GAiQSy</code></li>
+<li>Se puede bajar el fichero JAR y ejecutarlo con el usual <code>java -jar bongard.jar</code></li>
+<li>Se puede bajar el fichero APK e instalarlo en tu Android</li>
+</ul>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2017-05-16</span>
+        <span title="last modification date" class="post-info">2017-10-19</span>
+        <span title="tags" class="post-info"><a href="/tags/programación/">programación</a>, <a href="/tags/java/">java</a>, <a href="/tags/ai/">AI</a></span>
+        <span title="author" class="post-info">Álvaro González Sotillo</span>
+      </div>
+      <section>
+        <h1>Comments</h1>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+          //var disqus_developer = 1;
+          var disqus_identifier = "/blog/test-de-bongard";
+          var disqus_url = "https://alvarogonzalezsotillo.github.io/blog/test-de-bongard";
+          var disqus_shortname = 'alvarogonzalezsotillo';
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="//disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      </section>
+      <!-- <script src="//code.jquery.com/jquery-latest.min.js"></script> -->
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->
+      <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>  -->
+      <script src="/media/js/jquery-3.2.1.min.js"></script>
+      <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+      <script src="/media/js/main.js"></script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:alvarogonzalezsotillo <at> gmail <dot> com">Álvaro González Sotillo</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>
