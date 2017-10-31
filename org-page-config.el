@@ -23,4 +23,5 @@
 ;(setq op/personal-google-analytics-id "your_google_analytics_id")
 
 ;; TRAS LA CONFIGURACIÓN, GENERO EL SITIO DE PRUEBA
-(op/do-publication-and-preview-site op/site-preview-directory)
+; (op/do-publication-and-preview-site op/site-preview-directory)
+(op/do-publication t nil nil t nil)
