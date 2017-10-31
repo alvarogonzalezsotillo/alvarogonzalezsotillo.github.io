@@ -13,7 +13,32 @@
 
 
 
-Desde hace un tiempo utilizo Latex para escribir mis exámenes. Al final he creado una plantilla con varias macros de Latex para facilitar la creación preguntas cerradas (de tipo /test/), preguntas abiertas de distinta longitud, y una tabla de respuestas inicial. Puede verse [[file:ejemplo-examen.pdf][aquí un ejemplo de la apariencia final de los examenes]].
+Desde hace un tiempo utilizo Latex para escribir mis exámenes. Al final he creado una plantilla con varias macros de Latex para facilitar la creación preguntas cerradas (de tipo /test/), preguntas abiertas de distinta longitud, y una tabla de respuestas inicial. Puede verse [[file:ejemplo.pdf][aquí un ejemplo de la apariencia final de los examenes]].
+
+* Primera página
+En la primera página del examen se incluye un cuadro para la identificación del alumno, la tabla de respuestas para las preguntas cerradas y las instrucciones del examen.
+
+La tabla de respuestas tiene las siguientes variantes:
+- Vertical u horizontal: algunos alumnos prefieren que las respuestas se coloquen de arriba a abajo (como el orden de lectura japonés), y otros de izquierda a derecha (como el orden de lectura occidental)
+- Marcas o letras: en el espacio para la respuesta puede escribirse la letra de la opción, o puede marcarse una casilla.
+
+Además hay que tener en cuenta que:
+- El número de casillas de la tabla de respuestas debe ser el mismo que el de preguntas
+- El peso que se asignará a las preguntas tipo test y a las preguntas abiertas.
+
+Todos estos parámetros se especifican en la llamada a =FirstPage=
+
+#+begin_src tex
+% 60% PARA PREGUNTAS ABIERTAS
+% 40% PARA PREGUNTAS CERRADAS (TIPO TEST)
+% 30 PREGUNTAS TIPO TEST
+% LA TABLA DE RESPUESTAS SE RELLENA DE IZQUIERDA A DERECHA
+% EN LA TABLA DE RESPUESTAS SE ESCRIBE LA LETRA CORRECTA, EN VEZ DE MARCAR UNA CASILLA
+\FirstPage{60}{40}{30}{true}{false}
+#+end_src
+
+#+caption: Ejemplo de página inicial con cuadro de respuestas
+[[file:cuadro-respuestas-grande.png][file:cuadro-respuestas.png]]
 
 * Preguntas cerradas 
 Las preguntas cerradas son las que tienen un enunciado y varias opciones a elegir, de las cuales solo una es correcta. 
@@ -45,7 +70,7 @@ Para escribir un bloque de estas preguntas basta con abrir un entorno =Questiona
 las preguntas aparecerán numeradas. Para aprovechar el espacio en el papel las preguntas se escriben a [[https://es.sharelatex.com/learn/Multiple_columns][doble columna]]. El enunciado de cada pregunta y todas sus opciones se escriben siempre en la misma columna para facilitar su lectura, utilizando una [[http://www.sascha-frank.com/latex-minipage.html][minipage]].
 
 #+caption: Ejemplo de página con preguntas cerradas
-[[file:plantilla-latex-para-examenes.tex][file:preguntas-cerradas.png]]
+[[file:preguntas-cerradas-grande.png][file:preguntas-cerradas.png]]
 
 * Preguntas abiertas
 Para las preguntas abiertas, en las que los alumnos deben desarrollar una respuesta, se pueden utilizar varios entornos dependiendo de la extensión de página que se espera ocupe dicha respuesta:
@@ -67,29 +92,17 @@ Para las preguntas abiertas, en las que los alumnos deben desarrollar una respue
 #+end_src
 
 #+caption: Ejemplo de página con preguntas abiertas
-[[file:plantilla-latex-para-examenes.tex][file:preguntas-abiertas.png]]
+[[file:preguntas-abiertas-grande.pdf][file:preguntas-abiertas.png]]
 
-* Primera página
-En la primera página del examen se incluye un cuadro para la identificación del alumno, la tabla de respuestas para las preguntas cerradas y las instrucciones del examen.
+* Extras
+Los ficheros =pdf= creados tienen varias características interesantes
+- El nombre del fichero =tex= original se incluye en el pie de página, lo que puede ser útil para localizar el fichero de un examen ya impreso.
+- El fichero =tex= se adjunta al =pdf=
+- Si hay un fichero =gift= ([[https://docs.moodle.org/all/es/Formato_GIFT][formato de Moodle para especificar preguntas]]) con el mismo nombre que el fichero =tex= se adjunta también al =pdf=. Como espero contar en un futuro, utilizo un programa para pasar automáticamente de ficheros =gift= al fichero =tex=.
+- En la cabecera aparece la fecha de creación.
+- En la primera página hay un código QR, que puede utilizarse para apuntar las respuestas correctas del examen o para cualquier otra cosa. Los datos están en la macro =StudentData=
+- Utilizo la macro =Solutions= para apuntar las respuestas de la parte /test/. Su valor acaba en el asunto del fichero =pdf=.
 
-La tabla de respuestas tiene las siguientes variantes:
-- Vertical u horizontal: algunos alumnos prefieren que las respuestas se coloquen de arriba a abajo (como el orden de lectura japonés), y otros de izquierda a derecha (como el orden de lectura occidental)
-- Marcas o letras: en el espacio para la respuesta puede escribirse la letra de la opción, o puede marcarse una casilla.
+Todo esto puede consultarse en el [[file:ejemplo.pdf][examen de ejemplo]].
 
-Además hay que tener en cuenta que:
-- El número de casillas de la tabla de respuestas debe ser el mismo que el de preguntas
-- El peso que se asignará a las preguntas tipo test y a las preguntas abiertas.
 
-Todos estos parámetros se especifican en la llamada a =FirstPage=
-
-#+begin_src tex
-% 60% PARA PREGUNTAS ABIERTAS
-% 40% PARA PREGUNTAS CERRADAS (TIPO TEST)
-% 30 PREGUNTAS TIPO TEST
-% LA TABLA DE RESPUESTAS SE RELLENA DE IZQUIERDA A DERECHA
-% EN LA TABLA DE RESPUESTAS SE ESCRIBE LA LETRA CORRECTA, EN VEZ DE MARCAR UNA CASILLA
-\FirstPage{60}{40}{30}{true}{false}
-#+end_src
-
-#+caption: Ejemplo de página inicial con cuadro de respuestas
-[[file:plantilla-latex-para-examenes.tex][file:cuadro-respuestas.png]]
