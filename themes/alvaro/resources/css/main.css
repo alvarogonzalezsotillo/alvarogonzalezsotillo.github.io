@@ -420,6 +420,10 @@ ul, ol {
     color: #333;
 }
 
+.post ul li, .post ol li{
+    text-indent: 0.5em;
+}
+
 .prettyprint {
     font-size: 0.75em;
 }

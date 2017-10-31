@@ -46,7 +46,7 @@ Las preguntas cerradas son las que tienen un enunciado y varias opciones a elegi
 
 Para escribir un bloque de estas preguntas basta con abrir un entorno =QuestionaireQuestions=, e incluir varias =QuestionaireQuestion= en su interior. Cada =QuestionaireQuestion= puede incluir varios =\item=
 
-#+caption: Definición de la preguntas cerradas
+#+caption: Definición de las preguntas cerradas
 #+begin_src tex
 
 \begin{QuestionnaireQuestions}
