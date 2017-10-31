@@ -420,6 +420,10 @@ ul, ol {
     color: #333;
 }
 
+.post ul li, .post ol li{
+    text-indent: 0.5em;
+}
+
 .prettyprint {
     font-size: 0.75em;
 }
@@ -567,4 +571,11 @@ div#text-table-of-contents li:before{
 .post img{
     margin-right: auto;
     margin-left: auto;
+    max-height: 80%;
+    max-width: 80%;
+}
+
+div.figure p{
+    text-align: center;
+    font-size: 0.7em;
 }

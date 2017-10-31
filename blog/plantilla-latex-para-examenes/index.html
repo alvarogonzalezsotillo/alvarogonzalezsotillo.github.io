@@ -33,12 +33,12 @@
 <div class="post">
 <h1>Plantila Latex para exámenes tipo test</h1>
 <p>
-Desde hace un tiempo utilizo Latex para escribir mis exámenes. Al final he creado una plantilla con varias macros de Latex para facilitar la creación preguntas cerradas (de tipo <i>test</i>), preguntas abiertas de distinta longitud, y una tabla de respuestas inicial. Se puede <a href="/assets/blog/plantila-latex-para-examenes-tipo-test/plantilla-latex-para-examenes.tex">descargar la plantilla</a> o verse <a href="/assets/blog/plantila-latex-para-examenes-tipo-test/ejemplo.pdf">un ejemplo de la apariencia final de los examenes</a>.
+Desde hace un tiempo utilizo Latex para escribir mis exámenes. Al final he creado una plantilla con varias macros de Latex para facilitar la creación preguntas cerradas (de tipo <i>test</i>), preguntas abiertas de distinta longitud, y una tabla de respuestas inicial. Se puede <a href="/assets/blog/plantilla-latex-para-examenes/plantilla-latex-para-examenes.tex">descargar la plantilla</a> o verse <a href="/assets/blog/plantilla-latex-para-examenes/ejemplo.pdf">un ejemplo de la apariencia final de los examenes</a>.
 </p>
 
-<div id="outline-container-orgfd16c11" class="outline-2">
-<h2 id="orgfd16c11">Primera página</h2>
-<div class="outline-text-2" id="text-orgfd16c11">
+<div id="outline-container-org07cee44" class="outline-2">
+<h2 id="org07cee44">Primera página</h2>
+<div class="outline-text-2" id="text-org07cee44">
 <p>
 En la primera página del examen se incluye un cuadro para la identificación del alumno, la tabla de respuestas para las preguntas cerradas y las instrucciones del examen.
 </p>
@@ -64,7 +64,7 @@ Todos estos parámetros se especifican en la llamada a <code>FirstPage</code>
 </p>
 
 <div class="org-src-container">
-<pre class="src src-tex">% 60% PARA PREGUNTAS ABIERTAS
+<label class="org-src-name"><span class="listing-number">Listado de programa 1 </span>Definición de la primera página</label><pre class="src src-tex">% 60% PARA PREGUNTAS ABIERTAS
 % 40% PARA PREGUNTAS CERRADAS (TIPO TEST)
 % 30 PREGUNTAS TIPO TEST
 % LA TABLA DE RESPUESTAS SE RELLENA DE IZQUIERDA A DERECHA
@@ -75,16 +75,16 @@ Todos estos parámetros se especifican en la llamada a <code>FirstPage</code>
 
 
 <div class="figure">
-<p><a href="/assets/blog/plantila-latex-para-examenes-tipo-test/cuadro-respuestas-grande.png"><img src="/assets/blog/plantila-latex-para-examenes-tipo-test/cuadro-respuestas.png" alt="/assets/blog/plantila-latex-para-examenes-tipo-test/cuadro-respuestas.png" /></a>
+<p><a href="/assets/blog/plantilla-latex-para-examenes/cuadro-respuestas-grande.png"><img src="/assets/blog/plantilla-latex-para-examenes/cuadro-respuestas.png" alt="/assets/blog/plantilla-latex-para-examenes/cuadro-respuestas.png" /></a>
 </p>
 <p><span class="figure-number">Figura 1: </span>Ejemplo de página inicial con cuadro de respuestas</p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org4159ba1" class="outline-2">
-<h2 id="org4159ba1">Preguntas cerradas</h2>
-<div class="outline-text-2" id="text-org4159ba1">
+<div id="outline-container-org739fb98" class="outline-2">
+<h2 id="org739fb98">Preguntas cerradas</h2>
+<div class="outline-text-2" id="text-org739fb98">
 <p>
 Las preguntas cerradas son las que tienen un enunciado y varias opciones a elegir, de las cuales solo una es correcta. 
 </p>
@@ -94,7 +94,7 @@ Para escribir un bloque de estas preguntas basta con abrir un entorno <code>Ques
 </p>
 
 <div class="org-src-container">
-<pre class="src src-tex">
+<label class="org-src-name"><span class="listing-number">Listado de programa 2 </span>Definición de las preguntas cerradas</label><pre class="src src-tex">
 \begin{QuestionnaireQuestions}
   \begin{QuestionnaireQuestion}[Los siguientes tipos de redes están colocados de mayor a menor extensión geográfica]
     \item WAN, LAN, MAN
@@ -122,16 +122,16 @@ las preguntas aparecerán numeradas. Para aprovechar el espacio en el papel las 
 
 
 <div class="figure">
-<p><a href="/assets/blog/plantila-latex-para-examenes-tipo-test/preguntas-cerradas-grande.png"><img src="/assets/blog/plantila-latex-para-examenes-tipo-test/preguntas-cerradas.png" alt="/assets/blog/plantila-latex-para-examenes-tipo-test/preguntas-cerradas.png" /></a>
+<p><a href="/assets/blog/plantilla-latex-para-examenes/preguntas-cerradas-grande.png"><img src="/assets/blog/plantilla-latex-para-examenes/preguntas-cerradas.png" alt="/assets/blog/plantilla-latex-para-examenes/preguntas-cerradas.png" /></a>
 </p>
 <p><span class="figure-number">Figura 2: </span>Ejemplo de página con preguntas cerradas</p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgf9739b0" class="outline-2">
-<h2 id="orgf9739b0">Preguntas abiertas</h2>
-<div class="outline-text-2" id="text-orgf9739b0">
+<div id="outline-container-orgc805aff" class="outline-2">
+<h2 id="orgc805aff">Preguntas abiertas</h2>
+<div class="outline-text-2" id="text-orgc805aff">
 <p>
 Para las preguntas abiertas, en las que los alumnos deben desarrollar una respuesta, se pueden utilizar varios entornos dependiendo de la extensión de página que se espera ocupe dicha respuesta:
 </p>
@@ -142,7 +142,7 @@ Para las preguntas abiertas, en las que los alumnos deben desarrollar una respue
 </ul>
 
 <div class="org-src-container">
-<pre class="src src-tex">\begin{HalfPageOpenQuestion}
+<label class="org-src-name"><span class="listing-number">Listado de programa 3 </span>Definición de las preguntas abiertas</label><pre class="src src-tex">\begin{HalfPageOpenQuestion}
   Compara un sistema de comunicación basado en conexión con otro no basado en conexión. Indica las ventajas e inconvenientes de cada uno
 \end{HalfPageOpenQuestion}
 
@@ -157,16 +157,16 @@ Para las preguntas abiertas, en las que los alumnos deben desarrollar una respue
 
 
 <div class="figure">
-<p><a href="preguntas-abiertas-grande.pdf"><img src="/assets/blog/plantila-latex-para-examenes-tipo-test/preguntas-abiertas.png" alt="/assets/blog/plantila-latex-para-examenes-tipo-test/preguntas-abiertas.png" /></a>
+<p><a href="preguntas-abiertas-grande.pdf"><img src="/assets/blog/plantilla-latex-para-examenes/preguntas-abiertas.png" alt="/assets/blog/plantilla-latex-para-examenes/preguntas-abiertas.png" /></a>
 </p>
 <p><span class="figure-number">Figura 3: </span>Ejemplo de página con preguntas abiertas</p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org9a0ba6e" class="outline-2">
-<h2 id="org9a0ba6e">Extras</h2>
-<div class="outline-text-2" id="text-org9a0ba6e">
+<div id="outline-container-org0389028" class="outline-2">
+<h2 id="org0389028">Extras</h2>
+<div class="outline-text-2" id="text-org0389028">
 <p>
 Los ficheros <code>pdf</code> creados tienen varias características interesantes
 </p>
@@ -180,7 +180,7 @@ Los ficheros <code>pdf</code> creados tienen varias características interesante
 </ul>
 
 <p>
-Todo esto puede consultarse en el <a href="/assets/blog/plantila-latex-para-examenes-tipo-test/ejemplo-ii.pdf">examen de ejemplo</a>.
+Todo esto puede consultarse en el <a href="/assets/blog/plantilla-latex-para-examenes/ejemplo-ii.pdf">examen de ejemplo</a>.
 </p>
 </div>
 </div>
@@ -199,8 +199,8 @@ Todo esto puede consultarse en el <a href="/assets/blog/plantila-latex-para-exam
         <div id="disqus_thread"></div>
         <script type="text/javascript">
           //var disqus_developer = 1;
-          var disqus_identifier = "/blog/plantila-latex-para-examenes-tipo-test";
-          var disqus_url = "https://alvarogonzalezsotillo.github.io/blog/plantila-latex-para-examenes-tipo-test";
+          var disqus_identifier = "/blog/plantilla-latex-para-examenes";
+          var disqus_url = "https://alvarogonzalezsotillo.github.io/blog/plantilla-latex-para-examenes";
           var disqus_shortname = 'alvarogonzalezsotillo';
           /* * * DON'T EDIT BELOW THIS LINE * * */
           (function() {
