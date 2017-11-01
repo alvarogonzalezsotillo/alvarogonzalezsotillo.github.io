@@ -108,4 +108,6 @@ Los ficheros =pdf= creados tienen varias características interesantes
 
 Todo esto puede consultarse en el [[file:ejemplo-ii.pdf][examen de ejemplo]].
 
+* Generación automática de exámenes
+No suelo utilizar directamente esta plantilla, sino que un programa traduce un fichero =gift= a código =tex= con esta plantilla. Puede consultarse el código de este programa en [[https://github.com/alvarogonzalezsotillo/grading-questionnaire]]. Este es el enlace a [[https://github.com/alvarogonzalezsotillo/grading-questionnaire/blob/master/questionnaire-from-gift/src/main/resources/giftToLatex/QuestionnaireGradingTest.template.tex][la última versión de la plantilla]].
 
