@@ -61,35 +61,35 @@ En esta entrada describo qué solución utilizo, que combina repositorios Git, t
 </div>
 
 
-<div id="outline-container-orgde4f95b" class="outline-2">
-<h2 id="orgde4f95b">Copias de seguridad</h2>
-<div class="outline-text-2" id="text-orgde4f95b">
+<div id="outline-container-orge559a5b" class="outline-2">
+<h2 id="orge559a5b">Copias de seguridad</h2>
+<div class="outline-text-2" id="text-orge559a5b">
 <p>
 Utilizo tres sistemas de copias de seguridad para el directorio con los ficheros de clase:
 </p>
 <ul class="org-ul">
-<li>MegaSync sincroniza continuamente los cambios, siempre que haya acceso Internet</li>
-<li>FreeFileSync sincroniza los ficheros bajo demanda con una memoria USB.</li>
-<li>GitHub contiene los ficheros públicos, y BitBucket contiene también los privados.</li>
+<li><a href="https://mega.nz/">MegaSync</a> sincroniza continuamente los cambios, siempre que haya acceso Internet</li>
+<li><a href="https://www.freefilesync.org/">FreeFileSync</a> sincroniza los ficheros bajo demanda con una memoria USB.</li>
+<li><a href="https://github.com/alvarogonzalezsotillo/grading-questionnaire/blob/master/questionnaire-from-gift/src/main/resources/giftToLatex/QuestionnaireGradingTest.template.tex">GitHub</a> contiene los ficheros públicos, y <a href="https://bitbucket.org">BitBucket</a> contiene también los privados.</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org407447d" class="outline-2">
-<h2 id="org407447d">Publicación de contenidos</h2>
-<div class="outline-text-2" id="text-org407447d">
+<div id="outline-container-orgb984aea" class="outline-2">
+<h2 id="orgb984aea">Publicación de contenidos</h2>
+<div class="outline-text-2" id="text-orgb984aea">
 <p>
-Moodle 3 ha mejorado bastante la publicación de ficheros desde la versión anterior, ya que ahora basta <i>arrastrar y soltar</i> para que aparezcan en el curso. De todas formas, sigue siendo engorroso realizar manualmente las actualizaciones, sobre todo si son varias a la vez.
+<a href="https://moodle.org">Moodle</a>  ha mejorado bastante la publicación de ficheros desde la versión anterior, ya que ahora basta <i>arrastrar y soltar</i> para que aparezcan en el curso. De todas formas, sigue siendo engorroso realizar manualmente las actualizaciones, sobre todo si son varias a la vez.
 </p>
 
 <p>
-Mi opción es utilizar un servidor intermedio, GitHub Pages. Los contenidos se sirven desde GitHub, y en Moodle sólo hay enlaces a dichos contenidos.
+Mi opción es utilizar un servidor intermedio, <a href="https://pages.github.com/">GitHub Pages</a>. Los contenidos se sirven desde GitHub, y en Moodle sólo hay enlaces a dichos contenidos.
 </p>
 </div>
 
-<div id="outline-container-org13af710" class="outline-3">
-<h3 id="org13af710">Repositorios y ramas <b>Git</b></h3>
-<div class="outline-text-3" id="text-org13af710">
+<div id="outline-container-org930ce1c" class="outline-3">
+<h3 id="org930ce1c">Repositorios y ramas <b>Git</b></h3>
+<div class="outline-text-3" id="text-org930ce1c">
 <p>
 Utilizo un solo repositorio para todas las asignaturas (en el pasado tenía uno por asignatura, pero era demasiado farragoso). El repositorio tiene dos ramas
 </p>
@@ -113,24 +113,13 @@ El repositorio tiene dos <i>remote</i>
 <li>Uno público en <b>github</b>, con la rama <code>gh-pages</code>, donde se publican mediate Github Pages</li>
 <li>Uno privado en <b>bitbucket</b>, con las ramas <code>gh-pages</code> y <code>profesor</code>, como copia de seguridad</li>
 </ul>
-
-<p>
-Utilizar repositorios <b>git</b> con ficheros de texto plano tiene ventajas evidentes, como:
-</p>
-<ul class="org-ul">
-<li>Posibilidad de trabajo <i>offiline</i></li>
-<li>Posibilidad de modificaciones desde cualquier ordenador con <b>git</b> y acceso a Internet.</li>
-</ul>
-
-<p>
-Estas ventajas no son tan claras con ficheros binarios. Por eso, los únicos ficheros binarios que utilizo son hojas de cálculo para el cálculo de las notas de los alumnos.
-</p>
 </div>
 </div>
 
-<div id="outline-container-org0ac1e9d" class="outline-3">
-<h3 id="org0ac1e9d">URL de los contenidos</h3>
-<div class="outline-text-3" id="text-org0ac1e9d">
+
+<div id="outline-container-org69dc862" class="outline-3">
+<h3 id="org69dc862">URL de los contenidos</h3>
+<div class="outline-text-3" id="text-org69dc862">
 <p>
 Una vez publicados en <b>Github Pages</b>, basta con utilizar la URL del recurso en Moodle para enlazarlo. Para facilitar la tarea, utilizo un <i>script</i> que imprime las URL de los ficheros pasados como párametro. Suelo utilizarlo desde dentro de Emacs con <code>C-U M-! ghpages *</code>.
 </p>
@@ -174,9 +163,9 @@ done
 </div>
 
 
-<div id="outline-container-org0aaca53" class="outline-2">
-<h2 id="org0aaca53">Creación de los materiales</h2>
-<div class="outline-text-2" id="text-org0aaca53">
+<div id="outline-container-org5ed881b" class="outline-2">
+<h2 id="org5ed881b">Creación de los materiales</h2>
+<div class="outline-text-2" id="text-org5ed881b">
 <p>
 Para disfrutar de las ventajas que <b>git</b> ofrece, utilizo ficheros de texto. Mi opción es el formato <code>org-mode</code>, que me permite sin salir de Emacs:
 </p>
@@ -202,7 +191,7 @@ De todas formas, aún mantengo algunos ficheros binarios
     <div>
       <div class="post-meta">
         <span title="post date" class="post-info">2017-10-25</span>
-        <span title="last modification date" class="post-info">2017-10-31</span>
+        <span title="last modification date" class="post-info">2017-11-01</span>
         <span title="tags" class="post-info"><a href="/tags/latex/">latex</a>, <a href="/tags/emacs/">emacs</a>, <a href="/tags/org-mode/">org-mode</a>, <a href="/tags/reveal/">reveal</a>, <a href="/tags/git/">git</a>, <a href="/tags/github/">github</a>, <a href="/tags/github-pages/">github pages</a></span>
         <span title="author" class="post-info">Álvaro González Sotillo</span>
       </div>
