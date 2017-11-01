@@ -95,7 +95,7 @@ Para las preguntas abiertas, en las que los alumnos deben desarrollar una respue
 #+end_src
 
 #+caption: Ejemplo de página con preguntas abiertas
-[[file:preguntas-abiertas-grande.pdf][file:preguntas-abiertas.png]]
+[[file:preguntas-abiertas-grande.png][file:preguntas-abiertas.png]]
 
 * Extras
 Los ficheros =pdf= creados tienen varias características interesantes
