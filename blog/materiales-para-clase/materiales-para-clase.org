@@ -21,19 +21,20 @@ Este /flujo de trabajo/ se complica porque la creación y los cambios se pueden 
 
 En esta entrada describo qué solución utilizo, que combina repositorios Git, tecnología /offline/ y servicios gratuitos de Internet.
 
+#+caption: Diagrama de los soportes de información utilizados
 [[file:materiales-para-clase.svg.png]]
 
 
 * Copias de seguridad
 Utilizo tres sistemas de copias de seguridad para el directorio con los ficheros de clase:
-- MegaSync sincroniza continuamente los cambios, siempre que haya acceso Internet
-- FreeFileSync sincroniza los ficheros bajo demanda con una memoria USB.
-- GitHub contiene los ficheros públicos, y BitBucket contiene también los privados.
+- [[https://mega.nz/][MegaSync]] sincroniza continuamente los cambios, siempre que haya acceso Internet
+- [[https://www.freefilesync.org/][FreeFileSync]] sincroniza los ficheros bajo demanda con una memoria USB.
+- [[https://github.com/alvarogonzalezsotillo/grading-questionnaire/blob/master/questionnaire-from-gift/src/main/resources/giftToLatex/QuestionnaireGradingTest.template.tex][GitHub]] contiene los ficheros públicos, y [[https://bitbucket.org][BitBucket]] contiene también los privados.
 
 * Publicación de contenidos
-Moodle 3 ha mejorado bastante la publicación de ficheros desde la versión anterior, ya que ahora basta /arrastrar y soltar/ para que aparezcan en el curso. De todas formas, sigue siendo engorroso realizar manualmente las actualizaciones, sobre todo si son varias a la vez.
+[[https://moodle.org][Moodle]]  ha mejorado bastante la publicación de ficheros desde la versión anterior, ya que ahora basta /arrastrar y soltar/ para que aparezcan en el curso. De todas formas, sigue siendo engorroso realizar manualmente las actualizaciones, sobre todo si son varias a la vez.
 
-Mi opción es utilizar un servidor intermedio, GitHub Pages. Los contenidos se sirven desde GitHub, y en Moodle sólo hay enlaces a dichos contenidos.
+Mi opción es utilizar un servidor intermedio, [[https://pages.github.com/][GitHub Pages]]. Los contenidos se sirven desde GitHub, y en Moodle sólo hay enlaces a dichos contenidos.
 
 ** Repositorios y ramas *Git*
 Utilizo un solo repositorio para todas las asignaturas (en el pasado tenía uno por asignatura, pero era demasiado farragoso). El repositorio tiene dos ramas
@@ -48,11 +49,6 @@ El repositorio tiene dos /remote/
 - Uno público en *github*, con la rama =gh-pages=, donde se publican mediate Github Pages
 - Uno privado en *bitbucket*, con las ramas =gh-pages= y =profesor=, como copia de seguridad
 
-Utilizar repositorios *git* con ficheros de texto plano tiene ventajas evidentes, como:
-- Posibilidad de trabajo /offiline/
-- Posibilidad de modificaciones desde cualquier ordenador con *git* y acceso a Internet.
-
-Estas ventajas no son tan claras con ficheros binarios. Por eso, los únicos ficheros binarios que utilizo son hojas de cálculo para el cálculo de las notas de los alumnos.
 
 ** URL de los contenidos
 Una vez publicados en *Github Pages*, basta con utilizar la URL del recurso en Moodle para enlazarlo. Para facilitar la tarea, utilizo un /script/ que imprime las URL de los ficheros pasados como párametro. Suelo utilizarlo desde dentro de Emacs con =C-U M-! ghpages *=.
@@ -98,9 +94,9 @@ Para disfrutar de las ventajas que *git* ofrece, utilizo ficheros de texto. Mi o
 - Generar presentaciones, con *org-reveal*
 - Generar una versión *pdf* de las presentaciones, que los alumnos pueden imprimir
 - Generar apuntes tanto en *pdf* como en *html*
-- Si necesito afinar en el formato o la apariencia (prácticas, exámenes) recurro a Latex. Por ejemplo, utilizo esta [[/blog/plantilla-latex-para-examenes/index.html][plantilla para exámenes]].
+- Si necesito afinar en el formato o la apariencia (prácticas, exámenes) recurro a Latex. Por ejemplo, utilizo esta [[../../blog/plantilla-latex-para-examenes/index.html][plantilla para exámenes]].
 
-De todas formas, aún mantento algunos ficheros binarios
+De todas formas, aún mantengo algunos ficheros binarios
 - Ficheros *docx* como plantillas de trabajo para los alumnos
 - Ficheros *xlsx* para el cálculo de notas
 
