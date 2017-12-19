@@ -10,10 +10,10 @@
 #+DESCRIPTION: Utilizando una plantilla latex pueden generarse exámenes de una forma cómoda y con buena legibilidad.
 
 
-https://github.com/alvarogonzalezsotillo/grading-questionnaire/blob/master/questionnaire-from-gift/src/main/resources/giftToLatex/QuestionnaireGradingTest.template.tex
 
 
-Desde hace un tiempo utilizo Latex para escribir mis exámenes. Al final he creado una plantilla con varias macros de Latex para facilitar la creación preguntas cerradas (de tipo /test/), preguntas abiertas de distinta longitud, y una tabla de respuestas inicial.
+
+Desde hace un tiempo utilizo Latex para escribir mis exámenes. Al final he creado una plantilla con varias macros de Latex para facilitar la creación preguntas cerradas (de tipo /test/), preguntas abiertas de distinta longitud, y una tabla de respuestas inicial. Puede verse [[file:ejemplo-examen.pdf][aquí un ejemplo de la apariencia final de los examenes]].
 
 * Preguntas cerradas 
 Las preguntas cerradas son las que tienen un enunciado y varias opciones a elegir, de las cuales solo una es correcta. 
@@ -90,3 +90,6 @@ Todos estos parámetros se especifican en la llamada a =FirstPage=
 % EN LA TABLA DE RESPUESTAS SE ESCRIBE LA LETRA CORRECTA, EN VEZ DE MARCAR UNA CASILLA
 \FirstPage{60}{40}{30}{true}{false}
 #+end_src
+
+#+caption: Ejemplo de página inicial con cuadro de respuestas
+[[file:plantilla-latex-para-examenes.tex][file:cuadro-respuestas.png]]
