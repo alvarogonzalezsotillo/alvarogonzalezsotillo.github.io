@@ -106,7 +106,7 @@ Los ficheros =pdf= creados tienen varias características interesantes
 - En la primera página hay un código QR, que puede utilizarse para apuntar las respuestas correctas del examen o para cualquier otra cosa. Los datos están en la macro =StudentData=
 - Utilizo la macro =Solutions= para apuntar las respuestas de la parte /test/. Su valor acaba en el asunto del fichero =pdf=.
 
-Todo esto puede consultarse en el [[file:ejemplo-ii.pdf][examen de ejemplo]].
+Todo esto puede consultarse en el [[file:ejemplo.pdf][examen de ejemplo]] y su [[file:ejemplo.tex][código fuente latex]].
 
 * Generación automática de exámenes
 No suelo utilizar directamente esta plantilla, sino que un programa traduce un fichero =gift= a código =tex= con esta plantilla. Puede consultarse el código de este programa en [[https://github.com/alvarogonzalezsotillo/grading-questionnaire]]. Este es el enlace a [[https://github.com/alvarogonzalezsotillo/grading-questionnaire/blob/master/questionnaire-from-gift/src/main/resources/giftToLatex/QuestionnaireGradingTest.template.tex][la última versión de la plantilla]].
