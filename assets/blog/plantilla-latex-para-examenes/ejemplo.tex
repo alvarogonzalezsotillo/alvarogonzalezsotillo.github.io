@@ -1,0 +1,788 @@
+
+
+\documentclass[8pt,a4paper,spanish,openany]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{setspace}
+\usepackage[top=2.0cm,left=1.2cm,right=1.2cm,bottom=2.0cm,a4paper]{geometry}
+\usepackage[spanish]{babel}
+\usepackage{forloop}
+\usepackage{attachfile}
+\usepackage{color}
+\usepackage{colortbl}
+\usepackage{graphicx}
+\usepackage{qrcode}
+\usepackage{fancyhdr} % Required for custom headers
+\usepackage{lastpage} % Required to determine the last page for the footer
+\usepackage{extramarks} % Required for headers and footers
+\usepackage{ctable} % for \specialrule command
+\usepackage{grffile} % spaces in graphics file
+\IfFileExists{currfile.sty}{\usepackage{currfile}}{}
+
+
+
+
+% Set up the header and footer
+\pagestyle{fancy}
+\lhead{\scriptsize{Ejemplo para el blog}} % Top left header
+\rhead{\scriptsize{Impreso el \today}} % Top right header
+\chead{} % Top center head
+\lfoot{\scriptsize{\currfilename}} % Bottom left footer
+\cfoot{} % Bottom center footer
+\rfoot{ \scriptsize{\thepage\ / \protect\pageref{LastPage}}} % Bottom right footer
+\renewcommand\headrulewidth{0pt} % Size of the header rule
+\renewcommand\footrulewidth{0.4pt} % Size of the footer rule
+
+\graphicspath{{/home/alvaro/github/alvarogonzalezsotillo.github.io/blog/plantilla-latex-para-examenes/}}
+
+\newcommand{\Solutions}{c,b,c,d,a,d,a,a,c,b,d,b,a,d,b,c,a,b,c,b,d,d,d,a,a,b,b,b,c,a,b,c,d,b,a,a,c}
+
+\hypersetup{
+  colorlinks,
+  citecolor=black,
+  filecolor=black,
+  linkcolor=black,
+  urlcolor=blue,
+  pdfauthor={Álvaro González Sotillo},%
+  pdftitle={Ejemplo para el blog},%
+  pdfsubject={\Solutions},%
+  pdfkeywords={GIFT,Latex,Scala},%
+  pdfproducer={LaTeX},%
+  pdfcreator={pdfLaTeX}
+}
+
+
+\newcommand{\Width}{\textwidth}
+\newcommand{\HalfWidth}{0.46\textwidth}
+\newcommand{\Height}{0.95\textheight}
+\newcommand{\HalfHeight}{0.45\textheight}
+\newcommand{\QuarterHeight}{0.20\textheight}
+
+
+
+\newcommand{\HorizontalLine}
+{
+  \noindent\makebox[\linewidth]{\rule{\Width}{0.4pt}}
+}
+
+\newcommand{\IndentOn}{\setlength{\parindent}{12pt}}
+\newcommand{\IndentOff}{\setlength{\parindent}{0pt}}
+
+\newcounter{QuestionCounter}
+\setcounter{QuestionCounter}{1}
+
+\newenvironment{QuestionnaireQuestions}
+{
+  \begin{small}
+    \setlength{\columnsep}{1cm}
+    \setlength{\parskip}{12pt plus 0pt minus 9pt} % ELASTIC SPACE BETWEEN QUESTIONS
+    \noindent \begin{multicols}{2}
+}
+{
+    \end{multicols}
+  \end{small}
+  \newpage
+}
+
+\newenvironment{QuestionnaireQuestion}[1][]
+{
+  \begin{minipage}{\HalfWidth}
+    \HorizontalLine\\
+    \arabic{QuestionCounter}. #1
+    \begin{enumerate}[label=\alph*)]
+}
+{
+    \end{enumerate}
+  \end{minipage}
+
+  \stepcounter{QuestionCounter}
+}
+
+\newcommand{\Answer}[1]{
+  \item #1
+}
+
+\newenvironment{QuarterPageOpenQuestion}
+{
+
+  \begin{minipage}[t][\QuarterHeight][t]{\Width}
+    \HorizontalLine
+    \arabic{QuestionCounter}.
+}
+{
+    \vfill
+  \end{minipage}
+  \stepcounter{QuestionCounter}
+  \\
+}
+
+
+\newenvironment{HalfPageOpenQuestion}
+{
+
+  \begin{minipage}[t][\HalfHeight][t]{\Width}
+    \HorizontalLine
+    \arabic{QuestionCounter}.
+}
+{
+    \vfill
+  \end{minipage}
+  \stepcounter{QuestionCounter}
+  \\
+}
+
+\newenvironment{FullPageOpenQuestion}
+{
+  \clearpage
+  \begin{minipage}[t][\Height][t]{\Width}
+    \HorizontalLine
+    \arabic{QuestionCounter}.
+}
+{
+    \vfill
+  \end{minipage}
+  \stepcounter{QuestionCounter}
+  \\
+}
+
+
+\newcommand{\TickedInstructions}[2]
+{
+  \Instructions{#1}{#2}{\item Un aspa marca una respuesta. Se puede desmarcar una respuesta con un círculo sobre el aspa.}
+}
+
+\newcommand{\LetterInstructions}[2]
+{
+  \Instructions{#1}{#2}{\item Escribe la respuesta con letras MAYÚSCULAS. Para cambiar la respuesta, tacha y escribe la nueva respuesta.}
+}
+
+
+\newcommand{\Instructions}[3]
+{
+  \begin{small}
+    \begin{multicols}{2}
+    \textbf{Instrucciones generales para las preguntas cerradas:}
+    \begin{itemize}
+      \item No se tendrán en cuenta anotaciones fuera de la tabla de respuestas.
+      \item Todas las preguntas tienen el mismo valor.
+      \item Hay una, y sólo una, respuesta correcta en cada pregunta.
+      \item Responde solo a aquellas preguntas de las que estés seguro. Una respuesta incorrecta resta un tercio del valor de una respuesta acertada, pero una pregunta sin responder no resta puntos.
+      #3  
+    \end{itemize}
+    \vfill\columnbreak
+
+    \textbf{Instrucciones generales para las preguntas abiertas:}
+    \begin{itemize}
+      \item Es necesario responder a la pregunta y justificar dicha respuesta.
+      \item Todas las preguntas tienen el mismo valor.
+    \end{itemize}
+    \textbf{Puntuación:}
+    \begin{itemize}
+      \item La parte tipo test es un  #1\% de la nota.
+      \item La parte de preguntas abiertas es un #2\% de la nota.
+      \item Se necesita un mínimo de 3,5 en cada parte del examen para que hagan media.
+    \end{itemize}
+    \end{multicols}
+  \end{small}
+}
+
+\usepackage{fancybox}
+
+\newenvironment{ShadowBox}[2][0.04cm]
+{
+  \fboxrule=#1
+  \newsavebox{\fmboxx}
+  \begin{lrbox}{\fmboxx}
+    \begin{minipage}{#2}
+
+}
+{
+    \end{minipage}
+  \end{lrbox}
+  \fbox{\usebox{\fmboxx}}
+}
+
+\newcommand{\StudentData}{
+  \qrcode[height=2.3cm]{AgIlmzCdNhn8FYbQgA==}
+  \begin{ShadowBox}{0.85\Width}
+    \vspace{0.3cm}
+    \large{
+      \textbf{Apellidos:} \hrulefill \\
+      \textbf{Nombre:} \hrulefill \\
+      \textbf{Fecha:} \hrulefill \hspace{1cm} \textbf{Grupo:} \hrulefill \\
+    }
+    %\vspace{0.2cm}
+  \end{ShadowBox}
+}
+
+
+\newcommand{\FileAutoref}[0]{
+  \attachfile[mimetype={text/plain},
+            print=false,
+            appearance=false,
+            zoom=false,
+            description={El fichero TEX original para crear este documento},
+            subject={El fichero TEX original para crear este documento}]
+    {\currfilename}%
+}%
+
+\newcommand{\OriginalGiftFile}[1]{
+  \IfFileExists{#1}
+  {\attachfile[print=false,
+            appearance=false,
+            zoom=false,
+            description={El fichero GIFT original para crear este documento},
+            subject={El fichero GIFT original para crear este documento}]
+    {#1}}%
+  {}%
+}%
+
+\usepackage{array}
+
+\definecolor{light-gray}{gray}{0.60}
+\newcommand{\LetterAnswerCellTemplate}[1]{%
+  \setlength{\arrayrulewidth}{.02em}%
+  \setlength{\tabcolsep}{1pt}
+  \begin{tabular}{m{0.9cm}@{\hskip 0.15cm}!{\color{light-gray}\vrule}p{2cm}!{\color{light-gray}\vrule}}%
+    \arrayrulecolor{light-gray}\cline{2-2}%
+    \vspace{5pt}\cellcolor{black}\textcolor{white}{\hfill {#1} \hfill} &  {\hfill}\\%
+    \arrayrulecolor{light-gray}\cline{2-2}%
+  \end{tabular}%
+}
+
+\newcommand{\TickWidth}{0.5cm}
+\usepackage{array}
+\definecolor{sep-gray}{gray}{0.60}
+\newcolumntype{x}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}b{#1}}
+\newcommand{\TickedAnswerCellTemplate}[5]{%
+  \setlength{\tabcolsep}{0pt}
+  \begin{tabular}{
+    x{1.0cm}
+    @{\hskip 0.1cm}!{\color{sep-gray}\vrule}
+    @{}x{\TickWidth}@{}!{\color{sep-gray}\vrule}
+    @{}x{\TickWidth}@{}!{\color{sep-gray}\vrule}
+    @{}x{\TickWidth}@{}!{\color{sep-gray}\vrule}
+    @{}x{\TickWidth}@{}!{\color{sep-gray}\vrule}}%
+    \arrayrulecolor{sep-gray}\cline{2-5}%
+    \ifthenelse{\equal{#2}{}}
+    {
+    \cellcolor{black}\textcolor{white}{ #1 } & #2 &#3&#4& {#5}\\[2pt]%
+    }
+    {
+    \cellcolor{white}\textcolor{black}{ #1 } & \cellcolor{black}\textcolor{white}#2 &\cellcolor{black}\textcolor{white}#3&\cellcolor{black}\textcolor{white}#4& \cellcolor{black}\textcolor{white}{#5}\\[2pt]%
+    }
+    \arrayrulecolor{light-gray}\cline{2-5}%
+  \end{tabular}%
+}
+
+
+\newcommand{\TickedVerticalAnswerTable}[1]
+{
+
+  \newcounter{AnswerTableC}
+  \newcounter{DummyAnswerCounter}
+  \setcounter{AnswerTableC}{1}
+  \newcommand{\HeaderCell}
+  {
+    \TickedAnswerCellTemplate{}{a}{b}{c}{d}
+    \hspace{0mm}
+    \addtocounter{AnswerTableC}{0}
+  }
+
+  \newcommand{\AnswerCell}
+  {
+    \ifthenelse{\value{AnswerTableC}>#1}{\TickedAnswerCellTemplate{}{}{}{}{}}{\TickedAnswerCellTemplate{\arabic{AnswerTableC}}{}{}{}{}}
+    \addtocounter{AnswerTableC}{1}
+  }
+
+
+
+  \begin{multicols}{5}%
+    \HeaderCell
+    \HeaderCell
+    \HeaderCell
+    \HeaderCell
+    \HeaderCell
+  \end{multicols}
+
+  \begin{multicols}{5}%
+    \forloop[5]{DummyAnswerCounter}{1}{\value{DummyAnswerCounter}<#1 \OR \value{AnswerTableC}=#1}%
+    {      
+      \AnswerCell \AnswerCell \AnswerCell \AnswerCell \AnswerCell
+     }%
+   \end{multicols}%
+
+   \begin{multicols}{5}%
+    \HeaderCell
+    \HeaderCell
+    \HeaderCell
+    \HeaderCell
+    \HeaderCell
+  \end{multicols}
+
+}
+
+\newcommand{\TickedHorizontalAnswerTable}[1]
+{
+  \newcounter{AnswerTableC}
+  \setcounter{AnswerTableC}{1}
+  \newcounter{DummyAnswerCounter}
+
+
+  \newcommand{\AnswerCell}
+  {
+    \ifthenelse{\value{AnswerTableC}>#1}{\TickedAnswerCellTemplate{}{}{}{}{}}{\TickedAnswerCellTemplate{\arabic{AnswerTableC}}{}{}{}{}}
+    \hspace{0mm}
+    \addtocounter{AnswerTableC}{1}
+  }
+
+  \newcommand{\HeaderCell}
+  {
+    \TickedAnswerCellTemplate{}{a}{b}{c}{d}
+    \hspace{0mm}
+    \addtocounter{AnswerTableC}{0}
+  }
+
+
+  {
+    \HeaderCell
+    \HeaderCell
+    \HeaderCell
+    \HeaderCell
+    \HeaderCell
+
+  }
+
+
+  \forloop[5]{DummyAnswerCounter}{1}{\value{DummyAnswerCounter}<#1 \OR \value{AnswerTableC}=#1}
+  {
+    \AnswerCell 
+    \AnswerCell 
+    \AnswerCell 
+    \AnswerCell 
+    \AnswerCell
+
+  }
+
+  {
+    \HeaderCell
+    \HeaderCell
+    \HeaderCell
+    \HeaderCell
+    \HeaderCell
+
+  }
+
+}
+
+
+\newcommand{\LetterHorizontalAnswerTable}[1]
+{
+  \definecolor{sep-gray}{gray}{0.00}
+
+  \vspace{0.5cm}
+
+  \newcounter{AnswerTableC}
+  \setcounter{AnswerTableC}{1}
+  \newcounter{DummyAnswerCounter}
+
+
+  \newcommand{\AnswerCell}
+  {
+    \ifthenelse{\value{AnswerTableC}>#1}{\LetterAnswerCellTemplate{}}{\LetterAnswerCellTemplate{\arabic{AnswerTableC}}}
+    \hspace{0mm}
+    \addtocounter{AnswerTableC}{1}
+  }
+
+  \newcommand{\HeaderCell}
+  {
+    \TickedAnswerCellTemplate{}{\hfill}{}{}{}
+    \hspace{0.0mm}
+    \addtocounter{AnswerTableC}{0}
+  }
+
+  
+  {
+    \HeaderCell
+    \HeaderCell
+    \HeaderCell
+    \HeaderCell
+    \HeaderCell
+
+  }
+
+
+  \forloop[5]{DummyAnswerCounter}{1}{\value{DummyAnswerCounter}<#1 \OR \value{AnswerTableC}=#1}
+  {
+    \AnswerCell \hfill
+    \AnswerCell \hfill
+    \AnswerCell \hfill
+    \AnswerCell \hfill
+    \AnswerCell \hfill
+
+  }
+
+    {
+    \HeaderCell
+    \HeaderCell
+    \HeaderCell
+    \HeaderCell
+    \HeaderCell
+
+  }
+
+}
+
+\newcommand{\LetterVerticalAnswerTable}[1]
+{
+  \definecolor{sep-gray}{gray}{0.00}
+
+  \vspace{0.5cm}
+  \newcounter{AnswerTableC}
+  \setcounter{AnswerTableC}{1}
+  \newcounter{DummyAnswerCounter}
+
+
+  \newcommand{\AnswerCell}
+  {
+    \ifthenelse{\value{AnswerTableC}>#1}{\LetterAnswerCellTemplate{}}{\LetterAnswerCellTemplate{\arabic{AnswerTableC}}}
+    \hspace{0mm}
+    \addtocounter{AnswerTableC}{1}
+  }
+
+
+  \newcommand{\HeaderCell}
+  {
+    \TickedAnswerCellTemplate{}{\hfill}{}{}{}
+    \hspace{0mm}
+    \addtocounter{AnswerTableC}{0}
+  }
+
+  \begin{multicols}{5}%
+    \HeaderCell
+    \HeaderCell
+    \HeaderCell
+    \HeaderCell
+    \HeaderCell
+  \end{multicols}
+  
+  \begin{multicols}{5}%
+
+  \forloop[5]{DummyAnswerCounter}{1}{\value{DummyAnswerCounter}<#1 \OR \value{AnswerTableC}=#1}
+  {
+    \AnswerCell
+    \AnswerCell
+    \AnswerCell
+    \AnswerCell
+    \AnswerCell
+
+  }
+  \end{multicols}%
+
+  \begin{multicols}{5}%
+    \HeaderCell
+    \HeaderCell
+    \HeaderCell
+    \HeaderCell
+    \HeaderCell
+  \end{multicols}
+
+}
+
+
+\newcommand{\AnswerTable}[3]{
+  %\begin{center}%
+
+  \ifthenelse{\equal{#2}{true}}% HORIZONTAL
+  {
+    \ifthenelse{\equal{#3}{true}}% TICKED
+    {
+      \TickedHorizontalAnswerTable{#1}%
+    }
+    {
+      \LetterHorizontalAnswerTable{#1}
+    }
+  }
+  {
+    \ifthenelse{\equal{#3}{true}}% TICKED
+    {
+      \TickedVerticalAnswerTable{#1}%
+    }
+    {
+      \LetterVerticalAnswerTable{#1}
+    }
+  }
+  %\end{center}%
+}
+
+
+
+\newcommand{\FirstPage}[5]{
+
+  % 1 -> Peso abiertas
+  % 2 -> Peso cerradas
+  % 3 -> Número de preguntas cerradas
+  % 4 -> horizontal
+  % 5 -> ticked
+  \FileAutoref \OriginalGiftFile{"/home/alvaro/github/alvarogonzalezsotillo.github.io/blog/plantilla-latex-para-examenes/ejemplo.gift"}
+
+  \StudentData
+  \AnswerTable{#3}{#4}{#5}
+  \vfill
+
+  \ifthenelse{\equal{#5}{true}}{\TickedInstructions{#1}{#2}}{\LetterInstructions{#1}{#2}}
+  \newpage
+}
+
+\begin{document}
+
+
+\IndentOff
+
+\setlength{\multicolsep}{3px}
+
+\FirstPage{60}{40}{37}{true}{false}
+\begin{QuestionnaireQuestions}
+  \begin{QuestionnaireQuestion}[Donec vitae dolor.  Donec pretium posuere tellus.]
+    \item Pellentesque dapibus suscipit ligula.
+    \item Nam a sapien.
+    \item Sed diam.
+    \item Sed id ligula quis est convallis tempor.
+  \end{QuestionnaireQuestion}
+  \begin{QuestionnaireQuestion}[Fusce suscipit, wisi nec facilisis facilisis, est dui fermentum leo, quis tempor ligula erat quis odio.  Nullam rutrum.]
+    \item Proin quam nisl, tincidunt et, mattis eget, convallis nec, purus.
+    \item Nunc aliquet, augue nec adipiscing interdum, lacus tellus malesuada massa, quis varius mi purus non odio.
+    \item Nam a sapien.
+    \item Etiam laoreet quam sed arcu.
+  \end{QuestionnaireQuestion}
+  \begin{QuestionnaireQuestion}[Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.  Etiam vel neque nec dui dignissim bibendum.]
+    \item Vivamus id enim.
+    \item Nunc aliquet, augue nec adipiscing interdum, lacus tellus malesuada massa, quis varius mi purus non odio.
+    \item Phasellus purus.
+    \item Fusce suscipit, wisi nec facilisis facilisis, est dui fermentum leo, quis tempor ligula erat quis odio.
+  \end{QuestionnaireQuestion}
+  \begin{QuestionnaireQuestion}[Cras placerat accumsan nulla.  Nulla posuere.]
+    \item Nunc porta vulputate tellus.
+    \item Nulla posuere.
+    \item Sed bibendum.
+    \item Fusce commodo.
+  \end{QuestionnaireQuestion}
+  \begin{QuestionnaireQuestion}[Mauris ac felis vel velit tristique imperdiet.  Etiam vel tortor sodales tellus ultricies commodo.]
+    \item Pellentesque tristique imperdiet tortor.
+    \item Nunc porta vulputate tellus.
+    \item Vivamus id enim.
+    \item Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+  \end{QuestionnaireQuestion}
+  \begin{QuestionnaireQuestion}[Pellentesque tristique imperdiet tortor.  Nunc rutrum turpis sed pede.]
+    \item Curabitur lacinia pulvinar nibh.
+    \item Nullam tempus.
+    \item Aliquam posuere.
+    \item Nam vestibulum accumsan nisl.
+  \end{QuestionnaireQuestion}
+  \begin{QuestionnaireQuestion}[Phasellus lacus.  Nullam rutrum.]
+    \item Donec vitae dolor.
+    \item Proin neque massa, cursus ut, gravida ut, lobortis eget, lacus.
+    \item Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+    \item Nulla posuere.
+  \end{QuestionnaireQuestion}
+  \begin{QuestionnaireQuestion}[Phasellus at dui in ligula mollis ultricies.  Sed diam.]
+    \item Nunc aliquet, augue nec adipiscing interdum, lacus tellus malesuada massa, quis varius mi purus non odio.
+    \item Aliquam posuere.
+    \item Cras placerat accumsan nulla.
+    \item Nullam tempus.
+  \end{QuestionnaireQuestion}
+  \begin{QuestionnaireQuestion}[Nam a sapien.  Proin quam nisl, tincidunt et, mattis eget, convallis nec, purus.]
+    \item Nullam tristique diam non turpis.
+    \item Aenean in sem ac leo mollis blandit.
+    \item Aliquam feugiat tellus ut neque.
+    \item Nullam tristique diam non turpis.
+  \end{QuestionnaireQuestion}
+  \begin{QuestionnaireQuestion}[Etiam vel neque nec dui dignissim bibendum.  Pellentesque tristique imperdiet tortor.]
+    \item Nam euismod tellus id erat.
+    \item Mauris mollis tincidunt felis.
+    \item Donec hendrerit tempor tellus.
+    \item Aliquam feugiat tellus ut neque.
+  \end{QuestionnaireQuestion}
+  \begin{QuestionnaireQuestion}[Nam euismod tellus id erat.  Donec neque quam, dignissim in, mollis nec, sagittis eu, wisi.]
+    \item Nam a sapien.
+    \item Fusce sagittis, libero non molestie mollis, magna orci ultrices dolor, at vulputate neque nulla lacinia eros.
+    \item Cras placerat accumsan nulla.
+    \item Pellentesque condimentum, magna ut suscipit hendrerit, ipsum augue ornare nulla, non luctus diam neque sit amet urna.
+  \end{QuestionnaireQuestion}
+  \begin{QuestionnaireQuestion}[In id erat non orci commodo lobortis.  Phasellus at dui in ligula mollis ultricies.]
+    \item Nullam libero mauris, consequat quis, varius et, dictum id, arcu.
+    \item Vivamus id enim.
+    \item Vestibulum convallis, lorem a tempus semper, dui dui euismod elit, vitae placerat urna tortor vitae lacus.
+    \item Sed id ligula quis est convallis tempor.
+  \end{QuestionnaireQuestion}
+  \begin{QuestionnaireQuestion}[Curabitur vulputate vestibulum lorem.  Aliquam erat volutpat.]
+    \item Sed diam.
+    \item Fusce commodo.
+    \item Pellentesque tristique imperdiet tortor.
+    \item Aliquam posuere.
+  \end{QuestionnaireQuestion}
+  \begin{QuestionnaireQuestion}[Donec hendrerit tempor tellus.  Nam euismod tellus id erat.]
+    \item Donec vitae dolor.
+    \item Nullam tristique diam non turpis.
+    \item Phasellus purus.
+    \item Phasellus neque orci, porta a, aliquet quis, semper a, massa.
+  \end{QuestionnaireQuestion}
+  \begin{QuestionnaireQuestion}[Vivamus id enim.  Sed diam.]
+    \item Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+    \item Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+    \item Etiam vel tortor sodales tellus ultricies commodo.
+    \item Vestibulum convallis, lorem a tempus semper, dui dui euismod elit, vitae placerat urna tortor vitae lacus.
+  \end{QuestionnaireQuestion}
+  \begin{QuestionnaireQuestion}[Fusce sagittis, libero non molestie mollis, magna orci ultrices dolor, at vulputate neque nulla lacinia eros.  Donec vitae dolor.]
+    \item Donec at pede.
+    \item Donec neque quam, dignissim in, mollis nec, sagittis eu, wisi.
+    \item Nunc eleifend leo vitae magna.
+    \item Aliquam posuere.
+  \end{QuestionnaireQuestion}
+  \begin{QuestionnaireQuestion}[Proin quam nisl, tincidunt et, mattis eget, convallis nec, purus.  Sed diam.]
+    \item Donec at pede.
+    \item In id erat non orci commodo lobortis.
+    \item Phasellus neque orci, porta a, aliquet quis, semper a, massa.
+    \item Phasellus purus.
+  \end{QuestionnaireQuestion}
+  \begin{QuestionnaireQuestion}[Nunc eleifend leo vitae magna.  Pellentesque tristique imperdiet tortor.]
+    \item Pellentesque dapibus suscipit ligula.
+    \item Nulla posuere.
+    \item Aenean in sem ac leo mollis blandit.
+    \item Nunc eleifend leo vitae magna.
+  \end{QuestionnaireQuestion}
+  \begin{QuestionnaireQuestion}[Fusce commodo.  Cras placerat accumsan nulla.]
+    \item Nam euismod tellus id erat.
+    \item Nam euismod tellus id erat.
+    \item Nullam rutrum.
+    \item Donec vitae dolor.
+  \end{QuestionnaireQuestion}
+  \begin{QuestionnaireQuestion}[Nulla posuere.  Proin quam nisl, tincidunt et, mattis eget, convallis nec, purus.]
+    \item Mauris mollis tincidunt felis.
+    \item Aliquam feugiat tellus ut neque.
+    \item Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+    \item Phasellus neque orci, porta a, aliquet quis, semper a, massa.
+  \end{QuestionnaireQuestion}
+  \begin{QuestionnaireQuestion}[Praesent augue.  Etiam vel tortor sodales tellus ultricies commodo.]
+    \item Aliquam posuere.
+    \item Nunc rutrum turpis sed pede.
+    \item Nullam eu ante vel est convallis dignissim.
+    \item Phasellus purus.
+  \end{QuestionnaireQuestion}
+  \begin{QuestionnaireQuestion}[Donec pretium posuere tellus.  Integer placerat tristique nisl.]
+    \item Donec neque quam, dignissim in, mollis nec, sagittis eu, wisi.
+    \item Nullam tempus.
+    \item Phasellus purus.
+    \item Donec pretium posuere tellus.
+  \end{QuestionnaireQuestion}
+  \begin{QuestionnaireQuestion}[Suspendisse potenti.  Pellentesque dapibus suscipit ligula.]
+    \item Sed bibendum.
+    \item Pellentesque tristique imperdiet tortor.
+    \item Mauris ac felis vel velit tristique imperdiet.
+    \item Donec posuere augue in quam.
+  \end{QuestionnaireQuestion}
+  \begin{QuestionnaireQuestion}[Nunc rutrum turpis sed pede.  Vestibulum convallis, lorem a tempus semper, dui dui euismod elit, vitae placerat urna tortor vitae lacus.]
+    \item Etiam laoreet quam sed arcu.
+    \item Cras placerat accumsan nulla.
+    \item Cras placerat accumsan nulla.
+    \item Nam vestibulum accumsan nisl.
+  \end{QuestionnaireQuestion}
+  \begin{QuestionnaireQuestion}[Phasellus lacus.  Nullam eu ante vel est convallis dignissim.]
+    \item Mauris ac felis vel velit tristique imperdiet.
+    \item Donec vitae dolor.
+    \item Phasellus at dui in ligula mollis ultricies.
+    \item Phasellus lacus.
+  \end{QuestionnaireQuestion}
+  \begin{QuestionnaireQuestion}[Nunc rutrum turpis sed pede.  Fusce sagittis, libero non molestie mollis, magna orci ultrices dolor, at vulputate neque nulla lacinia eros.]
+    \item In id erat non orci commodo lobortis.
+    \item Nullam eu ante vel est convallis dignissim.
+    \item Phasellus purus.
+    \item Curabitur vulputate vestibulum lorem.
+  \end{QuestionnaireQuestion}
+  \begin{QuestionnaireQuestion}[Nulla facilisis, risus a rhoncus fermentum, tellus tellus lacinia purus, et dictum nunc justo sit amet elit.  Phasellus neque orci, porta a, aliquet quis, semper a, massa.]
+    \item Nunc porta vulputate tellus.
+    \item Donec pretium posuere tellus.
+    \item In id erat non orci commodo lobortis.
+    \item Nunc eleifend leo vitae magna.
+  \end{QuestionnaireQuestion}
+  \begin{QuestionnaireQuestion}[Proin neque massa, cursus ut, gravida ut, lobortis eget, lacus.  Phasellus neque orci, porta a, aliquet quis, semper a, massa.]
+    \item Donec pretium posuere tellus.
+    \item Nam vestibulum accumsan nisl.
+    \item Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+    \item Nullam rutrum.
+  \end{QuestionnaireQuestion}
+  \begin{QuestionnaireQuestion}[Proin neque massa, cursus ut, gravida ut, lobortis eget, lacus.  Etiam vel neque nec dui dignissim bibendum.]
+    \item Proin neque massa, cursus ut, gravida ut, lobortis eget, lacus.
+    \item Donec posuere augue in quam.
+    \item Mauris ac felis vel velit tristique imperdiet.
+    \item Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+  \end{QuestionnaireQuestion}
+  \begin{QuestionnaireQuestion}[Nulla facilisis, risus a rhoncus fermentum, tellus tellus lacinia purus, et dictum nunc justo sit amet elit.  Vestibulum convallis, lorem a tempus semper, dui dui euismod elit, vitae placerat urna tortor vitae lacus.]
+    \item Phasellus at dui in ligula mollis ultricies.
+    \item Fusce sagittis, libero non molestie mollis, magna orci ultrices dolor, at vulputate neque nulla lacinia eros.
+    \item Nullam libero mauris, consequat quis, varius et, dictum id, arcu.
+    \item Nulla facilisis, risus a rhoncus fermentum, tellus tellus lacinia purus, et dictum nunc justo sit amet elit.
+  \end{QuestionnaireQuestion}
+  \begin{QuestionnaireQuestion}[Donec hendrerit tempor tellus.  Phasellus lacus.]
+    \item Nam vestibulum accumsan nisl.
+    \item Nunc porta vulputate tellus.
+    \item Proin quam nisl, tincidunt et, mattis eget, convallis nec, purus.
+    \item Proin quam nisl, tincidunt et, mattis eget, convallis nec, purus.
+  \end{QuestionnaireQuestion}
+  \begin{QuestionnaireQuestion}[Nulla facilisis, risus a rhoncus fermentum, tellus tellus lacinia purus, et dictum nunc justo sit amet elit.  Aliquam posuere.]
+    \item Sed bibendum.
+    \item Etiam laoreet quam sed arcu.
+    \item Phasellus lacus.
+    \item Nullam eu ante vel est convallis dignissim.
+  \end{QuestionnaireQuestion}
+  \begin{QuestionnaireQuestion}[Donec pretium posuere tellus.  Phasellus purus.]
+    \item Mauris mollis tincidunt felis.
+    \item Nulla posuere.
+    \item Sed id ligula quis est convallis tempor.
+    \item Proin quam nisl, tincidunt et, mattis eget, convallis nec, purus.
+  \end{QuestionnaireQuestion}
+  \begin{QuestionnaireQuestion}[Vivamus id enim.  Nullam libero mauris, consequat quis, varius et, dictum id, arcu.]
+    \item Aliquam erat volutpat.
+    \item Cras placerat accumsan nulla.
+    \item Pellentesque tristique imperdiet tortor.
+    \item Donec vitae dolor.
+  \end{QuestionnaireQuestion}
+  \begin{QuestionnaireQuestion}[Cras placerat accumsan nulla.  Phasellus purus.]
+    \item Cras placerat accumsan nulla.
+    \item Nullam tempus.
+    \item Phasellus purus.
+    \item Aenean in sem ac leo mollis blandit.
+  \end{QuestionnaireQuestion}
+  \begin{QuestionnaireQuestion}[Nulla posuere.  Fusce suscipit, wisi nec facilisis facilisis, est dui fermentum leo, quis tempor ligula erat quis odio.]
+    \item Nunc porta vulputate tellus.
+    \item Curabitur vulputate vestibulum lorem.
+    \item Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+    \item Suspendisse potenti.
+  \end{QuestionnaireQuestion}
+  \begin{QuestionnaireQuestion}[Proin neque massa, cursus ut, gravida ut, lobortis eget, lacus.  Proin quam nisl, tincidunt et, mattis eget, convallis nec, purus.]
+    \item Etiam vel neque nec dui dignissim bibendum.
+    \item Phasellus purus.
+    \item Suspendisse potenti.
+    \item Nullam eu ante vel est convallis dignissim.
+  \end{QuestionnaireQuestion}
+\end{QuestionnaireQuestions}
+\begin{HalfPageOpenQuestion}
+  Aliquam posuere.  Nunc porta vulputate tellus.  Etiam vel neque nec dui dignissim bibendum.
+\end{HalfPageOpenQuestion}
+\begin{HalfPageOpenQuestion}
+  Mauris mollis tincidunt felis.  Nunc eleifend leo vitae magna.  Aenean in sem ac leo mollis blandit.
+\end{HalfPageOpenQuestion}
+\begin{HalfPageOpenQuestion}
+  Etiam laoreet quam sed arcu.  Mauris ac felis vel velit tristique imperdiet.  Fusce commodo.  Nullam tempus.
+\end{HalfPageOpenQuestion}
+\begin{HalfPageOpenQuestion}
+  Etiam laoreet quam sed arcu.  Proin quam nisl, tincidunt et, mattis eget, convallis nec, purus.  Donec vitae dolor.  Nullam rutrum.  Sed id ligula quis est convallis tempor.  Donec vitae dolor.
+\end{HalfPageOpenQuestion}
+
+  %\FirstPage{30}{70}{120}{false}{false}% horizontal ticked
+
+
+
+\end{document}
