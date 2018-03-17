@@ -37,7 +37,7 @@ html {
 body {
     padding: 20px;
     font-family: Menlo, Monaco, monospace;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.5;
     color: #666;
     background-color: #fff;
@@ -420,13 +420,17 @@ ul, ol {
     color: #333;
 }
 
+.post ul li, .post ol li{
+    text-indent: 0.5em;
+}
+
 .prettyprint {
     font-size: 0.75em;
 }
 
 body {
     font-family: 'Cardo', serif;
-    font-size: 20px;
+    font-size: 30px;
     color: #333;
 
 }
@@ -497,7 +501,7 @@ h4{
 
 #searchform {
     position: absolute;
-    top: 4em;
+    top: 0em;
     right: 8%;
 }
 
@@ -539,4 +543,39 @@ caption{
 div.post{
     margin-top: 3em;
     margin-bottom: 2em;
+}
+
+div#text-table-of-contents:before{
+    content: "Índice"
+}
+
+
+div#text-table-of-contents{
+    border: 1px black solid;
+    padding: 1em;
+
+    margin-right: 0px;
+    margin-left: auto;
+    
+    display: table;
+}
+
+div#text-table-of-contents ul{
+    display: block;
+}
+
+div#text-table-of-contents li:before{
+    content: "";
+}
+
+.post img{
+    margin-right: auto;
+    margin-left: auto;
+    max-height: 80%;
+    max-width: 80%;
+}
+
+div.figure p{
+    text-align: center;
+    font-size: 0.7em;
 }
