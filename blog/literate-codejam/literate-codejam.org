@@ -66,6 +66,7 @@ Por defecto, el único lenguaje considerado seguro es [[https://en.wikipedia.org
 
 Por supuesto, esto se hace con un bloque de código que ejecuto con =C-c C-c= 😄.
 
+[[file:screencast.gif]]
 
 * Saving The Universe Again
 
@@ -409,13 +410,13 @@ int main( int argc, char *argv[] ){
   for( int i = 0 ; i < T ; i++ ){
     double A;
     cin >> A;
+    printf( "hello! %d\n", i);
     if( A <= SQRT2){
       Cube c = onlyAroundX(A);
       printf( "Case #%d:\n%s\n", i+1, c.toString().c_str() );
     }
     else{
-      Cube c = onlyAroundX(SQRT2);
-      c = c.rotate(0,findAroundZ(A));
+      Cube c = onlyAroundX(SQRT2).rotate(0,findAroundZ(A));
       printf( "Case #%d:\n%s\n", i+1, c.toString().c_str() );
     }
   }
@@ -424,19 +425,23 @@ int main( int argc, char *argv[] ){
 
 #+RESULTS:
 #+BEGIN_EXAMPLE
+hello! 0
 Case #1:
 0.50000000000000000000 0.00000000000000000000 0.00000000000000000000 
 0.00000000000000000000 0.00000000000000003062 0.50000000000000000000 
 0.00000000000000000000 -0.50000000000000000000 0.00000000000000003062
+hello! 1
 Case #2:
 0.50000000000000000000 0.00000000000000000000 0.00000000000000000000 
 0.00000000000000000000 0.35355339059327378637 0.35355339059327373086 
 0.00000000000000000000 -0.35355339059327373086 0.35355339059327378637
+hello! 2
 Case #3:
 0.49789095814646988636 0.04587585199198114527 0.00000000000000000000 
 -0.04587585199198114527 0.49789095814646988636 0.00000000000000000000 
 0.00000000000000000000 0.00000000000000000000 0.50000000000000000000
 #+END_EXAMPLE
+
 
 ** Problem
 A mysterious cubic alien ship has appeared in the sky over Toronto! In this problem, Toronto is a plane in three-dimensional space that is parallel to the xz plane at y = -3 km. The alien ship is a solid cube with side length 1 km, centered at (0 km, 0 km, 0 km), with its eight corners at (+/- 0.5 km, +/- 0.5 km, +/- 0.5 km). The ship is casting an ominous shadow onto the plane; formally, the shadow is the orthogonal projection of the cube onto the plane. (We consider the sun to be a point infinitely far above the Toronto plane along the y-axis.)
