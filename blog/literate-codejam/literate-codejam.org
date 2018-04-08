@@ -2,11 +2,11 @@
 
 #+AUTHOR:      Álvaro González Sotillo
 #+EMAIL:       alvarogonzalezsotillo@gmail.com
-#+DATE:        2017-10-17
+#+DATE:        2018-04-08
 #+URI:         /blog/literate-codejam
 
-#+TAGS: programación,openscad
-#+DESCRIPTION: La distribución de cargas que se repelen en la superficie de una esfera da lugar a interesantes poliedros al calcular su recubrimiento convexo.
+#+TAGS: emacs, orgmode, codejam, programación
+#+DESCRIPTION: Se puede utilizar orgmode para programar y documentar/publicar lo programado
 
 
 #+PROPERTY: header-arg :eval query
@@ -229,7 +229,7 @@ EOF
 
 Este es un problema geométrico. Se puede dividir en dos partes
 - Si solo se gira un eje, La sombra del cubo es un rectángulo, con la diagonal proyectada. Se puede calcular algebraicamente el ángulo de giro a partir del área (ver la función =onlyAroundX=). Con esto, la sombra puede llegar a ser $\sqrt{2}$.
-- Si la sombra debe tener un área mayor de $sqrt{2}$, se debe girar primero en un eje hasta conseguir un área de $\sqrt{2}$ (45 grados). Después, se gira en el otro eje para que la sombra sea un hexágono. 
+- Si la sombra debe tener un área mayor de $\sqrt{2}$, se debe girar primero en un eje hasta conseguir un área de $\sqrt{2}$ (45 grados). Después, se gira en el otro eje para que la sombra sea un hexágono. 
   - La máxima sombra se da cuando el giro en el segundo eje es de $arccos(\frac{\sqrt{2}}{\sqrt{3}})$.
   - El problema es que no sé calcular algebraicamente el segundo giro a partir del área, pero sí sé calcular el área a partir del ángulo de giro. He utilizado el [[https://es.wikipedia.org/wiki/M%25C3%25A9todo_de_bisecci%25C3%25B3n][método de la bisección]] para encontrar el ángulo a partir del área (función =findAroundZ=).
 
@@ -415,7 +415,7 @@ int main( int argc, char *argv[] ){
     }
     else{
       Cube c = onlyAroundX(SQRT2);
-      c.rotate(0,findAroundZ(A));
+      c = c.rotate(0,findAroundZ(A));
       printf( "Case #%d:\n%s\n", i+1, c.toString().c_str() );
     }
   }
@@ -433,9 +433,9 @@ Case #2:
 0.00000000000000000000 0.35355339059327378637 0.35355339059327373086 
 0.00000000000000000000 -0.35355339059327373086 0.35355339059327378637
 Case #3:
-0.50000000000000000000 0.00000000000000000000 0.00000000000000000000 
-0.00000000000000000000 0.35355339059327378637 0.35355339059327373086 
-0.00000000000000000000 -0.35355339059327373086 0.35355339059327378637
+0.49789095814646988636 0.04587585199198114527 0.00000000000000000000 
+-0.04587585199198114527 0.49789095814646988636 0.00000000000000000000 
+0.00000000000000000000 0.00000000000000000000 0.50000000000000000000
 #+END_EXAMPLE
 
 ** Problem
