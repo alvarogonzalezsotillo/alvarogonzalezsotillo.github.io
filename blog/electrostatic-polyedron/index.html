@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Poliedros basados en configuraciones de mínima energía entre vértices - Álvaro González Sotillo</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Álvaro González Sotillo" />
+    <meta name="description" content="La distribución de cargas que se repelen en la superficie de una esfera da lugar a interesantes poliedros al calcular su recubrimiento convexo." />
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
+  </head>
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">Álvaro González Sotillo</a></h1>
+        <p></p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">Acerca de mí</a></li>
+          <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="//www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Search">
+          <input type="hidden" name="as_sitesearch" value="alvarogonzalezsotillo.github.io">
+        </form>
+        <img class="avatar" src="/media/img/octaedron.png" />
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>Poliedros basados en configuraciones de mínima energía entre vértices</h1>
+
+<div class="figure">
+<p><img src="/assets/blog/electrostatic-polyedron/portada-1.png" alt="portada-1.png" width="60%" />
+</p>
+</div>
+
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Este artículo tiene una <a href="/assets/blog/electrostatic-polyedron/electrostatic-polyhedron.pdf">versión en pdf</a></td>
+</tr>
+</tbody>
+</table>
+
+
+<div class="abstract">
+<p>
+Un conjunto de cargas eléctricas del mismo signo en un conductor tienden a repelerse, de forma que se sitúan en una configuración de mínima energía. Esta configuración sitúa las cargas en la superficie del conductor.
+</p>
+
+<p>
+El siguiente programa de <b>OpenSCAD</b> simula el comportamiento de varias cargas encerradas en un conductor esférico. Tras encontrar la configuración de mínima energía, se representa como las aristas del poliedro que resulta del cubrimiento convexo de las cargas.
+</p>
+
+<p>
+Los poliedros generados presentan un alto grado se simetría. La forma final alcanzada parece depender únicamente del número de vértices iniciales, excepto por algunas simetrías especulares.
+</p>
+
+</div>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgcd16e83">1. Cálculo del poliedro</a>
+<ul>
+<li><a href="#org028a43a">1.1. Determinación de la posición de los vértices</a></li>
+<li><a href="#org0e11e01">1.2. Cubrimiento convexo de los vértices</a></li>
+</ul>
+</li>
+<li><a href="#org07a819d">2. Ejemplos de poliedros para \(4\leq N \leq 24\)</a>
+<ul>
+<li><a href="#org2566b28">2.1. Poliedros regulares</a></li>
+<li><a href="#org65e06b4">2.2. Poliedros con cuadrados</a></li>
+</ul>
+</li>
+<li><a href="#org98c24e1">3. Implementación</a>
+<ul>
+<li><a href="#org3dedc10">3.1. Características del lenguaje</a></li>
+<li><a href="#org458e221">3.2. Cálculo de la posición final de las cargas</a></li>
+<li><a href="#org0e0f0a3">3.3. Cálculo del cubrimiento convexo</a></li>
+<li><a href="#org1da3f3e">3.4. Renderización de poliedros</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<div id="outline-container-orgcd16e83" class="outline-2">
+<h2 id="orgcd16e83"><span class="section-number-2">1</span> Cálculo del poliedro</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Un conjunto de cargas eléctricas del mismo signo en un conductor tienden a repelerse, de forma que se sitúan en una configuración de mínima energía. Esta configuración sitúa las cargas en la superficie del conductor.
+</p>
+</div>
+
+
+
+<div id="outline-container-org028a43a" class="outline-3">
+<h3 id="org028a43a"><span class="section-number-3">1.1</span> Determinación de la posición de los vértices</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+Para determinar la posición final de las cargas dentro de la esfera se realiza una simulación del movimiento de las cargas eléctricas dentro de la esfera, hasta que su posición se estabilice. Para ello se siguen los siguientes pasos:
+</p>
+<ol class="org-ol">
+<li>Se inicializa el conjunto \(C\) de las \(N\) cargas a posiciones \(c_i\) aleatorias del espacio.</li>
+<li>Por cada carga \(c_i \in C\):
+<ol class="org-ol">
+<li>La fuerza de repulsión con cada una de las otras cargas \(c_j\) se calcula como \[f_{ij} = K \cdot \frac{(c_i-c_j)}{|(c_i-c_j)|^2}\] La constante \(K\) debería representar factores como el intervalo de tiempo de cada paso de la simulación y las masas de las cargas y su resistencia al movimiento, aunque en la práctica se ajusta a valores más altos para acelerar el resultado.</li>
+<li>Se suman dichas fuerzas para encontrar la fuerza total resultante \(f_i\) sobre \(c_i\). \[f_i = \sum_{j \neq i}^{N} f_{ij}\]</li>
+</ol></li>
+<li>Por cada carga \(c_i\):
+<ol class="org-ol">
+<li>Se calcula la nueva posición de la carga \(i\) como \(c'_i = c_i +  f_i\).</li>
+<li>La posición resultante se proyecta sobre una esfera de radio \(r\) centrada en el origen \[c''_i = \frac{c'_i}{|c'_i|}\]</li>
+</ol></li>
+<li>Las nuevas posiciones \(c_i\) son los valores de \(c''_i\)</li>
+<li>Se itera desde el paso 2 hasta alcanzar el criterio de terminación.
+<ol class="org-ol">
+<li>El criterio de terminación del bucle es la estabilidad de las posiciones \(c_i\), comparando un umbral \(\epsilon\). \[\epsilon > \sum_{i}^{N} |c''_i - c_i|\]</li>
+</ol></li>
+</ol>
+
+<p>
+La figura <a href="#orgd092a6e">2</a> muestra gráficamente el proceso del cálculo de la nueva posición de una carga, para dos dimensiones y tres cargas totales.
+</p>
+
+
+
+<div id="orgd092a6e" class="figure">
+<p><img src="/assets/blog/electrostatic-polyedron/algoritmo.png" alt="/assets/blog/electrostatic-polyedron/algoritmo.png" width="30%" />
+</p>
+<p><span class="figure-number">Figura 2: </span>Cálculo de la nueva posición \(c''_1\) de la carga \(c_1\) para un total de 3 cargas</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org0e11e01" class="outline-3">
+<h3 id="org0e11e01"><span class="section-number-3">1.2</span> Cubrimiento convexo de los vértices</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+Tras a primera parte del cálculo, se obtienen las posiciones \(c_i\) de los vértices del poliedro. Cada triplete de puntos define uno de estos dos tipos de plano: 
+</p>
+<ul class="org-ul">
+<li>Una cara <i>exterior</i> (o parte de una cara) de este poliedro.</li>
+<li>O bien, un triángulo <i>interior</i> que no forma parte del cubrimiento convexo de los vértices.</li>
+</ul>
+
+<p>
+El algoritmo utilizado para determinar las aristas exteriores del poliedro es el siguiente:
+</p>
+<ol class="org-ol">
+<li>Se parte del conjunto \(T\) de todos los tripletes \[ T = \{ \{c_i,c_j,c_k\} | 1 \leq i < j < k \leq N \}\]</li>
+<li>Por cada triplete \(\{t_1,t_2,t_3\} \in T\)
+<ol class="org-ol">
+<li>Se calcula la ecuación del plano que contiene sus tres puntos \(ax + by + cy + d = 0\), siendo \(\times\) el producto vectorial y \(\cdot\) el producto escalar. \[(a,b,c) = (t_2-t_1) \times (t_3-t_1)\]  \[d = -(a,b,c)\cdot t_1\]</li>
+<li>Se sustituye cada punto \(c_i \in C \setminus \{t_1,t_2,t_3\}\)  en la ecuación del plano obtenida. Si el triplete pertenece al cubrimiento convexo, todos los resultados tendrán el mismo signo (o \(0\)).</li>
+<li>Si el triplete pertenece al cubrimiento, sus aristas \(\{t_1,t_2\}\), \(\{t_2,t_3\}\) y \(\{t_3,t_1\}\) se añaden al conjunto \(A\) de aristas exteriores.</li>
+</ol></li>
+</ol>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org07a819d" class="outline-2">
+<h2 id="org07a819d"><span class="section-number-2">2</span> Ejemplos de poliedros para \(4\leq N \leq 24\)</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Los ficheros <code>STL</code> de definición de cada poliedro pueden generarse desde la línea de comandos de <b>OpenSCAD</b>. El programa se invoca con los parámetros necesarios para fijar el número de vértices a calcular, así como la precisión del cálculo (variables <code>$fn</code> y <code>$fa</code>). El <i>shellscript</i> del listado <a href="#orgd648297">1</a> muestra un bucle con el cálculo de los poliedros desde 4 a 24 vértices.
+</p>
+
+<p>
+El fichero <code>electrostatic-polyhedron.scad</code> se describe en el apartado <a href="#org75070ec">3</a>.
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 1 </span>Generación de los sólidos de ejemplo</label><pre class="src src-sh" id="orgd648297">#!/bin/sh
+SCADFILE=./electrostatic-polyedron.scad
+
+poliedro () {
+  local N=$1
+  openscad -o stl/poliedro-$N.stl -D N=$N -D '$fn=50' -D '$fa=50' "$SCADFILE"
+}
+for i in $(seq 4 24)
+do
+  poliedro $i
+done
+</pre>
+</div>
+
+<p>
+Los ficheros <code>STL</code> generados pueden visualizarse con <b>OpenSCAD</b>, utilizando la orden <code>import</code>, como se muestra en el listado <a href="#orgd268bb1">2</a>
+</p>
+
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 2 </span>Generación de los sólidos de ejemplo</label><pre class="src src-java" id="orgd268bb1">STLFILE="stl/poliedro-10.stl";
+ANGLE=20;
+
+rotate([ANGLE,0,0]){
+     translate([0,0,0]) {
+          import(STLFILE);
+     }
+}
+</pre>
+</div>
+
+<p>
+Las imágenes utilizadas en la tabla <a href="#org5f6d532">1</a> se han generado con el programa del listado <a href="#orgd648297">1</a> y el <i>script</i> del listado <a href="#orgfd6dd91">3</a>
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 3 </span>Generación de los sólidos de ejemplo</label><pre class="src src-sh" id="orgfd6dd91">#!/bin/sh -x
+SCADFILE=./viewstl.scad
+
+fondoblanco(){
+  local IMAGE=$1
+  convert $IMAGE -fuzz 0%  -transparent '#fafafa' $IMAGE
+}
+
+imagenes() {
+  local N=$1
+  local BIG=images/poliedro-$N.png
+  local SMALL=images/poliedro-$N-small.png
+  local SMALLWHITE=images/poliedro-$N-small-white.png
+  openscad -o $BIG --camera=0,0,525,0,0,0 --colorscheme=Nature -D STLFILE=\"stl/poliedro-$N.stl\" "$SCADFILE"
+  fondoblanco $BIG
+  convert -resize 128x128 $BIG $SMALL
+}
+
+for i in $(seq 4 24)
+do
+  imagenes $i
+done
+</pre>
+</div>
+
+<p>
+Los ficheros <code>STL</code> se han importado en el servicio <a href="http://www.sculpteo.com">Sculpteo</a> para su visualización en línea. La tabla <a href="#org5f6d532">1</a> incluye la lista de poliedros y su <i>URL</i>.
+</p>
+
+
+<table id="org5f6d532" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption class="t-bottom"><span class="table-number">Tabla 1</span> Poliedros de ejemplo</caption>
+
+<colgroup>
+<col  class="org-right" />
+</colgroup>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-right">Vértices</th>
+<th scope="col" class="org-left">Sculpteo ID</th>
+<th scope="col" class="org-left">&#xa0;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-right">4</td>
+<td class="org-left">hwBvUUPS</td>
+<td class="org-left"><a href="http://www.sculpteo.com/embed/design/hwBvUUPS"><img src="/assets/blog/electrostatic-polyedron/poliedro-4-small.png" alt="poliedro-4-small.png" /></a></td>
+</tr>
+
+<tr>
+<td class="org-right">5</td>
+<td class="org-left">zywXZ2Vv</td>
+<td class="org-left"><a href="http://www.sculpteo.com/embed/design/zywXZ2Vv"><img src="/assets/blog/electrostatic-polyedron/poliedro-5-small.png" alt="poliedro-5-small.png" /></a></td>
+</tr>
+
+<tr>
+<td class="org-right">6</td>
+<td class="org-left">Hd6M6qdV</td>
+<td class="org-left"><a href="http://www.sculpteo.com/embed/design/Hd6M6qdV"><img src="/assets/blog/electrostatic-polyedron/poliedro-6-small.png" alt="poliedro-6-small.png" /></a></td>
+</tr>
+
+<tr>
+<td class="org-right">7</td>
+<td class="org-left">e3Z7njee</td>
+<td class="org-left"><a href="http://www.sculpteo.com/embed/design/e3Z7njee"><img src="/assets/blog/electrostatic-polyedron/poliedro-7-small.png" alt="poliedro-7-small.png" /></a></td>
+</tr>
+
+<tr>
+<td class="org-right">8</td>
+<td class="org-left">zF9bWGAC</td>
+<td class="org-left"><a href="http://www.sculpteo.com/embed/design/zF9bWGAC"><img src="/assets/blog/electrostatic-polyedron/poliedro-8-small.png" alt="poliedro-8-small.png" /></a></td>
+</tr>
+
+<tr>
+<td class="org-right">9</td>
+<td class="org-left">MTTJEqKN</td>
+<td class="org-left"><a href="http://www.sculpteo.com/embed/design/MTTJEqKN"><img src="/assets/blog/electrostatic-polyedron/poliedro-9-small.png" alt="poliedro-9-small.png" /></a></td>
+</tr>
+
+<tr>
+<td class="org-right">10</td>
+<td class="org-left">XHaVXMzy</td>
+<td class="org-left"><a href="http://www.sculpteo.com/embed/design/XHaVXMzy"><img src="/assets/blog/electrostatic-polyedron/poliedro-10-small.png" alt="poliedro-10-small.png" /></a></td>
+</tr>
+
+<tr>
+<td class="org-right">11</td>
+<td class="org-left">cTu8ZKCy</td>
+<td class="org-left"><a href="http://www.sculpteo.com/embed/design/cTu8ZKCy"><img src="/assets/blog/electrostatic-polyedron/poliedro-11-small.png" alt="poliedro-11-small.png" /></a></td>
+</tr>
+
+<tr>
+<td class="org-right">12</td>
+<td class="org-left">XHZQE7ST</td>
+<td class="org-left"><a href="http://www.sculpteo.com/embed/design/XHZQE7ST"><img src="/assets/blog/electrostatic-polyedron/poliedro-12-small.png" alt="poliedro-12-small.png" /></a></td>
+</tr>
+
+<tr>
+<td class="org-right">13</td>
+<td class="org-left">A9fQg8jN</td>
+<td class="org-left"><a href="http://www.sculpteo.com/embed/design/A9fQg8jN"><img src="/assets/blog/electrostatic-polyedron/poliedro-13-small.png" alt="poliedro-13-small.png" /></a></td>
+</tr>
+
+<tr>
+<td class="org-right">14</td>
+<td class="org-left">BhTtJYyY</td>
+<td class="org-left"><a href="http://www.sculpteo.com/embed/design/BhTtJYyY"><img src="/assets/blog/electrostatic-polyedron/poliedro-14-small.png" alt="poliedro-14-small.png" /></a></td>
+</tr>
+
+<tr>
+<td class="org-right">15</td>
+<td class="org-left">kyYvU3Xd</td>
+<td class="org-left"><a href="http://www.sculpteo.com/embed/design/kyYvU3Xd"><img src="/assets/blog/electrostatic-polyedron/poliedro-15-small.png" alt="poliedro-15-small.png" /></a></td>
+</tr>
+
+<tr>
+<td class="org-right">16</td>
+<td class="org-left">HZBAytyz</td>
+<td class="org-left"><a href="http://www.sculpteo.com/embed/design/HZBAytyz"><img src="/assets/blog/electrostatic-polyedron/poliedro-16-small.png" alt="poliedro-16-small.png" /></a></td>
+</tr>
+
+<tr>
+<td class="org-right">17</td>
+<td class="org-left">BjZoe6GZ</td>
+<td class="org-left"><a href="http://www.sculpteo.com/embed/design/BjZoe6GZ"><img src="/assets/blog/electrostatic-polyedron/poliedro-17-small.png" alt="poliedro-17-small.png" /></a></td>
+</tr>
+
+<tr>
+<td class="org-right">18</td>
+<td class="org-left">dPc6d8nD</td>
+<td class="org-left"><a href="http://www.sculpteo.com/embed/design/dPc6d8nD"><img src="/assets/blog/electrostatic-polyedron/poliedro-18-small.png" alt="poliedro-18-small.png" /></a></td>
+</tr>
+
+<tr>
+<td class="org-right">19</td>
+<td class="org-left">PUog4ujR</td>
+<td class="org-left"><a href="http://www.sculpteo.com/embed/design/PUog4ujR"><img src="/assets/blog/electrostatic-polyedron/poliedro-19-small.png" alt="poliedro-19-small.png" /></a></td>
+</tr>
+
+<tr>
+<td class="org-right">20</td>
+<td class="org-left">Hfhs8x45</td>
+<td class="org-left"><a href="http://www.sculpteo.com/embed/design/Hfhs8x45"><img src="/assets/blog/electrostatic-polyedron/poliedro-20-small.png" alt="poliedro-20-small.png" /></a></td>
+</tr>
+
+<tr>
+<td class="org-right">21</td>
+<td class="org-left">SJuWkeMm</td>
+<td class="org-left"><a href="http://www.sculpteo.com/embed/design/SJuWkeMm"><img src="/assets/blog/electrostatic-polyedron/poliedro-21-small.png" alt="poliedro-21-small.png" /></a></td>
+</tr>
+
+<tr>
+<td class="org-right">22</td>
+<td class="org-left">ii3Bej6z</td>
+<td class="org-left"><a href="http://www.sculpteo.com/embed/design/ii3Bej6z"><img src="/assets/blog/electrostatic-polyedron/poliedro-22-small.png" alt="poliedro-22-small.png" /></a></td>
+</tr>
+
+<tr>
+<td class="org-right">23</td>
+<td class="org-left">KtMCe5s6</td>
+<td class="org-left"><a href="http://www.sculpteo.com/embed/design/KtMCe5s6"><img src="/assets/blog/electrostatic-polyedron/poliedro-23-small.png" alt="poliedro-23-small.png" /></a></td>
+</tr>
+
+<tr>
+<td class="org-right">24</td>
+<td class="org-left">xxAz2juM</td>
+<td class="org-left"><a href="http://www.sculpteo.com/embed/design/xxAz2juM"><img src="/assets/blog/electrostatic-polyedron/poliedro-24-small.png" alt="poliedro-24-small.png" /></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+
+
+<div id="outline-container-org2566b28" class="outline-3">
+<h3 id="org2566b28"><span class="section-number-3">2.1</span> Poliedros regulares</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+Dado el grado de simetría del proceso, no es sorprendente que se consigan varios poliedros regulares. Con \(4\), \(6\) y \(12\) vértices se obtiene un tetraedro, octaedro e icosaedro, respectivamente. 
+</p>
+</div>
+</div>
+
+<div id="outline-container-org65e06b4" class="outline-3">
+<h3 id="org65e06b4"><span class="section-number-3">2.2</span> Poliedros con cuadrados</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+Para \(8\) y \(24\) vértices se obtienen poliedros con varias caras cuadradas, además de las triangulares. Este hecho no puede probarse con el proceso aquí presentado, ya que es un método iterativo de simulación, y se necesitaría una demostración matemática. Las figuras <a href="#orgb90dde1">3</a>, <a href="#org3d1ef8f">4</a> y <a href="#org8771945">5</a> muestran vistas de estos poliedros    
+</p>
+
+<div id="orgb90dde1" class="figure">
+<p><img src="/assets/blog/electrostatic-polyedron/poliedro-8-1.png" alt="poliedro-8-1.png" />
+</p>
+<p><span class="figure-number">Figura 3: </span>\(N=8\) genera un poliedro con dos caras cuadradas</p>
+</div>
+
+
+
+<div id="org3d1ef8f" class="figure">
+<p><img src="/assets/blog/electrostatic-polyedron/poliedro-8-2.png" alt="poliedro-8-2.png" />
+</p>
+<p><span class="figure-number">Figura 4: </span>\(N=8\) posee una proyección con contorno octogonal regular</p>
+</div>
+
+
+<div id="org8771945" class="figure">
+<p><img src="/assets/blog/electrostatic-polyedron/poliedro-24-1.png" alt="poliedro-24-1.png" />
+</p>
+<p><span class="figure-number">Figura 5: </span>\(N=24\) consigue un poliedro con 6 caras cuadradas, que podría tallarse en un cubo</p>
+</div>
+
+<p>
+Para \(17\) el poliedro generado no contiene cuadrados <i>por muy poco</i>. Aún así se incluye en este apartado por su simetría pentagonal. El autor ha bautizado esta forma geométrica como <b>pachiedro</b>. Las figuras <a href="#orga8ac3e0">6</a> y <a href="#org6fd6b6b">7</a> muestras dos vistas de este poliedro.
+</p>
+
+
+<div id="orga8ac3e0" class="figure">
+<p><img src="/assets/blog/electrostatic-polyedron/poliedro-17-1.png" alt="poliedro-17-1.png" />
+</p>
+<p><span class="figure-number">Figura 6: </span>\(N=17\) ofrece una perspectiva con simetria pentagonal</p>
+</div>
+
+
+
+<div id="org6fd6b6b" class="figure">
+<p><img src="/assets/blog/electrostatic-polyedron/poliedro-17-2.png" alt="poliedro-17-2.png" />
+</p>
+<p><span class="figure-number">Figura 7: </span>En esta vista de \(N=17\) se observan uno de los <i>casi</i> 5 cuadrados del poliedro de forma tangencial, abajo a la izquierda</p>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org98c24e1" class="outline-2">
+<h2 id="org98c24e1"><span class="section-number-2">3</span> <a id="org75070ec"></a>Implementación</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Los ficheros descritos en este apartado están disponibles en un repositorio <b>Github</b>
+</p>
+<ul class="org-ul">
+<li>Repositorio: <a href="https://github.com/alvarogonzalezsotillo/polyhedron">https://github.com/alvarogonzalezsotillo/polyhedron</a></li>
+<li>Fichero principal <code>SCAD</code>: <a href="https://github.com/alvarogonzalezsotillo/polyhedron/blob/master/electrostatic-polyhedron.scad">electrostatic-polyhedron.scad</a></li>
+<li>Este documento
+<ul class="org-ul">
+<li>En formato <code>ORG</code>: <a href="https://github.com/alvarogonzalezsotillo/polyhedron/blob/master/electrostatic-polyhedron.org">electrostatic-polyhedron.org</a></li>
+<li>En formato <code>PDF</code> (a partir del fichero <code>ORG</code>): <a href="https://alvarogonzalezsotillo.github.io/polyhedron//assets/blog/electrostatic-polyedron/electrostatic-polyhedron.pdf">/assets/blog/electrostatic-polyedron/electrostatic-polyhedron.pdf</a></li>
+<li>En formato <code>HTML</code> (a partir del fichero <code>ORG</code>): <a href="https://alvarogonzalezsotillo.github.io/polyhedron/electrostatic-polyhedron.html">electrostatic-polyhedron.html</a></li>
+</ul></li>
+</ul>
+</div>
+
+
+
+<div id="outline-container-org3dedc10" class="outline-3">
+<h3 id="org3dedc10"><span class="section-number-3">3.1</span> Características del lenguaje</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+El lenguaje de <b>OpenSCAD</b> es de tipo funcional, con funciones matemáticas básicas. 
+</p>
+<ul class="org-ul">
+<li>No hay bucles de tipo <i>mientras</i>, y deben implementarse como funciones recurivas.</li>
+<li>Distingue entre funciones (sin efectos laterales) y módulos (que crean efectivamente los sólidos).
+<ul class="org-ul">
+<li>Una consecuencia de que las funciones no tengan efectos laterales es la imposibilidad de trazar la ejecución de las mismas, ya que la instrución <code>log</code> se considera un efecto lateral.</li>
+</ul></li>
+<li>Las funciones admiten parámetros por defecto.</li>
+<li>Permite la construcción de listas de objetos, similares a <i>arrays</i>.
+<ul class="org-ul">
+<li>Los objetos pueden ser, entre otros, números y otras listas.</li>
+</ul></li>
+<li>Un punto tridimensional se especifica como una lista de tres valores.</li>
+<li>Ofrece facilidades para <i>for comprehensions</i>.</li>
+</ul>
+
+
+<p>
+En la implementación se ha optado por utilizar las mínimas funciones del sistema.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org458e221" class="outline-3">
+<h3 id="org458e221"><span class="section-number-3">3.2</span> Cálculo de la posición final de las cargas</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+<b>OpenSCAD</b> no ofrece facilidades básicas como la distancia entre puntos tridimentsionales. Esto permite incluir esta función simple a modo de ejemplo de sintaxis de su lenguaje en el listado <a href="#orgd2935d4">4</a>
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 4 </span>Distancia entre puntos tridimensionales (sqrt es una función incluída en OpenSCAD)</label><pre class="src src-java" id="orgd2935d4">function distancia(a,b) = 
+  let(
+    dx = a[0]-b[0],
+    dy = a[1]-b[1],
+    dz = a[2]-b[2]
+  )
+  sqrt(dx*dx + dy*dy + dz*dz);
+</pre>
+</div>
+
+<p>
+A diferencia de la mayoría de lenguajes, <b>OpenSCAD</b> no ofrece bucles de tipo <b>mientras</b>. Estas construcciones deben emularse con funciones recursivas, que utilicen a su vez operador condicional ternario. En el ejemplo del listado <a href="#orgaedd694">5</a>, se utiliza una función recursiva para recorrer una lista y acumular sus valores. puede verse también el uso de parámetros por defecto.
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 5 </span>Distancia entre puntos tridimensionales</label><pre class="src src-java" id="orgaedd694">function sumaPuntos(lista) = suma(lista,[0,0,0],0);
+function suma(lista,retorno=0,i=0) = 
+  i&gt;=len(lista) ? 
+  retorno : 
+  suma(lista,lista[i]+retorno,i+1); 
+</pre>
+</div>
+
+
+
+
+<p>
+Los bucles <code>for</code> siempre forman parte de un <i>for comprehension</i>, lo que implica que su resultado no puede ser un valor único, sino una lista con una posición por cada vuelta. Para conseguir acumular la distancia total entre dos listas de puntos es necesario, por tanto, un bucle <code>for</code> y un bucle <code>while</code> implementado como función recursiva (ver listado <a href="#orgf16958d">6</a>). Las fuerzas aplicadas en cada carga se calculan también como un <i>for comprehension</i>, como se muestra en el listado <a href="#orgc12bf16">7</a>
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 6 </span>Suma de distancias entre dos listas de puntos</label><pre class="src src-java" id="orgf16958d">function distancias(puntos1, puntos2 ) =    [
+     for( i =[0:1:len(puntos1)-1] )
+         distancia(puntos1[i],puntos2[i])
+];
+
+function errorTotal(puntos1,puntos2) = suma(distancias(puntos1,puntos2));
+</pre>
+</div>
+
+
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 7 </span>Cálculo de las fuerzas que actúan sobre una carga</label><pre class="src src-java" id="orgc12bf16">function fuerzasParaPunto( p, puntos ) = [
+ for( punto = puntos )
+   let(
+      d = distancia(p,punto)
+   )
+   if( punto != p )  
+     (p - punto)/(d*d)
+];
+
+function modulo(vector) = distancia(vector,[0,0,0]);
+</pre>
+</div>
+
+
+
+<p>
+La función <code>nuevoPuntoParaIteracion</code> determina la nueva posición de un punto, y la función <code>iteracion</code> utiliza la anterior para calcular la nueva posición de todos los puntos (listado <a href="#org97677ff">8</a>)
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 8 </span>Cálculo de las nuevas posiciones de las cargas a partir de las actuales</label><pre class="src src-java" id="org97677ff">function normaliza( p, radio ) = radio * p / modulo(p);
+
+function nuevoPuntoParaIteracion(p,puntos, radio=100) = 
+   let(
+      fuerzas = fuerzasParaPunto( p, puntos ),
+      factorDeAmpliacion = radio*radio,
+      fuerza = sumaPuntos(fuerzas)*factorDeAmpliacion,
+      nuevoPunto = p + fuerza
+   )
+   normaliza(nuevoPunto,radio);
+
+function iteracion(puntos, radio=100) = [
+   for( i = puntos) nuevoPuntoParaIteracion(i,puntos,radio)
+];
+</pre>
+</div>
+
+<p>
+La función <code>iteraCalculoDePuntos</code> realiza un bucle <code>while</code> (nuevamente, en forma de función recursiva) hasta que la diferencia de posición entre un paso y el anterior es menor de un umbral. Por seguridad, se incluye también un límite en el número máximo de iteraciones como parámetro por defecto, tal y como se muestra en el listado <a href="#orgf7de0ad">9</a>.
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 9 </span>Bucle hasta no superar una diferencia mínima o un número máximo de iteraciones</label><pre class="src src-java" id="orgf7de0ad">function iteraCalculoDePuntos( puntos, radio=100, errorMaximo=0.01, contador=0, iteracionesMaximas=1000 ) =
+  let( 
+    siguientesPuntos = iteracion(puntos,radio), 
+    error = errorTotal(siguientesPuntos, puntos)
+  )
+  error &lt;= errorMaximo || contador &gt;= iteracionesMaximas ? 
+        siguientesPuntos : 
+        iteraCalculoDePuntos(siguientesPuntos, radio, errorMaximo, contador+1,iteracionesMaximas);
+</pre>
+</div>
+
+
+<p>
+Tan solo resta comenzar con un número determinado de puntos aleatorios e iterarlos hasta conseguir llegar al equilibrio (listado <a href="#orgc5b98e2">10</a>)
+</p>
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 10 </span>Cálculo de los vértices de un poliedro a partir de puntos aleatorios</label><pre class="src src-java" id="orgc5b98e2">function puntoAleatorio() = rands(-1000,1000,3);
+
+function puntosAleatorios(n) = [for( i=[0:n-1] ) puntoAleatorio()];
+
+function verticesPoliedroElectrostatico(n) = iteraCalculoDePuntos(puntosAleatorios(n));
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0e0f0a3" class="outline-3">
+<h3 id="org0e0f0a3"><span class="section-number-3">3.3</span> Cálculo del cubrimiento convexo</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+Comenzamos definiendo primitivas básicas para el trabajo con vectores: producto escalar y vectorial. El producto vectorial ya está implementado en <b>OpenSCAD</b> (función <code>cross</code>), pero se incluye en el listado <a href="#org5f5da74">11</a> por completitud del algoritmo.
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 11 </span>Cálculo del producto escalar y vectorial</label><pre class="src src-java" id="org5f5da74">function productoEscalar(v1,v2) =
+  suma( [ 
+    for(i=[0:len(v1)-1]) v1[i]*v2[i] 
+  ] );
+
+function productoVectorial(v1,v2) = [
+    v1[1]*v2[2] - v1[2]*v2[1],
+    - v1[0]*v2[2] + v1[2]*v2[0],
+    v1[0]*v2[1] - v1[1]*v2[0]
+];
+</pre>
+</div>
+
+<p>
+Utilizando los productos, podemos definir la ecuación del plano que pasa por tres puntos, y una función que determina si un punto pertenece a un plano, o si queda a un lado o a otro del mismo (listado <a href="#org9d751fb">12</a>).
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 12 </span>Determinación de la ecuación de un plano por tres ypuntos, y su aplicación a un punto</label><pre class="src src-java" id="org9d751fb">function ecuacionDePlanoPorTresPuntos(p1,p2,p3) =
+  let(
+    puntoEnElPlano = p1,
+    vector1 = p2-p1,
+    vector2 = p3-p1,
+    normal = productoVectorial(vector1,vector2),
+    d = -productoEscalar(puntoEnElPlano,normal)
+  )
+  [normal,d];
+
+function ecuacionDePlanoPorTresPuntosEnLista(lista) =
+   ecuacionDePlanoPorTresPuntos(lista[0],lista[1],lista[2]);
+
+function sustituyeEcuacionPlano(ecuacion,punto) =
+    productoEscalar(ecuacion[0],punto) + ecuacion[1];
+</pre>
+</div>
+
+
+<p>
+Las funciones del listado <a href="#orgc864894">13</a> resumen el cálculo de aristas ocultas. Necesitan varias funciones de utilidad definidas en el listado <a href="#org8f5fc19">14</a>.
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 13 </span>Cálculo de aristas exteriores</label><pre class="src src-java" id="orgc864894">function quitarAristasDuplicadas(aristas,ret=[],indice=0) = 
+  indice &gt;= len(aristas) ?
+  ret : 
+  (
+      let( 
+        a1 = aristas[indice],
+        a2 = [a1[1],a1[0]]
+      )
+      contenidoEnLista(a1,ret) || contenidoEnLista(a2,ret) ?
+      quitarAristasDuplicadas(aristas,ret,indice+1) :
+      quitarAristasDuplicadas(aristas,agregarALista(ret,a1),indice+1)
+  );
+
+function aristasExteriores(vertices) =
+    let(
+      n = len(vertices),
+      indicesTriangulos = todosLosTripletesHasta(n)
+    )
+    aplanaUnNivel([
+        for( indices = indicesTriangulos )
+            if( todosLosPuntosAlMismoLado(indices,vertices) )
+                aristasDeTriangulo(indices)
+    ]);      
+
+function todosLosPuntosAlMismoLado(triangulo,puntos,tolerancia=1) = 
+   let(
+      ecuacionPlano = ecuacionDePlanoPorTresPuntosEnLista(trianguloConIndicesDeVertices(triangulo,puntos)),
+      lados = [
+        for(punto=puntos)
+            sustituyeEcuacionPlano(ecuacionPlano,punto)
+      ],
+      ladosNegados = [for(lado=lados) -lado]
+   )
+   todosMayoresOIgualesQue(lados,-tolerancia) ||
+        todosMayoresOIgualesQue(ladosNegados,-tolerancia);
+
+</pre>
+</div>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 14 </span>Funciones auxiliares para el cálculo de aristas exteriores</label><pre class="src src-java" id="org8f5fc19">function todosMayoresOIgualesQue(valores,umbral) =
+    let(
+        comprobaciones = [
+            for( v=valores )
+                v - umbral &gt;= 0 ?
+                1 :
+                0
+        ]
+    )
+    suma(comprobaciones) == len(valores);
+
+
+
+function todosLosTripletesHasta(n) = [
+      for( i=[0:n-3] , j=[i+1:n-2] , k=[j+1:n-1] ) [i,j,k]
+];
+
+function trianguloConIndicesDeVertices(indices,vertices) =
+  [vertices[indices[0]], vertices[indices[1]], vertices[indices[2]]];
+
+function aristasDeTriangulo(triplete) = [
+      [triplete[0],triplete[1]],
+      [triplete[1],triplete[2]],
+      [triplete[2],triplete[0]]
+];    
+
+// SI UNA LISTA ES [[[a,b],[c,d]],[[e,f],[g,h]]] la deja en [[a,b],[c,d],[e,f],[g,h]]
+function aplanaUnNivel(lista) = [
+      for( a = lista , b = a ) b
+];
+
+
+function contenidoEnLista(v,lista,indice=0) =
+  lista[indice] == v ? 
+  true : (
+    indice&gt;=len(lista) ?
+    false :
+    contenidoEnLista(v,lista,indice+1)
+  );
+
+function agregarALista(lista,valor) = [
+      for(i=[0:len(lista)])
+          i &lt; len(lista) ? lista[i] : valor
+];
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org1da3f3e" class="outline-3">
+<h3 id="org1da3f3e"><span class="section-number-3">3.4</span> Renderización de poliedros</h3>
+<div class="outline-text-3" id="text-3-4">
+<p>
+Hasta el momento, sólo se ha realizado el cálculo de los vértices del poliedro, pero <b>OpenSCAD</b> no ha renderizado ninguna forma.
+</p>
+
+<p>
+Para que <b>OpenSCAD</b> genere algún volumen hay que utilizar un <code>module</code> predefinido o uno propio construido a base de los ya existentes, como se muestra en el listado <a href="#org5bde976">15</a>. En este caso, cada arista se renderiza como un cilindro rematado por esferas.
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 15 </span>Generación de un poliedro <i>wireframe</i></label><pre class="src src-java" id="org5bde976">N = 20;      
+vertices = verticesPoliedroElectrostatico(N);
+aristas = aristasExteriores(vertices);
+aristasSinDuplicados = quitarAristasDuplicadas(aristas);
+
+module palo(a,b,r){
+    hull(){
+        translate(a) sphere(r);
+        translate(b) sphere(r);
+    }
+}
+
+module aristasAPalos(aristas,vertices,ancho=10){
+    for( i=aristas )
+        palo(vertices[i[0]],vertices[i[1]],ancho);
+}    
+
+aristasAPalos(aristasSinDuplicados,vertices,5);
+</pre>
+</div>
+
+<p>
+Si se desea visualizar un sólido tradicional, basta con que <b>OpenSCAD</b> calcule el cubrimiento de los vértices. En este caso, los vértices se modelan como pequeñas esferas (listado <a href="#org20c8cbe">16</a>)
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 16 </span>Generación de un poliedro sólido</label><pre class="src src-java" id="org20c8cbe">module verticesASolido(vertices,radio=1){
+     hull(){
+          for(v = vertices){
+               translate(v) sphere(radio);
+          }
+     }
+}
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2017-10-17</span>
+        <span title="last modification date" class="post-info">2017-10-19</span>
+        <span title="tags" class="post-info"><a href="/tags/programación/">programación</a>, <a href="/tags/openscad/">openscad</a></span>
+        <span title="author" class="post-info">Álvaro González Sotillo</span>
+      </div>
+      <section>
+        <h1>Comments</h1>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+          //var disqus_developer = 1;
+          var disqus_identifier = "/blog/electrostatic-polyedron";
+          var disqus_url = "https://alvarogonzalezsotillo.github.io/blog/electrostatic-polyedron";
+          var disqus_shortname = 'alvarogonzalezsotillo';
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="//disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      </section>
+      <!-- <script src="//code.jquery.com/jquery-latest.min.js"></script> -->
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->
+      <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>  -->
+      <script src="/media/js/jquery-3.2.1.min.js"></script>
+      <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+      <script src="/media/js/main.js"></script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:alvarogonzalezsotillo <at> gmail <dot> com">Álvaro González Sotillo</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>

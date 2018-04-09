@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Literate Programming y Google Code Jam - Álvaro González Sotillo</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Álvaro González Sotillo" />
+    <meta name="description" content="Se puede utilizar orgmode para programar y documentar/publicar lo programado" />
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
+  </head>
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">Álvaro González Sotillo</a></h1>
+        <p></p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">Acerca de mí</a></li>
+          <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="//www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Search">
+          <input type="hidden" name="as_sitesearch" value="alvarogonzalezsotillo.github.io">
+        </form>
+        <img class="avatar" src="/media/img/octaedron.png" />
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>Literate Programming y Google Code Jam</h1>
+<div id="table-of-contents">
+<h2>&Iacute;ndice</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org4cb72d3">1. CodeJam utilizando <i>emacs</i></a>
+<ul>
+<li><a href="#orgb798e75">1.1. <i>source  block</i></a></li>
+</ul>
+</li>
+<li><a href="#orgd1d564a">2. Saving The Universe Again</a>
+<ul>
+<li><a href="#org6d0523b">2.1. Solución</a></li>
+<li><a href="#orgffbdb40">2.2. Problem</a></li>
+</ul>
+</li>
+<li><a href="#org2b1d8fb">3. Cubic UFO</a>
+<ul>
+<li><a href="#org2418580">3.1. Solución</a></li>
+<li><a href="#org647f6b0">3.2. Problem</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org4cb72d3" class="outline-2">
+<h2 id="org4cb72d3"><span class="section-number-2">1</span> <a href="https://code.google.com/codejam/">CodeJam</a> utilizando <i>emacs</i></h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Este año han cambiado las normas usuales en el concurso de programación CodeJam de Google.
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Antes</th>
+<th scope="col" class="org-left">Ahora</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Cada programador ejecutaba el código localmente</td>
+<td class="org-left">El código se compila y ejecuta en la plataforma del concurso</td>
+</tr>
+
+<tr>
+<td class="org-left">Libertad de elección de lenguaje (open source)</td>
+<td class="org-left">Lenguajes limitados</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+Lamentablemente, Scala es mi lenguaje preferido, pero no estaba entre las opciones. Entre las opciones disponibles, elegí refrescar un poco mis conocimientos de C++.
+</p>
+
+<p>
+En este momento no tenía ningún IDE para C++ instalado, así que elegí también darle una oportunidad a <a href="https://orgmode.org/worg/org-contrib/babel/intro.html">org-babel</a>, que es una extensión de <a href="https://orgmode.org/worg/org-contrib/babel/intro.html">org-mode</a> que permite ejecutar bloques de código en diferentes lenguajes de programación, e integrarlos dentro de un lenguaje de markup.
+</p>
+</div>
+
+<div id="outline-container-orgb798e75" class="outline-3">
+<h3 id="orgb798e75"><span class="section-number-3">1.1</span> <i>source  block</i></h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+Un <i>source  block</i> es una parte de un documento org que se considera código fuente de algún lenguaje de programación. Este es un ejemplo de un <i>source block</i> de javascript:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-org">
+#+begin_src javascript
+console.log("Me ejecuto en node!");
+#+end_src
+</pre>
+</div>
+
+<p>
+Para ejecutarlo, basta con situarse en él y pulsar <code>C-c C-c</code> (en notación, <i>emacs</i>, significa <code>CRLC-C</code> seguido de <code>CTRL-C</code>). La salida estándar del programa se añade al fichero org tras el bloque de código.
+</p>
+
+<p>
+Se pueden utilizar varias opciones para controlar cómo se ejecuta:
+</p>
+<ul class="org-ul">
+<li><code>:results raw replace</code> : Los resultados se escriben tal cual, y la siguiente ejecución reemplaza a los anteriores (en vez de añadirse)</li>
+<li><code>:cmdline &lt; saving-the-universe.test.in</code>: La entrada estándar del programa será el fichero <code>saving-the-universe.test.in</code></li>
+<li><code>:wrap EXAMPLE</code>: El resultado se añade al fichero org en un bloque de tipo <a href="https://orgmode.org/manual/Literal-examples.html"><code>EXAMPLE</code></a>.</li>
+<li><code>:exports both</code>: Al generar un fichero html o pdf, incluir tanto el <i>source block</i> como el resultadod de la ejecución</li>
+</ul>
+
+
+<p>
+Por defecto, el único lenguaje considerado seguro es <a href="https://en.wikipedia.org/wiki/Emacs_Lisp">elisp</a>, pero pueden habilitarse <a href="https://orgmode.org/worg/org-contrib/babel/languages.html">otros muchos</a>. Para habilitar C++ se necesita ejecutar dentro de <i>emacs</i>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(org-babel-do-load-languages
+ 'org-babel-load-languages '((C . t)))
+</pre>
+</div>
+
+<p>
+Por supuesto, esto se hace con un bloque de código que ejecuto con <code>C-c C-c</code> 😄.
+</p>
+
+
+<div class="figure">
+<p><img src="/assets/blog/literate-codejam/screencast.gif" alt="/assets/blog/literate-codejam/screencast.gif" />
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgd1d564a" class="outline-2">
+<h2 id="orgd1d564a"><span class="section-number-2">2</span> Saving The Universe Again</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Se puede resolver con un <a href="https://en.wikipedia.org/wiki/Greedy_algorithm">algoritmo avaricioso</a>, ya que el mejor cambio posible es siempre la última aparición de la cadena <code>CS</code> (ver la función <code>nextBestChange</code>).
+</p>
+</div>
+<div id="outline-container-org6d0523b" class="outline-3">
+<h3 id="org6d0523b"><span class="section-number-3">2.1</span> Solución</h3>
+<div class="outline-text-3" id="text-2-1">
+<div class="org-src-container">
+<pre class="src src-cpp">
+#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include &lt;climits&gt;
+#include &lt;cstdlib&gt;
+#include &lt;string&gt;
+
+using namespace std;
+
+
+ofstream log("saving-the-universe-again.log");
+
+long value( string p ){
+  long ret = 0;
+  long strength = 1;
+  for( string::iterator i = p.begin() ; i &lt; p.end(); i++ ){
+    if( *i == 'C' ){
+      strength *= 2;
+    }
+    else{
+      ret += strength;
+    }
+  }
+  return ret;
+}
+
+void swap( string &amp;p, int pos ){
+  //log &lt;&lt; "1swap " &lt;&lt; p &lt;&lt; endl;
+  char c = p[pos];
+  p[pos] = p[pos-1];
+  p[pos-1] = c;
+  //log &lt;&lt; "2swap " &lt;&lt; p &lt;&lt; endl;
+}
+
+bool nextBestChange( string &amp;p ){
+
+  for( int i = p.length()-1 ; i &gt; 0 ; i-- ){
+    log &lt;&lt; i &lt;&lt; endl;
+    if( p[i] == 'S' &amp;&amp; p[i-1] == 'C' ){
+      swap(p,i);
+      return true;
+    }
+  }
+  return false;
+}
+
+long saveTheUniverse( string p, long d ){
+  long changes = 0;
+  log &lt;&lt; "saveTheUniverse:" &lt;&lt; d &lt;&lt; ":" &lt;&lt; value(p) &lt;&lt; endl;
+  while(  value(p) &gt; d ){
+    if( !nextBestChange(p) ){
+      log &lt;&lt; "IMPOSIBLE" &lt;&lt; endl;
+      return -1;
+    }
+    changes++;
+  }
+  log &lt;&lt; "solucion " &lt;&lt; p &lt;&lt; " " &lt;&lt; d &lt;&lt; ":" &lt;&lt; changes;
+  return changes;
+}
+
+string output(long l){
+  if( l == -1)
+    return "IMPOSSIBLE";
+  else{
+    char b[100];
+    sprintf( b, "%ld", l );
+    return b;
+  }
+}
+
+int main( int argc, char *argv[] ){
+
+  int T;
+  cin &gt;&gt; T;
+
+  for( int i = 0 ; i &lt; T ; i++ ){
+    long D;
+    string P;
+    cin &gt;&gt; D &gt;&gt; P;
+    log &lt;&lt; D &lt;&lt; " " &lt;&lt; P &lt;&lt; endl;
+    cout &lt;&lt; "Case #" &lt;&lt; (i+1) &lt;&lt; ": " &lt;&lt; output(saveTheUniverse(P,D)) &lt;&lt; endl;
+  }
+}
+</pre>
+</div>
+
+<pre class="example">
+Case #1: 1
+Case #2: 0
+Case #3: IMPOSSIBLE
+Case #4: 2
+Case #5: 0
+Case #6: 5
+</pre>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-orgffbdb40" class="outline-3">
+<h3 id="orgffbdb40"><span class="section-number-3">2.2</span> Problem</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+An alien robot is threatening the universe, using a beam that will destroy all algorithms knowledge. We have to stop it!
+</p>
+
+<p>
+Fortunately, we understand how the robot works. It starts off with a beam with a strength of 1, and it will run a program that is a series of instructions, which will be executed one at a time, in left to right order. Each instruction is of one of the following two types:
+</p>
+<ul class="org-ul">
+<li>C (for "charge"): Double the beam's strength.</li>
+<li>S (for "shoot"): Shoot the beam, doing damage equal to the beam's current strength.</li>
+</ul>
+<p>
+For example, if the robot's program is SCCSSC, the robot will do the following when the program runs:
+</p>
+
+<ol class="org-ol">
+<li>Shoot the beam, doing 1 damage.</li>
+<li>Charge the beam, doubling the beam's strength to 2.</li>
+<li>Charge the beam, doubling the beam's strength to 4.</li>
+<li>Shoot the beam, doing 4 damage.</li>
+<li>Shoot the beam, doing 4 damage.</li>
+<li>Charge the beam, increasing the beam's strength to 8.</li>
+</ol>
+
+<p>
+In that case, the program would do a total of 9 damage.
+</p>
+
+<p>
+The universe's top algorithmists have developed a shield that can withstand a maximum total of D damage. But the robot's current program might do more damage than that when it runs.
+</p>
+
+<p>
+The President of the Universe has volunteered to fly into space to hack the robot's program before the robot runs it. The only way the President can hack (without the robot noticing) is by swapping two adjacent instructions. For example, the President could hack the above program once by swapping the third and fourth instructions to make it SCSCSC. This would reduce the total damage to 7. Then, for example, the president could hack the program again to make it SCSSCC, reducing the damage to 5, and so on.
+</p>
+
+<p>
+To prevent the robot from getting too suspicious, the President does not want to hack too many times. What is this smallest possible number of hacks which will ensure that the program does no more than D total damage, if it is possible to do so?
+</p>
+</div>
+
+<div id="outline-container-orgc364432" class="outline-4">
+<h4 id="orgc364432"><span class="section-number-4">2.2.1</span> Input</h4>
+<div class="outline-text-4" id="text-2-2-1">
+<p>
+The first line of the input gives the number of test cases, T. T test cases follow. Each consists of one line containing an integer D and a string P: the maximum total damage our shield can withstand, and the robot's program.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org9106bb7" class="outline-4">
+<h4 id="org9106bb7"><span class="section-number-4">2.2.2</span> Output</h4>
+<div class="outline-text-4" id="text-2-2-2">
+<p>
+For each test case, output one line containing Case #x: y, where x is the test case number (starting from 1) and y is either the minimum number of hacks needed to accomplish the goal, or IMPOSSIBLE if it is not possible.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org8f53e71" class="outline-4">
+<h4 id="org8f53e71"><span class="section-number-4">2.2.3</span> Limits</h4>
+<div class="outline-text-4" id="text-2-2-3">
+<p>
+1 ≤ T ≤ 100.
+1 ≤ D ≤ 109.
+2 ≤ length of P ≤ 30.
+Every character in P is either C or S.
+Time limit: 20 seconds per test set.
+Memory limit: 1GB.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org7a0f176" class="outline-4">
+<h4 id="org7a0f176"><span class="section-number-4">2.2.4</span> Sample</h4>
+<div class="outline-text-4" id="text-2-2-4">
+<p>
+Al ejecutar este código (con <code>C-c C-c</code>), se genera el fichero de entrada de prueba.
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">cat &gt; saving-the-universe.test.in &lt;&lt;EOF
+6
+1 CS
+2 CS
+1 SS
+6 SCCSSC
+2 CC
+3 CSCSS
+EOF
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org2b1d8fb" class="outline-2">
+<h2 id="org2b1d8fb"><span class="section-number-2">3</span> Cubic UFO</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Este es un problema geométrico. Se puede dividir en dos partes
+</p>
+<ul class="org-ul">
+<li>Si solo se gira un eje, La sombra del cubo es un rectángulo, con la diagonal proyectada. Se puede calcular algebraicamente el ángulo de giro a partir del área (ver la función <code>onlyAroundX</code>). Con esto, la sombra puede llegar a ser \(\sqrt{2}\).</li>
+<li>Si la sombra debe tener un área mayor de \(\sqrt{2}\), se debe girar primero en un eje hasta conseguir un área de \(\sqrt{2}\) (45 grados). Después, se gira en el otro eje para que la sombra sea un hexágono. 
+<ul class="org-ul">
+<li>La máxima sombra se da cuando el giro en el segundo eje es de \(arccos(\frac{\sqrt{2}}{\sqrt{3}})\).</li>
+<li>El problema es que no sé calcular algebraicamente el segundo giro a partir del área, pero sí sé calcular el área a partir del ángulo de giro. He utilizado el <a href="https://es.wikipedia.org/wiki/M%C3%A9todo_de_bisecci%C3%B3n">método de la bisección</a> para encontrar el ángulo a partir del área (función <code>findAroundZ</code>).</li>
+</ul></li>
+</ul>
+
+
+<div class="figure">
+<p><img src="/assets/blog/literate-codejam/cubic-ufo.jpg" alt="/assets/blog/literate-codejam/cubic-ufo.jpg" />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org2418580" class="outline-3">
+<h3 id="org2418580"><span class="section-number-3">3.1</span> Solución</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+Este código lo uso como calculadora de algunas constantes
+</p>
+<pre class="example">
+0.339837
+0.339837
+</pre>
+
+<p>
+Este es el código del problema real
+</p>
+<div class="org-src-container">
+<pre class="src src-cpp">#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include &lt;climits&gt;
+#include &lt;cstdlib&gt;
+#include &lt;string&gt;
+#include &lt;cmath&gt;
+
+using namespace std;
+
+
+ofstream logger("cubic-ufo.log");
+
+
+class Mat{
+  public:
+  double v[3][3];
+  Mat(double _v[][3]){
+    for( int f = 0 ; f &lt; 3 ; f++ ){
+      for( int c = 0 ; c &lt; 3 ; c++ ){
+        v[f][c] = _v[f][c];
+      }
+    }
+  }
+};
+
+Mat rotX(double a){
+  double ret[][3] = {
+    { 1, 0, 0},
+    { 0, cos(a), -sin(a)},
+    { 0, sin(a), cos(a) }
+  };
+  return Mat(ret);
+}
+
+Mat rotZ(double a){
+  double ret[][3] = {
+    {  cos(a), -sin(a), 0},
+    { sin(a), cos(a),0 },
+    {0,0,1}
+  };
+  return Mat(ret);
+}
+
+class Point{
+  public:
+  double x,y,z;
+  Point(double _x, double _y, double _z):x(_x),y(_y),z(_z){}
+
+  Point rotate(double aroundX, double aroundZ){
+    // https://es.mathworks.com/help/phased/ref/rotx.html?requestedDomain=true
+    Mat rx = rotX(aroundX);
+    Mat rz = rotZ(aroundZ);
+    return times(rx).times(rz);
+  }
+
+  Point times(Mat m){
+    //logger &lt;&lt; "\n\n TIMES *******" &lt;&lt; endl;
+
+    //logger &lt;&lt; "this " &lt;&lt; toString() &lt;&lt; endl;
+
+    //logger &lt;&lt; m.v[0][0] &lt;&lt; "\t" &lt;&lt; m.v[0][1] &lt;&lt; "\t" &lt;&lt; m.v[0][2] &lt;&lt; endl;
+    //logger &lt;&lt; m.v[1][0] &lt;&lt; "\t" &lt;&lt; m.v[1][1] &lt;&lt; "\t" &lt;&lt; m.v[1][2] &lt;&lt; endl;
+    //logger &lt;&lt; m.v[2][0] &lt;&lt; "\t" &lt;&lt; m.v[2][1] &lt;&lt; "\t" &lt;&lt; m.v[2][2] &lt;&lt; endl;
+
+    double retx = x*m.v[0][0] + y*m.v[0][1] + z*m.v[0][2];
+    double rety = x*m.v[1][0] + y*m.v[1][1] + z*m.v[1][2];
+    double retz = x*m.v[2][0] + y*m.v[2][1] + z*m.v[2][2];
+
+    //logger &lt;&lt; "ret " &lt;&lt; retx &lt;&lt; " " &lt;&lt;rety &lt;&lt; " " &lt;&lt; retz;
+
+    return Point(retx,rety,retz);
+  }
+
+  string toString(){
+     char b[1000];
+     snprintf(b, sizeof(b)/sizeof(*b), "%.20lf %.20lf %.20lf", x, y,z );
+     //////logger &lt;&lt; "toString" &lt;&lt; " " &lt;&lt; x &lt;&lt; " " &lt;&lt;y &lt;&lt; " " &lt;&lt;z &lt;&lt; " " &lt;&lt;b &lt;&lt; endl;
+     return b;
+  }
+};
+
+class Cube{
+  public:
+  Point a, b, c;
+
+  Cube():a(0.5,0,0), b(0,0.5,0), c(0,0,0.5){}
+
+  Cube rotate(double aroundX, double aroundZ ){
+    Cube ret;
+    ret.a = ret.a.rotate(aroundX,aroundZ);
+    ret.b = ret.b.rotate(aroundX,aroundZ);
+    ret.c = ret.c.rotate(aroundX,aroundZ);
+    //logger &lt;&lt; "rotate " &lt;&lt; toString() &lt;&lt; endl;
+    return ret;
+  }
+
+  string toString(){
+     char buf[1000];
+     snprintf(buf, sizeof(buf)/sizeof(*buf), "%s \n%s \n%s", a.toString().c_str(), b.toString().c_str(), c.toString().c_str() );
+     return string(buf);
+  }
+
+};
+
+
+const double maxAroundZ = acos( sqrt(2)/sqrt(3) );
+const double SQRT2 = sqrt(2);
+Cube onlyAroundX( double a ){
+  double aroundX = M_PI/4 + acos( a/SQRT2 );
+  return Cube().rotate(aroundX,0);
+}
+
+double maxAreaForAroundZ(double aroundz){
+  return SQRT2*cos(aroundz) + sin(aroundz);
+}
+
+double findAroundZ(double a){
+  double minz = 0;
+  double maxz = maxAroundZ;
+
+  double ret = (maxz + minz)/2;
+  double area = maxAreaForAroundZ(ret);
+  while( fabs( area - a) &gt; 0.00000001 ){
+
+    if( area &gt; a )
+      maxz = ret;
+    else
+      minz = ret;
+
+    ret = (maxz + minz)/2;
+    area = maxAreaForAroundZ(ret);
+  }
+
+  return ret;
+}
+
+
+
+
+int main( int argc, char *argv[] ){
+
+  int T;
+  cin &gt;&gt; T;
+
+  for( int i = 0 ; i &lt; T ; i++ ){
+    double A;
+    cin &gt;&gt; A;
+    printf( "hello! %d\n", i);
+    if( A &lt;= SQRT2){
+      Cube c = onlyAroundX(A);
+      printf( "Case #%d:\n%s\n", i+1, c.toString().c_str() );
+    }
+    else{
+      Cube c = onlyAroundX(SQRT2).rotate(0,findAroundZ(A));
+      printf( "Case #%d:\n%s\n", i+1, c.toString().c_str() );
+    }
+  }
+}
+</pre>
+</div>
+
+<pre class="example">
+hello! 0
+Case #1:
+0.50000000000000000000 0.00000000000000000000 0.00000000000000000000 
+0.00000000000000000000 0.00000000000000003062 0.50000000000000000000 
+0.00000000000000000000 -0.50000000000000000000 0.00000000000000003062
+hello! 1
+Case #2:
+0.50000000000000000000 0.00000000000000000000 0.00000000000000000000 
+0.00000000000000000000 0.35355339059327378637 0.35355339059327373086 
+0.00000000000000000000 -0.35355339059327373086 0.35355339059327378637
+hello! 2
+Case #3:
+0.49789095814646988636 0.04587585199198114527 0.00000000000000000000 
+-0.04587585199198114527 0.49789095814646988636 0.00000000000000000000 
+0.00000000000000000000 0.00000000000000000000 0.50000000000000000000
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-org647f6b0" class="outline-3">
+<h3 id="org647f6b0"><span class="section-number-3">3.2</span> Problem</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+A mysterious cubic alien ship has appeared in the sky over Toronto! In this problem, Toronto is a plane in three-dimensional space that is parallel to the xz plane at y = -3 km. The alien ship is a solid cube with side length 1 km, centered at (0 km, 0 km, 0 km), with its eight corners at (+/- 0.5 km, +/- 0.5 km, +/- 0.5 km). The ship is casting an ominous shadow onto the plane; formally, the shadow is the orthogonal projection of the cube onto the plane. (We consider the sun to be a point infinitely far above the Toronto plane along the y-axis.)
+</p>
+
+<p>
+The military is willing to tolerate the ship as long as the aliens meet their bureaucratic demand: the shadow must cover an area of the plane that is acceptably close to A km2 (see the Output section for a precise definition). They have hired you, a geometric linguistics expert, to convey this demand to the aliens. In your communications so far, you have learned that the ship cannot change size, and the center of the ship cannot move, but the ship is able to rotate arbitrarily in place.
+</p>
+
+<p>
+Please find a way that the aliens can rotate the ship so that the shadow's area is close to A. Express your rotation using three points: the centers of any three non-pairwise-opposing faces.
+</p>
+</div>
+
+<div id="outline-container-org64e1b4d" class="outline-4">
+<h4 id="org64e1b4d"><span class="section-number-4">3.2.1</span> Input</h4>
+<div class="outline-text-4" id="text-3-2-1">
+<p>
+The first line of the input gives the number of test cases, T. T test cases follow; each consists of one line with a rational A, the desired area of the shadow, in km2, with exactly six digits after the decimal point.
+</p>
+
+<p>
+It is guaranteed that there is always a way to rotate the ship in the desired manner for the values of A allowed in this problem.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org5ab21ee" class="outline-4">
+<h4 id="org5ab21ee"><span class="section-number-4">3.2.2</span> Output</h4>
+<div class="outline-text-4" id="text-3-2-2">
+<p>
+For each test case, first output one line containing Case #x:, where x is the test case number (starting from 1). Then, output three more lines with three rational values each: the x, y, and z coordinates of one of your three provided face-centers, as described above. You are welcome to use decimal (e.g., 0.000123456) or scientific notation (e.g., 1.23456e-4).
+</p>
+
+<p>
+Your answer will be considered correct if and only if all of the following are true:
+</p>
+
+<ol class="org-ol">
+<li>The distance (in km) from each point to the origin must be between 0.5 - 10-6 and 0.5 + 10-6, inclusive.</li>
+<li>The angles (in radians) between segments connecting the origin to each point must be between π/2 - 10-6 and π/2 + 10-6, inclusive.</li>
+<li>The area of the shadow (in km2), computed by projecting all 8 vertices onto the y = -3 plane and finding the area of the convex hull of those projected points, must be between A - 10-6 and A + 10-6, inclusive. We will compute the vertices as +/- p1 +/- p2 +/- p3 (that is, for each pi we add either pi or -pi to the total using vector addition), where p1, p2, and p3 are the face-centers that you provide.</li>
+</ol>
+
+<p>
+Please note that you might need to output more than 6 digits after the decimal point to safely pass the checks mentioned above. If there are multiple acceptable answers, you may output any one of them.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgd7567f2" class="outline-4">
+<h4 id="orgd7567f2"><span class="section-number-4">3.2.3</span> Limits</h4>
+<div class="outline-text-4" id="text-3-2-3">
+<p>
+1 ≤ T ≤ 100.
+Time limit: 30 seconds per test set.
+Memory limit: 1GB.
+</p>
+
+<p>
+Test set 1 (Visible)
+1.000000 ≤ A ≤ 1.414213
+</p>
+
+<p>
+Test set 2 (Hidden)
+1.000000 ≤ A ≤ 1.732050
+</p>
+</div>
+</div>
+
+<div id="outline-container-org31625f1" class="outline-4">
+<h4 id="org31625f1"><span class="section-number-4">3.2.4</span> Sample</h4>
+<div class="outline-text-4" id="text-3-2-4">
+<p>
+Al ejecutar este código (con <code>C-c C-c</code>), se genera el fichero de entrada de prueba.
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">cat &gt; cubic-ufo.test.in &lt;&lt;EOF
+3
+1.000000
+1.414213562373095048801688724209698078569671875376948073176679737990732478462107038850387534327641573
+1.5
+EOF
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2018-04-08</span>
+        <span title="last modification date" class="post-info">2018-04-08</span>
+        <span title="tags" class="post-info"><a href="/tags/emacs/">emacs</a>, <a href="/tags/orgmode/">orgmode</a>, <a href="/tags/codejam/">codejam</a>, <a href="/tags/programación/">programación</a></span>
+        <span title="author" class="post-info">Álvaro González Sotillo</span>
+      </div>
+      <section>
+        <h1>Comments</h1>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+          //var disqus_developer = 1;
+          var disqus_identifier = "/blog/literate-codejam";
+          var disqus_url = "https://alvarogonzalezsotillo.github.io/blog/literate-codejam";
+          var disqus_shortname = 'alvarogonzalezsotillo';
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="//disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      </section>
+      <!-- <script src="//code.jquery.com/jquery-latest.min.js"></script> -->
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->
+      <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>  -->
+      <script src="/media/js/jquery-3.2.1.min.js"></script>
+      <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+      <script src="/media/js/main.js"></script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:alvarogonzalezsotillo <at> gmail <dot> com">Álvaro González Sotillo</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Plantila Latex para exámenes tipo test - Álvaro González Sotillo</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Álvaro González Sotillo" />
+    <meta name="description" content="Utilizando una plantilla latex pueden generarse exámenes de una forma cómoda y con buena legibilidad." />
+    <meta name="keywords" content="latex" />
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
+  </head>
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">Álvaro González Sotillo</a></h1>
+        <p></p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">Acerca de mí</a></li>
+          <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="//www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Search">
+          <input type="hidden" name="as_sitesearch" value="alvarogonzalezsotillo.github.io">
+        </form>
+        <img class="avatar" src="/media/img/octaedron.png" />
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>Plantila Latex para exámenes tipo test</h1>
+<p>
+Desde hace un tiempo utilizo Latex para escribir mis exámenes. Al final he creado una plantilla con varias macros de Latex para facilitar la creación preguntas cerradas (de tipo <i>test</i>), preguntas abiertas de distinta longitud, y una tabla de respuestas inicial. Puede verse <a href="ejemplo-examen.pdf">aquí un ejemplo de la apariencia final de los examenes</a>.
+</p>
+
+<div id="outline-container-org6c11a81" class="outline-2">
+<h2 id="org6c11a81">Preguntas cerradas</h2>
+<div class="outline-text-2" id="text-org6c11a81">
+<p>
+Las preguntas cerradas son las que tienen un enunciado y varias opciones a elegir, de las cuales solo una es correcta. 
+</p>
+
+<p>
+Para escribir un bloque de estas preguntas basta con abrir un entorno <code>QuestionaireQuestions</code>, e incluir varias <code>QuestionaireQuestion</code> en su interior. Cada <code>QuestionaireQuestion</code> puede incluir varios <code>\item</code>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-tex">
+\begin{QuestionnaireQuestions}
+  \begin{QuestionnaireQuestion}[Los siguientes tipos de redes están colocados de mayor a menor extensión geográfica]
+    \item WAN, LAN, MAN
+    \item WAN, MAN, LAN
+    \item PAN, CAN, WAN
+    \item PAN, WAN, LAN
+  \end{QuestionnaireQuestion}
+  \begin{QuestionnaireQuestion}[Se quiere construir una red que abarque el municipio de Fuenlabrada (unos 5 Km de diámetro)]
+    \item LAN
+    \item WAN
+    \item PAN
+    \item MAN
+  \end{QuestionnaireQuestion}
+
+  [...]
+
+\end{QuestonaireQuestions}
+
+</pre>
+</div>
+
+<p>
+las preguntas aparecerán numeradas. Para aprovechar el espacio en el papel las preguntas se escriben a <a href="https://es.sharelatex.com/learn/Multiple_columns">doble columna</a>. El enunciado de cada pregunta y todas sus opciones se escriben siempre en la misma columna para facilitar su lectura, utilizando una <a href="http://www.sascha-frank.com/latex-minipage.html">minipage</a>.
+</p>
+
+
+<div class="figure">
+<p><a href="/assets/blog/plantila-latex-para-examenes-tipo-test//assets/blog/plantila-latex-para-examenes-tipo-test//assets/blog/plantila-latex-para-examenes-tipo-test/plantilla-latex-para-examenes.tex"><img src="/assets/blog/plantila-latex-para-examenes-tipo-test/preguntas-cerradas.png" alt="/assets/blog/plantila-latex-para-examenes-tipo-test/preguntas-cerradas.png" /></a>
+</p>
+<p><span class="figure-number">Figura 1: </span>Ejemplo de página con preguntas cerradas</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgdc2ae6b" class="outline-2">
+<h2 id="orgdc2ae6b">Preguntas abiertas</h2>
+<div class="outline-text-2" id="text-orgdc2ae6b">
+<p>
+Para las preguntas abiertas, en las que los alumnos deben desarrollar una respuesta, se pueden utilizar varios entornos dependiendo de la extensión de página que se espera ocupe dicha respuesta:
+</p>
+<ul class="org-ul">
+<li><code>FullPageOpenQuestion</code></li>
+<li><code>HalfPageOpenQuestion</code></li>
+<li><code>QuarterPageOpenQuestion</code></li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-tex">\begin{HalfPageOpenQuestion}
+  Compara un sistema de comunicación basado en conexión con otro no basado en conexión. Indica las ventajas e inconvenientes de cada uno
+\end{HalfPageOpenQuestion}
+
+\begin{HalfPageOpenQuestion}
+  Describe las topologías de red en bus, anillo y malla completa. Ilustra los conceptos con esquemas o dibujos.
+\end{HalfPageOpenQuestion}
+
+[...]
+
+</pre>
+</div>
+
+
+<div class="figure">
+<p><a href="/assets/blog/plantila-latex-para-examenes-tipo-test//assets/blog/plantila-latex-para-examenes-tipo-test//assets/blog/plantila-latex-para-examenes-tipo-test/plantilla-latex-para-examenes.tex"><img src="/assets/blog/plantila-latex-para-examenes-tipo-test/preguntas-abiertas.png" alt="/assets/blog/plantila-latex-para-examenes-tipo-test/preguntas-abiertas.png" /></a>
+</p>
+<p><span class="figure-number">Figura 2: </span>Ejemplo de página con preguntas abiertas</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org74ca3f6" class="outline-2">
+<h2 id="org74ca3f6">Primera página</h2>
+<div class="outline-text-2" id="text-org74ca3f6">
+<p>
+En la primera página del examen se incluye un cuadro para la identificación del alumno, la tabla de respuestas para las preguntas cerradas y las instrucciones del examen.
+</p>
+
+<p>
+La tabla de respuestas tiene las siguientes variantes:
+</p>
+<ul class="org-ul">
+<li>Vertical u horizontal: algunos alumnos prefieren que las respuestas se coloquen de arriba a abajo (como el orden de lectura japonés), y otros de izquierda a derecha (como el orden de lectura occidental)</li>
+<li>Marcas o letras: en el espacio para la respuesta puede escribirse la letra de la opción, o puede marcarse una casilla.</li>
+</ul>
+
+<p>
+Además hay que tener en cuenta que:
+</p>
+<ul class="org-ul">
+<li>El número de casillas de la tabla de respuestas debe ser el mismo que el de preguntas</li>
+<li>El peso que se asignará a las preguntas tipo test y a las preguntas abiertas.</li>
+</ul>
+
+<p>
+Todos estos parámetros se especifican en la llamada a <code>FirstPage</code>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-tex">% 60% PARA PREGUNTAS ABIERTAS
+% 40% PARA PREGUNTAS CERRADAS (TIPO TEST)
+% 30 PREGUNTAS TIPO TEST
+% LA TABLA DE RESPUESTAS SE RELLENA DE IZQUIERDA A DERECHA
+% EN LA TABLA DE RESPUESTAS SE ESCRIBE LA LETRA CORRECTA, EN VEZ DE MARCAR UNA CASILLA
+\FirstPage{60}{40}{30}{true}{false}
+</pre>
+</div>
+
+
+<div class="figure">
+<p><a href="/assets/blog/plantila-latex-para-examenes-tipo-test//assets/blog/plantila-latex-para-examenes-tipo-test//assets/blog/plantila-latex-para-examenes-tipo-test/plantilla-latex-para-examenes.tex"><img src="/assets/blog/plantila-latex-para-examenes-tipo-test/cuadro-respuestas.png" alt="/assets/blog/plantila-latex-para-examenes-tipo-test/cuadro-respuestas.png" /></a>
+</p>
+<p><span class="figure-number">Figura 3: </span>Ejemplo de página inicial con cuadro de respuestas</p>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2017-10-17</span>
+        <span title="last modification date" class="post-info">2017-12-19</span>
+        <span title="tags" class="post-info"><a href="/tags/latex/">latex</a></span>
+        <span title="author" class="post-info">Álvaro González Sotillo</span>
+      </div>
+      <section>
+        <h1>Comments</h1>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+          //var disqus_developer = 1;
+          var disqus_identifier = "/blog/plantila-latex-para-examenes-tipo-test";
+          var disqus_url = "https://alvarogonzalezsotillo.github.io/blog/plantila-latex-para-examenes-tipo-test";
+          var disqus_shortname = 'alvarogonzalezsotillo';
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="//disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      </section>
+      <!-- <script src="//code.jquery.com/jquery-latest.min.js"></script> -->
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->
+      <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>  -->
+      <script src="/media/js/jquery-3.2.1.min.js"></script>
+      <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+      <script src="/media/js/main.js"></script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:alvarogonzalezsotillo <at> gmail <dot> com">Álvaro González Sotillo</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>
