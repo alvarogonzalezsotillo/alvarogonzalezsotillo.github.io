@@ -200,7 +200,7 @@ table th.right, table td.right {
 /* searchform*/
 #searchform {
     position: absolute;
-    top: 0px;
+    top: 54px;
     right: 30.4%;
 }
 #searchform #s {
@@ -567,6 +567,15 @@ div#text-table-of-contents ul{
 div#text-table-of-contents li:before{
     content: "";
 }
+
+#table-of-contents{
+    background: white;
+}
+
+#table-of-contents:hover #text-table-of-contents {
+    margin-top: 0em;
+}
+
 
 .post img{
     margin-right: auto;
