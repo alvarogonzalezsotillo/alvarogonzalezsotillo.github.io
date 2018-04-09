@@ -7,7 +7,7 @@
 #+TAGS:        programación, java, AI
 #+DESCRIPTION: A pesar de ser jugador de videojuegos y programador durante años, nunca había hecho uno. Los tests de Bongard me dan una buena oportunidad de programar uno.
 
-#+LANGUAGE:    en
+#+LANGUAGE:    es
 #+OPTIONS:     H:7 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 
 

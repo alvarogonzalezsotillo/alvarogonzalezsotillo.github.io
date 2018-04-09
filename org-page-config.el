@@ -1,9 +1,13 @@
 
-(defun generar-blog()
+
+(defvar raiz-de-blog "/home/alvaro/alvarogonzalezsotillo.github.io")
+
+(defun configura-blog()
   (interactive)
 
   (require 'org-page)
-  (setq op/repository-directory "/home/alvaro/alvarogonzalezsotillo.github.io")
+
+  (setq op/repository-directory raiz-de-blog)
   (setq op/repository-org-branch "source")
   (setq op/repository-html-branch "master")
   (setq op/site-domain "https://alvarogonzalezsotillo.github.io/")
@@ -15,14 +19,17 @@
   (setq op/personal-github-link "https://github.com/alvarogonzalezsotillo")
 
   (setq op/personal-avatar "/media/img/octaedron.png" )
-  (setq op/theme-root-directory "/home/alvaro/alvarogonzalezsotillo.github.io/themes/")
+  (setq op/theme-root-directory (concat raiz-de-blog "/themes/") )
   (setq op/theme 'alvaro)
 
   (setq op/site-main-title "Álvaro González Sotillo")
-  (setq op/site-sub-title "")
+  (setq op/site-sub-title ""))
 
-  ;;; the configuration below are optional
-  ;(setq op/personal-google-analytics-id "your_google_analytics_id")
 
+
+(defun generar-blog()
+  (interactive)
+
+  (configura-blog)
   ;; TRAS LA CONFIGURACIÓN, GENERO EL SITIO DE PRUEBA
   (op/do-publication-and-preview-site op/site-preview-directory))

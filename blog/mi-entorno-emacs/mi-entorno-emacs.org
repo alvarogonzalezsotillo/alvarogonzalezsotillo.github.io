@@ -5,7 +5,7 @@
 #+URI:         /blog/como-preparo-mi-entorno-con-emacs
 #+KEYWORDS:    Emacs, magit, git, latex, reveal
 #+TAGS:        emacs, latex
-#+LANGUAGE:    en
+#+LANGUAGE:    es
 #+OPTIONS:     H:3 num:t toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 #+DESCRIPTION: Cada vez que llego a un nuevo ordenador tengo que preparar mi entorno, y se puede hacer fácilmente con un par de /scripts/
 

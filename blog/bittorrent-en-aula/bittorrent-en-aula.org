@@ -7,7 +7,7 @@
 #+TAGS:        bittorrent
 #+DESCRIPTION: BitTorrent es un protocolo p2p para el intercambio de ficheros. Se suele asociar a descargas ilegales, pero puede ser muy útil en el aula de informática.
 
-#+LANGUAGE:    en
+#+LANGUAGE:    es
 #+OPTIONS:     H:7 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 
 
