@@ -3,7 +3,7 @@
   (interactive)
 
   (require 'org-page)
-  (setq op/repository-directory "/home/alvaro/alvarogonzalezsotillo.github.io")
+  (setq op/repository-directory "/home/alvaro/github/alvarogonzalezsotillo.github.io")
   (setq op/repository-org-branch "source")
   (setq op/repository-html-branch "master")
   (setq op/site-domain "https://alvarogonzalezsotillo.github.io/")
@@ -15,7 +15,7 @@
   (setq op/personal-github-link "https://github.com/alvarogonzalezsotillo")
 
   (setq op/personal-avatar "/media/img/octaedron.png" )
-  (setq op/theme-root-directory "/home/alvaro/alvarogonzalezsotillo.github.io/themes/")
+  (setq op/theme-root-directory "/home/alvaro/github/alvarogonzalezsotillo.github.io/themes/")
   (setq op/theme 'alvaro)
 
   (setq op/site-main-title "Álvaro González Sotillo")

@@ -29,14 +29,11 @@
 * [[https://code.google.com/codejam/][CodeJam]] utilizando /emacs/
 Este año han cambiado las normas usuales en el concurso de programación CodeJam de Google.
 
-| Antes                                           | Ahora                                                        |
-|-------------------------------------------------+--------------------------------------------------------------|
-| Cada programador ejecutaba el código localmente | El código se compila y ejecuta en la plataforma del concurso |
-| Libertad de elección de lenguaje (open source)  | Lenguajes limitados                                          |
+Antes, cada programador ejecutaba el código localmente, elgiendo el lenguaje de programación. Ahora, el código se compila y ejecuta en la plataforma del concurso, por lo que la elección de lenguajes está limitada.
 
-Lamentablemente, Scala es mi lenguaje preferido, pero no estaba entre las opciones. Entre las opciones disponibles, elegí refrescar un poco mis conocimientos de C++.
+Lamentablemente, *Scala* es mi lenguaje preferido, pero no estaba entre las opciones. Entre las opciones disponibles, elegí refrescar un poco mis conocimientos de *C++*.
 
-En este momento no tenía ningún IDE para C++ instalado, así que elegí también darle una oportunidad a [[https://orgmode.org/worg/org-contrib/babel/intro.html][org-babel]], que es una extensión de [[https://orgmode.org/worg/org-contrib/babel/intro.html][org-mode]] que permite ejecutar bloques de código en diferentes lenguajes de programación, e integrarlos dentro de un lenguaje de markup.
+En este momento no tenía ningún IDE para C++ instalado, así que elegí también darle una oportunidad a [[https://orgmode.org/worg/org-contrib/babel/intro.html][org-babel]], que es una extensión de [[https://orgmode.org/worg/org-contrib/babel/intro.html][org-mode]] que permite ejecutar bloques de código en diferentes lenguajes de programación, e integrarlos dentro de un lenguaje de markup. Al final, se consigue algo parecido a un /notebook/ de [[https://jupyter.org/][Jupyter]].
 
 ** /source  block/
 Un /source  block/ es una parte de un documento org que se considera código fuente de algún lenguaje de programación. Este es un ejemplo de un /source block/ de javascript:
@@ -48,7 +45,7 @@ Un /source  block/ es una parte de un documento org que se considera código fue
   ,#+end_src
 #+end_src
 
-Para ejecutarlo, basta con situarse en él y pulsar =C-c C-c= (en notación, /emacs/, significa =CRLC-C= seguido de =CTRL-C=). La salida estándar del programa se añade al fichero org tras el bloque de código.
+Para ejecutarlo, basta con situarse en él y pulsar =C-c C-c= (en notación, /emacs/, significa =CRLC-C= seguido de =CTRL-C=). La salida estándar del programa se añade al fichero org tras el bloque de código. 
 
 Se pueden utilizar varias opciones para controlar cómo se ejecuta:
 - =:results raw replace= : Los resultados se escriben tal cual, y la siguiente ejecución reemplaza a los anteriores (en vez de añadirse)
