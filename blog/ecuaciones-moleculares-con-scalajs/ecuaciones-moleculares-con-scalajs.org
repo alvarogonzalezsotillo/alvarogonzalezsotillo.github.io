@@ -43,13 +43,14 @@ En el *[[https://es.wikipedia.org/wiki/M%25C3%25A9todo_algebraico][método algeb
 
 Como ejemplo, se ajustará la ecuación $H_2 + O_2= H_{2}O$. Se asigna una variable a cada molécula que será su coeficiente
 
-$$x_0 × H2 + x_1 × O2= x_2 × H2O$$
+$$x_0 × H2 + x_1 × O2= x_2 × H_{2}O$$
 
 El desglose de la ecuación anterior por cada átomo da lugar a un sistema de ecuaciones
 $$H: 2x_0 + 0x_1 - 2x_2 = 0$$
 $$O: 0x_0 + 2x_1 - x_2 = 0$$
 Este sistema queda siempre indeterminado, pues cualquier múltiplo de los coeficientes finales será también una solución. Para definir el sistema, se añade arbitrariamente la ecuación
-$x_0=1$
+
+$$x_0=1$$
 
 Al resolver el sistema, queda
 
@@ -70,7 +71,7 @@ Se ha implementado la lógica en Scala, y se ha /transpilado/ posteriormente a J
 
 ** Parseo de la ecuación
 
-Se ha utilizado =[[http://www.scala-lang.org/api/2.12.3/scala-parser-combinators/scala/util/parsing/combinator/RegexParsers.html][scala.util.parsing.combinator.RegexParsers]]= para validar la ecuación introducida.
+Se ha utilizado [[http://www.scala-lang.org/api/2.12.3/scala-parser-combinators/scala/util/parsing/combinator/RegexParsers.html][=scala.util.parsing.combinator.RegexParsers=]] para validar la ecuación introducida.
 
 Se necesitan varias /case class/ para representar internamente una ecuación:
 
@@ -172,7 +173,7 @@ val variablesEnteras = {
 ** Ajuste de la ecuación
 A partir de la ecuación molecular, se construye una matriz que representa el sistema de ecuaciones lineales descrito anteriormente.
 
-Las ecuaciones deben resolverse con números racionales para poder reajustar las soluciones no enteras. Se ha implementado una clase =Racional= y su correspondiente implementación de =[[https://www.scala-lang.org/api/current/scala/math/Fractional.html][Fractional]]=, de forma que puede usarse de forma genérica.
+Las ecuaciones deben resolverse con números racionales para poder reajustar las soluciones no enteras. Se ha implementado una clase =Racional= y su correspondiente implementación de [[https://www.scala-lang.org/api/current/scala/math/Fractional.html][=Fractional=]], de forma que puede usarse de forma genérica.
 
 Las ecuaciones se combinan linealmente para conseguir despejar las incógnitas, con una variación del [[https://es.wikipedia.org/wiki/Eliminaci%25C3%25B3n_de_Gauss-Jordan][método de Gauss-Jordan]].
 
