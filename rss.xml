@@ -4,16 +4,58 @@
     <title>Álvaro González Sotillo</title>
     <link>https://alvarogonzalezsotillo.github.io/</link>
     <description></description>
-    <pubDate>sáb, 17 mar 2018 16:38:04 CET</pubDate>
-    <lastBuildDate>sáb, 17 mar 2018 16:38:04 CET</lastBuildDate>
+    <pubDate>lun, 09 abr 2018 14:15:31 CEST</pubDate>
+    <lastBuildDate>lun, 09 abr 2018 14:15:31 CEST</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
     <item>
+      <title>Bittorrent en el aula</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/bittorent-en-el-aula</link>
+      <description><![CDATA[BitTorrent es un protocolo p2p para el intercambio de ficheros. Se suele asociar a descargas ilegales, pero puede ser muy útil en el aula de informática.]]></description>
+      <pubDate>2018-04-09</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/bittorent-en-el-aula</guid>
+    </item>
+    <item>
+      <title>El Cluedo como problema de lógica de segundo orden</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/el-cluedo-como-problema-de-logica</link>
+      <description><![CDATA[El Cluedo es considerado un juego para niños, pero bajo su superficie hay un interesante problema de lógica de segundo orden.]]></description>
+      <pubDate>2018-04-09</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/el-cluedo-como-problema-de-logica</guid>
+    </item>
+    <item>
       <title>Ajuste de ecuaciones moleculares</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog//ajuste-de-ecuaciones-moleculares</link>
-      <description><![CDATA[Ajuste de ecuaciones moleculares en Scalajs]]></description>
-      <pubDate>2018-03-17</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog//ajuste-de-ecuaciones-moleculares</guid>
+      <link>https://alvarogonzalezsotillo.github.io/blog/ajuste-de-ecuaciones-moleculares</link>
+      <description><![CDATA[Ajuste de ecuaciones moleculares en Scalajs con el método algebarico.]]></description>
+      <pubDate>2018-04-09</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/ajuste-de-ecuaciones-moleculares</guid>
+    </item>
+    <item>
+      <title>Cómo preparo mi entorno con Emacs</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/como-preparo-mi-entorno-con-emacs</link>
+      <description><![CDATA[Cada vez que llego a un nuevo ordenador tengo que preparar mi entorno, y se puede hacer fácilmente con un par de /scripts/]]></description>
+      <pubDate>2018-04-09</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/como-preparo-mi-entorno-con-emacs</guid>
+    </item>
+    <item>
+      <title>Test de Bongard</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/test-de-bongard</link>
+      <description><![CDATA[A pesar de ser jugador de videojuegos y programador durante años, nunca había hecho uno. Los tests de Bongard me dan una buena oportunidad de programar uno.]]></description>
+      <pubDate>2018-04-09</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/test-de-bongard</guid>
+    </item>
+    <item>
+      <title>Literate Programming y Google Code Jam</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/literate-codejam</link>
+      <description><![CDATA[Se puede utilizar orgmode para programar y documentar/publicar lo programado]]></description>
+      <pubDate>2018-04-08</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/literate-codejam</guid>
+    </item>
+    <item>
+      <title>Plantila Latex para exámenes tipo test</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/plantilla-latex-para-examenes</link>
+      <description><![CDATA[Utilizando una plantilla latex pueden generarse exámenes de una forma cómoda y con buena legibilidad.]]></description>
+      <pubDate>2018-02-22</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/plantilla-latex-para-examenes</guid>
     </item>
     <item>
       <title>Cómo publico materiales para clase</title>
@@ -23,13 +65,6 @@
       <guid>https://alvarogonzalezsotillo.github.io/blog/mi-publicacion-de-materiales-para-clase</guid>
     </item>
     <item>
-      <title>Plantila Latex para exámenes tipo test</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/plantilla-latex-para-examenes</link>
-      <description><![CDATA[Utilizando una plantilla latex pueden generarse exámenes de una forma cómoda y con buena legibilidad.]]></description>
-      <pubDate>2017-11-01</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/plantilla-latex-para-examenes</guid>
-    </item>
-    <item>
       <title>Poliedros basados en configuraciones de mínima energía entre vértices</title>
       <link>https://alvarogonzalezsotillo.github.io/blog/electrostatic-polyedron</link>
       <description><![CDATA[La distribución de cargas que se repelen en la superficie de una esfera da lugar a interesantes poliedros al calcular su recubrimiento convexo.]]></description>
@@ -37,46 +72,11 @@
       <guid>https://alvarogonzalezsotillo.github.io/blog/electrostatic-polyedron</guid>
     </item>
     <item>
-      <title>Cómo preparo mi entorno con Emacs</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/como-preparo-mi-entorno-con-emacs</link>
-      <description><![CDATA[Cada vez que llego a un nuevo ordenador tengo que preparar mi entorno, y se puede hacer fácilmente con un par de /scripts/]]></description>
-      <pubDate>2017-10-19</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/como-preparo-mi-entorno-con-emacs</guid>
-    </item>
-    <item>
       <title>Controlando el universo: mi propio reloj de sol</title>
       <link>https://alvarogonzalezsotillo.github.io/blog/reloj-de-sol</link>
       <description><![CDATA[Tras algún trauma infantil, y 6 años de trabajo (muy) intermitente, ya tengo mi reloj de sol. Y funciona.]]></description>
       <pubDate>2017-10-19</pubDate>
       <guid>https://alvarogonzalezsotillo.github.io/blog/reloj-de-sol</guid>
-    </item>
-    <item>
-      <title>Test de Bongard</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/test-de-bongard</link>
-      <description><![CDATA[A pesar de ser jugador de videojuegos y programador durante años, nunca había hecho uno. Los tests de Bongard me dan una buena oportunidad de programar uno.]]></description>
-      <pubDate>2017-10-19</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/test-de-bongard</guid>
-    </item>
-    <item>
-      <title>Blogueando con orgmode</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/bloqueando-con-orgmode</link>
-      <description><![CDATA[Es posible crear un blog sin (casi) salir de emacs.]]></description>
-      <pubDate>2017-10-18</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/bloqueando-con-orgmode</guid>
-    </item>
-    <item>
-      <title>El Cluedo como problema de lógica de segundo orden</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/el-cluedo-como-problema-de-logica</link>
-      <description><![CDATA[El Cluedo es considerado un juego para niños, pero bajo su superficie hay un interesante problema de lógica de segundo orden.]]></description>
-      <pubDate>2017-10-18</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/el-cluedo-como-problema-de-logica</guid>
-    </item>
-    <item>
-      <title>Bittorrent en el aula</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/bittorent-en-el-aula</link>
-      <description><![CDATA[BitTorrent es un protocolo p2p para el intercambio de ficheros. Se suele asociar a descargas ilegales, pero puede ser muy útil en el aula de informática.]]></description>
-      <pubDate>2017-10-01</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/bittorent-en-el-aula</guid>
     </item>
   </channel>
 </rss>
