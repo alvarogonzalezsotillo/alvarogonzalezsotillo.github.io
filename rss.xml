@@ -4,8 +4,8 @@
     <title>Álvaro González Sotillo</title>
     <link>https://alvarogonzalezsotillo.github.io/</link>
     <description></description>
-    <pubDate>lun, 09 abr 2018 18:18:18 CEST</pubDate>
-    <lastBuildDate>lun, 09 abr 2018 18:18:18 CEST</lastBuildDate>
+    <pubDate>lun, 09 abr 2018 14:15:31 CEST</pubDate>
+    <lastBuildDate>lun, 09 abr 2018 14:15:31 CEST</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
     <item>
@@ -30,13 +30,6 @@
       <guid>https://alvarogonzalezsotillo.github.io/blog/ajuste-de-ecuaciones-moleculares</guid>
     </item>
     <item>
-      <title>Literate Programming y Google Code Jam</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/literate-codejam</link>
-      <description><![CDATA[Se puede utilizar orgmode para programar y documentar/publicar lo programado]]></description>
-      <pubDate>2018-04-09</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/literate-codejam</guid>
-    </item>
-    <item>
       <title>Cómo preparo mi entorno con Emacs</title>
       <link>https://alvarogonzalezsotillo.github.io/blog/como-preparo-mi-entorno-con-emacs</link>
       <description><![CDATA[Cada vez que llego a un nuevo ordenador tengo que preparar mi entorno, y se puede hacer fácilmente con un par de /scripts/]]></description>
@@ -49,6 +42,13 @@
       <description><![CDATA[A pesar de ser jugador de videojuegos y programador durante años, nunca había hecho uno. Los tests de Bongard me dan una buena oportunidad de programar uno.]]></description>
       <pubDate>2018-04-09</pubDate>
       <guid>https://alvarogonzalezsotillo.github.io/blog/test-de-bongard</guid>
+    </item>
+    <item>
+      <title>Literate Programming y Google Code Jam</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/literate-codejam</link>
+      <description><![CDATA[Se puede utilizar orgmode para programar y documentar/publicar lo programado]]></description>
+      <pubDate>2018-04-08</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/literate-codejam</guid>
     </item>
     <item>
       <title>Plantila Latex para exámenes tipo test</title>

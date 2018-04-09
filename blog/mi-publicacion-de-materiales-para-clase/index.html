@@ -17,6 +17,7 @@
         <ul>
           <li><a href="/blog/">Blog</a></li>
           <li><a href="/tags/">Tags</a></li>
+          <li><a href="/tags/">Tags</a></li>
           <li><a href="/about/">Acerca de mí</a></li>
           <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
           <li><a href="/rss.xml">RSS</a></li>
@@ -61,9 +62,9 @@ En esta entrada describo qué solución utilizo, que combina repositorios Git, t
 </div>
 
 
-<div id="outline-container-orgfbd75ca" class="outline-2">
-<h2 id="orgfbd75ca">Copias de seguridad</h2>
-<div class="outline-text-2" id="text-orgfbd75ca">
+<div id="outline-container-org32f117e" class="outline-2">
+<h2 id="org32f117e">Copias de seguridad</h2>
+<div class="outline-text-2" id="text-org32f117e">
 <p>
 Utilizo tres sistemas de copias de seguridad para el directorio con los ficheros de clase:
 </p>
@@ -75,9 +76,9 @@ Utilizo tres sistemas de copias de seguridad para el directorio con los ficheros
 </div>
 </div>
 
-<div id="outline-container-org22852ee" class="outline-2">
-<h2 id="org22852ee">Publicación de contenidos</h2>
-<div class="outline-text-2" id="text-org22852ee">
+<div id="outline-container-org687114b" class="outline-2">
+<h2 id="org687114b">Publicación de contenidos</h2>
+<div class="outline-text-2" id="text-org687114b">
 <p>
 <a href="https://moodle.org">Moodle</a>  ha mejorado bastante la publicación de ficheros desde la versión anterior, ya que ahora basta <i>arrastrar y soltar</i> para que aparezcan en el curso. De todas formas, sigue siendo engorroso realizar manualmente las actualizaciones, sobre todo si son varias a la vez.
 </p>
@@ -87,9 +88,9 @@ Mi opción es utilizar un servidor intermedio, <a href="https://pages.github.com
 </p>
 </div>
 
-<div id="outline-container-orga212703" class="outline-3">
-<h3 id="orga212703">Repositorios y ramas <b>Git</b></h3>
-<div class="outline-text-3" id="text-orga212703">
+<div id="outline-container-orgb37382c" class="outline-3">
+<h3 id="orgb37382c">Repositorios y ramas <b>Git</b></h3>
+<div class="outline-text-3" id="text-orgb37382c">
 <p>
 Utilizo un solo repositorio para todas las asignaturas (en el pasado tenía uno por asignatura, pero era demasiado farragoso). El repositorio tiene dos ramas
 </p>
@@ -117,9 +118,9 @@ El repositorio tiene dos <i>remote</i>
 </div>
 
 
-<div id="outline-container-org72ff593" class="outline-3">
-<h3 id="org72ff593">URL de los contenidos</h3>
-<div class="outline-text-3" id="text-org72ff593">
+<div id="outline-container-orgdc6e246" class="outline-3">
+<h3 id="orgdc6e246">URL de los contenidos</h3>
+<div class="outline-text-3" id="text-orgdc6e246">
 <p>
 Una vez publicados en <b>Github Pages</b>, basta con utilizar la URL del recurso en Moodle para enlazarlo. Para facilitar la tarea, utilizo un <i>script</i> que imprime las URL de los ficheros pasados como párametro. Suelo utilizarlo desde dentro de Emacs con <code>C-U M-! ghpages *</code>.
 </p>
@@ -163,9 +164,9 @@ done
 </div>
 
 
-<div id="outline-container-org10b07bf" class="outline-2">
-<h2 id="org10b07bf">Creación de los materiales</h2>
-<div class="outline-text-2" id="text-org10b07bf">
+<div id="outline-container-org4e65354" class="outline-2">
+<h2 id="org4e65354">Creación de los materiales</h2>
+<div class="outline-text-2" id="text-org4e65354">
 <p>
 Para disfrutar de las ventajas que <b>git</b> ofrece, utilizo ficheros de texto. Mi opción es el formato <code>org-mode</code>, que me permite sin salir de Emacs:
 </p>
