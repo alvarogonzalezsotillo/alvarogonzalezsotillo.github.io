@@ -27,13 +27,15 @@
 
 
 * [[https://code.google.com/codejam/][CodeJam]] utilizando /emacs/
-Este año han cambiado las normas usuales en el concurso de programación CodeJam de Google.
+Este año han cambiado las normas usuales en el concurso de programación [[https://code.google.com/codejam/][CodeJam]] de Google.
 
 Antes, cada programador ejecutaba el código localmente, elgiendo el lenguaje de programación. Ahora, el código se compila y ejecuta en la plataforma del concurso, por lo que la elección de lenguajes está limitada.
 
 Lamentablemente, *Scala* es mi lenguaje preferido, pero no estaba entre las opciones. Entre las opciones disponibles, elegí refrescar un poco mis conocimientos de *C++*.
 
 En este momento no tenía ningún IDE para C++ instalado, así que elegí también darle una oportunidad a [[https://orgmode.org/worg/org-contrib/babel/intro.html][org-babel]], que es una extensión de [[https://orgmode.org/worg/org-contrib/babel/intro.html][org-mode]] que permite ejecutar bloques de código en diferentes lenguajes de programación, e integrarlos dentro de un lenguaje de markup. Al final, se consigue algo parecido a un /notebook/ de [[https://jupyter.org/][Jupyter]].
+
+Esta entrada de blog *no solo cuenta* qué programas hice en la ronda de clasificación, sino que *es los programas* que usé en la ronda de clasificación.
 
 ** /source  block/
 Un /source  block/ es una parte de un documento org que se considera código fuente de algún lenguaje de programación. Este es un ejemplo de un /source block/ de javascript:
@@ -60,6 +62,8 @@ Por defecto, el único lenguaje considerado seguro es [[https://en.wikipedia.org
 (org-babel-do-load-languages
  'org-babel-load-languages '((C . t)))
 #+end_src
+
+#+RESULTS:
 
 Por supuesto, esto se hace con un bloque de código que ejecuto con =C-c C-c= 😄.
 
@@ -349,9 +353,9 @@ class Cube{
 
   Cube rotate(double aroundX, double aroundZ ){
     Cube ret;
-    ret.a = ret.a.rotate(aroundX,aroundZ);
-    ret.b = ret.b.rotate(aroundX,aroundZ);
-    ret.c = ret.c.rotate(aroundX,aroundZ);
+    ret.a = a.rotate(aroundX,aroundZ);
+    ret.b = b.rotate(aroundX,aroundZ);
+    ret.c = c.rotate(aroundX,aroundZ);
     //logger << "rotate " << toString() << endl;
     return ret;
   }
@@ -407,7 +411,6 @@ int main( int argc, char *argv[] ){
   for( int i = 0 ; i < T ; i++ ){
     double A;
     cin >> A;
-    printf( "hello! %d\n", i);
     if( A <= SQRT2){
       Cube c = onlyAroundX(A);
       printf( "Case #%d:\n%s\n", i+1, c.toString().c_str() );
@@ -422,21 +425,18 @@ int main( int argc, char *argv[] ){
 
 #+RESULTS:
 #+BEGIN_EXAMPLE
-hello! 0
 Case #1:
 0.50000000000000000000 0.00000000000000000000 0.00000000000000000000 
 0.00000000000000000000 0.00000000000000003062 0.50000000000000000000 
 0.00000000000000000000 -0.50000000000000000000 0.00000000000000003062
-hello! 1
 Case #2:
 0.50000000000000000000 0.00000000000000000000 0.00000000000000000000 
 0.00000000000000000000 0.35355339059327378637 0.35355339059327373086 
 0.00000000000000000000 -0.35355339059327373086 0.35355339059327378637
-hello! 2
 Case #3:
 0.49789095814646988636 0.04587585199198114527 0.00000000000000000000 
--0.04587585199198114527 0.49789095814646988636 0.00000000000000000000 
-0.00000000000000000000 0.00000000000000000000 0.50000000000000000000
+-0.03243912603624025254 0.35206207279683637834 0.35355339059327373086 
+0.03243912603624025254 -0.35206207279683632283 0.35355339059327378637
 #+END_EXAMPLE
 
 
