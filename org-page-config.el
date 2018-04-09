@@ -1,8 +1,11 @@
 
 
-(defvar raiz-de-blog "/home/alvaro/alvarogonzalezsotillo.github.io")
+;;; Code:
 
-(defun configura-blog()
+(require 'org-page)
+(defvar raiz-de-blog "/home/alvaro/github/alvarogonzalezsotillo.github.io")
+
+(defun configurar-blog()
   (interactive)
 
   (require 'org-page)
@@ -30,6 +33,15 @@
 (defun generar-blog()
   (interactive)
 
-  (configura-blog)
+  (configurar-blog)
   ;; TRAS LA CONFIGURACIÓN, GENERO EL SITIO DE PRUEBA
   (op/do-publication-and-preview-site op/site-preview-directory))
+
+(defun publicar-blog()
+  (interactive)
+  (configurar-blog)
+  (op/do-publication t nil nil t nil))
+
+;;; org-page-config.el ends here
+
+
