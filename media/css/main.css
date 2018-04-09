@@ -543,13 +543,16 @@ div.post{
     margin-bottom: 2em;
 }
 
-div#text-table-of-contents:before{
+div.post > div#text-table-of-contents:before{
     content: "Índice"
+}
+
+div.post > div#text-table-of-contents{
+    border: 1px black solid;
 }
 
 
 div#text-table-of-contents{
-    border: 1px black solid;
     padding: 1em;
 
     margin-right: 0px;
