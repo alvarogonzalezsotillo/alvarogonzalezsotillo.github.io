@@ -6,6 +6,7 @@
     <meta name="author" content="Álvaro González Sotillo" />
     <meta name="description" content="Los materiales que preparamos los profesores se distribuyen entre los alumnos mediante plataformas de aprendizaje como Moodle. Lo interesante es cómo llegan esos materiales a la plataforma." />
     <meta name="keywords" content="latex,emacs,org-mode,reveal,git,github,github pages" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/media/css/main.css" type="text/css">
     <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
   </head>
@@ -17,13 +18,12 @@
         <ul>
           <li><a href="/blog/">Blog</a></li>
           <li><a href="/tags/">Tags</a></li>
-          <li><a href="/tags/">Tags</a></li>
           <li><a href="/about/">Acerca de mí</a></li>
           <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
           <li><a href="/rss.xml">RSS</a></li>
         </ul>
         <form method="get" id="searchform" action="//www.google.com/search">
-          <input type="text" class="field" name="q" id="s" placeholder="Search">
+          <input type="text" class="field" name="q" id="s" placeholder="Buscar">
           <input type="hidden" name="as_sitesearch" value="alvarogonzalezsotillo.github.io">
         </form>
         <img class="avatar" src="/media/img/octaedron.png" />
@@ -62,9 +62,9 @@ En esta entrada describo qué solución utilizo, que combina repositorios Git, t
 </div>
 
 
-<div id="outline-container-org32f117e" class="outline-2">
-<h2 id="org32f117e">Copias de seguridad</h2>
-<div class="outline-text-2" id="text-org32f117e">
+<div id="outline-container-orge2d34d6" class="outline-2">
+<h2 id="orge2d34d6">Copias de seguridad</h2>
+<div class="outline-text-2" id="text-orge2d34d6">
 <p>
 Utilizo tres sistemas de copias de seguridad para el directorio con los ficheros de clase:
 </p>
@@ -76,9 +76,9 @@ Utilizo tres sistemas de copias de seguridad para el directorio con los ficheros
 </div>
 </div>
 
-<div id="outline-container-org687114b" class="outline-2">
-<h2 id="org687114b">Publicación de contenidos</h2>
-<div class="outline-text-2" id="text-org687114b">
+<div id="outline-container-orgd6ee231" class="outline-2">
+<h2 id="orgd6ee231">Publicación de contenidos</h2>
+<div class="outline-text-2" id="text-orgd6ee231">
 <p>
 <a href="https://moodle.org">Moodle</a>  ha mejorado bastante la publicación de ficheros desde la versión anterior, ya que ahora basta <i>arrastrar y soltar</i> para que aparezcan en el curso. De todas formas, sigue siendo engorroso realizar manualmente las actualizaciones, sobre todo si son varias a la vez.
 </p>
@@ -88,9 +88,9 @@ Mi opción es utilizar un servidor intermedio, <a href="https://pages.github.com
 </p>
 </div>
 
-<div id="outline-container-orgb37382c" class="outline-3">
-<h3 id="orgb37382c">Repositorios y ramas <b>Git</b></h3>
-<div class="outline-text-3" id="text-orgb37382c">
+<div id="outline-container-orgb8f7038" class="outline-3">
+<h3 id="orgb8f7038">Repositorios y ramas <b>Git</b></h3>
+<div class="outline-text-3" id="text-orgb8f7038">
 <p>
 Utilizo un solo repositorio para todas las asignaturas (en el pasado tenía uno por asignatura, pero era demasiado farragoso). El repositorio tiene dos ramas
 </p>
@@ -118,9 +118,9 @@ El repositorio tiene dos <i>remote</i>
 </div>
 
 
-<div id="outline-container-orgdc6e246" class="outline-3">
-<h3 id="orgdc6e246">URL de los contenidos</h3>
-<div class="outline-text-3" id="text-orgdc6e246">
+<div id="outline-container-org8e657f1" class="outline-3">
+<h3 id="org8e657f1">URL de los contenidos</h3>
+<div class="outline-text-3" id="text-org8e657f1">
 <p>
 Una vez publicados en <b>Github Pages</b>, basta con utilizar la URL del recurso en Moodle para enlazarlo. Para facilitar la tarea, utilizo un <i>script</i> que imprime las URL de los ficheros pasados como párametro. Suelo utilizarlo desde dentro de Emacs con <code>C-U M-! ghpages *</code>.
 </p>
@@ -164,9 +164,9 @@ done
 </div>
 
 
-<div id="outline-container-org4e65354" class="outline-2">
-<h2 id="org4e65354">Creación de los materiales</h2>
-<div class="outline-text-2" id="text-org4e65354">
+<div id="outline-container-orgf0fa5f0" class="outline-2">
+<h2 id="orgf0fa5f0">Creación de los materiales</h2>
+<div class="outline-text-2" id="text-orgf0fa5f0">
 <p>
 Para disfrutar de las ventajas que <b>git</b> ofrece, utilizo ficheros de texto. Mi opción es el formato <code>org-mode</code>, que me permite sin salir de Emacs:
 </p>

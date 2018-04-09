@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta name="author" content="Álvaro González Sotillo" />
     <meta name="description" content="Se puede utilizar orgmode para programar y documentar/publicar lo programado" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/media/css/main.css" type="text/css">
     <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
   </head>
@@ -16,13 +17,12 @@
         <ul>
           <li><a href="/blog/">Blog</a></li>
           <li><a href="/tags/">Tags</a></li>
-          <li><a href="/tags/">Tags</a></li>
           <li><a href="/about/">Acerca de mí</a></li>
           <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
           <li><a href="/rss.xml">RSS</a></li>
         </ul>
         <form method="get" id="searchform" action="//www.google.com/search">
-          <input type="text" class="field" name="q" id="s" placeholder="Search">
+          <input type="text" class="field" name="q" id="s" placeholder="Buscar">
           <input type="hidden" name="as_sitesearch" value="alvarogonzalezsotillo.github.io">
         </form>
         <img class="avatar" src="/media/img/octaedron.png" />
@@ -36,21 +36,21 @@
 <h2>&Iacute;ndice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgcd691fc">1. CodeJam utilizando <i>emacs</i></a>
+<li><a href="#org3da55e7">1. CodeJam utilizando <i>emacs</i></a>
 <ul>
-<li><a href="#orgd095306">1.1. <i>source  block</i></a></li>
+<li><a href="#orgb9c7607">1.1. <i>source  block</i></a></li>
 </ul>
 </li>
-<li><a href="#org527d641">2. Saving The Universe Again</a>
+<li><a href="#org433a153">2. Saving The Universe Again</a>
 <ul>
-<li><a href="#org013b818">2.1. Solución</a></li>
-<li><a href="#orgc852bea">2.2. Problem</a></li>
+<li><a href="#org27e736f">2.1. Solución</a></li>
+<li><a href="#org762095d">2.2. Problem</a></li>
 </ul>
 </li>
-<li><a href="#org106fc1c">3. Cubic UFO</a>
+<li><a href="#org1d7e9cf">3. Cubic UFO</a>
 <ul>
-<li><a href="#orgdeabb70">3.1. Solución</a></li>
-<li><a href="#orge20ff0d">3.2. Problem</a></li>
+<li><a href="#org1032ba5">3.1. Solución</a></li>
+<li><a href="#org17c522e">3.2. Problem</a></li>
 </ul>
 </li>
 </ul>
@@ -58,51 +58,28 @@
 </div>
 
 
-<div id="outline-container-orgcd691fc" class="outline-2">
-<h2 id="orgcd691fc"><span class="section-number-2">1</span> <a href="https://code.google.com/codejam/">CodeJam</a> utilizando <i>emacs</i></h2>
+<div id="outline-container-org3da55e7" class="outline-2">
+<h2 id="org3da55e7"><span class="section-number-2">1</span> <a href="https://code.google.com/codejam/">CodeJam</a> utilizando <i>emacs</i></h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Este año han cambiado las normas usuales en el concurso de programación CodeJam de Google.
 </p>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-
-
-<colgroup>
-<col  class="org-left" />
-
-<col  class="org-left" />
-</colgroup>
-<thead>
-<tr>
-<th scope="col" class="org-left">Antes</th>
-<th scope="col" class="org-left">Ahora</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="org-left">Cada programador ejecutaba el código localmente</td>
-<td class="org-left">El código se compila y ejecuta en la plataforma del concurso</td>
-</tr>
-
-<tr>
-<td class="org-left">Libertad de elección de lenguaje (open source)</td>
-<td class="org-left">Lenguajes limitados</td>
-</tr>
-</tbody>
-</table>
-
 <p>
-Lamentablemente, Scala es mi lenguaje preferido, pero no estaba entre las opciones. Entre las opciones disponibles, elegí refrescar un poco mis conocimientos de C++.
+Antes, cada programador ejecutaba el código localmente, elgiendo el lenguaje de programación. Ahora, el código se compila y ejecuta en la plataforma del concurso, por lo que la elección de lenguajes está limitada.
 </p>
 
 <p>
-En este momento no tenía ningún IDE para C++ instalado, así que elegí también darle una oportunidad a <a href="https://orgmode.org/worg/org-contrib/babel/intro.html">org-babel</a>, que es una extensión de <a href="https://orgmode.org/worg/org-contrib/babel/intro.html">org-mode</a> que permite ejecutar bloques de código en diferentes lenguajes de programación, e integrarlos dentro de un lenguaje de markup.
+Lamentablemente, <b>Scala</b> es mi lenguaje preferido, pero no estaba entre las opciones. Entre las opciones disponibles, elegí refrescar un poco mis conocimientos de <b>C++</b>.
+</p>
+
+<p>
+En este momento no tenía ningún IDE para C++ instalado, así que elegí también darle una oportunidad a <a href="https://orgmode.org/worg/org-contrib/babel/intro.html">org-babel</a>, que es una extensión de <a href="https://orgmode.org/worg/org-contrib/babel/intro.html">org-mode</a> que permite ejecutar bloques de código en diferentes lenguajes de programación, e integrarlos dentro de un lenguaje de markup. Al final, se consigue algo parecido a un <i>notebook</i> de <a href="https://jupyter.org/">Jupyter</a>.
 </p>
 </div>
 
-<div id="outline-container-orgd095306" class="outline-3">
-<h3 id="orgd095306"><span class="section-number-3">1.1</span> <i>source  block</i></h3>
+<div id="outline-container-orgb9c7607" class="outline-3">
+<h3 id="orgb9c7607"><span class="section-number-3">1.1</span> <i>source  block</i></h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 Un <i>source  block</i> es una parte de un documento org que se considera código fuente de algún lenguaje de programación. Este es un ejemplo de un <i>source block</i> de javascript:
@@ -117,7 +94,7 @@ console.log("Me ejecuto en node!");
 </div>
 
 <p>
-Para ejecutarlo, basta con situarse en él y pulsar <code>C-c C-c</code> (en notación, <i>emacs</i>, significa <code>CRLC-C</code> seguido de <code>CTRL-C</code>). La salida estándar del programa se añade al fichero org tras el bloque de código.
+Para ejecutarlo, basta con situarse en él y pulsar <code>C-c C-c</code> (en notación, <i>emacs</i>, significa <code>CRLC-C</code> seguido de <code>CTRL-C</code>). La salida estándar del programa se añade al fichero org tras el bloque de código. 
 </p>
 
 <p>
@@ -154,15 +131,15 @@ Por supuesto, esto se hace con un bloque de código que ejecuto con <code>C-c C-
 </div>
 </div>
 
-<div id="outline-container-org527d641" class="outline-2">
-<h2 id="org527d641"><span class="section-number-2">2</span> Saving The Universe Again</h2>
+<div id="outline-container-org433a153" class="outline-2">
+<h2 id="org433a153"><span class="section-number-2">2</span> Saving The Universe Again</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Se puede resolver con un <a href="https://en.wikipedia.org/wiki/Greedy_algorithm">algoritmo avaricioso</a>, ya que el mejor cambio posible es siempre la última aparición de la cadena <code>CS</code> (ver la función <code>nextBestChange</code>).
 </p>
 </div>
-<div id="outline-container-org013b818" class="outline-3">
-<h3 id="org013b818"><span class="section-number-3">2.1</span> Solución</h3>
+<div id="outline-container-org27e736f" class="outline-3">
+<h3 id="org27e736f"><span class="section-number-3">2.1</span> Solución</h3>
 <div class="outline-text-3" id="text-2-1">
 <div class="org-src-container">
 <pre class="src src-cpp">
@@ -265,8 +242,8 @@ Case #6: 5
 
 
 
-<div id="outline-container-orgc852bea" class="outline-3">
-<h3 id="orgc852bea"><span class="section-number-3">2.2</span> Problem</h3>
+<div id="outline-container-org762095d" class="outline-3">
+<h3 id="org762095d"><span class="section-number-3">2.2</span> Problem</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 An alien robot is threatening the universe, using a beam that will destroy all algorithms knowledge. We have to stop it!
@@ -309,8 +286,8 @@ To prevent the robot from getting too suspicious, the President does not want to
 </p>
 </div>
 
-<div id="outline-container-org18cbe17" class="outline-4">
-<h4 id="org18cbe17"><span class="section-number-4">2.2.1</span> Input</h4>
+<div id="outline-container-org56b9ddf" class="outline-4">
+<h4 id="org56b9ddf"><span class="section-number-4">2.2.1</span> Input</h4>
 <div class="outline-text-4" id="text-2-2-1">
 <p>
 The first line of the input gives the number of test cases, T. T test cases follow. Each consists of one line containing an integer D and a string P: the maximum total damage our shield can withstand, and the robot's program.
@@ -318,8 +295,8 @@ The first line of the input gives the number of test cases, T. T test cases foll
 </div>
 </div>
 
-<div id="outline-container-orgb8f6f90" class="outline-4">
-<h4 id="orgb8f6f90"><span class="section-number-4">2.2.2</span> Output</h4>
+<div id="outline-container-orga7522eb" class="outline-4">
+<h4 id="orga7522eb"><span class="section-number-4">2.2.2</span> Output</h4>
 <div class="outline-text-4" id="text-2-2-2">
 <p>
 For each test case, output one line containing Case #x: y, where x is the test case number (starting from 1) and y is either the minimum number of hacks needed to accomplish the goal, or IMPOSSIBLE if it is not possible.
@@ -327,8 +304,8 @@ For each test case, output one line containing Case #x: y, where x is the test c
 </div>
 </div>
 
-<div id="outline-container-org9741569" class="outline-4">
-<h4 id="org9741569"><span class="section-number-4">2.2.3</span> Limits</h4>
+<div id="outline-container-orge684257" class="outline-4">
+<h4 id="orge684257"><span class="section-number-4">2.2.3</span> Limits</h4>
 <div class="outline-text-4" id="text-2-2-3">
 <p>
 1 ≤ T ≤ 100.
@@ -341,8 +318,8 @@ Memory limit: 1GB.
 </div>
 </div>
 
-<div id="outline-container-orgfcc9b6d" class="outline-4">
-<h4 id="orgfcc9b6d"><span class="section-number-4">2.2.4</span> Sample</h4>
+<div id="outline-container-orgd602d45" class="outline-4">
+<h4 id="orgd602d45"><span class="section-number-4">2.2.4</span> Sample</h4>
 <div class="outline-text-4" id="text-2-2-4">
 <p>
 Al ejecutar este código (con <code>C-c C-c</code>), se genera el fichero de entrada de prueba.
@@ -365,8 +342,8 @@ EOF
 </div>
 
 
-<div id="outline-container-org106fc1c" class="outline-2">
-<h2 id="org106fc1c"><span class="section-number-2">3</span> Cubic UFO</h2>
+<div id="outline-container-org1d7e9cf" class="outline-2">
+<h2 id="org1d7e9cf"><span class="section-number-2">3</span> Cubic UFO</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 Este es un problema geométrico. Se puede dividir en dos partes
@@ -387,8 +364,8 @@ Este es un problema geométrico. Se puede dividir en dos partes
 </div>
 </div>
 
-<div id="outline-container-orgdeabb70" class="outline-3">
-<h3 id="orgdeabb70"><span class="section-number-3">3.1</span> Solución</h3>
+<div id="outline-container-org1032ba5" class="outline-3">
+<h3 id="org1032ba5"><span class="section-number-3">3.1</span> Solución</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 Este código lo uso como calculadora de algunas constantes
@@ -584,8 +561,8 @@ Case #3:
 </div>
 
 
-<div id="outline-container-orge20ff0d" class="outline-3">
-<h3 id="orge20ff0d"><span class="section-number-3">3.2</span> Problem</h3>
+<div id="outline-container-org17c522e" class="outline-3">
+<h3 id="org17c522e"><span class="section-number-3">3.2</span> Problem</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 A mysterious cubic alien ship has appeared in the sky over Toronto! In this problem, Toronto is a plane in three-dimensional space that is parallel to the xz plane at y = -3 km. The alien ship is a solid cube with side length 1 km, centered at (0 km, 0 km, 0 km), with its eight corners at (+/- 0.5 km, +/- 0.5 km, +/- 0.5 km). The ship is casting an ominous shadow onto the plane; formally, the shadow is the orthogonal projection of the cube onto the plane. (We consider the sun to be a point infinitely far above the Toronto plane along the y-axis.)
@@ -600,8 +577,8 @@ Please find a way that the aliens can rotate the ship so that the shadow's area 
 </p>
 </div>
 
-<div id="outline-container-orgc70b57c" class="outline-4">
-<h4 id="orgc70b57c"><span class="section-number-4">3.2.1</span> Input</h4>
+<div id="outline-container-org9a7c2fe" class="outline-4">
+<h4 id="org9a7c2fe"><span class="section-number-4">3.2.1</span> Input</h4>
 <div class="outline-text-4" id="text-3-2-1">
 <p>
 The first line of the input gives the number of test cases, T. T test cases follow; each consists of one line with a rational A, the desired area of the shadow, in km2, with exactly six digits after the decimal point.
@@ -613,8 +590,8 @@ It is guaranteed that there is always a way to rotate the ship in the desired ma
 </div>
 </div>
 
-<div id="outline-container-orge33c401" class="outline-4">
-<h4 id="orge33c401"><span class="section-number-4">3.2.2</span> Output</h4>
+<div id="outline-container-orgdb9cdd7" class="outline-4">
+<h4 id="orgdb9cdd7"><span class="section-number-4">3.2.2</span> Output</h4>
 <div class="outline-text-4" id="text-3-2-2">
 <p>
 For each test case, first output one line containing Case #x:, where x is the test case number (starting from 1). Then, output three more lines with three rational values each: the x, y, and z coordinates of one of your three provided face-centers, as described above. You are welcome to use decimal (e.g., 0.000123456) or scientific notation (e.g., 1.23456e-4).
@@ -636,8 +613,8 @@ Please note that you might need to output more than 6 digits after the decimal p
 </div>
 </div>
 
-<div id="outline-container-org574b286" class="outline-4">
-<h4 id="org574b286"><span class="section-number-4">3.2.3</span> Limits</h4>
+<div id="outline-container-org6ebe9bb" class="outline-4">
+<h4 id="org6ebe9bb"><span class="section-number-4">3.2.3</span> Limits</h4>
 <div class="outline-text-4" id="text-3-2-3">
 <p>
 1 ≤ T ≤ 100.
@@ -657,8 +634,8 @@ Test set 2 (Hidden)
 </div>
 </div>
 
-<div id="outline-container-org9a18879" class="outline-4">
-<h4 id="org9a18879"><span class="section-number-4">3.2.4</span> Sample</h4>
+<div id="outline-container-org3d4483a" class="outline-4">
+<h4 id="org3d4483a"><span class="section-number-4">3.2.4</span> Sample</h4>
 <div class="outline-text-4" id="text-3-2-4">
 <p>
 Al ejecutar este código (con <code>C-c C-c</code>), se genera el fichero de entrada de prueba.
@@ -682,7 +659,7 @@ EOF
     <div>
       <div class="post-meta">
         <span title="post date" class="post-info">2018-04-08</span>
-        <span title="last modification date" class="post-info">2018-04-08</span>
+        <span title="last modification date" class="post-info">2018-04-09</span>
         <span title="tags" class="post-info"><a href="/tags/emacs/">emacs</a>, <a href="/tags/orgmode/">orgmode</a>, <a href="/tags/codejam/">codejam</a>, <a href="/tags/programación/">programación</a></span>
         <span title="author" class="post-info">Álvaro González Sotillo</span>
       </div>

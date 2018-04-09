@@ -35,7 +35,7 @@ html {
     font-size: 62.5%;
 }
 body {
-    padding: 20px;
+    padding: 5px;
     font-family: Menlo, Monaco, monospace;
     font-size: 16px;
     line-height: 1.5;
@@ -362,11 +362,15 @@ table th.right, table td.right {
 /* Responsive
    -------------------------------------------------- */
 
+body{
+    font-size: 16px;
+}
+
 @media (min-width: 768px) {
     /* Increase body padding and font-sizes */
     body {
         padding: 30px;
-        font-size: 18px;
+        font-size: 20px;
         line-height: 1.75;
     }
     h1:before, h2:before, h3:before {
@@ -374,11 +378,6 @@ table th.right, table td.right {
     }
 }
 
-@media (min-width: 1024px) {
-    body {
-        padding: 30px;
-    }
-}
 
 /* ALVARO */
 
@@ -430,7 +429,6 @@ ul, ol {
 
 body {
     font-family: 'Cardo', serif;
-    font-size: 30px;
     color: #333;
 
 }
@@ -566,6 +564,20 @@ div#text-table-of-contents ul{
 
 div#text-table-of-contents li:before{
     content: "";
+}
+
+#table-of-contents{
+    background: white;
+    top: 4em;
+
+}
+
+#table-of-contents:hover #text-table-of-contents {
+    margin-top: 0em;
+}
+
+#table-of-contents h2{
+    padding-right: 2em;
 }
 
 .post img{
