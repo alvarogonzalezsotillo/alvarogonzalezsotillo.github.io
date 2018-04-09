@@ -39,9 +39,9 @@ Además, es posible que un año de estos me toque impartir una asignatura que in
 - Algo parecio a programación multiplataforma
 
 
-El código fuente del juego está en  [[https://github.com/alvarogonzalezsotillo/Bongard][https://github.com/alvarogonzalezsotillo/Bongard]], e incluye una versión para Java con AWT, otra como Applet, y una versión en Android. El applet puede ejecutarse más abajo, si se tienen los plugin necesarios. Si no:
-- Se puede intentar usar el fichero JNLP para ejecutarlo, con la orden =javaws https://bit.ly/GAiQSy=
-- Se puede bajar el fichero JAR y ejecutarlo con el usual =java -jar bongard.jar=
-- Se puede bajar el fichero APK e instalarlo en tu Android
+El código fuente del juego está en  [[https://github.com/alvarogonzalezsotillo/Bongard][https://github.com/alvarogonzalezsotillo/Bongard]], e incluye una versión para Java con AWT, otra como Applet, y una versión en Android. 
+- Se puede intentar usar el [[https://raw.github.com/alvarogonzalezsotillo/Bongard/master/release/bongard.jnlp][fichero JNLP]] para ejecutarlo, con la orden =javaws https://bit.ly/GAiQSy=
+- Se puede bajar el [[https://github.com/alvarogonzalezsotillo/Bongard/raw/master/release/bongard.jar][fichero JAR]] y ejecutarlo con el usual =java -jar bongard.jar=
+- Se puede bajar el [[https://github.com/alvarogonzalezsotillo/Bongard/blob/master/release/bongard-all-android-release.apk?raw=true][fichero APK]] e instalarlo en tu Android
 
 
