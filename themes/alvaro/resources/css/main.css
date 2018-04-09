@@ -430,7 +430,7 @@ ul, ol {
 
 body {
     font-family: 'Cardo', serif;
-    font-size: 30px;
+    font-size: 22px;
     color: #333;
 
 }
@@ -576,6 +576,9 @@ div#text-table-of-contents li:before{
     margin-top: 0em;
 }
 
+#table-of-contents h2{
+    padding-right: 2em;
+}
 
 .post img{
     margin-right: auto;
