@@ -15,7 +15,7 @@ Este proyecto es un ajustador de ecuaciones estequiométricas. Puede verse en vi
 
 Una ecuación estequiométrica o ecuación química muestra las moléculas iniciales de una reacción y los resultados de dicha reacción.
 
-Por ejemplo, la reacción de combustión de hidrógeno ($H_2$) y oxígeno ($O2$) para formar agua ($H_{2}O$) se representa como:
+Por ejemplo, la reacción de combustión de hidrógeno ($H_2$) y oxígeno ($O_2$) para formar agua ($H_{2}O$) se representa como:
 
 $$H_2 + O_2 = H_{2}O$$
 
@@ -43,23 +43,25 @@ En el *[[https://es.wikipedia.org/wiki/M%25C3%25A9todo_algebraico][método algeb
 
 Como ejemplo, se ajustará la ecuación $H_2 + O_2= H_{2}O$. Se asigna una variable a cada molécula que será su coeficiente
 
-$x0×H2+x1×O2=x2×H2O$
+$$x_0 × H2 + x_1 × O2= x_2 × H2O$$
 
 El desglose de la ecuación anterior por cada átomo da lugar a un sistema de ecuaciones
-$H: 2x_0 + 0x_1 - 2x_2 = 0$
-$O: 0x_0 + 2x_1 - x_2 = 0$
+$$H: 2x_0 + 0x_1 - 2x_2 = 0$$
+$$O: 0x_0 + 2x_1 - x_2 = 0$$
 Este sistema queda siempre indeterminado, pues cualquier múltiplo de los coeficientes finales será también una solución. Para definir el sistema, se añade arbitrariamente la ecuación
 $x_0=1$
 
 Al resolver el sistema, queda
-$x_0=1$
-$x_1=\frac{1}{2}$
-$x_2=1$
+
+$$x_0=1$$
+$$x_1=\frac{1}{2}$$
+$$x_2=1$$
+
 Para conseguir coeficientes enteros, se multiplican hasta conseguir que el denominador de todos los coeficientes sea el mínimo común múltiplo de los originales. Tras ello, tenemos:
 
-$x_0=2$
-$x_1=1$
-$x_2=2$
+$$x_0=2$$
+$$x_1=1$$
+$$x_2=2$$
 Quedando la ecuación ajustada como $2H_2 + O_2 = 2H_{2}O$
 
 * Implementación
