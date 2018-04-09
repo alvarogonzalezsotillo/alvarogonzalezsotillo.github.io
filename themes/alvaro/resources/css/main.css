@@ -570,6 +570,8 @@ div#text-table-of-contents li:before{
 
 #table-of-contents{
     background: white;
+    top: 4em;
+
 }
 
 #table-of-contents:hover #text-table-of-contents {
