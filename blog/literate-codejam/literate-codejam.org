@@ -35,7 +35,7 @@ Lamentablemente, *Scala* es mi lenguaje preferido, pero no estaba entre las opci
 
 En este momento no tenía ningún IDE para C++ instalado, así que elegí también darle una oportunidad a [[https://orgmode.org/worg/org-contrib/babel/intro.html][org-babel]], que es una extensión de [[https://orgmode.org/worg/org-contrib/babel/intro.html][org-mode]] que permite ejecutar bloques de código en diferentes lenguajes de programación, e integrarlos dentro de un lenguaje de markup. Al final, se consigue algo parecido a un /notebook/ de [[https://jupyter.org/][Jupyter]].
 
-Esta entrada de blog *no solo cuenta* qué programas hice en la ronda de clasificación, sino que *es los programas* que usé en la ronda de clasificación.
+Esta entrada de blog *no solo cuenta* qué programas hice en la ronda de clasificación, sino que *es los programas* que usé en la ronda de clasificación (este blog se [[../../../../blog/bloqueando-con-orgmode][genera con orgmode]])
 
 ** /source  block/
 Un /source  block/ es una parte de un documento org que se considera código fuente de algún lenguaje de programación. Este es un ejemplo de un /source block/ de javascript:
