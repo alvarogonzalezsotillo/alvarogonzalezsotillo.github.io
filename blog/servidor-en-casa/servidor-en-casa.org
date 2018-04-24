@@ -1,0 +1,116 @@
+- Poner ubuntu
+    |---+-----+------+---------+--------------|
+    | / | <>  | <>   | <>      | <>           |
+    |   | EFI | boot | Windows | Recuperación |
+    |---+-----+------+---------+--------------|
+
+  - Reducir partición windows
+    |---+-----+------+---------+-------+--------------|
+    | / | <>  | <>   | <>      | <>    | <>           |
+    |   | EFI | boot | Windows | Libre | Recuperación |
+    |---+-----+------+---------+-------+--------------|
+
+  - Instalar ubuntu
+    - Bajar ubuntu
+    - Poner ubuntu en pincho 
+    - instalar
+    |---+-----+------+---------+-------+--------+------+--------------|
+    | / | <>  | <>   | <>      | <>    | <>     | <>   | <>           |
+    |   | EFI | boot | Windows | Libre | Ubuntu | Swap | Recuperación |
+    |---+-----+------+---------+-------+--------+------+--------------|
+
+  - Usuario para la familia con autologin
+  - Crear partición datos compartidos con Windows
+    - Crear partición
+      |---+-----+------+---------+--------------------------+--------+------+--------------|
+      | / | <>  | <>   | <>      | <>                       | <>     | <>   | <>           |
+      |   | EFI | boot | Windows | Datos compartidos (NTFS) | Ubuntu | Swap | Recuperación |
+      |---+-----+------+---------+--------------------------+--------+------+--------------|
+
+    - Crear grupo discos y añadir los usuarios al grupo
+    #+BEGIN_SRC bash
+    sudo addgroup discos
+    sudo usermod -a -G discos usuario1
+    sudo usermod -a -G discos usuario2
+    #+END_SRC
+    
+    - Montar en fstab con grupo discos
+    #+BEGIN_EXAMPLE
+    # /etc/fstab: static file system information.
+    #
+    # Use 'blkid' to print the universally unique identifier for a
+    # device; this may be used with UUID= as a more robust way to name devices
+    # that works even if disks are added and removed. See fstab(5).
+    #
+    # <file system> <mount point>   <type>  <options>       <dump>  <pass>
+    # / was on /dev/sda7 during installation
+    UUID=04c0c550-c5c3-4ab5-b0f2-02d071836091 /               ext4    errors=remount-ro 0       1
+    # /boot/efi was on /dev/sda1 during installation
+    UUID=0E07-E3EB  /boot/efi       vfat    umask=0077      0       1
+    # swap was on /dev/sda8 during installation
+    UUID=7fa25a22-5511-47c7-9ae8-34d96d23d41d none            swap    sw              0       0
+
+    # NTFS COMPARTIDO CON WINDOWS
+    UUID=9E1CF2601CF2333F /datos/datos-compartidos-200M ntfs gid=discos,dmask=002,fmask=113 0 2
+    #+END_EXAMPLE
+
+- Instalar Openssh-server y Git
+  #+BEGIN_SRC bash
+  sudo apt install openssh-server git
+  #+END_SRC
+- Emacs
+  #+begin_src bash
+  sudo add-apt-repository ppa:kelleyk/emacs
+  sudo apt update
+  sudo apt install emacs25 git
+  #+end_src
+  - Bajar repositorio .emacs.d
+  #+BEGIN_SRC bash
+  git clone https://alvarogonzalezsotillo@github.com/alvarogonzalezsotillo/.emacs.d.git
+  #+END_SRC
+  - Arrancar emacs y reinstalar paquetes
+- Transmission
+  - Instalar transmission
+  - Crear directorio transmission
+  - Configuración
+    - Contraseña
+    - Directorio por defecto
+    - Escuchar en 0.0.0.0, quitar whitelist
+    - umask 
+      #+BEGIN_EXAMPLE
+
+      #+END_EXAMPLE
+    - Añadir usuarios a grupo debian-transmission
+      #+BEGIN_SRC bash
+      sudo usermod -a -G debian-transmission usuario1
+      sudo usermod -a -G debian-transmission usuario2
+      #+END_SRC
+- Kodi
+  - Instalar kodi
+  - Añadir directorio de transmission
+- Profesor
+  - Bajar repositorio apuntes-clase
+  - Instalar 
+    - Latex
+    - Inkscape
+    - graphviz
+- Email
+  - Instalar exim4
+  - Instalar mutt
+  - Configurar smarthost
+- Servidor internet
+  - IP fija
+  - ARP fijo en router
+  - Abrir puertos
+  - Wake on lan
+- Owncloud
+  - instalar apache, php y mysql
+  - Crear usuario y base de datos
+  - instalar owncloud-files
+  - crear owncloud.conf y habilitar sitio  
+  - montar directorio local de fotos
+- Zsh
+  - Instalar zsh
+    - https://github.com/robbyrussell/oh-my-zsh
+  - Instalar oh-my-zsh
+  - Activar plugins: emacs tmux
