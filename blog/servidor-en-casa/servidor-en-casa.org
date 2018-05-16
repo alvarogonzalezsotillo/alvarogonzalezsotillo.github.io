@@ -16,7 +16,7 @@
 
 * Instalación del sistema operativo
 
-El ordenador venía con Windows 10 preinstalado. He /intentado/ usarlo, pero aunque el /[[https://es.wikipedia.org/wiki/Remote_Desktop_Protocol][remote desktop]]/ es una buena forma de conectarte remotamente a un ordenador de tu LAN, no es tan adecuado para un acceso remoto con bajo ancho de banda. En esos casos, una conexión [[https://es.wikipedia.org/wiki/Secure_Shell][SSH]]/[[https://es.wikipedia.org/wiki/SSH_File_Transfer_Protocol][SFTP]] con la posibilidad de redirigir puertos a [[https://es.wikipedia.org/wiki/VNC][VNC]] me parece más adecuada.
+El ordenador venía con Windows 10 preinstalado. He /intentado/ usarlo, pero aunque el /[[https://es.wikipedia.org/wiki/Remote_Desktop_Protocol][remote desktop]]/ es una buena forma de conectarte a un ordenador de tu LAN, no es tan adecuado para un acceso remoto con bajo ancho de banda. En esos casos, una conexión [[https://es.wikipedia.org/wiki/Secure_Shell][SSH]]/[[https://es.wikipedia.org/wiki/SSH_File_Transfer_Protocol][SFTP]] con la posibilidad de redirigir puertos a [[https://es.wikipedia.org/wiki/VNC][VNC]] me parece más adecuada.
 
 De todas formas, Windows sigue instalado, que tampoco es cuestión de despreciar una licencia.
 
@@ -94,13 +94,66 @@ Para /esos/ otros contenidos, utilizo [[https://transmissionbt.com/][Transmissio
 Tras instalar Transmission, he añadido el directorio de bajada a los directorios de video de Kodi.
 
 * Acceso remoto
+El acceso remoto no es solamente acceder al ordenador desde la LAN, sino desde cualquier parte de Internet. Los pasos a seguir son los siguientes:
 
-
-5. Instalar Openssh-server y Git
+1. Instalar [[https://www.openssh.com/][Openssh Server]], que nos permitirá acceder a un terminal y a los ficheros del servidor
    #+BEGIN_SRC bash
-   sudo apt install openssh-server git
+   sudo apt install openssh-server
    #+END_SRC
-6. Emacs
+2. Redirigir un puerto para acceder a SSH desde Internet. Para ello
+   1. Configurar el ordenador para tener una IP fija
+   2. En el router ADSL/fibra, abrir un puerto que se redirija a esa IP, al puerto 22 del servidor SSH.
+
+** /Always-on/ vs /Wake-on-lan/
+Idealmente, el servidor debería estar siempre encendido. En la práctica no siempre es deseable, aunque solo sea por el gasto continuo de 18W.
+
+Para conseguir lo mejor de ambas opciones, puede dejarse al ordenador suspendido (1W) y despertarlo con [[https://es.wikipedia.org/wiki/Wake_on_LAN][wake-on-lan]] con alguna [[https://play.google.com/store/apps/details?id=com.cbsb.wakelan][aplicación desde el móvil]]. Este sistema consiste en enviar un [[https://es.wikipedia.org/wiki/Wake_on_LAN#Paquete_m%25C3%25A1gico][paquete mágico]] que contiene 16 veces la [[https://es.wikipedia.org/wiki/Direcci%25C3%25B3n_MAC][MAC]] del equipo a despertar. Desde la LAN no hay ningún problema: el paquete se envía a la dirección de broadcast de la red, y el switch lo envía a todos los equipos.
+
+Desde Internet es más complicado. Se puede intentar abrir un puerto para WoL, pero el router al intentar alcanzar al servidor en la IP interna lanzará un [[https://es.wikipedia.org/wiki/Protocolo_de_resoluci%25C3%25B3n_de_direcciones][ARP]] para conocer su dirección MAC y poder enviar el paquete. Y si el ordenador está encendido no responderá, por lo que el paquete mágico se quedará sin enviar.
+
+La solución es modificar la tabla ARP del router, dejando como permanente la dirección IP y MAC del servidor.
+
+** Nombre del servidor
+La dirección IP asignada a mi router por el ISP es dinámica. Para poder localizar mi servidor en internet es necesario tener un servicio de [[https://en.wikipedia.org/wiki/Dynamic_DNS][dynamic dns]]. He elegido a [[https://www.noip.com/][noip.com]] porque:
+- Tiene una cuenta gratuita
+- Mi router tiene el cliente necesario para actualizar la dirección
+- Permite [[https://es.wikipedia.org/wiki/MX_(registro)][registros MX]] para el correo electrónico.
+
+* Servidor
+En el ordenador he instalado los servicios e-mail y HTTP.
+
+** E-mail
+Utilizo [[https://www.exim.org/][exim4]] en una instalación estandar, con las siguientes configuraciones:
+- El /hostname/ del ordenador es el mismo que el del dominio dinámico en noip.
+- Utilizo como [[https://wiki.debian.org/GmailAndExim4][smarthost una dirección de correo de gmail]]. El resultado es que puedo recibir correos en mi servidor, pero cuando los envío parecen todos enviados desde gmail.
+
+** Owncloud
+Para acceder a mis ficheros (fundamentalmente fotografías) utilizo Owncloud, instalado desde repositorios:
+#+BEGIN_EXAMPLE
+apt install apache2 mysql-server libapache2-mod-php php-mcrypt php-mysql
+apt install owncloud-files
+#+END_EXAMPLE
+
+Con esto se consigue un servidor apache capaz de ejecutar Owncloud, pero la instalación de Owncloud (en ~/var/www/owncloud~) no es accesible por apache. Es necesario crear un fichero de sitio en ~/etc/apache/sites-available/owncloud.conf~ con el siguiente contenido
+
+#+BEGIN_EXAMPLE
+  Alias /owncloud /var/www/owncloud
+
+  <Directory /var/www/owncloud>
+          Options FollowSymLinks
+          AllowOverride All
+          Require all granted
+  </Directory>
+#+END_EXAMPLE
+
+Después, se habilita el sitio con
+#+BEGIN_EXAMPLE
+a2ensite owncloud
+#+END_EXAMPLE
+
+
+
+3. Emacs
    #+begin_src bash
    sudo add-apt-repository ppa:kelleyk/emacs
    sudo apt update
@@ -111,7 +164,7 @@ Tras instalar Transmission, he añadido el directorio de bajada a los directorio
    git clone https://alvarogonzalezsotillo@github.com/alvarogonzalezsotillo/.emacs.d.git
    #+END_SRC
    - Arrancar emacs y reinstalar paquetes
-9. Materiales para clase
+4. Materiales para clase
    - Bajar repositorio apuntes-clase
    - Instalar 
      - Latex
@@ -121,23 +174,18 @@ Tras instalar Transmission, he añadido el directorio de bajada a los directorio
      - Instalar wine
      - Copiar prefijo wine
      - Crear ficheros .desktop
-10. Email
-    - Instalar exim4
-    - Instalar mutt
-    - Configurar smarthost
-11. Servidor internet
-    - IP fija
-    - ARP fijo en router
-    - Abrir puertos
-    - Wake on lan
-12. Owncloud
-    - instalar apache, php y mysql
-    - Crear usuario y base de datos
-    - instalar owncloud-files
-    - crear owncloud.conf y habilitar sitio  
-    - montar directorio local de fotos
-13. Zsh
-    - Instalar zsh
-      - https://github.com/robbyrussell/oh-my-zsh
-    - Instalar oh-my-zsh
-    - Activar plugins: emacs tmux
+5. Email
+   - Instalar exim4
+   - Instalar mutt
+   - Configurar smarthost
+6. Owncloud
+   - instalar apache, php y mysql
+   - Crear usuario y base de datos
+   - instalar owncloud-files
+   - crear owncloud.conf y habilitar sitio  
+   - montar directorio local de fotos
+7. Zsh
+   - Instalar zsh
+     - https://github.com/robbyrussell/oh-my-zsh
+   - Instalar oh-my-zsh
+   - Activar plugins: emacs tmux
