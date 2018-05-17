@@ -35,12 +35,12 @@ De todas formas, Windows sigue instalado, que tampoco es cuestión de despreciar
    | / | <>  | <>   | <>      | <>    | <>           |
    |   | efi | boot | windows | libre | recuperación |
    |---+-----+------+---------+-------+--------------|
-3. Tran instalar Ubuntu
+3. Tras instalar Ubuntu
    |---+-----+------+---------+-------+--------+------+--------------|
    | / | <>  | <>   | <>      | <>    | <>     | <>   | <>           |
    |   | efi | boot | windows | libre | ubuntu | swap | recuperación |
    |---+-----+------+---------+-------+--------+------+--------------|
-4. crear partición datos compartidos con windows (formato ntfs)
+4. Crear partición datos compartidos con windows (formato ntfs)
    |---+-----+------+---------+--------------------------+--------+------+--------------|
    | / | <>  | <>   | <>      | <>                       | <>     | <>   | <>           |
    |   | efi | boot | windows | datos compartidos (ntfs) | ubuntu | swap | recuperación |
