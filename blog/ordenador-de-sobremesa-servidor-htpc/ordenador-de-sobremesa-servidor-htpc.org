@@ -1,201 +1,201 @@
 # -*- coding: utf-8-unix; -*-
-#+TITLE:       Nuevo HTPC en casa
-#+AUTHOR:      Álvaro González Sotillo
-#+EMAIL:       alvarogonzalezsotillo@gmail.com
-#+DATE:        2018-05-17
-#+URI:         /blog/ordenador-de-sobremesa-servidor-htpc
+#+title:       nuevo htpc en casa
+#+author:      álvaro gonzález sotillo
+#+email:       alvarogonzalezsotillo@gmail.com
+#+date:        2018-05-17
+#+uri:         /blog/ordenador-de-sobremesa-servidor-htpc
 
-#+TAGS: 
-#+DESCRIPTION: Acabo de comprarme un Asus VC-66. Mi intención es utilizarlo como servidor accesible desde internet, pero también como HTPC. Estos son los pasos que he seguido para configurarlo.
+#+tags: 
+#+description: acabo de comprarme un asus vc-66. mi intención es utilizarlo como servidor accesible desde internet, pero también como htpc. estos son los pasos que he seguido para configurarlo.
 
 
-#+LANGUAGE:    es
+#+language:    es
 #+options: toc:2
 
 #+attr_html: :align right :style width:10%;max-width:200px;min-width:100px;margin:2em;
-[[https://www.asus.com/us/Mini-PCs/VivoMini-VC66/][file:./asus-vc66.png]]
+[[https://www.asus.com/us/mini-pcs/vivomini-vc66/][file:./asus-vc66.png]]
 
-Acabo de comprarme un [[https://www.asus.com/us/Mini-PCs/VivoMini-VC66/][Asus VC-66]]. Mi intención es utilizarlo como servidor accesible desde internet, pero también como [[https://es.wikipedia.org/wiki/HTPC][HTPC]]. Estos son los pasos que he seguido para configurarlo.
+acabo de comprarme un [[https://www.asus.com/us/mini-pcs/vivomini-vc66/][asus vc-66]]. mi intención es utilizarlo como servidor accesible desde internet, pero también como [[https://es.wikipedia.org/wiki/htpc][htpc]]. estos son los pasos que he seguido para configurarlo.
 #+html: <p style="clear:both"></p>
 
-* Instalación del sistema operativo
-El ordenador venía con Windows 10 preinstalado. Aunque el /[[https://es.wikipedia.org/wiki/Remote_Desktop_Protocol][remote desktop]]/ es una buena forma de conectarte a un ordenador de tu LAN, no es tan adecuado para un acceso remoto con bajo ancho de banda. En esos casos, una conexión [[https://es.wikipedia.org/wiki/Secure_Shell][SSH]]/[[https://es.wikipedia.org/wiki/SSH_File_Transfer_Protocol][SFTP]] con la posibilidad de redirigir puertos a [[https://es.wikipedia.org/wiki/VNC][VNC]] me parece más adecuada.
+* instalación del sistema operativo
+el ordenador venía con windows 10 preinstalado. aunque el /[[https://es.wikipedia.org/wiki/remote_desktop_protocol][remote desktop]]/ es una buena forma de conectarte a un ordenador de tu lan, no es tan adecuado para un acceso remoto con bajo ancho de banda. en esos casos, una conexión [[https://es.wikipedia.org/wiki/secure_shell][ssh]]/[[https://es.wikipedia.org/wiki/ssh_file_transfer_protocol][sftp]] con la posibilidad de redirigir puertos a [[https://es.wikipedia.org/wiki/vnc][vnc]] me parece más adecuada.
 
-De todas formas, Windows sigue instalado, que tampoco es cuestión de despreciar una licencia.
+de todas formas, windows sigue instalado, que tampoco es cuestión de despreciar una licencia.
 
-** Haciendo sitio en el disco
+** haciendo sitio en el disco
 
-1. Particiones del disco duro original
+1. particiones del disco duro original
    |---+-----+------+---------+--------------|
    | / | <>  | <>   | <>      | <>           |
-   |   | EFI | boot | Windows | Recuperación |
+   |   | efi | boot | windows | recuperación |
    |---+-----+------+---------+--------------|
-2. Tras reducir partición windows
+2. tras reducir partición windows
    |---+-----+------+---------+-------+--------------|
    | / | <>  | <>   | <>      | <>    | <>           |
-   |   | EFI | boot | Windows | Libre | Recuperación |
+   |   | efi | boot | windows | libre | recuperación |
    |---+-----+------+---------+-------+--------------|
-3. Tran instalar Ubuntu
+3. tran instalar ubuntu
    |---+-----+------+---------+-------+--------+------+--------------|
    | / | <>  | <>   | <>      | <>    | <>     | <>   | <>           |
-   |   | EFI | boot | Windows | Libre | Ubuntu | Swap | Recuperación |
+   |   | efi | boot | windows | libre | ubuntu | swap | recuperación |
    |---+-----+------+---------+-------+--------+------+--------------|
-4. Crear partición datos compartidos con Windows (formato NTFS)
+4. crear partición datos compartidos con windows (formato ntfs)
    |---+-----+------+---------+--------------------------+--------+------+--------------|
    | / | <>  | <>   | <>      | <>                       | <>     | <>   | <>           |
-   |   | EFI | boot | Windows | Datos compartidos (NTFS) | Ubuntu | Swap | Recuperación |
+   |   | efi | boot | windows | datos compartidos (ntfs) | ubuntu | swap | recuperación |
    |---+-----+------+---------+--------------------------+--------+------+--------------|
 
-** Usuarios
-He creado un usuario por defecto para la familia con el [[https://help.ubuntu.com/community/AutoLogin][autologin]] activado.
+** usuarios
+he creado un usuario por defecto para la familia con el [[https://help.ubuntu.com/community/autologin][autologin]] activado.
 
-Para compartir ficheros entre los usuarios se utiliza el grupo =discos=, al que pertenecen todos los usuarios
-#+BEGIN_SRC bash
+para compartir ficheros entre los usuarios se utiliza el grupo =discos=, al que pertenecen todos los usuarios
+#+begin_src bash
 sudo addgroup discos
-sudo usermod -a -G discos usuario1
-sudo usermod -a -G discos usuario2
-#+END_SRC
+sudo usermod -a -g discos usuario1
+sudo usermod -a -g discos usuario2
+#+end_src
 
-Las particiones de datos adicionales (como los datos compartidos con Windows) se montan con este grupo    
-#+BEGIN_EXAMPLE
+las particiones de datos adicionales (como los datos compartidos con windows) se montan con este grupo    
+#+begin_example
 # /etc/fstab: static file system information.
 #
-# Use 'blkid' to print the universally unique identifier for a
-# device; this may be used with UUID= as a more robust way to name devices
-# that works even if disks are added and removed. See fstab(5).
+# use 'blkid' to print the universally unique identifier for a
+# device; this may be used with uuid= as a more robust way to name devices
+# that works even if disks are added and removed. see fstab(5).
 #
 # <file system> <mount point>   <type>  <options>       <dump>  <pass>
 # / was on /dev/sda7 during installation
-UUID=04c0c550-c5c3-4ab5-b0f2-02d071836091 /               ext4    errors=remount-ro 0       1
+uuid=04c0c550-c5c3-4ab5-b0f2-02d071836091 /               ext4    errors=remount-ro 0       1
 # /boot/efi was on /dev/sda1 during installation
-UUID=0E07-E3EB  /boot/efi       vfat    umask=0077      0       1
+uuid=0e07-e3eb  /boot/efi       vfat    umask=0077      0       1
 # swap was on /dev/sda8 during installation
-UUID=7fa25a22-5511-47c7-9ae8-34d96d23d41d none            swap    sw              0       0
+uuid=7fa25a22-5511-47c7-9ae8-34d96d23d41d none            swap    sw              0       0
 
-# NTFS COMPARTIDO CON WINDOWS
-UUID=9E1CF2601CF2333F /datos/datos-compartidos-200M ntfs gid=discos,dmask=002,fmask=113 0 2
-#+END_EXAMPLE
+# ntfs compartido con windows
+uuid=9e1cf2601cf2333f /datos/datos-compartidos-200m ntfs gid=discos,dmask=002,fmask=113 0 2
+#+end_example
 
-* Home Theater Personal Computer
+* home theater personal computer
 
 #+attr_html: :align right :style width:15%;max-width:200px;min-width:100px;margin:1em;
 [[https://www.logitech.com/es-es/product/k400-wireless-keyboard-touchpad][file:./wireless-touch-keyboard-k400-plus.png]]
 
-En la parte /hardware/, basta con conectar el ordenador al televisor por el puerto HDMI y utilizar un teclado inalámbrico. Yo utilizo un [[https://www.logitech.com/es-es/product/k400-wireless-keyboard-touchpad][Logitech k400]] que va muy bien, sobre todo por el fácil acceso a las teclas de volumen (que al final, durante una película, es lo que más se usa). 
+en la parte /hardware/, basta con conectar el ordenador al televisor por el puerto hdmi y utilizar un teclado inalámbrico. yo utilizo un [[https://www.logitech.com/es-es/product/k400-wireless-keyboard-touchpad][logitech k400]] que va muy bien, sobre todo por el fácil acceso a las teclas de volumen (que al final, durante una película, es lo que más se usa). 
 
-En la parte /software/ he optado por [[https://kodi.tv/][Kodi]] con el [[https://kodi.wiki/view/Add-on:YouTube][plugin de YouTube]], aunque al final resulta más cómodo utilizar directamente la web con Firefox.
+en la parte /software/ he optado por [[https://kodi.tv/][kodi]] con el [[https://kodi.wiki/view/add-on:youtube][plugin de youtube]], aunque al final resulta más cómodo utilizar directamente la web con firefox.
 
-Para /esos/ otros contenidos, utilizo [[https://transmissionbt.com/][Transmission Daemon]]. He seguido los siguientes pasos:
-- Instalar con =apt install transmission-daemon=
-- Crear directorio transmission en el disco compartido
-- Configuración de transmission (fichero =settings.json=)
-     - Cambiar usuario y contraseña de acceso remoto
-     - Cambiar el directorio por defecto al creado anteriormente
-     - Escuchar en la dirección =0.0.0.0=, para permitir conexiones desde fuera del equipo, y eliminar la =whitelist= de equipos con la conexión permitida.
-     - Para que el resto de usuarios puedan leer los ficheros bajados por Transmission, hay que añadirlos al grupo =debian-transmission=
-       #+BEGIN_SRC bash
-       sudo usermod -a -G debian-transmission usuario1
-       sudo usermod -a -G debian-transmission usuario2
-       #+END_SRC
+para /esos/ otros contenidos, utilizo [[https://transmissionbt.com/][transmission daemon]]. he seguido los siguientes pasos:
+- instalar con =apt install transmission-daemon=
+- crear directorio transmission en el disco compartido
+- configuración de transmission (fichero =settings.json=)
+     - cambiar usuario y contraseña de acceso remoto
+     - cambiar el directorio por defecto al creado anteriormente
+     - escuchar en la dirección =0.0.0.0=, para permitir conexiones desde fuera del equipo, y eliminar la =whitelist= de equipos con la conexión permitida.
+     - para que el resto de usuarios puedan leer los ficheros bajados por transmission, hay que añadirlos al grupo =debian-transmission=
+       #+begin_src bash
+       sudo usermod -a -g debian-transmission usuario1
+       sudo usermod -a -g debian-transmission usuario2
+       #+end_src
 
-Tras instalar Transmission, he añadido el directorio de bajada a los directorios de video de Kodi.
+tras instalar transmission, he añadido el directorio de bajada a los directorios de video de kodi.
 
-* Acceso remoto
-El acceso remoto no es solamente acceder al ordenador desde la LAN, sino desde cualquier parte de Internet. Los pasos a seguir son los siguientes:
+* acceso remoto
+el acceso remoto no es solamente acceder al ordenador desde la lan, sino desde cualquier parte de internet. los pasos a seguir son los siguientes:
 
-1. Instalar [[https://www.openssh.com/][Openssh Server]], que nos permitirá acceder a un terminal y a los ficheros del servidor
-   #+BEGIN_SRC bash
+1. instalar [[https://www.openssh.com/][openssh server]], que nos permitirá acceder a un terminal y a los ficheros del servidor
+   #+begin_src bash
    sudo apt install openssh-server
-   #+END_SRC
-2. Redirigir un puerto para acceder a SSH desde Internet. Para ello
-   1. Configurar el ordenador para tener una IP fija
-   2. En el router ADSL/fibra, abrir un puerto que se redirija a esa IP fija, al puerto 22 del servidor SSH.
+   #+end_src
+2. redirigir un puerto para acceder a ssh desde internet. para ello
+   1. configurar el ordenador para tener una ip fija
+   2. en el router adsl/fibra, abrir un puerto que se redirija a esa ip fija, al puerto 22 del servidor ssh.
 
-** /Always-on/ vs /Wake-on-lan/
-Idealmente, el servidor debería estar siempre encendido. En la práctica no siempre es deseable, aunque solo sea por el gasto continuo de 18W.
+** /always-on/ vs /wake-on-lan/
+idealmente, el servidor debería estar siempre encendido. en la práctica no siempre es deseable, aunque solo sea por el gasto continuo de 18w.
 
-Para conseguir lo mejor de ambas opciones, puede dejarse al ordenador suspendido (1W) y despertarlo con [[https://es.wikipedia.org/wiki/Wake_on_LAN][wake-on-lan]] con alguna [[https://play.google.com/store/apps/details?id=com.cbsb.wakelan][aplicación desde el móvil]]. Este sistema consiste en enviar un [[https://es.wikipedia.org/wiki/Wake_on_LAN#Paquete_m%25C3%25A1gico][paquete mágico]] que contiene 16 veces la [[https://es.wikipedia.org/wiki/Direcci%25C3%25B3n_MAC][MAC]] del equipo a despertar. Desde la LAN no hay ningún problema: el paquete se envía a la dirección de broadcast de la red, y el switch lo envía a todos los equipos.
+para conseguir lo mejor de ambas opciones, puede dejarse al ordenador suspendido (1w) y despertarlo con [[https://es.wikipedia.org/wiki/wake_on_lan][wake-on-lan]] con alguna [[https://play.google.com/store/apps/details?id=com.cbsb.wakelan][aplicación desde el móvil]]. este sistema consiste en enviar un [[https://es.wikipedia.org/wiki/wake_on_lan#paquete_m%25c3%25a1gico][paquete mágico]] que contiene 16 veces la [[https://es.wikipedia.org/wiki/direcci%25c3%25b3n_mac][mac]] del equipo a despertar. desde la lan no hay ningún problema: el paquete se envía a la dirección de broadcast de la red, y el switch lo envía a todos los equipos.
 
-Desde Internet es más complicado. Se puede intentar abrir un puerto para WoL, pero el router al intentar alcanzar al servidor en la IP interna lanzará un [[https://es.wikipedia.org/wiki/Protocolo_de_resoluci%25C3%25B3n_de_direcciones][ARP]] para conocer su dirección MAC y poder enviar el paquete. Y si el ordenador está encendido no responderá, por lo que el paquete mágico se quedará sin enviar.
+desde internet es más complicado. se puede intentar abrir un puerto para wol, pero el router al intentar alcanzar al servidor en la ip interna lanzará un [[https://es.wikipedia.org/wiki/protocolo_de_resoluci%25c3%25b3n_de_direcciones][arp]] para conocer su dirección mac y poder enviar el paquete. y si el ordenador está encendido no responderá, por lo que el paquete mágico se quedará sin enviar.
 
-La solución es modificar la tabla ARP del router, dejando como permanente la dirección IP y MAC del servidor.
+la solución es modificar la tabla arp del router, dejando como permanente la dirección ip y mac del servidor.
 
-** Nombre del servidor
-La dirección IP asignada a mi router por el ISP es dinámica. Para poder localizar mi servidor en internet es necesario tener un servicio de [[https://en.wikipedia.org/wiki/Dynamic_DNS][dynamic dns]]. He elegido a [[https://www.noip.com/][noip.com]] porque:
-- Tiene una cuenta gratuita
-- Mi router tiene el cliente necesario para actualizar la dirección
-- Permite [[https://es.wikipedia.org/wiki/MX_(registro)][registros MX]] para el correo electrónico.
+** nombre del servidor
+la dirección ip asignada a mi router por el isp es dinámica. para poder localizar mi servidor en internet es necesario tener un servicio de [[https://en.wikipedia.org/wiki/dynamic_dns][dynamic dns]]. he elegido a [[https://www.noip.com/][noip.com]] porque:
+- tiene una cuenta gratuita
+- mi router tiene el cliente necesario para actualizar la dirección
+- permite [[https://es.wikipedia.org/wiki/mx_(registro)][registros mx]] para el correo electrónico.
 
-* Servidor
-En el ordenador he instalado los servicios e-mail y HTTP.
+* servidor
+en el ordenador he instalado los servicios e-mail y http.
 
-** E-mail
-Utilizo [[https://www.exim.org/][exim4]] en una instalación estandar, con las siguientes configuraciones:
-- El /hostname/ del ordenador es el mismo que el del dominio dinámico en noip.
-- Utilizo como [[https://wiki.debian.org/GmailAndExim4][smarthost una dirección de correo de gmail]]. El resultado es que puedo recibir correos en mi servidor, pero cuando los envío parecen todos enviados desde gmail.
+** e-mail
+utilizo [[https://www.exim.org/][exim4]] en una instalación estandar, con las siguientes configuraciones:
+- el /hostname/ del ordenador es el mismo que el del dominio dinámico en noip.
+- utilizo como [[https://wiki.debian.org/gmailandexim4][smarthost una dirección de correo de gmail]]. el resultado es que puedo recibir correos en mi servidor, pero cuando los envío parecen todos enviados desde gmail.
 
-A partir de aquí, ya puedo utilizar mi dirección [[mailto:spam@alvarogonzalez.no-ip.biz][spam@alvarogonzalez.no-ip.biz]] para registrarme en cualquier sitio 😎
+a partir de aquí, ya puedo utilizar mi dirección [[mailto:spam@alvarogonzalez.no-ip.biz][spam@alvarogonzalez.no-ip.biz]] para registrarme en cualquier sitio 😎
 
-** Servidor Web
-El protocolo HTTP es una buena forma de compartir ficheros. He instalado [[https://httpd.apache.org/][Apache]] directamente desde el repositorio.
+** servidor web
+el protocolo http es una buena forma de compartir ficheros. he instalado [[https://httpd.apache.org/][apache]] directamente desde el repositorio.
 
 
-#+BEGIN_EXAMPLE
+#+begin_example
 apt install apache2 
-#+END_EXAMPLE
+#+end_example
 
-Para no dejar la página por defecto, he instalado un mirror de este blog:
+para no dejar la página por defecto, he instalado un mirror de este blog:
 
-#+BEGIN_EXAMPLE
- DocumentRoot /var/www/alvarogonzalezsotillo.github.io
- <Directory /var/www/alvarogonzalezsotillo.github.io>
-          Options FollowSymLinks
-          AllowOverride All
-          Require all granted
-  </Directory>
-#+END_EXAMPLE
+#+begin_example
+ documentroot /var/www/alvarogonzalezsotillo.github.io
+ <directory /var/www/alvarogonzalezsotillo.github.io>
+          options followsymlinks
+          allowoverride all
+          require all granted
+  </directory>
+#+end_example
 
-** Owncloud
-Para acceder a mis ficheros (fundamentalmente fotografías) utilizo Owncloud, instalado desde repositorios:
-#+BEGIN_EXAMPLE
+** owncloud
+para acceder a mis ficheros (fundamentalmente fotografías) utilizo owncloud, instalado desde repositorios:
+#+begin_example
 apt install mysql-server libapache2-mod-php php-mcrypt php-mysql
 apt install owncloud-files
-#+END_EXAMPLE
+#+end_example
 
-Con esto se consigue un servidor apache capaz de ejecutar Owncloud, pero la instalación de Owncloud (en ~/var/www/owncloud~) no es accesible por apache. Es necesario crear un fichero de sitio en ~/etc/apache/sites-available/owncloud.conf~ con el siguiente contenido
+con esto se consigue un servidor apache capaz de ejecutar owncloud, pero la instalación de owncloud (en ~/var/www/owncloud~) no es accesible por apache. es necesario crear un fichero de sitio en ~/etc/apache/sites-available/owncloud.conf~ con el siguiente contenido
 
-#+BEGIN_EXAMPLE
-  Alias /owncloud /var/www/owncloud
+#+begin_example
+  alias /owncloud /var/www/owncloud
 
-  <Directory /var/www/owncloud>
-          Options FollowSymLinks
-          AllowOverride All
-          Require all granted
-  </Directory>
-#+END_EXAMPLE
+  <directory /var/www/owncloud>
+          options followsymlinks
+          allowoverride all
+          require all granted
+  </directory>
+#+end_example
 
-Después, se habilita el sitio con
-#+BEGIN_EXAMPLE
+después, se habilita el sitio con
+#+begin_example
 a2ensite owncloud
-#+END_EXAMPLE
+#+end_example
 
-* Configuración como /workstation/
-El servidor también debería servirme de /backup/ en el caso de que no tenga disponible mi portátil. La siguiente configuración es la que utilizo para mi trabajo diario.
+* configuración como /workstation/
+el servidor también debería servirme de /backup/ en el caso de que no tenga disponible mi portátil. la siguiente configuración es la que utilizo para mi trabajo diario.
 
-** Zsh
-Zsh es una shell que puede sustituir a Bash de forma casi transparente. Las razones por las que utilizo Zsh son
-- Mejor autocomplección con tabulador, tanto para ficheros como para opciones de comandos
-- El historial de comandos se comparte entre todas las sesiones abiertas
-- El historial de comandos se filtra por el comando parcial ya tecleado
-- Se puede utilizar ~**~ para hacer /globbing/ de directorios.
-- Los /plugins/ y temas de [[https://github.com/robbyrussell/oh-my-zsh][Ohmyzsh]] /"will not make you a 10x developer...but you might feel like one"/. Utilizo los plugis para =emacs=, =tmux=, =git= y =gradlew=, y el tema =robbyrussell=
+** zsh
+zsh es una shell que puede sustituir a bash de forma casi transparente. las razones por las que utilizo zsh son
+- mejor autocomplección con tabulador, tanto para ficheros como para opciones de comandos
+- el historial de comandos se comparte entre todas las sesiones abiertas
+- el historial de comandos se filtra por el comando parcial ya tecleado
+- se puede utilizar ~**~ para hacer /globbing/ de directorios.
+- los /plugins/ y temas de [[https://github.com/robbyrussell/oh-my-zsh][ohmyzsh]] /"will not make you a 10x developer...but you might feel like one"/. utilizo los plugis para =emacs=, =tmux=, =git= y =gradlew=, y el tema =robbyrussell=
 
-** Emacs
-Cuando tienes un martillo, todo te parecen clavos. [[https://www.gnu.org/software/emacs/][Emacs]] es el martillo más grande que he usado nunca.
+** emacs
+cuando tienes un martillo, todo te parecen clavos. [[https://www.gnu.org/software/emacs/][emacs]] es el martillo más grande que he usado nunca.
 
-En un servidor, tiene la gran ventaja de que puede trabajarse directamente en una sesión de SSH, sin entorno gráfico. Emacs y Tmux son una combinación ganadora en estos casos.
+en un servidor, tiene la gran ventaja de que puede trabajarse directamente en una sesión de ssh, sin entorno gráfico. emacs y tmux son una combinación ganadora en estos casos.
 
-En mi portátil he compilado Emacs a partir de los fuentes, pero en el servidor bastará con utilizar un repositorio ppa:
+en mi portátil he compilado emacs a partir de los fuentes, pero en el servidor bastará con utilizar un repositorio ppa:
 
    #+begin_src bash
    sudo add-apt-repository ppa:kelleyk/emacs
@@ -203,17 +203,17 @@ En mi portátil he compilado Emacs a partir de los fuentes, pero en el servidor 
    sudo apt install emacs25 git
    #+end_src
 
-La mejor parte de Emacs es la configuración que cada usuario realiza con él. La mía está en un repositorio git
+la mejor parte de emacs es la configuración que cada usuario realiza con él. la mía está en un repositorio git
 
-   #+BEGIN_SRC bash
+   #+begin_src bash
    cd
    git clone https://alvarogonzalezsotillo@github.com/alvarogonzalezsotillo/.emacs.d.git
-   #+END_SRC
+   #+end_src
 
-Al arrancar Emacs, automáticamente descargará [[https://github.com/alvarogonzalezsotillo/.emacs.d/blob/master/my/my-packages.el][mis paquetes]] y activará mi configuración.
+al arrancar emacs, automáticamente descargará [[https://github.com/alvarogonzalezsotillo/.emacs.d/blob/master/my/my-packages.el][mis paquetes]] y activará mi configuración.
 
-** Materiales para clase
-Como cuento en [[../../../../materiales-para-clase][otra entrada]], utilizo básicamente Latex y org-mode para mis clases.
+** materiales para clase
+como cuento en [[../../../../blog/mi-publicacion-de-materiales-para-clase][otra entrada]], utilizo básicamente Latex y org-mode para mis clases.
 
 La instalación de Latex, y los paquetes que utilizo, se consigue fácilmente con:
 
