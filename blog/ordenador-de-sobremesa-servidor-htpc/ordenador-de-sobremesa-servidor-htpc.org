@@ -10,7 +10,7 @@
 
 
 #+LANGUAGE:    es
-#+OPTIONS:     H:7 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+options: toc:2
 
 #+attr_html: :align right :style width:10%;max-width:200px;min-width:100px;margin:2em;
 [[https://www.asus.com/us/Mini-PCs/VivoMini-VC66/][file:./asus-vc66.png]]
@@ -134,7 +134,7 @@ Utilizo [[https://www.exim.org/][exim4]] en una instalación estandar, con las s
 - El /hostname/ del ordenador es el mismo que el del dominio dinámico en noip.
 - Utilizo como [[https://wiki.debian.org/GmailAndExim4][smarthost una dirección de correo de gmail]]. El resultado es que puedo recibir correos en mi servidor, pero cuando los envío parecen todos enviados desde gmail.
 
-A partir de aquí, ya puedo utilizar mi dirección [[mailto:spam@alvarogonzalez.no-ip.biz]] para registrarme en cualquier sitio 😎
+A partir de aquí, ya puedo utilizar mi dirección [[mailto:spam@alvarogonzalez.no-ip.biz][spam@alvarogonzalez.no-ip.biz]] para registrarme en cualquier sitio 😎
 
 ** Servidor Web
 El protocolo HTTP es una buena forma de compartir ficheros. He instalado [[https://httpd.apache.org/][Apache]] directamente desde el repositorio.
