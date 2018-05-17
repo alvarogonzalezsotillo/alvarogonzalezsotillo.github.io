@@ -4,10 +4,17 @@
     <title>Álvaro González Sotillo</title>
     <link>https://alvarogonzalezsotillo.github.io/</link>
     <description></description>
-    <pubDate>mar, 10 abr 2018 20:05:29 CEST</pubDate>
-    <lastBuildDate>mar, 10 abr 2018 20:05:29 CEST</lastBuildDate>
+    <pubDate>jue, 17 may 2018 10:56:48 CEST</pubDate>
+    <lastBuildDate>jue, 17 may 2018 10:56:48 CEST</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
+    <item>
+      <title>Nuevo HTPC en casa</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/ordenador-de-sobremesa-servidor-htpc</link>
+      <description><![CDATA[Acabo de comprarme un Asus VC-66. Mi intención es utilizarlo como servidor accesible desde internet, pero también como HTPC. Estos son los pasos que he seguido para configurarlo.]]></description>
+      <pubDate>2018-05-17</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/ordenador-de-sobremesa-servidor-htpc</guid>
+    </item>
     <item>
       <title>Literate Programming y Google Code Jam</title>
       <link>https://alvarogonzalezsotillo.github.io/blog/literate-codejam</link>
@@ -70,13 +77,6 @@
       <description><![CDATA[La distribución de cargas que se repelen en la superficie de una esfera da lugar a interesantes poliedros al calcular su recubrimiento convexo.]]></description>
       <pubDate>2017-10-19</pubDate>
       <guid>https://alvarogonzalezsotillo.github.io/blog/electrostatic-polyedron</guid>
-    </item>
-    <item>
-      <title>Controlando el universo: mi propio reloj de sol</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/reloj-de-sol</link>
-      <description><![CDATA[Tras algún trauma infantil, y 6 años de trabajo (muy) intermitente, ya tengo mi reloj de sol. Y funciona.]]></description>
-      <pubDate>2017-10-19</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/reloj-de-sol</guid>
     </item>
   </channel>
 </rss>

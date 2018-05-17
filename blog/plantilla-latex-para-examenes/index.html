@@ -37,9 +37,9 @@
 Desde hace un tiempo utilizo Latex para escribir mis exámenes. Al final he creado una plantilla con varias macros de Latex para facilitar la creación preguntas cerradas (de tipo <i>test</i>), preguntas abiertas de distinta longitud, y una tabla de respuestas inicial. Se puede <a href="/assets/blog/plantilla-latex-para-examenes/plantilla-latex-para-examenes.tex">descargar la plantilla</a> o verse <a href="/assets/blog/plantilla-latex-para-examenes/ejemplo.pdf">un ejemplo de la apariencia final de los examenes</a>.
 </p>
 
-<div id="outline-container-org115c9e8" class="outline-2">
-<h2 id="org115c9e8">Primera página</h2>
-<div class="outline-text-2" id="text-org115c9e8">
+<div id="outline-container-orgf511cae" class="outline-2">
+<h2 id="orgf511cae">Primera página</h2>
+<div class="outline-text-2" id="text-orgf511cae">
 <p>
 En la primera página del examen se incluye un cuadro para la identificación del alumno, la tabla de respuestas para las preguntas cerradas y las instrucciones del examen.
 </p>
@@ -65,13 +65,13 @@ Todos estos parámetros se especifican en la llamada a <code>FirstPage</code>
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listado de programa 1 </span>Definición de la primera página</label><pre class="src src-tex">% 60% PARA PREGUNTAS ABIERTAS
+<label class="org-src-name"><span class="listing-number">Listado de programa 1 </span>Definición de la primera página</label><pre><code class="src src-tex">% 60% PARA PREGUNTAS ABIERTAS
 % 40% PARA PREGUNTAS CERRADAS (TIPO TEST)
 % 30 PREGUNTAS TIPO TEST
 % LA TABLA DE RESPUESTAS SE RELLENA DE IZQUIERDA A DERECHA
 % EN LA TABLA DE RESPUESTAS SE ESCRIBE LA LETRA CORRECTA, EN VEZ DE MARCAR UNA CASILLA
 \FirstPage{60}{40}{30}{true}{false}
-</pre>
+</code></pre>
 </div>
 
 
@@ -83,9 +83,9 @@ Todos estos parámetros se especifican en la llamada a <code>FirstPage</code>
 </div>
 </div>
 
-<div id="outline-container-orgbc41bd2" class="outline-2">
-<h2 id="orgbc41bd2">Preguntas cerradas</h2>
-<div class="outline-text-2" id="text-orgbc41bd2">
+<div id="outline-container-org0db9b46" class="outline-2">
+<h2 id="org0db9b46">Preguntas cerradas</h2>
+<div class="outline-text-2" id="text-org0db9b46">
 <p>
 Las preguntas cerradas son las que tienen un enunciado y varias opciones a elegir, de las cuales solo una es correcta. 
 </p>
@@ -95,7 +95,7 @@ Para escribir un bloque de estas preguntas basta con abrir un entorno <code>Ques
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listado de programa 2 </span>Definición de las preguntas cerradas</label><pre class="src src-tex">
+<label class="org-src-name"><span class="listing-number">Listado de programa 2 </span>Definición de las preguntas cerradas</label><pre><code class="src src-tex">
 \begin{QuestionnaireQuestions}
   \begin{QuestionnaireQuestion}[Los siguientes tipos de redes están colocados de mayor a menor extensión geográfica]
     \item WAN, LAN, MAN
@@ -114,7 +114,7 @@ Para escribir un bloque de estas preguntas basta con abrir un entorno <code>Ques
 
 \end{QuestonaireQuestions}
 
-</pre>
+</code></pre>
 </div>
 
 <p>
@@ -130,9 +130,9 @@ las preguntas aparecerán numeradas. Para aprovechar el espacio en el papel las 
 </div>
 </div>
 
-<div id="outline-container-org405b158" class="outline-2">
-<h2 id="org405b158">Preguntas abiertas</h2>
-<div class="outline-text-2" id="text-org405b158">
+<div id="outline-container-org66b1df8" class="outline-2">
+<h2 id="org66b1df8">Preguntas abiertas</h2>
+<div class="outline-text-2" id="text-org66b1df8">
 <p>
 Para las preguntas abiertas, en las que los alumnos deben desarrollar una respuesta, se pueden utilizar varios entornos dependiendo de la extensión de página que se espera ocupe dicha respuesta:
 </p>
@@ -143,7 +143,7 @@ Para las preguntas abiertas, en las que los alumnos deben desarrollar una respue
 </ul>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listado de programa 3 </span>Definición de las preguntas abiertas</label><pre class="src src-tex">\begin{HalfPageOpenQuestion}
+<label class="org-src-name"><span class="listing-number">Listado de programa 3 </span>Definición de las preguntas abiertas</label><pre><code class="src src-tex">\begin{HalfPageOpenQuestion}
   Compara un sistema de comunicación basado en conexión con otro no basado en conexión. Indica las ventajas e inconvenientes de cada uno
 \end{HalfPageOpenQuestion}
 
@@ -153,7 +153,7 @@ Para las preguntas abiertas, en las que los alumnos deben desarrollar una respue
 
 [...]
 
-</pre>
+</code></pre>
 </div>
 
 
@@ -165,9 +165,9 @@ Para las preguntas abiertas, en las que los alumnos deben desarrollar una respue
 </div>
 </div>
 
-<div id="outline-container-orgd39f612" class="outline-2">
-<h2 id="orgd39f612">Extras</h2>
-<div class="outline-text-2" id="text-orgd39f612">
+<div id="outline-container-orga410469" class="outline-2">
+<h2 id="orga410469">Extras</h2>
+<div class="outline-text-2" id="text-orga410469">
 <p>
 Los ficheros <code>pdf</code> creados tienen varias características interesantes
 </p>
@@ -186,9 +186,9 @@ Todo esto puede consultarse en el <a href="/assets/blog/plantilla-latex-para-exa
 </div>
 </div>
 
-<div id="outline-container-orgabf09d9" class="outline-2">
-<h2 id="orgabf09d9">Generación automática de exámenes</h2>
-<div class="outline-text-2" id="text-orgabf09d9">
+<div id="outline-container-orgac85025" class="outline-2">
+<h2 id="orgac85025">Generación automática de exámenes</h2>
+<div class="outline-text-2" id="text-orgac85025">
 <p>
 No suelo utilizar directamente esta plantilla, sino que un programa traduce un fichero <code>gift</code> a código <code>tex</code> con esta plantilla. Puede consultarse el código de este programa en <a href="https://github.com/alvarogonzalezsotillo/grading-questionnaire">https://github.com/alvarogonzalezsotillo/grading-questionnaire</a>. Este es el enlace a <a href="https://github.com/alvarogonzalezsotillo/grading-questionnaire/blob/master/questionnaire-from-gift/src/main/resources/giftToLatex/QuestionnaireGradingTest.template.tex">la última versión de la plantilla</a>.
 </p>
