@@ -1,0 +1,693 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es">
+<head>
+<!-- 2018-05-17 jue 09:28 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Nuevo HTPC en casa</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Álvaro González Sotillo" />
+<meta name="description" content="Acabo de comprarme un Asus VC-66. Mi intención es utilizarlo como servidor accesible desde internet, pero también como HTPC. Estos son los pasos que he seguido para configurarlo."
+ />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2017 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Nuevo HTPC en casa</h1>
+
+<div class="figure">
+<p><a href="https://www.asus.com/us/Mini-PCs/VivoMini-VC66/" align="right" style="width:10%;max-width:200px;min-width:100px;margin:2em;"><img src="./asus-vc66.png" alt="asus-vc66.png" align="right" style="width:10%;max-width:200px;min-width:100px;margin:2em;" /></a>
+</p>
+</div>
+
+<p>
+Acabo de comprarme un <a href="https://www.asus.com/us/Mini-PCs/VivoMini-VC66/">Asus VC-66</a>. Mi intención es utilizarlo como servidor accesible desde internet, pero también como <a href="https://es.wikipedia.org/wiki/HTPC">HTPC</a>. Estos son los pasos que he seguido para configurarlo.
+</p>
+<p style="clear:both"></p>
+
+<div id="outline-container-org4f012eb" class="outline-2">
+<h2 id="org4f012eb">Instalación del sistema operativo</h2>
+<div class="outline-text-2" id="text-org4f012eb">
+<p>
+El ordenador venía con Windows 10 preinstalado. Aunque el <i><a href="https://es.wikipedia.org/wiki/Remote_Desktop_Protocol">remote desktop</a></i> es una buena forma de conectarte a un ordenador de tu LAN, no es tan adecuado para un acceso remoto con bajo ancho de banda. En esos casos, una conexión <a href="https://es.wikipedia.org/wiki/Secure_Shell">SSH</a>/<a href="https://es.wikipedia.org/wiki/SSH_File_Transfer_Protocol">SFTP</a> con la posibilidad de redirigir puertos a <a href="https://es.wikipedia.org/wiki/VNC">VNC</a> me parece más adecuada.
+</p>
+
+<p>
+De todas formas, Windows sigue instalado, que tampoco es cuestión de despreciar una licencia.
+</p>
+</div>
+
+<div id="outline-container-org8ff8bea" class="outline-3">
+<h3 id="org8ff8bea">Haciendo sitio en el disco</h3>
+<div class="outline-text-3" id="text-org8ff8bea">
+<ol class="org-ol">
+<li><p>
+Particiones del disco duro original
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">EFI</td>
+<td class="org-left">boot</td>
+<td class="org-left">Windows</td>
+<td class="org-left">Recuperación</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>
+Tras reducir partición windows
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">EFI</td>
+<td class="org-left">boot</td>
+<td class="org-left">Windows</td>
+<td class="org-left">Libre</td>
+<td class="org-left">Recuperación</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>
+Tran instalar Ubuntu
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">EFI</td>
+<td class="org-left">boot</td>
+<td class="org-left">Windows</td>
+<td class="org-left">Libre</td>
+<td class="org-left">Ubuntu</td>
+<td class="org-left">Swap</td>
+<td class="org-left">Recuperación</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>
+Crear partición datos compartidos con Windows (formato NTFS)
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">EFI</td>
+<td class="org-left">boot</td>
+<td class="org-left">Windows</td>
+<td class="org-left">Datos compartidos (NTFS)</td>
+<td class="org-left">Ubuntu</td>
+<td class="org-left">Swap</td>
+<td class="org-left">Recuperación</td>
+</tr>
+</tbody>
+</table></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org3d1fe3e" class="outline-3">
+<h3 id="org3d1fe3e">Usuarios</h3>
+<div class="outline-text-3" id="text-org3d1fe3e">
+<p>
+He creado un usuario por defecto para la familia con el <a href="https://help.ubuntu.com/community/AutoLogin">autologin</a> activado.
+</p>
+
+<p>
+Para compartir ficheros entre los usuarios se utiliza el grupo <code>discos</code>, al que pertenecen todos los usuarios
+</p>
+<div class="org-src-container">
+<pre><code class="src src-bash">sudo addgroup discos
+sudo usermod -a -G discos usuario1
+sudo usermod -a -G discos usuario2
+</code></pre>
+</div>
+
+<p>
+Las particiones de datos adicionales (como los datos compartidos con Windows) se montan con este grupo    
+</p>
+<pre class="example">
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# &lt;file system&gt; &lt;mount point&gt;   &lt;type&gt;  &lt;options&gt;       &lt;dump&gt;  &lt;pass&gt;
+# / was on /dev/sda7 during installation
+UUID=04c0c550-c5c3-4ab5-b0f2-02d071836091 /               ext4    errors=remount-ro 0       1
+# /boot/efi was on /dev/sda1 during installation
+UUID=0E07-E3EB  /boot/efi       vfat    umask=0077      0       1
+# swap was on /dev/sda8 during installation
+UUID=7fa25a22-5511-47c7-9ae8-34d96d23d41d none            swap    sw              0       0
+
+# NTFS COMPARTIDO CON WINDOWS
+UUID=9E1CF2601CF2333F /datos/datos-compartidos-200M ntfs gid=discos,dmask=002,fmask=113 0 2
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org3c61d34" class="outline-2">
+<h2 id="org3c61d34">Home Theater Personal Computer</h2>
+<div class="outline-text-2" id="text-org3c61d34">
+
+<div class="figure">
+<p><a href="https://www.logitech.com/es-es/product/k400-wireless-keyboard-touchpad" align="right" style="width:15%;max-width:200px;min-width:100px;margin:1em;"><img src="./wireless-touch-keyboard-k400-plus.png" alt="wireless-touch-keyboard-k400-plus.png" align="right" style="width:15%;max-width:200px;min-width:100px;margin:1em;" /></a>
+</p>
+</div>
+
+<p>
+En la parte <i>hardware</i>, basta con conectar el ordenador al televisor por el puerto HDMI y utilizar un teclado inalámbrico. Yo utilizo un <a href="https://www.logitech.com/es-es/product/k400-wireless-keyboard-touchpad">Logitech k400</a> que va muy bien, sobre todo por el fácil acceso a las teclas de volumen (que al final, durante una película, es lo que más se usa). 
+</p>
+
+<p>
+En la parte <i>software</i> he optado por <a href="https://kodi.tv/">Kodi</a> con el <a href="https://kodi.wiki/view/Add-on:YouTube">plugin de YouTube</a>, aunque al final resulta más cómodo utilizar directamente la web con Firefox.
+</p>
+
+<p>
+Para <i>esos</i> otros contenidos, utilizo <a href="https://transmissionbt.com/">Transmission Daemon</a>. He seguido los siguientes pasos:
+</p>
+<ul class="org-ul">
+<li>Instalar con <code>apt install transmission-daemon</code></li>
+<li>Crear directorio transmission en el disco compartido</li>
+<li>Configuración de transmission (fichero <code>settings.json</code>)
+<ul class="org-ul">
+<li>Cambiar usuario y contraseña de acceso remoto</li>
+<li>Cambiar el directorio por defecto al creado anteriormente</li>
+<li>Escuchar en la dirección <code>0.0.0.0</code>, para permitir conexiones desde fuera del equipo, y eliminar la <code>whitelist</code> de equipos con la conexión permitida.</li>
+<li><p>
+Para que el resto de usuarios puedan leer los ficheros bajados por Transmission, hay que añadirlos al grupo <code>debian-transmission</code>
+</p>
+<div class="org-src-container">
+<pre><code class="src src-bash">sudo usermod -a -G debian-transmission usuario1
+sudo usermod -a -G debian-transmission usuario2
+</code></pre>
+</div></li>
+</ul></li>
+</ul>
+
+<p>
+Tras instalar Transmission, he añadido el directorio de bajada a los directorios de video de Kodi.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf80f95a" class="outline-2">
+<h2 id="orgf80f95a">Acceso remoto</h2>
+<div class="outline-text-2" id="text-orgf80f95a">
+<p>
+El acceso remoto no es solamente acceder al ordenador desde la LAN, sino desde cualquier parte de Internet. Los pasos a seguir son los siguientes:
+</p>
+
+<ol class="org-ol">
+<li><p>
+Instalar <a href="https://www.openssh.com/">Openssh Server</a>, que nos permitirá acceder a un terminal y a los ficheros del servidor
+</p>
+<div class="org-src-container">
+<pre><code class="src src-bash">sudo apt install openssh-server
+</code></pre>
+</div></li>
+<li>Redirigir un puerto para acceder a SSH desde Internet. Para ello
+<ol class="org-ol">
+<li>Configurar el ordenador para tener una IP fija</li>
+<li>En el router ADSL/fibra, abrir un puerto que se redirija a esa IP, al puerto 22 del servidor SSH.</li>
+</ol></li>
+</ol>
+</div>
+
+<div id="outline-container-org1035e48" class="outline-3">
+<h3 id="org1035e48"><i>Always-on</i> vs <i>Wake-on-lan</i></h3>
+<div class="outline-text-3" id="text-org1035e48">
+<p>
+Idealmente, el servidor debería estar siempre encendido. En la práctica no siempre es deseable, aunque solo sea por el gasto continuo de 18W.
+</p>
+
+<p>
+Para conseguir lo mejor de ambas opciones, puede dejarse al ordenador suspendido (1W) y despertarlo con <a href="https://es.wikipedia.org/wiki/Wake_on_LAN">wake-on-lan</a> con alguna <a href="https://play.google.com/store/apps/details?id=com.cbsb.wakelan">aplicación desde el móvil</a>. Este sistema consiste en enviar un <a href="https://es.wikipedia.org/wiki/Wake_on_LAN#Paquete_m%C3%A1gico">paquete mágico</a> que contiene 16 veces la <a href="https://es.wikipedia.org/wiki/Direcci%C3%B3n_MAC">MAC</a> del equipo a despertar. Desde la LAN no hay ningún problema: el paquete se envía a la dirección de broadcast de la red, y el switch lo envía a todos los equipos.
+</p>
+
+<p>
+Desde Internet es más complicado. Se puede intentar abrir un puerto para WoL, pero el router al intentar alcanzar al servidor en la IP interna lanzará un <a href="https://es.wikipedia.org/wiki/Protocolo_de_resoluci%C3%B3n_de_direcciones">ARP</a> para conocer su dirección MAC y poder enviar el paquete. Y si el ordenador está encendido no responderá, por lo que el paquete mágico se quedará sin enviar.
+</p>
+
+<p>
+La solución es modificar la tabla ARP del router, dejando como permanente la dirección IP y MAC del servidor.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org1d2c9e4" class="outline-3">
+<h3 id="org1d2c9e4">Nombre del servidor</h3>
+<div class="outline-text-3" id="text-org1d2c9e4">
+<p>
+La dirección IP asignada a mi router por el ISP es dinámica. Para poder localizar mi servidor en internet es necesario tener un servicio de <a href="https://en.wikipedia.org/wiki/Dynamic_DNS">dynamic dns</a>. He elegido a <a href="https://www.noip.com/">noip.com</a> porque:
+</p>
+<ul class="org-ul">
+<li>Tiene una cuenta gratuita</li>
+<li>Mi router tiene el cliente necesario para actualizar la dirección</li>
+<li>Permite <a href="https://es.wikipedia.org/wiki/MX_(registro)">registros MX</a> para el correo electrónico.</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc2ffbf8" class="outline-2">
+<h2 id="orgc2ffbf8">Servidor</h2>
+<div class="outline-text-2" id="text-orgc2ffbf8">
+<p>
+En el ordenador he instalado los servicios e-mail y HTTP.
+</p>
+</div>
+
+<div id="outline-container-org2273327" class="outline-3">
+<h3 id="org2273327">E-mail</h3>
+<div class="outline-text-3" id="text-org2273327">
+<p>
+Utilizo <a href="https://www.exim.org/">exim4</a> en una instalación estandar, con las siguientes configuraciones:
+</p>
+<ul class="org-ul">
+<li>El <i>hostname</i> del ordenador es el mismo que el del dominio dinámico en noip.</li>
+<li>Utilizo como <a href="https://wiki.debian.org/GmailAndExim4">smarthost una dirección de correo de gmail</a>. El resultado es que puedo recibir correos en mi servidor, pero cuando los envío parecen todos enviados desde gmail.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orga505d73" class="outline-3">
+<h3 id="orga505d73">Owncloud</h3>
+<div class="outline-text-3" id="text-orga505d73">
+<p>
+Para acceder a mis ficheros (fundamentalmente fotografías) utilizo Owncloud, instalado desde repositorios:
+</p>
+<pre class="example">
+apt install apache2 mysql-server libapache2-mod-php php-mcrypt php-mysql
+apt install owncloud-files
+</pre>
+
+<p>
+Con esto se consigue un servidor apache capaz de ejecutar Owncloud, pero la instalación de Owncloud (en <code>/var/www/owncloud</code>) no es accesible por apache. Es necesario crear un fichero de sitio en <code>/etc/apache/sites-available/owncloud.conf</code> con el siguiente contenido
+</p>
+
+<pre class="example">
+Alias /owncloud /var/www/owncloud
+
+&lt;Directory /var/www/owncloud&gt;
+        Options FollowSymLinks
+        AllowOverride All
+        Require all granted
+&lt;/Directory&gt;
+</pre>
+
+<p>
+Después, se habilita el sitio con
+</p>
+<pre class="example">
+a2ensite owncloud
+</pre>
+
+
+
+<ol class="org-ol">
+<li><p>
+Emacs
+</p>
+<div class="org-src-container">
+<pre><code class="src src-bash">sudo add-apt-repository ppa:kelleyk/emacs
+sudo apt update
+sudo apt install emacs25 git
+</code></pre>
+</div>
+<ul class="org-ul">
+<li>Bajar repositorio .emacs.d</li>
+</ul>
+<div class="org-src-container">
+<pre><code class="src src-bash">git clone https://alvarogonzalezsotillo@github.com/alvarogonzalezsotillo/.emacs.d.git
+</code></pre>
+</div>
+<ul class="org-ul">
+<li>Arrancar emacs y reinstalar paquetes</li>
+</ul></li>
+<li>Materiales para clase
+<ul class="org-ul">
+<li>Bajar repositorio apuntes-clase</li>
+<li>Instalar 
+<ul class="org-ul">
+<li>Latex</li>
+<li>Inkscape</li>
+<li>graphviz</li>
+</ul></li>
+<li>MS Office
+<ul class="org-ul">
+<li>Instalar wine</li>
+<li>Copiar prefijo wine</li>
+<li>Crear ficheros .desktop</li>
+</ul></li>
+</ul></li>
+<li>Email
+<ul class="org-ul">
+<li>Instalar exim4</li>
+<li>Instalar mutt</li>
+<li>Configurar smarthost</li>
+</ul></li>
+<li>Owncloud
+<ul class="org-ul">
+<li>instalar apache, php y mysql</li>
+<li>Crear usuario y base de datos</li>
+<li>instalar owncloud-files</li>
+<li>crear owncloud.conf y habilitar sitio</li>
+<li>montar directorio local de fotos</li>
+</ul></li>
+<li>Zsh
+<ul class="org-ul">
+<li>Instalar zsh
+<ul class="org-ul">
+<li><a href="https://github.com/robbyrussell/oh-my-zsh">https://github.com/robbyrussell/oh-my-zsh</a></li>
+</ul></li>
+<li>Instalar oh-my-zsh</li>
+<li>Activar plugins: emacs tmux</li>
+</ul></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Fecha: 2018-05-17</p>
+<p class="author">Autor: Álvaro González Sotillo</p>
+<p class="date">Created: 2018-05-17 jue 09:28</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

@@ -2,21 +2,24 @@
 #+TITLE:       Nuevo HTPC en casa
 #+AUTHOR:      Álvaro González Sotillo
 #+EMAIL:       alvarogonzalezsotillo@gmail.com
-#+DATE:        2012-10-10
-#+URI:         /blog/nuevo-ordenador-de-sobremesa-servidor-htpc
+#+DATE:        2018-05-17
+#+URI:         /blog/ordenador-de-sobremesa-servidor-htpc
 
 #+TAGS: 
-#+DESCRIPTION: 
+#+DESCRIPTION: Acabo de comprarme un Asus VC-66. Mi intención es utilizarlo como servidor accesible desde internet, pero también como HTPC. Estos son los pasos que he seguido para configurarlo.
+
 
 #+LANGUAGE:    es
 #+OPTIONS:     H:7 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 
+#+attr_html: :align right :style width:10%;max-width:200px;min-width:100px;margin:2em;
+[[https://www.asus.com/us/Mini-PCs/VivoMini-VC66/][file:./asus-vc66.png]]
 
-
+Acabo de comprarme un [[https://www.asus.com/us/Mini-PCs/VivoMini-VC66/][Asus VC-66]]. Mi intención es utilizarlo como servidor accesible desde internet, pero también como [[https://es.wikipedia.org/wiki/HTPC][HTPC]]. Estos son los pasos que he seguido para configurarlo.
+#+html: <p style="clear:both"></p>
 
 * Instalación del sistema operativo
-
-El ordenador venía con Windows 10 preinstalado. He /intentado/ usarlo, pero aunque el /[[https://es.wikipedia.org/wiki/Remote_Desktop_Protocol][remote desktop]]/ es una buena forma de conectarte a un ordenador de tu LAN, no es tan adecuado para un acceso remoto con bajo ancho de banda. En esos casos, una conexión [[https://es.wikipedia.org/wiki/Secure_Shell][SSH]]/[[https://es.wikipedia.org/wiki/SSH_File_Transfer_Protocol][SFTP]] con la posibilidad de redirigir puertos a [[https://es.wikipedia.org/wiki/VNC][VNC]] me parece más adecuada.
+El ordenador venía con Windows 10 preinstalado. Aunque el /[[https://es.wikipedia.org/wiki/Remote_Desktop_Protocol][remote desktop]]/ es una buena forma de conectarte a un ordenador de tu LAN, no es tan adecuado para un acceso remoto con bajo ancho de banda. En esos casos, una conexión [[https://es.wikipedia.org/wiki/Secure_Shell][SSH]]/[[https://es.wikipedia.org/wiki/SSH_File_Transfer_Protocol][SFTP]] con la posibilidad de redirigir puertos a [[https://es.wikipedia.org/wiki/VNC][VNC]] me parece más adecuada.
 
 De todas formas, Windows sigue instalado, que tampoco es cuestión de despreciar una licencia.
 
@@ -27,12 +30,12 @@ De todas formas, Windows sigue instalado, que tampoco es cuestión de despreciar
    | / | <>  | <>   | <>      | <>           |
    |   | EFI | boot | Windows | Recuperación |
    |---+-----+------+---------+--------------|
-2. Reducir partición windows
+2. Tras reducir partición windows
    |---+-----+------+---------+-------+--------------|
    | / | <>  | <>   | <>      | <>    | <>           |
    |   | EFI | boot | Windows | Libre | Recuperación |
    |---+-----+------+---------+-------+--------------|
-3. Instalar ubuntu
+3. Tran instalar Ubuntu
    |---+-----+------+---------+-------+--------+------+--------------|
    | / | <>  | <>   | <>      | <>    | <>     | <>   | <>           |
    |   | EFI | boot | Windows | Libre | Ubuntu | Swap | Recuperación |
@@ -44,7 +47,7 @@ De todas formas, Windows sigue instalado, que tampoco es cuestión de despreciar
    |---+-----+------+---------+--------------------------+--------+------+--------------|
 
 ** Usuarios
-Utilizaré el ordenador como servidor /always-on/, pero también como [[https://es.wikipedia.org/wiki/HTPC][HTPC]]. He creado un usuario por defecto para la familia con el [[https://help.ubuntu.com/community/AutoLogin][autologin]] activado.
+He creado un usuario por defecto para la familia con el [[https://help.ubuntu.com/community/AutoLogin][autologin]] activado.
 
 Para compartir ficheros entre los usuarios se utiliza el grupo =discos=, al que pertenecen todos los usuarios
 #+BEGIN_SRC bash
@@ -74,7 +77,11 @@ UUID=9E1CF2601CF2333F /datos/datos-compartidos-200M ntfs gid=discos,dmask=002,fm
 #+END_EXAMPLE
 
 * Home Theater Personal Computer
-En la parte /hardware/, basta con conectar el ordenador al televisor por el puerto HDMI y utilizar un teclado inalámbrico. Yo utilizo un [[https://www.logitech.com/es-es/product/k400-wireless-keyboard-touchpad][Logitech k400]] que va muy bien, sobre todo por el fácil acceso a las teclas de volumen (que al final, durante una película, es lo que más se usa).
+
+#+attr_html: :align right :style width:15%;max-width:200px;min-width:100px;margin:1em;
+[[https://www.logitech.com/es-es/product/k400-wireless-keyboard-touchpad][file:./wireless-touch-keyboard-k400-plus.png]]
+
+En la parte /hardware/, basta con conectar el ordenador al televisor por el puerto HDMI y utilizar un teclado inalámbrico. Yo utilizo un [[https://www.logitech.com/es-es/product/k400-wireless-keyboard-touchpad][Logitech k400]] que va muy bien, sobre todo por el fácil acceso a las teclas de volumen (que al final, durante una película, es lo que más se usa). 
 
 En la parte /software/ he optado por [[https://kodi.tv/][Kodi]] con el [[https://kodi.wiki/view/Add-on:YouTube][plugin de YouTube]], aunque al final resulta más cómodo utilizar directamente la web con Firefox.
 
@@ -102,7 +109,7 @@ El acceso remoto no es solamente acceder al ordenador desde la LAN, sino desde c
    #+END_SRC
 2. Redirigir un puerto para acceder a SSH desde Internet. Para ello
    1. Configurar el ordenador para tener una IP fija
-   2. En el router ADSL/fibra, abrir un puerto que se redirija a esa IP, al puerto 22 del servidor SSH.
+   2. En el router ADSL/fibra, abrir un puerto que se redirija a esa IP fija, al puerto 22 del servidor SSH.
 
 ** /Always-on/ vs /Wake-on-lan/
 Idealmente, el servidor debería estar siempre encendido. En la práctica no siempre es deseable, aunque solo sea por el gasto continuo de 18W.
@@ -127,10 +134,31 @@ Utilizo [[https://www.exim.org/][exim4]] en una instalación estandar, con las s
 - El /hostname/ del ordenador es el mismo que el del dominio dinámico en noip.
 - Utilizo como [[https://wiki.debian.org/GmailAndExim4][smarthost una dirección de correo de gmail]]. El resultado es que puedo recibir correos en mi servidor, pero cuando los envío parecen todos enviados desde gmail.
 
+A partir de aquí, ya puedo utilizar mi dirección [[mailto:spam@alvarogonzalez.no-ip.biz]] para registrarme en cualquier sitio 😎
+
+** Servidor Web
+El protocolo HTTP es una buena forma de compartir ficheros. He instalado [[https://httpd.apache.org/][Apache]] directamente desde el repositorio.
+
+
+#+BEGIN_EXAMPLE
+apt install apache2 
+#+END_EXAMPLE
+
+Para no dejar la página por defecto, he instalado un mirror de este blog:
+
+#+BEGIN_EXAMPLE
+ DocumentRoot /var/www/alvarogonzalezsotillo.github.io
+ <Directory /var/www/alvarogonzalezsotillo.github.io>
+          Options FollowSymLinks
+          AllowOverride All
+          Require all granted
+  </Directory>
+#+END_EXAMPLE
+
 ** Owncloud
 Para acceder a mis ficheros (fundamentalmente fotografías) utilizo Owncloud, instalado desde repositorios:
 #+BEGIN_EXAMPLE
-apt install apache2 mysql-server libapache2-mod-php php-mcrypt php-mysql
+apt install mysql-server libapache2-mod-php php-mcrypt php-mysql
 apt install owncloud-files
 #+END_EXAMPLE
 
@@ -151,41 +179,56 @@ Después, se habilita el sitio con
 a2ensite owncloud
 #+END_EXAMPLE
 
+* Configuración como /workstation/
+El servidor también debería servirme de /backup/ en el caso de que no tenga disponible mi portátil. La siguiente configuración es la que utilizo para mi trabajo diario.
 
+** Zsh
+Zsh es una shell que puede sustituir a Bash de forma casi transparente. Las razones por las que utilizo Zsh son
+- Mejor autocomplección con tabulador, tanto para ficheros como para opciones de comandos
+- El historial de comandos se comparte entre todas las sesiones abiertas
+- El historial de comandos se filtra por el comando parcial ya tecleado
+- Se puede utilizar ~**~ para hacer /globbing/ de directorios.
+- Los /plugins/ y temas de [[https://github.com/robbyrussell/oh-my-zsh][Ohmyzsh]] /"will not make you a 10x developer...but you might feel like one"/. Utilizo los plugis para =emacs=, =tmux=, =git= y =gradlew=, y el tema =robbyrussell=
 
-3. Emacs
+** Emacs
+Cuando tienes un martillo, todo te parecen clavos. [[https://www.gnu.org/software/emacs/][Emacs]] es el martillo más grande que he usado nunca.
+
+En un servidor, tiene la gran ventaja de que puede trabajarse directamente en una sesión de SSH, sin entorno gráfico. Emacs y Tmux son una combinación ganadora en estos casos.
+
+En mi portátil he compilado Emacs a partir de los fuentes, pero en el servidor bastará con utilizar un repositorio ppa:
+
    #+begin_src bash
    sudo add-apt-repository ppa:kelleyk/emacs
    sudo apt update
    sudo apt install emacs25 git
    #+end_src
-   - Bajar repositorio .emacs.d
+
+La mejor parte de Emacs es la configuración que cada usuario realiza con él. La mía está en un repositorio git
+
    #+BEGIN_SRC bash
+   cd
    git clone https://alvarogonzalezsotillo@github.com/alvarogonzalezsotillo/.emacs.d.git
    #+END_SRC
-   - Arrancar emacs y reinstalar paquetes
-4. Materiales para clase
-   - Bajar repositorio apuntes-clase
-   - Instalar 
-     - Latex
-     - Inkscape
-     - graphviz
-   - MS Office
-     - Instalar wine
-     - Copiar prefijo wine
-     - Crear ficheros .desktop
-5. Email
-   - Instalar exim4
-   - Instalar mutt
-   - Configurar smarthost
-6. Owncloud
-   - instalar apache, php y mysql
-   - Crear usuario y base de datos
-   - instalar owncloud-files
-   - crear owncloud.conf y habilitar sitio  
-   - montar directorio local de fotos
-7. Zsh
-   - Instalar zsh
-     - https://github.com/robbyrussell/oh-my-zsh
-   - Instalar oh-my-zsh
-   - Activar plugins: emacs tmux
+
+Al arrancar Emacs, automáticamente descargará [[https://github.com/alvarogonzalezsotillo/.emacs.d/blob/master/my/my-packages.el][mis paquetes]] y activará mi configuración.
+
+** Materiales para clase
+Como cuento en [[../../../../materiales-para-clase][otra entrada]], utilizo básicamente Latex y org-mode para mis clases.
+
+La instalación de Latex, y los paquetes que utilizo, se consigue fácilmente con:
+
+  #+begin_src sh 
+  sudo apt-get install texlive-collection-binextra \
+  texlive-latex-recommended \
+  texlive-extra-utils \
+  texlive-collection-langspanish \
+  texlive-collection-latex \
+  texlive-collection-latexextra \
+  #+end_src
+
+Además, utilizo otras herramientas como [[https://inkscape.org/en/][Inkscape]] y [[https://www.graphviz.org/][Graphviz]] que también instalo con =apt-get=
+
+** Ofimática
+Aunque prácticamente ya no lo uso, de vez en cuando alguien de la familia necesita utiliza Microsoft Office. Para eso mantengo un prefijo de [[https://www.winehq.org/][Wine]] que copio de ordenador en ordenador, con la suite ofimática ya instalada.
+
+
