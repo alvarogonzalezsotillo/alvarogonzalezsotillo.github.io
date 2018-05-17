@@ -1,5 +1,5 @@
 # -*- coding: utf-8-unix; -*-
-#+title:       nuevo htpc en casa
+#+title:       Nuevo HTPC en casa
 #+author:      Álvaro González Sotillo
 #+email:       alvarogonzalezsotillo@gmail.com
 #+date:        2018-05-17
@@ -52,11 +52,11 @@ He creado un usuario por defecto para la familia con el [[https://help.ubuntu.co
 Para compartir ficheros entre los usuarios se utiliza el grupo =discos=, al que pertenecen todos los usuarios
 #+begin_src bash
 sudo addgroup discos
-sudo usermod -a -g discos usuario1
-sudo usermod -a -g discos usuario2
+sudo usermod -a -G discos usuario1
+sudo usermod -a -G discos usuario2
 #+end_src
 
-las particiones de datos adicionales (como los datos compartidos con windows) se montan con este grupo    
+Las particiones de datos adicionales (como los datos compartidos con windows) se montan con este grupo    
 #+begin_example
 # /etc/fstab: static file system information.
 #
@@ -85,7 +85,7 @@ En la parte /hardware/, basta con conectar el ordenador al televisor por el puer
 
 En la parte /software/ he optado por [[HTTPS://KODI.TV/][Kodi]] con el [[https://kodi.wiki/view/add-on:youtube][plugin de Youtube]], aunque al final resulta más cómodo utilizar directamente la web con firefox.
 
-Para /esos/ otros contenidos, utilizo [[HTTPS://TRANSMISSIONBT.COM/][Transmission daemon]]. he seguido los siguientes pasos:
+Para /esos/ otros contenidos, utilizo [[HTTPS://TRANSMISSIONBT.COM/][Transmission daemon]]. He seguido los siguientes pasos:
 - Instalar con =apt install transmission-daemon=
 - Crear un directorio para Transmission en el disco compartido
 - Configuración de Transmission (fichero =settings.json=)
@@ -93,10 +93,12 @@ Para /esos/ otros contenidos, utilizo [[HTTPS://TRANSMISSIONBT.COM/][Transmissio
      - Cambiar el directorio por defecto al creado anteriormente
      - Escuchar en la dirección =0.0.0.0=, para permitir conexiones desde fuera del equipo, y eliminar la =whitelist= de equipos con la conexión permitida.
      - Para que el resto de usuarios puedan leer los ficheros bajados por transmission, hay que añadirlos al grupo =debian-transmission=
-       #+begin_src bash
-       sudo usermod -a -g debian-transmission usuario1
-       sudo usermod -a -g debian-transmission usuario2
-       #+end_src
+
+#+begin_src bash
+sudo usermod -a -G debian-transmission usuario1
+sudo usermod -a -G debian-transmission usuario2
+#+end_src
+
 
 Tras instalar transmission, he añadido el directorio de bajada a los directorios de video de Kodi.
 
@@ -109,7 +111,7 @@ El acceso remoto no es solamente acceder al ordenador desde la lan, sino desde c
    #+end_src
 2. Redirigir un puerto para acceder a ssh desde internet. para ello
    1. Configurar el ordenador para tener una ip fija
-   2. En el router adsl/fibra, abrir un puerto que se redirija a esa ip fija, al puerto 22 del servidor ssh.
+   2. En el router ADSL/fibra, abrir un puerto que se redirija a esa ip fija, al puerto 22 del servidor ssh.
 
 ** /Always-on/ vs /wake-on-lan/
 Idealmente, el servidor debería estar siempre encendido. en la práctica no siempre es deseable, aunque solo sea por el gasto continuo de 18W.
