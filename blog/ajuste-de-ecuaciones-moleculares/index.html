@@ -37,8 +37,8 @@
 Este proyecto es un ajustador de ecuaciones estequiométricas. Puede verse en vivo en <a href="https://alvarogonzalezsotillo.github.io/ecuacion-molecular">https://alvarogonzalezsotillo.github.io/ecuacion-molecular</a>. También puede <a href="https://alvarogonzalezsotillo.github.io/ecuacion-molecular#H2+O2=H2O">enlazarse directamente</a> con la ecuación ajustar.
 </p>
 
-<div id="outline-container-orgffe9fff" class="outline-2">
-<h2 id="orgffe9fff"><span class="section-number-2">1</span> Ecuaciones estequiométricas</h2>
+<div id="outline-container-orge89edd9" class="outline-2">
+<h2 id="orge89edd9"><span class="section-number-2">1</span> Ecuaciones estequiométricas</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Una ecuación estequiométrica o ecuación química muestra las moléculas iniciales de una reacción y los resultados de dicha reacción.
@@ -67,8 +67,8 @@ Una ecuación <b>ajustada</b> es una en la que los coeficientes estequiométrico
 </div>
 </div>
 
-<div id="outline-container-orge38349e" class="outline-2">
-<h2 id="orge38349e"><span class="section-number-2">2</span> Ajuste de ecuaciones</h2>
+<div id="outline-container-org6d5648a" class="outline-2">
+<h2 id="org6d5648a"><span class="section-number-2">2</span> Ajuste de ecuaciones</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Se pueden ajustar ecuaciones estequiométricas por el método del tanteo o por el método algebraico.
@@ -135,16 +135,16 @@ Quedando la ecuación ajustada como \(2H_2 + O_2 = 2H_{2}O\)
 </div>
 </div>
 
-<div id="outline-container-orge2531ee" class="outline-2">
-<h2 id="orge2531ee"><span class="section-number-2">3</span> Implementación</h2>
+<div id="outline-container-org792643a" class="outline-2">
+<h2 id="org792643a"><span class="section-number-2">3</span> Implementación</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 Se ha implementado la lógica en Scala, y se ha <i>transpilado</i> posteriormente a Javascript con <a href="https://www.scala-js.org/">Scalajs</a>. El código fuente está disponible en un <a href="https://github.com/alvarogonzalezsotillo/ecuacion-molecular">repositorio de Github</a>, y puede probarse en vivo en <a href="https://alvarogonzalezsotillo.github.io/ecuacion-molecular">https://alvarogonzalezsotillo.github.io/ecuacion-molecular</a>.
 </p>
 </div>
 
-<div id="outline-container-org9f9821b" class="outline-3">
-<h3 id="org9f9821b"><span class="section-number-3">3.1</span> Parseo de la ecuación</h3>
+<div id="outline-container-org1802adf" class="outline-3">
+<h3 id="org1802adf"><span class="section-number-3">3.1</span> Parseo de la ecuación</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 Se ha utilizado <a href="http://www.scala-lang.org/api/2.12.3/scala-parser-combinators/scala/util/parsing/combinator/RegexParsers.html"><code>scala.util.parsing.combinator.RegexParsers</code></a> para validar la ecuación introducida.
@@ -169,7 +169,7 @@ Se necesitan varias <i>case class</i> para representar internamente una ecuació
 
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listado de programa 1 </span>Implementación del parser de ecuaciones moleculares</label><pre><code class="src src-scala">class EcuacionMolecularParser extends RegexParsers {
+<label class="org-src-name"><span class="listing-number">Listado de programa 1 </span>Implementación del parser de ecuaciones moleculares</label><pre class="src src-scala">class EcuacionMolecularParser extends RegexParsers {
 
   def blanco = "\\s*".r
 
@@ -214,20 +214,20 @@ Se necesitan varias <i>case class</i> para representar internamente una ecuació
 
 }
 
-</code></pre>
+</pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgc0e7ac4" class="outline-3">
-<h3 id="orgc0e7ac4"><span class="section-number-3">3.2</span> Explicaciones del proceso</h3>
+<div id="outline-container-orgc70c689" class="outline-3">
+<h3 id="orgc70c689"><span class="section-number-3">3.2</span> Explicaciones del proceso</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 Durante el proceso de ajuste, se generan explicaciones de los pasos seguidos. Esto se consigue a partir de <a href="https://alvinalexander.com/scala/scala-xml-examples-xml-literals-source-code-searching-xpath">literales XML</a> volcados en un <code>Explicador</code>. Este explicador se pasa como parámetro implícito, se importan sus métodos <code>explica</code> y <code>siExplicadorActivo</code> para poder usarse directamente.
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listado de programa 2 </span>Ejemplo de uso del Explicador</label><pre><code class="src src-scala">val variablesEnteras = {
+<label class="org-src-name"><span class="listing-number">Listado de programa 2 </span>Ejemplo de uso del Explicador</label><pre class="src src-scala">val variablesEnteras = {
   val denominadores = variables.map(_.den)
   val mcm = Racional.mcm(denominadores)
   val ret = variables.map( r =&gt; r.num * mcm / r.den ).map( Math.abs )
@@ -255,13 +255,13 @@ Durante el proceso de ajuste, se generan explicaciones de los pasos seguidos. Es
   }
   ret
 }
-</code></pre>
+</pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgba58ac2" class="outline-3">
-<h3 id="orgba58ac2"><span class="section-number-3">3.3</span> Ajuste de la ecuación</h3>
+<div id="outline-container-org66be333" class="outline-3">
+<h3 id="org66be333"><span class="section-number-3">3.3</span> Ajuste de la ecuación</h3>
 <div class="outline-text-3" id="text-3-3">
 <p>
 A partir de la ecuación molecular, se construye una matriz que representa el sistema de ecuaciones lineales descrito anteriormente.
@@ -276,7 +276,7 @@ Las ecuaciones se combinan linealmente para conseguir despejar las incógnitas, 
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listado de programa 3 </span>Diagonalización de la matriz del sistema de ecuaciones (xml forma parte de la explicación del proceso)</label><pre><code class="src src-scala">val m: Array[Array[T]] = valuesCopy()
+<label class="org-src-name"><span class="listing-number">Listado de programa 3 </span>Diagonalización de la matriz del sistema de ecuaciones (xml forma parte de la explicación del proceso)</label><pre class="src src-scala">val m: Array[Array[T]] = valuesCopy()
 
 val columns = (m(0).size min m.size)
 
@@ -298,7 +298,7 @@ val xml = for( col &lt;- 0 until columns ) yield{
 
   asXML(m)
 }
-</code></pre>
+</pre>
 </div>
 </div>
 </div>

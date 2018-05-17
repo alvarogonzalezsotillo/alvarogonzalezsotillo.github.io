@@ -37,9 +37,9 @@
 Durante el desarrollo de ciclos formativos de grado medio y superior, es muy común la necesidad de compartir ficheros con los alumnos. Para ilustrar el problema, supondremos que el profesor necesita distribuir una ISO de instalación de Ubuntu (1.6 GBytes) en un aula con 15 ordenadores.
 </p>
 
-<div id="outline-container-org4cf23d5" class="outline-2">
-<h2 id="org4cf23d5">Solución 1: Uso de <i>pen drive</i></h2>
-<div class="outline-text-2" id="text-org4cf23d5">
+<div id="outline-container-org351ccb0" class="outline-2">
+<h2 id="org351ccb0">Solución 1: Uso de <i>pen drive</i></h2>
+<div class="outline-text-2" id="text-org351ccb0">
 <p style="float:right;">
 <img src="/assets/blog/bittorent-en-el-aula/pendrive-small.jpg" alt="/assets/blog/bittorent-en-el-aula/pendrive-small.jpg" style="float:right;" />
 El profesor pasa por cada puesto de alumno, copiando desde un disco duro externo o <i>pen drive</i> el fichero deseado. Suponiendo una  tasa de transferencia de 25 MBytes/segundo, cada alumno necesita unos 60 segundos para conseguir su copia. Incluyendo el proceso de conexión y desconexión cada alumno necesita unos 2 minutos. Esto hace un total de 30 minutos para distribuir el fichero.
@@ -47,18 +47,18 @@ El profesor pasa por cada puesto de alumno, copiando desde un disco duro externo
 </div>
 </div>
 
-<div id="outline-container-org973739b" class="outline-2">
-<h2 id="org973739b">Solución 2: Uso de pen drive y copias de alumnos</h2>
-<div class="outline-text-2" id="text-org973739b">
+<div id="outline-container-org70c4b41" class="outline-2">
+<h2 id="org70c4b41">Solución 2: Uso de pen drive y copias de alumnos</h2>
+<div class="outline-text-2" id="text-org70c4b41">
 <p>
 Si cada alumno que consigue el fichero lo  copia a un pen drive propio y lo distribuye a otros alumnos, puede copiarse el fichero mucho más rápido. Esta es una posibilidad teórica más que real, puesto que los alumnos no suelen entender el proceso y se tarda más en explicarlo que en aplicar la primera solución.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org7c0ef22" class="outline-2">
-<h2 id="org7c0ef22">Solución 3: Uso de un servidor de ficheros</h2>
-<div class="outline-text-2" id="text-org7c0ef22">
+<div id="outline-container-org6120bec" class="outline-2">
+<h2 id="org6120bec">Solución 3: Uso de un servidor de ficheros</h2>
+<div class="outline-text-2" id="text-org6120bec">
 
 <div class="figure">
 <p><img src="/assets/blog/bittorent-en-el-aula/sharedfolder-small.jpg" alt="/assets/blog/bittorent-en-el-aula/sharedfolder-small.jpg" style="float:right;" />
@@ -76,9 +76,9 @@ El fichero puede hacerse accesible desde la red, y cada alumno baja su propia co
 </div>
 </div>
 
-<div id="outline-container-orgc5ae1f1" class="outline-2">
-<h2 id="orgc5ae1f1">Solución 4: Uso de un protocolo de red p2p</h2>
-<div class="outline-text-2" id="text-orgc5ae1f1">
+<div id="outline-container-org6bc5146" class="outline-2">
+<h2 id="org6bc5146">Solución 4: Uso de un protocolo de red p2p</h2>
+<div class="outline-text-2" id="text-org6bc5146">
 <p style="float:right;">
 <img src="/assets/blog/bittorent-en-el-aula/utorrent.jpg" alt="/assets/blog/bittorent-en-el-aula/utorrent.jpg" style="float:right;" />
 El problema fundamental del servidor de ficheros es que una sola conexión debe dar servicio a todos los alumnos. Si conseguimos que cada alumno comparta su conexión con los demás, este cuello de botella queda resuelto. De esta forma, se consigue una transferencia casi simultánea a todos los alumnos del fichero, necesitando solo 3 minutos para una red a 100 MB.
@@ -96,7 +96,7 @@ Estos <a href="http://en.wikipedia.org/wiki/Back-of-the-envelope_calculation">c�
 <li>Utilizar <code>psexec</code> para ejecutar de forma remota μTorrent en todos los ordenadores de los alumnos, por ejemplo con un fichero BAT. Utilizo <code>start /b</code> para que el proceso se haga en forma paralela, sin tener que esperar a un ordenador para lanzar la orden en el siguiente:</li>
 </ol>
 <div class="org-src-container">
-<pre><code class="src src-bat">set SLEEP=ping 192.0.2.2 -n 1 -w 10000 
+<pre class="src src-bat">set SLEEP=ping 192.0.2.2 -n 1 -w 10000 
 
 
 set DIRECTORIO=f:\isos 
@@ -117,7 +117,7 @@ for /f %%i in ( 'type %FICHEROIPDEALUMNOS%' ) do start /b psexec \\%%i -d cmd /c
 
 REM SE EJECUTA EL TORRENT
 for /f %%i in ( 'type %FICHEROIPDEALUMNOS%' ) do start /b psexec \\%%i -c -v -d -s -i %~dp0\utorrent.exe /NOINSTALL /HIDE /DIRECTORY %DIRECTORIO% %FICHEROTORRENT%
-</code></pre>
+</pre>
 </div>
 <p>
 Tras esto, basta con comprobar que está funcionando. El fichero "aparecerá" en los ordenadores del aula en pocos minutos ☺
