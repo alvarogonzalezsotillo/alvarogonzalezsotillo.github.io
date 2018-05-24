@@ -1,0 +1,14 @@
+#+TITLE:       Servidor linux para exámenes
+#+AUTHOR:      Álvaro González Sotillo
+#+EMAIL:       alvarogonzalezsotillo@gmail.com
+#+DATE:        2018-05-30
+#+URI:         /blog/servidor-linux-para-examenes
+#+KEYWORDS:    examenes, linux
+#+TAGS:        linux
+#+LANGUAGE:    es
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: Al encargar trabajos o examinar a los alumnos, utilizo un servidor virtual para que trabajen en un entorno controlado.
+
+
+
+
