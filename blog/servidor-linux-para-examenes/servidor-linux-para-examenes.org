@@ -9,6 +9,87 @@
 #+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 #+DESCRIPTION: Al encargar trabajos o examinar a los alumnos, utilizo un servidor virtual para que trabajen en un entorno controlado.
 
+* El problema
+A la hora de realizar un trabajo o examen práctico sobre un ordenador, los profesores tenemos varias alternativas:
+1. Los alumnos realizan el examen sobre su propio ordenador o máquina virtual. Después, cada alumno muestra el resultado al profesor. Esta solución se vuelve difícil si hay muchos alumnos, porque deben ir esperando su turno para presentar el resultado al profesor.
+2. Como la opción 1, pero el profesor recoge las máquinas virtuales y las estudia posteriormente. En este caso, el problema es la copia de las máquinas virtuales, cada una con varios gigabytes, en un disco duro que hay que ir acoplando a cada ordenador de los alumnos.
+3. Abandonar la idea de /práctico/, y realizar el examen sobre papel 😱
 
+Sin embargo, hay exámenes en los que el alumno no necesita ser administrador de la máquina. En estos casos, el profesor puede montar un /hosting/ casero y dejar que los alumnos realicen el examen en su propio ordenador o máquina virtual. 
+
+A continuación, describiré qué pasos sigo para crear un entorno Linux para mis alumnos. Este entorno lo he adaptado para exámenes de bases de datos (Oracle y MySQL), y exámenes LAMP.
+
+* Entorno Linux
+
+Cada alumno tendrá su propia contraseña. Generar las contraseñas aleatoriamente no es una buena idea, puesto que dificulta su recuperación en caso de pérdida. Es mejor que la contraseña dependa del nombre del usuario, por ejemplo los primeros caracteres del hash del usuario. 
+
+Mi solución es utilizar el código ASCII de varios caracteres del nombre del usuario: para los alumnos es inicialmente algo imposible de descifrar, y cuando preguntan puedo contar cosas como el sistema de numeración binaria, código ASCII, cadenas de caracteres, criptoanálisis...
+
+
+#+caption: Función que calcula una contraseña a partir del nombre del usuario MARIA (776582)
+#+BEGIN_SRC shell
+password_para_alumno(){
+    local USER=$1
+    local uno=${USER:0:1}
+    local dos=${USER:1:1}
+    local tres=${USER:2:1}
+
+    LC_CTYPE=C printf '%d' "'$uno'" "'$dos'" "'$tres'"
+}
+
+echo La contraseña para MARIA sería $(password_para_alumno MARIA)
+#+END_SRC
+
+
+#+BEGIN_SRC shell
+crear_usuario_linux()
+{
+    local USER=$1
+    local PASS=$2
+
+    
+    sudo useradd $USER -m -s /bin/bash
+    echo "$USER:$PASS" | sudo chpasswd
+
+    sudo chmod 700 /home/$USER
+}
+#+END_SRC
+
+#+BEGIN_SRC shell
+deshabilita_comunicacion(){
+    sudo "chmod 500 $(which wall) $(which mail) $(which write)"
+}
+#+END_SRC
+
+
+
+#+BEGIN_SRC shell
+lista_usuarios(){
+    rm usuarios_linux.org
+    local USUARIOS="$*"
+    
+    for USER in $USUARIOS
+    do
+        local PASS=$(password_para_alumno $USER)
+        printf '| Usuario | %s | Password | %s | \n' $USER $PASS >> usuarios_linux.org
+    done
+}
+#+END_SRC
+
+
+#+BEGIN_SRC shell
+usuarios="alumno1 alumno2 alumno3"
+
+deshabilita_comunicacion
+
+for usuario in $usuarios
+do
+    pass=$(password_para_alumno $usuario)
+    crear_usuario_linux $usuario $pass 
+    crear_usuario_oracle $usuario $pass 
+done;
+
+lista_usuarios "$usuarios"
+#+END_SRC
 
 
