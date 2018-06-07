@@ -26,8 +26,8 @@ Cada alumno tendrá su propia contraseña. Generar las contraseñas aleatoriamen
 Mi solución es utilizar el código ASCII de varios caracteres del nombre del usuario: para los alumnos es inicialmente algo imposible de descifrar, y cuando preguntan puedo contar cosas como el sistema de numeración binaria, código ASCII, cadenas de caracteres, criptoanálisis...
 
 
-#+caption: Función que calcula una contraseña a partir del nombre del usuario MARIA (776582)
-#+BEGIN_SRC shell
+#+caption: Función que calcula una contraseña a partir del nombre del usuario =MARIA= (=776582=)
+#+BEGIN_SRC sh
 password_para_alumno(){
     local USER=$1
     local uno=${USER:0:1}
@@ -40,30 +40,35 @@ password_para_alumno(){
 echo La contraseña para MARIA sería $(password_para_alumno MARIA)
 #+END_SRC
 
-
-#+BEGIN_SRC shell
+Los usuarios se crean la contraseña especificada por la función anterior. El directorio del alumno no es accesible por otros alumnos, y el alumno no puede cambiar los permisos de su /home/ para dejarse copiar.
+#+caption: Creación de un usuario 
+#+BEGIN_SRC sh
 crear_usuario_linux()
 {
     local USER=$1
-    local PASS=$2
+    local PASS=$(password_para_alumno $USER)
 
     
     sudo useradd $USER -m -s /bin/bash
     echo "$USER:$PASS" | sudo chpasswd
 
-    sudo chmod 700 /home/$USER
+    sudo chown root:$USER /home/$USER
+    sudo chmod 770 /home/$USER
 }
 #+END_SRC
 
-#+BEGIN_SRC shell
+También elimino los canales de comunicación entre alumnos más comunes: mensajería, conexiones TCP... Hay demasiadas formas como para deshabilitarlas todas. De las que no se eliminan, la más evidente son los ficheros temporales en =/tmp=.
+#+caption: Eliminación de algunos canales de comunicación entre alumnos
+#+BEGIN_SRC sh
 deshabilita_comunicacion(){
-    sudo "chmod 500 $(which wall) $(which mail) $(which write)"
+    sudo "chmod 500 $(which wall) $(which mail) $(which write) $(which nc)"
 }
 #+END_SRC
 
+En el momento del examen, es necesario que los alumnos conozcan su contraseña de una forma más o menos confidencial. Para eso utilizo una [[https://orgmode.org/manual/Built_002din-table-editor.html#Built_002din-table-editor][tabla de org-mode]], que imprimo y recorto cada fila, para repartir a cada alumno.
 
-
-#+BEGIN_SRC shell
+#+caption: Creación de un fichero con todos los usuarios y contraseñas 
+#+BEGIN_SRC sh
 lista_usuarios(){
     rm usuarios_linux.org
     local USUARIOS="$*"
@@ -76,20 +81,179 @@ lista_usuarios(){
 }
 #+END_SRC
 
+Con todas estas funciones, ya solo queda definir la lista de alumnos e invocarlas por cada alumno.
 
-#+BEGIN_SRC shell
+#+caption: Todas las anteriores funciones en acción
+#+BEGIN_SRC sh
+# LISTA DE USUARIOS: GENERALMENTE, USO LOS APELLIDOS DE LOS ALUMNOS
 usuarios="alumno1 alumno2 alumno3"
 
 deshabilita_comunicacion
 
 for usuario in $usuarios
 do
-    pass=$(password_para_alumno $usuario)
-    crear_usuario_linux $usuario $pass 
-    crear_usuario_oracle $usuario $pass 
-done;
+    crear_usuario_linux $usuario
+done
 
-lista_usuarios "$usuarios"
+lista_usuarios $usuarios
 #+END_SRC
 
 
+* Oracle
+
+#+caption: Variables necesarias para el funcionamiento de =sqlplus= de   *[[http://www.oracle.com/technetwork/database/database-technologies/express-edition/overview/index.html][Oracle XE]]*.
+#+begin_src sh
+export ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe
+export ORACLE_SID=XE
+export NLS_LANG=`$ORACLE_HOME/bin/nls_lang.sh`
+export PATH=$ORACLE_HOME/bin:$PATH
+
+
+if [ -z "$SYSPASS" ]
+then
+    echo La variable SYSPASS debe tener la contraseña SYS de la base de datos
+    exit
+fi
+#+end_src
+
+
+#+caption: Creación de un usuario de *Oracle*, con una carga inicial de tablas y datos (=tablas-iniciales.sql=)
+#+begin_src sh
+crear_usuario_oracle(){
+    local user=$1
+    local pass=$(password_para_alumno $user)
+    sqlplus sys/$SYSPASS as sysdba <<EOF
+    drop user $user cascade;
+    create user $user identified by $pass;
+    grant connect,resource,create view to $user;
+    commit;
+EOF
+
+    sqlplus $user/$pass <<EOF
+    @tablas-iniciales.sql
+EOF
+}
+#+end_src
+
+* LAMP
+
+#+BEGIN_SRC sh
+borra_tablas_base_de_datos()
+{
+  local USER=$1
+  local PASS=$(password_para_alumno $USER)
+  local DATABASE=$USER
+
+  mysqldump -u$USER -p$PASS --add-drop-table --no-data $DATABASE | grep ^DROP | mysql -u$USER -p$PASS $DATABASE
+}
+
+crea_base_de_datos()
+{
+  local USER=$1
+  local PASS=$2
+
+  mysql --user=root --password=$SYSPASS <<EOF
+    CREATE DATABASE IF NOT EXISTS $USER;
+    GRANT ALL ON $USER.* TO '$USER' IDENTIFIED BY '$PASS';
+    FLUSH PRIVILEGES;
+EOF
+}
+
+#+END_SRC
+
+
+#+BEGIN_SRC sh
+copia_base_de_datos()
+{
+  local DBEXISTENTE=$1
+  local DBACREAR=$2
+  yes | mysqladmin --user=root --password=$SYSPASS drop $DBACREAR
+  mysqladmin --user=root --password=$SYSPASS create $DBACREAR
+  mysqldump --user=root --password=$ROOTPASS $DBEXISTENTE | mysql --user=root --password=$ROOTPASS $DBACREAR 
+}
+
+#+END_SRC
+
+
+Apache2 dispone de la directiva [[http://httpd.apache.org/docs/2.4/mod/mod_userdir.html#UserDir][UserDir]] para crear un sitio web para cada usuario. Para tener un control más fino sobre cada opción y directorio de alumno, he decidido crear un /site/ por alumno.
+
+La siguiente función crea un /site/ para un alumno en entorno Debian/Apache2.
+
+#+BEGIN_SRC sh
+crea_sitio_web()
+{
+  local USER=$1
+
+  if [ ! -z "$USER" ]
+    then
+
+    local APACHE=www-data
+    local DOCUMENTROOT=/home/$USER/public_html
+    local SITE=/etc/apache2/sites-available/alumno_$USER
+
+    mkdir -p /home/$USER
+    chown -R $USER:$USER /home/$USER
+
+    mkdir -p $DOCUMENTROOT
+    echo "Sitio de $USER, en el directorio $DOCUMENTROOT, con AllowOverride All" >  $DOCUMENTROOT/index.html
+
+    # AJUSTE DE PERMISOS: $HOME sigue siendo privado al usuario, pero 
+    # $APACHE puede accceder a $DOCUMENTROOT 
+    setfacl -R -m u:$APACHE:rxw /home/$USER
+    chown -R $USER:$APACHE $DOCUMENTROOT
+    chmod -R 770 $DOCUMENTROOT
+    chmod +s $DOCUMENTROOT
+
+    cat <<EOF > $SITE
+    <Directory "$DOCUMENTROOT"> 
+      AllowOverride All 
+    </Directory>
+    alias /$USER $DOCUMENTROOT 
+EOF
+  fi
+}
+
+#+END_SRC
+
+
+#+BEGIN_SRC sh
+  crea_pagina_inicio()
+  {
+      local USERS="$1"
+      local IPADDRESS=$(hostname -I)
+      local IPADDRESS="${IPADDRESS#"${IPADDRESS%%[![:space:]]*}"}"
+      local IPADDRESS="${IPADDRESS%"${IPADDRESS##*[![:space:]]}"}"
+    
+      local HOSTNAME=$(hostname).local
+      #local HOSTNAME=$IPADDRESS
+
+      local INDEXHTML=/var/www/html/index.html
+      cat <<EOF > $INDEXHTML 
+      <h1>Aplicaciones Web. Examen 1 evaluacion 3</h1>
+      <p>Conexion con ssh a la IP:<b>$IPADDRESS</b>  ($HOSTNAME)</p>
+      <table border=1>
+  EOF
+    
+      for i in $USERS
+      do
+          i=${USERLARGO:0:16}
+          cat <<EOF >> $INDEXHTML
+            <tr>
+              <td>
+                <a href=$i/phpBB3>$i</a>
+              </td>
+              <td>Misma contrase&ntilde;a inicial</td>
+              <td>
+                <a href=sftp://$i@$HOSTNAME/home/$i>SFTP</a>
+              </td>
+              <td>
+                <a href=phpMyAdmin>phpMyAdmin</a>
+              </td>
+            </tr>
+  EOF
+      done
+
+      echo "</table>" >> $INDEXHTML
+  }
+
+#+END_SRC
