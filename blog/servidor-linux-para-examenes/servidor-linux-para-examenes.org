@@ -4,7 +4,7 @@
 #+DATE:        2018-05-30
 #+URI:         /blog/servidor-linux-para-examenes
 #+KEYWORDS:    examenes, linux
-#+TAGS:        linux
+#+TAGS:        linux, lamp, oracle
 #+LANGUAGE:    es
 #+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 #+DESCRIPTION: Al encargar trabajos o examinar a los alumnos, utilizo un servidor virtual para que trabajen en un entorno controlado.
@@ -101,6 +101,12 @@ lista_usuarios $usuarios
 
 * Oracle
 
+Utilizo la versión [[http://www.oracle.com/technetwork/database/database-technologies/express-edition/overview/index.html][Oracle XE]], para evitar problemas de licencia, y porque es bastante simple de instalar a partir de paquetes RPM en un Centos/Fedora.
+
+En los exámenes basados en Oracle es necesario crear un usuario para cada alumno. Por simplicidad, el mismo usuario y contraseña de Linux se reutilizan para la base de datos.
+
+Al comienzo defino las variables =ORACLE_HOME= y =ORACLE_SID=, que son necesarias para que funcione correctamente el cliente de Oracle =sqlplus=. Para no dejar la contraseña del administrador escrita en el /script/, utilizo la variable de entorno =SYSPASS=.
+
 #+caption: Variables necesarias para el funcionamiento de =sqlplus= de   *[[http://www.oracle.com/technetwork/database/database-technologies/express-edition/overview/index.html][Oracle XE]]*.
 #+begin_src sh
 export ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe
@@ -116,6 +122,7 @@ then
 fi
 #+end_src
 
+Para cada alumno se crea un usuario con permisos básicos (crear tablas, índices, vistas...). Después se carga un /script/ de SQL inicial para la creación de tablas, que depende de cada examen.
 
 #+caption: Creación de un usuario de *Oracle*, con una carga inicial de tablas y datos (=tablas-iniciales.sql=)
 #+begin_src sh
@@ -137,22 +144,18 @@ EOF
 
 * LAMP
 
+Para los exámenes [[https://es.wikipedia.org/wiki/LAMP][LAMP]] se necesita una base de datos y un sitio web por cada alumno.
+
+
+#+caption: Creación de la base de datos MySQL para un alumno
 #+BEGIN_SRC sh
-borra_tablas_base_de_datos()
-{
-  local USER=$1
-  local PASS=$(password_para_alumno $USER)
-  local DATABASE=$USER
-
-  mysqldump -u$USER -p$PASS --add-drop-table --no-data $DATABASE | grep ^DROP | mysql -u$USER -p$PASS $DATABASE
-}
-
 crea_base_de_datos()
 {
   local USER=$1
-  local PASS=$2
+  local PASS=$(password_para_alumno $USER)
 
   mysql --user=root --password=$SYSPASS <<EOF
+    DROP DATABASE $USER;
     CREATE DATABASE IF NOT EXISTS $USER;
     GRANT ALL ON $USER.* TO '$USER' IDENTIFIED BY '$PASS';
     FLUSH PRIVILEGES;
@@ -162,23 +165,13 @@ EOF
 #+END_SRC
 
 
-#+BEGIN_SRC sh
-copia_base_de_datos()
-{
-  local DBEXISTENTE=$1
-  local DBACREAR=$2
-  yes | mysqladmin --user=root --password=$SYSPASS drop $DBACREAR
-  mysqladmin --user=root --password=$SYSPASS create $DBACREAR
-  mysqldump --user=root --password=$ROOTPASS $DBEXISTENTE | mysql --user=root --password=$ROOTPASS $DBACREAR 
-}
-
-#+END_SRC
 
 
-Apache2 dispone de la directiva [[http://httpd.apache.org/docs/2.4/mod/mod_userdir.html#UserDir][UserDir]] para crear un sitio web para cada usuario. Para tener un control más fino sobre cada opción y directorio de alumno, he decidido crear un /site/ por alumno.
+Apache2 dispone de la directiva [[http://httpd.apache.org/docs/2.4/mod/mod_userdir.html#UserDir][UserDir]] para crear un sitio web para cada usuario. De todas formas, para tener un control más fino sobre cada opción y directorio de alumno, he decidido crear un /site/ por alumno.
 
 La siguiente función crea un /site/ para un alumno en entorno Debian/Apache2.
 
+#+caption: Creación de un /site/ para un alumno en =$HOME/public_html=
 #+BEGIN_SRC sh
 crea_sitio_web()
 {
@@ -197,7 +190,7 @@ crea_sitio_web()
     mkdir -p $DOCUMENTROOT
     echo "Sitio de $USER, en el directorio $DOCUMENTROOT, con AllowOverride All" >  $DOCUMENTROOT/index.html
 
-    # AJUSTE DE PERMISOS: $HOME sigue siendo privado al usuario, pero 
+    # AJUSTE DE PERMISOS: $HOME sigue siendo privado para otros alumnos, pero 
     # $APACHE puede accceder a $DOCUMENTROOT 
     setfacl -R -m u:$APACHE:rxw /home/$USER
     chown -R $USER:$APACHE $DOCUMENTROOT
@@ -215,7 +208,12 @@ EOF
 
 #+END_SRC
 
+Para evitar cientos de preguntas al inicio del examen dejo una página inicial de Apache donde explico:
+- Que pueden conectarse mediante [[https://es.wikipedia.org/wiki/Secure_Shell][ssh]] y [[https://es.wikipedia.org/wiki/SSH_File_Transfer_Protocol][sftp]]
+- Que tienen disponible [[https://www.phpmyadmin.net/][phpMyAdmin]]
+- Que su usuario y contraseña es la misma en todos los casos
 
+#+caption: Página de bienvenida al /hosting/ de exámenes
 #+BEGIN_SRC sh
   crea_pagina_inicio()
   {
@@ -236,7 +234,6 @@ EOF
     
       for i in $USERS
       do
-          i=${USERLARGO:0:16}
           cat <<EOF >> $INDEXHTML
             <tr>
               <td>
@@ -256,4 +253,76 @@ EOF
       echo "</table>" >> $INDEXHTML
   }
 
+#+END_SRC
+
+
+En algunos exámenes, los alumnos no empiezan con un LAMP vacío, sino que instalo previamente un [[https://www.joomla.org/][Joomla]] o [[https://wordpress.org/][Wordpress]] que tienen que modificar. Para ello, creo un usurio plantilla donde instalo lo necesario, y después copio la base de datos y los ficheros a cada alumno
+
+#+caption: Copia de una base de datos *plantilla* sobre la base de datos de un alumno
+#+BEGIN_SRC sh
+copia_base_de_datos()
+{
+  local DBEXISTENTE=$1
+  local DBACREAR=$2
+  yes | mysqladmin --user=root --password=$SYSPASS drop $DBACREAR
+  mysqladmin --user=root --password=$SYSPASS create $DBACREAR
+  mysqldump --user=root --password=$ROOTPASS $DBEXISTENTE | mysql --user=root --password=$ROOTPASS $DBACREAR 
+}
+
+#+END_SRC
+
+#+CAPTION: Copia de los ficheros de un sitio web
+#+BEGIN_SRC sh
+copia_ficheros_sitio_web()
+{
+  local PLANTILLA=$1
+  local USER=$2
+  local APACHE=www-data
+  local PLANTILLADOCUMENTROOT=/home/$PLANTILLA/public_html
+  local DOCUMENTROOT=/home/$USER/public_html
+  sudo cp -R $PLANTILLADOCUMENTROOT /home/$USER/
+  sudo chown -R $USER:$APACHE $DOCUMENTROOT
+  sudo chmod -R 770 $DOCUMENTROOT
+  sudo chmod +s $DOCUMENTROOT
+}
+
+#+END_SRC
+
+
+Dependiendo de la aplicación web copiada, puede ser necesario realizar más ajustes. Por ejemplo, si se clona un Joomla, en su fichero de configuración hay que cambiar las apariciones de /plantilla/ por el nombre del usuario del alumno. Además, es necesario cambiar el usuario administrador de Joomla en la base de datos:
+
+#+CAPTION: Ajuste de una base de datos y ficheros de configuración para que funcionen en otro sitio web
+#+BEGIN_SRC sh
+copia_joomla()
+{
+  local PLANTILLA=$1
+  local USER=$2
+  local DOCUMENTROOT=/home/$USER/public_html
+
+  copia_base_de_datos $PLANTILLA $USER
+  copia_ficheros_sitio_web $PLANTILLA $USER
+  sed -i -- "s/$PLANTILLA/$USER/g" $DOCUMENTROOT/configuration.php
+
+  rm $DOCUMENTROOT/index.html
+
+  mysql --user=$USER --password=$USER -e "use $USER; update isvfo_users set username='$USER' where username='plantilla';"
+}
+#+END_src
+
+
+Una vez se tienen todas estas funciones, basta con iterar sobre los alumnos, y acabar habilitando todos los sitios web nuevos (uso =a2ensite= de la distribución de Debian)
+
+#+caption: Uso conjunto de las funciones anteriores para montar un examen de Joomla
+#+BEGIN_SRC sh
+for user in $USERS
+do
+  echo ________________________________________ NOMBRE DE USUARIO: $user
+  crea_usuario $user
+  crea_sitio_web $user
+  crea_base_de_datos $user
+  copia_joomla plantilla $user
+done
+
+sudo a2ensite 'alumno*'
+sudo service apache2 restart
 #+END_SRC
