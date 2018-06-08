@@ -37,9 +37,9 @@
 Durante el desarrollo de ciclos formativos de grado medio y superior, es muy común la necesidad de compartir ficheros con los alumnos. Para ilustrar el problema, supondremos que el profesor necesita distribuir una ISO de instalación de Ubuntu (1.6 GBytes) en un aula con 15 ordenadores.
 </p>
 
-<div id="outline-container-orgab86b7f" class="outline-2">
-<h2 id="orgab86b7f">Solución 1: Uso de <i>pen drive</i></h2>
-<div class="outline-text-2" id="text-orgab86b7f">
+<div id="outline-container-orge810245" class="outline-2">
+<h2 id="orge810245">Solución 1: Uso de <i>pen drive</i></h2>
+<div class="outline-text-2" id="text-orge810245">
 <p style="float:right;">
 <img src="/assets/blog/bittorent-en-el-aula/pendrive-small.jpg" alt="/assets/blog/bittorent-en-el-aula/pendrive-small.jpg" style="float:right;" />
 El profesor pasa por cada puesto de alumno, copiando desde un disco duro externo o <i>pen drive</i> el fichero deseado. Suponiendo una  tasa de transferencia de 25 MBytes/segundo, cada alumno necesita unos 60 segundos para conseguir su copia. Incluyendo el proceso de conexión y desconexión cada alumno necesita unos 2 minutos. Esto hace un total de 30 minutos para distribuir el fichero.
@@ -47,18 +47,18 @@ El profesor pasa por cada puesto de alumno, copiando desde un disco duro externo
 </div>
 </div>
 
-<div id="outline-container-orgc3fa2ed" class="outline-2">
-<h2 id="orgc3fa2ed">Solución 2: Uso de pen drive y copias de alumnos</h2>
-<div class="outline-text-2" id="text-orgc3fa2ed">
+<div id="outline-container-org1451be3" class="outline-2">
+<h2 id="org1451be3">Solución 2: Uso de pen drive y copias de alumnos</h2>
+<div class="outline-text-2" id="text-org1451be3">
 <p>
 Si cada alumno que consigue el fichero lo  copia a un pen drive propio y lo distribuye a otros alumnos, puede copiarse el fichero mucho más rápido. Esta es una posibilidad teórica más que real, puesto que los alumnos no suelen entender el proceso y se tarda más en explicarlo que en aplicar la primera solución.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org81900c3" class="outline-2">
-<h2 id="org81900c3">Solución 3: Uso de un servidor de ficheros</h2>
-<div class="outline-text-2" id="text-org81900c3">
+<div id="outline-container-org1048541" class="outline-2">
+<h2 id="org1048541">Solución 3: Uso de un servidor de ficheros</h2>
+<div class="outline-text-2" id="text-org1048541">
 
 <div class="figure">
 <p><img src="/assets/blog/bittorent-en-el-aula/sharedfolder-small.jpg" alt="/assets/blog/bittorent-en-el-aula/sharedfolder-small.jpg" style="float:right;" />
@@ -76,9 +76,9 @@ El fichero puede hacerse accesible desde la red, y cada alumno baja su propia co
 </div>
 </div>
 
-<div id="outline-container-orgfe62e2f" class="outline-2">
-<h2 id="orgfe62e2f">Solución 4: Uso de un protocolo de red p2p</h2>
-<div class="outline-text-2" id="text-orgfe62e2f">
+<div id="outline-container-orge7f6f9b" class="outline-2">
+<h2 id="orge7f6f9b">Solución 4: Uso de un protocolo de red p2p</h2>
+<div class="outline-text-2" id="text-orge7f6f9b">
 <p style="float:right;">
 <img src="/assets/blog/bittorent-en-el-aula/utorrent.jpg" alt="/assets/blog/bittorent-en-el-aula/utorrent.jpg" style="float:right;" />
 El problema fundamental del servidor de ficheros es que una sola conexión debe dar servicio a todos los alumnos. Si conseguimos que cada alumno comparta su conexión con los demás, este cuello de botella queda resuelto. De esta forma, se consigue una transferencia casi simultánea a todos los alumnos del fichero, necesitando solo 3 minutos para una red a 100 MB.
@@ -91,7 +91,7 @@ Estos <a href="http://en.wikipedia.org/wiki/Back-of-the-envelope_calculation">c�
 <li>Copiar el fichero en una carpeta compartida (preferiblemente, de un servidor de aula). De esta forma, el fichero puede ser accedido "manualmente" con posterioridad.</li>
 <li>Instalar de <a href="http://www.utorrent.com/">μTorrent</a> en el ordenador del profesor. Anotar el puerto utilizado para el protocolo BitTorrent (por ejemplo, 21212)</li>
 <li>Activar el tracker en el ordenador del profesor incluido en μTorrent:  <code>Options &gt; Preferences &gt; Advanced &gt; bt.enable_tracker &gt; set true</code></li>
-<li>Crear un torrent con  μTorrent  desde el ordenador del profesor con los ficheros deseados. Los ficheros se pueden especificar con la ruta UNC, o utilizar una copia local. El tracker a utilizar será  <a href="http://hostname%3Aport/announce">http://hostname:port/announce</a> , cambiando <code>hostname</code> por la IP del ordenador del profesor, y port por el puerto usado en el punto 2. <img src="/assets/blog/bittorent-en-el-aula/crear-torrent.png" alt="/assets/blog/bittorent-en-el-aula/crear-torrent.png" /></li>
+<li>Crear un torrent con  μTorrent  desde el ordenador del profesor con los ficheros deseados. Los ficheros se pueden especificar con la ruta UNC, o utilizar una copia local. El tracker a utilizar será  <a href="http://hostname:port/announce">http://hostname:port/announce</a> , cambiando <code>hostname</code> por la IP del ordenador del profesor, y port por el puerto usado en el punto 2. <img src="/assets/blog/bittorent-en-el-aula/crear-torrent.png" alt="/assets/blog/bittorent-en-el-aula/crear-torrent.png" /></li>
 <li>El fichero torrent se grabará en la carpeta compartida junto al fichero a distribuir y el programa  μTorrent.exe <img src="/assets/blog/bittorent-en-el-aula/listado-ficheros.png" alt="/assets/blog/bittorent-en-el-aula/listado-ficheros.png" /></li>
 <li>Utilizar <code>psexec</code> para ejecutar de forma remota μTorrent en todos los ordenadores de los alumnos, por ejemplo con un fichero BAT. Utilizo <code>start /b</code> para que el proceso se haga en forma paralela, sin tener que esperar a un ordenador para lanzar la orden en el siguiente:</li>
 </ol>
@@ -168,7 +168,7 @@ Posibles problemas con <code>PsExec</code>
       <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
       <script src="/media/js/main.js"></script>
       <div class="footer">
-        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 26.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
         <p>
           Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:alvarogonzalezsotillo <at> gmail <dot> com">Álvaro González Sotillo</a>
           &nbsp;&nbsp;-&nbsp;&nbsp;

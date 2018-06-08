@@ -42,18 +42,18 @@ Basados en Orgmode, existen <a href="http://orgmode.org/worg/org-blog-wiki.html"
 
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org308055b">1. Instalación de <b>org-page</b></a></li>
-<li><a href="#org60ae817">2. Creación del sitio</a></li>
-<li><a href="#org3da88b2">3. Configuración de <b>org-page</b></a></li>
-<li><a href="#orgdc7de7e">4. Publicación de una entrada</a></li>
-<li><a href="#org0a8ef64">5. Resultado final</a></li>
-<li><a href="#org55e9da0">6. ¿Y por qué no usas <b>Wordpress</b>?</a></li>
+<li><a href="#org52fde35">1. Instalación de <b>org-page</b></a></li>
+<li><a href="#org779d7bc">2. Creación del sitio</a></li>
+<li><a href="#orgdaab374">3. Configuración de <b>org-page</b></a></li>
+<li><a href="#orgbf7d5fa">4. Publicación de una entrada</a></li>
+<li><a href="#org1dfc04e">5. Resultado final</a></li>
+<li><a href="#org7cba757">6. ¿Y por qué no usas <b>Wordpress</b>?</a></li>
 </ul>
 </div>
 
 
-<div id="outline-container-org308055b" class="outline-2">
-<h2 id="org308055b"><span class="section-number-2">1</span> Instalación de <b>org-page</b></h2>
+<div id="outline-container-org52fde35" class="outline-2">
+<h2 id="org52fde35"><span class="section-number-2">1</span> Instalación de <b>org-page</b></h2>
 <div class="outline-text-2" id="text-1">
 <p>
 La forma más simple es utilizar el sistema de paquetes de <b>Emacs</b>. Basta con ejecutar <code>alt-x</code> <code>package-install org-page</code>
@@ -61,8 +61,8 @@ La forma más simple es utilizar el sistema de paquetes de <b>Emacs</b>. Basta c
 </div>
 </div>
 
-<div id="outline-container-org60ae817" class="outline-2">
-<h2 id="org60ae817"><span class="section-number-2">2</span> Creación del sitio</h2>
+<div id="outline-container-org779d7bc" class="outline-2">
+<h2 id="org779d7bc"><span class="section-number-2">2</span> Creación del sitio</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Ejecutar <code>alt-x</code> <code>op/new-repository</code>. <b>Org-page</b> creará el directorio donde se almacenarán los ficheros fuente del blog, e inicializará un repositorio <b>git</b>. Como se verá más adelante, <b>org-page</b> utiliza diferentes ramas para crear la publicación.
@@ -70,8 +70,8 @@ Ejecutar <code>alt-x</code> <code>op/new-repository</code>. <b>Org-page</b> crea
 </div>
 </div>
 
-<div id="outline-container-org3da88b2" class="outline-2">
-<h2 id="org3da88b2"><span class="section-number-2">3</span> Configuración de <b>org-page</b></h2>
+<div id="outline-container-orgdaab374" class="outline-2">
+<h2 id="orgdaab374"><span class="section-number-2">3</span> Configuración de <b>org-page</b></h2>
 <div class="outline-text-2" id="text-3">
 <p>
 <b>Org-page</b> solo puede manejar un sitio a la vez. En mi caso, he creado un fichero de configuración en la raíz del sitio creado en el punto anterior, que ejecuto para generar el sitio.
@@ -109,8 +109,8 @@ La mayoría de variables son autoexplicativas. Las variables relativas a la inte
 </div>
 </div>
 
-<div id="outline-container-orgdc7de7e" class="outline-2">
-<h2 id="orgdc7de7e"><span class="section-number-2">4</span> Publicación de una entrada</h2>
+<div id="outline-container-orgbf7d5fa" class="outline-2">
+<h2 id="orgbf7d5fa"><span class="section-number-2">4</span> Publicación de una entrada</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 Una vez configurado, para crear una entrada puede ejecutarse <code>alt-x</code> <code>op/new-post</code>, que simplemente crea un nuevo fichero <b>org</b> en el subdirectorio <code>/blog</code>. La próxima vez que se genere el sitio será tenido en cuenta. Por ejemplo, este es el <a href="https://github.com/alvarogonzalezsotillo/alvarogonzalezsotillo.github.io/blob/source/blog/blogueando-con-orgmode/blogueando-con-orgmode.org">código fuente de esta entrada.</a>
@@ -143,8 +143,8 @@ Basados en Orgmode, existen [[http://orgmode.org/worg/org-blog-wiki.html][varios
 </div>
 </div>
 
-<div id="outline-container-org0a8ef64" class="outline-2">
-<h2 id="org0a8ef64"><span class="section-number-2">5</span> Resultado final</h2>
+<div id="outline-container-org1dfc04e" class="outline-2">
+<h2 id="org1dfc04e"><span class="section-number-2">5</span> Resultado final</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 Este sitio está generado con <b>org-page</b>, como era de esperar 😃. Utiliza la publicación de <b><a href="https://pages.github.com/">páginas estáticas de github</a></b> basándose en el repositorio <a href="https://github.com/alvarogonzalezsotillo/alvarogonzalezsotillo.github.io">https://github.com/alvarogonzalezsotillo/alvarogonzalezsotillo.github.io</a>
@@ -153,8 +153,8 @@ Este sitio está generado con <b>org-page</b>, como era de esperar 😃. Utiliza
 </div>
 
 
-<div id="outline-container-org55e9da0" class="outline-2">
-<h2 id="org55e9da0"><span class="section-number-2">6</span> ¿Y por qué no usas <b>Wordpress</b>?</h2>
+<div id="outline-container-org7cba757" class="outline-2">
+<h2 id="org7cba757"><span class="section-number-2">6</span> ¿Y por qué no usas <b>Wordpress</b>?</h2>
 <div class="outline-text-2" id="text-6">
 <p>
 Trabajar con <b>emacs</b> y <b>git</b> ya es razón suficiente, pero hay otras razones: posibilidad de trabajo <i>offline</i> y el versionado de las páginas.
@@ -257,7 +257,7 @@ Trabajar con <b>emacs</b> y <b>git</b> ya es razón suficiente, pero hay otras r
       <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
       <script src="/media/js/main.js"></script>
       <div class="footer">
-        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 26.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
         <p>
           Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:alvarogonzalezsotillo <at> gmail <dot> com">Álvaro González Sotillo</a>
           &nbsp;&nbsp;-&nbsp;&nbsp;

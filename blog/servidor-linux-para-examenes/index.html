@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Servidor linux para exámenes - Álvaro González Sotillo</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Álvaro González Sotillo" />
+    <meta name="description" content="Al encargar trabajos o examinar a los alumnos, utilizo un servidor virtual para que trabajen en un entorno controlado." />
+    <meta name="keywords" content="examenes, linux" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
+  </head>
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">Álvaro González Sotillo</a></h1>
+        <p></p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">Acerca de mí</a></li>
+          <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="//www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Buscar">
+          <input type="hidden" name="as_sitesearch" value="alvarogonzalezsotillo.github.io">
+        </form>
+        <img class="avatar" src="/media/img/octaedron.png" />
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>Servidor linux para exámenes</h1>
+
+<div id="outline-container-org0b28d11" class="outline-2">
+<h2 id="org0b28d11">El problema</h2>
+<div class="outline-text-2" id="text-org0b28d11">
+<p>
+A la hora de realizar un trabajo o examen práctico sobre un ordenador, los profesores tenemos varias alternativas:
+</p>
+<ol class="org-ol">
+<li>Los alumnos realizan el examen sobre su propio ordenador o máquina virtual. Después, cada alumno muestra el resultado al profesor. Esta solución se vuelve difícil si hay muchos alumnos, porque deben ir esperando su turno para presentar el resultado al profesor.</li>
+<li>Como la opción 1, pero el profesor recoge las máquinas virtuales y las estudia posteriormente. En este caso, el problema es la copia de las máquinas virtuales, cada una con varios gigabytes, en un disco duro que hay que ir acoplando a cada ordenador de los alumnos.</li>
+<li>Abandonar la idea de <i>práctico</i>, y realizar el examen sobre papel 😱</li>
+</ol>
+
+<p>
+Sin embargo, hay exámenes en los que el alumno no necesita ser administrador de la máquina. En estos casos, el profesor puede montar un <i>hosting</i> casero y dejar que los alumnos realicen el examen en su propio ordenador o máquina virtual. 
+</p>
+
+<p>
+A continuación, describiré qué pasos sigo para crear un entorno Linux para mis alumnos. Este entorno lo he adaptado para exámenes de bases de datos (Oracle y MySQL), y exámenes LAMP.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgcd0f5ad" class="outline-2">
+<h2 id="orgcd0f5ad">Entorno Linux</h2>
+<div class="outline-text-2" id="text-orgcd0f5ad">
+<p>
+Cada alumno tendrá su propia contraseña. Generar las contraseñas aleatoriamente no es una buena idea, puesto que dificulta su recuperación en caso de pérdida. Es mejor que la contraseña dependa del nombre del usuario, por ejemplo los primeros caracteres del hash del usuario. 
+</p>
+
+<p>
+Mi solución es utilizar el código ASCII de varios caracteres del nombre del usuario: para los alumnos es inicialmente algo imposible de descifrar, y cuando preguntan puedo contar cosas como el sistema de numeración binaria, código ASCII, cadenas de caracteres, criptoanálisis...
+</p>
+
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 1 </span>Función que calcula una contraseña a partir del nombre del usuario <code>MARIA</code> (<code>776582</code>)</label><pre class="src src-sh">password_para_alumno(){
+    local USER=$1
+    local uno=${USER:0:1}
+    local dos=${USER:1:1}
+    local tres=${USER:2:1}
+
+    LC_CTYPE=C printf '%d' "'$uno'" "'$dos'" "'$tres'"
+}
+
+echo La contraseña para MARIA sería $(password_para_alumno MARIA)
+</pre>
+</div>
+
+<p>
+Los usuarios se crean la contraseña especificada por la función anterior. El directorio del alumno no es accesible por otros alumnos, y el alumno no puede cambiar los permisos de su <i>home</i> para dejarse copiar.
+</p>
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 2 </span>Creación de un usuario</label><pre class="src src-sh">crear_usuario_linux()
+{
+    local USER=$1
+    local PASS=$(password_para_alumno $USER)
+
+
+    sudo useradd $USER -m -s /bin/bash
+    echo "$USER:$PASS" | sudo chpasswd
+
+    sudo chown root:$USER /home/$USER
+    sudo chmod 770 /home/$USER
+}
+</pre>
+</div>
+
+<p>
+También elimino los canales de comunicación entre alumnos más comunes: mensajería, conexiones TCP... Hay demasiadas formas como para deshabilitarlas todas. De las que no se eliminan, la más evidente son los ficheros temporales en <code>/tmp</code>.
+</p>
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 3 </span>Eliminación de algunos canales de comunicación entre alumnos</label><pre class="src src-sh">deshabilita_comunicacion(){
+    sudo "chmod 500 $(which wall) $(which mail) $(which write) $(which nc)"
+}
+</pre>
+</div>
+
+<p>
+En el momento del examen, es necesario que los alumnos conozcan su contraseña de una forma más o menos confidencial. Para eso utilizo una <a href="https://orgmode.org/manual/Built_002din-table-editor.html#Built_002din-table-editor">tabla de org-mode</a>, que imprimo y recorto cada fila, para repartir a cada alumno.
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 4 </span>Creación de un fichero con todos los usuarios y contraseñas</label><pre class="src src-sh">lista_usuarios(){
+    rm usuarios_linux.org
+    local USUARIOS="$*"
+
+    for USER in $USUARIOS
+    do
+        local PASS=$(password_para_alumno $USER)
+        printf '| Usuario | %s | Password | %s | \n' $USER $PASS &gt;&gt; usuarios_linux.org
+    done
+}
+</pre>
+</div>
+
+<p>
+Con todas estas funciones, ya solo queda definir la lista de alumnos e invocarlas por cada alumno.
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 5 </span>Todas las anteriores funciones en acción</label><pre class="src src-sh"># LISTA DE USUARIOS: GENERALMENTE, USO LOS APELLIDOS DE LOS ALUMNOS
+usuarios="alumno1 alumno2 alumno3"
+
+deshabilita_comunicacion
+
+for usuario in $usuarios
+do
+    crear_usuario_linux $usuario
+done
+
+lista_usuarios $usuarios
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgdf8d892" class="outline-2">
+<h2 id="orgdf8d892">Oracle</h2>
+<div class="outline-text-2" id="text-orgdf8d892">
+<p>
+Utilizo la versión <a href="http://www.oracle.com/technetwork/database/database-technologies/express-edition/overview/index.html">Oracle XE</a>, para evitar problemas de licencia, y porque es bastante simple de instalar a partir de paquetes RPM en un Centos/Fedora.
+</p>
+
+<p>
+En los exámenes basados en Oracle es necesario crear un usuario para cada alumno. Por simplicidad, el mismo usuario y contraseña de Linux se reutilizan para la base de datos.
+</p>
+
+<p>
+Al comienzo defino las variables <code>ORACLE_HOME</code> y <code>ORACLE_SID</code>, que son necesarias para que funcione correctamente el cliente de Oracle <code>sqlplus</code>. Para no dejar la contraseña del administrador escrita en el <i>script</i>, utilizo la variable de entorno <code>SYSPASS</code>.
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 6 </span>Variables necesarias para el funcionamiento de <code>sqlplus</code> de   <b><a href="http://www.oracle.com/technetwork/database/database-technologies/express-edition/overview/index.html">Oracle XE</a></b>.</label><pre class="src src-sh">export ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe
+export ORACLE_SID=XE
+export NLS_LANG=`$ORACLE_HOME/bin/nls_lang.sh`
+export PATH=$ORACLE_HOME/bin:$PATH
+
+
+if [ -z "$SYSPASS" ]
+then
+    echo La variable SYSPASS debe tener la contraseña SYS de la base de datos
+    exit
+fi
+</pre>
+</div>
+
+<p>
+Para cada alumno se crea un usuario con permisos básicos (crear tablas, índices, vistas...). Después se carga un <i>script</i> de SQL inicial para la creación de tablas, que depende de cada examen.
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 7 </span>Creación de un usuario de <b>Oracle</b>, con una carga inicial de tablas y datos (<code>tablas-iniciales.sql</code>)</label><pre class="src src-sh">crear_usuario_oracle(){
+    local user=$1
+    local pass=$(password_para_alumno $user)
+    sqlplus sys/$SYSPASS as sysdba &lt;&lt;EOF
+    drop user $user cascade;
+    create user $user identified by $pass;
+    grant connect,resource,create view to $user;
+    commit;
+EOF
+
+    sqlplus $user/$pass &lt;&lt;EOF
+    @tablas-iniciales.sql
+EOF
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org8746646" class="outline-2">
+<h2 id="org8746646">LAMP</h2>
+<div class="outline-text-2" id="text-org8746646">
+<p>
+Para los exámenes <a href="https://es.wikipedia.org/wiki/LAMP">LAMP</a> se necesita una base de datos y un sitio web por cada alumno.
+</p>
+
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 8 </span>Creación de la base de datos MySQL para un alumno</label><pre class="src src-sh">crea_base_de_datos()
+{
+  local USER=$1
+  local PASS=$(password_para_alumno $USER)
+
+  mysql --user=root --password=$SYSPASS &lt;&lt;EOF
+    DROP DATABASE $USER;
+    CREATE DATABASE IF NOT EXISTS $USER;
+    GRANT ALL ON $USER.* TO '$USER' IDENTIFIED BY '$PASS';
+    FLUSH PRIVILEGES;
+EOF
+}
+
+</pre>
+</div>
+
+
+
+
+<p>
+Apache2 dispone de la directiva <a href="http://httpd.apache.org/docs/2.4/mod/mod_userdir.html#UserDir">UserDir</a> para crear un sitio web para cada usuario. De todas formas, para tener un control más fino sobre cada opción y directorio de alumno, he decidido crear un <i>site</i> por alumno.
+</p>
+
+<p>
+La siguiente función crea un <i>site</i> para un alumno en entorno Debian/Apache2.
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 9 </span>Creación de un <i>site</i> para un alumno en <code>$HOME/public_html</code></label><pre class="src src-sh">crea_sitio_web()
+{
+  local USER=$1
+
+  if [ ! -z "$USER" ]
+    then
+
+    local APACHE=www-data
+    local DOCUMENTROOT=/home/$USER/public_html
+    local SITE=/etc/apache2/sites-available/alumno_$USER
+
+    mkdir -p /home/$USER
+    chown -R $USER:$USER /home/$USER
+
+    mkdir -p $DOCUMENTROOT
+    echo "Sitio de $USER, en el directorio $DOCUMENTROOT, con AllowOverride All" &gt;  $DOCUMENTROOT/index.html
+
+    # AJUSTE DE PERMISOS: $HOME sigue siendo privado para otros alumnos, pero 
+    # $APACHE puede accceder a $DOCUMENTROOT 
+    setfacl -R -m u:$APACHE:rxw /home/$USER
+    chown -R $USER:$APACHE $DOCUMENTROOT
+    chmod -R 770 $DOCUMENTROOT
+    chmod +s $DOCUMENTROOT
+
+    cat &lt;&lt;EOF &gt; $SITE
+    &lt;Directory "$DOCUMENTROOT"&gt; 
+      AllowOverride All 
+    &lt;/Directory&gt;
+    alias /$USER $DOCUMENTROOT 
+EOF
+  fi
+}
+
+</pre>
+</div>
+
+<p>
+Para evitar cientos de preguntas al inicio del examen dejo una página inicial de Apache donde explico:
+</p>
+<ul class="org-ul">
+<li>Que pueden conectarse mediante <a href="https://es.wikipedia.org/wiki/Secure_Shell">ssh</a> y <a href="https://es.wikipedia.org/wiki/SSH_File_Transfer_Protocol">sftp</a></li>
+<li>Que tienen disponible <a href="https://www.phpmyadmin.net/">phpMyAdmin</a></li>
+<li>Que su usuario y contraseña es la misma en todos los casos</li>
+</ul>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 10 </span>Página de bienvenida al <i>hosting</i> de exámenes</label><pre class="src src-sh">crea_pagina_inicio()
+{
+    local USERS="$1"
+    local IPADDRESS=$(hostname -I)
+    local IPADDRESS="${IPADDRESS#"${IPADDRESS%%[![:space:]]*}"}"
+    local IPADDRESS="${IPADDRESS%"${IPADDRESS##*[![:space:]]}"}"
+
+    local HOSTNAME=$(hostname).local
+    #local HOSTNAME=$IPADDRESS
+
+    local INDEXHTML=/var/www/html/index.html
+    cat &lt;&lt;EOF &gt; $INDEXHTML 
+    &lt;h1&gt;Aplicaciones Web. Examen 1 evaluacion 3&lt;/h1&gt;
+    &lt;p&gt;Conexion con ssh a la IP:&lt;b&gt;$IPADDRESS&lt;/b&gt;  ($HOSTNAME)&lt;/p&gt;
+    &lt;table border=1&gt;
+EOF
+
+    for i in $USERS
+    do
+        cat &lt;&lt;EOF &gt;&gt; $INDEXHTML
+          &lt;tr&gt;
+            &lt;td&gt;
+              &lt;a href=$i/phpBB3&gt;$i&lt;/a&gt;
+            &lt;/td&gt;
+            &lt;td&gt;Misma contrase&amp;ntilde;a inicial&lt;/td&gt;
+            &lt;td&gt;
+              &lt;a href=sftp://$i@$HOSTNAME/home/$i&gt;SFTP&lt;/a&gt;
+            &lt;/td&gt;
+            &lt;td&gt;
+              &lt;a href=phpMyAdmin&gt;phpMyAdmin&lt;/a&gt;
+            &lt;/td&gt;
+          &lt;/tr&gt;
+EOF
+    done
+
+    echo "&lt;/table&gt;" &gt;&gt; $INDEXHTML
+}
+
+</pre>
+</div>
+
+
+<p>
+En algunos exámenes, los alumnos no empiezan con un LAMP vacío, sino que instalo previamente un <a href="https://www.joomla.org/">Joomla</a> o <a href="https://wordpress.org/">Wordpress</a> que tienen que modificar. Para ello, creo un usurio plantilla donde instalo lo necesario, y después copio la base de datos y los ficheros a cada alumno
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 11 </span>Copia de una base de datos <b>plantilla</b> sobre la base de datos de un alumno</label><pre class="src src-sh">copia_base_de_datos()
+{
+  local DBEXISTENTE=$1
+  local DBACREAR=$2
+  yes | mysqladmin --user=root --password=$SYSPASS drop $DBACREAR
+  mysqladmin --user=root --password=$SYSPASS create $DBACREAR
+  mysqldump --user=root --password=$ROOTPASS $DBEXISTENTE | mysql --user=root --password=$ROOTPASS $DBACREAR 
+}
+
+</pre>
+</div>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 12 </span>Copia de los ficheros de un sitio web</label><pre class="src src-sh">copia_ficheros_sitio_web()
+{
+  local PLANTILLA=$1
+  local USER=$2
+  local APACHE=www-data
+  local PLANTILLADOCUMENTROOT=/home/$PLANTILLA/public_html
+  local DOCUMENTROOT=/home/$USER/public_html
+  sudo cp -R $PLANTILLADOCUMENTROOT /home/$USER/
+  sudo chown -R $USER:$APACHE $DOCUMENTROOT
+  sudo chmod -R 770 $DOCUMENTROOT
+  sudo chmod +s $DOCUMENTROOT
+}
+
+</pre>
+</div>
+
+
+<p>
+Dependiendo de la aplicación web copiada, puede ser necesario realizar más ajustes. Por ejemplo, si se clona un Joomla, en su fichero de configuración hay que cambiar las apariciones de <i>plantilla</i> por el nombre del usuario del alumno. Además, es necesario cambiar el usuario administrador de Joomla en la base de datos:
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 13 </span>Ajuste de una base de datos y ficheros de configuración para que funcionen en otro sitio web</label><pre class="src src-sh">copia_joomla()
+{
+  local PLANTILLA=$1
+  local USER=$2
+  local DOCUMENTROOT=/home/$USER/public_html
+
+  copia_base_de_datos $PLANTILLA $USER
+  copia_ficheros_sitio_web $PLANTILLA $USER
+  sed -i -- "s/$PLANTILLA/$USER/g" $DOCUMENTROOT/configuration.php
+
+  rm $DOCUMENTROOT/index.html
+
+  mysql --user=$USER --password=$USER -e "use $USER; update isvfo_users set username='$USER' where username='plantilla';"
+}
+</pre>
+</div>
+
+
+<p>
+Una vez se tienen todas estas funciones, basta con iterar sobre los alumnos, y acabar habilitando todos los sitios web nuevos (uso <code>a2ensite</code> de la distribución de Debian)
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 14 </span>Uso conjunto de las funciones anteriores para montar un examen de Joomla</label><pre class="src src-sh">for user in $USERS
+do
+  echo ________________________________________ NOMBRE DE USUARIO: $user
+  crea_usuario $user
+  crea_sitio_web $user
+  crea_base_de_datos $user
+  copia_joomla plantilla $user
+done
+
+sudo a2ensite 'alumno*'
+sudo service apache2 restart
+</pre>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2018-05-30</span>
+        <span title="last modification date" class="post-info">2018-06-08</span>
+        <span title="tags" class="post-info"><a href="/tags/linux/">linux</a>, <a href="/tags/lamp/">lamp</a>, <a href="/tags/oracle/">oracle</a></span>
+        <span title="author" class="post-info">Álvaro González Sotillo</span>
+      </div>
+      <section>
+        <h1>Comments</h1>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+          //var disqus_developer = 1;
+          var disqus_identifier = "/blog/servidor-linux-para-examenes";
+          var disqus_url = "https://alvarogonzalezsotillo.github.io/blog/servidor-linux-para-examenes";
+          var disqus_shortname = 'alvarogonzalezsotillo';
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="//disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      </section>
+      <!-- <script src="//code.jquery.com/jquery-latest.min.js"></script> -->
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->
+      <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>  -->
+      <script src="/media/js/jquery-3.2.1.min.js"></script>
+      <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+      <script src="/media/js/main.js"></script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 26.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:alvarogonzalezsotillo <at> gmail <dot> com">Álvaro González Sotillo</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>

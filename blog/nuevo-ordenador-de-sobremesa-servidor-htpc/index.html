@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Nuevo HTPC en casa - Álvaro González Sotillo</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Álvaro González Sotillo" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
+  </head>
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">Álvaro González Sotillo</a></h1>
+        <p></p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">Acerca de mí</a></li>
+          <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="//www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Buscar">
+          <input type="hidden" name="as_sitesearch" value="alvarogonzalezsotillo.github.io">
+        </form>
+        <img class="avatar" src="/media/img/octaedron.png" />
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>Nuevo HTPC en casa</h1>
+
+
+
+
+<div id="outline-container-org6606ebd" class="outline-2">
+<h2 id="org6606ebd">Instalación del sistema operativo</h2>
+<div class="outline-text-2" id="text-org6606ebd">
+<p>
+El ordenador venía con Windows 10 preinstalado. He <i>intentado</i> usarlo, pero aunque el <i><a href="https://es.wikipedia.org/wiki/Remote_Desktop_Protocol">remote desktop</a></i> es una buena forma de conectarte remotamente a un ordenador de tu LAN, no es tan adecuado para un acceso remoto con bajo ancho de banda. En esos casos, una conexión <a href="https://es.wikipedia.org/wiki/Secure_Shell">SSH</a>/<a href="https://es.wikipedia.org/wiki/SSH_File_Transfer_Protocol">SFTP</a> con la posibilidad de redirigir puertos a <a href="https://es.wikipedia.org/wiki/VNC">VNC</a> me parece más adecuada.
+</p>
+
+<p>
+De todas formas, Windows sigue instalado, que tampoco es cuestión de despreciar una licencia.
+</p>
+</div>
+
+<div id="outline-container-org071d0ac" class="outline-3">
+<h3 id="org071d0ac">Haciendo sitio en el disco</h3>
+<div class="outline-text-3" id="text-org071d0ac">
+<ol class="org-ol">
+<li><p>
+Particiones del disco duro original
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">EFI</td>
+<td class="org-left">boot</td>
+<td class="org-left">Windows</td>
+<td class="org-left">Recuperación</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>
+Reducir partición windows
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">EFI</td>
+<td class="org-left">boot</td>
+<td class="org-left">Windows</td>
+<td class="org-left">Libre</td>
+<td class="org-left">Recuperación</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>
+Instalar ubuntu
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">EFI</td>
+<td class="org-left">boot</td>
+<td class="org-left">Windows</td>
+<td class="org-left">Libre</td>
+<td class="org-left">Ubuntu</td>
+<td class="org-left">Swap</td>
+<td class="org-left">Recuperación</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>
+Crear partición datos compartidos con Windows (formato NTFS)
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">EFI</td>
+<td class="org-left">boot</td>
+<td class="org-left">Windows</td>
+<td class="org-left">Datos compartidos (NTFS)</td>
+<td class="org-left">Ubuntu</td>
+<td class="org-left">Swap</td>
+<td class="org-left">Recuperación</td>
+</tr>
+</tbody>
+</table></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgd239c11" class="outline-3">
+<h3 id="orgd239c11">Usuarios</h3>
+<div class="outline-text-3" id="text-orgd239c11">
+<p>
+Utilizaré el ordenador como servidor <i>always-on</i>, pero también como <a href="https://es.wikipedia.org/wiki/HTPC">HTPC</a>. He creado un usuario por defecto para la familia con el <a href="https://help.ubuntu.com/community/AutoLogin">autologin</a> activado.
+</p>
+
+<p>
+Para compartir ficheros entre los usuarios se utiliza el grupo <code>discos</code>, al que pertenecen todos los usuarios
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">sudo addgroup discos
+sudo usermod -a -G discos usuario1
+sudo usermod -a -G discos usuario2
+</pre>
+</div>
+
+<p>
+Las particiones de datos adicionales (como los datos compartidos con Windows) se montan con este grupo    
+</p>
+<pre class="example">
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# &lt;file system&gt; &lt;mount point&gt;   &lt;type&gt;  &lt;options&gt;       &lt;dump&gt;  &lt;pass&gt;
+# / was on /dev/sda7 during installation
+UUID=04c0c550-c5c3-4ab5-b0f2-02d071836091 /               ext4    errors=remount-ro 0       1
+# /boot/efi was on /dev/sda1 during installation
+UUID=0E07-E3EB  /boot/efi       vfat    umask=0077      0       1
+# swap was on /dev/sda8 during installation
+UUID=7fa25a22-5511-47c7-9ae8-34d96d23d41d none            swap    sw              0       0
+
+# NTFS COMPARTIDO CON WINDOWS
+UUID=9E1CF2601CF2333F /datos/datos-compartidos-200M ntfs gid=discos,dmask=002,fmask=113 0 2
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org3651970" class="outline-2">
+<h2 id="org3651970">Home Theater Personal Computer</h2>
+<div class="outline-text-2" id="text-org3651970">
+<p>
+En la parte <i>hardware</i>, basta con conectar el ordenador al televisor por el puerto HDMI y utilizar un teclado inalámbrico. Yo utilizo un <a href="https://www.logitech.com/es-es/product/k400-wireless-keyboard-touchpad">Logitech k400</a> que va muy bien, sobre todo por el fácil acceso a las teclas de volumen (que al final, durante una película, es lo que más se usa).
+</p>
+
+<p>
+En la parte <i>software</i> he optado por <a href="https://kodi.tv/">Kodi</a> con el <a href="https://kodi.wiki/view/Add-on:YouTube">plugin de YouTube</a>, aunque al final resulta más cómodo utilizar directamente la web con Firefox.
+</p>
+
+<p>
+Para <i>esos</i> otros contenidos, utilizo <a href="https://transmissionbt.com/">Transmission Daemon</a>. He seguido los siguientes pasos:
+</p>
+<ul class="org-ul">
+<li>Instalar con <code>apt install transmission-daemon</code></li>
+<li>Crear directorio transmission en el disco compartido</li>
+<li>Configuración de transmission (fichero <code>settings.json</code>)
+<ul class="org-ul">
+<li>Cambiar usuario y contraseña de acceso remoto</li>
+<li>Cambiar el directorio por defecto al creado anteriormente</li>
+<li>Escuchar en la dirección <code>0.0.0.0</code>, para permitir conexiones desde fuera del equipo, y eliminar la <code>whitelist</code> de equipos con la conexión permitida.</li>
+<li><p>
+Para que el resto de usuarios puedan leer los ficheros bajados por Transmission, hay que añadirlos al grupo <code>debian-transmission</code>
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">sudo usermod -a -G debian-transmission usuario1
+sudo usermod -a -G debian-transmission usuario2
+</pre>
+</div></li>
+</ul></li>
+</ul>
+
+<p>
+Tras instalar Transmission, he añadido el directorio de bajada a los directorios de video de Kodi.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0aba7ca" class="outline-2">
+<h2 id="org0aba7ca">Acceso remoto</h2>
+<div class="outline-text-2" id="text-org0aba7ca">
+<ol class="org-ol">
+<li><p>
+Instalar Openssh-server y Git
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">sudo apt install openssh-server git
+</pre>
+</div></li>
+<li><p>
+Emacs
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">sudo add-apt-repository ppa:kelleyk/emacs
+sudo apt update
+sudo apt install emacs25 git
+</pre>
+</div>
+<ul class="org-ul">
+<li>Bajar repositorio .emacs.d</li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-bash">git clone https://alvarogonzalezsotillo@github.com/alvarogonzalezsotillo/.emacs.d.git
+</pre>
+</div>
+<ul class="org-ul">
+<li>Arrancar emacs y reinstalar paquetes</li>
+</ul></li>
+<li>Materiales para clase
+<ul class="org-ul">
+<li>Bajar repositorio apuntes-clase</li>
+<li>Instalar 
+<ul class="org-ul">
+<li>Latex</li>
+<li>Inkscape</li>
+<li>graphviz</li>
+</ul></li>
+<li>MS Office
+<ul class="org-ul">
+<li>Instalar wine</li>
+<li>Copiar prefijo wine</li>
+<li>Crear ficheros .desktop</li>
+</ul></li>
+</ul></li>
+<li>Email
+<ul class="org-ul">
+<li>Instalar exim4</li>
+<li>Instalar mutt</li>
+<li>Configurar smarthost</li>
+</ul></li>
+<li>Servidor internet
+<ul class="org-ul">
+<li>IP fija</li>
+<li>ARP fijo en router</li>
+<li>Abrir puertos</li>
+<li>Wake on lan</li>
+</ul></li>
+<li>Owncloud
+<ul class="org-ul">
+<li>instalar apache, php y mysql</li>
+<li>Crear usuario y base de datos</li>
+<li>instalar owncloud-files</li>
+<li>crear owncloud.conf y habilitar sitio</li>
+<li>montar directorio local de fotos</li>
+</ul></li>
+<li>Zsh
+<ul class="org-ul">
+<li>Instalar zsh
+<ul class="org-ul">
+<li><a href="https://github.com/robbyrussell/oh-my-zsh">https://github.com/robbyrussell/oh-my-zsh</a></li>
+</ul></li>
+<li>Instalar oh-my-zsh</li>
+<li>Activar plugins: emacs tmux</li>
+</ul></li>
+</ol>
+</div>
+</div>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2012-10-10</span>
+        <span title="last modification date" class="post-info">2018-05-16</span>
+        <span title="tags" class="post-info">N/A</span>
+        <span title="author" class="post-info">Álvaro González Sotillo</span>
+      </div>
+      <section>
+        <h1>Comments</h1>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+          //var disqus_developer = 1;
+          var disqus_identifier = "/blog/nuevo-ordenador-de-sobremesa-servidor-htpc";
+          var disqus_url = "https://alvarogonzalezsotillo.github.io/blog/nuevo-ordenador-de-sobremesa-servidor-htpc";
+          var disqus_shortname = 'alvarogonzalezsotillo';
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="//disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      </section>
+      <!-- <script src="//code.jquery.com/jquery-latest.min.js"></script> -->
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->
+      <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>  -->
+      <script src="/media/js/jquery-3.2.1.min.js"></script>
+      <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+      <script src="/media/js/main.js"></script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:alvarogonzalezsotillo <at> gmail <dot> com">Álvaro González Sotillo</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>
