@@ -122,17 +122,47 @@ then
 fi
 #+end_src
 
-Para cada alumno se crea un usuario con permisos básicos (crear tablas, índices, vistas...). Después se carga un /script/ de SQL inicial para la creación de tablas, que depende de cada examen.
+Para cada alumno se crea un usuario con permisos básicos (crear tablas, índices, vistas...). En algunos exámenes también necesito que los alumnos creen =directory= y utilicen algunas vistas dinámicas de sesiones, usuarios y procesos.
+
+Dentro del heredoc necesito que se utilizar las variables =$user= y =$pass=, así que debo permitir su expansión. Pero algunas vistas contienen el caracter =$=, que se intentaría expandir. Para evitar problemas, uso una variable con el valor =$==, que defino usando comilla simple para que evitar su expansión.
+
+
+Después se carga un /script/ de SQL inicial para la creación de tablas, que depende de cada examen.
 
 #+caption: Creación de un usuario de *Oracle*, con una carga inicial de tablas y datos (=tablas-iniciales.sql=)
 #+begin_src sh
 crear_usuario_oracle(){
+    #https://oraclespin.com/2008/12/18/how-to-grant-access-to-vsession-to-other-users/
     local user=$1
-    local pass=$(password_para_alumno $user)
+    local pass=$2
+    local S='$'
+
     sqlplus sys/$SYSPASS as sysdba <<EOF
     drop user $user cascade;
     create user $user identified by $pass;
-    grant connect,resource,create view to $user;
+    alter user $user identified by $pass;
+    alter user $user default tablespace USERS;
+    alter user $user quota 100M on USERS;
+
+    grant resource,connect to $user;
+    grant create view to $user;
+    grant create any directory to $user;
+    
+
+    GRANT SELECT ON sys.v_${S}session TO $user;
+    GRANT SELECT ON sys.v_${S}gsession TO $user;
+    GRANT SELECT ON sys.v_${S}sqltext TO $user;
+    GRANT SELECT ON sys.v_${S}lock TO $user;
+    GRANT SELECT ON sys.v_${S}locked_object TO $user;
+    GRANT SELECT ON sys.v_${S}process TO $user;
+    GRANT SELECT ON sys.gv_${S}process TO $user;
+    GRANT SELECT ON sys.v_${S}sess_io TO $user;
+    GRANT SELECT ON sys.ALL_OBJECTS to $user;
+    GRANT SELECT ON sys.DBA_WAITERS to $user;
+
+    alter system set sessions=300 scope=spfile;
+    alter system set processes=300 scope=spfile;
+
     commit;
 EOF
 
