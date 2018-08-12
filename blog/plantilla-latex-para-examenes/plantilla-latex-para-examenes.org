@@ -1,4 +1,4 @@
-#+TITLE:       Plantila Latex para exámenes tipo test
+#+TITLE:       Plantilla Latex para exámenes tipo test
 #+AUTHOR:      Álvaro González Sotillo
 #+EMAIL:       alvarogonzalezsotillo@gmail.com
 #+DATE:        2017-10-17 mar
