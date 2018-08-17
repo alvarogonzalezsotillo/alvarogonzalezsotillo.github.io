@@ -3,14 +3,17 @@
 }
 
 .tab-contents{
-    background-color: yellow;
+    background-color: #f0f0f0;
     border-top: none;
     border-bottom: 1px black solid;
     border-left: 1px black solid;
     border-right: 1px black solid;
+    display: block;
 
+    margin-top: 0.0em;
+    padding-top: 0.1em;
 
-
+    z-index: 5;
 }
 
 .tab-page{
@@ -22,23 +25,29 @@
 }
 
 .tab-buttons-bar{
-    background-color: pink;
+    display : block;
+    padding-bottom: 1px;
+    border-bottom: 1px black solid;
 }
 
 .tab-button{
-    background-color: blue;
+    background-color: #b0b0b0;
     display: inline;
 
     border-bottom: 1px black solid;
     border-left: 1px black solid;
     border-right: 1px black solid;
     border-top: 1px black solid;
-        
 
+    padding: 0.1em;
+
+    margin-right : 0.1em;
+
+    padding-bottom: 1.5px;
 }
 
 .tab-button-selected{
-    background-color: yellow;
-    border-bottom: none;
-
+    background-color: #f0f0f0;
+    border-bottom: 1px #f0f0f0 solid;
+    z-index: 10;
 }
