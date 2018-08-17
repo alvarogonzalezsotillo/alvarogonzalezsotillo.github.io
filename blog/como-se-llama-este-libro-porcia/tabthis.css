@@ -1,10 +1,16 @@
 .tab-container{
-    border: 1px black solid;
     display: block;
 }
 
 .tab-contents{
-    background-color: green;
+    background-color: yellow;
+    border-top: none;
+    border-bottom: 1px black solid;
+    border-left: 1px black solid;
+    border-right: 1px black solid;
+
+
+
 }
 
 .tab-page{
@@ -22,4 +28,17 @@
 .tab-button{
     background-color: blue;
     display: inline;
+
+    border-bottom: 1px black solid;
+    border-left: 1px black solid;
+    border-right: 1px black solid;
+    border-top: 1px black solid;
+        
+
+}
+
+.tab-button-selected{
+    background-color: yellow;
+    border-bottom: none;
+
 }

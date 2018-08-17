@@ -176,6 +176,24 @@ era verdad. ¿Cuál cofre debe de elegir el pretendiente?
 
 
 
-#+html: <script src="./tabthis.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#+html_head: <script src="./tabthis.js"></script>
 #+html: <script>tabElements("problemaporciaysolucion")</script>
 #+html_head: <link rel="stylesheet" href="./tabthis.css"/>

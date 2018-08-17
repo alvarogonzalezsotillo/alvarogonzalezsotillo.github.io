@@ -12,6 +12,7 @@ function tabThis(elem,names){
 
     const tabs = [];
     childs.forEach( c => c.nodeType == 1 ? tabs.push(c) : undefined );
+    const buttons = new Array(childs.length);
 
     const tabButtonsBar = createDiv("tab-buttons-bar");
     elem.append(tabButtonsBar);
@@ -23,11 +24,14 @@ function tabThis(elem,names){
         return function(){
             console.log(button);
             tabs.forEach( t => t.classList.remove("tab-page-visible"));
+            buttons.forEach( b => b.classList.remove("tab-button-selected"));
+
             tab.classList.add("tab-page-visible");
+            button.classList.add("tab-button-selected");
         };
     };
 
-    tabs[0].classList.add("tab-page-visible");
+   
     tabs.forEach( function(tab){
         const name = names[c];
         console.log( tab + " -- " + name );
@@ -38,12 +42,14 @@ function tabThis(elem,names){
         button.innerHTML = name;
         tabButtonsBar.append(button);
         button.onclick = tabButtonListener(button,tab);
+        buttons[c] = button;
 
         
         c += 1;
     });
 
-    
+
+    buttons[0].onclick();
 
     elem.classList.add("tab-container");
     
