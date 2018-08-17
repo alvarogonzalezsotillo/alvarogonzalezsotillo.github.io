@@ -1,0 +1,25 @@
+.tab-container{
+    border: 1px black solid;
+    display: block;
+}
+
+.tab-contents{
+    background-color: green;
+}
+
+.tab-page{
+    display: none;
+}
+
+.tab-page-visible{
+    display: block;
+}
+
+.tab-buttons-bar{
+    background-color: pink;
+}
+
+.tab-button{
+    background-color: blue;
+    display: inline;
+}

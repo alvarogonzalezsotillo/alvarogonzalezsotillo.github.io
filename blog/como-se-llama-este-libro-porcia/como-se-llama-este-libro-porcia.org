@@ -1,0 +1,181 @@
+#+TITLE:       El Cluedo como problema de lógica de segundo orden
+#+AUTHOR:      Álvaro González Sotillo
+#+EMAIL:       alvarogonzalezsotillo@gmail.com
+#+DATE:        2018-08-31
+#+URI:         /blog/como-se-llama-este-libro-porcia
+#+KEYWORDS:    AI,programación,javascript
+#+TAGS:        javascript,AI,programación
+#+LANGUAGE:    es
+#+OPTIONS:     H:3 num:t toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: En "¿Cómo se llama este libro?" se describen muchos problemas lógicos. Los de las cajas de Porcia pueden resolverse con programación por restricciones.
+
+
+* Problemas de cajas de Porcia
+
+El libro /¿Cómo se llama este libro?/ es un clásico de las matemáticas recreativas. Entre sus numerosos problemas, hay un tipo relativo a cajas con inscripciones ciertas o falsas, y se debe encontrar la caja que contiene un retrato (o una daga) utilizando sólo la lógica. Este es el primero de esos problemas:
+
+
+#+BEGIN_QUOTE
+
+En /El mercader de Venecia/, de Shakespeare, Porcia tenia tres cofres
+---uno de oro, otro de plata y otro de plomo---, dentro de uno de los
+cuales estaba el retrato de Porcia. El pretendiente tenía que elegir uno
+de los cofres y si tenía suerte (o inteligencia) elegiría el que tenía
+el retrato, pudiendo así pedir a Porcia por esposa. En la tapa de cada
+cofre había una inscripción para ayudar al pretendiente a elegir
+sabiamente.
+
+Pero supongamos que Porcia quisiera elegir marido, no por su bondad,
+sino por su inteligencia. Tendría las siguientes inscripciones en los
+cofres:
+
+
+| Oro                           | 
+| EL RETRATO ESTÁ EN ESTE COFRE | 
+
+| Plata                   |
+| EL RETRATO NO ESTÁ AQUÍ |
+
+
+| Plomo                                 |
+| EL RETRATO NO ESTÁ EN EL COFRE DE ORO |
+
+
+Porcia explicó al pretendiente que de los tres enunciados, a lo sumo uno
+era verdad. ¿Cuál cofre debe de elegir el pretendiente?
+
+#+END_QUOTE
+
+
+Este problema puede resolverse utlizando como motor lógico el ya implementado para [[../../../blog/el-cluedo-como-problema-de-logica][resolver el cluedo]].
+
+* Motor lógico 
+
+- Motor
+#+begin_src javascript
+const manager = new CPManager();
+#+end_src
+- Variables booleanas
+- Restricciones entre variables
+
+* Cofres
+
+
+Cada cofre tiene un nombre y una variable booleana que indica si contiene o no algo. Posteriormente a su creación se le pueden añadir varias inscripciones.
+
+#+caption: Incio de la clase =Cofre=
+#+begin_src javascript
+class Cofre{
+    constructor(manager,nombre){
+        this._manager = manager;
+        this._nombre = nombre;
+        this._cofreLleno = manager.Boolean( "El cofre " + this._nombre + " está lleno" );
+    }
+
+    get nombre(){
+        return this._nombre;
+    }
+
+    set inscripciones(ins){
+        if( typeof this._inscripciones != "undefined" ){
+            throw new Error("No se pueden cambiar las inscripciones de un cofre");
+        }
+   
+        this._inscripciones = ins.slice(0);
+    }
+
+    get inscripciones(){
+        return this._inscripciones.slice(0);
+    }
+    
+
+    get cofreLleno(){
+        return this._cofreLleno;
+    }
+
+    get manager(){
+        return this._manager;
+    }
+
+    ....
+
+#+end_src
+
+Los cofres se crean todos juntos. Al crearse, una restricción se asegura que solo uno de ellos está lleno.
+
+#+caption: Continuación de la clase =Cofre=
+#+begin_src javascript
+
+    ....
+
+    static soloUnCofreLleno(cofres){
+        var llenos = cofres.map( c => c.cofreLleno );
+        let manager = cofres[0].manager;
+        var soloUnoLleno = manager.SomeTrue(llenos,1).
+            rename("Solo un cofre lleno en total").
+            asTrue();
+        return soloUnoLleno;
+    }
+
+    static creaCofres(CP,nombres){
+        var ret = nombres.map( n => new Cofre(CP,n) );
+        Cofre.soloUnCofreLleno(ret);
+        return ret;
+    }
+
+}
+#+end_src
+
+El problema descrito anteriormente se expresaría así:
+
+#+html: <problemaporciaysolucion>
+#+BEGIN_QUOTE
+
+En /El mercader de Venecia/, de Shakespeare, Porcia tenia tres cofres
+---uno de oro, otro de plata y otro de plomo---, dentro de uno de los
+cuales estaba el retrato de Porcia. El pretendiente tenía que elegir uno
+de los cofres y si tenía suerte (o inteligencia) elegiría el que tenía
+el retrato, pudiendo así pedir a Porcia por esposa. En la tapa de cada
+cofre había una inscripción para ayudar al pretendiente a elegir
+sabiamente.
+
+Pero supongamos que Porcia quisiera elegir marido, no por su bondad,
+sino por su inteligencia. Tendría las siguientes inscripciones en los
+cofres:
+
+
+| Oro                           | 
+| EL RETRATO ESTÁ EN ESTE COFRE | 
+
+| Plata                   |
+| EL RETRATO NO ESTÁ AQUÍ |
+
+
+| Plomo                                 |
+| EL RETRATO NO ESTÁ EN EL COFRE DE ORO |
+
+
+Porcia explicó al pretendiente que de los tres enunciados, a lo sumo uno
+era verdad. ¿Cuál cofre debe de elegir el pretendiente?
+
+#+END_QUOTE
+#+begin_src javascript
+    let CP = new CPManager();
+    let cofres = Cofre.creaCofres(CP,["Oro","Plata","Plomo"]);
+    let [cofreOro,cofrePlata,cofrePlomo] = cofres;
+
+    cofreOro.inscripciones = [cofreOro.cofreLleno];
+    cofrePlata.inscripciones = [CP.Not(cofrePlata.cofreLleno)];
+    cofrePlomo.inscripciones = [CP.Not(cofreOro.cofreLleno)];
+
+    CP.SomeTrue(cofres.map(c=>c.inscripciones[0]),0,1).
+        rename( "Como mucho una inscripcion es cierta").
+        asTrue();
+#+end_src
+#+html: </problemaporciaysolucion>
+
+
+
+#+html: <script src="./tabthis.js"></script>
+#+html: <script>tabElements("problemaporciaysolucion")</script>
+#+html_head: <link rel="stylesheet" href="./tabthis.css"/>

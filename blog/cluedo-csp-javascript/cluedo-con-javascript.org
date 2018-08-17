@@ -30,6 +30,8 @@ Con el material del juego se incluyen unas plantillas de ayuda a los jugadores, 
 
 Aunque este enfoque es correcto, es mejorable utilizando el resto de información disponible para cada jugador. Como se verá posteriormente, cada respuesta a una pregunta puede representarse como una fórmula lógica de primer orden, permite realizar muchas más deducciones.
 
+Se puede acceder a una [[https://alvarogonzalezsotillo.github.io/cluedo/cluedo.html][interfaz HTML]] que realiza las mejores deducciones posibles en una partida real de Cluedo.
+
 #+TOC: headlines 2 local
 
 
