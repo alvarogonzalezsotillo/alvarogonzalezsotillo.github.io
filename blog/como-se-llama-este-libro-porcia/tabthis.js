@@ -1,6 +1,6 @@
 function tabThisCSS(){
     const link = document.createElement("link");
-    link.href = "./tabthis.css";
+    link.href = "/tabthis.css";
     link.type = "text/css";
     link.rel = "stylesheet";
     document.getElementsByTagName("head")[0].appendChild(link);
