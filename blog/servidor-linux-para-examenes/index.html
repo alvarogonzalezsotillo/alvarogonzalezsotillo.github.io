@@ -34,9 +34,9 @@
 <div class="post">
 <h1>Servidor linux para exámenes</h1>
 
-<div id="outline-container-org2c8693c" class="outline-2">
-<h2 id="org2c8693c">El problema</h2>
-<div class="outline-text-2" id="text-org2c8693c">
+<div id="outline-container-org48d2c02" class="outline-2">
+<h2 id="org48d2c02">El problema</h2>
+<div class="outline-text-2" id="text-org48d2c02">
 <p>
 A la hora de realizar un trabajo o examen práctico sobre un ordenador, los profesores tenemos varias alternativas:
 </p>
@@ -56,9 +56,9 @@ A continuación, describiré qué pasos sigo para crear un entorno Linux para mi
 </div>
 </div>
 
-<div id="outline-container-orgc8f2075" class="outline-2">
-<h2 id="orgc8f2075">Entorno Linux</h2>
-<div class="outline-text-2" id="text-orgc8f2075">
+<div id="outline-container-org71ef4ff" class="outline-2">
+<h2 id="org71ef4ff">Entorno Linux</h2>
+<div class="outline-text-2" id="text-org71ef4ff">
 <p>
 Cada alumno tendrá su propia contraseña. Generar las contraseñas aleatoriamente no es una buena idea, puesto que dificulta su recuperación en caso de pérdida. Es mejor que la contraseña dependa del nombre del usuario, por ejemplo los primeros caracteres del hash del usuario. 
 </p>
@@ -151,9 +151,9 @@ lista_usuarios $usuarios
 </div>
 
 
-<div id="outline-container-orgc6ee13b" class="outline-2">
-<h2 id="orgc6ee13b">Oracle</h2>
-<div class="outline-text-2" id="text-orgc6ee13b">
+<div id="outline-container-orgd134fcb" class="outline-2">
+<h2 id="orgd134fcb">Oracle</h2>
+<div class="outline-text-2" id="text-orgd134fcb">
 <p>
 Utilizo la versión <a href="http://www.oracle.com/technetwork/database/database-technologies/express-edition/overview/index.html">Oracle XE</a>, para evitar problemas de licencia, y porque es bastante simple de instalar a partir de paquetes RPM en un Centos/Fedora.
 </p>
@@ -182,17 +182,51 @@ fi
 </div>
 
 <p>
-Para cada alumno se crea un usuario con permisos básicos (crear tablas, índices, vistas...). Después se carga un <i>script</i> de SQL inicial para la creación de tablas, que depende de cada examen.
+Para cada alumno se crea un usuario con permisos básicos (crear tablas, índices, vistas...). En algunos exámenes también necesito que los alumnos creen <code>directory</code> y utilicen algunas vistas dinámicas de sesiones, usuarios y procesos.
+</p>
+
+<p>
+Dentro del heredoc necesito que se utilizar las variables <code>$user</code> y <code>$pass</code>, así que debo permitir su expansión. Pero algunas vistas contienen el caracter <code>$</code>, que se intentaría expandir. Para evitar problemas, uso una variable con el valor <code>$=</code>, que defino usando comilla simple para que evitar su expansión.
+</p>
+
+
+<p>
+Después se carga un <i>script</i> de SQL inicial para la creación de tablas, que depende de cada examen.
 </p>
 
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listado de programa 7 </span>Creación de un usuario de <b>Oracle</b>, con una carga inicial de tablas y datos (<code>tablas-iniciales.sql</code>)</label><pre class="src src-sh">crear_usuario_oracle(){
+    #https://oraclespin.com/2008/12/18/how-to-grant-access-to-vsession-to-other-users/
     local user=$1
-    local pass=$(password_para_alumno $user)
+    local pass=$2
+    local S='$'
+
     sqlplus sys/$SYSPASS as sysdba &lt;&lt;EOF
     drop user $user cascade;
     create user $user identified by $pass;
-    grant connect,resource,create view to $user;
+    alter user $user identified by $pass;
+    alter user $user default tablespace USERS;
+    alter user $user quota 100M on USERS;
+
+    grant resource,connect to $user;
+    grant create view to $user;
+    grant create any directory to $user;
+
+
+    GRANT SELECT ON sys.v_${S}session TO $user;
+    GRANT SELECT ON sys.v_${S}gsession TO $user;
+    GRANT SELECT ON sys.v_${S}sqltext TO $user;
+    GRANT SELECT ON sys.v_${S}lock TO $user;
+    GRANT SELECT ON sys.v_${S}locked_object TO $user;
+    GRANT SELECT ON sys.v_${S}process TO $user;
+    GRANT SELECT ON sys.gv_${S}process TO $user;
+    GRANT SELECT ON sys.v_${S}sess_io TO $user;
+    GRANT SELECT ON sys.ALL_OBJECTS to $user;
+    GRANT SELECT ON sys.DBA_WAITERS to $user;
+
+    alter system set sessions=300 scope=spfile;
+    alter system set processes=300 scope=spfile;
+
     commit;
 EOF
 
@@ -205,9 +239,9 @@ EOF
 </div>
 </div>
 
-<div id="outline-container-org60f7049" class="outline-2">
-<h2 id="org60f7049">LAMP</h2>
-<div class="outline-text-2" id="text-org60f7049">
+<div id="outline-container-org7ee1c79" class="outline-2">
+<h2 id="org7ee1c79">LAMP</h2>
+<div class="outline-text-2" id="text-org7ee1c79">
 <p>
 Para los exámenes <a href="https://es.wikipedia.org/wiki/LAMP">LAMP</a> se necesita una base de datos y un sitio web por cada alumno.
 </p>
@@ -414,7 +448,7 @@ sudo service apache2 restart
     <div>
       <div class="post-meta">
         <span title="post date" class="post-info">2018-05-30</span>
-        <span title="last modification date" class="post-info">2018-06-08</span>
+        <span title="last modification date" class="post-info">2018-06-15</span>
         <span title="tags" class="post-info"><a href="/tags/linux/">linux</a>, <a href="/tags/lamp/">lamp</a>, <a href="/tags/oracle/">oracle</a></span>
         <span title="author" class="post-info">Álvaro González Sotillo</span>
       </div>

@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Problemas lógicos de cajas en ¿Cómo se llama este libro? - Álvaro González Sotillo</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Álvaro González Sotillo" />
+    <meta name="description" content="En &quot;¿Cómo se llama este libro?&quot; se describen muchos problemas lógicos. Los de las cajas de Porcia pueden resolverse con programación por restricciones." />
+    <meta name="keywords" content="AI,programación,javascript" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
+  </head>
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">Álvaro González Sotillo</a></h1>
+        <p></p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">Acerca de mí</a></li>
+          <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="//www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Buscar">
+          <input type="hidden" name="as_sitesearch" value="alvarogonzalezsotillo.github.io">
+        </form>
+        <img class="avatar" src="/media/img/octaedron.png" />
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>Problemas lógicos de cajas en ¿Cómo se llama este libro?</h1>
+<div id="table-of-contents">
+<h2>&Iacute;ndice</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org7e1b706">1. Problemas de cajas de Porcia</a></li>
+<li><a href="#orgac20a29">2. Motor lógico</a></li>
+<li><a href="#orgda75cf0">3. Cofres</a></li>
+<li><a href="#org565b027">4. Solucionador</a></li>
+<li><a href="#org4aaa435">5. Problemas resueltos</a>
+<ul>
+<li><a href="#org3187348">5.1. Primer problema</a></li>
+<li><a href="#orgde53ed6">5.2. Segundo problema</a></li>
+<li><a href="#org2abdfa6">5.3. Tercer problema</a></li>
+<li><a href="#orgc40ab51">5.4. Cuarto problema</a></li>
+<li><a href="#org5bcaabc">5.5. Quinto problema</a></li>
+<li><a href="#org42e3ba5">5.6. Sexto problema</a></li>
+<li><a href="#org44fbe5a">5.7. Séptimo problema</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+Todo el <a href="https://github.com/alvarogonzalezsotillo/cluedo">código al que se hace referencia</a> en esta entrada está disponible en <a href="https://github.com/alvarogonzalezsotillo/cluedo">un repositorio Github</a>
+</p>
+
+<div id="outline-container-org7e1b706" class="outline-2">
+<h2 id="org7e1b706"><span class="section-number-2">1</span> Problemas de cajas de Porcia</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+El libro <i><a href="https://www.casadellibro.com/libro-como-se-llama-este-libro-el-enigma-de-dracula-y-otros-pasatiem-pos-logicos-9-ed/9788437602974/297161">¿Cómo se llama este libro?</a></i>, de <a href="https://es.wikipedia.org/wiki/Raymond_Smullyan">Raymond Smullyan</a> es un clásico de las matemáticas recreativas. Entre sus numerosos problemas, hay un tipo relativo a cajas con inscripciones ciertas o falsas, y se debe encontrar la caja que contiene un retrato (o una daga) utilizando sólo la lógica. Este es el primero de esos problemas:
+</p>
+
+
+<blockquote>
+<p>
+
+</p>
+
+<p>
+En <i>El mercader de Venecia</i>, de Shakespeare, Porcia tenia tres cofres
+---uno de oro, otro de plata y otro de plomo---, dentro de uno de los
+cuales estaba el retrato de Porcia. El pretendiente tenía que elegir uno
+de los cofres y si tenía suerte (o inteligencia) elegiría el que tenía
+el retrato, pudiendo así pedir a Porcia por esposa. En la tapa de cada
+cofre había una inscripción para ayudar al pretendiente a elegir
+sabiamente.
+</p>
+
+<p>
+Pero supongamos que Porcia quisiera elegir marido, no por su bondad,
+sino por su inteligencia. Tendría las siguientes inscripciones en los
+cofres:
+</p>
+
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Oro</td>
+</tr>
+
+<tr>
+<td class="org-left">EL RETRATO ESTÁ EN ESTE COFRE</td>
+</tr>
+</tbody>
+</table>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Plata</td>
+</tr>
+
+<tr>
+<td class="org-left">EL RETRATO NO ESTÁ AQUÍ</td>
+</tr>
+</tbody>
+</table>
+
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Plomo</td>
+</tr>
+
+<tr>
+<td class="org-left">EL RETRATO NO ESTÁ EN EL COFRE DE ORO</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>
+Porcia explicó al pretendiente que de los tres enunciados, a lo sumo uno
+era verdad. ¿Cuál cofre debe de elegir el pretendiente?
+</p>
+</blockquote>
+
+
+<p>
+Este problema puede resolverse utlizando como motor lógico el ya implementado para <a href="../../../blog/el-cluedo-como-problema-de-logica">resolver el cluedo</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgac20a29" class="outline-2">
+<h2 id="orgac20a29"><span class="section-number-2">2</span> Motor lógico</h2>
+<div class="outline-text-2" id="text-2">
+<ul class="org-ul">
+<li><p>
+Motor: El motor de programación por restricciones (Constraint Programming) se encarga de crear y almacenar las variables y las restricciones
+</p>
+<div class="org-src-container">
+<pre class="src src-javascript">
+const manager = new CPManager();
+</pre>
+</div></li>
+<li><p>
+Variables booleanas: almacenan el dominio de una variable booleana, con nombre. Empiezan con los valores posibles <i>true</i> y <i>false</i>, estando en un valor indefinido. Si pierden un solo valor posible, su valor es el restante. Si pierden los dos valores, tienen un dominio vacío, lo que indica una configuración de variables y restricciones imposibles.
+</p>
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 1 </span>Ejemplo de uso de una variable booleana</label><pre class="src src-javascript">
+const manager = new CPManager();
+const a = manager.Boolean("Variable a");
+console.log( a.canBeTrue() ); // true
+console.log( a.defined() ); // false
+a.remove(true);
+console.log( a.canBeTrue() ); // false
+console.log( a.defined() ); // true
+a.remove(false);
+console.log( a.defined() ); // false
+console.log( a.impossible() ); // true
+</pre>
+</div></li>
+<li><p>
+Expresiones booleanas: pueden definirse entre variables y otras expresiones booleanas. Como las variables, tienen un dominio de valores <i>true</i> y <i>false</i>. Los componentes de una expresión afectan al dominio de la expresión. Además, si se restringe el dominio de una expresión, afecta al dominio de sus componentes. 
+</p>
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 2 </span>Las expresiones se ven afectadas por sus componentes</label><pre class="src src-javascript">
+const manager = new CPManager();
+const a = manager.Boolean("Variable a");
+const b = manager.Boolean("Variable b");
+const ayb = manager.And([a,b]);
+console.log( ayb.canBeTrue() ); // true
+a.remove(true);
+console.log( ayb.canBeTrue() ); // false
+</pre>
+</div>
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 3 </span>Las expresiones afectan a sus componentes</label><pre class="src src-javascript">const manager = new CPManager();
+const a = manager.Boolean("Variable a");
+const b = manager.Boolean("Variable b");
+const aob = manager.Or([a,b]);
+a.remove(true);
+aob.remove(false);
+console.log( b.canBeFalse() ); // false
+</pre>
+</div>
+<p>
+Entre las expresiones implementadas, se encuentran:
+</p>
+<ul class="org-ul">
+<li><code>And</code>: <i>true</i> si todos los componentes son <i>true</i>.</li>
+<li><code>Or</code>: <i>true</i> si algún componente es <i>true</i>.</li>
+<li><code>IfThen(a,b)</code>: <i>true</i> si <i>a</i> implica <i>b</i>.</li>
+<li><code>Iff(a,b)</code>: <i>true</i> si <i>a</i> y <i>b</i> tienen el mismo valor.</li>
+<li><code>SomeTrue(componentes,n)</code>: <i>true</i> si entre sus compnentes hay <i>n</i> variables (ni más, ni menos) con valor <i>true</i>.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgda75cf0" class="outline-2">
+<h2 id="orgda75cf0"><span class="section-number-2">3</span> Cofres</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Cada cofre tiene un nombre y una variable booleana que indica si contiene o no algo. Posteriormente a su creación se le pueden añadir varias inscripciones.
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 4 </span>Incio de la clase <code>Cofre</code></label><pre class="src src-javascript">class Cofre{
+    constructor(manager,nombre){
+        this._manager = manager;
+        this._nombre = nombre;
+        this._cofreLleno = manager.Boolean( "El cofre " + this._nombre + " está lleno" );
+    }
+
+    get nombre(){
+        return this._nombre;
+    }
+
+    set inscripciones(ins){
+        if( typeof this._inscripciones != "undefined" ){
+            throw new Error("No se pueden cambiar las inscripciones de un cofre");
+        }
+
+        this._inscripciones = ins.slice(0);
+    }
+
+    get inscripciones(){
+        return this._inscripciones.slice(0);
+    }
+
+
+    get cofreLleno(){
+        return this._cofreLleno;
+    }
+
+    get manager(){
+        return this._manager;
+    }
+
+    ....
+
+</pre>
+</div>
+
+<p>
+Los cofres se crean todos juntos. Al crearse, una restricción se asegura que solo uno de ellos está lleno.
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 5 </span>Continuación de la clase <code>Cofre</code></label><pre class="src src-javascript">
+    ....
+
+    static soloUnCofreLleno(cofres){
+        var llenos = cofres.map( c =&gt; c.cofreLleno );
+        let manager = cofres[0].manager;
+        var soloUnoLleno = manager.SomeTrue(llenos,1).
+            rename("Solo un cofre lleno en total").
+            asTrue();
+        return soloUnoLleno;
+    }
+
+    static creaCofres(CP,nombres){
+        var ret = nombres.map( n =&gt; new Cofre(CP,n) );
+        Cofre.soloUnCofreLleno(ret);
+        return ret;
+    }
+
+}
+</pre>
+</div>
+
+<p>
+El problema de Porcia descrito anteriormente se expresaría así:
+</p>
+
+<problemaporciaysolucion>
+<div class="org-src-container">
+<pre class="src src-javascript">let CP = new CPManager();
+let cofres = Cofre.creaCofres(CP,["Oro","Plata","Plomo"]);
+let [cofreOro,cofrePlata,cofrePlomo] = cofres;
+
+cofreOro.inscripciones = [cofreOro.cofreLleno];
+cofrePlata.inscripciones = [CP.Not(cofrePlata.cofreLleno)];
+cofrePlomo.inscripciones = [CP.Not(cofreOro.cofreLleno)];
+
+CP.SomeTrue(cofres.map(c=&gt;c.inscripciones[0]),0,1).
+    rename( "Como mucho una inscripcion es cierta").
+    asTrue();
+</pre>
+</div>
+<div class="PORCIA">
+<p>
+
+</p>
+
+<p>
+En <i>El mercader de Venecia</i>, de Shakespeare, Porcia tenia tres cofres
+---uno de oro, otro de plata y otro de plomo---, dentro de uno de los
+cuales estaba el retrato de Porcia. El pretendiente tenía que elegir uno
+de los cofres y si tenía suerte (o inteligencia) elegiría el que tenía
+el retrato, pudiendo así pedir a Porcia por esposa. En la tapa de cada
+cofre había una inscripción para ayudar al pretendiente a elegir
+sabiamente.
+</p>
+
+<p>
+Pero supongamos que Porcia quisiera elegir marido, no por su bondad,
+sino por su inteligencia. Tendría las siguientes inscripciones en los
+cofres:
+</p>
+
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Oro</td>
+</tr>
+
+<tr>
+<td class="org-left">EL RETRATO ESTÁ EN ESTE COFRE</td>
+</tr>
+</tbody>
+</table>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Plata</td>
+</tr>
+
+<tr>
+<td class="org-left">EL RETRATO NO ESTÁ AQUÍ</td>
+</tr>
+</tbody>
+</table>
+
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Plomo</td>
+</tr>
+
+<tr>
+<td class="org-left">EL RETRATO NO ESTÁ EN EL COFRE DE ORO</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>
+Porcia explicó al pretendiente que de los tres enunciados, a lo sumo uno
+era verdad. ¿Cuál cofre debe de elegir el pretendiente?
+</p>
+
+</div>
+</problemaporciaysolucion>
+</div>
+</div>
+
+
+<div id="outline-container-org565b027" class="outline-2">
+<h2 id="org565b027"><span class="section-number-2">4</span> Solucionador</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+Para solucionar los problemas de cajas, debemos tener en cuenta que:
+</p>
+<ul class="org-ul">
+<li>Los cofres pueden tener más de una inscripción. Las inscripciones pueden ser ciertas o falsas.</li>
+<li>Puede interesar encontrar la caja que contiene el objeto, o encontrar una caja que esté vacía.</li>
+</ul>
+
+<p>
+Hay dos formas de resolución:
+</p>
+<ul class="org-ul">
+<li>Se puede intentar determinar si el problema es coherente llenando solo una caja. Para ello, se prueba a asignar a <i>true</i> la variable <code>cofreLleno</code> de cada cofre, y se observa si solo una de esas asignaciones es posible.</li>
+<li>Se pueden probar todas las posiblidades cierto-falso de las inscripciones. Si para cualquier combinación posible la caja llena es siempre la misma (o la caja vacía, si es lo que se busca), esa es la solución.</li>
+</ul>
+
+<p>
+La función <code>CPAllPosibilies</code> da valor a las variables pasadas, y devuelve un array con todas las combinaciones que no han resultado incoherentes (dejando alguna variable o expresión con el dominio vacío)
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 6 </span>Solucionador general de los problemas de Porcia</label><pre class="src src-javascript">function porcia(cofres,buscarCofreLleno){
+    const CP = cofres[0].manager;
+
+    // POSIBILIDADES DE LLENADO DE CAJAS
+    const llenos = cofres.map( c=&gt; c.cofreLleno);
+    const posibilidadesLlenos = CPAllPosibilities(llenos);
+    if( posibilidadesLlenos.length == 1 ){
+        const indice = posibilidadesLlenos[0].indexOf(buscarCofreLleno);
+        if( indice &lt; 0 ){
+            return { error: "No se encuentra el cofre en la única combinación posible", cofre: undefined };
+        }
+        return {error: undefined, cofre: cofres[indice] };
+    }
+
+    // POSIBILIDADES DE INSCRIPCIONES CIERTAS
+    const inscripciones = cofres.
+          map(c=&gt;c.inscripciones).
+          reduce( (accum,value) =&gt; accum.concat(value) );
+    const posibilidadesInscripciones = CPAllPosibilities(inscripciones,llenos);
+    if( posibilidadesInscripciones.length &lt; 1 ){
+        return { error: "No hay ninguna posibilidad en las inscripciones", cofre: undefined };
+    }
+    for( let indice = 0 ; indice &lt; cofres.length ; indice++ ){
+        const lleno = posibilidadesInscripciones.map( p =&gt; p[indice] );
+        if( lleno.every( b =&gt; b == buscarCofreLleno ) ){
+            return {error: undefined, cofre: cofres[indice] };
+        }
+    }
+    return { error: "No hay ninguna posibilidad válida en las inscripciones", cofre: undefined };
+}
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org4aaa435" class="outline-2">
+<h2 id="org4aaa435"><span class="section-number-2">5</span> Problemas resueltos</h2>
+<div class="outline-text-2" id="text-5">
+</div>
+<div id="outline-container-org3187348" class="outline-3">
+<h3 id="org3187348"><span class="section-number-3">5.1</span> Primer problema</h3>
+<div class="outline-text-3" id="text-5-1">
+<problemaporciaysolucionresuelta>
+<div class="PORCIA">
+<p>
+
+</p>
+
+<p>
+En <i>El mercader de Venecia</i>, de Shakespeare, Porcia tenia tres cofres
+---uno de oro, otro de plata y otro de plomo---, dentro de uno de los
+cuales estaba el retrato de Porcia. El pretendiente tenía que elegir uno
+de los cofres y si tenía suerte (o inteligencia) elegiría el que tenía
+el retrato, pudiendo así pedir a Porcia por esposa. En la tapa de cada
+cofre había una inscripción para ayudar al pretendiente a elegir
+sabiamente.
+</p>
+
+<p>
+Pero supongamos que Porcia quisiera elegir marido, no por su bondad,
+sino por su inteligencia. Tendría las siguientes inscripciones en los
+cofres:
+</p>
+
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Oro</td>
+</tr>
+
+<tr>
+<td class="org-left">EL RETRATO ESTÁ EN ESTE COFRE</td>
+</tr>
+</tbody>
+</table>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Plata</td>
+</tr>
+
+<tr>
+<td class="org-left">EL RETRATO NO ESTÁ AQUÍ</td>
+</tr>
+</tbody>
+</table>
+
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Plomo</td>
+</tr>
+
+<tr>
+<td class="org-left">EL RETRATO NO ESTÁ EN EL COFRE DE ORO</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>
+Porcia explicó al pretendiente que de los tres enunciados, a lo sumo uno
+era verdad. ¿Cuál cofre debe de elegir el pretendiente?
+</p>
+
+</div>
+<div class="org-src-container">
+<pre class="src src-javascript">function porciaI(){
+    let CP = new CPManager();
+    let cofres = Cofre.creaCofres(CP,["Oro","Plata","Plomo"]);
+    let [cofreOro,cofrePlata,cofrePlomo] = cofres;
+
+    cofreOro.inscripciones = [cofreOro.cofreLleno];
+    cofrePlata.inscripciones = [CP.Not(cofrePlata.cofreLleno)];
+    cofrePlomo.inscripciones = [CP.Not(cofreOro.cofreLleno)];
+
+    CP.SomeTrue(cofres.map(c=&gt;c.inscripciones[0]),0,1).
+        rename( "Como mucho una inscripcion es cierta").
+        asTrue();
+
+    const solucion = porcia(cofres,true);
+    console.log("Se debe elegir el cofre:" + solucion.cofre.nombre);
+}
+</pre>
+</div>
+<pre class="example">
+Se debe elegir el cofre:Plata
+</pre>
+</problemaporciaysolucionresuelta>
+</div>
+</div>
+
+
+<div id="outline-container-orgde53ed6" class="outline-3">
+<h3 id="orgde53ed6"><span class="section-number-3">5.2</span> Segundo problema</h3>
+<div class="outline-text-3" id="text-5-2">
+<problemaporciaysolucionresuelta>
+<div class="PORCIA">
+<p>
+
+</p>
+
+
+<p>
+El pretendiente eligió correctamente, así que se casaron y vivieron
+bastante felices... por lo menos durante algún tiempo. Pero un día
+Porcia pensó: «Aunque mi marido demostró una cierta inteligencia al
+elegir el cofre bueno, en realidad el problema no era tan difícil. Sin
+duda podía haber puesto un problema más difícil y haber conseguido un
+marido realmente inteligente.» Así pues se divorció inmediatamente de su
+marido decidida a casarse con otro más listo.
+</p>
+
+<p>
+Esta vez en los tres consabidos cofres aparecían las siguientes
+inscripciones:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Oro</td>
+</tr>
+
+<tr>
+<td class="org-left">EL RETRATO NO ESTÁ EN EL COFRE DE PLATA</td>
+</tr>
+</tbody>
+</table>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Plata</td>
+</tr>
+
+<tr>
+<td class="org-left">EL RETRATO NO ESTÁ EN ESTE COFRE</td>
+</tr>
+</tbody>
+</table>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Plomo</td>
+</tr>
+
+<tr>
+<td class="org-left">EL RETRATO ESTÁ EN ESTE COFRE</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>
+Porcia explicó al pretendiente que por lo menos uno de los tres
+enunciados era verdadero y que por lo menos otro era falso.
+</p>
+
+<p>
+¿En cuál de los cofres está el retrato?
+</p>
+
+</div>
+<div class="org-src-container">
+<pre class="src src-javascript">function porciaII(){
+    var CP = new CPManager();
+
+    let cofres = Cofre.creaCofres(CP,["Oro","Plata","Plomo"]);
+    let [cofreOro,cofrePlata,cofrePlomo] = cofres;
+
+    cofreOro.inscripciones = [CP.Not(cofrePlata.cofreLleno)];
+    cofrePlata.inscripciones = [CP.Not(cofrePlata.cofreLleno)];
+    cofrePlomo.inscripciones = [cofrePlomo.cofreLleno];
+
+
+    CP.SomeTrue(cofres.map(c=&gt;c.inscripciones[0]),1,2).
+        rename( "Al menos una inscripción verdad y otra mentira" ).
+        asTrue();
+
+    const solucion = porcia(cofres,true);
+    console.log("Se debe elegir el cofre:" + solucion.cofre.nombre);
+
+}
+</pre>
+</div>
+<pre class="example">
+Se debe elegir el cofre:Oro
+</pre>
+</problemaporciaysolucionresuelta>
+</div>
+</div>
+
+
+<div id="outline-container-org2abdfa6" class="outline-3">
+<h3 id="org2abdfa6"><span class="section-number-3">5.3</span> Tercer problema</h3>
+<div class="outline-text-3" id="text-5-3">
+<p>
+Este problema incluye una novedad: los cofres tienen más de una inscripción. Además, se incluye una variable externa en dos de las inscripciones, no relativa a los cofres.
+</p>
+<problemaporciaysolucionresuelta>
+<div class="PORCIA">
+<p>
+En ésta las tapas de los cofres tenían dos enunciados, y Porcia explicó
+que ninguna de ellas tenía más que un enunciado falso.
+</p>
+
+
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Oro</td>
+</tr>
+
+<tr>
+<td class="org-left">(1) EL RETRATO NO ESTÁ AQUÍ</td>
+</tr>
+
+<tr>
+<td class="org-left">(2) EL ARTISTA QUE HIZO EL RETRATO ES VENECIANO</td>
+</tr>
+</tbody>
+</table>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Plata</td>
+</tr>
+
+<tr>
+<td class="org-left">(1) EL RETRATO NO ESTÁ EN EL DE ORO</td>
+</tr>
+
+<tr>
+<td class="org-left">(2) EL ARTISTA QUE HIZO EL RETRATO SÍ ES FLORENTINO</td>
+</tr>
+</tbody>
+</table>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Plomo</td>
+</tr>
+
+<tr>
+<td class="org-left">(1) EL RETRATO NO ESTÁ AQUÍ</td>
+</tr>
+
+<tr>
+<td class="org-left">(2) EL RETRATO SÍ QUE ESTÁ EN EL COFRE DE PLATA</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>
+¿En qué cofre está el retrato?
+</p>
+
+</div>
+<div class="org-src-container">
+<pre class="src src-javascript">function porciaIII(){
+    let CP = new CPManager();
+    let cofres = Cofre.creaCofres(CP,["Oro","Plata","Plomo"]);
+    let [cofreOro,cofrePlata,cofrePlomo] = cofres;
+
+    let veneciano = CP.Boolean( "El autor es veneciano");
+
+    cofreOro.inscripciones = [CP.Not(cofreOro.cofreLleno), veneciano];
+    cofrePlata.inscripciones = [CP.Not(cofreOro.cofreLleno), CP.Not(veneciano)];
+    cofrePlomo.inscripciones = [CP.Not(cofrePlomo.cofreLleno), cofrePlata.cofreLleno];
+
+    CP.Or(cofreOro.inscripciones).asTrue().rename("Al menos una frase verdadera en oro");
+    CP.Or(cofrePlata.inscripciones).asTrue().rename("Al menos una frase verdadera en plata");
+    CP.Or(cofrePlomo.inscripciones).asTrue().rename("Al menos una frase verdadera en plomo");
+
+    const solucion = porcia(cofres,true);
+    console.log("Se debe elegir el cofre:" + solucion.cofre.nombre);
+}
+</pre>
+</div>
+<pre class="example">
+Se debe elegir el cofre:Plata
+</pre>
+</problemaporciaysolucionresuelta>
+</div>
+</div>
+
+
+<div id="outline-container-orgc40ab51" class="outline-3">
+<h3 id="orgc40ab51"><span class="section-number-3">5.4</span> Cuarto problema</h3>
+<div class="outline-text-3" id="text-5-4">
+<problemaporciaysolucionresuelta>
+<div class="PORCIA">
+<p>
+Si el pretendiente pasaba la primera prueba era conducido a otra
+habitación en la cual había otros tres cofres, que también tenían dos
+inscripciones en la tapa. Porcia explicó que en una de las tapas los dos
+enunciados eran verdaderos; en otra ambos eran falsos, y en la tercera
+uno era verdadero y otro falso:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Oro</td>
+</tr>
+
+<tr>
+<td class="org-left">(1) EL RETRATO NO ESTÁ EN ESTE COFRE</td>
+</tr>
+
+<tr>
+<td class="org-left">(2) ESTÁ EN EL DE PLATA</td>
+</tr>
+</tbody>
+</table>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Plata</td>
+</tr>
+
+<tr>
+<td class="org-left">(1) EL RETRATO NO ESTÁ EN EL DE ORO</td>
+</tr>
+
+<tr>
+<td class="org-left">(2) ESTÁ EN EL DE PLOMO</td>
+</tr>
+</tbody>
+</table>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Plomo</td>
+</tr>
+
+<tr>
+<td class="org-left">(1) EL RETRATO NO ESTÁ EN ESTE COFRE</td>
+</tr>
+
+<tr>
+<td class="org-left">(2) ESTÁ EN EL DE ORO</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+¿En qué cofre estaba el retrato?
+</p>
+
+</div>
+<div class="org-src-container">
+<pre class="src src-javascript">function porciaIV(){
+    const CP = new CPManager();
+    const cofres = Cofre.creaCofres(CP,["Oro","Plata","Plomo"]);
+    const [cofreOro,cofrePlata,cofrePlomo] = cofres;
+
+
+    cofreOro.inscripciones = [CP.Not(cofreOro.cofreLleno), cofrePlata.cofreLleno];
+    cofrePlata.inscripciones = [CP.Not(cofreOro.cofreLleno), cofrePlomo.cofreLleno];
+    cofrePlomo.inscripciones = [CP.Not(cofrePlomo.cofreLleno), cofreOro.cofreLleno];
+
+
+    const posibilidades = permutaciones([
+        cofreOro.inscripciones,
+        cofrePlata.inscripciones,
+        cofrePlomo.inscripciones
+    ]).map(p =&gt; CP.And([
+        CP.SomeTrue(p[0],0),
+        CP.SomeTrue(p[1],1),
+        CP.SomeTrue(p[2],2)
+    ]));
+
+    CP.SomeTrue(posibilidades,1).asTrue().rename("Una caja cierta, otra caja falsa, y otra caja a medias");
+
+    const solucion = porcia(cofres,true);
+    console.log("Se debe elegir el cofre:" + solucion.cofre.nombre);
+}
+
+function permutaciones(array){
+    if( !array.length ){
+        return [];
+    }
+    if( array.length == 1 ){
+        return [array];
+    }
+    const head = array[0];
+    const tail = array.slice(1);
+
+    const subpermutaciones = permutaciones(tail);
+
+    const ret = [];
+    for( let i = 0 ; i &lt; subpermutaciones.length ; i += 1 ){
+        const subpermutacion = subpermutaciones[i];
+        for( let p = 0 ; p &lt; array.length ; p += 1 ){
+            const nuevaPermutacion =
+                  subpermutacion.slice(0,p).
+                  concat([head]).
+                  concat(subpermutacion.slice(p))
+            ret.push(nuevaPermutacion)
+        }
+    }
+
+    return ret;
+}
+
+</pre>
+</div>
+<pre class="example">
+Se debe elegir el cofre:Plomo
+</pre>
+</problemaporciaysolucionresuelta>
+</div>
+</div>
+
+
+<div id="outline-container-org5bcaabc" class="outline-3">
+<h3 id="org5bcaabc"><span class="section-number-3">5.5</span> Quinto problema</h3>
+<div class="outline-text-3" id="text-5-5">
+<p>
+En este problema una inscripción es auto-referente, ya que habla de la verdad de las propias inscripciones. En la implementación, se ha creado una variable booleana adicional, ya que una vez asignadas las inscripciones de los cofres no pueden cambiarse.
+Para <i>enganchar</i> esta variable con las inscripciones, se ha utilizado <code>CPManager.Bind(a,b)</code>, que se asegura que los dominios de las variables <code>a</code> y <code>b</code> es el mismo (se implementa como un <code>CPManager.Iff(a,b).asTrue()</code>).
+</p>
+<problemaporciaysolucionresuelta>
+<div class="PORCIA">
+<p>
+El pretendiente del cuento anterior pasó ambas pruebas y, muy contento,
+pidió a Porcia por esposa. Se casaron, vivieron felices y tuvieron una
+bellísima hija. Porcia III, a la que de aquí en adelante llamaremos
+simplemente Porcia. Ésta creció hasta convertirse en una bella e
+inteligente jovencita, exactamente igual que su mamá y que su abuelita,
+y que también decidió elegir marido por el método del cofre. ¡El
+enamorado tendría que pasar tres pruebas para conseguir su mano! Las
+tales pruebas eran bastante ingeniosas. Volvió a la técnica de su abuela
+de poner una sola inscripción en cada cofre, pero añadió un nuevo truco:
+explicaba al pretendiente que cada uno de los cofres lo había hecho uno
+de dos afamados artistas florentinos ---o Cellini o Bellini. Todos los
+cofres de Cellini tenían inscripción falsa mientras que Bellini siempre
+les ponía una inscripción verdadera.
+</p>
+
+<p>
+En esta original prueba, el pretendiente (si contestaba a ciegas)
+tendría dos posibilidades sobre tres de acertar, en vez de una sobre
+tres. En vez de un retrato, Porcia metía una daga en uno de los cofres y
+dejaba los otros dos vacíos. Si el pretendiente conseguía evitar el
+cofre de la daga, podía pasar a la prueba siguiente. Las inscripciones
+rezaban así:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Oro</td>
+</tr>
+
+<tr>
+<td class="org-left">LA DAGA ESTÁ AQUÍ</td>
+</tr>
+</tbody>
+</table>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Plata</td>
+</tr>
+
+<tr>
+<td class="org-left">ESTE COFRE ESTÁ VACÍO</td>
+</tr>
+</tbody>
+</table>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Plomo</td>
+</tr>
+
+<tr>
+<td class="org-left">TODO LO MÁS UNO DE ESTOS COFRES LO HIZO BELLINI</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+¿Qué cofre tenía que elegir?
+</p>
+
+</div>
+<div class="org-src-container">
+<pre class="src src-javascript">function porciaV(){
+    const CP = new CPManager();
+    const cofres = Cofre.creaCofres(CP,["Oro","Plata","Plomo"]);
+    const [cofreOro,cofrePlata,cofrePlomo] = cofres;
+
+    const comoMuchoUnCofreDiceLaVerdad = CP.Boolean("Como mucho un cofre lo hizo Bellini");
+    cofreOro.inscripciones = [cofreOro.cofreLleno];
+    cofrePlata.inscripciones = [CP.Not(cofrePlata.cofreLleno)];
+    cofrePlomo.inscripciones = [comoMuchoUnCofreDiceLaVerdad];
+
+    const inscripciones =
+          cofreOro.inscripciones.
+          concat(cofrePlata.inscripciones).
+          concat(cofrePlomo.inscripciones);
+
+    CP.Bind(
+        comoMuchoUnCofreDiceLaVerdad,
+        CP.SomeTrue(inscripciones,0,1)
+    );
+
+    const solucion = porcia(cofres,false);
+    console.log( "Se debe abrir el cofre:" + solucion.cofre.nombre );
+}
+</pre>
+</div>
+<pre class="example">
+Se debe elegir el cofre:Plomo
+</pre>
+</problemaporciaysolucionresuelta>
+</div>
+</div>
+
+
+
+<div id="outline-container-org42e3ba5" class="outline-3">
+<h3 id="org42e3ba5"><span class="section-number-3">5.6</span> Sexto problema</h3>
+<div class="outline-text-3" id="text-5-6">
+<problemaporciaysolucionresuelta>
+<div class="PORCIA">
+<p>
+En ésta el pretendiente (si contestara sin pensar) tendría un cincuenta
+por ciento de posibilidades de acertar. Porcia le ponía sólo dos cofres,
+el de oro y el de plata; uno de ellos contenía su retrato (en esta
+prueba no utilizaba daga). Los cofres eran obra o de Cellini o de
+Bellini y en ellos se leía:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Oro</td>
+</tr>
+
+<tr>
+<td class="org-left">EL RETRATO NO ESTÁ AQUÍ</td>
+</tr>
+</tbody>
+</table>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Plata</td>
+</tr>
+
+<tr>
+<td class="org-left">UNO Y NADA MÁS QUE UNO DE ESTOS DOS COFRES ES OBRA DE BELLINI</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+¿Cuál tenía que elegir el pretendiente para hallar el retrato?
+</p>
+
+</div>
+<div class="org-src-container">
+<pre class="src src-javascript">function porciaVI(){
+    var CP = new CPManager();
+
+    const cofres = Cofre.creaCofres(CP,["Oro","Plata"]);
+    const [cofreOro,cofrePlata] = cofres;
+
+    const unoYSoloUnoEsDeBellini = CP.Boolean("Un cofre y solo uno es de Bellini");
+
+    cofreOro.inscripciones = [ cofrePlata.cofreLleno ];
+    cofrePlata.inscripciones = [ unoYSoloUnoEsDeBellini ];
+
+    const todasLasInscripciones = cofreOro.inscripciones.concat(cofrePlata.inscripciones);
+
+    CP.Bind( unoYSoloUnoEsDeBellini, CP.SomeTrue(todasLasInscripciones,1) );
+
+    const solucion = porcia(cofres,true);
+    console.log( "Se debe abrir el cofre:" + solucion.cofre.nombre );
+}
+</pre>
+</div>
+<pre class="example">
+Se debe elegir el cofre:Oro
+</pre>
+</problemaporciaysolucionresuelta>
+</div>
+</div>
+
+
+
+<div id="outline-container-org44fbe5a" class="outline-3">
+<h3 id="org44fbe5a"><span class="section-number-3">5.7</span> Séptimo problema</h3>
+<div class="outline-text-3" id="text-5-7">
+<problemaporciaysolucionresuelta>
+<div class="PORCIA">
+<p>
+Suponiendo que el pretendiente pasara las dos primeras pruebas, se le
+conducía a otra habitación en la que había de nuevo tres cofres, uno de
+oro, otro de plata y otro de plomo, hechos también o por Bellini o por
+Cellini. En esta prueba las oportunidades de acertar del pretendiente
+(en caso de que contestara a ciegas) eran una de cada tres. Porcia
+colocaba su retrato en uno de los tres y el pretendiente había de (1)
+elegir el cofre que tuviera el retrato y (2) adivinar el autor de cada
+uno de los cofres. Las inscripciones decían:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Oro</td>
+</tr>
+
+<tr>
+<td class="org-left">EL RETRATO ESTÁ AQUÍ</td>
+</tr>
+</tbody>
+</table>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Plata</td>
+</tr>
+
+<tr>
+<td class="org-left">EL RETRATO ESTÁ AQUÍ</td>
+</tr>
+</tbody>
+</table>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Plomo</td>
+</tr>
+
+<tr>
+<td class="org-left">POR LO MENOS DOS DE ESTOS TRES  COFRES SON OBRA DE CELLINI</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+¿Cuál es la solución?
+</p>
+
+</div>
+<div class="org-src-container">
+<pre class="src src-javascript">function porciaVII(){
+    var CP = new CPManager();
+    const cofres = Cofre.creaCofres(CP,["Oro","Plata", "Plomo"]);
+    const [cofreOro,cofrePlata,cofrePlomo] = cofres;
+
+    const alMenosDosCofresDeCellini = CP.Boolean( "Por lo menos dos cofres son de Cellini");
+
+    cofreOro.inscripciones = [ cofreOro.cofreLleno ];
+    cofrePlata.inscripciones = [ cofrePlata.cofreLleno ];
+    cofrePlomo.inscripciones = [ alMenosDosCofresDeCellini ];
+
+    const inscripciones = cofreOro.inscripciones.
+          concat( cofrePlata.inscripciones ).
+          concat(cofrePlomo.inscripciones);
+    CP.Bind( alMenosDosCofresDeCellini, CP.SomeTrue(inscripciones,0,1));
+
+    const solucion = porcia(cofres,true);
+    console.log( "Se debe abrir el cofre:" + solucion.cofre.nombre );
+}
+</pre>
+</div>
+<pre class="example">
+Se debe elegir el cofre:Plomo
+</pre>
+</problemaporciaysolucionresuelta>
+
+
+<script src="/assets/blog/como-se-llama-este-libro-porcia/tabthis.js"></script>
+<script>tabThisCSSElement();</script>
+<script>tabElements("problemaporciaysolucion",["Implementación","Enunciado"])</script>
+<script>tabElements("problemaporciaysolucionresuelta",["Enunciado","Implementación","Solución"])</script>
+<style>div.PORCIA{ padding: 1em; }</style>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2018-08-31</span>
+        <span title="last modification date" class="post-info">2018-08-18</span>
+        <span title="tags" class="post-info"><a href="/tags/javascript/">javascript</a>, <a href="/tags/ai/">AI</a>, <a href="/tags/programación/">programación</a></span>
+        <span title="author" class="post-info">Álvaro González Sotillo</span>
+      </div>
+      <section>
+        <h1>Comments</h1>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+          //var disqus_developer = 1;
+          var disqus_identifier = "/blog/como-se-llama-este-libro-porcia";
+          var disqus_url = "https://alvarogonzalezsotillo.github.io/blog/como-se-llama-este-libro-porcia";
+          var disqus_shortname = 'alvarogonzalezsotillo';
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="//disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      </section>
+      <!-- <script src="//code.jquery.com/jquery-latest.min.js"></script> -->
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->
+      <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>  -->
+      <script src="/media/js/jquery-3.2.1.min.js"></script>
+      <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+      <script src="/media/js/main.js"></script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 26.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:alvarogonzalezsotillo <at> gmail <dot> com">Álvaro González Sotillo</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>

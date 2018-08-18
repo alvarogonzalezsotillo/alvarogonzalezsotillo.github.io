@@ -4,15 +4,36 @@
     <title>Álvaro González Sotillo</title>
     <link>https://alvarogonzalezsotillo.github.io/</link>
     <description></description>
-    <pubDate>vie, 08 jun 2018 09:01:03 CEST</pubDate>
-    <lastBuildDate>vie, 08 jun 2018 09:01:03 CEST</lastBuildDate>
+    <pubDate>sáb, 18 ago 2018 20:59:43 CEST</pubDate>
+    <lastBuildDate>sáb, 18 ago 2018 20:59:43 CEST</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
+    <item>
+      <title>Problemas lógicos de cajas en ¿Cómo se llama este libro?</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/como-se-llama-este-libro-porcia</link>
+      <description><![CDATA[En "¿Cómo se llama este libro?" se describen muchos problemas lógicos. Los de las cajas de Porcia pueden resolverse con programación por restricciones.]]></description>
+      <pubDate>2018-08-18</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/como-se-llama-este-libro-porcia</guid>
+    </item>
+    <item>
+      <title>El Cluedo como problema de lógica de segundo orden</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/el-cluedo-como-problema-de-logica</link>
+      <description><![CDATA[El Cluedo es considerado un juego para niños, pero bajo su superficie hay un interesante problema de lógica de segundo orden.]]></description>
+      <pubDate>2018-08-17</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/el-cluedo-como-problema-de-logica</guid>
+    </item>
+    <item>
+      <title>Plantilla Latex para exámenes tipo test</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/plantilla-latex-para-examenes</link>
+      <description><![CDATA[Utilizando una plantilla latex pueden generarse exámenes de una forma cómoda y con buena legibilidad.]]></description>
+      <pubDate>2018-08-12</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/plantilla-latex-para-examenes</guid>
+    </item>
     <item>
       <title>Servidor linux para exámenes</title>
       <link>https://alvarogonzalezsotillo.github.io/blog/servidor-linux-para-examenes</link>
       <description><![CDATA[Al encargar trabajos o examinar a los alumnos, utilizo un servidor virtual para que trabajen en un entorno controlado.]]></description>
-      <pubDate>2018-06-08</pubDate>
+      <pubDate>2018-06-15</pubDate>
       <guid>https://alvarogonzalezsotillo.github.io/blog/servidor-linux-para-examenes</guid>
     </item>
     <item>
@@ -37,13 +58,6 @@
       <guid>https://alvarogonzalezsotillo.github.io/blog/bittorent-en-el-aula</guid>
     </item>
     <item>
-      <title>El Cluedo como problema de lógica de segundo orden</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/el-cluedo-como-problema-de-logica</link>
-      <description><![CDATA[El Cluedo es considerado un juego para niños, pero bajo su superficie hay un interesante problema de lógica de segundo orden.]]></description>
-      <pubDate>2018-04-09</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/el-cluedo-como-problema-de-logica</guid>
-    </item>
-    <item>
       <title>Ajuste de ecuaciones moleculares</title>
       <link>https://alvarogonzalezsotillo.github.io/blog/ajuste-de-ecuaciones-moleculares</link>
       <description><![CDATA[Ajuste de ecuaciones moleculares en Scalajs con el método algebarico.]]></description>
@@ -63,20 +77,6 @@
       <description><![CDATA[A pesar de ser jugador de videojuegos y programador durante años, nunca había hecho uno. Los tests de Bongard me dan una buena oportunidad de programar uno.]]></description>
       <pubDate>2018-04-09</pubDate>
       <guid>https://alvarogonzalezsotillo.github.io/blog/test-de-bongard</guid>
-    </item>
-    <item>
-      <title>Plantila Latex para exámenes tipo test</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/plantilla-latex-para-examenes</link>
-      <description><![CDATA[Utilizando una plantilla latex pueden generarse exámenes de una forma cómoda y con buena legibilidad.]]></description>
-      <pubDate>2018-02-22</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/plantilla-latex-para-examenes</guid>
-    </item>
-    <item>
-      <title>Cómo publico materiales para clase</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/mi-publicacion-de-materiales-para-clase</link>
-      <description><![CDATA[Los materiales que preparamos los profesores se distribuyen entre los alumnos mediante plataformas de aprendizaje como Moodle. Lo interesante es cómo llegan esos materiales a la plataforma.]]></description>
-      <pubDate>2017-11-01</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/mi-publicacion-de-materiales-para-clase</guid>
     </item>
   </channel>
 </rss>
