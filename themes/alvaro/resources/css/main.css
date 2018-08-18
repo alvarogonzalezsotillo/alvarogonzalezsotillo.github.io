@@ -602,6 +602,6 @@ div.post > ul.org-ul > li{
 }
 
 /* ARREGLAR LOS P QUE SALTAN DE LINEA AL INICIO DE UN LI */
-ol > li > p{
+ol > li > p, ul > li > p{
     display: inline;
 }
