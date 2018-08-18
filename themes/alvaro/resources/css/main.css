@@ -594,3 +594,14 @@ div.figure p{
     text-align: center;
     font-size: 0.7em;
 }
+
+/* ALINEAR LAS FECHAS DEL INDICE DEL BLOG */
+div.post > ul.org-ul > li{
+    text-indent: -6em;
+    padding-left: 7em;
+}
+
+/* ARREGLAR LOS P QUE SALTAN DE LINEA AL INICIO DE UN LI */
+ol > li > p{
+    display: inline;
+}
