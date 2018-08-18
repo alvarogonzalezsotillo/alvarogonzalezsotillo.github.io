@@ -1,9 +1,74 @@
-function tabThisCSS(){
+function tabThisCSSLink(){
     const link = document.createElement("link");
     link.href = "/tabthis.css";
     link.type = "text/css";
     link.rel = "stylesheet";
     document.getElementsByTagName("head")[0].appendChild(link);
+}
+
+function tabThisCSSElement(){
+    const style = document.createElement("style");
+
+    style.innerHTML = `
+.tab-container{
+    display: block;
+}
+
+.tab-contents{
+    background-color: #f0f0f0;
+    border-top: none;
+    border-bottom: 1px black solid;
+    border-left: 1px black solid;
+    border-right: 1px black solid;
+    display: block;
+
+    margin-top: 0.0em;
+    padding-top: 0.1em;
+
+    z-index: 5;
+}
+
+.tab-page{
+    display: none;
+}
+
+.tab-page-visible{
+    display: block;
+}
+
+.tab-buttons-bar{
+    display : block;
+    padding-bottom: 1px;
+    border-bottom: 1px black solid;
+    line-height: normal; 
+}
+
+.tab-button{
+    background-color: #b0b0b0;
+    display: inline;
+
+    border-bottom: 1px black solid;
+    border-left: 1px black solid;
+    border-right: 1px black solid;
+    border-top: 1px black solid;
+
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+
+    padding: 0.3em;
+
+    margin-right : 0.1em;
+
+    padding-bottom: 1.5px;
+}
+
+.tab-button-selected{
+    background-color: #f0f0f0;
+    border-bottom: 1px #f0f0f0 solid;
+    z-index: 10;
+}`;
+
+    document.getElementsByTagName("body")[0].appendChild(style);
 }
 
 function tabThis(elem,names){

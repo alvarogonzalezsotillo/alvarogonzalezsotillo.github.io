@@ -331,9 +331,8 @@ Se debe elegir el cofre:Plata
 
 
 
-
 #+html: <script src="./tabthis.js"></script>
-#+html: <script>tabThisCSS();</script>
+#+html: <script>tabThisCSSElement();</script>
 #+html: <script>tabElements("problemaporciaysolucion",["Implementación","Enunciado"])</script>
 #+html: <script>tabElements("problemaporciaysolucionresuelta",["Implementación","Enunciado","Solución"])</script>
 
