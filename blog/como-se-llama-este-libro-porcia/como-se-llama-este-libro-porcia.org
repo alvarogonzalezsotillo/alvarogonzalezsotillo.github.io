@@ -1,4 +1,4 @@
-#+TITLE:       El Cluedo como problema de lógica de segundo orden
+#+TITLE:       Problemas lógicos de cajas en ¿Cómo se llama este libro?
 #+AUTHOR:      Álvaro González Sotillo
 #+EMAIL:       alvarogonzalezsotillo@gmail.com
 #+DATE:        2018-08-31
@@ -332,7 +332,8 @@ Se debe elegir el cofre:Plata
 
 
 
-#+html_head: <script src="./tabthis.js"></script>
+#+html: <script src="./tabthis.js"></script>
+#+html: <script>tabThisCSS();</script>
 #+html: <script>tabElements("problemaporciaysolucion",["Implementación","Enunciado"])</script>
 #+html: <script>tabElements("problemaporciaysolucionresuelta",["Implementación","Enunciado","Solución"])</script>
-#+html_head: <link rel="stylesheet" href="./tabthis.css"/>
+

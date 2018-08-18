@@ -1,3 +1,11 @@
+function tabThisCSS(){
+    const link = document.createElement("link");
+    link.href = "./tabthis.css";
+    link.type = "text/css";
+    link.rel = "stylesheet";
+    document.getElementsByTagName("head")[0].appendChild(link);
+}
+
 function tabThis(elem,names){
     const childs = elem.childNodes;
     console.log(childs);
