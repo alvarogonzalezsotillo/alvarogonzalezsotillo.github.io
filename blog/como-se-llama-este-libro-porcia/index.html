@@ -37,30 +37,30 @@
 <h2>&Iacute;ndice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org7e1b706">1. Problemas de cajas de Porcia</a></li>
-<li><a href="#orgac20a29">2. Motor lógico</a></li>
-<li><a href="#orgda75cf0">3. Cofres</a></li>
-<li><a href="#org565b027">4. Solucionador</a></li>
-<li><a href="#org4aaa435">5. Problemas resueltos</a>
+<li><a href="#org84a3bad">1. Problemas de cajas de Porcia</a></li>
+<li><a href="#org8a1cdf8">2. Motor lógico</a></li>
+<li><a href="#orgf236270">3. Cofres</a></li>
+<li><a href="#orgbd8cb39">4. Solucionador</a></li>
+<li><a href="#org8f239dd">5. Problemas resueltos</a>
 <ul>
-<li><a href="#org3187348">5.1. Primer problema</a></li>
-<li><a href="#orgde53ed6">5.2. Segundo problema</a></li>
-<li><a href="#org2abdfa6">5.3. Tercer problema</a></li>
-<li><a href="#orgc40ab51">5.4. Cuarto problema</a></li>
-<li><a href="#org5bcaabc">5.5. Quinto problema</a></li>
-<li><a href="#org42e3ba5">5.6. Sexto problema</a></li>
-<li><a href="#org44fbe5a">5.7. Séptimo problema</a></li>
+<li><a href="#org8ed326a">5.1. Primer problema</a></li>
+<li><a href="#org2cf13c4">5.2. Segundo problema</a></li>
+<li><a href="#orga231604">5.3. Tercer problema</a></li>
+<li><a href="#orgcbdaacb">5.4. Cuarto problema</a></li>
+<li><a href="#orgda6a2a1">5.5. Quinto problema</a></li>
+<li><a href="#org3d7e93b">5.6. Sexto problema</a></li>
+<li><a href="#org273822f">5.7. Séptimo problema</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 <p>
-Todo el <a href="https://github.com/alvarogonzalezsotillo/cluedo">código al que se hace referencia</a> en esta entrada está disponible en <a href="https://github.com/alvarogonzalezsotillo/cluedo">un repositorio Github</a>
+Todo el <a href="https://github.com/alvarogonzalezsotillo/cluedo/blob/master/js/ejemplos-porcia.js">código al que se hace referencia</a> en esta entrada está disponible en <a href="https://github.com/alvarogonzalezsotillo/cluedo">un repositorio Github</a>
 </p>
 
-<div id="outline-container-org7e1b706" class="outline-2">
-<h2 id="org7e1b706"><span class="section-number-2">1</span> Problemas de cajas de Porcia</h2>
+<div id="outline-container-org84a3bad" class="outline-2">
+<h2 id="org84a3bad"><span class="section-number-2">1</span> Problemas de cajas de Porcia</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 El libro <i><a href="https://www.casadellibro.com/libro-como-se-llama-este-libro-el-enigma-de-dracula-y-otros-pasatiem-pos-logicos-9-ed/9788437602974/297161">¿Cómo se llama este libro?</a></i>, de <a href="https://es.wikipedia.org/wiki/Raymond_Smullyan">Raymond Smullyan</a> es un clásico de las matemáticas recreativas. Entre sus numerosos problemas, hay un tipo relativo a cajas con inscripciones ciertas o falsas, y se debe encontrar la caja que contiene un retrato (o una daga) utilizando sólo la lógica. Este es el primero de esos problemas:
@@ -150,17 +150,17 @@ era verdad. ¿Cuál cofre debe de elegir el pretendiente?
 
 
 <p>
-Este problema puede resolverse utlizando como motor lógico el ya implementado para <a href="../../../blog/el-cluedo-como-problema-de-logica">resolver el cluedo</a>.
+Este problema puede resolverse utilizando como motor lógico el ya implementado para <a href="../../../blog/el-cluedo-como-problema-de-logica">resolver el cluedo</a>.
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgac20a29" class="outline-2">
-<h2 id="orgac20a29"><span class="section-number-2">2</span> Motor lógico</h2>
+<div id="outline-container-org8a1cdf8" class="outline-2">
+<h2 id="org8a1cdf8"><span class="section-number-2">2</span> Motor lógico</h2>
 <div class="outline-text-2" id="text-2">
 <ul class="org-ul">
 <li><p>
-Motor: El motor de programación por restricciones (Constraint Programming) se encarga de crear y almacenar las variables y las restricciones
+Motor: El motor de <a href="https://es.wikipedia.org/wiki/Programaci%C3%B3n_con_restricciones">programación por restricciones</a> se encarga de crear y almacenar las variables y las restricciones
 </p>
 <div class="org-src-container">
 <pre class="src src-javascript">
@@ -222,15 +222,15 @@ Entre las expresiones implementadas, se encuentran:
 </div>
 </div>
 
-<div id="outline-container-orgda75cf0" class="outline-2">
-<h2 id="orgda75cf0"><span class="section-number-2">3</span> Cofres</h2>
+<div id="outline-container-orgf236270" class="outline-2">
+<h2 id="orgf236270"><span class="section-number-2">3</span> Cofres</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 Cada cofre tiene un nombre y una variable booleana que indica si contiene o no algo. Posteriormente a su creación se le pueden añadir varias inscripciones.
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listado de programa 4 </span>Incio de la clase <code>Cofre</code></label><pre class="src src-javascript">class Cofre{
+<label class="org-src-name"><span class="listing-number">Listado de programa 4 </span>Inicio de la clase <code>Cofre</code></label><pre class="src src-javascript">class Cofre{
     constructor(manager,nombre){
         this._manager = manager;
         this._nombre = nombre;
@@ -399,8 +399,8 @@ era verdad. ¿Cuál cofre debe de elegir el pretendiente?
 </div>
 
 
-<div id="outline-container-org565b027" class="outline-2">
-<h2 id="org565b027"><span class="section-number-2">4</span> Solucionador</h2>
+<div id="outline-container-orgbd8cb39" class="outline-2">
+<h2 id="orgbd8cb39"><span class="section-number-2">4</span> Solucionador</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 Para solucionar los problemas de cajas, debemos tener en cuenta que:
@@ -459,12 +459,12 @@ La función <code>CPAllPosibilies</code> da valor a las variables pasadas, y dev
 </div>
 
 
-<div id="outline-container-org4aaa435" class="outline-2">
-<h2 id="org4aaa435"><span class="section-number-2">5</span> Problemas resueltos</h2>
+<div id="outline-container-org8f239dd" class="outline-2">
+<h2 id="org8f239dd"><span class="section-number-2">5</span> Problemas resueltos</h2>
 <div class="outline-text-2" id="text-5">
 </div>
-<div id="outline-container-org3187348" class="outline-3">
-<h3 id="org3187348"><span class="section-number-3">5.1</span> Primer problema</h3>
+<div id="outline-container-org8ed326a" class="outline-3">
+<h3 id="org8ed326a"><span class="section-number-3">5.1</span> Primer problema</h3>
 <div class="outline-text-3" id="text-5-1">
 <problemaporciaysolucionresuelta>
 <div class="PORCIA">
@@ -575,8 +575,8 @@ Se debe elegir el cofre:Plata
 </div>
 
 
-<div id="outline-container-orgde53ed6" class="outline-3">
-<h3 id="orgde53ed6"><span class="section-number-3">5.2</span> Segundo problema</h3>
+<div id="outline-container-org2cf13c4" class="outline-3">
+<h3 id="org2cf13c4"><span class="section-number-3">5.2</span> Segundo problema</h3>
 <div class="outline-text-3" id="text-5-2">
 <problemaporciaysolucionresuelta>
 <div class="PORCIA">
@@ -692,8 +692,8 @@ Se debe elegir el cofre:Oro
 </div>
 
 
-<div id="outline-container-org2abdfa6" class="outline-3">
-<h3 id="org2abdfa6"><span class="section-number-3">5.3</span> Tercer problema</h3>
+<div id="outline-container-orga231604" class="outline-3">
+<h3 id="orga231604"><span class="section-number-3">5.3</span> Tercer problema</h3>
 <div class="outline-text-3" id="text-5-3">
 <p>
 Este problema incluye una novedad: los cofres tienen más de una inscripción. Además, se incluye una variable externa en dos de las inscripciones, no relativa a los cofres.
@@ -805,8 +805,8 @@ Se debe elegir el cofre:Plata
 </div>
 
 
-<div id="outline-container-orgc40ab51" class="outline-3">
-<h3 id="orgc40ab51"><span class="section-number-3">5.4</span> Cuarto problema</h3>
+<div id="outline-container-orgcbdaacb" class="outline-3">
+<h3 id="orgcbdaacb"><span class="section-number-3">5.4</span> Cuarto problema</h3>
 <div class="outline-text-3" id="text-5-4">
 <problemaporciaysolucionresuelta>
 <div class="PORCIA">
@@ -951,8 +951,8 @@ Se debe elegir el cofre:Plomo
 </div>
 
 
-<div id="outline-container-org5bcaabc" class="outline-3">
-<h3 id="org5bcaabc"><span class="section-number-3">5.5</span> Quinto problema</h3>
+<div id="outline-container-orgda6a2a1" class="outline-3">
+<h3 id="orgda6a2a1"><span class="section-number-3">5.5</span> Quinto problema</h3>
 <div class="outline-text-3" id="text-5-5">
 <p>
 En este problema una inscripción es auto-referente, ya que habla de la verdad de las propias inscripciones. En la implementación, se ha creado una variable booleana adicional, ya que una vez asignadas las inscripciones de los cofres no pueden cambiarse.
@@ -1076,8 +1076,8 @@ Se debe elegir el cofre:Plomo
 
 
 
-<div id="outline-container-org42e3ba5" class="outline-3">
-<h3 id="org42e3ba5"><span class="section-number-3">5.6</span> Sexto problema</h3>
+<div id="outline-container-org3d7e93b" class="outline-3">
+<h3 id="org3d7e93b"><span class="section-number-3">5.6</span> Sexto problema</h3>
 <div class="outline-text-3" id="text-5-6">
 <problemaporciaysolucionresuelta>
 <div class="PORCIA">
@@ -1158,8 +1158,8 @@ Se debe elegir el cofre:Oro
 
 
 
-<div id="outline-container-org44fbe5a" class="outline-3">
-<h3 id="org44fbe5a"><span class="section-number-3">5.7</span> Séptimo problema</h3>
+<div id="outline-container-org273822f" class="outline-3">
+<h3 id="org273822f"><span class="section-number-3">5.7</span> Séptimo problema</h3>
 <div class="outline-text-3" id="text-5-7">
 <problemaporciaysolucionresuelta>
 <div class="PORCIA">
