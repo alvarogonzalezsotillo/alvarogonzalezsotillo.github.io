@@ -15,7 +15,7 @@ Todo el [[https://github.com/alvarogonzalezsotillo/cluedo][código al que se hac
 
 * Problemas de cajas de Porcia
 
-El libro /¿Cómo se llama este libro?/ es un clásico de las matemáticas recreativas. Entre sus numerosos problemas, hay un tipo relativo a cajas con inscripciones ciertas o falsas, y se debe encontrar la caja que contiene un retrato (o una daga) utilizando sólo la lógica. Este es el primero de esos problemas:
+El libro /[[https://www.casadellibro.com/libro-como-se-llama-este-libro-el-enigma-de-dracula-y-otros-pasatiem-pos-logicos-9-ed/9788437602974/297161][¿Cómo se llama este libro?]]/, de [[https://es.wikipedia.org/wiki/Raymond_Smullyan][Raymond Smullyan]] es un clásico de las matemáticas recreativas. Entre sus numerosos problemas, hay un tipo relativo a cajas con inscripciones ciertas o falsas, y se debe encontrar la caja que contiene un retrato (o una daga) utilizando sólo la lógica. Este es el primero de esos problemas:
 
 
 #+BEGIN_QUOTE
@@ -55,11 +55,13 @@ Este problema puede resolverse utlizando como motor lógico el ya implementado p
 * Motor lógico 
 - Motor: El motor de programación por restricciones (Constraint Programming) se encarga de crear y almacenar las variables y las restricciones
   #+begin_src javascript
+
   const manager = new CPManager();
   #+end_src
 - Variables booleanas: almacenan el dominio de una variable booleana, con nombre. Empiezan con los valores posibles /true/ y /false/, estando en un valor indefinido. Si pierden un solo valor posible, su valor es el restante. Si pierden los dos valores, tienen un dominio vacío, lo que indica una configuración de variables y restricciones imposibles.
-  #+caption Ejemplo de uso de una variable booleana
+  #+caption: Ejemplo de uso de una variable booleana
   #+begin_src javascript
+
   const manager = new CPManager();
   const a = manager.Boolean("Variable a");
   console.log( a.canBeTrue() ); // true
@@ -74,6 +76,7 @@ Este problema puede resolverse utlizando como motor lógico el ya implementado p
 - Expresiones booleanas: pueden definirse entre variables y otras expresiones booleanas. Como las variables, tienen un dominio de valores /true/ y /false/. Los componentes de una expresión afectan al dominio de la expresión. Además, si se restringe el dominio de una expresión, afecta al dominio de sus componentes. 
   #+caption: Las expresiones se ven afectadas por sus componentes
   #+begin_src javascript
+
   const manager = new CPManager();
   const a = manager.Boolean("Variable a");
   const b = manager.Boolean("Variable b");
@@ -183,7 +186,7 @@ El problema de Porcia descrito anteriormente se expresaría así:
         rename( "Como mucho una inscripcion es cierta").
         asTrue();
 #+end_src
-#+BEGIN_QUOTE
+#+BEGIN_PORCIA
 
 En /El mercader de Venecia/, de Shakespeare, Porcia tenia tres cofres
 ---uno de oro, otro de plata y otro de plomo---, dentro de uno de los
@@ -212,7 +215,7 @@ cofres:
 Porcia explicó al pretendiente que de los tres enunciados, a lo sumo uno
 era verdad. ¿Cuál cofre debe de elegir el pretendiente?
 
-#+END_QUOTE
+#+END_PORCIA
 #+html: </problemaporciaysolucion>
 
 
@@ -266,7 +269,7 @@ function porcia(cofres,buscarCofreLleno){
 
 ** Primer problema
 #+html: <problemaporciaysolucionresuelta>
-#+BEGIN_QUOTE
+#+BEGIN_PORCIA
 
 En /El mercader de Venecia/, de Shakespeare, Porcia tenia tres cofres
 ---uno de oro, otro de plata y otro de plomo---, dentro de uno de los
@@ -295,7 +298,7 @@ cofres:
 Porcia explicó al pretendiente que de los tres enunciados, a lo sumo uno
 era verdad. ¿Cuál cofre debe de elegir el pretendiente?
 
-#+END_QUOTE
+#+END_PORCIA
 #+begin_src javascript
 function porciaI(){
     let CP = new CPManager();
@@ -322,7 +325,7 @@ Se debe elegir el cofre:Plata
 
 ** Segundo problema
 #+html: <problemaporciaysolucionresuelta>
-#+BEGIN_QUOTE
+#+BEGIN_PORCIA
 
 
 El pretendiente eligió correctamente, así que se casaron y vivieron
@@ -350,7 +353,7 @@ Porcia explicó al pretendiente que por lo menos uno de los tres
 enunciados era verdadero y que por lo menos otro era falso.
 
 ¿En cuál de los cofres está el retrato?
-#+END_QUOTE
+#+END_PORCIA
 #+begin_src javascript
 function porciaII(){
     var CP = new CPManager();
@@ -381,7 +384,7 @@ Se debe elegir el cofre:Oro
 ** Tercer problema
 Este problema incluye una novedad: los cofres tienen más de una inscripción. Además, se incluye una variable externa en dos de las inscripciones, no relativa a los cofres.
 #+html: <problemaporciaysolucionresuelta>
-#+BEGIN_QUOTE
+#+BEGIN_PORCIA
 En ésta las tapas de los cofres tenían dos enunciados, y Porcia explicó
 que ninguna de ellas tenía más que un enunciado falso.
 
@@ -401,7 +404,7 @@ que ninguna de ellas tenía más que un enunciado falso.
 
 
 ¿En qué cofre está el retrato?
-#+END_QUOTE
+#+END_PORCIA
 #+begin_src javascript
 function porciaIII(){
     let CP = new CPManager();
@@ -430,7 +433,7 @@ Se debe elegir el cofre:Plata
 
 ** Cuarto problema
 #+html: <problemaporciaysolucionresuelta>
-#+BEGIN_QUOTE
+#+BEGIN_PORCIA
 Si el pretendiente pasaba la primera prueba era conducido a otra
 habitación en la cual había otros tres cofres, que también tenían dos
 inscripciones en la tapa. Porcia explicó que en una de las tapas los dos
@@ -450,7 +453,7 @@ uno era verdadero y otro falso:
 | (2) ESTÁ EN EL DE ORO                |
 
 ¿En qué cofre estaba el retrato?
-#+END_QUOTE
+#+END_PORCIA
 #+begin_src javascript
 function porciaIV(){
     const CP = new CPManager();
@@ -517,7 +520,7 @@ Se debe elegir el cofre:Plomo
 En este problema una inscripción es auto-referente, ya que habla de la verdad de las propias inscripciones. En la implementación, se ha creado una variable booleana adicional, ya que una vez asignadas las inscripciones de los cofres no pueden cambiarse.
 Para /enganchar/ esta variable con las inscripciones, se ha utilizado =CPManager.Bind(a,b)=, que se asegura que los dominios de las variables =a= y =b= es el mismo (se implementa como un =CPManager.Iff(a,b).asTrue()=).
 #+html: <problemaporciaysolucionresuelta>
-#+BEGIN_QUOTE
+#+BEGIN_PORCIA
 El pretendiente del cuento anterior pasó ambas pruebas y, muy contento,
 pidió a Porcia por esposa. Se casaron, vivieron felices y tuvieron una
 bellísima hija. Porcia III, a la que de aquí en adelante llamaremos
@@ -549,7 +552,7 @@ rezaban así:
 | TODO LO MÁS UNO DE ESTOS COFRES LO HIZO BELLINI |
 
 ¿Qué cofre tenía que elegir?
-#+END_QUOTE
+#+END_PORCIA
 #+begin_src javascript
 function porciaV(){
     const CP = new CPManager();
@@ -584,7 +587,7 @@ Se debe elegir el cofre:Plomo
 
 ** Sexto problema
 #+html: <problemaporciaysolucionresuelta>
-#+BEGIN_QUOTE
+#+BEGIN_PORCIA
 En ésta el pretendiente (si contestara sin pensar) tendría un cincuenta
 por ciento de posibilidades de acertar. Porcia le ponía sólo dos cofres,
 el de oro y el de plata; uno de ellos contenía su retrato (en esta
@@ -598,7 +601,7 @@ Bellini y en ellos se leía:
 |  UNO Y NADA MÁS QUE UNO DE ESTOS DOS COFRES ES OBRA DE BELLINI
 
 ¿Cuál tenía que elegir el pretendiente para hallar el retrato?
-#+END_QUOTE
+#+END_PORCIA
 #+begin_src javascript
 function porciaVI(){
     var CP = new CPManager();
@@ -628,7 +631,7 @@ Se debe elegir el cofre:Oro
 
 ** Séptimo problema
 #+html: <problemaporciaysolucionresuelta>
-#+BEGIN_QUOTE
+#+BEGIN_PORCIA
 Suponiendo que el pretendiente pasara las dos primeras pruebas, se le
 conducía a otra habitación en la que había de nuevo tres cofres, uno de
 oro, otro de plata y otro de plomo, hechos también o por Bellini o por
@@ -648,7 +651,7 @@ uno de los cofres. Las inscripciones decían:
 | POR LO MENOS DOS DE ESTOS TRES  COFRES SON OBRA DE CELLINI |
 
 ¿Cuál es la solución?
-#+END_QUOTE
+#+END_PORCIA
 #+begin_src javascript
 function porciaVII(){
     var CP = new CPManager();
@@ -680,4 +683,4 @@ Se debe elegir el cofre:Plomo
 #+html: <script>tabThisCSSElement();</script>
 #+html: <script>tabElements("problemaporciaysolucion",["Implementación","Enunciado"])</script>
 #+html: <script>tabElements("problemaporciaysolucionresuelta",["Enunciado","Implementación","Solución"])</script>
-
+#+html: <style>div.PORCIA{ padding: 1em; }</style>
