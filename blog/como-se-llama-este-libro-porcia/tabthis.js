@@ -55,10 +55,10 @@ function tabThis(elem,names){
     
 }
 
-function tabElements(elementName){
+function tabElements(elementName,tabNames){
     const elements = document.getElementsByTagName(elementName);
     for( let i = 0 ; i < elements.length ; i++ ){
         const e = elements[i];
-        tabThis(e,["Enunciado","Implementación"]);
+        tabThis(e,tabNames);
     }
 }

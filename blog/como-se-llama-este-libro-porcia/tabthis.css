@@ -39,7 +39,10 @@
     border-right: 1px black solid;
     border-top: 1px black solid;
 
-    padding: 0.1em;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+
+    padding: 0.3em;
 
     margin-right : 0.1em;
 

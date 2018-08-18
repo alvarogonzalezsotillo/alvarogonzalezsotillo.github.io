@@ -50,13 +50,51 @@ era verdad. ¿Cuál cofre debe de elegir el pretendiente?
 Este problema puede resolverse utlizando como motor lógico el ya implementado para [[../../../blog/el-cluedo-como-problema-de-logica][resolver el cluedo]].
 
 * Motor lógico 
-
-- Motor
-#+begin_src javascript
-const manager = new CPManager();
-#+end_src
-- Variables booleanas
-- Restricciones entre variables
+- Motor: El motor de programación por restricciones (Constraint Programming) se encarga de crear y almacenar las variables y las restricciones
+  #+begin_src javascript
+  const manager = new CPManager();
+  #+end_src
+- Variables booleanas: almacenan el dominio de una variable booleana, con nombre. Empiezan con los valores posibles /true/ y /false/, estando en un valor indefinido. Si pierden un solo valor posible, su valor es el restante. Si pierden los dos valores, tienen un dominio vacío, lo que indica una configuración de variables y restricciones imposibles.
+  #+caption Ejemplo de uso de una variable booleana
+  #+begin_src javascript
+  const manager = new CPManager();
+  const a = manager.Boolean("Variable a");
+  console.log( a.canBeTrue() ); // true
+  console.log( a.defined() ); // false
+  a.remove(true);
+  console.log( a.canBeTrue() ); // false
+  console.log( a.defined() ); // true
+  a.remove(false);
+  console.log( a.defined() ); // false
+  console.log( a.impossible() ); // true
+  #+end_src
+- Expresiones booleanas: pueden definirse entre variables y otras expresiones booleanas. Como las variables, tienen un dominio de valores /true/ y /false/. Los componentes de una expresión afectan al dominio de la expresión. Además, si se restringe el dominio de una expresión, afecta al dominio de sus componentes. 
+  #+caption: Las expresiones se ven afectadas por sus componentes
+  #+begin_src javascript
+  const manager = new CPManager();
+  const a = manager.Boolean("Variable a");
+  const b = manager.Boolean("Variable b");
+  const ayb = manager.And([a,b]);
+  console.log( ayb.canBeTrue() ); // true
+  a.remove(true);
+  console.log( ayb.canBeTrue() ); // false
+  #+end_src
+  #+caption: Las expresiones afectan a sus componentes
+  #+begin_src javascript
+  const manager = new CPManager();
+  const a = manager.Boolean("Variable a");
+  const b = manager.Boolean("Variable b");
+  const aob = manager.Or([a,b]);
+  a.remove(true);
+  aob.remove(false);
+  console.log( b.canBeFalse() ); // false
+  #+end_src
+  Entre las expresiones implementadas, se encuentran:
+  - =And=: /true/ si todos los componentes son /true/.
+  - =Or=: /true/ si algún componente es /true/.
+  - =IfThen(a,b)=: /true/ si /a/ implica /b/.
+  - =Iff(a,b)=: /true/ si /a/ y /b/ tienen el mismo valor. 
+  - =SomeTrue(componentes,n)=: /true/ si entre sus compnentes hay /n/ variables (ni más, ni menos) con valor /true/.
 
 * Cofres
 
@@ -126,9 +164,22 @@ Los cofres se crean todos juntos. Al crearse, una restricción se asegura que so
 }
 #+end_src
 
-El problema descrito anteriormente se expresaría así:
+El problema de Porcia descrito anteriormente se expresaría así:
 
 #+html: <problemaporciaysolucion>
+#+begin_src javascript
+    let CP = new CPManager();
+    let cofres = Cofre.creaCofres(CP,["Oro","Plata","Plomo"]);
+    let [cofreOro,cofrePlata,cofrePlomo] = cofres;
+
+    cofreOro.inscripciones = [cofreOro.cofreLleno];
+    cofrePlata.inscripciones = [CP.Not(cofrePlata.cofreLleno)];
+    cofrePlomo.inscripciones = [CP.Not(cofreOro.cofreLleno)];
+
+    CP.SomeTrue(cofres.map(c=>c.inscripciones[0]),0,1).
+        rename( "Como mucho una inscripcion es cierta").
+        asTrue();
+#+end_src
 #+BEGIN_QUOTE
 
 En /El mercader de Venecia/, de Shakespeare, Porcia tenia tres cofres
@@ -159,7 +210,63 @@ Porcia explicó al pretendiente que de los tres enunciados, a lo sumo uno
 era verdad. ¿Cuál cofre debe de elegir el pretendiente?
 
 #+END_QUOTE
+#+html: </problemaporciaysolucion>
+
+
+* Solucionador
+Para solucionar los problemas de cajas, debemos tener en cuenta que:
+- Los cofres pueden tener más de una inscripción. Las inscripciones pueden ser ciertas o falsas.
+- Puede interesar encontrar la caja que contiene el objeto, o encontrar una caja que esté vacía.
+
+Hay dos formas de resolución:
+- Se puede intentar determinar si el problema es coherente llenando solo una caja. Para ello, se prueba a asignar a /true/ la variable =cofreLleno= de cada cofre, y se observa si solo una de esas asignaciones es posible.
+- Se pueden probar todas las posiblidades cierto-falso de las inscripciones. Si para cualquier combinación posible la caja llena es siempre la misma (o la caja vacía, si es lo que se busca), esa es la solución.
+
+La función =CPAllPosibilies= da valor a las variables pasadas, y devuelve un array con todas las combinaciones que no han resultado incoherentes (dejando alguna variable o expresión con el dominio vacío)
+
+#+caption: Solucionador general de los problemas de Porcia
 #+begin_src javascript
+function porcia(cofres,buscarCofreLleno){
+    const CP = cofres[0].manager;
+
+    // POSIBILIDADES DE LLENADO DE CAJAS
+    const llenos = cofres.map( c=> c.cofreLleno);
+    const posibilidadesLlenos = CPAllPosibilities(llenos);
+    if( posibilidadesLlenos.length == 1 ){
+        const indice = posibilidadesLlenos[0].indexOf(buscarCofreLleno);
+        if( indice < 0 ){
+            return { error: "No se encuentra el cofre en la única combinación posible", cofre: undefined };
+        }
+        return {error: undefined, cofre: cofres[indice] };
+    }
+
+    // POSIBILIDADES DE INSCRIPCIONES CIERTAS
+    const inscripciones = cofres.
+          map(c=>c.inscripciones).
+          reduce( (accum,value) => accum.concat(value) );
+    const posibilidadesInscripciones = CPAllPosibilities(inscripciones,llenos);
+    if( posibilidadesInscripciones.length < 1 ){
+        return { error: "No hay ninguna posibilidad en las inscripciones", cofre: undefined };
+    }
+    for( let indice = 0 ; indice < cofres.length ; indice++ ){
+        const lleno = posibilidadesInscripciones.map( p => p[indice] );
+        if( lleno.every( b => b == buscarCofreLleno ) ){
+            return {error: undefined, cofre: cofres[indice] };
+        }
+    }
+    return { error: "No hay ninguna posibilidad válida en las inscripciones", cofre: undefined };
+}
+#+end_src
+
+
+* Problemas resueltos
+
+
+
+** Primer problema
+#+html: <problemaporciaysolucionresuelta>
+#+begin_src javascript
+function porciaI(){
     let CP = new CPManager();
     let cofres = Cofre.creaCofres(CP,["Oro","Plata","Plomo"]);
     let [cofreOro,cofrePlata,cofrePlomo] = cofres;
@@ -171,14 +278,45 @@ era verdad. ¿Cuál cofre debe de elegir el pretendiente?
     CP.SomeTrue(cofres.map(c=>c.inscripciones[0]),0,1).
         rename( "Como mucho una inscripcion es cierta").
         asTrue();
+
+    const solucion = porcia(cofres,true);
+    console.log("Se debe elegir el cofre:" + solucion.cofre.nombre);
+}
 #+end_src
-#+html: </problemaporciaysolucion>
+#+BEGIN_QUOTE
+
+En /El mercader de Venecia/, de Shakespeare, Porcia tenia tres cofres
+---uno de oro, otro de plata y otro de plomo---, dentro de uno de los
+cuales estaba el retrato de Porcia. El pretendiente tenía que elegir uno
+de los cofres y si tenía suerte (o inteligencia) elegiría el que tenía
+el retrato, pudiendo así pedir a Porcia por esposa. En la tapa de cada
+cofre había una inscripción para ayudar al pretendiente a elegir
+sabiamente.
+
+Pero supongamos que Porcia quisiera elegir marido, no por su bondad,
+sino por su inteligencia. Tendría las siguientes inscripciones en los
+cofres:
 
 
+| Oro                           | 
+| EL RETRATO ESTÁ EN ESTE COFRE | 
+
+| Plata                   |
+| EL RETRATO NO ESTÁ AQUÍ |
 
 
+| Plomo                                 |
+| EL RETRATO NO ESTÁ EN EL COFRE DE ORO |
 
 
+Porcia explicó al pretendiente que de los tres enunciados, a lo sumo uno
+era verdad. ¿Cuál cofre debe de elegir el pretendiente?
+
+#+END_QUOTE
+#+BEGIN_EXAMPLE
+Se debe elegir el cofre:Plata
+#+END_EXAMPLE
+#+html: </problemaporciaysolucionresuelta>
 
 
 
@@ -195,5 +333,6 @@ era verdad. ¿Cuál cofre debe de elegir el pretendiente?
 
 
 #+html_head: <script src="./tabthis.js"></script>
-#+html: <script>tabElements("problemaporciaysolucion")</script>
+#+html: <script>tabElements("problemaporciaysolucion",["Implementación","Enunciado"])</script>
+#+html: <script>tabElements("problemaporciaysolucionresuelta",["Implementación","Enunciado","Solución"])</script>
 #+html_head: <link rel="stylesheet" href="./tabthis.css"/>
