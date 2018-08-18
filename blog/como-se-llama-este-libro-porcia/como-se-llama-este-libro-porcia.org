@@ -11,7 +11,7 @@
 #+DESCRIPTION: En "¿Cómo se llama este libro?" se describen muchos problemas lógicos. Los de las cajas de Porcia pueden resolverse con programación por restricciones.
 
 
-Todo el [[https://github.com/alvarogonzalezsotillo/cluedo][código al que se hace referencia]] en esta entrada está disponible en [[https://github.com/alvarogonzalezsotillo/cluedo][un repositorio Github]]
+Todo el [[https://github.com/alvarogonzalezsotillo/cluedo/blob/master/js/ejemplos-porcia.js][código al que se hace referencia]] en esta entrada está disponible en [[https://github.com/alvarogonzalezsotillo/cluedo][un repositorio Github]]
 
 * Problemas de cajas de Porcia
 
@@ -50,10 +50,10 @@ era verdad. ¿Cuál cofre debe de elegir el pretendiente?
 #+END_QUOTE
 
 
-Este problema puede resolverse utlizando como motor lógico el ya implementado para [[../../../blog/el-cluedo-como-problema-de-logica][resolver el cluedo]].
+Este problema puede resolverse utilizando como motor lógico el ya implementado para [[../../../blog/el-cluedo-como-problema-de-logica][resolver el cluedo]].
 
 * Motor lógico 
-- Motor: El motor de programación por restricciones (Constraint Programming) se encarga de crear y almacenar las variables y las restricciones
+- Motor: El motor de [[https://es.wikipedia.org/wiki/Programaci%25C3%25B3n_con_restricciones][programación por restricciones]] se encarga de crear y almacenar las variables y las restricciones
   #+begin_src javascript
 
   const manager = new CPManager();
@@ -107,7 +107,7 @@ Este problema puede resolverse utlizando como motor lógico el ya implementado p
 
 Cada cofre tiene un nombre y una variable booleana que indica si contiene o no algo. Posteriormente a su creación se le pueden añadir varias inscripciones.
 
-#+caption: Incio de la clase =Cofre=
+#+caption: Inicio de la clase =Cofre=
 #+begin_src javascript
 class Cofre{
     constructor(manager,nombre){
