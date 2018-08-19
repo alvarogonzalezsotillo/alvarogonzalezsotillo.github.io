@@ -72,26 +72,36 @@ function tabThisCSSElement(){
 }
 
 function tabThis(elem,names){
+    log( "tabThis --> ");
     const childs = elem.childNodes;
-    console.log(childs);
+    log( " " + childs);
     let c = 0;
 
     const createDiv = function(clazz){
+        log( "creo div:" + clazz );
         const ret = document.createElement("div");
+        log( "div creada:" + ret );
         ret.classList.add(clazz);
+        log( "div con class puesta:" + ret.classList );
         return ret;
     };
 
 
     const tabs = [];
     childs.forEach( c => c.nodeType == 1 ? tabs.push(c) : undefined );
+    log( "  tabs:" + childs );
     const buttons = new Array(childs.length);
+    log( "  buttons vacío:" + buttons );
 
     const tabButtonsBar = createDiv("tab-buttons-bar");
-    elem.append(tabButtonsBar);
+    log( "  tabButtonsBar:" + tabButtonsBar );
+    elem.appendChild(tabButtonsBar);
+    log( "  tabButtonsBar añadido");
 
     const tabContents = createDiv("tab-contents");
-    elem.append(tabContents);
+    log( "  tabContents:" + tabContents );
+    elem.appendChild(tabContents);
+    log( "  tabContents añadido");
 
     const tabButtonListener = function(button,tab){
         return function(){
@@ -104,16 +114,16 @@ function tabThis(elem,names){
         };
     };
 
-   
+    log( "  creo tab");
     tabs.forEach( function(tab){
         const name = names[c];
-        console.log( tab + " -- " + name );
+        log( tab + " -- " + name );
         tab.classList.add("tab-page");
-        tabContents.append(tab);
+        tabContents.appendChild(tab);
 
         const button = createDiv("tab-button");
         button.innerHTML = name;
-        tabButtonsBar.append(button);
+        tabButtonsBar.appendChild(button);
         button.onclick = tabButtonListener(button,tab);
         buttons[c] = button;
 
@@ -132,6 +142,11 @@ function tabElements(elementName,tabNames){
     const elements = document.getElementsByTagName(elementName);
     for( let i = 0 ; i < elements.length ; i++ ){
         const e = elements[i];
+        log( elementName + " " + e );
         tabThis(e,tabNames);
     }
+}
+
+function log(s){
+    //document.write("<p>" + s );
 }
