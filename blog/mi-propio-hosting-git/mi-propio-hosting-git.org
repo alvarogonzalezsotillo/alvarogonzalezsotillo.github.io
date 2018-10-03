@@ -1,0 +1,41 @@
+#+TITLE:       Mi propio hosting git
+#+AUTHOR:      Álvaro González Sotillo
+#+EMAIL:       alvarogonzalezsotillo@gmail.com
+#+DATE:        1028-10-02 
+#+URI:         /blog/mi-propio-hosting-git
+#+KEYWORDS:    git
+#+TAGS:        git
+#+LANGUAGE:    es
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: La nube es el ordenador de otro. Ya que utilizo git para mis archivos en línea, tiene sentido que mi nube sea mi ordenador
+
+
+En una entrada anterior expliqué cómo utilizo [[../../../blog/mi-publicaci%C3%B3n-de-materiales-para-clase][hostings de git gratuitos para distribuir mis materiales]] de clase.
+
+
+Ya que instalé un [[../../../blog/ordenador-de-sobremesa-servidor-htpc][pc en casa para hacer de servidor]], he decido aprovecharlo también para tenerr mis repositorios git.
+
+Hay muchos tutoriales de como conseguir un repositorio git a través de ssh, yo me fijé en uno de [[https://www.systutorials.com/366/set-up-git-server-through-ssh-connection/][systutorials]]
+
+1. Crear un usuario dedicado (=git=), de forma que se puedan restringir sus privilegios sobre el sistema
+   - Es recomendable que, en vez de una shell general, utilice [[https://git-scm.com/docs/git-shell][git-shell]]. Así no puede realizar acciones que no estén relacionadas con git.
+   - Para mayor seguridad, será un usuario sin contraseña, y sólo se podrá conectar a través de [[https://www.tecmint.com/ssh-passwordless-login-using-ssh-keygen-in-5-easy-steps/][SSH con una clave público-privada]].
+2. El usuario =git= tendrá en su =$HOME= un directorio por repositorio. No será un repositorio corriente, ya que no interesa tener una copia de trabajo, sino uno del tipo [[http://www.saintsjd.com/2011/01/what-is-a-bare-git-repository/][bare]].
+
+   #+begin_src sh
+   sudo -u git bash # El usuario git no tiene shell
+   cd $HOME
+   mkdir repositorio.git
+   cd repositorio.git
+   git --bare init
+   #+end_src
+
+3. Desde el ordenador cliente, ya se puede añadir el repositorio remoto. La URL tiene la forma =usuario@host:/camino/al/directorio/=
+   #+begin_src sh
+   git remote add mihosting git@alvarogonzalez.no-ip.biz:/home/git/repositorio.git
+   git push mihosting master
+   #+end_src
+
+4. El diagrama de mis servicios de ficheros en la nube queda así
+
+[[file:mi-propio-hosting-git.svg]]

@@ -8,7 +8,7 @@ Esta es una página del tipo /Acerca de mí/. Seguramente prefieras [[file:../bl
 #+attr_html: :width 40% :align left :style padding:10px;border-radius:20px;
 [[file:lego-con-imanes.jpg]]
 
-Estudié ingeniería informática. Trabajé en soporte, ingeniería, programación, consultoría y dirección de proyectos (bueno, un proyecto). Mi paso por la empresa privada puede resumirse en /conseguir que los ordenadores hiciesen lo que me hacía falta para irme a casa a las 18:30/.
+Estudié ingeniería informática. Trabajé en soporte, ingeniería, programación, consultoría y dirección de proyectos (en realidad, un proyecto). Mi paso por la empresa privada puede resumirse en /conseguir que los ordenadores hiciesen lo que me hacía falta para irme a casa a las 18:30/.
 
 Ahora me dedico a la enseñanza. Conseguir que los alumnos consigan que los ordenadores hagan lo que les haga falta para irse a casa a las 18:30 es bastante más difícil.
 
