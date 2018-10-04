@@ -4,15 +4,29 @@
     <title>Álvaro González Sotillo</title>
     <link>https://alvarogonzalezsotillo.github.io/</link>
     <description></description>
-    <pubDate>dom, 19 ago 2018 13:17:44 CEST</pubDate>
-    <lastBuildDate>dom, 19 ago 2018 13:17:44 CEST</lastBuildDate>
+    <pubDate>jue, 04 oct 2018 11:29:51 CEST</pubDate>
+    <lastBuildDate>jue, 04 oct 2018 11:29:51 CEST</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
+    <item>
+      <title>Mi propio hosting git</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/mi-propio-hosting-git</link>
+      <description><![CDATA[La nube es el ordenador de otro. Ya que utilizo git para mis archivos en línea, tiene sentido que mi nube sea mi ordenador]]></description>
+      <pubDate>2018-10-04</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/mi-propio-hosting-git</guid>
+    </item>
+    <item>
+      <title>Cómo publico materiales para clase</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/mi-publicacion-de-materiales-para-clase</link>
+      <description><![CDATA[Los materiales que preparamos los profesores se distribuyen entre los alumnos mediante plataformas de aprendizaje como Moodle. Lo interesante es cómo llegan esos materiales a la plataforma.]]></description>
+      <pubDate>2018-10-04</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/mi-publicacion-de-materiales-para-clase</guid>
+    </item>
     <item>
       <title>Problemas lógicos de cajas en ¿Cómo se llama este libro?</title>
       <link>https://alvarogonzalezsotillo.github.io/blog/como-se-llama-este-libro-porcia</link>
       <description><![CDATA[En "¿Cómo se llama este libro?" se describen muchos problemas lógicos. Los de las cajas de Porcia pueden resolverse con programación por restricciones.]]></description>
-      <pubDate>2018-08-18</pubDate>
+      <pubDate>2018-09-11</pubDate>
       <guid>https://alvarogonzalezsotillo.github.io/blog/como-se-llama-este-libro-porcia</guid>
     </item>
     <item>
@@ -63,20 +77,6 @@
       <description><![CDATA[Ajuste de ecuaciones moleculares en Scalajs con el método algebarico.]]></description>
       <pubDate>2018-04-09</pubDate>
       <guid>https://alvarogonzalezsotillo.github.io/blog/ajuste-de-ecuaciones-moleculares</guid>
-    </item>
-    <item>
-      <title>Cómo preparo mi entorno con Emacs</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/como-preparo-mi-entorno-con-emacs</link>
-      <description><![CDATA[Cada vez que llego a un nuevo ordenador tengo que preparar mi entorno, y se puede hacer fácilmente con un par de /scripts/]]></description>
-      <pubDate>2018-04-09</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/como-preparo-mi-entorno-con-emacs</guid>
-    </item>
-    <item>
-      <title>Test de Bongard</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/test-de-bongard</link>
-      <description><![CDATA[A pesar de ser jugador de videojuegos y programador durante años, nunca había hecho uno. Los tests de Bongard me dan una buena oportunidad de programar uno.]]></description>
-      <pubDate>2018-04-09</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/test-de-bongard</guid>
     </item>
   </channel>
 </rss>
