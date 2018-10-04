@@ -13,7 +13,7 @@
 En una entrada anterior expliqué cómo utilizo [[../../../blog/mi-publicacion-de-materiales-para-clase][hostings de git gratuitos para distribuir mis materiales]] de clase.
 
 
-Ya que instalé un [[../../../blog/ordenador-de-sobremesa-servidor-htpc][pc en casa para hacer de servidor]], he decido aprovecharlo también para tenerr mis repositorios git.
+Ya que instalé un [[../../../blog/ordenador-de-sobremesa-servidor-htpc][pc en casa para hacer de servidor]], he decido aprovecharlo también para tener mis repositorios git.
 
 Hay muchos tutoriales de como conseguir un repositorio git a través de ssh, yo me fijé en uno de [[https://www.systutorials.com/366/set-up-git-server-through-ssh-connection/][systutorials]]
 
