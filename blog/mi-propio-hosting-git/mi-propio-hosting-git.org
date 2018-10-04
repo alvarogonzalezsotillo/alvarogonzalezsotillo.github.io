@@ -1,7 +1,7 @@
 #+TITLE:       Mi propio hosting git
 #+AUTHOR:      Álvaro González Sotillo
 #+EMAIL:       alvarogonzalezsotillo@gmail.com
-#+DATE:        1028-10-02 
+#+DATE:        2018-10-02 
 #+URI:         /blog/mi-propio-hosting-git
 #+KEYWORDS:    git
 #+TAGS:        git
@@ -10,7 +10,7 @@
 #+DESCRIPTION: La nube es el ordenador de otro. Ya que utilizo git para mis archivos en línea, tiene sentido que mi nube sea mi ordenador
 
 
-En una entrada anterior expliqué cómo utilizo [[../../../blog/mi-publicaci%C3%B3n-de-materiales-para-clase][hostings de git gratuitos para distribuir mis materiales]] de clase.
+En una entrada anterior expliqué cómo utilizo [[../../../blog/mi-publicacion-de-materiales-para-clase][hostings de git gratuitos para distribuir mis materiales]] de clase.
 
 
 Ya que instalé un [[../../../blog/ordenador-de-sobremesa-servidor-htpc][pc en casa para hacer de servidor]], he decido aprovecharlo también para tenerr mis repositorios git.
