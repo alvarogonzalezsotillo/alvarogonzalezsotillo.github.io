@@ -1,7 +1,7 @@
 #+TITLE:       Palabras anagramadas
 #+AUTHOR:      Álvaro González Sotillo
 #+EMAIL:       alvarogonzalezsotillo@gmail.com
-#+DATE:        2017-10-17 mar
+#+DATE:        2018-10-06
 #+URI:         /blog/palabras-anagramadas
 #+KEYWORDS:    scala,rne,anagramas
 #+TAGS:        scala,rne,anagramas
