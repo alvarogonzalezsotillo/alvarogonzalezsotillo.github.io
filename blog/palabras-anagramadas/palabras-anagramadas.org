@@ -1,0 +1,195 @@
+#+TITLE:       Palabras anagramadas
+#+AUTHOR:      Álvaro González Sotillo
+#+EMAIL:       alvarogonzalezsotillo@gmail.com
+#+DATE:        2017-10-17 mar
+#+URI:         /blog/palabras-anagramadas
+#+KEYWORDS:    scala,rne,anagramas
+#+TAGS:        scala,rne,anagramas
+#+LANGUAGE:    es
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: En casa somos fans del concurso de Palabras Anagramadas del programa de radio No Es Un Día Cualquiera.
+
+
+#+caption: La clase =Palabra= normaliza su representación (acentos, espacios, mayúsculas) y calcula su histograma de frecuencias de letras
+#+begin_src scala
+  type Histograma = Map[Char, Int]
+
+  case class Palabra(p: String) {
+
+    import scala.concurrent.ExecutionContext.Implicits.global
+
+    private def quitaAcentosYEspacios(s: String): String = {
+      val acentos = Map(
+        'á' -> 'a',
+        'é' -> 'e',
+        'í' -> 'i',
+        'ó' -> 'o',
+        'ú' -> 'u',
+        'ü' -> 'u'
+      )
+      val sinAcentos = s.toLowerCase.map(c => if (acentos.isDefinedAt(c)) acentos(c) else c)
+      sinAcentos.replace(" ", "" )
+    }
+
+    lazy val size = palabra.size
+    lazy val palabra = quitaAcentosYEspacios(p)
+
+    lazy val histograma : Histograma = {
+      val ret = palabra.groupBy(c => c)
+      ret.map { case (c, set) => (c, set.size) }
+    }
+  }
+#+end_src
+
+
+
+#+caption: Lectura de las 300000 =Palabra= más frecuentes, agrupadas por su longitud
+#+begin_src scala
+  val palabras: Map[Int, Array[Palabra]] = cronometro("Lectura de palabras"){
+
+    val iterator = new Iterator[String] {
+
+      val palabrasFile = "./CREA_total.TXT"
+
+      val scanner = new Scanner(new FileInputStream(palabrasFile), "latin1")
+      val regex = """(?:\s*)(?:(\d|\.)*)(?:\s*)(\S*).*""".r
+
+      def hasNext = scanner.hasNextLine()
+
+      def next = {
+        val line = scanner.nextLine()
+        regex.findAllMatchIn(line).next.subgroups(1)
+      }
+    }
+
+    val limite = 300000
+    val todas = iterator.take(limite).map(p => Palabra(p)).toArray.sortBy(_.palabra)
+    val ret = todas.groupBy(p => p.size)
+
+    // COMO PALABRAS DE UNA SOLA LETRA, DEJAMOS SOLO a,o,y
+    ret.updated(1, Array("a", "o", "y").map(Palabra(_)))
+  }
+#+end_src
+
+
+#+caption: Búsqueda de las =Palabra= con el mismo histograma que una dada
+#+begin_src scala
+  def buscaCoincidenciaExacta(buscado: Palabra) = {
+    palabras(buscado.palabra.size).view.filter( _.histograma == buscado.histograma )
+  }
+#+end_src
+
+
+#+caption: Búsqueda de las =Palabra= con el mismo histograma que las combinaciones de palabras de una frase que tengan cierta longitud
+#+begin_src scala
+  def buscaExactoEnFrase( frase: String, letras: Int ) ={
+
+    val f = frase.split("""\s+""")
+
+    val combinacionesDePalabrasConLetras = {
+      for (from <- (0 to f.size).view;
+        until <- (from to f.size).view;
+        slice = f.slice(from, until) if slice.map(_.size).sum == letras) yield {
+        slice.mkString
+      }
+    }
+
+    for (c <- combinacionesDePalabrasConLetras;
+      palabra = Palabra(c);
+      p <- buscaCoincidenciaExacta(palabra)) yield {
+      p
+    }
+  }
+#+end_src
+
+#+caption: Resolución de las pistas
+#+begin_src scala
+  def resuelvePista( pista : (String,Any) ) = {
+      pista match{
+        // LA ULTIMA PALABRA SE CONSIGUE CON EL INICIO Y FIN DE LAS TRES PRIMERAS 
+        case (msg, a:Array[String]) =>
+          val palabras = a.take(3)
+          println( s"${msg.toUpperCase}: Con inicio y fin de ${palabras.mkString(",")}" );
+          val s = palabras.map( p => p.head.toString + p.last.toString ).mkString
+          val p = Palabra(s);
+          for (c <- buscaCoincidenciaExacta(p)) {
+            println("  " + c)
+          }
+
+        // NOS DAN UNA PALABRA PARA EL ANAGRAMA  
+        case (msg,p:Palabra) =>
+          println( s"${msg.toUpperCase}: Con anagrama $p" );
+          for (c <- buscaCoincidenciaExacta(p)) {
+            println("  " + c)
+          }
+
+        // EL ANAGRAMA ESTÁ EN LA DEFINICIÓN, NOS DAN EL NÚMERO DE LETRAS  
+        case (frase,size:Int) =>
+          println( s"${frase.toUpperCase}: Anagrama en la fase, longitud $size" );
+          for (c <- buscaExactoEnFrase(frase, size) ) {
+            println("  " + c)
+          }
+
+        case _ =>
+          throw new Error("Se espera String->Palabra, String->Int o String->Array[String]" )
+      }
+  }
+#+end_src
+
+
+#+caption: Concurso del día 6 de Octubre del 2018
+#+begin_src scala
+  def dia2018_10_06(){
+    println( "************ 6 octubre 2018");
+
+    val pistas = Seq(
+      "Vino de Francia" -> Palabra("piromántico"),
+      "Rediseña la licorería para poder albergar buenos recuerdos" -> 9 ,
+      "Vivir de administrar los remanentes de forma adecuada" -> 10,
+      "Trabaja de cara a la galería" -> Array("importación","relicario","mantenerse")   
+    );
+
+    pistas.foreach( resuelvePista );
+  }
+
+  def cronometro[T](msg: String)( proc : => T ) = {
+    val ini = System.currentTimeMillis()
+    val ret = proc
+    val fin = System.currentTimeMillis()
+    println( s"$msg: ${fin-ini} ms" )
+    ret
+  }
+
+  cronometro("Solución"){
+    dia2018_10_06()
+  }
+
+#+end_src
+
+
+#+begin_example
+,************ 6 octubre 2018
+VINO DE FRANCIA: Con anagrama Palabra(piromántico)
+  Palabra(importación)
+  Palabra(importacion)
+  Palabra(patronímico)
+REDISEÑA LA LICORERÍA PARA PODER ALBERGAR BUENOS RECUERDOS: Anagrama en la fase, longitud 9
+  Palabra(licorería)
+  Palabra(relicario)
+  Palabra(preparado)
+  Palabra(recuerdos)
+VIVIR DE ADMINISTRAR LOS REMANENTES DE FORMA ADECUADA: Anagrama en la fase, longitud 10
+  Palabra(mantenerse)
+  Palabra(remanentes)
+TRABAJA DE CARA A LA GALERÍA: Con inicio y fin de importación,relicario,mantenerse
+  Palabra(merino)
+  Palabra(minero)
+  Palabra(minore)
+Solución: 278 ms
+
+#+end_example
+
+
+
+
+
