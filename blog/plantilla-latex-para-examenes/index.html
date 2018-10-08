@@ -17,6 +17,7 @@
         <p></p>
         <ul>
           <li><a href="/blog/">Blog</a></li>
+          <li><a href="/hugo/">Hugo</a></li>
           <li><a href="/tags/">Tags</a></li>
           <li><a href="/about/">Acerca de mí</a></li>
           <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
@@ -37,9 +38,9 @@
 Desde hace un tiempo utilizo Latex para escribir mis exámenes. Al final he creado una plantilla con varias macros de Latex para facilitar la creación preguntas cerradas (de tipo <i>test</i>), preguntas abiertas de distinta longitud, y una tabla de respuestas inicial. Se puede <a href="/assets/blog/plantilla-latex-para-examenes/plantilla-latex-para-examenes.tex">descargar la plantilla</a> o verse <a href="/assets/blog/plantilla-latex-para-examenes/ejemplo.pdf">un ejemplo de la apariencia final de los examenes</a>.
 </p>
 
-<div id="outline-container-org49268c9" class="outline-2">
-<h2 id="org49268c9">Primera página</h2>
-<div class="outline-text-2" id="text-org49268c9">
+<div id="outline-container-org09bd6d1" class="outline-2">
+<h2 id="org09bd6d1">Primera página</h2>
+<div class="outline-text-2" id="text-org09bd6d1">
 <p>
 En la primera página del examen se incluye un cuadro para la identificación del alumno, la tabla de respuestas para las preguntas cerradas y las instrucciones del examen.
 </p>
@@ -83,9 +84,9 @@ Todos estos parámetros se especifican en la llamada a <code>FirstPage</code>
 </div>
 </div>
 
-<div id="outline-container-org0441025" class="outline-2">
-<h2 id="org0441025">Preguntas cerradas</h2>
-<div class="outline-text-2" id="text-org0441025">
+<div id="outline-container-org5379515" class="outline-2">
+<h2 id="org5379515">Preguntas cerradas</h2>
+<div class="outline-text-2" id="text-org5379515">
 <p>
 Las preguntas cerradas son las que tienen un enunciado y varias opciones a elegir, de las cuales solo una es correcta. 
 </p>
@@ -130,9 +131,9 @@ las preguntas aparecerán numeradas. Para aprovechar el espacio en el papel las 
 </div>
 </div>
 
-<div id="outline-container-org98e40f1" class="outline-2">
-<h2 id="org98e40f1">Preguntas abiertas</h2>
-<div class="outline-text-2" id="text-org98e40f1">
+<div id="outline-container-org6e835d5" class="outline-2">
+<h2 id="org6e835d5">Preguntas abiertas</h2>
+<div class="outline-text-2" id="text-org6e835d5">
 <p>
 Para las preguntas abiertas, en las que los alumnos deben desarrollar una respuesta, se pueden utilizar varios entornos dependiendo de la extensión de página que se espera ocupe dicha respuesta:
 </p>
@@ -165,9 +166,9 @@ Para las preguntas abiertas, en las que los alumnos deben desarrollar una respue
 </div>
 </div>
 
-<div id="outline-container-org8b92801" class="outline-2">
-<h2 id="org8b92801">Extras</h2>
-<div class="outline-text-2" id="text-org8b92801">
+<div id="outline-container-orgbb91f21" class="outline-2">
+<h2 id="orgbb91f21">Extras</h2>
+<div class="outline-text-2" id="text-orgbb91f21">
 <p>
 Los ficheros <code>pdf</code> creados tienen varias características interesantes
 </p>
@@ -186,9 +187,9 @@ Todo esto puede consultarse en el <a href="/assets/blog/plantilla-latex-para-exa
 </div>
 </div>
 
-<div id="outline-container-org8186e32" class="outline-2">
-<h2 id="org8186e32">Generación automática de exámenes</h2>
-<div class="outline-text-2" id="text-org8186e32">
+<div id="outline-container-org96398dc" class="outline-2">
+<h2 id="org96398dc">Generación automática de exámenes</h2>
+<div class="outline-text-2" id="text-org96398dc">
 <p>
 No suelo utilizar directamente esta plantilla, sino que un programa traduce un fichero <code>gift</code> a código <code>tex</code> con esta plantilla. Puede consultarse el código de este programa en <a href="https://github.com/alvarogonzalezsotillo/grading-questionnaire">https://github.com/alvarogonzalezsotillo/grading-questionnaire</a>. Este es el enlace a <a href="https://github.com/alvarogonzalezsotillo/grading-questionnaire/blob/master/questionnaire-from-gift/src/main/resources/giftToLatex/QuestionnaireGradingTest.template.tex">la última versión de la plantilla</a>.
 </p>

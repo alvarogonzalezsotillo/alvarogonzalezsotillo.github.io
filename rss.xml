@@ -4,23 +4,30 @@
     <title>Álvaro González Sotillo</title>
     <link>https://alvarogonzalezsotillo.github.io/</link>
     <description></description>
-    <pubDate>jue, 04 oct 2018 11:37:57 CEST</pubDate>
-    <lastBuildDate>jue, 04 oct 2018 11:37:57 CEST</lastBuildDate>
+    <pubDate>lun, 08 oct 2018 12:18:17 CEST</pubDate>
+    <lastBuildDate>lun, 08 oct 2018 12:18:17 CEST</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
     <item>
       <title>Mi propio hosting git</title>
       <link>https://alvarogonzalezsotillo.github.io/blog/mi-propio-hosting-git</link>
       <description><![CDATA[La nube es el ordenador de otro. Ya que utilizo git para mis archivos en línea, tiene sentido que mi nube sea mi ordenador]]></description>
-      <pubDate>2018-10-04</pubDate>
+      <pubDate>2018-10-08</pubDate>
       <guid>https://alvarogonzalezsotillo.github.io/blog/mi-propio-hosting-git</guid>
     </item>
     <item>
       <title>Cómo publico materiales para clase</title>
       <link>https://alvarogonzalezsotillo.github.io/blog/mi-publicacion-de-materiales-para-clase</link>
       <description><![CDATA[Los materiales que preparamos los profesores se distribuyen entre los alumnos mediante plataformas de aprendizaje como Moodle. Lo interesante es cómo llegan esos materiales a la plataforma.]]></description>
-      <pubDate>2018-10-04</pubDate>
+      <pubDate>2018-10-08</pubDate>
       <guid>https://alvarogonzalezsotillo.github.io/blog/mi-publicacion-de-materiales-para-clase</guid>
+    </item>
+    <item>
+      <title>Palabras anagramadas</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/palabras-anagramadas</link>
+      <description><![CDATA[En casa somos fans del concurso de Palabras Anagramadas del programa de radio No Es Un Día Cualquiera.]]></description>
+      <pubDate>2018-10-07</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/palabras-anagramadas</guid>
     </item>
     <item>
       <title>Problemas lógicos de cajas en ¿Cómo se llama este libro?</title>
@@ -70,13 +77,6 @@
       <description><![CDATA[BitTorrent es un protocolo p2p para el intercambio de ficheros. Se suele asociar a descargas ilegales, pero puede ser muy útil en el aula de informática.]]></description>
       <pubDate>2018-04-09</pubDate>
       <guid>https://alvarogonzalezsotillo.github.io/blog/bittorent-en-el-aula</guid>
-    </item>
-    <item>
-      <title>Ajuste de ecuaciones moleculares</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/ajuste-de-ecuaciones-moleculares</link>
-      <description><![CDATA[Ajuste de ecuaciones moleculares en Scalajs con el método algebarico.]]></description>
-      <pubDate>2018-04-09</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/ajuste-de-ecuaciones-moleculares</guid>
     </item>
   </channel>
 </rss>

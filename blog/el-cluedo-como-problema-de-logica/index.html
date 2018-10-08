@@ -17,6 +17,7 @@
         <p></p>
         <ul>
           <li><a href="/blog/">Blog</a></li>
+          <li><a href="/hugo/">Hugo</a></li>
           <li><a href="/tags/">Tags</a></li>
           <li><a href="/about/">Acerca de mí</a></li>
           <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
@@ -75,24 +76,24 @@ Se puede acceder a una <a href="https://alvarogonzalezsotillo.github.io/cluedo/c
 
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org200508b">1. Variables lógicas</a></li>
-<li><a href="#orgcf455f9">2. Expresiones lógicas</a></li>
-<li><a href="#org22c3585">3. Programación por restricciones</a>
+<li><a href="#orgcc5be28">1. Variables lógicas</a></li>
+<li><a href="#orgb244142">2. Expresiones lógicas</a></li>
+<li><a href="#org43cc953">3. Programación por restricciones</a>
 <ul>
-<li><a href="#orga3f1bc6">3.1. Variables</a></li>
-<li><a href="#org37b331b">3.2. Expresiones</a></li>
-<li><a href="#org85be8e2">3.3. Restricciones</a></li>
-<li><a href="#orgce0c696">3.4. Propagación</a></li>
-<li><a href="#org5f7662d">3.5. Prueba y error (<i>branch and bound</i>)</a></li>
+<li><a href="#orgebbcc2c">3.1. Variables</a></li>
+<li><a href="#org0cc6e1b">3.2. Expresiones</a></li>
+<li><a href="#org8956ee2">3.3. Restricciones</a></li>
+<li><a href="#orga82b32b">3.4. Propagación</a></li>
+<li><a href="#org6f912f5">3.5. Prueba y error (<i>branch and bound</i>)</a></li>
 </ul>
 </li>
-<li><a href="#orge7fd6b9">4. Implementación</a></li>
+<li><a href="#orgca983c8">4. Implementación</a></li>
 </ul>
 </div>
 
 
-<div id="outline-container-org200508b" class="outline-2">
-<h2 id="org200508b"><span class="section-number-2">1</span> Variables lógicas</h2>
+<div id="outline-container-orgcc5be28" class="outline-2">
+<h2 id="orgcc5be28"><span class="section-number-2">1</span> Variables lógicas</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Supongamos que hay \(J\) jugadores, \(P\) cartas de personaje, \(H\) cartas de herramientas y \(L\) cartas de lugar. En total habrá \(M=P+H+L\) cartas. El sobre puede considerarse un jugador más (por ejemplo, el número \(0\)). Para cada carta y jugador tendremos en cuenta una variable que indica si ese jugador posee esa carta, \(c_{ij}\), con los subíndices variando entre los posibles valores de jugadores y cartas (\(i \in M, j \in J\)).
@@ -122,8 +123,8 @@ Puede verse que cada una de estas ecuaciones es una <b>restricción</b> que debe
 </div>
 </div>
 
-<div id="outline-container-orgcf455f9" class="outline-2">
-<h2 id="orgcf455f9"><span class="section-number-2">2</span> Expresiones lógicas</h2>
+<div id="outline-container-orgb244142" class="outline-2">
+<h2 id="orgb244142"><span class="section-number-2">2</span> Expresiones lógicas</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 En el punto anterior, se vio que puede modelarse el problema utilizando las funciones lógicas \(\lnot\) (negación), \(\land\) (conjunción), \(\lor\) (disyunción), y una función que cuente si el número de variables con valor \(true\) es un número determinado \(n\), que llamaremos \(V_n()\).
@@ -139,8 +140,8 @@ De estas funciones, sólo \(\lnot\) y \(V_n()\) son primitivas:
 </div>
 </div>
 
-<div id="outline-container-org22c3585" class="outline-2">
-<h2 id="org22c3585"><span class="section-number-2">3</span> Programación por restricciones</h2>
+<div id="outline-container-org43cc953" class="outline-2">
+<h2 id="org43cc953"><span class="section-number-2">3</span> Programación por restricciones</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 La <a href="https://es.wikipedia.org/wiki/Programaci%C3%B3n_con_restricciones">programación por restricciones</a> es una técnica para dar valores a variables de una forma coherente con las restricciones impuestas entre ellas.
@@ -157,8 +158,8 @@ Los elementos de un sistema de programación por restricciones son:
 </ul>
 </div>
 
-<div id="outline-container-orga3f1bc6" class="outline-3">
-<h3 id="orga3f1bc6"><span class="section-number-3">3.1</span> Variables</h3>
+<div id="outline-container-orgebbcc2c" class="outline-3">
+<h3 id="orgebbcc2c"><span class="section-number-3">3.1</span> Variables</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 Las variables tienen un dominio inicial, que es el conjunto de sus valores posibles. Como son variables lógicas, este dominio es \(\{true,false\}\). Es importante señalar que durante la propagación y la búsqueda este dominio nunca se amplía, sino que se reduce. 
@@ -174,8 +175,8 @@ Si alguna variable llega a tener un dominio sin posibles valores (dominio vacío
 </div>
 </div>
 
-<div id="outline-container-org37b331b" class="outline-3">
-<h3 id="org37b331b"><span class="section-number-3">3.2</span> Expresiones</h3>
+<div id="outline-container-org0cc6e1b" class="outline-3">
+<h3 id="org0cc6e1b"><span class="section-number-3">3.2</span> Expresiones</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 Las expresiones pueden verse también como variables. Por ejemplo, si el dominio de \(a\) y \(b\) es \(\{true,false\}\), \(a \land b\) tiene el mismo dominio. Pero si el dominio de \(b\) se reduce a \(\{false\}\), el dominio de \(a \land b\) también se reduce (ya no puede ser \(true\)). Esto hace que una <i>expresión</i> pueda utilizarse como una variable más.
@@ -183,8 +184,8 @@ Las expresiones pueden verse también como variables. Por ejemplo, si el dominio
 </div>
 </div>
 
-<div id="outline-container-org85be8e2" class="outline-3">
-<h3 id="org85be8e2"><span class="section-number-3">3.3</span> Restricciones</h3>
+<div id="outline-container-org8956ee2" class="outline-3">
+<h3 id="org8956ee2"><span class="section-number-3">3.3</span> Restricciones</h3>
 <div class="outline-text-3" id="text-3-3">
 <p>
 Una restricción es una expresión a la que se fija un valor. Por ejemplo, \(a \land b\) es una expresión, pero \(a \land b = false\) se convierte en una restricción. Es importante recalcar que las restricciones <b>eliminan</b> valores del dominio de una variable, por lo que no hay forma de <b>incrementar</b> el dominio.
@@ -192,8 +193,8 @@ Una restricción es una expresión a la que se fija un valor. Por ejemplo, \(a \
 </div>
 </div>
 
-<div id="outline-container-orgce0c696" class="outline-3">
-<h3 id="orgce0c696"><span class="section-number-3">3.4</span> Propagación</h3>
+<div id="outline-container-orga82b32b" class="outline-3">
+<h3 id="orga82b32b"><span class="section-number-3">3.4</span> Propagación</h3>
 <div class="outline-text-3" id="text-3-4">
 <p>
 En la propagación se extraen consecuencias de las expresiones y los dominios de variables. Basta con estudiar \(\lnot\) y \(V_n()\), puesto que las demás pueden basarse en estas.
@@ -204,8 +205,8 @@ Pueden distinguirse dos direcciones en la propagación: desde los elementos de u
 </p>
 </div>
 
-<div id="outline-container-org3306017" class="outline-4">
-<h4 id="org3306017"><span class="section-number-4">3.4.1</span> Propagación hacia <i>arriba</i></h4>
+<div id="outline-container-org444c2ec" class="outline-4">
+<h4 id="org444c2ec"><span class="section-number-4">3.4.1</span> Propagación hacia <i>arriba</i></h4>
 <div class="outline-text-4" id="text-3-4-1">
 <ul class="org-ul">
 <li>Si se elimina \(true\) de \(a\), puede eliminarse \(false\) de \(\lnot a\).</li>
@@ -221,8 +222,8 @@ Pueden distinguirse dos direcciones en la propagación: desde los elementos de u
 </div>
 
 
-<div id="outline-container-orgeb5af9a" class="outline-4">
-<h4 id="orgeb5af9a"><span class="section-number-4">3.4.2</span> Propagación hacia <i>abajo</i></h4>
+<div id="outline-container-org8c58173" class="outline-4">
+<h4 id="org8c58173"><span class="section-number-4">3.4.2</span> Propagación hacia <i>abajo</i></h4>
 <div class="outline-text-4" id="text-3-4-2">
 <ul class="org-ul">
 <li>Si se elimina \(true\) de \(\lnot a\), puede eliminarse \(false\) de \(a\).</li>
@@ -242,8 +243,8 @@ Pueden distinguirse dos direcciones en la propagación: desde los elementos de u
 </div>
 </div>
 
-<div id="outline-container-org5f7662d" class="outline-3">
-<h3 id="org5f7662d"><span class="section-number-3">3.5</span> Prueba y error (<i>branch and bound</i>)</h3>
+<div id="outline-container-org6f912f5" class="outline-3">
+<h3 id="org6f912f5"><span class="section-number-3">3.5</span> Prueba y error (<i>branch and bound</i>)</h3>
 <div class="outline-text-3" id="text-3-5">
 <p>
 El algoritmo de propagación descrito no es capaz de deducir todos los valores posibles por sí mismo. Para mejorarlo, puede seguirse el siguiente procedimiento:
@@ -261,8 +262,8 @@ El algoritmo de propagación descrito no es capaz de deducir todos los valores p
 </div>
 
 
-<div id="outline-container-orge7fd6b9" class="outline-2">
-<h2 id="orge7fd6b9"><span class="section-number-2">4</span> Implementación</h2>
+<div id="outline-container-orgca983c8" class="outline-2">
+<h2 id="orgca983c8"><span class="section-number-2">4</span> Implementación</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 <a href="https://github.com/alvarogonzalezsotillo/cluedo/blob/master/js/cp.js">La implementación del sistema de restricciones para variables booleanas</a> está disponible en <a href="https://github.com/alvarogonzalezsotillo/cluedo/blob/master/js/cp.js">Github</a>, y su interfaz puede verse en <a href="https://github.com/alvarogonzalezsotillo/cluedo/blob/master/js/cp.simple.test.js">varios casos de prueba</a>. 

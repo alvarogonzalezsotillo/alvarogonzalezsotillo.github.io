@@ -17,6 +17,7 @@
         <p></p>
         <ul>
           <li><a href="/blog/">Blog</a></li>
+          <li><a href="/hugo/">Hugo</a></li>
           <li><a href="/tags/">Tags</a></li>
           <li><a href="/about/">Acerca de mí</a></li>
           <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
@@ -56,15 +57,18 @@ En esta entrada describo qué solución utilizo, que combina repositorios Git, t
 
 
 <div class="figure">
-<p><img src="/assets/blog/mi-publicacion-de-materiales-para-clase/materiales-para-clase.svg.png" alt="/assets/blog/mi-publicacion-de-materiales-para-clase/materiales-para-clase.svg.png" />
+<p><object type="image/svg+xml" data="/assets/blog/mi-publicacion-de-materiales-para-clase/materiales-para-clase.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
 </p>
 <p><span class="figure-number">Figura 1: </span>Diagrama de los soportes de información utilizados</p>
 </div>
 
 
-<div id="outline-container-org2ab7fa0" class="outline-2">
-<h2 id="org2ab7fa0">Copias de seguridad</h2>
-<div class="outline-text-2" id="text-org2ab7fa0">
+<object data="/assets/blog/mi-publicacion-de-materiales-para-clase/materiales-para-clase.svg" class="org-svg" style="display:none">A mano</object>
+
+<div id="outline-container-orga158b96" class="outline-2">
+<h2 id="orga158b96">Copias de seguridad</h2>
+<div class="outline-text-2" id="text-orga158b96">
 <p>
 Utilizo tres sistemas de copias de seguridad para el directorio con los ficheros de clase:
 </p>
@@ -76,9 +80,9 @@ Utilizo tres sistemas de copias de seguridad para el directorio con los ficheros
 </div>
 </div>
 
-<div id="outline-container-org6be4502" class="outline-2">
-<h2 id="org6be4502">Publicación de contenidos</h2>
-<div class="outline-text-2" id="text-org6be4502">
+<div id="outline-container-org92615c0" class="outline-2">
+<h2 id="org92615c0">Publicación de contenidos</h2>
+<div class="outline-text-2" id="text-org92615c0">
 <p>
 <a href="https://moodle.org">Moodle</a>  ha mejorado bastante la publicación de ficheros desde la versión anterior, ya que ahora basta <i>arrastrar y soltar</i> para que aparezcan en el curso. De todas formas, sigue siendo engorroso realizar manualmente las actualizaciones, sobre todo si son varias a la vez.
 </p>
@@ -88,9 +92,9 @@ Mi opción es utilizar un servidor intermedio, <a href="https://pages.github.com
 </p>
 </div>
 
-<div id="outline-container-orgfe7613d" class="outline-3">
-<h3 id="orgfe7613d">Repositorios y ramas <b>Git</b></h3>
-<div class="outline-text-3" id="text-orgfe7613d">
+<div id="outline-container-org489aee1" class="outline-3">
+<h3 id="org489aee1">Repositorios y ramas <b>Git</b></h3>
+<div class="outline-text-3" id="text-org489aee1">
 <p>
 Utilizo un solo repositorio para todas las asignaturas (en el pasado tenía uno por asignatura, pero era demasiado farragoso). El repositorio tiene dos ramas
 </p>
@@ -118,9 +122,9 @@ El repositorio tiene dos <i>remote</i>
 </div>
 
 
-<div id="outline-container-orgb6f1345" class="outline-3">
-<h3 id="orgb6f1345">URL de los contenidos</h3>
-<div class="outline-text-3" id="text-orgb6f1345">
+<div id="outline-container-org92cd58d" class="outline-3">
+<h3 id="org92cd58d">URL de los contenidos</h3>
+<div class="outline-text-3" id="text-org92cd58d">
 <p>
 Una vez publicados en <b>Github Pages</b>, basta con utilizar la URL del recurso en Moodle para enlazarlo. Para facilitar la tarea, utilizo un <i>script</i> que imprime las URL de los ficheros pasados como párametro. Suelo utilizarlo desde dentro de Emacs con <code>C-U M-! ghpages *</code>.
 </p>
@@ -164,9 +168,9 @@ done
 </div>
 
 
-<div id="outline-container-org5cc34f6" class="outline-2">
-<h2 id="org5cc34f6">Creación de los materiales</h2>
-<div class="outline-text-2" id="text-org5cc34f6">
+<div id="outline-container-org01dc5f5" class="outline-2">
+<h2 id="org01dc5f5">Creación de los materiales</h2>
+<div class="outline-text-2" id="text-org01dc5f5">
 <p>
 Para disfrutar de las ventajas que <b>git</b> ofrece, utilizo ficheros de texto. Mi opción es el formato <code>org-mode</code>, que me permite sin salir de Emacs:
 </p>
@@ -192,7 +196,7 @@ De todas formas, aún mantengo algunos ficheros binarios
     <div>
       <div class="post-meta">
         <span title="post date" class="post-info">2017-10-25</span>
-        <span title="last modification date" class="post-info">2018-10-04</span>
+        <span title="last modification date" class="post-info">2018-10-08</span>
         <span title="tags" class="post-info"><a href="/tags/latex/">latex</a>, <a href="/tags/emacs/">emacs</a>, <a href="/tags/org-mode/">org-mode</a>, <a href="/tags/reveal/">reveal</a>, <a href="/tags/git/">git</a>, <a href="/tags/github/">github</a>, <a href="/tags/github-pages/">github pages</a></span>
         <span title="author" class="post-info">Álvaro González Sotillo</span>
       </div>
