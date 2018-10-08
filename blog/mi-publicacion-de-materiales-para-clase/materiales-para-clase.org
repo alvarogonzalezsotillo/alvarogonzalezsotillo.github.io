@@ -22,8 +22,11 @@ Este /flujo de trabajo/ se complica porque la creación y los cambios se pueden 
 En esta entrada describo qué solución utilizo, que combina repositorios Git, tecnología /offline/ y servicios gratuitos de Internet.
 
 #+caption: Diagrama de los soportes de información utilizados
-[[file:materiales-para-clase.svg.png]]
+[[file:materiales-para-clase.svg]]
 
+
+# PARA QUE INCLUYA EL SVG, NO LO PILLA LA EXPRESIÓN REGULAR "<[a-zA-Z]+[^/>]+\\(src\\|href\\|data\\)=\"\\([^\"]+\\)\"[^>]*>" DE op-export.el
+#+html: <object data="materiales-para-clase.svg" class="org-svg" style="display:none">A mano</object>
 
 * Copias de seguridad
 Utilizo tres sistemas de copias de seguridad para el directorio con los ficheros de clase:

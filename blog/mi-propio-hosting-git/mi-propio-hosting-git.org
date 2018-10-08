@@ -40,4 +40,7 @@ Hay muchos tutoriales de como conseguir un repositorio git a través de ssh, yo 
 
 4. El diagrama de mis servicios de ficheros en la nube queda así
 
-[[file:mi-propio-hosting-git.png]]
+[[file:mi-propio-hosting-git.svg]]
+
+# PARA QUE INCLUYA EL SVG, NO LO PILLA LA EXPRESIÓN REGULAR "<[a-zA-Z]+[^/>]+\\(src\\|href\\|data\\)=\"\\([^\"]+\\)\"[^>]*>" DE op-export.el
+#+html: <object data="mi-propio-hosting-git.svg" class="org-svg" style="display:none">A mano</object>
