@@ -9,6 +9,8 @@
 #+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 #+DESCRIPTION: En casa somos fans del concurso de Palabras Anagramadas del programa de radio No Es Un Día Cualquiera.
 
+En nuestra casa somos /escuchantes/ del programa [[http://www.rtve.es/radio/no-es-un-dia-cualquiera/][No es un día cualquiera]] de [[http://www.rtve.es/radio/no-es-un-dia-cualquiera/][RNE]]. Nos gustan un motón de secciones: [[http://www.gorkazumeta.com/2015/07/verba-volant-rne-una-seccion-o-un.html][verba volant]], el acabose
+
 
 #+caption: La clase =Palabra= normaliza su representación (acentos, espacios, mayúsculas) y calcula su histograma de frecuencias de letras
 #+begin_src scala
