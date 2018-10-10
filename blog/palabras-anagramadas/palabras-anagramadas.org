@@ -42,9 +42,38 @@
 #+end_src
 
 
+El programa necesita un /vocabulario/ donde buscar las palabras. Una opción sería extraerlas de varios libros gratuitos del Proyecto Gutengberg, pero he encontrado un /corpus/ de la Real Academia de la Lengua con 737799 palabras distintas, ordenadas por frecuencia de uso. 
+
+#+caption: Extractos del fichero =CREA_total.TXT=
+#+begin_example
+     Orden	Frec.absoluta 	 Frec.normalizada 
+     1.	de	9,999,518 	 65545.55 
+     2.	la	6,277,560 	 41148.59 
+     3.	que 	4,681,839 	 30688.85 
+     4.	el	4,569,652 	 29953.48 
+
+[...]
+
+400040.	procañasgordas 	        2	     0.01
+400041.	procapellán	        2	     0.01
+400042.	procapitalista	        2	     0.01
+
+[...]
+
+#+end_example
+
+Para leer las palabras utilizo una expresión regular por cada una de las líneas. Me quedo solo con las primeras 300000 palabras más frecuentes, y las agrupo por longitud.
 
 #+caption: Lectura de las 300000 =Palabra= más frecuentes, agrupadas por su longitud
 #+begin_src scala
+  def cronometro[T](msg: String)( proc : => T ) = {
+    val ini = System.currentTimeMillis()
+    val ret = proc
+    val fin = System.currentTimeMillis()
+    println( s"$msg: ${fin-ini} ms" )
+    ret
+  }
+
   val palabras: Map[Int, Array[Palabra]] = cronometro("Lectura de palabras"){
 
     val iterator = new Iterator[String] {
@@ -71,6 +100,7 @@
   }
 #+end_src
 
+Una vez tengo la lista de palabras, para econtrar los anagramas de una dada basta con buscar las que tienen el mismo histograma de letras. La búsqueda se realiza solo entre las que tienen la misma longitud.
 
 #+caption: Búsqueda de las =Palabra= con el mismo histograma que una dada
 #+begin_src scala
@@ -78,6 +108,8 @@
     palabras(buscado.palabra.size).view.filter( _.histograma == buscado.histograma )
   }
 #+end_src
+
+En algunos casos, el anagrama está formado por más de una palabra en una frase. En la pista no se dice qué palabras forman el anagrama pero se nos da su longitud. La función =buscaExactoEnFrase= busca entre todas las subsecuencias de palabras que sumen tantas letras como la longitud dada.
 
 
 #+caption: Búsqueda de las =Palabra= con el mismo histograma que las combinaciones de palabras de una frase que tengan cierta longitud
@@ -101,6 +133,12 @@
     }
   }
 #+end_src
+
+Cada palabra para adivinar tiene una definición y una pista. La pista (en los concursos que he visto) puede ser de tres tipos
+- Una palabra: La palabra a adivinar es un anagrama de dicha palabra
+- Una longitud: La palabra a adivinar es un anagrama de algunas palabras de la definición, con la longitud especificada
+- La palabra final: Es la de la última definición. Se forma con la letra inicial y final de las tres palabras definidas con anterioridad. El concurso total es de 4 palabras, así que la cuarta siempre tiene 6 letras.
+
 
 #+caption: Resolución de las pistas
 #+begin_src scala
@@ -136,6 +174,7 @@
   }
 #+end_src
 
+Con estas funciones, ya es posible concursar para un día concreto. Por ejemplo, este es el código para participar el 6/oct/2018:
 
 #+caption: Concurso del día 6 de Octubre del 2018
 #+begin_src scala
@@ -152,13 +191,6 @@
     pistas.foreach( resuelvePista );
   }
 
-  def cronometro[T](msg: String)( proc : => T ) = {
-    val ini = System.currentTimeMillis()
-    val ret = proc
-    val fin = System.currentTimeMillis()
-    println( s"$msg: ${fin-ini} ms" )
-    ret
-  }
 
   cronometro("Solución"){
     dia2018_10_06()
@@ -166,9 +198,12 @@
 
 #+end_src
 
+Lo que hago es empezar con las tres primeras pistas, y deduzco las palabras entre las pocas opciones que se encuentran. Con eso, ya puedo introducir la cuarta pista en el programa. La salida del programa es la siguiente:
 
-#+begin_example
-,************ 6 octubre 2018
+#+begin_example sh
+$ time scala palabras-anagramadas.scala 
+Lectura de palabras: 3334 ms
+************ 6 octubre 2018
 VINO DE FRANCIA: Con anagrama Palabra(piromántico)
   Palabra(importación)
   Palabra(importacion)
@@ -185,11 +220,14 @@ TRABAJA DE CARA A LA GALERÍA: Con inicio y fin de importación,relicario,manten
   Palabra(merino)
   Palabra(minero)
   Palabra(minore)
-Solución: 278 ms
-
+Solución: 2341 ms
+scala palabras-anagramadas.scala  15,23s user 0,29s system 94% cpu 16,397 total
 #+end_example
 
-
+En cuanto al rendimiento, el programa tarda aproximadamente:
+- 10 segundos en compilarse y lanzarse 
+- 3 segundos en leer el /corpus/
+- 2 segundos encontrar las soluciones
 
 
 
