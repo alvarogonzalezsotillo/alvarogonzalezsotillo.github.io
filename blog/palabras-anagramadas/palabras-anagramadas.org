@@ -200,10 +200,10 @@ Con estas funciones, ya es posible concursar para un día concreto. Por ejemplo,
 
 Lo que hago es empezar con las tres primeras pistas, y deduzco las palabras entre las pocas opciones que se encuentran. Con eso, ya puedo introducir la cuarta pista en el programa. La salida del programa es la siguiente:
 
-#+begin_example sh
+#+begin_src sh
 $ time scala palabras-anagramadas.scala 
 Lectura de palabras: 3334 ms
-************ 6 octubre 2018
+,************ 6 octubre 2018
 VINO DE FRANCIA: Con anagrama Palabra(piromántico)
   Palabra(importación)
   Palabra(importacion)
@@ -222,12 +222,13 @@ TRABAJA DE CARA A LA GALERÍA: Con inicio y fin de importación,relicario,manten
   Palabra(minore)
 Solución: 2341 ms
 scala palabras-anagramadas.scala  15,23s user 0,29s system 94% cpu 16,397 total
-#+end_example
+#+end_src
 
-En cuanto al rendimiento, el programa tarda aproximadamente:
-- 10 segundos en compilarse y lanzarse 
+En cuanto al rendimiento, en mi =Intel(R) Core(TM) i3-3120M CPU @ 2.50GHz= el programa tarda aproximadamente:
+- 11 segundos en compilarse y lanzarse
 - 3 segundos en leer el /corpus/
 - 2 segundos encontrar las soluciones
+
 
 
 
