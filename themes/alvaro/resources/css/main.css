@@ -596,7 +596,7 @@ div.figure p{
 }
 
 /* ALINEAR LAS FECHAS DEL INDICE DEL BLOG */
-div.post > ul.org-ul > li{
+body.container > div > div.post > ul.org-ul > li:contains("»"){
     text-indent: -6em;
     padding-left: 7em;
 }
