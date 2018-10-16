@@ -9,10 +9,35 @@
 #+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 #+DESCRIPTION: En casa somos fans del concurso de Palabras Anagramadas del programa de radio No Es Un Día Cualquiera.
 
-En nuestra casa somos /escuchantes/ del programa [[http://www.rtve.es/radio/no-es-un-dia-cualquiera/][No es un día cualquiera]] de [[http://www.rtve.es/radio/no-es-un-dia-cualquiera/][RNE]]. Nos gustan un motón de secciones: [[http://www.gorkazumeta.com/2015/07/verba-volant-rne-una-seccion-o-un.html][verba volant]], el acabose
+
+* Introducción
+En nuestra casa somos /escuchantes/ del programa [[http://www.rtve.es/radio/no-es-un-dia-cualquiera/][No es un día cualquiera]] de [[http://www.rtve.es/radio/no-es-un-dia-cualquiera/][RNE]]. Nos gustan un motón de secciones: [[http://www.gorkazumeta.com/2015/07/verba-volant-rne-una-seccion-o-un.html][verba volant]], el acabose... pero en la que participamos casi siempre es en las palabras anagramadas.
+
+Cada hora se da una /definición/ de palabra, y un /anagrama/ de la misma. El anagrama puede ser de tres tipos:
+- Directamente, una palabra o expresión
+- El anagrama está dentro de la propia definición, y en ese caso se da el número de letras
+- En último anagrama se suele formar con la primera y última letra de las soluciones anteriores.
+
+#+caption: Pistas del concurso del 6 de Octubre de 2018
+[[file:concurso-2018-10-06.png]]
 
 
-#+caption: La clase =Palabra= normaliza su representación (acentos, espacios, mayúsculas) y calcula su histograma de frecuencias de letras
+Es un juego interesante para pensar, y a la vez es fácilmente resoluble mediante un programa de ordenador. El *algoritmo* es muy simple:
+- Calcula el histograma de letras del anagrama. Por ejemplo, para =ANAGRAMA=, el histograma es: =A→4 N→1 G→1 R→1 M→1=
+- Compara su histograma con el de un /corpus/ de palabras almacenadas
+- Suelen quedar unas pocas palabras entre las que es fácil discriminar por la definición.
+
+El código fuente está disponible en [[https://github.com/alvarogonzalezsotillo/palabras-afortunyadas][https://github.com/alvarogonzalezsotillo/palabras-afortunyadas]]
+
+* Implementación del algoritmo
+La siguiente implementación se ha realizado en lenguaje =scala=.
+
+** =Palabra=
+Lo primero es una clase que encapsule una palabra y sepa calcular su histograma. También normaliza normaliza su representación, quitando espacios, acentos y mayúsculas. 
+
+El histograma se calcula de forma perezosa, ya que no es necesario calcularlo de todas las palabras (como ya se verá, basta con calcularlo de las palabras con la misma longitud que la buscada)
+
+#+caption: Clase que normaliza una palabra y calcula su histograma
 #+begin_src scala
   type Histograma = Map[Char, Int]
 
@@ -43,11 +68,12 @@ En nuestra casa somos /escuchantes/ del programa [[http://www.rtve.es/radio/no-e
   }
 #+end_src
 
+** /Corpus/ de palabras
 
-El programa necesita un /vocabulario/ donde buscar las palabras. Una opción sería extraerlas de varios libros gratuitos del Proyecto Gutengberg, pero he encontrado un /corpus/ de la Real Academia de la Lengua con 737799 palabras distintas, ordenadas por frecuencia de uso. 
+El programa necesita un /vocabulario/ donde buscar las palabras. Una opción sería extraerlas de varios libros gratuitos del Proyecto Gutengberg, pero he encontrado un [[http://corpus.rae.es/lfrecuencias.html][/corpus/ de la Real Academia de la Lengua]] con 737799 palabras distintas, ordenadas por frecuencia de uso. 
 
 #+caption: Extractos del fichero =CREA_total.TXT=
-#+begin_example
+#+begin_src sh
      Orden	Frec.absoluta 	 Frec.normalizada 
      1.	de	9,999,518 	 65545.55 
      2.	la	6,277,560 	 41148.59 
@@ -62,7 +88,7 @@ El programa necesita un /vocabulario/ donde buscar las palabras. Una opción ser
 
 [...]
 
-#+end_example
+#+end_src
 
 Para leer las palabras utilizo una expresión regular por cada una de las líneas. Me quedo solo con las primeras 300000 palabras más frecuentes, y las agrupo por longitud.
 
@@ -101,6 +127,8 @@ Para leer las palabras utilizo una expresión regular por cada una de las línea
     ret.updated(1, Array("a", "o", "y").map(Palabra(_)))
   }
 #+end_src
+
+** Búsqueda de anagramas
 
 Una vez tengo la lista de palabras, para econtrar los anagramas de una dada basta con buscar las que tienen el mismo histograma de letras. La búsqueda se realiza solo entre las que tienen la misma longitud.
 
@@ -176,7 +204,9 @@ Cada palabra para adivinar tiene una definición y una pista. La pista (en los c
   }
 #+end_src
 
-Con estas funciones, ya es posible concursar para un día concreto. Por ejemplo, este es el código para participar el 6/oct/2018:
+** Solución a un día
+
+Con estas funciones, ya es posible concursar para un día concreto. Por ejemplo, este es el código del [[https://www.facebook.com/noesundia/photos/a.133963369947769/2158091877534898/?type=3&__tn__=-R][concurso del 6/oct/2018]]:
 
 #+caption: Concurso del día 6 de Octubre del 2018
 #+begin_src scala
@@ -203,7 +233,7 @@ Con estas funciones, ya es posible concursar para un día concreto. Por ejemplo,
 Lo que hago es empezar con las tres primeras pistas, y deduzco las palabras entre las pocas opciones que se encuentran. Con eso, ya puedo introducir la cuarta pista en el programa. La salida del programa es la siguiente:
 
 #+begin_src sh
-$ time scala palabras-anagramadas.scala 
+$ time scala palabras-afortunyadas.scala 
 Lectura de palabras: 3334 ms
 ,************ 6 octubre 2018
 VINO DE FRANCIA: Con anagrama Palabra(piromántico)
@@ -223,7 +253,7 @@ TRABAJA DE CARA A LA GALERÍA: Con inicio y fin de importación,relicario,manten
   Palabra(minero)
   Palabra(minore)
 Solución: 2341 ms
-scala palabras-anagramadas.scala  15,23s user 0,29s system 94% cpu 16,397 total
+scala palabras-afortunyadas.scala  15,23s user 0,29s system 94% cpu 16,397 total
 #+end_src
 
 En cuanto al rendimiento, en mi =Intel(R) Core(TM) i3-3120M CPU @ 2.50GHz= el programa tarda aproximadamente:
@@ -232,5 +262,6 @@ En cuanto al rendimiento, en mi =Intel(R) Core(TM) i3-3120M CPU @ 2.50GHz= el pr
 - 2 segundos encontrar las soluciones
 
 
+Para probar el código en tu propio ordenador, puedes descargarlo de [[https://github.com/alvarogonzalezsotillo/palabras-afortunyadas][https://github.com/alvarogonzalezsotillo/palabras-afortunyadas]]
 
 
