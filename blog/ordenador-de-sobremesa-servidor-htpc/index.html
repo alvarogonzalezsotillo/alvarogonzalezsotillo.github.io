@@ -7,8 +7,9 @@
     <meta name="description" content="Acabo de comprarme un asus vc-66. Mi intención es utilizarlo como servidor accesible desde internet, pero también como htpc. Estos son los pasos que he seguido para configurarlo." />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/media/css/main.css" type="text/css">
-    <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
+    <!-- <link rel="stylesheet" href="/media/css/prettify.css" type="text/css"> -->
   </head>
+
   <body class="container">
     <div>
       <header class="masthead">
@@ -37,32 +38,32 @@
 <h2>&Iacute;ndice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org54adfb5">1. Instalación del sistema operativo</a>
+<li><a href="#orge13c38a">1. Instalación del sistema operativo</a>
 <ul>
-<li><a href="#orgfdee058">1.1. Haciendo sitio en el disco</a></li>
-<li><a href="#orgec1ffe9">1.2. Usuarios</a></li>
+<li><a href="#org6c512ec">1.1. Haciendo sitio en el disco</a></li>
+<li><a href="#orgbafc450">1.2. Usuarios</a></li>
 </ul>
 </li>
-<li><a href="#orgeb8d514">2. Home Theater Personal Computer</a></li>
-<li><a href="#orgfc6d443">3. Acceso remoto</a>
+<li><a href="#org13731e6">2. Home Theater Personal Computer</a></li>
+<li><a href="#org84c19de">3. Acceso remoto</a>
 <ul>
-<li><a href="#org48ea323">3.1. <i>Always-on</i> vs <i>wake-on-lan</i></a></li>
-<li><a href="#org4972876">3.2. Nombre del servidor</a></li>
+<li><a href="#orgc78da24">3.1. <i>Always-on</i> vs <i>wake-on-lan</i></a></li>
+<li><a href="#org2ea130b">3.2. Nombre del servidor</a></li>
 </ul>
 </li>
-<li><a href="#orga90a6b7">4. Servidor</a>
+<li><a href="#orgd70a058">4. Servidor</a>
 <ul>
-<li><a href="#orgaac0b97">4.1. E-mail</a></li>
-<li><a href="#org0f783a3">4.2. Servidor web</a></li>
-<li><a href="#org0adeeb7">4.3. Owncloud</a></li>
+<li><a href="#org1bb4945">4.1. E-mail</a></li>
+<li><a href="#org1fd7fc0">4.2. Servidor web</a></li>
+<li><a href="#org189381a">4.3. Owncloud</a></li>
 </ul>
 </li>
-<li><a href="#orga577888">5. Configuración como <i>workstation</i></a>
+<li><a href="#org7843e8f">5. Configuración como <i>workstation</i></a>
 <ul>
-<li><a href="#org5bab73e">5.1. Zsh</a></li>
-<li><a href="#org96ebec1">5.2. Emacs</a></li>
-<li><a href="#org603a7e7">5.3. Materiales para clase</a></li>
-<li><a href="#org05b1776">5.4. Ofimática</a></li>
+<li><a href="#org688dcb5">5.1. Zsh</a></li>
+<li><a href="#org4b28510">5.2. Emacs</a></li>
+<li><a href="#orgc52386d">5.3. Materiales para clase</a></li>
+<li><a href="#org8a39e85">5.4. Ofimática</a></li>
 </ul>
 </li>
 </ul>
@@ -79,8 +80,8 @@ Acabo de comprarme un <a href="https://www.asus.com/us/mini-pcs/vivomini-vc66/">
 </p>
 <p style="clear:both"></p>
 
-<div id="outline-container-org54adfb5" class="outline-2">
-<h2 id="org54adfb5"><span class="section-number-2">1</span> Instalación del sistema operativo</h2>
+<div id="outline-container-orge13c38a" class="outline-2">
+<h2 id="orge13c38a"><span class="section-number-2">1</span> Instalación del sistema operativo</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 El ordenador venía con windows 10 preinstalado. Aunque el <i><a href="https://es.wikipedia.org/wiki/remote_desktop_protocol">remote desktop</a></i> es una buena forma de conectarte a un ordenador de tu LAN, no es tan adecuado para un acceso remoto con bajo ancho de banda. En esos casos, una conexión <a href="https://es.wikipedia.org/wiki/secure_shell">SSH</a>/<a href="https://es.wikipedia.org/wiki/ssh_file_transfer_protocol">FTP</a> con la posibilidad de redirigir puertos a <a href="https://es.wikipedia.org/wiki/vnc">VNC</a> me parece más adecuada.
@@ -91,8 +92,8 @@ De todas formas, Windows sigue instalado, que tampoco es cuestión de despreciar
 </p>
 </div>
 
-<div id="outline-container-orgfdee058" class="outline-3">
-<h3 id="orgfdee058"><span class="section-number-3">1.1</span> Haciendo sitio en el disco</h3>
+<div id="outline-container-org6c512ec" class="outline-3">
+<h3 id="org6c512ec"><span class="section-number-3">1.1</span> Haciendo sitio en el disco</h3>
 <div class="outline-text-3" id="text-1-1">
 <ol class="org-ol">
 <li><p>
@@ -254,8 +255,8 @@ Crear partición datos compartidos con windows (formato ntfs)
 </div>
 </div>
 
-<div id="outline-container-orgec1ffe9" class="outline-3">
-<h3 id="orgec1ffe9"><span class="section-number-3">1.2</span> Usuarios</h3>
+<div id="outline-container-orgbafc450" class="outline-3">
+<h3 id="orgbafc450"><span class="section-number-3">1.2</span> Usuarios</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 He creado un usuario por defecto para la familia con el <a href="https://help.ubuntu.com/community/autologin">autologin</a> activado.
@@ -296,8 +297,8 @@ uuid=9e1cf2601cf2333f /datos/datos-compartidos-200m ntfs gid=discos,dmask=002,fm
 </div>
 </div>
 
-<div id="outline-container-orgeb8d514" class="outline-2">
-<h2 id="orgeb8d514"><span class="section-number-2">2</span> Home Theater Personal Computer</h2>
+<div id="outline-container-org13731e6" class="outline-2">
+<h2 id="org13731e6"><span class="section-number-2">2</span> Home Theater Personal Computer</h2>
 <div class="outline-text-2" id="text-2">
 
 <div class="figure">
@@ -341,8 +342,8 @@ Tras instalar transmission, he añadido el directorio de bajada a los directorio
 </div>
 </div>
 
-<div id="outline-container-orgfc6d443" class="outline-2">
-<h2 id="orgfc6d443"><span class="section-number-2">3</span> Acceso remoto</h2>
+<div id="outline-container-org84c19de" class="outline-2">
+<h2 id="org84c19de"><span class="section-number-2">3</span> Acceso remoto</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 El acceso remoto no es solamente acceder al ordenador desde la lan, sino desde cualquier parte de Internet. los pasos a seguir son los siguientes:
@@ -364,8 +365,8 @@ Instalar <a href="https://www.openssh.com/">openssh server</a>, que nos permitir
 </ol>
 </div>
 
-<div id="outline-container-org48ea323" class="outline-3">
-<h3 id="org48ea323"><span class="section-number-3">3.1</span> <i>Always-on</i> vs <i>wake-on-lan</i></h3>
+<div id="outline-container-orgc78da24" class="outline-3">
+<h3 id="orgc78da24"><span class="section-number-3">3.1</span> <i>Always-on</i> vs <i>wake-on-lan</i></h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 Idealmente, el servidor debería estar siempre encendido. en la práctica no siempre es deseable, aunque solo sea por el gasto continuo de 18W.
@@ -385,8 +386,8 @@ La solución es modificar la tabla arp del router, dejando como permanente la di
 </div>
 </div>
 
-<div id="outline-container-org4972876" class="outline-3">
-<h3 id="org4972876"><span class="section-number-3">3.2</span> Nombre del servidor</h3>
+<div id="outline-container-org2ea130b" class="outline-3">
+<h3 id="org2ea130b"><span class="section-number-3">3.2</span> Nombre del servidor</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 La dirección IP asignada a mi router por el ISP es dinámica. Para poder localizar mi servidor en Internet es necesario tener un servicio de <a href="https://en.wikipedia.org/wiki/dynamic_dns">dynamic dns</a>. He elegido a <a href="https://www.noip.com/">noip.com</a> porque:
@@ -400,16 +401,16 @@ La dirección IP asignada a mi router por el ISP es dinámica. Para poder locali
 </div>
 </div>
 
-<div id="outline-container-orga90a6b7" class="outline-2">
-<h2 id="orga90a6b7"><span class="section-number-2">4</span> Servidor</h2>
+<div id="outline-container-orgd70a058" class="outline-2">
+<h2 id="orgd70a058"><span class="section-number-2">4</span> Servidor</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 En el ordenador he instalado los servicios e-mail y http.
 </p>
 </div>
 
-<div id="outline-container-orgaac0b97" class="outline-3">
-<h3 id="orgaac0b97"><span class="section-number-3">4.1</span> E-mail</h3>
+<div id="outline-container-org1bb4945" class="outline-3">
+<h3 id="org1bb4945"><span class="section-number-3">4.1</span> E-mail</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
 Utilizo <a href="https://www.exim.org/">exim4</a> en una instalación estandar, con las siguientes configuraciones:
@@ -425,8 +426,8 @@ A partir de aquí, ya puedo utilizar mi dirección <a href="mailto:spam@alvarogo
 </div>
 </div>
 
-<div id="outline-container-org0f783a3" class="outline-3">
-<h3 id="org0f783a3"><span class="section-number-3">4.2</span> Servidor web</h3>
+<div id="outline-container-org1fd7fc0" class="outline-3">
+<h3 id="org1fd7fc0"><span class="section-number-3">4.2</span> Servidor web</h3>
 <div class="outline-text-3" id="text-4-2">
 <p>
 El protocolo HTTP es una buena forma de compartir ficheros. He instalado <a href="https://httpd.apache.org/">apache</a> directamente desde el repositorio.
@@ -452,8 +453,8 @@ documentroot /var/www/alvarogonzalezsotillo.github.io
 </div>
 </div>
 
-<div id="outline-container-org0adeeb7" class="outline-3">
-<h3 id="org0adeeb7"><span class="section-number-3">4.3</span> Owncloud</h3>
+<div id="outline-container-org189381a" class="outline-3">
+<h3 id="org189381a"><span class="section-number-3">4.3</span> Owncloud</h3>
 <div class="outline-text-3" id="text-4-3">
 <p>
 Para acceder a mis ficheros (fundamentalmente fotografías) utilizo owncloud, instalado desde repositorios:
@@ -487,16 +488,16 @@ a2ensite owncloud
 </div>
 </div>
 
-<div id="outline-container-orga577888" class="outline-2">
-<h2 id="orga577888"><span class="section-number-2">5</span> Configuración como <i>workstation</i></h2>
+<div id="outline-container-org7843e8f" class="outline-2">
+<h2 id="org7843e8f"><span class="section-number-2">5</span> Configuración como <i>workstation</i></h2>
 <div class="outline-text-2" id="text-5">
 <p>
 El servidor también debería servirme de <i>backup</i> en el caso de que no tenga disponible mi portátil. lA siguiente configuración es la que utilizo para mi trabajo diario.
 </p>
 </div>
 
-<div id="outline-container-org5bab73e" class="outline-3">
-<h3 id="org5bab73e"><span class="section-number-3">5.1</span> Zsh</h3>
+<div id="outline-container-org688dcb5" class="outline-3">
+<h3 id="org688dcb5"><span class="section-number-3">5.1</span> Zsh</h3>
 <div class="outline-text-3" id="text-5-1">
 <p>
 Zsh es una shell que puede sustituir a bash de forma casi transparente. Las razones por las que utilizo zsh son
@@ -511,8 +512,8 @@ Zsh es una shell que puede sustituir a bash de forma casi transparente. Las razo
 </div>
 </div>
 
-<div id="outline-container-org96ebec1" class="outline-3">
-<h3 id="org96ebec1"><span class="section-number-3">5.2</span> Emacs</h3>
+<div id="outline-container-org4b28510" class="outline-3">
+<h3 id="org4b28510"><span class="section-number-3">5.2</span> Emacs</h3>
 <div class="outline-text-3" id="text-5-2">
 <p>
 Cuando tienes un martillo, todo te parecen clavos. <a href="//WWW.GNU.ORG/SOFTWARE/EMACS/">Emacs</a> es el martillo más grande que he usado nunca.
@@ -549,8 +550,8 @@ Al arrancar Emacs, automáticamente descargará <a href="https://github.com/alva
 </div>
 </div>
 
-<div id="outline-container-org603a7e7" class="outline-3">
-<h3 id="org603a7e7"><span class="section-number-3">5.3</span> Materiales para clase</h3>
+<div id="outline-container-orgc52386d" class="outline-3">
+<h3 id="orgc52386d"><span class="section-number-3">5.3</span> Materiales para clase</h3>
 <div class="outline-text-3" id="text-5-3">
 <p>
 Como cuento en <a href="../../../../blog/mi-publicacion-de-materiales-para-clase">otra entrada</a>, utilizo básicamente Latex y org-mode para mis clases.
@@ -576,8 +577,8 @@ Además, utilizo otras herramientas como <a href="https://inkscape.org/en/">Inks
 </div>
 </div>
 
-<div id="outline-container-org05b1776" class="outline-3">
-<h3 id="org05b1776"><span class="section-number-3">5.4</span> Ofimática</h3>
+<div id="outline-container-org8a39e85" class="outline-3">
+<h3 id="org8a39e85"><span class="section-number-3">5.4</span> Ofimática</h3>
 <div class="outline-text-3" id="text-5-4">
 <p>
 Aunque prácticamente ya no lo uso, de vez en cuando alguien de la familia necesita utiliza Microsoft Office. Para eso mantengo un prefijo de <a href="https://www.winehq.org/">Wine</a> que copio de ordenador en ordenador, con la suite ofimática ya instalada.
@@ -616,11 +617,11 @@ Aunque prácticamente ya no lo uso, de vez en cuando alguien de la familia neces
       <!-- <script src="//code.jquery.com/jquery-latest.min.js"></script> -->
       <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->
       <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>  -->
-      <!-- <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script> -->
       <script src="/media/js/jquery-3.2.1.min.js"></script>
-      <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-      <script src="/media/js/code-prettify/loader/run_prettify.js"></script>
       <script src="/media/js/main.js"></script>
+      <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <!--<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>-->
+      <script src="/media/js/code-prettify/loader/run_prettify.js"></script>
       <div class="footer">
         <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 26.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
         <p>
