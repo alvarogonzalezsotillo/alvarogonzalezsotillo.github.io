@@ -1,0 +1,10 @@
+diff a/blog/palabras-anagramadas/palabras-anagramadas.org b/blog/palabras-anagramadas/palabras-anagramadas.org	(rejected hunks)
+@@ -29,6 +29,8 @@ Es un juego interesante para pensar, y a la vez es fácilmente resoluble mediant
+ 
+ El código fuente está disponible en [[https://github.com/alvarogonzalezsotillo/palabras-afortunyadas][https://github.com/alvarogonzalezsotillo/palabras-afortunyadas]]
+ 
++#+html:
++
+ * Implementación del algoritmo
+ La siguiente implementación se ha realizado en lenguaje =scala=.
+ 

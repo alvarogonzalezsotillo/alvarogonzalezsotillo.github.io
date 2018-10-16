@@ -36,10 +36,11 @@
 <div class="post">
 <h1>Palabras anagramadas</h1>
 
+<div class="figure">
+<p><img src="/assets/blog/palabras-anagramadas/concurso-2018-10-06.png" alt="/assets/blog/palabras-anagramadas/concurso-2018-10-06.png" style="float:right;clear:both;max-width:50%;" />
+</p>
+</div>
 
-<div id="outline-container-orge1e96b7" class="outline-2">
-<h2 id="orge1e96b7">Introducción</h2>
-<div class="outline-text-2" id="text-orge1e96b7">
 <p>
 En nuestra casa somos <i>escuchantes</i> del programa <a href="http://www.rtve.es/radio/no-es-un-dia-cualquiera/">No es un día cualquiera</a> de <a href="http://www.rtve.es/radio/no-es-un-dia-cualquiera/">RNE</a>. Nos gustan un motón de secciones: <a href="http://www.gorkazumeta.com/2015/07/verba-volant-rne-una-seccion-o-un.html">verba volant</a>, el acabose... pero en la que participamos casi siempre es en las palabras anagramadas.
 </p>
@@ -54,12 +55,6 @@ Cada hora se da una <i>definición</i> de palabra, y un <i>anagrama</i> de la mi
 </ul>
 
 
-<div class="figure">
-<p><img src="/assets/blog/palabras-anagramadas/concurso-2018-10-06.png" alt="/assets/blog/palabras-anagramadas/concurso-2018-10-06.png" />
-</p>
-<p><span class="figure-number">Figura 1: </span>Pistas del concurso del 6 de Octubre de 2018</p>
-</div>
-
 
 <p>
 Es un juego interesante para pensar, y a la vez es fácilmente resoluble mediante un programa de ordenador. El <b>algoritmo</b> es muy simple:
@@ -73,20 +68,19 @@ Es un juego interesante para pensar, y a la vez es fácilmente resoluble mediant
 <p>
 El código fuente está disponible en <a href="https://github.com/alvarogonzalezsotillo/palabras-afortunyadas">https://github.com/alvarogonzalezsotillo/palabras-afortunyadas</a>
 </p>
-</div>
-</div>
 
-<div id="outline-container-org5dee882" class="outline-2">
-<h2 id="org5dee882">Implementación del algoritmo</h2>
-<div class="outline-text-2" id="text-org5dee882">
+
+<div id="outline-container-org3db0ec0" class="outline-2">
+<h2 id="org3db0ec0">Implementación del algoritmo</h2>
+<div class="outline-text-2" id="text-org3db0ec0">
 <p>
 La siguiente implementación se ha realizado en lenguaje <code>scala</code>.
 </p>
 </div>
 
-<div id="outline-container-org3bb3953" class="outline-3">
-<h3 id="org3bb3953"><code>Palabra</code></h3>
-<div class="outline-text-3" id="text-org3bb3953">
+<div id="outline-container-org13d4f9d" class="outline-3">
+<h3 id="org13d4f9d"><code>Palabra</code></h3>
+<div class="outline-text-3" id="text-org13d4f9d">
 <p>
 Lo primero es una clase que encapsule una palabra y sepa calcular su histograma. También normaliza normaliza su representación, quitando espacios, acentos y mayúsculas. 
 </p>
@@ -128,9 +122,9 @@ case class Palabra(p: String) {
 </div>
 </div>
 
-<div id="outline-container-org198e28c" class="outline-3">
-<h3 id="org198e28c"><i>Corpus</i> de palabras</h3>
-<div class="outline-text-3" id="text-org198e28c">
+<div id="outline-container-org8fea48d" class="outline-3">
+<h3 id="org8fea48d"><i>Corpus</i> de palabras</h3>
+<div class="outline-text-3" id="text-org8fea48d">
 <p>
 El programa necesita un <i>vocabulario</i> donde buscar las palabras. Una opción sería extraerlas de varios libros gratuitos del Proyecto Gutengberg, pero he encontrado un <a href="http://corpus.rae.es/lfrecuencias.html"><i>corpus</i> de la Real Academia de la Lengua</a> con 737799 palabras distintas, ordenadas por frecuencia de uso. 
 </p>
@@ -195,9 +189,9 @@ val palabras: Map[Int, Array[Palabra]] = cronometro("Lectura de palabras"){
 </div>
 </div>
 
-<div id="outline-container-orgf67d77e" class="outline-3">
-<h3 id="orgf67d77e">Búsqueda de anagramas</h3>
-<div class="outline-text-3" id="text-orgf67d77e">
+<div id="outline-container-org67b60a7" class="outline-3">
+<h3 id="org67b60a7">Búsqueda de anagramas</h3>
+<div class="outline-text-3" id="text-org67b60a7">
 <p>
 Una vez tengo la lista de palabras, para econtrar los anagramas de una dada basta con buscar las que tienen el mismo histograma de letras. La búsqueda se realiza solo entre las que tienen la misma longitud.
 </p>
@@ -282,9 +276,9 @@ Cada palabra para adivinar tiene una definición y una pista. La pista (en los c
 </div>
 </div>
 
-<div id="outline-container-org69f3b1b" class="outline-3">
-<h3 id="org69f3b1b">Solución a un día</h3>
-<div class="outline-text-3" id="text-org69f3b1b">
+<div id="outline-container-orgf4abc32" class="outline-3">
+<h3 id="orgf4abc32">Solución a un día</h3>
+<div class="outline-text-3" id="text-orgf4abc32">
 <p>
 Con estas funciones, ya es posible concursar para un día concreto. Por ejemplo, este es el código del <a href="https://www.facebook.com/noesundia/photos/a.133963369947769/2158091877534898/?type=3&amp;__tn__=-R">concurso del 6/oct/2018</a>:
 </p>
