@@ -1691,9 +1691,6 @@ var IN_GLOBAL_SCOPE = false;
       function applyDecorator(job) {
         var opt_langExtension = job.langExtension;
 
-          console.log("applyDecorator:");
-          console.log("job");
-          
         try {
           // Extract tags, and convert the source code to plain text.
           var sourceAndSpans = extractSourceSpans(job.sourceNode, job.pre);
@@ -2009,4 +2006,8 @@ var IN_GLOBAL_SCOPE = false;
   }
   checkPendingLanguages();
 
+    // EXPORTO PR PARA PODER LLAMARLO AL RATO Y QUE FUNCIONE EN FIREFOX, QUE SI NO PARECE HABER
+    // UNA CONDICIÓN DE CARRERA CON LO DE CAMBIAR LAS CLASES EN main.js Y NO VA
+    win.PR = PR;
+    win.setTimeout(PR.prettyPrint,2000);
 }());
