@@ -10,7 +10,9 @@
 #+DESCRIPTION: En casa somos fans del concurso de Palabras Anagramadas del programa de radio No Es Un Día Cualquiera.
 
 
-* Introducción
+#+ATTR_HTML: :style float:right;clear:both;max-width:50%;
+[[file:concurso-2018-10-06.png]]
+
 En nuestra casa somos /escuchantes/ del programa [[http://www.rtve.es/radio/no-es-un-dia-cualquiera/][No es un día cualquiera]] de [[http://www.rtve.es/radio/no-es-un-dia-cualquiera/][RNE]]. Nos gustan un motón de secciones: [[http://www.gorkazumeta.com/2015/07/verba-volant-rne-una-seccion-o-un.html][verba volant]], el acabose... pero en la que participamos casi siempre es en las palabras anagramadas.
 
 Cada hora se da una /definición/ de palabra, y un /anagrama/ de la misma. El anagrama puede ser de tres tipos:
@@ -18,8 +20,6 @@ Cada hora se da una /definición/ de palabra, y un /anagrama/ de la misma. El an
 - El anagrama está dentro de la propia definición, y en ese caso se da el número de letras
 - En último anagrama se suele formar con la primera y última letra de las soluciones anteriores.
 
-#+caption: Pistas del concurso del 6 de Octubre de 2018
-[[file:concurso-2018-10-06.png]]
 
 
 Es un juego interesante para pensar, y a la vez es fácilmente resoluble mediante un programa de ordenador. El *algoritmo* es muy simple:
@@ -28,6 +28,7 @@ Es un juego interesante para pensar, y a la vez es fácilmente resoluble mediant
 - Suelen quedar unas pocas palabras entre las que es fácil discriminar por la definición.
 
 El código fuente está disponible en [[https://github.com/alvarogonzalezsotillo/palabras-afortunyadas][https://github.com/alvarogonzalezsotillo/palabras-afortunyadas]]
+
 
 * Implementación del algoritmo
 La siguiente implementación se ha realizado en lenguaje =scala=.
