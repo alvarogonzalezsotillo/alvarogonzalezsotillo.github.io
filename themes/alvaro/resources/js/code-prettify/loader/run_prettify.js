@@ -228,7 +228,8 @@ var IN_GLOBAL_SCOPE = false;
   // This only works if this script is loaded via https : something
   // over which we exercise no control.
   var LOADER_BASE_URL =
-     'https://cdn.rawgit.com/google/code-prettify/master/loader';
+      //'https://cdn.rawgit.com/google/code-prettify/master/loader';
+      "/media/js/code-prettify/loader";
 
   for (var i = 0, n = langs.length; i < n; ++i) (function (lang) {
     var script = doc.createElement("script");
@@ -1690,6 +1691,9 @@ var IN_GLOBAL_SCOPE = false;
       function applyDecorator(job) {
         var opt_langExtension = job.langExtension;
 
+          console.log("applyDecorator:");
+          console.log("job");
+          
         try {
           // Extract tags, and convert the source code to plain text.
           var sourceAndSpans = extractSourceSpans(job.sourceNode, job.pre);
