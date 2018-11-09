@@ -1,0 +1,27 @@
+#+title: Literate Programming en la configuración de /emacs/
+
+#+AUTHOR:      Álvaro González Sotillo
+#+EMAIL:       alvarogonzalezsotillo@gmail.com
+#+DATE:        2018-04-08
+#+URI:         /blog/literate-programming-configuracion-emacs
+
+#+TAGS: emacs, orgmode, 
+#+DESCRIPTION: =org-babel= permite ejecutar los listados incluidos en un documento. Incluso la propia configuración de /emacs/ puede estar en un fichero =org=
+
+
+#+PROPERTY: header-arg :eval query
+#+LANGUAGE: es
+#+options: toc:2
+#+latex_class_options: [a4paper]
+#+latex_header: \usepackage[margin=2cm]{geometry}
+#+latex_header: \usepackage{amsmath}
+#+latex_header: \usepackage{xcolor}
+#+latex_header: \usepackage[spanish]{babel}
+#+latex_header: \usepackage{caption}
+#+latex_header: \usepackage{listings}
+#+latex_header_extra: \lstset{frame=single,columns=fixed,basicstyle=\scriptsize\ttfamily,breaklines=true,postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}},keywordstyle=\color{blue}\ttfamily,stringstyle=\color{red}\ttfamily,commentstyle=\color{green}\ttfamily}
+#+latex_header_extra: \lstset{emph={function,let,len,import,translate,module,rotate,module,hull,sphere},emphstyle=\color{blue}\ttfamily}
+#+latex_header_extra: \hypersetup{colorlinks,citecolor=black,filecolor=black,linkcolor=black,urlcolor=blue}
+#+latex_header_extra: \renewcommand{\lstlistingname}{Listado}
+#+latex_header_extra: \captionsetup{font={scriptsize}}
+
