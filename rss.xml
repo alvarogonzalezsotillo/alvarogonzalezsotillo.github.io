@@ -4,10 +4,39 @@
     <title>Álvaro González Sotillo</title>
     <link>https://alvarogonzalezsotillo.github.io/</link>
     <description></description>
-    <pubDate>mar, 16 oct 2018 10:24:23 CEST</pubDate>
-    <lastBuildDate>mar, 16 oct 2018 10:24:23 CEST</lastBuildDate>
+    <pubDate>dom, 11 nov 2018 19:43:22 CET</pubDate>
+    <lastBuildDate>dom, 11 nov 2018 19:43:22 CET</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
+    <item>
+      <title>Literate Programming en la configuración de emacs</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/literate-programming-configuracion-emacs</link>
+      <description><![CDATA[=org-babel= permite ejecutar los listados incluidos en un documento. Incluso la propia configuración de /emacs/ puede estar en un fichero =org=]]></description>
+      <pubDate>2018-11-11</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/literate-programming-configuracion-emacs</guid>
+    </item>
+    <item>
+      <title>Cómo preparo mi entorno con Emacs</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/como-preparo-mi-entorno-con-emacs</link>
+      <description><![CDATA[Cada vez que llego a un nuevo ordenador tengo que preparar mi entorno, y se puede hacer fácilmente con un par de /scripts/]]></description>
+      <pubDate>2018-11-11</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/como-preparo-mi-entorno-con-emacs</guid>
+    </item>
+    <item>
+      <title>Untitled</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/2018/11/11/untitled/</link>
+      <description><![CDATA[<div>
+<div class="post">
+<h1>Untitled</h1>
+<p>
+Es posible que pase el blog a hugo (ahora está en org-page).
+</p>
+
+</div>
+</div>]]></description>
+      <pubDate>2018-11-11</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/2018/11/11/untitled/</guid>
+    </item>
     <item>
       <title>Palabras anagramadas</title>
       <link>https://alvarogonzalezsotillo.github.io/blog/palabras-anagramadas</link>
@@ -56,27 +85,6 @@
       <description><![CDATA[Al encargar trabajos o examinar a los alumnos, utilizo un servidor virtual para que trabajen en un entorno controlado.]]></description>
       <pubDate>2018-06-15</pubDate>
       <guid>https://alvarogonzalezsotillo.github.io/blog/servidor-linux-para-examenes</guid>
-    </item>
-    <item>
-      <title>Nuevo HTPC en casa</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/ordenador-de-sobremesa-servidor-htpc</link>
-      <description><![CDATA[Acabo de comprarme un asus vc-66. Mi intención es utilizarlo como servidor accesible desde internet, pero también como htpc. Estos son los pasos que he seguido para configurarlo.]]></description>
-      <pubDate>2018-05-17</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/ordenador-de-sobremesa-servidor-htpc</guid>
-    </item>
-    <item>
-      <title>Literate Programming y Google Code Jam</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/literate-codejam</link>
-      <description><![CDATA[Se puede utilizar orgmode para programar y documentar/publicar lo programado]]></description>
-      <pubDate>2018-04-10</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/literate-codejam</guid>
-    </item>
-    <item>
-      <title>Bittorrent en el aula</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/bittorent-en-el-aula</link>
-      <description><![CDATA[BitTorrent es un protocolo p2p para el intercambio de ficheros. Se suele asociar a descargas ilegales, pero puede ser muy útil en el aula de informática.]]></description>
-      <pubDate>2018-04-09</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/bittorent-en-el-aula</guid>
     </item>
   </channel>
 </rss>
