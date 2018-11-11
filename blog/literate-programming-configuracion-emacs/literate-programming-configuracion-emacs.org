@@ -1,8 +1,8 @@
-#+title: Literate Programming en la configuración de /emacs/
+#+title: Literate Programming en la configuración de emacs
 
 #+AUTHOR:      Álvaro González Sotillo
 #+EMAIL:       alvarogonzalezsotillo@gmail.com
-#+DATE:        2018-04-08
+#+DATE:        2018-11-11
 #+URI:         /blog/literate-programming-configuracion-emacs
 
 #+TAGS: emacs, orgmode, 
@@ -11,17 +11,36 @@
 
 #+PROPERTY: header-arg :eval query
 #+LANGUAGE: es
-#+options: toc:2
-#+latex_class_options: [a4paper]
-#+latex_header: \usepackage[margin=2cm]{geometry}
-#+latex_header: \usepackage{amsmath}
-#+latex_header: \usepackage{xcolor}
-#+latex_header: \usepackage[spanish]{babel}
-#+latex_header: \usepackage{caption}
-#+latex_header: \usepackage{listings}
-#+latex_header_extra: \lstset{frame=single,columns=fixed,basicstyle=\scriptsize\ttfamily,breaklines=true,postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}},keywordstyle=\color{blue}\ttfamily,stringstyle=\color{red}\ttfamily,commentstyle=\color{green}\ttfamily}
-#+latex_header_extra: \lstset{emph={function,let,len,import,translate,module,rotate,module,hull,sphere},emphstyle=\color{blue}\ttfamily}
-#+latex_header_extra: \hypersetup{colorlinks,citecolor=black,filecolor=black,linkcolor=black,urlcolor=blue}
-#+latex_header_extra: \renewcommand{\lstlistingname}{Listado}
-#+latex_header_extra: \captionsetup{font={scriptsize}}
+#+options: toc:nil
+
+Mi configuración de /emacs/ estaba basada en un fichero =init.el= con varios paquetes =elisp=. Gran parte de la configuración la extraía de ejemplos de otros ficheros =init.el=, y muchas veces olvidaba qué hacían algunas partes del fichero.
+
+Esto se debía a una falta de comentarios, que se nos suele "olvidar" cuando sentimos que estamos programando, pero que solemos incluir cuando estamos redactando un documento. Descubrí en el blog de  [[http://pages.sachachua.com/.emacs.d/Sacha.html][Sacha Chua]] que podía mantener la configuración en un fichero =orgmode= y así documentar fácilmente cada opción.
+
+* =init.el=
+
+Emacs comienza cargando el fichero =~/.emacs.d/init.el=. Este fichero simplemente inicializa el sistema de paquetes y carga el paquete =org=, que es el que permite a Emacs manejar este tipo de ficheros. Después, carga este fichero interpretando los bloques de código.
+
+#+begin_src lisp 
+(package-initialize nil)
+(setq package-check-signature nil)
+(setq package-archives '(
+      ("org" . "http://orgmode.org/elpa/")
+      ("melpa" . "http://melpa.org/packages/")))
+
+
+(package-initialize t)
+(package-refresh-contents) ; OPCIONAL, NECESITA CONEXIÓN A INTERNET
+(package-install 'org)
+(require 'org)
+(require 'ob-tangle)
+(org-babel-load-file (expand-file-name "~/.emacs.d/config.org"))
+#+end_src
+
+Tras esto, =emacs= carga el fichero =config.org=, extrae los bloques de código y los ejecuta.
+
+* Mi configuración
+Se puede consultar mi configuración directamente en [[https://github.com/alvarogonzalezsotillo/.emacs.d/blob/master/config.org]]. Github es capaz de formatear el formato =org=, así que se ve bastante bonito.
+
+También he generado una [[file:config.pdf][versión en pdf de la configuración]].
 
