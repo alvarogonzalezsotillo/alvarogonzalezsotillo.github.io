@@ -29,6 +29,15 @@
   (setq op/site-sub-title ""))
 
 
+(defun generar-blog-rapido ()
+  (interactive)
+  (configurar-blog)
+  (op/do-publication nil nil op/site-preview-directory)
+  (httpd-stop)
+  (httpd-serve-directory op/site-preview-directory)
+  (browse-url (format "http://%s:%d" system-name httpd-port)))
+
+
 
 (defun generar-blog()
   (interactive)
