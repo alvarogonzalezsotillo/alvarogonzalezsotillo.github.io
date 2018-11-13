@@ -595,13 +595,17 @@ div.figure p{
     font-size: 0.7em;
 }
 
-/* ALINEAR LAS FECHAS DEL INDICE DEL BLOG */
-body.container > div > div.post > ul.org-ul > li:contains("»"){
-    text-indent: -6em;
-    padding-left: 7em;
-}
-
 /* ARREGLAR LOS P QUE SALTAN DE LINEA AL INICIO DE UN LI */
 ol > li > p, ul > li > p{
     display: inline;
 }
+
+/* ALINEAR LAS FECHAS DEL INDICE DEL BLOG */
+html body.container div div.post ul.org-ul li.categoryitem{
+    text-indent: -5.8em;
+    padding-left: 6em;
+}
+
+
+
+
