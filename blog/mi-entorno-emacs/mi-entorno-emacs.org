@@ -9,6 +9,7 @@
 #+OPTIONS:     H:3 num:t toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 #+DESCRIPTION: Cada vez que llego a un nuevo ordenador tengo que preparar mi entorno, y se puede hacer fácilmente con un par de /scripts/
 
+*Actualización: [[../../../blog/literate-programming-configuracion-emacs/][Configuración /emacs/ en orgmode]]*
 
 Como profesor, mi trabajo con el ordenador se centra en *Emacs* y *git* para:
 - Elaborar transparencias con *Emacs* y *[[https://github.com/yjwen/org-reveal][org-reveal]]*
