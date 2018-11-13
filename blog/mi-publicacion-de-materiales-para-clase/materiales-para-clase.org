@@ -3,8 +3,8 @@
 #+EMAIL:       alvarogonzalezsotillo@gmail.com
 #+DATE:        2017-10-25 mié
 #+URI:         /blog/mi-publicacion-de-materiales-para-clase
-#+KEYWORDS:    latex,emacs,org-mode,reveal,git,github,github pages
-#+TAGS:        latex,emacs,org-mode,reveal,git,github,github pages
+#+KEYWORDS:    latex,emacs,orgmode,reveal,git,github,github pages
+#+TAGS:        latex,emacs,orgmode,reveal,git,github,github pages
 #+LANGUAGE:    es
 #+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 #+DESCRIPTION: Los materiales que preparamos los profesores se distribuyen entre los alumnos mediante plataformas de aprendizaje como Moodle. Lo interesante es cómo llegan esos materiales a la plataforma.

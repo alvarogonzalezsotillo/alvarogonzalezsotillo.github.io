@@ -3,8 +3,8 @@
 #+EMAIL:       alvarogonzalezsotillo@gmail.com
 #+DATE:        2018-10-06
 #+URI:         /blog/palabras-anagramadas
-#+KEYWORDS:    scala,rne,anagramas
-#+TAGS:        scala,rne,anagramas
+#+KEYWORDS:    scala,rne,anagramas,programación
+#+TAGS:        scala,rne,anagramas,programación
 #+LANGUAGE:    es
 #+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 #+DESCRIPTION: En casa somos fans del concurso de Palabras Anagramadas del programa de radio No Es Un Día Cualquiera.

@@ -4,7 +4,7 @@
 #+DATE:        2017-08-29 mar
 #+URI:         /blog/el-cluedo-como-problema-de-logica
 #+KEYWORDS:    AI,programación,javascript
-#+TAGS:        cluedo,javascript,AI,programación
+#+TAGS:        javascript,AI,programación
 #+LANGUAGE:    es
 #+OPTIONS:     H:3 num:t toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 #+DESCRIPTION: El Cluedo es considerado un juego para niños, pero bajo su superficie hay un interesante problema de lógica de segundo orden.

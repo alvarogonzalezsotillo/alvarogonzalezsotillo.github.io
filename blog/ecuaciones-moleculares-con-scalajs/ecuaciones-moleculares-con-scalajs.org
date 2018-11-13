@@ -3,8 +3,8 @@
 #+EMAIL:       alvarogonzalezsotillo@gmail.com
 #+DATE:        2018-03-17
 #+URI:         /blog/ajuste-de-ecuaciones-moleculares
-#+KEYWORDS:    AI,programación,javascript
-#+TAGS:        scalajs,programación
+#+KEYWORDS:    scala,scalajs,programación
+#+TAGS:        scala,scalajs,programación
 #+LANGUAGE:    es
 #+OPTIONS:     H:3 num:t toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 #+DESCRIPTION: Ajuste de ecuaciones moleculares en Scalajs con el método algebarico.
