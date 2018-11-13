@@ -601,9 +601,9 @@ ol > li > p, ul > li > p{
 }
 
 /* ALINEAR LAS FECHAS DEL INDICE DEL BLOG */
-li.categoryitem{
-    text-indent: -6em;
-    padding-left: 1em;
+html body.container div div.post ul.org-ul li.categoryitem{
+    text-indent: -5.8em;
+    padding-left: 6em;
 }
 
 
