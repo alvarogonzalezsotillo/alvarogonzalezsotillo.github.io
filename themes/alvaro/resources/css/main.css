@@ -601,15 +601,11 @@ ol > li > p, ul > li > p{
 }
 
 /* ALINEAR LAS FECHAS DEL INDICE DEL BLOG */
-body.container > div > div.post > ul.org-ul > li:contains("»"){
+li.categoryitem{
     text-indent: -6em;
-    padding-left: 7em;
+    padding-left: 1em;
 }
 
 
-body.container  div  div.post  ul.org-ul  li{
-    text-indent: -6em;
-    padding-left: 7em;
-}
 
 
