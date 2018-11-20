@@ -66,21 +66,21 @@ Es un juego interesante para pensar, y a la vez es fácilmente resoluble mediant
 </ul>
 
 <p>
-El código fuente está disponible en <a href="https://github.com/alvarogonzalezsotillo/palabras-afortunyadas">https://github.com/alvarogonzalezsotillo/palabras-afortunyadas</a>
+El código fuente está disponible en <a href="https://github.com/alvarogonzalezsotillo/palabras-anagramadas">https://github.com/alvarogonzalezsotillo/palabras-anagramadas</a>
 </p>
 
 
-<div id="outline-container-org68a902c" class="outline-2">
-<h2 id="org68a902c">Implementación del algoritmo</h2>
-<div class="outline-text-2" id="text-org68a902c">
+<div id="outline-container-org57ec4c3" class="outline-2">
+<h2 id="org57ec4c3">Implementación del algoritmo</h2>
+<div class="outline-text-2" id="text-org57ec4c3">
 <p>
 La siguiente implementación se ha realizado en lenguaje <code>scala</code>.
 </p>
 </div>
 
-<div id="outline-container-org9c565ad" class="outline-3">
-<h3 id="org9c565ad"><code>Palabra</code></h3>
-<div class="outline-text-3" id="text-org9c565ad">
+<div id="outline-container-orgfddb3df" class="outline-3">
+<h3 id="orgfddb3df"><code>Palabra</code></h3>
+<div class="outline-text-3" id="text-orgfddb3df">
 <p>
 Lo primero es una clase que encapsule una palabra y sepa calcular su histograma. También normaliza normaliza su representación, quitando espacios, acentos y mayúsculas. 
 </p>
@@ -122,9 +122,9 @@ case class Palabra(p: String) {
 </div>
 </div>
 
-<div id="outline-container-org1ea078d" class="outline-3">
-<h3 id="org1ea078d"><i>Corpus</i> de palabras</h3>
-<div class="outline-text-3" id="text-org1ea078d">
+<div id="outline-container-org3c42244" class="outline-3">
+<h3 id="org3c42244"><i>Corpus</i> de palabras</h3>
+<div class="outline-text-3" id="text-org3c42244">
 <p>
 El programa necesita un <i>vocabulario</i> donde buscar las palabras. Una opción sería extraerlas de varios libros gratuitos del Proyecto Gutengberg, pero he encontrado un <a href="http://corpus.rae.es/lfrecuencias.html"><i>corpus</i> de la Real Academia de la Lengua</a> con 737799 palabras distintas, ordenadas por frecuencia de uso. 
 </p>
@@ -189,9 +189,9 @@ val palabras: Map[Int, Array[Palabra]] = cronometro("Lectura de palabras"){
 </div>
 </div>
 
-<div id="outline-container-org1d42e4a" class="outline-3">
-<h3 id="org1d42e4a">Búsqueda de anagramas</h3>
-<div class="outline-text-3" id="text-org1d42e4a">
+<div id="outline-container-org47ae9a8" class="outline-3">
+<h3 id="org47ae9a8">Búsqueda de anagramas</h3>
+<div class="outline-text-3" id="text-org47ae9a8">
 <p>
 Una vez tengo la lista de palabras, para econtrar los anagramas de una dada basta con buscar las que tienen el mismo histograma de letras. La búsqueda se realiza solo entre las que tienen la misma longitud.
 </p>
@@ -276,9 +276,9 @@ Cada palabra para adivinar tiene una definición y una pista. La pista (en los c
 </div>
 </div>
 
-<div id="outline-container-orga50e0e4" class="outline-3">
-<h3 id="orga50e0e4">Solución a un día</h3>
-<div class="outline-text-3" id="text-orga50e0e4">
+<div id="outline-container-org7a0c3d9" class="outline-3">
+<h3 id="org7a0c3d9">Solución a un día</h3>
+<div class="outline-text-3" id="text-org7a0c3d9">
 <p>
 Con estas funciones, ya es posible concursar para un día concreto. Por ejemplo, este es el código del <a href="https://www.facebook.com/noesundia/photos/a.133963369947769/2158091877534898/?type=3&amp;__tn__=-R">concurso del 6/oct/2018</a>:
 </p>
@@ -356,7 +356,7 @@ Para probar el código en tu propio ordenador, puedes descargarlo de <a href="ht
     <div>
       <div class="post-meta">
         <span title="post date" class="post-info">2018-10-06</span>
-        <span title="last modification date" class="post-info">2018-11-13</span>
+        <span title="last modification date" class="post-info">2018-11-20</span>
         <span title="tags" class="post-info"><a href="/tags/scala/">scala</a>, <a href="/tags/rne/">rne</a>, <a href="/tags/anagramas/">anagramas</a>, <a href="/tags/programación/">programación</a></span>
         <span title="author" class="post-info">Álvaro González Sotillo</span>
       </div>
