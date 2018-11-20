@@ -4,10 +4,45 @@
     <title>Álvaro González Sotillo</title>
     <link>https://alvarogonzalezsotillo.github.io/</link>
     <description></description>
-    <pubDate>mar, 13 nov 2018 11:29:41 CET</pubDate>
-    <lastBuildDate>mar, 13 nov 2018 11:29:41 CET</lastBuildDate>
+    <pubDate>mar, 20 nov 2018 12:35:37 CET</pubDate>
+    <lastBuildDate>mar, 20 nov 2018 12:35:37 CET</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
+    <item>
+      <title>Practicar ortografía desde el navegador</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/practicar-ortografia</link>
+      <description><![CDATA[La mejor forma de practicar ortografía es mediante dictados, oyendo la palabra a escribir]]></description>
+      <pubDate>2018-11-20</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/practicar-ortografia</guid>
+    </item>
+    <item>
+      <title>El Cluedo como problema de lógica de segundo orden</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/el-cluedo-como-problema-de-logica</link>
+      <description><![CDATA[El Cluedo es considerado un juego para niños, pero bajo su superficie hay un interesante problema de lógica de segundo orden.]]></description>
+      <pubDate>2018-11-13</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/el-cluedo-como-problema-de-logica</guid>
+    </item>
+    <item>
+      <title>Ajuste de ecuaciones moleculares</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/ajuste-de-ecuaciones-moleculares</link>
+      <description><![CDATA[Ajuste de ecuaciones moleculares en Scalajs con el método algebarico.]]></description>
+      <pubDate>2018-11-13</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/ajuste-de-ecuaciones-moleculares</guid>
+    </item>
+    <item>
+      <title>Cómo publico materiales para clase</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/mi-publicacion-de-materiales-para-clase</link>
+      <description><![CDATA[Los materiales que preparamos los profesores se distribuyen entre los alumnos mediante plataformas de aprendizaje como Moodle. Lo interesante es cómo llegan esos materiales a la plataforma.]]></description>
+      <pubDate>2018-11-13</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/mi-publicacion-de-materiales-para-clase</guid>
+    </item>
+    <item>
+      <title>Palabras anagramadas</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/palabras-anagramadas</link>
+      <description><![CDATA[En casa somos fans del concurso de Palabras Anagramadas del programa de radio No Es Un Día Cualquiera.]]></description>
+      <pubDate>2018-11-13</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/palabras-anagramadas</guid>
+    </item>
     <item>
       <title>Literate Programming en la configuración de emacs</title>
       <link>https://alvarogonzalezsotillo.github.io/blog/literate-programming-configuracion-emacs</link>
@@ -24,7 +59,7 @@
     </item>
     <item>
       <title>Untitled</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/2018/11/13/untitled/</link>
+      <link>https://alvarogonzalezsotillo.github.io/blog/2018/11/20/untitled/</link>
       <description><![CDATA[<div>
 <div class="post">
 <h1>Untitled</h1>
@@ -35,14 +70,7 @@ Es posible que pase el blog a hugo (ahora está en org-page).
 </div>
 </div>]]></description>
       <pubDate>2018-11-11</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/2018/11/13/untitled/</guid>
-    </item>
-    <item>
-      <title>Palabras anagramadas</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/palabras-anagramadas</link>
-      <description><![CDATA[En casa somos fans del concurso de Palabras Anagramadas del programa de radio No Es Un Día Cualquiera.]]></description>
-      <pubDate>2018-10-16</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/palabras-anagramadas</guid>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/2018/11/20/untitled/</guid>
     </item>
     <item>
       <title>Mi propio hosting git</title>
@@ -52,39 +80,11 @@ Es posible que pase el blog a hugo (ahora está en org-page).
       <guid>https://alvarogonzalezsotillo.github.io/blog/mi-propio-hosting-git</guid>
     </item>
     <item>
-      <title>Cómo publico materiales para clase</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/mi-publicacion-de-materiales-para-clase</link>
-      <description><![CDATA[Los materiales que preparamos los profesores se distribuyen entre los alumnos mediante plataformas de aprendizaje como Moodle. Lo interesante es cómo llegan esos materiales a la plataforma.]]></description>
-      <pubDate>2018-10-08</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/mi-publicacion-de-materiales-para-clase</guid>
-    </item>
-    <item>
       <title>Problemas lógicos de cajas en ¿Cómo se llama este libro?</title>
       <link>https://alvarogonzalezsotillo.github.io/blog/como-se-llama-este-libro-porcia</link>
       <description><![CDATA[En "¿Cómo se llama este libro?" se describen muchos problemas lógicos. Los de las cajas de Porcia pueden resolverse con programación por restricciones.]]></description>
       <pubDate>2018-09-11</pubDate>
       <guid>https://alvarogonzalezsotillo.github.io/blog/como-se-llama-este-libro-porcia</guid>
-    </item>
-    <item>
-      <title>El Cluedo como problema de lógica de segundo orden</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/el-cluedo-como-problema-de-logica</link>
-      <description><![CDATA[El Cluedo es considerado un juego para niños, pero bajo su superficie hay un interesante problema de lógica de segundo orden.]]></description>
-      <pubDate>2018-08-17</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/el-cluedo-como-problema-de-logica</guid>
-    </item>
-    <item>
-      <title>Plantilla Latex para exámenes tipo test</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/plantilla-latex-para-examenes</link>
-      <description><![CDATA[Utilizando una plantilla latex pueden generarse exámenes de una forma cómoda y con buena legibilidad.]]></description>
-      <pubDate>2018-08-12</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/plantilla-latex-para-examenes</guid>
-    </item>
-    <item>
-      <title>Servidor linux para exámenes</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/servidor-linux-para-examenes</link>
-      <description><![CDATA[Al encargar trabajos o examinar a los alumnos, utilizo un servidor virtual para que trabajen en un entorno controlado.]]></description>
-      <pubDate>2018-06-15</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/servidor-linux-para-examenes</guid>
     </item>
   </channel>
 </rss>

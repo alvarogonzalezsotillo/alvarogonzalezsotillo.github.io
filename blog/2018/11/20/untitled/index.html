@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
-    <title>Literate Programming en la configuración de emacs - Álvaro González Sotillo</title>
+    <title>Untitled - Álvaro González Sotillo</title>
     <meta charset="utf-8" />
-    <meta name="author" content="Álvaro González Sotillo" />
-    <meta name="description" content="=org-babel= permite ejecutar los listados incluidos en un documento. Incluso la propia configuración de /emacs/ puede estar en un fichero =org=" />
+    <meta name="author" content="alvaro" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/media/css/main.css" type="text/css">
     <!-- <link rel="stylesheet" href="/media/css/prettify.css" type="text/css"> -->
@@ -33,74 +32,27 @@
 
 <div>
 <div class="post">
-<h1>Literate Programming en la configuración de emacs</h1>
+<h1>Untitled</h1>
 <p>
-Mi configuración de <i>emacs</i> estaba basada en un fichero <code>init.el</code> con varios paquetes <code>elisp</code>. Gran parte de la configuración la extraía de ejemplos de otros ficheros <code>init.el</code>, y muchas veces olvidaba qué hacían algunas partes del fichero.
+Es posible que pase el blog a hugo (ahora está en org-page).
 </p>
-
-<p>
-Esto se debía a una falta de comentarios, que se nos suele "olvidar" cuando sentimos que estamos programando, pero que solemos incluir cuando estamos redactando un documento. Descubrí en el blog de  <a href="http://pages.sachachua.com/.emacs.d/Sacha.html">Sacha Chua</a> que podía mantener la configuración en un fichero <code>orgmode</code> y así documentar fácilmente cada opción.
-</p>
-
-<div id="outline-container-orgad83681" class="outline-2">
-<h2 id="orgad83681"><span class="section-number-2">1</span> <code>init.el</code></h2>
-<div class="outline-text-2" id="text-1">
-<p>
-Emacs comienza cargando el fichero <code>~/.emacs.d/init.el</code>. Este fichero simplemente inicializa el sistema de paquetes y carga el paquete <code>org</code>, que es el que permite a Emacs manejar este tipo de ficheros. Después, carga este fichero interpretando los bloques de código.
-</p>
-
-<div class="org-src-container">
-<pre class="src src-lisp">(package-initialize nil)
-(setq package-check-signature nil)
-(setq package-archives '(
-      ("org" . "http://orgmode.org/elpa/")
-      ("melpa" . "http://melpa.org/packages/")))
-
-
-(package-initialize t)
-(package-refresh-contents) ; OPCIONAL, NECESITA CONEXIÓN A INTERNET
-(package-install 'org)
-(require 'org)
-(require 'ob-tangle)
-(org-babel-load-file (expand-file-name "~/.emacs.d/config.org"))
-</pre>
-</div>
-
-<p>
-Tras esto, <code>emacs</code> carga el fichero <code>config.org</code>, extrae los bloques de código y los ejecuta.
-</p>
-</div>
-</div>
-
-<div id="outline-container-org08a2994" class="outline-2">
-<h2 id="org08a2994"><span class="section-number-2">2</span> Mi configuración</h2>
-<div class="outline-text-2" id="text-2">
-<p>
-Se puede consultar mi configuración directamente en <a href="https://github.com/alvarogonzalezsotillo/.emacs.d/blob/master/config.org">https://github.com/alvarogonzalezsotillo/.emacs.d/blob/master/config.org</a>. Github es capaz de formatear el formato <code>org</code>, así que se ve bastante bonito.
-</p>
-
-<p>
-También he generado una <a href="/assets/blog/literate-programming-configuracion-emacs/config.pdf">versión en pdf de la configuración</a>.
-</p>
-</div>
-</div>
 
 </div>
 </div>
     <div>
       <div class="post-meta">
-        <span title="post date" class="post-info">2018-11-11</span>
+        <span title="post date" class="post-info">2018-11-20</span>
         <span title="last modification date" class="post-info">2018-11-11</span>
-        <span title="tags" class="post-info"><a href="/tags/emacs/">emacs</a>, <a href="/tags/orgmode/">orgmode</a></span>
-        <span title="author" class="post-info">Álvaro González Sotillo</span>
+        <span title="tags" class="post-info">N/A</span>
+        <span title="author" class="post-info">alvaro</span>
       </div>
       <section>
         <h1>Comments</h1>
         <div id="disqus_thread"></div>
         <script type="text/javascript">
           //var disqus_developer = 1;
-          var disqus_identifier = "/blog/literate-programming-configuracion-emacs";
-          var disqus_url = "https://alvarogonzalezsotillo.github.io/blog/literate-programming-configuracion-emacs";
+          var disqus_identifier = "/blog/2018/11/20/untitled/";
+          var disqus_url = "https://alvarogonzalezsotillo.github.io/blog/2018/11/20/untitled/";
           var disqus_shortname = 'alvarogonzalezsotillo';
           /* * * DON'T EDIT BELOW THIS LINE * * */
           (function() {
