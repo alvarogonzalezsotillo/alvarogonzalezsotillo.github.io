@@ -21,7 +21,7 @@ Esto deja varias formas de intentar mejorarlas:
 
 Para las dos primeras opciones hay muchos recursos en Internet, pero no tantos para los dictados. Utilizando el servicio gratis de [[http://www.voicerss.org/][voicerss.org]] el alumno puede oir la palabra que debe escribir, y el ordenador la corrige automáticamente.
 
-Puedes [[https://alvarogonzalezsotillo.github.io/ortografia][practicar tu ortografía aquí]].
+Puedes [[https://alvarogonzalezsotillo.github.io/ortografia][practicar tu ortografía aquí]]. No es recomendable utilizar un teléfono o tableta, ya que los teclados pueden realizar sugerencias sobre lo tecleado.
 
 
 
