@@ -27,7 +27,7 @@ Es un juego interesante para pensar, y a la vez es fácilmente resoluble mediant
 - Compara su histograma con el de un /corpus/ de palabras almacenadas
 - Suelen quedar unas pocas palabras entre las que es fácil discriminar por la definición.
 
-El código fuente está disponible en [[https://github.com/alvarogonzalezsotillo/palabras-afortunyadas][https://github.com/alvarogonzalezsotillo/palabras-afortunyadas]]
+El código fuente está disponible en [[https://github.com/alvarogonzalezsotillo/palabras-anagramadas][https://github.com/alvarogonzalezsotillo/palabras-anagramadas]]
 
 
 * Implementación del algoritmo
