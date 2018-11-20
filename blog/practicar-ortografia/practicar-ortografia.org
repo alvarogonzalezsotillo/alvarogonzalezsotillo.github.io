@@ -1,0 +1,29 @@
+# -*- coding: utf-8-unix; -*-
+#+TITLE:       Practicar ortografía desde el navegador
+#+AUTHOR:      Álvaro González Sotillo
+#+EMAIL:       alvarogonzalezsotillo@gmail.com
+#+DATE:        2018-11-20
+#+URI:         /blog/practicar-ortografia
+
+#+TAGS: programación
+#+DESCRIPTION: La mejor forma de practicar ortografía es mediante dictados, oyendo la palabra a escribir
+
+#+LANGUAGE:    es
+#+OPTIONS:     H:7 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+
+
+Cuando se tienen faltas de ortografía, no suelen ser adecuados los /test/ para indentificar las palabras mal escritas: el hecho de estar leyendo palabras incorrectas hace que no se fije la opción acertada.
+
+Esto deja varias formas de intentar mejorarlas:
+1. Aprender reglas y excepciones
+2. Leer
+3. Realizar dictados
+
+Para las dos primeras opciones hay muchos recursos en Internet, pero no tantos para los dictados. Utilizando el servicio gratis de [[http://www.voicerss.org/][voicerss.org]] el alumno puede oir la palabra que debe escribir, y el ordenador la corrige automáticamente.
+
+Puedes [[https://alvarogonzalezsotillo.github.io/ortografia][practicar tu ortografía aquí]].
+
+
+
+
+
