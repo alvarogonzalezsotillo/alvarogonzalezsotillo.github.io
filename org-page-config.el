@@ -45,6 +45,7 @@
   (configurar-blog)
   ;; TRAS LA CONFIGURACIÓN, GENERO EL SITIO DE PRUEBA
   (setq httpd-host "0.0.0.0")
+  (setq httpd-port 8081)
   (op/do-publication-and-preview-site op/site-preview-directory))
 
 (defun publicar-blog()

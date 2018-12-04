@@ -42,5 +42,5 @@ Tras esto, =emacs= carga el fichero =config.org=, extrae los bloques de código 
 * Mi configuración
 Se puede consultar mi configuración directamente en [[https://github.com/alvarogonzalezsotillo/.emacs.d/blob/master/config.org]]. Github es capaz de formatear el formato =org=, así que se ve bastante bonito.
 
-También he generado una [[file:config.pdf][versión en pdf de la configuración]].
+También he generado una [[file:config.pdf][versión en pdf de la configuración, a fecha de esta entrada]] (pero es mejor mirar [[https://alvarogonzalezsotillo.github.io/.emacs.d/config.pdf][la última versión en PDF]] y en [[https://alvarogonzalezsotillo.github.io/.emacs.d/config.html][HTML]])
 
