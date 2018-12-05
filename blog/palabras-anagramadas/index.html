@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Palabras anagramadas - Álvaro González Sotillo</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Álvaro González Sotillo" />
+    <meta name="description" content="En casa somos fans del concurso de Palabras Anagramadas del programa de radio No Es Un Día Cualquiera." />
+    <meta name="keywords" content="scala,rne,anagramas,programación" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <!-- <link rel="stylesheet" href="/media/css/prettify.css" type="text/css"> -->
+  </head>
+
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">Álvaro González Sotillo</a></h1>
+        <p></p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/hugo/">Hugo</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">Acerca de mí</a></li>
+          <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="//www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Buscar">
+          <input type="hidden" name="as_sitesearch" value="alvarogonzalezsotillo.github.io">
+        </form>
+        <img class="avatar" src="/media/img/octaedron.png" />
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>Palabras anagramadas</h1>
+
+<div class="figure">
+<p><img src="/assets/blog/palabras-anagramadas/concurso-2018-10-06.png" alt="/assets/blog/palabras-anagramadas/concurso-2018-10-06.png" style="float:right;clear:both;max-width:50%;" />
+</p>
+</div>
+
+<p>
+En nuestra casa somos <i>escuchantes</i> del programa <a href="http://www.rtve.es/radio/no-es-un-dia-cualquiera/">No es un día cualquiera</a> de <a href="http://www.rtve.es/radio/no-es-un-dia-cualquiera/">RNE</a>. Nos gustan un motón de secciones: <a href="http://www.gorkazumeta.com/2015/07/verba-volant-rne-una-seccion-o-un.html">verba volant</a>, el acabose... pero en la que participamos casi siempre es en las palabras anagramadas.
+</p>
+
+<p>
+Cada hora se da una <i>definición</i> de palabra, y un <i>anagrama</i> de la misma. El anagrama puede ser de tres tipos:
+</p>
+<ul class="org-ul">
+<li>Directamente, una palabra o expresión</li>
+<li>El anagrama está dentro de la propia definición, y en ese caso se da el número de letras</li>
+<li>En último anagrama se suele formar con la primera y última letra de las soluciones anteriores.</li>
+</ul>
+
+
+
+<p>
+Es un juego interesante para pensar, y a la vez es fácilmente resoluble mediante un programa de ordenador. El <b>algoritmo</b> es muy simple:
+</p>
+<ul class="org-ul">
+<li>Calcula el histograma de letras del anagrama. Por ejemplo, para <code>ANAGRAMA</code>, el histograma es: <code>A→4 N→1 G→1 R→1 M→1</code></li>
+<li>Compara su histograma con el de un <i>corpus</i> de palabras almacenadas</li>
+<li>Suelen quedar unas pocas palabras entre las que es fácil discriminar por la definición.</li>
+</ul>
+
+<p>
+El código fuente está disponible en <a href="https://github.com/alvarogonzalezsotillo/palabras-anagramadas">https://github.com/alvarogonzalezsotillo/palabras-anagramadas</a>
+</p>
+
+
+<div id="outline-container-org5403dfd" class="outline-2">
+<h2 id="org5403dfd">Implementación del algoritmo</h2>
+<div class="outline-text-2" id="text-org5403dfd">
+<p>
+La siguiente implementación se ha realizado en lenguaje <code>scala</code>.
+</p>
+</div>
+
+<div id="outline-container-org8a0d050" class="outline-3">
+<h3 id="org8a0d050"><code>Palabra</code></h3>
+<div class="outline-text-3" id="text-org8a0d050">
+<p>
+Lo primero es una clase que encapsule una palabra y sepa calcular su histograma. También normaliza normaliza su representación, quitando espacios, acentos y mayúsculas. 
+</p>
+
+<p>
+El histograma se calcula de forma perezosa, ya que no es necesario calcularlo de todas las palabras (como ya se verá, basta con calcularlo de las palabras con la misma longitud que la buscada)
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 1 </span>Clase que normaliza una palabra y calcula su histograma</label><pre class="src src-scala">type Histograma = Map[Char, Int]
+
+case class Palabra(p: String) {
+
+  import scala.concurrent.ExecutionContext.Implicits.global
+
+  private def quitaAcentosYEspacios(s: String): String = {
+    val acentos = Map(
+      'á' -&gt; 'a',
+      'é' -&gt; 'e',
+      'í' -&gt; 'i',
+      'ó' -&gt; 'o',
+      'ú' -&gt; 'u',
+      'ü' -&gt; 'u'
+    )
+    val sinAcentos = s.toLowerCase.map(c =&gt; if (acentos.isDefinedAt(c)) acentos(c) else c)
+    sinAcentos.replace(" ", "" )
+  }
+
+  lazy val size = palabra.size
+  lazy val palabra = quitaAcentosYEspacios(p)
+
+  lazy val histograma : Histograma = {
+    val ret = palabra.groupBy(c =&gt; c)
+    ret.map { case (c, set) =&gt; (c, set.size) }
+  }
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org8433de7" class="outline-3">
+<h3 id="org8433de7"><i>Corpus</i> de palabras</h3>
+<div class="outline-text-3" id="text-org8433de7">
+<p>
+El programa necesita un <i>vocabulario</i> donde buscar las palabras. Una opción sería extraerlas de varios libros gratuitos del Proyecto Gutengberg, pero he encontrado un <a href="http://corpus.rae.es/lfrecuencias.html"><i>corpus</i> de la Real Academia de la Lengua</a> con 737799 palabras distintas, ordenadas por frecuencia de uso. 
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 2 </span>Extractos del fichero <code>CREA_total.TXT</code></label><pre class="src src-sh">     Orden	Frec.absoluta 	 Frec.normalizada 
+     1.	de	9,999,518 	 65545.55 
+     2.	la	6,277,560 	 41148.59 
+     3.	que 	4,681,839 	 30688.85 
+     4.	el	4,569,652 	 29953.48 
+
+[...]
+
+400040.	procañasgordas 	        2	     0.01
+400041.	procapellán	        2	     0.01
+400042.	procapitalista	        2	     0.01
+
+[...]
+
+</pre>
+</div>
+
+<p>
+Para leer las palabras utilizo una expresión regular por cada una de las líneas. Me quedo solo con las primeras 300000 palabras más frecuentes, y las agrupo por longitud.
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 3 </span>Lectura de las 300000 <code>Palabra</code> más frecuentes, agrupadas por su longitud</label><pre class="src src-scala">def cronometro[T](msg: String)( proc : =&gt; T ) = {
+  val ini = System.currentTimeMillis()
+  val ret = proc
+  val fin = System.currentTimeMillis()
+  println( s"$msg: ${fin-ini} ms" )
+  ret
+}
+
+val palabras: Map[Int, Array[Palabra]] = cronometro("Lectura de palabras"){
+
+  val iterator = new Iterator[String] {
+
+    val palabrasFile = "./CREA_total.TXT"
+
+    val scanner = new Scanner(new FileInputStream(palabrasFile), "latin1")
+    val regex = """(?:\s*)(?:(\d|\.)*)(?:\s*)(\S*).*""".r
+
+    def hasNext = scanner.hasNextLine()
+
+    def next = {
+      val line = scanner.nextLine()
+      regex.findAllMatchIn(line).next.subgroups(1)
+    }
+  }
+
+  val limite = 300000
+  val todas = iterator.take(limite).map(p =&gt; Palabra(p)).toArray.sortBy(_.palabra)
+  val ret = todas.groupBy(p =&gt; p.size)
+
+  // COMO PALABRAS DE UNA SOLA LETRA, DEJAMOS SOLO a,o,y
+  ret.updated(1, Array("a", "o", "y").map(Palabra(_)))
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org778bb58" class="outline-3">
+<h3 id="org778bb58">Búsqueda de anagramas</h3>
+<div class="outline-text-3" id="text-org778bb58">
+<p>
+Una vez tengo la lista de palabras, para econtrar los anagramas de una dada basta con buscar las que tienen el mismo histograma de letras. La búsqueda se realiza solo entre las que tienen la misma longitud.
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 4 </span>Búsqueda de las <code>Palabra</code> con el mismo histograma que una dada</label><pre class="src src-scala">def buscaCoincidenciaExacta(buscado: Palabra) = {
+  palabras(buscado.palabra.size).view.filter( _.histograma == buscado.histograma )
+}
+</pre>
+</div>
+
+<p>
+En algunos casos, el anagrama está formado por más de una palabra en una frase. En la pista no se dice qué palabras forman el anagrama pero se nos da su longitud. La función <code>buscaExactoEnFrase</code> busca entre todas las subsecuencias de palabras que sumen tantas letras como la longitud dada.
+</p>
+
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 5 </span>Búsqueda de las <code>Palabra</code> con el mismo histograma que las combinaciones de palabras de una frase que tengan cierta longitud</label><pre class="src src-scala">def buscaExactoEnFrase( frase: String, letras: Int ) ={
+
+  val f = frase.split("""\s+""")
+
+  val combinacionesDePalabrasConLetras = {
+    for (from &lt;- (0 to f.size).view;
+      until &lt;- (from to f.size).view;
+      slice = f.slice(from, until) if slice.map(_.size).sum == letras) yield {
+      slice.mkString
+    }
+  }
+
+  for (c &lt;- combinacionesDePalabrasConLetras;
+    palabra = Palabra(c);
+    p &lt;- buscaCoincidenciaExacta(palabra)) yield {
+    p
+  }
+}
+</pre>
+</div>
+
+<p>
+Cada palabra para adivinar tiene una definición y una pista. La pista (en los concursos que he visto) puede ser de tres tipos
+</p>
+<ul class="org-ul">
+<li>Una palabra: La palabra a adivinar es un anagrama de dicha palabra</li>
+<li>Una longitud: La palabra a adivinar es un anagrama de algunas palabras de la definición, con la longitud especificada</li>
+<li>La palabra final: Es la de la última definición. Se forma con la letra inicial y final de las tres palabras definidas con anterioridad. El concurso total es de 4 palabras, así que la cuarta siempre tiene 6 letras.</li>
+</ul>
+
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 6 </span>Resolución de las pistas</label><pre class="src src-scala">def resuelvePista( pista : (String,Any) ) = {
+    pista match{
+      // LA ULTIMA PALABRA SE CONSIGUE CON EL INICIO Y FIN DE LAS TRES PRIMERAS 
+      case (msg, a:Array[String]) =&gt;
+        val palabras = a.take(3)
+        println( s"${msg.toUpperCase}: Con inicio y fin de ${palabras.mkString(",")}" );
+        val s = palabras.map( p =&gt; p.head.toString + p.last.toString ).mkString
+        val p = Palabra(s);
+        for (c &lt;- buscaCoincidenciaExacta(p)) {
+          println("  " + c)
+        }
+
+      // NOS DAN UNA PALABRA PARA EL ANAGRAMA  
+      case (msg,p:Palabra) =&gt;
+        println( s"${msg.toUpperCase}: Con anagrama $p" );
+        for (c &lt;- buscaCoincidenciaExacta(p)) {
+          println("  " + c)
+        }
+
+      // EL ANAGRAMA ESTÁ EN LA DEFINICIÓN, NOS DAN EL NÚMERO DE LETRAS  
+      case (frase,size:Int) =&gt;
+        println( s"${frase.toUpperCase}: Anagrama en la fase, longitud $size" );
+        for (c &lt;- buscaExactoEnFrase(frase, size) ) {
+          println("  " + c)
+        }
+
+      case _ =&gt;
+        throw new Error("Se espera String-&gt;Palabra, String-&gt;Int o String-&gt;Array[String]" )
+    }
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org3063f9f" class="outline-3">
+<h3 id="org3063f9f">Solución a un día</h3>
+<div class="outline-text-3" id="text-org3063f9f">
+<p>
+Con estas funciones, ya es posible concursar para un día concreto. Por ejemplo, este es el código del <a href="https://www.facebook.com/noesundia/photos/a.133963369947769/2158091877534898/?type=3&amp;__tn__=-R">concurso del 6/oct/2018</a>:
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 7 </span>Concurso del día 6 de Octubre del 2018</label><pre class="src src-scala">def dia2018_10_06(){
+  println( "************ 6 octubre 2018");
+
+  val pistas = Seq(
+    "Vino de Francia" -&gt; Palabra("piromántico"),
+    "Rediseña la licorería para poder albergar buenos recuerdos" -&gt; 9 ,
+    "Vivir de administrar los remanentes de forma adecuada" -&gt; 10,
+    "Trabaja de cara a la galería" -&gt; Array("importación","relicario","mantenerse")   
+  );
+
+  pistas.foreach( resuelvePista );
+}
+
+
+cronometro("Solución"){
+  dia2018_10_06()
+}
+
+</pre>
+</div>
+
+<p>
+Lo que hago es empezar con las tres primeras pistas, y deduzco las palabras entre las pocas opciones que se encuentran. Con eso, ya puedo introducir la cuarta pista en el programa. La salida del programa es la siguiente:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">$ time scala palabras-afortunyadas.scala 
+Lectura de palabras: 3334 ms
+************ 6 octubre 2018
+VINO DE FRANCIA: Con anagrama Palabra(piromántico)
+  Palabra(importación)
+  Palabra(importacion)
+  Palabra(patronímico)
+REDISEÑA LA LICORERÍA PARA PODER ALBERGAR BUENOS RECUERDOS: Anagrama en la fase, longitud 9
+  Palabra(licorería)
+  Palabra(relicario)
+  Palabra(preparado)
+  Palabra(recuerdos)
+VIVIR DE ADMINISTRAR LOS REMANENTES DE FORMA ADECUADA: Anagrama en la fase, longitud 10
+  Palabra(mantenerse)
+  Palabra(remanentes)
+TRABAJA DE CARA A LA GALERÍA: Con inicio y fin de importación,relicario,mantenerse
+  Palabra(merino)
+  Palabra(minero)
+  Palabra(minore)
+Solución: 2341 ms
+scala palabras-afortunyadas.scala  15,23s user 0,29s system 94% cpu 16,397 total
+</pre>
+</div>
+
+<p>
+En cuanto al rendimiento, en mi <code>Intel(R) Core(TM) i3-3120M CPU @ 2.50GHz</code> el programa tarda aproximadamente:
+</p>
+<ul class="org-ul">
+<li>11 segundos en compilarse y lanzarse</li>
+<li>3 segundos en leer el <i>corpus</i></li>
+<li>2 segundos encontrar las soluciones</li>
+</ul>
+
+
+<p>
+Para probar el código en tu propio ordenador, puedes descargarlo de <a href="https://github.com/alvarogonzalezsotillo/palabras-afortunyadas">https://github.com/alvarogonzalezsotillo/palabras-afortunyadas</a>
+</p>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2018-10-06</span>
+        <span title="last modification date" class="post-info">2018-11-20</span>
+        <span title="tags" class="post-info"><a href="/tags/scala/">scala</a>, <a href="/tags/rne/">rne</a>, <a href="/tags/anagramas/">anagramas</a>, <a href="/tags/programación/">programación</a></span>
+        <span title="author" class="post-info">Álvaro González Sotillo</span>
+      </div>
+      <section>
+        <h1>Comments</h1>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+          //var disqus_developer = 1;
+          var disqus_identifier = "/blog/palabras-anagramadas";
+          var disqus_url = "https://alvarogonzalezsotillo.github.io/blog/palabras-anagramadas";
+          var disqus_shortname = 'alvarogonzalezsotillo';
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="//disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      </section>
+      <!-- <script src="//code.jquery.com/jquery-latest.min.js"></script> -->
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->
+      <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>  -->
+      <script src="/media/js/jquery-3.2.1.min.js"></script>
+      <script src="/media/js/main.js"></script>
+      <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <!--<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>-->
+      <script src="/media/js/code-prettify/loader/run_prettify.js"></script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:alvarogonzalezsotillo <at> gmail <dot> com">Álvaro González Sotillo</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>

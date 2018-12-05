@@ -5,11 +5,12 @@
     <meta charset="utf-8" />
     <meta name="author" content="Álvaro González Sotillo" />
     <meta name="description" content="Los materiales que preparamos los profesores se distribuyen entre los alumnos mediante plataformas de aprendizaje como Moodle. Lo interesante es cómo llegan esos materiales a la plataforma." />
-    <meta name="keywords" content="latex,emacs,org-mode,reveal,git,github,github pages" />
+    <meta name="keywords" content="latex,emacs,orgmode,reveal,git,github,github pages" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/media/css/main.css" type="text/css">
-    <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
+    <!-- <link rel="stylesheet" href="/media/css/prettify.css" type="text/css"> -->
   </head>
+
   <body class="container">
     <div>
       <header class="masthead">
@@ -17,6 +18,7 @@
         <p></p>
         <ul>
           <li><a href="/blog/">Blog</a></li>
+          <li><a href="/hugo/">Hugo</a></li>
           <li><a href="/tags/">Tags</a></li>
           <li><a href="/about/">Acerca de mí</a></li>
           <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
@@ -56,15 +58,18 @@ En esta entrada describo qué solución utilizo, que combina repositorios Git, t
 
 
 <div class="figure">
-<p><img src="/assets/blog/mi-publicacion-de-materiales-para-clase/materiales-para-clase.svg.png" alt="/assets/blog/mi-publicacion-de-materiales-para-clase/materiales-para-clase.svg.png" />
+<p><object type="image/svg+xml" data="/assets/blog/mi-publicacion-de-materiales-para-clase/materiales-para-clase.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
 </p>
 <p><span class="figure-number">Figura 1: </span>Diagrama de los soportes de información utilizados</p>
 </div>
 
 
-<div id="outline-container-org75d33c5" class="outline-2">
-<h2 id="org75d33c5">Copias de seguridad</h2>
-<div class="outline-text-2" id="text-org75d33c5">
+<object data="/assets/blog/mi-publicacion-de-materiales-para-clase/materiales-para-clase.svg" class="org-svg" style="display:none">A mano</object>
+
+<div id="outline-container-org331cb5e" class="outline-2">
+<h2 id="org331cb5e">Copias de seguridad</h2>
+<div class="outline-text-2" id="text-org331cb5e">
 <p>
 Utilizo tres sistemas de copias de seguridad para el directorio con los ficheros de clase:
 </p>
@@ -76,9 +81,9 @@ Utilizo tres sistemas de copias de seguridad para el directorio con los ficheros
 </div>
 </div>
 
-<div id="outline-container-orga4d0d3c" class="outline-2">
-<h2 id="orga4d0d3c">Publicación de contenidos</h2>
-<div class="outline-text-2" id="text-orga4d0d3c">
+<div id="outline-container-orgb62fdab" class="outline-2">
+<h2 id="orgb62fdab">Publicación de contenidos</h2>
+<div class="outline-text-2" id="text-orgb62fdab">
 <p>
 <a href="https://moodle.org">Moodle</a>  ha mejorado bastante la publicación de ficheros desde la versión anterior, ya que ahora basta <i>arrastrar y soltar</i> para que aparezcan en el curso. De todas formas, sigue siendo engorroso realizar manualmente las actualizaciones, sobre todo si son varias a la vez.
 </p>
@@ -88,9 +93,9 @@ Mi opción es utilizar un servidor intermedio, <a href="https://pages.github.com
 </p>
 </div>
 
-<div id="outline-container-org9780099" class="outline-3">
-<h3 id="org9780099">Repositorios y ramas <b>Git</b></h3>
-<div class="outline-text-3" id="text-org9780099">
+<div id="outline-container-org57d6696" class="outline-3">
+<h3 id="org57d6696">Repositorios y ramas <b>Git</b></h3>
+<div class="outline-text-3" id="text-org57d6696">
 <p>
 Utilizo un solo repositorio para todas las asignaturas (en el pasado tenía uno por asignatura, pero era demasiado farragoso). El repositorio tiene dos ramas
 </p>
@@ -118,9 +123,9 @@ El repositorio tiene dos <i>remote</i>
 </div>
 
 
-<div id="outline-container-orgd6b702e" class="outline-3">
-<h3 id="orgd6b702e">URL de los contenidos</h3>
-<div class="outline-text-3" id="text-orgd6b702e">
+<div id="outline-container-org3e71624" class="outline-3">
+<h3 id="org3e71624">URL de los contenidos</h3>
+<div class="outline-text-3" id="text-org3e71624">
 <p>
 Una vez publicados en <b>Github Pages</b>, basta con utilizar la URL del recurso en Moodle para enlazarlo. Para facilitar la tarea, utilizo un <i>script</i> que imprime las URL de los ficheros pasados como párametro. Suelo utilizarlo desde dentro de Emacs con <code>C-U M-! ghpages *</code>.
 </p>
@@ -164,9 +169,9 @@ done
 </div>
 
 
-<div id="outline-container-org9c781e8" class="outline-2">
-<h2 id="org9c781e8">Creación de los materiales</h2>
-<div class="outline-text-2" id="text-org9c781e8">
+<div id="outline-container-org3dd769f" class="outline-2">
+<h2 id="org3dd769f">Creación de los materiales</h2>
+<div class="outline-text-2" id="text-org3dd769f">
 <p>
 Para disfrutar de las ventajas que <b>git</b> ofrece, utilizo ficheros de texto. Mi opción es el formato <code>org-mode</code>, que me permite sin salir de Emacs:
 </p>
@@ -192,8 +197,8 @@ De todas formas, aún mantengo algunos ficheros binarios
     <div>
       <div class="post-meta">
         <span title="post date" class="post-info">2017-10-25</span>
-        <span title="last modification date" class="post-info">2017-11-01</span>
-        <span title="tags" class="post-info"><a href="/tags/latex/">latex</a>, <a href="/tags/emacs/">emacs</a>, <a href="/tags/org-mode/">org-mode</a>, <a href="/tags/reveal/">reveal</a>, <a href="/tags/git/">git</a>, <a href="/tags/github/">github</a>, <a href="/tags/github-pages/">github pages</a></span>
+        <span title="last modification date" class="post-info">2018-11-13</span>
+        <span title="tags" class="post-info"><a href="/tags/latex/">latex</a>, <a href="/tags/emacs/">emacs</a>, <a href="/tags/orgmode/">orgmode</a>, <a href="/tags/reveal/">reveal</a>, <a href="/tags/git/">git</a>, <a href="/tags/github/">github</a>, <a href="/tags/github-pages/">github pages</a></span>
         <span title="author" class="post-info">Álvaro González Sotillo</span>
       </div>
       <section>
@@ -218,11 +223,12 @@ De todas formas, aún mantengo algunos ficheros binarios
       <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->
       <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>  -->
       <script src="/media/js/jquery-3.2.1.min.js"></script>
-      <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-      <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
       <script src="/media/js/main.js"></script>
+      <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <!--<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>-->
+      <script src="/media/js/code-prettify/loader/run_prettify.js"></script>
       <div class="footer">
-        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 26.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
         <p>
           Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:alvarogonzalezsotillo <at> gmail <dot> com">Álvaro González Sotillo</a>
           &nbsp;&nbsp;-&nbsp;&nbsp;

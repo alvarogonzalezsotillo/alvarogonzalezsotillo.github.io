@@ -8,8 +8,9 @@
     <meta name="keywords" content="AI,programación,javascript" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/media/css/main.css" type="text/css">
-    <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
+    <!-- <link rel="stylesheet" href="/media/css/prettify.css" type="text/css"> -->
   </head>
+
   <body class="container">
     <div>
       <header class="masthead">
@@ -17,6 +18,7 @@
         <p></p>
         <ul>
           <li><a href="/blog/">Blog</a></li>
+          <li><a href="/hugo/">Hugo</a></li>
           <li><a href="/tags/">Tags</a></li>
           <li><a href="/about/">Acerca de mí</a></li>
           <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
@@ -37,19 +39,19 @@
 <h2>&Iacute;ndice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgb86be5a">1. Problemas de cajas de Porcia</a></li>
-<li><a href="#orgc19fdcf">2. Motor lógico</a></li>
-<li><a href="#org42be8de">3. Cofres</a></li>
-<li><a href="#org38e3345">4. Solucionador</a></li>
-<li><a href="#orga56ba0e">5. Problemas resueltos</a>
+<li><a href="#org5adc939">1. Problemas de cajas de Porcia</a></li>
+<li><a href="#orgebd3e93">2. Motor lógico</a></li>
+<li><a href="#org80516a1">3. Cofres</a></li>
+<li><a href="#orgaa9b702">4. Solucionador</a></li>
+<li><a href="#orgefa9c5c">5. Problemas resueltos</a>
 <ul>
-<li><a href="#org5d8f25c">5.1. Primer problema</a></li>
-<li><a href="#orgddadc0f">5.2. Segundo problema</a></li>
-<li><a href="#org8744e78">5.3. Tercer problema</a></li>
-<li><a href="#org44ca4eb">5.4. Cuarto problema</a></li>
-<li><a href="#orga4ba997">5.5. Quinto problema</a></li>
-<li><a href="#org3e252cc">5.6. Sexto problema</a></li>
-<li><a href="#org45be4b5">5.7. Séptimo problema</a></li>
+<li><a href="#org859b461">5.1. Primer problema</a></li>
+<li><a href="#org1fe5aa3">5.2. Segundo problema</a></li>
+<li><a href="#orgc45d168">5.3. Tercer problema</a></li>
+<li><a href="#orga791bc6">5.4. Cuarto problema</a></li>
+<li><a href="#org35a8c88">5.5. Quinto problema</a></li>
+<li><a href="#org624542b">5.6. Sexto problema</a></li>
+<li><a href="#org9a43fcb">5.7. Séptimo problema</a></li>
 </ul>
 </li>
 </ul>
@@ -59,8 +61,8 @@
 Todo el <a href="https://github.com/alvarogonzalezsotillo/cluedo/blob/master/js/ejemplos-porcia.js">código al que se hace referencia</a> en esta entrada está disponible en <a href="https://github.com/alvarogonzalezsotillo/cluedo">un repositorio Github</a>
 </p>
 
-<div id="outline-container-orgb86be5a" class="outline-2">
-<h2 id="orgb86be5a"><span class="section-number-2">1</span> Problemas de cajas de Porcia</h2>
+<div id="outline-container-org5adc939" class="outline-2">
+<h2 id="org5adc939"><span class="section-number-2">1</span> Problemas de cajas de Porcia</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 El libro <i><a href="https://www.casadellibro.com/libro-como-se-llama-este-libro-el-enigma-de-dracula-y-otros-pasatiem-pos-logicos-9-ed/9788437602974/297161">¿Cómo se llama este libro?</a></i>, de <a href="https://es.wikipedia.org/wiki/Raymond_Smullyan">Raymond Smullyan</a> es un clásico de las matemáticas recreativas. Entre sus numerosos problemas, hay un tipo relativo a cajas con inscripciones ciertas o falsas, y se debe encontrar la caja que contiene un retrato (o una daga) utilizando sólo la lógica. Este es el primero de esos problemas:
@@ -155,8 +157,8 @@ Este problema puede resolverse utilizando como motor lógico el ya implementado 
 </div>
 </div>
 
-<div id="outline-container-orgc19fdcf" class="outline-2">
-<h2 id="orgc19fdcf"><span class="section-number-2">2</span> Motor lógico</h2>
+<div id="outline-container-orgebd3e93" class="outline-2">
+<h2 id="orgebd3e93"><span class="section-number-2">2</span> Motor lógico</h2>
 <div class="outline-text-2" id="text-2">
 <ul class="org-ul">
 <li><p>
@@ -222,8 +224,8 @@ Entre las expresiones implementadas, se encuentran:
 </div>
 </div>
 
-<div id="outline-container-org42be8de" class="outline-2">
-<h2 id="org42be8de"><span class="section-number-2">3</span> Cofres</h2>
+<div id="outline-container-org80516a1" class="outline-2">
+<h2 id="org80516a1"><span class="section-number-2">3</span> Cofres</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 Cada cofre tiene un nombre y una variable booleana que indica si contiene o no algo. Posteriormente a su creación se le pueden añadir varias inscripciones.
@@ -399,8 +401,8 @@ era verdad. ¿Cuál cofre debe de elegir el pretendiente?
 </div>
 
 
-<div id="outline-container-org38e3345" class="outline-2">
-<h2 id="org38e3345"><span class="section-number-2">4</span> Solucionador</h2>
+<div id="outline-container-orgaa9b702" class="outline-2">
+<h2 id="orgaa9b702"><span class="section-number-2">4</span> Solucionador</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 Para solucionar los problemas de cajas, debemos tener en cuenta que:
@@ -459,12 +461,12 @@ La función <code>CPAllPosibilies</code> da valor a las variables pasadas, y dev
 </div>
 
 
-<div id="outline-container-orga56ba0e" class="outline-2">
-<h2 id="orga56ba0e"><span class="section-number-2">5</span> Problemas resueltos</h2>
+<div id="outline-container-orgefa9c5c" class="outline-2">
+<h2 id="orgefa9c5c"><span class="section-number-2">5</span> Problemas resueltos</h2>
 <div class="outline-text-2" id="text-5">
 </div>
-<div id="outline-container-org5d8f25c" class="outline-3">
-<h3 id="org5d8f25c"><span class="section-number-3">5.1</span> Primer problema</h3>
+<div id="outline-container-org859b461" class="outline-3">
+<h3 id="org859b461"><span class="section-number-3">5.1</span> Primer problema</h3>
 <div class="outline-text-3" id="text-5-1">
 <problemaporciaysolucionresuelta>
 <div class="PORCIA">
@@ -575,8 +577,8 @@ Se debe elegir el cofre:Plata
 </div>
 
 
-<div id="outline-container-orgddadc0f" class="outline-3">
-<h3 id="orgddadc0f"><span class="section-number-3">5.2</span> Segundo problema</h3>
+<div id="outline-container-org1fe5aa3" class="outline-3">
+<h3 id="org1fe5aa3"><span class="section-number-3">5.2</span> Segundo problema</h3>
 <div class="outline-text-3" id="text-5-2">
 <problemaporciaysolucionresuelta>
 <div class="PORCIA">
@@ -692,8 +694,8 @@ Se debe elegir el cofre:Oro
 </div>
 
 
-<div id="outline-container-org8744e78" class="outline-3">
-<h3 id="org8744e78"><span class="section-number-3">5.3</span> Tercer problema</h3>
+<div id="outline-container-orgc45d168" class="outline-3">
+<h3 id="orgc45d168"><span class="section-number-3">5.3</span> Tercer problema</h3>
 <div class="outline-text-3" id="text-5-3">
 <p>
 Este problema incluye una novedad: los cofres tienen más de una inscripción. Además, se incluye una variable externa en dos de las inscripciones, no relativa a los cofres.
@@ -805,8 +807,8 @@ Se debe elegir el cofre:Plata
 </div>
 
 
-<div id="outline-container-org44ca4eb" class="outline-3">
-<h3 id="org44ca4eb"><span class="section-number-3">5.4</span> Cuarto problema</h3>
+<div id="outline-container-orga791bc6" class="outline-3">
+<h3 id="orga791bc6"><span class="section-number-3">5.4</span> Cuarto problema</h3>
 <div class="outline-text-3" id="text-5-4">
 <problemaporciaysolucionresuelta>
 <div class="PORCIA">
@@ -951,8 +953,8 @@ Se debe elegir el cofre:Plomo
 </div>
 
 
-<div id="outline-container-orga4ba997" class="outline-3">
-<h3 id="orga4ba997"><span class="section-number-3">5.5</span> Quinto problema</h3>
+<div id="outline-container-org35a8c88" class="outline-3">
+<h3 id="org35a8c88"><span class="section-number-3">5.5</span> Quinto problema</h3>
 <div class="outline-text-3" id="text-5-5">
 <p>
 En este problema una inscripción es auto-referente, ya que habla de la verdad de las propias inscripciones. En la implementación, se ha creado una variable booleana adicional, ya que una vez asignadas las inscripciones de los cofres no pueden cambiarse.
@@ -1076,8 +1078,8 @@ Se debe elegir el cofre:Plomo
 
 
 
-<div id="outline-container-org3e252cc" class="outline-3">
-<h3 id="org3e252cc"><span class="section-number-3">5.6</span> Sexto problema</h3>
+<div id="outline-container-org624542b" class="outline-3">
+<h3 id="org624542b"><span class="section-number-3">5.6</span> Sexto problema</h3>
 <div class="outline-text-3" id="text-5-6">
 <problemaporciaysolucionresuelta>
 <div class="PORCIA">
@@ -1158,8 +1160,8 @@ Se debe elegir el cofre:Oro
 
 
 
-<div id="outline-container-org45be4b5" class="outline-3">
-<h3 id="org45be4b5"><span class="section-number-3">5.7</span> Séptimo problema</h3>
+<div id="outline-container-org9a43fcb" class="outline-3">
+<h3 id="org9a43fcb"><span class="section-number-3">5.7</span> Séptimo problema</h3>
 <div class="outline-text-3" id="text-5-7">
 <problemaporciaysolucionresuelta>
 <div class="PORCIA">
@@ -1258,7 +1260,7 @@ Se debe elegir el cofre:Plomo
 </problemaporciaysolucionresuelta>
 
 
-<script src="/assets/blog/como-se-llama-este-libro-porcia/tabthis.js"></script>
+<script src="/media/js/tabthis.js"></script>
 <script>tabThisCSSElement();</script>
 <script>tabElements("problemaporciaysolucion",["Implementación","Enunciado"])</script>
 <script>tabElements("problemaporciaysolucionresuelta",["Enunciado","Implementación","Solución"])</script>
@@ -1272,7 +1274,7 @@ Se debe elegir el cofre:Plomo
     <div>
       <div class="post-meta">
         <span title="post date" class="post-info">2018-08-31</span>
-        <span title="last modification date" class="post-info">2018-08-18</span>
+        <span title="last modification date" class="post-info">2018-09-11</span>
         <span title="tags" class="post-info"><a href="/tags/javascript/">javascript</a>, <a href="/tags/ai/">AI</a>, <a href="/tags/programación/">programación</a></span>
         <span title="author" class="post-info">Álvaro González Sotillo</span>
       </div>
@@ -1298,11 +1300,12 @@ Se debe elegir el cofre:Plomo
       <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->
       <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>  -->
       <script src="/media/js/jquery-3.2.1.min.js"></script>
-      <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-      <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
       <script src="/media/js/main.js"></script>
+      <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <!--<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>-->
+      <script src="/media/js/code-prettify/loader/run_prettify.js"></script>
       <div class="footer">
-        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 26.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
         <p>
           Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:alvarogonzalezsotillo <at> gmail <dot> com">Álvaro González Sotillo</a>
           &nbsp;&nbsp;-&nbsp;&nbsp;

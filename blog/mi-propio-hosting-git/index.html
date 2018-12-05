@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Mi propio hosting git - Álvaro González Sotillo</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Álvaro González Sotillo" />
+    <meta name="description" content="La nube es el ordenador de otro. Ya que utilizo git para mis archivos en línea, tiene sentido que mi nube sea mi ordenador" />
+    <meta name="keywords" content="git" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <!-- <link rel="stylesheet" href="/media/css/prettify.css" type="text/css"> -->
+  </head>
+
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">Álvaro González Sotillo</a></h1>
+        <p></p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/hugo/">Hugo</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">Acerca de mí</a></li>
+          <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="//www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Buscar">
+          <input type="hidden" name="as_sitesearch" value="alvarogonzalezsotillo.github.io">
+        </form>
+        <img class="avatar" src="/media/img/octaedron.png" />
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>Mi propio hosting git</h1>
+<p>
+En una entrada anterior expliqué cómo utilizo <a href="../../../blog/mi-publicacion-de-materiales-para-clase">hostings de git gratuitos para distribuir mis materiales</a> de clase.
+</p>
+
+
+<p>
+Ya que instalé un <a href="../../../blog/ordenador-de-sobremesa-servidor-htpc">pc en casa para hacer de servidor</a>, he decido aprovecharlo también para tener mis repositorios git.
+</p>
+
+<p>
+Hay muchos tutoriales de como conseguir un repositorio git a través de ssh, yo me fijé en uno de <a href="https://www.systutorials.com/366/set-up-git-server-through-ssh-connection/">systutorials</a>
+</p>
+
+<ol class="org-ol">
+<li>Crear un usuario dedicado (<code>git</code>), de forma que se puedan restringir sus privilegios sobre el sistema
+<ul class="org-ul">
+<li>Es recomendable que, en vez de una shell general, utilice <a href="https://git-scm.com/docs/git-shell">git-shell</a>. Así no puede realizar acciones que no estén relacionadas con git.</li>
+<li>Para mayor seguridad, será un usuario sin contraseña, y sólo se podrá conectar a través de <a href="https://www.tecmint.com/ssh-passwordless-login-using-ssh-keygen-in-5-easy-steps/">SSH con una clave público-privada</a>.</li>
+</ul></li>
+<li><p>
+El usuario <code>git</code> tendrá en su <code>$HOME</code> un directorio por repositorio. No será un repositorio corriente, ya que no interesa tener una copia de trabajo, sino uno del tipo <a href="http://www.saintsjd.com/2011/01/what-is-a-bare-git-repository/">bare</a>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">
+sudo -u git bash # El usuario git no tiene shell
+cd $HOME
+mkdir repositorio.git
+cd repositorio.git
+git --bare init
+</pre>
+</div></li>
+
+<li><p>
+Desde el ordenador cliente, ya se puede añadir el repositorio remoto. La URL tiene la forma <code>usuario@host:/camino/al/directorio/</code>
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">
+git remote add mihosting git@alvarogonzalez.no-ip.biz:/home/git/repositorio.git
+git push mihosting master
+</pre>
+</div></li>
+
+<li>El diagrama de mis servicios de ficheros en la nube queda así</li>
+</ol>
+
+
+<div class="figure">
+<p><object type="image/svg+xml" data="/assets/blog/mi-propio-hosting-git/mi-propio-hosting-git.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+
+<object data="/assets/blog/mi-propio-hosting-git/mi-propio-hosting-git.svg" class="org-svg" style="display:none">A mano</object>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2018-10-02</span>
+        <span title="last modification date" class="post-info">2018-10-08</span>
+        <span title="tags" class="post-info"><a href="/tags/git/">git</a></span>
+        <span title="author" class="post-info">Álvaro González Sotillo</span>
+      </div>
+      <section>
+        <h1>Comments</h1>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+          //var disqus_developer = 1;
+          var disqus_identifier = "/blog/mi-propio-hosting-git";
+          var disqus_url = "https://alvarogonzalezsotillo.github.io/blog/mi-propio-hosting-git";
+          var disqus_shortname = 'alvarogonzalezsotillo';
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="//disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      </section>
+      <!-- <script src="//code.jquery.com/jquery-latest.min.js"></script> -->
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->
+      <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>  -->
+      <script src="/media/js/jquery-3.2.1.min.js"></script>
+      <script src="/media/js/main.js"></script>
+      <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <!--<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>-->
+      <script src="/media/js/code-prettify/loader/run_prettify.js"></script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:alvarogonzalezsotillo <at> gmail <dot> com">Álvaro González Sotillo</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>
