@@ -12,8 +12,24 @@
 
 Esta entrada es una continuación de [[../../../blog/palabras-anagramadas][palabras anagramadas]], en la que adapto la aplicación de consola a una página web.
 
+La idea es conseguir una interfaz que vaya mostrando incrementalmente los resultados de un cálculo largo. En una GUI tradicional se utilizarían /threads/, pero en una página web la solución más simple es utilizar un /worker/.
+
+Un /worker/ es un /script/ que el navegador carga en un entorno aislado en su propio /thread/. Los /scripts/ de la página solo pueden comunicarse con el /worker/ mediante el envío y recepción de mensajes. Dicho envío es asíncrono.
+
+Mi solución está programada en ScalaJS. Tengo varias razones para ello, en orden aproximado de importancia:
+- El programa original de palabras anagramadas está hecho en Scala.
+- Soy fan de los lenguajes tipados: Scala me gusta bastante más que Javascript.
+- La forma de comunicación entre /worker/ y página web se parece a los actores de Scala.
+- Porque puedo.
+
+
+Aunque se pueden hacer /builds/ multiproyecto con ScalaJS, he preferido hacer un único fichero javascript que tiene el código de la página y del /worker/. Eso me obliga a:
+- Cargar una vez el fichero javascript como /script/ normal.
+- Cargar otra vez el fichero como un /worker/.
+- Distinguir en el =main= del fichero javascript si se ejecuta como página web o como /worker/.
 
 ** Carga del /Worker/
+
 Desde =BrowserMain= localizo el último /script/ cargado en la página, y lo vuelvo a cargar, esta vez como un /worker/. Para localizar el último /script/, intento utilizar la propiedad =currentScript=, y si no existe, utilizo la ruta de generación del fichero =js= al compilar.
 
 
@@ -33,6 +49,7 @@ Desde =BrowserMain= localizo el último /script/ cargado en la página, y lo vue
   val worker = lastLoadedScript.map( new org.scalajs.dom.raw.Worker(_) )
 #+end_src
 
+Tras este código,  la variable =worker= es un =Option=, que puede ser =None=, o un =Worker=.
 
 ** ¿Soy parte de la página o un /worker/?
 Como se ha visto, el /script/ se puede cargar varias veces, así que es necesario saber en qué tipo de entorno se ejecuta. Una forma simple es detectar si existe =document= (página web) o =importScripts= (/worker/). 
@@ -46,7 +63,7 @@ Como se ha visto, el /script/ se puede cargar varias veces, así que es necesari
 ** Mensajes
 Entre la página y el /worker/ se intercambian mensajes. En un entorno Java, utilizaría una =case class= para cada tipo de mensaje, pero hay que tener en cuenta que entre la página y el /worker/ no se puede intercambiar memoria, solo objetos JSON.
 
-Esto obliga a utilizar objetos planos de Javascript, así que hay que implementar a mano las partes interesantes de las =case class=: la creación por factorías en vez de por constructor (método =apply=), y el pattern matching (método =unapply=)
+Esto obliga a utilizar objetos planos de Javascript, así que hay que implementar a mano las partes que hacen automáticamente las =case class=: la creación por factorías en vez de por constructor (método =apply=), y el pattern matching (método =unapply=). El siguiente ejemplo es del mensaje =LoadCorpus=, que tiene un único parámetro:
 
 
 #+begin_src scala
