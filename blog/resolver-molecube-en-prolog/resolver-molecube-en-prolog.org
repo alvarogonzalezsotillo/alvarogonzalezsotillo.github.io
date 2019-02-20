@@ -20,6 +20,51 @@ Hace un par de años que los Reyes Magos nos dejaron en casa un [[http://www.rec
 En principio no parecía un rompecabezas muy difícil, porque ya teníamos experiencia con los cubos de Rubick. Pero en la práctica nos encontramos incapaces de encontrar una solución. Aprovechando que aún no había programado nada en [[https://en.wikipedia.org/wiki/Prolog][prolog]], decidí intentar resolver el puzzle en este lenguaje.
 
 
+* Objetivo del solucionador
+El solucionador solo encontrará el estado final del molecube. Tras esto, un /humano/ deberá llevar el estado real del molecube al estado propuesto por el solucionador.
+
+Esto no es un gran problema, ya que tenemos experiencia con cubos de Rubick.
+
+* Definición del problema
+Para solucionar el molecube se necesita que:
+- Cada /cubito/ sea de uno de los 9 colores posibles: blanco,   azul,     rosa,     morado,   amarillo, negro,    rojo,     naranja y  verde.    
+- Los centros de las caras son inmóviles, así que deben ser del color del molecube real.
+- Cada cara debe tener todos sus colores distintos.
+- Cada color móvil debe aparecer las mismas veces que el molecube, en el mismo sitio. Por ejemplo el color blanco debe aparecer en 1 vez en las esquinas y 1 vez en las aristas (entre dos esquinas)
+
+Todo esto suena bastante a programación por restricciones, y puede programarse de forma bastante natural en prolog.
+
+* Implementación en prolog
+
+Un color se representa por un número del 0 al 8
+#+begin_src prolog
+color(C) :-
+    C in 0..8.
+#+end_src
+
+Las coordenadas tridimensionales de una celda van del 0 al 2
+#+begin_src prolog
+coordenada(X) :-
+    X in 0..2 .
+
+coordenadas([X,Y,Z]) :-
+    aplica_a_todos(coordenada,[X,Y,Z]).
+#+end_src
+
+Finalmente, una celda tiene unas coordenadas y un color.
+#+begin_src prolog
+celda([XYZ,C]) :-
+    color(C),
+    coordenadas(XYZ).
+#+end_src
+
+Cada /cubito/ o celda
+
+
+* Soluciones
+El programa encuentra 80 soluciones distintas. A continuación se muestra una de ellas (un dedo para mover, dos para hacer zoom):
+
+
 #+begin_export html
 <script type='text/javascript' src='https://www.x3dom.org/download/x3dom.js'> </script> 
 
@@ -338,9 +383,43 @@ En principio no parecía un rompecabezas muy difícil, porque ya teníamos exper
 #+end_export
 
 
-* Objetivo del solucionador
-El solucionador solo encontrará el estado final del molecube. Tras esto, un /humano/ deberá llevar el estado real del molecube al estado propuesto por el solucionador.
+Esta visualización está generada también en el programa prolog, imprimiendo código x3dom.
 
-Esto no es un gran problema, ya que tenemos experiencia con cubos de Rubick.
+#+begin_src prolog
 
-* 
+color_a_nombre(0, white).
+color_a_nombre(1, blue).
+color_a_nombre(2, pink).
+color_a_nombre(3, purple).
+color_a_nombre(4, yellow).
+color_a_nombre(5, black).
+color_a_nombre(6, red).
+color_a_nombre(7, orange).
+color_a_nombre(8, green).
+
+imprime_celda(CELDA) :-
+    [[X,Y,Z],C] = CELDA,
+    color_a_nombre(C,N),
+    format("
+      <transform translation='~d ~d ~d'>    
+        <shape>
+          <appearance>
+            <material diffuseColor='~a'>
+            </material>
+          </appearance>
+          <sphere></sphere>
+        </shape>
+      </transform>
+    ", [(X-1)*2,(Y-1)*2,(Z-1)*2,N]).
+
+imprime_solucion(CUBO) :-
+    write("
+	 <x3d height='500px' style='border:none; display:block; width:100%'> 
+	   <scene>
+    "),
+    aplica_a_todos(imprime_celda,CUBO),
+    write("
+           </scene>
+         </x3d> 
+    ").
+#+end_src
