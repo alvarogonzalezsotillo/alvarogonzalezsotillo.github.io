@@ -1,0 +1,74 @@
+#+TITLE:       Palabras anagramadas online
+#+AUTHOR:      Álvaro González Sotillo
+#+EMAIL:       alvarogonzalezsotillo@gmail.com
+#+DATE:        2018-10-06
+#+URI:         /blog/palabras-anagramadas-online
+#+KEYWORDS:    scala,rne,anagramas,programación
+#+TAGS:        scala,rne,anagramas,programación
+#+LANGUAGE:    es
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: çayuda online para el concurso de Palabras Anagramadas del programa de radio No Es Un Día Cualquiera.
+
+
+Esta entrada es una continuación de [[../../../blog/palabras-anagramadas][palabras anagramadas]], en la que adapto la aplicación de consola a una página web.
+
+
+** Carga del /Worker/
+Desde =BrowserMain= localizo el último /script/ cargado en la página, y lo vuelvo a cargar, esta vez como un /worker/. Para localizar el último /script/, intento utilizar la propiedad =currentScript=, y si no existe, utilizo la ruta de generación del fichero =js= al compilar.
+
+
+#+begin_src scala
+  val currentScript = {
+    val ret = js.Dynamic.global.document
+    if( js.isUndefined(ret) ) None else Some(ret.currentScript)
+  }
+
+  val lastLoadedScript : Option[String] = currentScript.map{ c =>
+    if( js.isUndefined(c) )
+      "./palabras/js/target/scala-2.11/palabras-fastopt.js"
+    else
+      c.src.toString
+  }
+
+  val worker = lastLoadedScript.map( new org.scalajs.dom.raw.Worker(_) )
+#+end_src
+
+
+** ¿Soy parte de la página o un /worker/?
+Como se ha visto, el /script/ se puede cargar varias veces, así que es necesario saber en qué tipo de entorno se ejecuta. Una forma simple es detectar si existe =document= (página web) o =importScripts= (/worker/). 
+
+#+begin_src scala
+  def isBrowserPage = !js.isUndefined(document)
+  def isBrowserWorker = !js.isUndefined(js.Dynamic.global.importScripts)
+  def isNode = !isBrowserPage && !isBrowserWorker
+#+end_src
+
+** Mensajes
+Entre la página y el /worker/ se intercambian mensajes. En un entorno Java, utilizaría una =case class= para cada tipo de mensaje, pero hay que tener en cuenta que entre la página y el /worker/ no se puede intercambiar memoria, solo objetos JSON.
+
+Esto obliga a utilizar objetos planos de Javascript, así que hay que implementar a mano las partes interesantes de las =case class=: la creación por factorías en vez de por constructor (método =apply=), y el pattern matching (método =unapply=)
+
+
+#+begin_src scala
+object Message{
+  def jsProp[T](o: Any)(property: String) : Option[T] = {
+    val value = o.asInstanceOf[js.Dynamic].selectDynamic(property)
+    if( js.isUndefined(value) ) None else Some(value.asInstanceOf[T])
+  }
+
+  def jsStr(o: Any) = jsProp[String](o) _
+
+  def unapply( o: Any ) : Option[String] = jsStr(o)("messageType")
+
+  object LoadCorpus{
+    def apply( file: String ) = js.Dynamic.literal( "messageType" -> "LoadCorpus", "file" -> file )
+    def unapply( o: Any ) : Option[String] = o match{
+      case Message("LoadCorpus") => jsStr(o)("file")
+      case _ => None
+    }
+  }
+
+  [...]
+}
+#+end_src
+

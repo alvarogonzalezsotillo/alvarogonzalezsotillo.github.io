@@ -1,0 +1,346 @@
+# -*- coding: utf-8-unix; -*-
+#+TITLE:       Cómo resolver molecube en prolog
+#+AUTHOR:      Álvaro González Sotillo
+#+EMAIL:       alvarogonzalezsotillo@gmail.com
+#+DATE:        2019-02-28
+#+URI:         /blog/resolver-molecube-en-prolog
+
+#+TAGS: programación, AI
+#+DESCRIPTION: Un rompecabezas nuevo es una buena excusa para experimentar un nuevo lenguaje de programación
+
+#+LANGUAGE:    es
+#+OPTIONS:     H:7 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+
+
+#+ATTR_HTML: :style float:left;
+[[file:molecube-mezclado.jpg]]
+
+Hace un par de años que los Reyes Magos nos dejaron en casa un [[http://www.recenttoys.com/project/molecube/][molecube]]. Consiste en un cubo parecido al cubo de Rubick, pero el objetivo no es conseguir caras de igual color. En cambio, no debe haber dos colores iguales en ninguna cara. Como anuncian en su página web, es como un sudoku tridimensional.
+
+En principio no parecía un rompecabezas muy difícil, porque ya teníamos experiencia con los cubos de Rubick. Pero en la práctica nos encontramos incapaces de encontrar una solución. Aprovechando que aún no había programado nada en [[https://en.wikipedia.org/wiki/Prolog][prolog]], decidí intentar resolver el puzzle en este lenguaje.
+
+
+#+begin_export html
+<script type='text/javascript' src='https://www.x3dom.org/download/x3dom.js'> </script> 
+
+<script type='text/javascript'>
+  function loadCSS(css){
+    var head = document.getElementsByTagName("head")[0];
+    var link = document.createElement("link");
+    link.href=css;
+    link.rel="stylesheet";
+    link.type="text/css";
+
+    head.appendChild(link);
+    console.log(head);
+  }
+
+  loadCSS("https://www.x3dom.org/download/x3dom.css");
+</script>
+#+end_export
+
+
+#+begin_export html
+
+	 <x3d height='300px' style='border:none; display:block; width:100%'> 
+	   <scene>
+ 
+
+            <transform translation='-2 -2 -2'>    
+            <shape>
+             <appearance>
+               <material diffuseColor='white'>
+               </material>
+             </appearance>
+             <sphere></sphere>
+            </shape>
+            </transform>
+
+
+            <transform translation='-2 -2 0'>    
+            <shape>
+             <appearance>
+               <material diffuseColor='red'>
+               </material>
+             </appearance>
+             <sphere></sphere>
+            </shape>
+            </transform>
+
+
+            <transform translation='-2 -2 2'>    
+            <shape>
+             <appearance>
+               <material diffuseColor='orange'>
+               </material>
+             </appearance>
+             <sphere></sphere>
+            </shape>
+            </transform>
+
+
+            <transform translation='-2 0 -2'>    
+            <shape>
+             <appearance>
+               <material diffuseColor='black'>
+               </material>
+             </appearance>
+             <sphere></sphere>
+            </shape>
+            </transform>
+
+
+            <transform translation='-2 0 0'>    
+            <shape>
+             <appearance>
+               <material diffuseColor='yellow'>
+               </material>
+             </appearance>
+             <sphere></sphere>
+            </shape>
+            </transform>
+
+
+            <transform translation='-2 0 2'>    
+            <shape>
+             <appearance>
+               <material diffuseColor='pink'>
+               </material>
+             </appearance>
+             <sphere></sphere>
+            </shape>
+            </transform>
+
+
+            <transform translation='-2 2 -2'>    
+            <shape>
+             <appearance>
+               <material diffuseColor='blue'>
+               </material>
+             </appearance>
+             <sphere></sphere>
+            </shape>
+            </transform>
+
+
+            <transform translation='-2 2 0'>    
+            <shape>
+             <appearance>
+               <material diffuseColor='purple'>
+               </material>
+             </appearance>
+             <sphere></sphere>
+            </shape>
+            </transform>
+
+
+            <transform translation='-2 2 2'>    
+            <shape>
+             <appearance>
+               <material diffuseColor='green'>
+               </material>
+             </appearance>
+             <sphere></sphere>
+            </shape>
+            </transform>
+
+
+            <transform translation='0 -2 -2'>    
+            <shape>
+             <appearance>
+               <material diffuseColor='pink'>
+               </material>
+             </appearance>
+             <sphere></sphere>
+            </shape>
+            </transform>
+
+
+            <transform translation='0 -2 0'>    
+            <shape>
+             <appearance>
+               <material diffuseColor='black'>
+               </material>
+             </appearance>
+             <sphere></sphere>
+            </shape>
+            </transform>
+
+
+            <transform translation='0 -2 2'>    
+            <shape>
+             <appearance>
+               <material diffuseColor='yellow'>
+               </material>
+             </appearance>
+             <sphere></sphere>
+            </shape>
+            </transform>
+
+
+            <transform translation='0 0 -2'>    
+            <shape>
+             <appearance>
+               <material diffuseColor='purple'>
+               </material>
+             </appearance>
+             <sphere></sphere>
+            </shape>
+            </transform>
+
+
+            <transform translation='0 0 2'>    
+            <shape>
+             <appearance>
+               <material diffuseColor='blue'>
+               </material>
+             </appearance>
+             <sphere></sphere>
+            </shape>
+            </transform>
+
+
+            <transform translation='0 2 -2'>    
+            <shape>
+             <appearance>
+               <material diffuseColor='orange'>
+               </material>
+             </appearance>
+             <sphere></sphere>
+            </shape>
+            </transform>
+
+
+            <transform translation='0 2 0'>    
+            <shape>
+             <appearance>
+               <material diffuseColor='white'>
+               </material>
+             </appearance>
+             <sphere></sphere>
+            </shape>
+            </transform>
+
+
+            <transform translation='0 2 2'>    
+            <shape>
+             <appearance>
+               <material diffuseColor='red'>
+               </material>
+             </appearance>
+             <sphere></sphere>
+            </shape>
+            </transform>
+
+
+            <transform translation='2 -2 -2'>    
+            <shape>
+             <appearance>
+               <material diffuseColor='green'>
+               </material>
+             </appearance>
+             <sphere></sphere>
+            </shape>
+            </transform>
+
+
+            <transform translation='2 -2 0'>    
+            <shape>
+             <appearance>
+               <material diffuseColor='blue'>
+               </material>
+             </appearance>
+             <sphere></sphere>
+            </shape>
+            </transform>
+
+
+            <transform translation='2 -2 2'>    
+            <shape>
+             <appearance>
+               <material diffuseColor='purple'>
+               </material>
+             </appearance>
+             <sphere></sphere>
+            </shape>
+            </transform>
+
+
+            <transform translation='2 0 -2'>    
+            <shape>
+             <appearance>
+               <material diffuseColor='red'>
+               </material>
+             </appearance>
+             <sphere></sphere>
+            </shape>
+            </transform>
+
+
+            <transform translation='2 0 0'>    
+            <shape>
+             <appearance>
+               <material diffuseColor='orange'>
+               </material>
+             </appearance>
+             <sphere></sphere>
+            </shape>
+            </transform>
+
+
+            <transform translation='2 0 2'>    
+            <shape>
+             <appearance>
+               <material diffuseColor='white'>
+               </material>
+             </appearance>
+             <sphere></sphere>
+            </shape>
+            </transform>
+
+
+            <transform translation='2 2 -2'>    
+            <shape>
+             <appearance>
+               <material diffuseColor='yellow'>
+               </material>
+             </appearance>
+             <sphere></sphere>
+            </shape>
+            </transform>
+
+
+            <transform translation='2 2 0'>    
+            <shape>
+             <appearance>
+               <material diffuseColor='pink'>
+               </material>
+             </appearance>
+             <sphere></sphere>
+            </shape>
+            </transform>
+
+
+            <transform translation='2 2 2'>    
+            <shape>
+             <appearance>
+               <material diffuseColor='black'>
+               </material>
+             </appearance>
+             <sphere></sphere>
+            </shape>
+            </transform>
+
+           </scene>
+         </x3d> 
+    
+
+#+end_export
+
+
+* Objetivo del solucionador
+El solucionador solo encontrará el estado final del molecube. Tras esto, un /humano/ deberá llevar el estado real del molecube al estado propuesto por el solucionador.
+
+Esto no es un gran problema, ya que tenemos experiencia con cubos de Rubick.
+
+* 
