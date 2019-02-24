@@ -11,7 +11,7 @@
   (require 'org-page)
 
   (setq op/repository-directory raiz-de-blog)
-  (setq op/repository-org-branch "molecube")
+  (setq op/repository-org-branch "source")
   (setq op/repository-html-branch "master")
   (setq op/site-domain "https://alvarogonzalezsotillo.github.io/")
 
