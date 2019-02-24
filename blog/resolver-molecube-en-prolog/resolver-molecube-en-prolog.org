@@ -36,6 +36,7 @@ Todo esto suena bastante a programación por restricciones, y puede programarse 
 
 * Implementación en prolog
 
+** Estructura básica
 Un color se representa por un número del 0 al 8
 #+begin_src prolog
 color(C) :-
@@ -58,7 +59,192 @@ celda([XYZ,C]) :-
     coordenadas(XYZ).
 #+end_src
 
-Cada /cubito/ o celda
+El molecube se construye con 26 de estas celdas. El siguiente código genera una secuencia de 0 a 26, quita el número 13, y construye las 26 celdas del cubo.
+
+#+begin_src prolog
+coordenadas_desde_orden(ORDEN,[X,Y,Z]) :-
+    ORDEN < 27,
+    X is ORDEN//9,
+    Y is (ORDEN-X*9)//3,
+    Z is ORDEN mod 3.
+
+cubo(L) :-
+    secuencia(0,26,SEQ),
+    filtra_lista(dif(13), SEQ, SEQSINCENTRO),
+    mapea_lista(coordenadas_desde_orden,SEQSINCENTRO,COORS),
+    mapea_lista(coordenadas_de_celda,L,COORS),
+    aplica_a_todos(celda,L).
+#+end_src
+
+Tras esto, hay que aplicar las restricciones adecuadas a caras, aristas y esquinas. Por ejemplo para conseguir que en cada cara todos los colores sean distintos:
+
+#+begin_src prolog
+coordenadas_de_celdaZ(Z,C) :-
+    coordenadas_de_celda(C,[_,_,Z]).
+
+caraXY(CUBO,Z,CARA) :-
+    filtra_lista(coordenadas_de_celdaZ(Z),CUBO,CARA).
+
+[...] Similar para la cara XZ y la cara YZ
+
+% En una cara, todos los colores deben ser distintos
+colores_de_celdas_distintos(CELDAS) :-
+    colores_de_celdas(CELDAS,COLORES),
+    todos_distintos(COLORES).
+
+restricciones_caras_de_cubo(CUBO) :-
+    caraXY(CUBO,0,CARAXY0),
+    colores_de_celdas_distintos(CARAXY0),
+    caraXY(CUBO,2,CARAXY2),
+    colores_de_celdas_distintos(CARAXY2),
+
+    caraXZ(CUBO,0,CARAXZ0),
+    colores_de_celdas_distintos(CARAXZ0),
+    caraXZ(CUBO,2,CARAXZ2),
+    colores_de_celdas_distintos(CARAXZ2),
+
+    caraYZ(CUBO,0,CARAYZ0),
+    colores_de_celdas_distintos(CARAYZ0),
+    caraYZ(CUBO,2,CARAYZ2),
+    colores_de_celdas_distintos(CARAYZ2).
+#+end_src
+
+** Datos del molecube real
+
+Las restricciones sobre aristas y esquinas son un poco más laboriosas. Examinando el molecube podemos contar cuántos /cubitos/ de cada tipo y color hay:
+
+| Color       | Vértices | Aristas | Índice en el programa |
+|-------------+----------+---------+-----------------------|
+| blanco      |        1 |       1 |                     0 |
+| azul        |        1 |       1 |                     1 |
+| rosa        |        0 |       3 |                     2 |
+| azul oscuro |        1 |       1 |                     3 |
+| amarillo    |        1 |       1 |                     4 |
+| negro       |        1 |       1 |                     5 |
+| rojo        |        0 |       3 |                     6 |
+| naranja     |        1 |       1 |                     7 |
+| verde       |        2 |       2 |                     8 |
+
+
+Tras esto, podemos fijar límites sobre las aristas y las esquinas:
+
+#+begin_src prolog
+% Extractor de esquinas de un cubo. Una esquina no tiene ninguna coordenada a 1
+es_esquina(CELDA) :-
+    coordenadas_de_celda(CELDA,[X,Y,Z]),
+    contar([X,Y,Z],1,0).
+
+esquinas(CUBO,ESQUINAS) :-
+    filtra_lista(es_esquina,CUBO,ESQUINAS).
+
+% Extractor de aristas. Una arista tiene una coordenada a 1.
+es_arista(CELDA) :-
+    coordenadas_de_celda(CELDA,[X,Y,Z]),
+    contar([X,Y,Z],1,1).
+         
+aristas(CUBO,ARISTAS) :-
+    filtra_lista(es_arista,CUBO,ARISTAS).
+
+limita_esquinas_y_aristas(CUBO,COLOR,E,A) :-
+    aristas(CUBO,ARISTAS),
+    colores_de_celdas(ARISTAS,CA),
+    contar(CA,COLOR,A),
+    esquinas(CUBO,ESQUINAS),
+    colores_de_celdas(ESQUINAS,CE),
+    contar(CE,COLOR,E).
+    
+restricciones_esquinas_aristas(CUBO) :-
+    limita_esquinas_y_aristas(CUBO,0,1,1),
+    limita_esquinas_y_aristas(CUBO,1,1,1),
+    limita_esquinas_y_aristas(CUBO,2,0,3),
+    limita_esquinas_y_aristas(CUBO,3,1,1),
+    limita_esquinas_y_aristas(CUBO,4,1,1),
+    limita_esquinas_y_aristas(CUBO,5,1,1),
+    limita_esquinas_y_aristas(CUBO,6,0,3),
+    limita_esquinas_y_aristas(CUBO,7,1,1),
+    limita_esquinas_y_aristas(CUBO,8,2,0).
+#+end_src
+
+Y también podemos apuntar los colores centrales de las caras (que no se mueven):
+
+| x=0, y=1 | x=1         | x=2,y=1 |          |
+|----------+-------------+---------+----------|
+|          | azul        |         | z=2, y=1 |
+| amarillo | negro       | naranja | z=1      |
+|          | azul oscuro |         | z=0, y=1 |
+|          | blanco      |         | z=1, y=2 |
+
+#+begin_src prolog
+restriciones_colores_centrales_de_caras(CUBO) :-
+    % Los centros de las caras tienen dos coordenadas a 1
+    color_en_coordenadas(CUBO,[0,1,1], 4),
+    color_en_coordenadas(CUBO,[1,1,2], 1),
+    color_en_coordenadas(CUBO,[1,0,1], 5),
+    color_en_coordenadas(CUBO,[1,1,0], 3),
+    color_en_coordenadas(CUBO,[1,2,1], 0),
+    color_en_coordenadas(CUBO,[2,1,1], 7).
+#+end_src
+
+Por tanto, ya tenemos la construcción de un molecube completo, con todas sus restricciones
+
+#+begin_src prolog
+cubo_con_restricciones(CUBO) :-
+    cubo(CUBO),
+    restricciones_caras_de_cubo(CUBO),
+    restriciones_colores_centrales_de_caras(CUBO),
+    restricciones_esquinas_aristas(CUBO).
+#+end_src
+
+** Salida de la solución
+Para visualizar un cubo, he optado por utilizar [[https://www.x3dom.org/][x3dom]], que me permite visualizar directamente un modelo en tres dimensiones en páginas web.
+
+#+begin_src prolog
+color_a_nombre(0, white).
+color_a_nombre(1, blue).
+color_a_nombre(2, mediumvioletred ). %pink
+color_a_nombre(3, navy). %darkblue
+color_a_nombre(4, yellow).
+color_a_nombre(5, black).
+color_a_nombre(6, red).
+color_a_nombre(7, orangered).
+color_a_nombre(8, green).
+
+imprime_celda_x3d(CELDA) :-
+    [[X,Y,Z],C] = CELDA,
+    color_a_nombre(C,N),
+    format("
+        <transform translation='~d ~d ~d'>    
+          <shape>
+            <appearance>
+              <material diffuseColor='~a'>
+              </material>
+            </appearance>
+            <sphere></sphere>
+          </shape>
+        </transform>
+    ", [(X-1)*2,(Y-1)*2,(Z-1)*2,N]).
+
+imprime_solucion_x3d(CUBO) :-
+    write("
+      <x3d height='500px' style='border:none; display:block; width:100%'> 
+        <scene>
+    "),
+    aplica_a_todos(imprime_celda,CUBO),
+    write("
+        </scene>
+      </x3d> 
+    ").
+#+end_src
+
+Finalmente, el cálculo de todas las soluciones se ejecuta con este código:
+
+#+begin_src prolog
+findall(CUBO, cubo_con_restricciones(CUBO),SOLUCIONES),
+   aplica_a_todos(imprime_solucion_x3d,SOLUCIONES),
+   aplica_a_todos(imprime_solucion,SOLUCIONES),
+   length(SOLUCIONES,X),
+   format("Número de soluciones:~d",X).
+#+end_src
 
 
 * Soluciones
@@ -70,6 +256,7 @@ El programa encuentra 80 soluciones distintas. A continuación se muestra una de
 
 <script type='text/javascript'>
   function loadCSS(css){
+
     var head = document.getElementsByTagName("head")[0];
     var link = document.createElement("link");
     link.href=css;
@@ -77,7 +264,6 @@ El programa encuentra 80 soluciones distintas. A continuación se muestra una de
     link.type="text/css";
 
     head.appendChild(link);
-    console.log(head);
   }
 
   loadCSS("https://www.x3dom.org/download/x3dom.css");
@@ -87,339 +273,388 @@ El programa encuentra 80 soluciones distintas. A continuación se muestra una de
 
 #+begin_export html
 
-	 <x3d height='300px' style='border:none; display:block; width:100%'> 
-	   <scene>
- 
-
-            <transform translation='-2 -2 -2'>    
-            <shape>
-             <appearance>
-               <material diffuseColor='white'>
-               </material>
-             </appearance>
-             <sphere></sphere>
-            </shape>
-            </transform>
+        <x3d height='300px' style='border:none; display:block; width:100%'> 
+        <scene>
 
 
-            <transform translation='-2 -2 0'>    
-            <shape>
-             <appearance>
-               <material diffuseColor='red'>
-               </material>
-             </appearance>
-             <sphere></sphere>
-            </shape>
-            </transform>
+          <transform translation='-2 -2 -2'>    
+           <shape>
+            <appearance>
+              <material diffuseColor='white'>
+              </material>
+            </appearance>
+            <sphere></sphere>
+           </shape>
+          </transform>
 
 
-            <transform translation='-2 -2 2'>    
-            <shape>
-             <appearance>
-               <material diffuseColor='orange'>
-               </material>
-             </appearance>
-             <sphere></sphere>
-            </shape>
-            </transform>
+           <transform translation='-2 -2 0'>    
+           <shape>
+            <appearance>
+              <material diffuseColor='red'>
+              </material>
+            </appearance>
+            <sphere></sphere>
+           </shape>
+           </transform>
 
 
-            <transform translation='-2 0 -2'>    
-            <shape>
-             <appearance>
-               <material diffuseColor='black'>
-               </material>
-             </appearance>
-             <sphere></sphere>
-            </shape>
-            </transform>
+           <transform translation='-2 -2 2'>    
+           <shape>
+            <appearance>
+              <material diffuseColor='orange'>
+              </material>
+            </appearance>
+            <sphere></sphere>
+           </shape>
+           </transform>
 
 
-            <transform translation='-2 0 0'>    
-            <shape>
-             <appearance>
-               <material diffuseColor='yellow'>
-               </material>
-             </appearance>
-             <sphere></sphere>
-            </shape>
-            </transform>
+           <transform translation='-2 0 -2'>    
+           <shape>
+            <appearance>
+              <material diffuseColor='black'>
+              </material>
+            </appearance>
+            <sphere></sphere>
+           </shape>
+           </transform>
 
 
-            <transform translation='-2 0 2'>    
-            <shape>
-             <appearance>
-               <material diffuseColor='pink'>
-               </material>
-             </appearance>
-             <sphere></sphere>
-            </shape>
-            </transform>
+           <transform translation='-2 0 0'>    
+           <shape>
+            <appearance>
+              <material diffuseColor='yellow'>
+              </material>
+            </appearance>
+            <sphere></sphere>
+           </shape>
+           </transform>
 
 
-            <transform translation='-2 2 -2'>    
-            <shape>
-             <appearance>
-               <material diffuseColor='blue'>
-               </material>
-             </appearance>
-             <sphere></sphere>
-            </shape>
-            </transform>
+           <transform translation='-2 0 2'>    
+           <shape>
+            <appearance>
+              <material diffuseColor='pink'>
+              </material>
+            </appearance>
+            <sphere></sphere>
+           </shape>
+           </transform>
 
 
-            <transform translation='-2 2 0'>    
-            <shape>
-             <appearance>
-               <material diffuseColor='purple'>
-               </material>
-             </appearance>
-             <sphere></sphere>
-            </shape>
-            </transform>
+           <transform translation='-2 2 -2'>    
+           <shape>
+            <appearance>
+              <material diffuseColor='blue'>
+              </material>
+            </appearance>
+            <sphere></sphere>
+           </shape>
+           </transform>
 
 
-            <transform translation='-2 2 2'>    
-            <shape>
-             <appearance>
-               <material diffuseColor='green'>
-               </material>
-             </appearance>
-             <sphere></sphere>
-            </shape>
-            </transform>
+           <transform translation='-2 2 0'>    
+           <shape>
+            <appearance>
+              <material diffuseColor='purple'>
+              </material>
+            </appearance>
+            <sphere></sphere>
+           </shape>
+           </transform>
 
 
-            <transform translation='0 -2 -2'>    
-            <shape>
-             <appearance>
-               <material diffuseColor='pink'>
-               </material>
-             </appearance>
-             <sphere></sphere>
-            </shape>
-            </transform>
+           <transform translation='-2 2 2'>    
+           <shape>
+            <appearance>
+              <material diffuseColor='green'>
+              </material>
+            </appearance>
+            <sphere></sphere>
+           </shape>
+           </transform>
 
 
-            <transform translation='0 -2 0'>    
-            <shape>
-             <appearance>
-               <material diffuseColor='black'>
-               </material>
-             </appearance>
-             <sphere></sphere>
-            </shape>
-            </transform>
+           <transform translation='0 -2 -2'>    
+           <shape>
+            <appearance>
+              <material diffuseColor='pink'>
+              </material>
+            </appearance>
+            <sphere></sphere>
+           </shape>
+           </transform>
 
 
-            <transform translation='0 -2 2'>    
-            <shape>
-             <appearance>
-               <material diffuseColor='yellow'>
-               </material>
-             </appearance>
-             <sphere></sphere>
-            </shape>
-            </transform>
+           <transform translation='0 -2 0'>    
+           <shape>
+            <appearance>
+              <material diffuseColor='black'>
+              </material>
+            </appearance>
+            <sphere></sphere>
+           </shape>
+           </transform>
 
 
-            <transform translation='0 0 -2'>    
-            <shape>
-             <appearance>
-               <material diffuseColor='purple'>
-               </material>
-             </appearance>
-             <sphere></sphere>
-            </shape>
-            </transform>
+           <transform translation='0 -2 2'>    
+           <shape>
+            <appearance>
+              <material diffuseColor='yellow'>
+              </material>
+            </appearance>
+            <sphere></sphere>
+           </shape>
+           </transform>
 
 
-            <transform translation='0 0 2'>    
-            <shape>
-             <appearance>
-               <material diffuseColor='blue'>
-               </material>
-             </appearance>
-             <sphere></sphere>
-            </shape>
-            </transform>
+           <transform translation='0 0 -2'>    
+           <shape>
+            <appearance>
+              <material diffuseColor='purple'>
+              </material>
+            </appearance>
+            <sphere></sphere>
+           </shape>
+           </transform>
 
 
-            <transform translation='0 2 -2'>    
-            <shape>
-             <appearance>
-               <material diffuseColor='orange'>
-               </material>
-             </appearance>
-             <sphere></sphere>
-            </shape>
-            </transform>
+           <transform translation='0 0 2'>    
+           <shape>
+            <appearance>
+              <material diffuseColor='blue'>
+              </material>
+            </appearance>
+            <sphere></sphere>
+           </shape>
+           </transform>
 
 
-            <transform translation='0 2 0'>    
-            <shape>
-             <appearance>
-               <material diffuseColor='white'>
-               </material>
-             </appearance>
-             <sphere></sphere>
-            </shape>
-            </transform>
+           <transform translation='0 2 -2'>    
+           <shape>
+            <appearance>
+              <material diffuseColor='orange'>
+              </material>
+            </appearance>
+            <sphere></sphere>
+           </shape>
+           </transform>
 
 
-            <transform translation='0 2 2'>    
-            <shape>
-             <appearance>
-               <material diffuseColor='red'>
-               </material>
-             </appearance>
-             <sphere></sphere>
-            </shape>
-            </transform>
+           <transform translation='0 2 0'>    
+           <shape>
+            <appearance>
+              <material diffuseColor='white'>
+              </material>
+            </appearance>
+            <sphere></sphere>
+           </shape>
+           </transform>
 
 
-            <transform translation='2 -2 -2'>    
-            <shape>
-             <appearance>
-               <material diffuseColor='green'>
-               </material>
-             </appearance>
-             <sphere></sphere>
-            </shape>
-            </transform>
+           <transform translation='0 2 2'>    
+           <shape>
+            <appearance>
+              <material diffuseColor='red'>
+              </material>
+            </appearance>
+            <sphere></sphere>
+           </shape>
+           </transform>
 
 
-            <transform translation='2 -2 0'>    
-            <shape>
-             <appearance>
-               <material diffuseColor='blue'>
-               </material>
-             </appearance>
-             <sphere></sphere>
-            </shape>
-            </transform>
+           <transform translation='2 -2 -2'>    
+           <shape>
+            <appearance>
+              <material diffuseColor='green'>
+              </material>
+            </appearance>
+            <sphere></sphere>
+           </shape>
+           </transform>
 
 
-            <transform translation='2 -2 2'>    
-            <shape>
-             <appearance>
-               <material diffuseColor='purple'>
-               </material>
-             </appearance>
-             <sphere></sphere>
-            </shape>
-            </transform>
+           <transform translation='2 -2 0'>    
+           <shape>
+            <appearance>
+              <material diffuseColor='blue'>
+              </material>
+            </appearance>
+            <sphere></sphere>
+           </shape>
+           </transform>
 
 
-            <transform translation='2 0 -2'>    
-            <shape>
-             <appearance>
-               <material diffuseColor='red'>
-               </material>
-             </appearance>
-             <sphere></sphere>
-            </shape>
-            </transform>
+           <transform translation='2 -2 2'>    
+           <shape>
+            <appearance>
+              <material diffuseColor='purple'>
+              </material>
+            </appearance>
+            <sphere></sphere>
+           </shape>
+           </transform>
 
 
-            <transform translation='2 0 0'>    
-            <shape>
-             <appearance>
-               <material diffuseColor='orange'>
-               </material>
-             </appearance>
-             <sphere></sphere>
-            </shape>
-            </transform>
+           <transform translation='2 0 -2'>    
+           <shape>
+            <appearance>
+              <material diffuseColor='red'>
+              </material>
+            </appearance>
+            <sphere></sphere>
+           </shape>
+           </transform>
 
 
-            <transform translation='2 0 2'>    
-            <shape>
-             <appearance>
-               <material diffuseColor='white'>
-               </material>
-             </appearance>
-             <sphere></sphere>
-            </shape>
-            </transform>
+           <transform translation='2 0 0'>    
+           <shape>
+            <appearance>
+              <material diffuseColor='orange'>
+              </material>
+            </appearance>
+            <sphere></sphere>
+           </shape>
+           </transform>
 
 
-            <transform translation='2 2 -2'>    
-            <shape>
-             <appearance>
-               <material diffuseColor='yellow'>
-               </material>
-             </appearance>
-             <sphere></sphere>
-            </shape>
-            </transform>
+           <transform translation='2 0 2'>    
+           <shape>
+            <appearance>
+              <material diffuseColor='white'>
+              </material>
+            </appearance>
+            <sphere></sphere>
+           </shape>
+           </transform>
 
 
-            <transform translation='2 2 0'>    
-            <shape>
-             <appearance>
-               <material diffuseColor='pink'>
-               </material>
-             </appearance>
-             <sphere></sphere>
-            </shape>
-            </transform>
+           <transform translation='2 2 -2'>    
+           <shape>
+            <appearance>
+              <material diffuseColor='yellow'>
+              </material>
+            </appearance>
+            <sphere></sphere>
+           </shape>
+           </transform>
 
 
-            <transform translation='2 2 2'>    
-            <shape>
-             <appearance>
-               <material diffuseColor='black'>
-               </material>
-             </appearance>
-             <sphere></sphere>
-            </shape>
-            </transform>
+           <transform translation='2 2 0'>    
+           <shape>
+            <appearance>
+              <material diffuseColor='pink'>
+              </material>
+            </appearance>
+            <sphere></sphere>
+           </shape>
+           </transform>
 
-           </scene>
-         </x3d> 
-    
+
+           <transform translation='2 2 2'>    
+           <shape>
+            <appearance>
+              <material diffuseColor='black'>
+              </material>
+            </appearance>
+            <sphere></sphere>
+           </shape>
+           </transform>
+
+          </scene>
+        </x3d> 
+
 
 #+end_export
 
 
-Esta visualización está generada también en el programa prolog, imprimiendo código x3dom.
+* Invariantes de un cubo de Rubick
+Es sabido que en un cubo de Rubick no pueden conseguirse todas las configuraciones que en principio parecen posibles, ya que es necesario que la [[https://math.stackexchange.com/a/127627][permutación de sus aristas y esquinas debe ser par]].
 
-#+begin_src prolog
+Aunque no lo he comprobado, creo que todas las 80 soluciones halladas son posibles, ya que siempre se puede jugar con las piezas /repetidas/ de un molecube: dos esquinas verdes, y tres aristas rojas. En mi caso, marqué una arista verde con un cordel, y si una solución era alcanzable con la esquina verde en la cara inferior, repetía la solución dejando la esquina marcada para la cara superior.
 
-color_a_nombre(0, white).
-color_a_nombre(1, blue).
-color_a_nombre(2, pink).
-color_a_nombre(3, purple).
-color_a_nombre(4, yellow).
-color_a_nombre(5, black).
-color_a_nombre(6, red).
-color_a_nombre(7, orange).
-color_a_nombre(8, green).
+* Lista completa de soluciones
 
-imprime_celda(CELDA) :-
-    [[X,Y,Z],C] = CELDA,
-    color_a_nombre(C,N),
-    format("
-      <transform translation='~d ~d ~d'>    
-        <shape>
-          <appearance>
-            <material diffuseColor='~a'>
-            </material>
-          </appearance>
-          <sphere></sphere>
-        </shape>
-      </transform>
-    ", [(X-1)*2,(Y-1)*2,(Z-1)*2,N]).
-
-imprime_solucion(CUBO) :-
-    write("
-	 <x3d height='500px' style='border:none; display:block; width:100%'> 
-	   <scene>
-    "),
-    aplica_a_todos(imprime_celda,CUBO),
-    write("
-           </scene>
-         </x3d> 
-    ").
-#+end_src
+#+begin_example
+Solucion: 0,0,0:white 0,0,1:red 0,0,2:orangered 0,1,0:black 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:blue 0,2,1:navy 0,2,2:green 1,0,0:mediumvioletred 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:red 2,0,0:green 2,0,1:blue 2,0,2:navy 2,1,0:red 2,1,1:orangered 2,1,2:white 2,2,0:yellow 2,2,1:mediumvioletred 2,2,2:black 
+Solucion: 0,0,0:white 0,0,1:red 0,0,2:orangered 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:black 0,2,0:blue 0,2,1:navy 0,2,2:green 1,0,0:yellow 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:red 2,0,0:green 2,0,1:blue 2,0,2:navy 2,1,0:red 2,1,1:orangered 2,1,2:white 2,2,0:black 2,2,1:mediumvioletred 2,2,2:yellow 
+Solucion: 0,0,0:white 0,0,1:mediumvioletred 0,0,2:orangered 0,1,0:black 0,1,1:yellow 0,1,2:red 0,2,0:blue 0,2,1:navy 0,2,2:green 1,0,0:red 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:mediumvioletred 2,0,0:green 2,0,1:blue 2,0,2:navy 2,1,0:mediumvioletred 2,1,1:orangered 2,1,2:white 2,2,0:yellow 2,2,1:red 2,2,2:black 
+Solucion: 0,0,0:white 0,0,1:mediumvioletred 0,0,2:orangered 0,1,0:red 0,1,1:yellow 0,1,2:black 0,2,0:blue 0,2,1:navy 0,2,2:green 1,0,0:yellow 1,0,1:black 1,0,2:red 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:mediumvioletred 2,0,0:green 2,0,1:blue 2,0,2:navy 2,1,0:mediumvioletred 2,1,1:orangered 2,1,2:white 2,2,0:black 2,2,1:red 2,2,2:yellow 
+Solucion: 0,0,0:white 0,0,1:red 0,0,2:navy 0,1,0:black 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:green 0,2,1:blue 0,2,2:orangered 1,0,0:orangered 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:mediumvioletred 1,2,1:white 1,2,2:red 2,0,0:blue 2,0,1:mediumvioletred 2,0,2:green 2,1,0:red 2,1,1:orangered 2,1,2:white 2,2,0:yellow 2,2,1:navy 2,2,2:black 
+Solucion: 0,0,0:white 0,0,1:red 0,0,2:green 0,1,0:black 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:orangered 0,2,1:blue 0,2,2:navy 1,0,0:mediumvioletred 1,0,1:black 1,0,2:orangered 1,1,0:navy 1,1,2:blue 1,2,0:yellow 1,2,1:white 1,2,2:red 2,0,0:blue 2,0,1:navy 2,0,2:yellow 2,1,0:red 2,1,1:orangered 2,1,2:white 2,2,0:green 2,2,1:mediumvioletred 2,2,2:black 
+Solucion: 0,0,0:white 0,0,1:red 0,0,2:orangered 0,1,0:black 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:green 0,2,1:blue 0,2,2:navy 1,0,0:mediumvioletred 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:red 2,0,0:blue 2,0,1:navy 2,0,2:green 2,1,0:red 2,1,1:orangered 2,1,2:white 2,2,0:yellow 2,2,1:mediumvioletred 2,2,2:black 
+Solucion: 0,0,0:white 0,0,1:navy 0,0,2:green 0,1,0:red 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:orangered 0,2,1:blue 0,2,2:black 1,0,0:mediumvioletred 1,0,1:black 1,0,2:orangered 1,1,0:navy 1,1,2:blue 1,2,0:yellow 1,2,1:white 1,2,2:red 2,0,0:blue 2,0,1:red 2,0,2:yellow 2,1,0:black 2,1,1:orangered 2,1,2:white 2,2,0:green 2,2,1:mediumvioletred 2,2,2:navy 
+Solucion: 0,0,0:white 0,0,1:navy 0,0,2:orangered 0,1,0:red 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:green 0,2,1:blue 0,2,2:black 1,0,0:mediumvioletred 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:red 2,0,0:blue 2,0,1:red 2,0,2:green 2,1,0:black 2,1,1:orangered 2,1,2:white 2,2,0:yellow 2,2,1:mediumvioletred 2,2,2:navy 
+Solucion: 0,0,0:white 0,0,1:navy 0,0,2:green 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:red 0,2,0:orangered 0,2,1:blue 0,2,2:black 1,0,0:red 1,0,1:black 1,0,2:orangered 1,1,0:navy 1,1,2:blue 1,2,0:yellow 1,2,1:white 1,2,2:mediumvioletred 2,0,0:blue 2,0,1:mediumvioletred 2,0,2:yellow 2,1,0:black 2,1,1:orangered 2,1,2:white 2,2,0:green 2,2,1:red 2,2,2:navy 
+Solucion: 0,0,0:white 0,0,1:navy 0,0,2:orangered 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:red 0,2,0:green 0,2,1:blue 0,2,2:black 1,0,0:red 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:mediumvioletred 2,0,0:blue 2,0,1:mediumvioletred 2,0,2:green 2,1,0:black 2,1,1:orangered 2,1,2:white 2,2,0:yellow 2,2,1:red 2,2,2:navy 
+Solucion: 0,0,0:white 0,0,1:red 0,0,2:orangered 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:black 0,2,0:green 0,2,1:blue 0,2,2:navy 1,0,0:yellow 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:red 2,0,0:blue 2,0,1:navy 2,0,2:green 2,1,0:red 2,1,1:orangered 2,1,2:white 2,2,0:black 2,2,1:mediumvioletred 2,2,2:yellow 
+Solucion: 0,0,0:white 0,0,1:mediumvioletred 0,0,2:navy 0,1,0:black 0,1,1:yellow 0,1,2:red 0,2,0:green 0,2,1:blue 0,2,2:orangered 1,0,0:orangered 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:red 1,2,1:white 1,2,2:mediumvioletred 2,0,0:blue 2,0,1:red 2,0,2:green 2,1,0:mediumvioletred 2,1,1:orangered 2,1,2:white 2,2,0:yellow 2,2,1:navy 2,2,2:black 
+Solucion: 0,0,0:white 0,0,1:mediumvioletred 0,0,2:green 0,1,0:black 0,1,1:yellow 0,1,2:red 0,2,0:orangered 0,2,1:blue 0,2,2:navy 1,0,0:red 1,0,1:black 1,0,2:orangered 1,1,0:navy 1,1,2:blue 1,2,0:yellow 1,2,1:white 1,2,2:mediumvioletred 2,0,0:blue 2,0,1:navy 2,0,2:yellow 2,1,0:mediumvioletred 2,1,1:orangered 2,1,2:white 2,2,0:green 2,2,1:red 2,2,2:black 
+Solucion: 0,0,0:white 0,0,1:mediumvioletred 0,0,2:orangered 0,1,0:black 0,1,1:yellow 0,1,2:red 0,2,0:green 0,2,1:blue 0,2,2:navy 1,0,0:red 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:mediumvioletred 2,0,0:blue 2,0,1:navy 2,0,2:green 2,1,0:mediumvioletred 2,1,1:orangered 2,1,2:white 2,2,0:yellow 2,2,1:red 2,2,2:black 
+Solucion: 0,0,0:white 0,0,1:mediumvioletred 0,0,2:orangered 0,1,0:red 0,1,1:yellow 0,1,2:black 0,2,0:green 0,2,1:blue 0,2,2:navy 1,0,0:yellow 1,0,1:black 1,0,2:red 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:mediumvioletred 2,0,0:blue 2,0,1:navy 2,0,2:green 2,1,0:mediumvioletred 2,1,1:orangered 2,1,2:white 2,2,0:black 2,2,1:red 2,2,2:yellow 
+Solucion: 0,0,0:white 0,0,1:blue 0,0,2:navy 0,1,0:black 0,1,1:yellow 0,1,2:red 0,2,0:green 0,2,1:mediumvioletred 0,2,2:orangered 1,0,0:orangered 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:red 1,2,1:white 1,2,2:yellow 2,0,0:yellow 2,0,1:red 2,0,2:green 2,1,0:mediumvioletred 2,1,1:orangered 2,1,2:white 2,2,0:blue 2,2,1:navy 2,2,2:black 
+Solucion: 0,0,0:white 0,0,1:blue 0,0,2:orangered 0,1,0:black 0,1,1:yellow 0,1,2:red 0,2,0:green 0,2,1:mediumvioletred 0,2,2:navy 1,0,0:red 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:yellow 2,0,0:yellow 2,0,1:navy 2,0,2:green 2,1,0:mediumvioletred 2,1,1:orangered 2,1,2:white 2,2,0:blue 2,2,1:red 2,2,2:black 
+Solucion: 0,0,0:white 0,0,1:blue 0,0,2:navy 0,1,0:black 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:green 0,2,1:red 0,2,2:orangered 1,0,0:orangered 1,0,1:black 1,0,2:red 1,1,0:navy 1,1,2:blue 1,2,0:mediumvioletred 1,2,1:white 1,2,2:yellow 2,0,0:yellow 2,0,1:mediumvioletred 2,0,2:green 2,1,0:red 2,1,1:orangered 2,1,2:white 2,2,0:blue 2,2,1:navy 2,2,2:black 
+Solucion: 0,0,0:white 0,0,1:blue 0,0,2:orangered 0,1,0:black 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:green 0,2,1:red 0,2,2:navy 1,0,0:mediumvioletred 1,0,1:black 1,0,2:red 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:yellow 2,0,0:yellow 2,0,1:navy 2,0,2:green 2,1,0:red 2,1,1:orangered 2,1,2:white 2,2,0:blue 2,2,1:mediumvioletred 2,2,2:black 
+Solucion: 0,0,0:blue 0,0,1:navy 0,0,2:white 0,1,0:red 0,1,1:yellow 0,1,2:black 0,2,0:orangered 0,2,1:mediumvioletred 0,2,2:green 1,0,0:mediumvioletred 1,0,1:black 1,0,2:orangered 1,1,0:navy 1,1,2:blue 1,2,0:yellow 1,2,1:white 1,2,2:red 2,0,0:green 2,0,1:red 2,0,2:yellow 2,1,0:white 2,1,1:orangered 2,1,2:mediumvioletred 2,2,0:black 2,2,1:blue 2,2,2:navy 
+Solucion: 0,0,0:blue 0,0,1:red 0,0,2:white 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:black 0,2,0:orangered 0,2,1:navy 0,2,2:green 1,0,0:yellow 1,0,1:black 1,0,2:orangered 1,1,0:navy 1,1,2:blue 1,2,0:red 1,2,1:white 1,2,2:mediumvioletred 2,0,0:green 2,0,1:mediumvioletred 2,0,2:navy 2,1,0:white 2,1,1:orangered 2,1,2:red 2,2,0:black 2,2,1:blue 2,2,2:yellow 
+Solucion: 0,0,0:blue 0,0,1:navy 0,0,2:white 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:black 0,2,0:orangered 0,2,1:red 0,2,2:green 1,0,0:red 1,0,1:black 1,0,2:orangered 1,1,0:navy 1,1,2:blue 1,2,0:yellow 1,2,1:white 1,2,2:mediumvioletred 2,0,0:green 2,0,1:mediumvioletred 2,0,2:yellow 2,1,0:white 2,1,1:orangered 2,1,2:red 2,2,0:black 2,2,1:blue 2,2,2:navy 
+Solucion: 0,0,0:blue 0,0,1:mediumvioletred 0,0,2:white 0,1,0:red 0,1,1:yellow 0,1,2:black 0,2,0:orangered 0,2,1:navy 0,2,2:green 1,0,0:yellow 1,0,1:black 1,0,2:orangered 1,1,0:navy 1,1,2:blue 1,2,0:mediumvioletred 1,2,1:white 1,2,2:red 2,0,0:green 2,0,1:red 2,0,2:navy 2,1,0:white 2,1,1:orangered 2,1,2:mediumvioletred 2,2,0:black 2,2,1:blue 2,2,2:yellow 
+Solucion: 0,0,0:orangered 0,0,1:navy 0,0,2:white 0,1,0:red 0,1,1:yellow 0,1,2:black 0,2,0:blue 0,2,1:mediumvioletred 0,2,2:green 1,0,0:mediumvioletred 1,0,1:black 1,0,2:red 1,1,0:navy 1,1,2:blue 1,2,0:yellow 1,2,1:white 1,2,2:orangered 2,0,0:green 2,0,1:blue 2,0,2:yellow 2,1,0:white 2,1,1:orangered 2,1,2:mediumvioletred 2,2,0:black 2,2,1:red 2,2,2:navy 
+Solucion: 0,0,0:orangered 0,0,1:red 0,0,2:white 0,1,0:black 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:blue 0,2,1:navy 0,2,2:green 1,0,0:mediumvioletred 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:red 1,2,1:white 1,2,2:orangered 2,0,0:green 2,0,1:blue 2,0,2:navy 2,1,0:white 2,1,1:orangered 2,1,2:red 2,2,0:yellow 2,2,1:mediumvioletred 2,2,2:black 
+Solucion: 0,0,0:green 0,0,1:red 0,0,2:white 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:black 0,2,0:blue 0,2,1:navy 0,2,2:orangered 1,0,0:orangered 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:red 1,2,1:white 1,2,2:yellow 2,0,0:yellow 2,0,1:blue 2,0,2:navy 2,1,0:white 2,1,1:orangered 2,1,2:red 2,2,0:black 2,2,1:mediumvioletred 2,2,2:green 
+Solucion: 0,0,0:orangered 0,0,1:red 0,0,2:white 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:black 0,2,0:blue 0,2,1:navy 0,2,2:green 1,0,0:yellow 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:red 1,2,1:white 1,2,2:orangered 2,0,0:green 2,0,1:blue 2,0,2:navy 2,1,0:white 2,1,1:orangered 2,1,2:red 2,2,0:black 2,2,1:mediumvioletred 2,2,2:yellow 
+Solucion: 0,0,0:orangered 0,0,1:navy 0,0,2:white 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:black 0,2,0:blue 0,2,1:red 0,2,2:green 1,0,0:red 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:yellow 1,2,1:white 1,2,2:orangered 2,0,0:green 2,0,1:blue 2,0,2:yellow 2,1,0:white 2,1,1:orangered 2,1,2:red 2,2,0:black 2,2,1:mediumvioletred 2,2,2:navy 
+Solucion: 0,0,0:green 0,0,1:mediumvioletred 0,0,2:white 0,1,0:red 0,1,1:yellow 0,1,2:black 0,2,0:blue 0,2,1:navy 0,2,2:orangered 1,0,0:orangered 1,0,1:black 1,0,2:red 1,1,0:navy 1,1,2:blue 1,2,0:mediumvioletred 1,2,1:white 1,2,2:yellow 2,0,0:yellow 2,0,1:blue 2,0,2:navy 2,1,0:white 2,1,1:orangered 2,1,2:mediumvioletred 2,2,0:black 2,2,1:red 2,2,2:green 
+Solucion: 0,0,0:orangered 0,0,1:mediumvioletred 0,0,2:white 0,1,0:black 0,1,1:yellow 0,1,2:red 0,2,0:blue 0,2,1:navy 0,2,2:green 1,0,0:red 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:mediumvioletred 1,2,1:white 1,2,2:orangered 2,0,0:green 2,0,1:blue 2,0,2:navy 2,1,0:white 2,1,1:orangered 2,1,2:mediumvioletred 2,2,0:yellow 2,2,1:red 2,2,2:black 
+Solucion: 0,0,0:orangered 0,0,1:mediumvioletred 0,0,2:white 0,1,0:red 0,1,1:yellow 0,1,2:black 0,2,0:blue 0,2,1:navy 0,2,2:green 1,0,0:yellow 1,0,1:black 1,0,2:red 1,1,0:navy 1,1,2:blue 1,2,0:mediumvioletred 1,2,1:white 1,2,2:orangered 2,0,0:green 2,0,1:blue 2,0,2:navy 2,1,0:white 2,1,1:orangered 2,1,2:mediumvioletred 2,2,0:black 2,2,1:red 2,2,2:yellow 
+Solucion: 0,0,0:orangered 0,0,1:red 0,0,2:white 0,1,0:black 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:green 0,2,1:blue 0,2,2:navy 1,0,0:mediumvioletred 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:red 1,2,1:white 1,2,2:orangered 2,0,0:blue 2,0,1:navy 2,0,2:green 2,1,0:white 2,1,1:orangered 2,1,2:red 2,2,0:yellow 2,2,1:mediumvioletred 2,2,2:black 
+Solucion: 0,0,0:orangered 0,0,1:red 0,0,2:white 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:black 0,2,0:green 0,2,1:blue 0,2,2:navy 1,0,0:yellow 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:red 1,2,1:white 1,2,2:orangered 2,0,0:blue 2,0,1:navy 2,0,2:green 2,1,0:white 2,1,1:orangered 2,1,2:red 2,2,0:black 2,2,1:mediumvioletred 2,2,2:yellow 
+Solucion: 0,0,0:orangered 0,0,1:mediumvioletred 0,0,2:white 0,1,0:black 0,1,1:yellow 0,1,2:red 0,2,0:green 0,2,1:blue 0,2,2:navy 1,0,0:red 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:mediumvioletred 1,2,1:white 1,2,2:orangered 2,0,0:blue 2,0,1:navy 2,0,2:green 2,1,0:white 2,1,1:orangered 2,1,2:mediumvioletred 2,2,0:yellow 2,2,1:red 2,2,2:black 
+Solucion: 0,0,0:orangered 0,0,1:mediumvioletred 0,0,2:white 0,1,0:red 0,1,1:yellow 0,1,2:black 0,2,0:green 0,2,1:blue 0,2,2:navy 1,0,0:yellow 1,0,1:black 1,0,2:red 1,1,0:navy 1,1,2:blue 1,2,0:mediumvioletred 1,2,1:white 1,2,2:orangered 2,0,0:blue 2,0,1:navy 2,0,2:green 2,1,0:white 2,1,1:orangered 2,1,2:mediumvioletred 2,2,0:black 2,2,1:red 2,2,2:yellow 
+Solucion: 0,0,0:green 0,0,1:blue 0,0,2:white 0,1,0:red 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:black 0,2,1:navy 0,2,2:orangered 1,0,0:orangered 1,0,1:black 1,0,2:red 1,1,0:navy 1,1,2:blue 1,2,0:mediumvioletred 1,2,1:white 1,2,2:yellow 2,0,0:yellow 2,0,1:mediumvioletred 2,0,2:navy 2,1,0:white 2,1,1:orangered 2,1,2:black 2,2,0:blue 2,2,1:red 2,2,2:green 
+Solucion: 0,0,0:orangered 0,0,1:blue 0,0,2:white 0,1,0:red 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:black 0,2,1:navy 0,2,2:green 1,0,0:yellow 1,0,1:black 1,0,2:red 1,1,0:navy 1,1,2:blue 1,2,0:mediumvioletred 1,2,1:white 1,2,2:orangered 2,0,0:green 2,0,1:mediumvioletred 2,0,2:navy 2,1,0:white 2,1,1:orangered 2,1,2:black 2,2,0:blue 2,2,1:red 2,2,2:yellow 
+Solucion: 0,0,0:green 0,0,1:blue 0,0,2:white 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:red 0,2,0:black 0,2,1:navy 0,2,2:orangered 1,0,0:orangered 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:red 1,2,1:white 1,2,2:yellow 2,0,0:yellow 2,0,1:red 2,0,2:navy 2,1,0:white 2,1,1:orangered 2,1,2:black 2,2,0:blue 2,2,1:mediumvioletred 2,2,2:green 
+Solucion: 0,0,0:orangered 0,0,1:blue 0,0,2:white 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:red 0,2,0:black 0,2,1:navy 0,2,2:green 1,0,0:yellow 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:red 1,2,1:white 1,2,2:orangered 2,0,0:green 2,0,1:red 2,0,2:navy 2,1,0:white 2,1,1:orangered 2,1,2:black 2,2,0:blue 2,2,1:mediumvioletred 2,2,2:yellow 
+Solucion: 0,0,0:blue 0,0,1:navy 0,0,2:green 0,1,0:red 0,1,1:yellow 0,1,2:white 0,2,0:black 0,2,1:mediumvioletred 0,2,2:orangered 1,0,0:orangered 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:yellow 1,2,1:white 1,2,2:red 2,0,0:white 2,0,1:red 2,0,2:yellow 2,1,0:mediumvioletred 2,1,1:orangered 2,1,2:black 2,2,0:green 2,2,1:blue 2,2,2:navy 
+Solucion: 0,0,0:blue 0,0,1:red 0,0,2:green 0,1,0:black 0,1,1:yellow 0,1,2:white 0,2,0:orangered 0,2,1:mediumvioletred 0,2,2:navy 1,0,0:mediumvioletred 1,0,1:black 1,0,2:orangered 1,1,0:navy 1,1,2:blue 1,2,0:yellow 1,2,1:white 1,2,2:red 2,0,0:white 2,0,1:navy 2,0,2:yellow 2,1,0:red 2,1,1:orangered 2,1,2:mediumvioletred 2,2,0:green 2,2,1:blue 2,2,2:black 
+Solucion: 0,0,0:blue 0,0,1:red 0,0,2:orangered 0,1,0:black 0,1,1:yellow 0,1,2:white 0,2,0:green 0,2,1:mediumvioletred 0,2,2:navy 1,0,0:mediumvioletred 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:red 2,0,0:white 2,0,1:navy 2,0,2:green 2,1,0:red 2,1,1:orangered 2,1,2:mediumvioletred 2,2,0:yellow 2,2,1:blue 2,2,2:black 
+Solucion: 0,0,0:blue 0,0,1:navy 0,0,2:green 0,1,0:red 0,1,1:yellow 0,1,2:white 0,2,0:orangered 0,2,1:mediumvioletred 0,2,2:black 1,0,0:mediumvioletred 1,0,1:black 1,0,2:orangered 1,1,0:navy 1,1,2:blue 1,2,0:yellow 1,2,1:white 1,2,2:red 2,0,0:white 2,0,1:red 2,0,2:yellow 2,1,0:black 2,1,1:orangered 2,1,2:mediumvioletred 2,2,0:green 2,2,1:blue 2,2,2:navy 
+Solucion: 0,0,0:blue 0,0,1:navy 0,0,2:orangered 0,1,0:red 0,1,1:yellow 0,1,2:white 0,2,0:green 0,2,1:mediumvioletred 0,2,2:black 1,0,0:mediumvioletred 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:red 2,0,0:white 2,0,1:red 2,0,2:green 2,1,0:black 2,1,1:orangered 2,1,2:mediumvioletred 2,2,0:yellow 2,2,1:blue 2,2,2:navy 
+Solucion: 0,0,0:blue 0,0,1:red 0,0,2:green 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:white 0,2,0:orangered 0,2,1:navy 0,2,2:black 1,0,0:yellow 1,0,1:black 1,0,2:orangered 1,1,0:navy 1,1,2:blue 1,2,0:red 1,2,1:white 1,2,2:mediumvioletred 2,0,0:white 2,0,1:mediumvioletred 2,0,2:navy 2,1,0:black 2,1,1:orangered 2,1,2:red 2,2,0:green 2,2,1:blue 2,2,2:yellow 
+Solucion: 0,0,0:blue 0,0,1:navy 0,0,2:green 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:white 0,2,0:black 0,2,1:red 0,2,2:orangered 1,0,0:orangered 1,0,1:black 1,0,2:red 1,1,0:navy 1,1,2:blue 1,2,0:yellow 1,2,1:white 1,2,2:mediumvioletred 2,0,0:white 2,0,1:mediumvioletred 2,0,2:yellow 2,1,0:red 2,1,1:orangered 2,1,2:black 2,2,0:green 2,2,1:blue 2,2,2:navy 
+Solucion: 0,0,0:blue 0,0,1:navy 0,0,2:green 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:white 0,2,0:orangered 0,2,1:red 0,2,2:black 1,0,0:red 1,0,1:black 1,0,2:orangered 1,1,0:navy 1,1,2:blue 1,2,0:yellow 1,2,1:white 1,2,2:mediumvioletred 2,0,0:white 2,0,1:mediumvioletred 2,0,2:yellow 2,1,0:black 2,1,1:orangered 2,1,2:red 2,2,0:green 2,2,1:blue 2,2,2:navy 
+Solucion: 0,0,0:blue 0,0,1:navy 0,0,2:orangered 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:white 0,2,0:green 0,2,1:red 0,2,2:black 1,0,0:red 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:mediumvioletred 2,0,0:white 2,0,1:mediumvioletred 2,0,2:green 2,1,0:black 2,1,1:orangered 2,1,2:red 2,2,0:yellow 2,2,1:blue 2,2,2:navy 
+Solucion: 0,0,0:blue 0,0,1:mediumvioletred 0,0,2:green 0,1,0:black 0,1,1:yellow 0,1,2:white 0,2,0:orangered 0,2,1:red 0,2,2:navy 1,0,0:red 1,0,1:black 1,0,2:orangered 1,1,0:navy 1,1,2:blue 1,2,0:yellow 1,2,1:white 1,2,2:mediumvioletred 2,0,0:white 2,0,1:navy 2,0,2:yellow 2,1,0:mediumvioletred 2,1,1:orangered 2,1,2:red 2,2,0:green 2,2,1:blue 2,2,2:black 
+Solucion: 0,0,0:blue 0,0,1:mediumvioletred 0,0,2:orangered 0,1,0:black 0,1,1:yellow 0,1,2:white 0,2,0:green 0,2,1:red 0,2,2:navy 1,0,0:red 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:mediumvioletred 2,0,0:white 2,0,1:navy 2,0,2:green 2,1,0:mediumvioletred 2,1,1:orangered 2,1,2:red 2,2,0:yellow 2,2,1:blue 2,2,2:black 
+Solucion: 0,0,0:blue 0,0,1:mediumvioletred 0,0,2:green 0,1,0:red 0,1,1:yellow 0,1,2:white 0,2,0:orangered 0,2,1:navy 0,2,2:black 1,0,0:yellow 1,0,1:black 1,0,2:orangered 1,1,0:navy 1,1,2:blue 1,2,0:mediumvioletred 1,2,1:white 1,2,2:red 2,0,0:white 2,0,1:red 2,0,2:navy 2,1,0:black 2,1,1:orangered 2,1,2:mediumvioletred 2,2,0:green 2,2,1:blue 2,2,2:yellow 
+Solucion: 0,0,0:orangered 0,0,1:navy 0,0,2:green 0,1,0:red 0,1,1:yellow 0,1,2:white 0,2,0:blue 0,2,1:mediumvioletred 0,2,2:black 1,0,0:mediumvioletred 1,0,1:black 1,0,2:red 1,1,0:navy 1,1,2:blue 1,2,0:yellow 1,2,1:white 1,2,2:orangered 2,0,0:white 2,0,1:blue 2,0,2:yellow 2,1,0:black 2,1,1:orangered 2,1,2:mediumvioletred 2,2,0:green 2,2,1:red 2,2,2:navy 
+Solucion: 0,0,0:orangered 0,0,1:red 0,0,2:green 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:white 0,2,0:blue 0,2,1:navy 0,2,2:black 1,0,0:yellow 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:red 1,2,1:white 1,2,2:orangered 2,0,0:white 2,0,1:blue 2,0,2:navy 2,1,0:black 2,1,1:orangered 2,1,2:red 2,2,0:green 2,2,1:mediumvioletred 2,2,2:yellow 
+Solucion: 0,0,0:orangered 0,0,1:navy 0,0,2:green 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:white 0,2,0:blue 0,2,1:red 0,2,2:black 1,0,0:red 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:yellow 1,2,1:white 1,2,2:orangered 2,0,0:white 2,0,1:blue 2,0,2:yellow 2,1,0:black 2,1,1:orangered 2,1,2:red 2,2,0:green 2,2,1:mediumvioletred 2,2,2:navy 
+Solucion: 0,0,0:orangered 0,0,1:mediumvioletred 0,0,2:green 0,1,0:red 0,1,1:yellow 0,1,2:white 0,2,0:blue 0,2,1:navy 0,2,2:black 1,0,0:yellow 1,0,1:black 1,0,2:red 1,1,0:navy 1,1,2:blue 1,2,0:mediumvioletred 1,2,1:white 1,2,2:orangered 2,0,0:white 2,0,1:blue 2,0,2:navy 2,1,0:black 2,1,1:orangered 2,1,2:mediumvioletred 2,2,0:green 2,2,1:red 2,2,2:yellow 
+Solucion: 0,0,0:green 0,0,1:blue 0,0,2:navy 0,1,0:red 0,1,1:yellow 0,1,2:white 0,2,0:black 0,2,1:mediumvioletred 0,2,2:orangered 1,0,0:orangered 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:yellow 1,2,1:white 1,2,2:red 2,0,0:white 2,0,1:red 2,0,2:yellow 2,1,0:mediumvioletred 2,1,1:orangered 2,1,2:black 2,2,0:blue 2,2,1:navy 2,2,2:green 
+Solucion: 0,0,0:green 0,0,1:blue 0,0,2:navy 0,1,0:red 0,1,1:yellow 0,1,2:white 0,2,0:orangered 0,2,1:mediumvioletred 0,2,2:black 1,0,0:mediumvioletred 1,0,1:black 1,0,2:orangered 1,1,0:navy 1,1,2:blue 1,2,0:yellow 1,2,1:white 1,2,2:red 2,0,0:white 2,0,1:red 2,0,2:yellow 2,1,0:black 2,1,1:orangered 2,1,2:mediumvioletred 2,2,0:blue 2,2,1:navy 2,2,2:green 
+Solucion: 0,0,0:green 0,0,1:blue 0,0,2:navy 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:white 0,2,0:black 0,2,1:red 0,2,2:orangered 1,0,0:orangered 1,0,1:black 1,0,2:red 1,1,0:navy 1,1,2:blue 1,2,0:yellow 1,2,1:white 1,2,2:mediumvioletred 2,0,0:white 2,0,1:mediumvioletred 2,0,2:yellow 2,1,0:red 2,1,1:orangered 2,1,2:black 2,2,0:blue 2,2,1:navy 2,2,2:green 
+Solucion: 0,0,0:green 0,0,1:blue 0,0,2:navy 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:white 0,2,0:orangered 0,2,1:red 0,2,2:black 1,0,0:red 1,0,1:black 1,0,2:orangered 1,1,0:navy 1,1,2:blue 1,2,0:yellow 1,2,1:white 1,2,2:mediumvioletred 2,0,0:white 2,0,1:mediumvioletred 2,0,2:yellow 2,1,0:black 2,1,1:orangered 2,1,2:red 2,2,0:blue 2,2,1:navy 2,2,2:green 
+Solucion: 0,0,0:blue 0,0,1:navy 0,0,2:green 0,1,0:white 0,1,1:yellow 0,1,2:red 0,2,0:black 0,2,1:mediumvioletred 0,2,2:orangered 1,0,0:orangered 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:red 1,2,1:white 1,2,2:yellow 2,0,0:yellow 2,0,1:red 2,0,2:white 2,1,0:mediumvioletred 2,1,1:orangered 2,1,2:black 2,2,0:green 2,2,1:blue 2,2,2:navy 
+Solucion: 0,0,0:blue 0,0,1:navy 0,0,2:green 0,1,0:white 0,1,1:yellow 0,1,2:red 0,2,0:orangered 0,2,1:mediumvioletred 0,2,2:black 1,0,0:mediumvioletred 1,0,1:black 1,0,2:orangered 1,1,0:navy 1,1,2:blue 1,2,0:red 1,2,1:white 1,2,2:yellow 2,0,0:yellow 2,0,1:red 2,0,2:white 2,1,0:black 2,1,1:orangered 2,1,2:mediumvioletred 2,2,0:green 2,2,1:blue 2,2,2:navy 
+Solucion: 0,0,0:blue 0,0,1:navy 0,0,2:green 0,1,0:white 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:black 0,2,1:red 0,2,2:orangered 1,0,0:orangered 1,0,1:black 1,0,2:red 1,1,0:navy 1,1,2:blue 1,2,0:mediumvioletred 1,2,1:white 1,2,2:yellow 2,0,0:yellow 2,0,1:mediumvioletred 2,0,2:white 2,1,0:red 2,1,1:orangered 2,1,2:black 2,2,0:green 2,2,1:blue 2,2,2:navy 
+Solucion: 0,0,0:blue 0,0,1:navy 0,0,2:green 0,1,0:white 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:orangered 0,2,1:red 0,2,2:black 1,0,0:red 1,0,1:black 1,0,2:orangered 1,1,0:navy 1,1,2:blue 1,2,0:mediumvioletred 1,2,1:white 1,2,2:yellow 2,0,0:yellow 2,0,1:mediumvioletred 2,0,2:white 2,1,0:black 2,1,1:orangered 2,1,2:red 2,2,0:green 2,2,1:blue 2,2,2:navy 
+Solucion: 0,0,0:green 0,0,1:red 0,0,2:navy 0,1,0:white 0,1,1:yellow 0,1,2:black 0,2,0:blue 0,2,1:mediumvioletred 0,2,2:orangered 1,0,0:orangered 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:red 1,2,1:white 1,2,2:yellow 2,0,0:yellow 2,0,1:blue 2,0,2:white 2,1,0:mediumvioletred 2,1,1:orangered 2,1,2:red 2,2,0:black 2,2,1:navy 2,2,2:green 
+Solucion: 0,0,0:orangered 0,0,1:red 0,0,2:navy 0,1,0:white 0,1,1:yellow 0,1,2:black 0,2,0:blue 0,2,1:mediumvioletred 0,2,2:green 1,0,0:yellow 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:red 1,2,1:white 1,2,2:orangered 2,0,0:green 2,0,1:blue 2,0,2:white 2,1,0:mediumvioletred 2,1,1:orangered 2,1,2:red 2,2,0:black 2,2,1:navy 2,2,2:yellow 
+Solucion: 0,0,0:green 0,0,1:mediumvioletred 0,0,2:navy 0,1,0:white 0,1,1:yellow 0,1,2:black 0,2,0:blue 0,2,1:red 0,2,2:orangered 1,0,0:orangered 1,0,1:black 1,0,2:red 1,1,0:navy 1,1,2:blue 1,2,0:mediumvioletred 1,2,1:white 1,2,2:yellow 2,0,0:yellow 2,0,1:blue 2,0,2:white 2,1,0:red 2,1,1:orangered 2,1,2:mediumvioletred 2,2,0:black 2,2,1:navy 2,2,2:green 
+Solucion: 0,0,0:orangered 0,0,1:mediumvioletred 0,0,2:navy 0,1,0:white 0,1,1:yellow 0,1,2:black 0,2,0:blue 0,2,1:red 0,2,2:green 1,0,0:yellow 1,0,1:black 1,0,2:red 1,1,0:navy 1,1,2:blue 1,2,0:mediumvioletred 1,2,1:white 1,2,2:orangered 2,0,0:green 2,0,1:blue 2,0,2:white 2,1,0:red 2,1,1:orangered 2,1,2:mediumvioletred 2,2,0:black 2,2,1:navy 2,2,2:yellow 
+Solucion: 0,0,0:green 0,0,1:red 0,0,2:navy 0,1,0:white 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:black 0,2,1:blue 0,2,2:orangered 1,0,0:orangered 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:mediumvioletred 1,2,1:white 1,2,2:red 2,0,0:blue 2,0,1:mediumvioletred 2,0,2:white 2,1,0:red 2,1,1:orangered 2,1,2:black 2,2,0:yellow 2,2,1:navy 2,2,2:green 
+Solucion: 0,0,0:green 0,0,1:red 0,0,2:orangered 0,1,0:white 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:black 0,2,1:blue 0,2,2:navy 1,0,0:mediumvioletred 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:red 2,0,0:blue 2,0,1:navy 2,0,2:white 2,1,0:red 2,1,1:orangered 2,1,2:black 2,2,0:yellow 2,2,1:mediumvioletred 2,2,2:green 
+Solucion: 0,0,0:green 0,0,1:mediumvioletred 0,0,2:navy 0,1,0:white 0,1,1:yellow 0,1,2:red 0,2,0:black 0,2,1:blue 0,2,2:orangered 1,0,0:orangered 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:red 1,2,1:white 1,2,2:mediumvioletred 2,0,0:blue 2,0,1:red 2,0,2:white 2,1,0:mediumvioletred 2,1,1:orangered 2,1,2:black 2,2,0:yellow 2,2,1:navy 2,2,2:green 
+Solucion: 0,0,0:green 0,0,1:mediumvioletred 0,0,2:orangered 0,1,0:white 0,1,1:yellow 0,1,2:red 0,2,0:black 0,2,1:blue 0,2,2:navy 1,0,0:red 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:mediumvioletred 2,0,0:blue 2,0,1:navy 2,0,2:white 2,1,0:mediumvioletred 2,1,1:orangered 2,1,2:black 2,2,0:yellow 2,2,1:red 2,2,2:green 
+Solucion: 0,0,0:green 0,0,1:blue 0,0,2:navy 0,1,0:white 0,1,1:yellow 0,1,2:red 0,2,0:black 0,2,1:mediumvioletred 0,2,2:orangered 1,0,0:orangered 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:red 1,2,1:white 1,2,2:yellow 2,0,0:yellow 2,0,1:red 2,0,2:white 2,1,0:mediumvioletred 2,1,1:orangered 2,1,2:black 2,2,0:blue 2,2,1:navy 2,2,2:green 
+Solucion: 0,0,0:orangered 0,0,1:blue 0,0,2:navy 0,1,0:white 0,1,1:yellow 0,1,2:red 0,2,0:black 0,2,1:mediumvioletred 0,2,2:green 1,0,0:yellow 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:red 1,2,1:white 1,2,2:orangered 2,0,0:green 2,0,1:red 2,0,2:white 2,1,0:mediumvioletred 2,1,1:orangered 2,1,2:black 2,2,0:blue 2,2,1:navy 2,2,2:yellow 
+Solucion: 0,0,0:green 0,0,1:blue 0,0,2:orangered 0,1,0:white 0,1,1:yellow 0,1,2:red 0,2,0:black 0,2,1:mediumvioletred 0,2,2:navy 1,0,0:red 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:yellow 2,0,0:yellow 2,0,1:navy 2,0,2:white 2,1,0:mediumvioletred 2,1,1:orangered 2,1,2:black 2,2,0:blue 2,2,1:red 2,2,2:green 
+Solucion: 0,0,0:green 0,0,1:blue 0,0,2:navy 0,1,0:white 0,1,1:yellow 0,1,2:red 0,2,0:orangered 0,2,1:mediumvioletred 0,2,2:black 1,0,0:mediumvioletred 1,0,1:black 1,0,2:orangered 1,1,0:navy 1,1,2:blue 1,2,0:red 1,2,1:white 1,2,2:yellow 2,0,0:yellow 2,0,1:red 2,0,2:white 2,1,0:black 2,1,1:orangered 2,1,2:mediumvioletred 2,2,0:blue 2,2,1:navy 2,2,2:green 
+Solucion: 0,0,0:green 0,0,1:blue 0,0,2:navy 0,1,0:white 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:black 0,2,1:red 0,2,2:orangered 1,0,0:orangered 1,0,1:black 1,0,2:red 1,1,0:navy 1,1,2:blue 1,2,0:mediumvioletred 1,2,1:white 1,2,2:yellow 2,0,0:yellow 2,0,1:mediumvioletred 2,0,2:white 2,1,0:red 2,1,1:orangered 2,1,2:black 2,2,0:blue 2,2,1:navy 2,2,2:green 
+Solucion: 0,0,0:green 0,0,1:blue 0,0,2:navy 0,1,0:white 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:orangered 0,2,1:red 0,2,2:black 1,0,0:red 1,0,1:black 1,0,2:orangered 1,1,0:navy 1,1,2:blue 1,2,0:mediumvioletred 1,2,1:white 1,2,2:yellow 2,0,0:yellow 2,0,1:mediumvioletred 2,0,2:white 2,1,0:black 2,1,1:orangered 2,1,2:red 2,2,0:blue 2,2,1:navy 2,2,2:green 
+Solucion: 0,0,0:orangered 0,0,1:blue 0,0,2:navy 0,1,0:white 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:black 0,2,1:red 0,2,2:green 1,0,0:yellow 1,0,1:black 1,0,2:red 1,1,0:navy 1,1,2:blue 1,2,0:mediumvioletred 1,2,1:white 1,2,2:orangered 2,0,0:green 2,0,1:mediumvioletred 2,0,2:white 2,1,0:red 2,1,1:orangered 2,1,2:black 2,2,0:blue 2,2,1:navy 2,2,2:yellow 
+Solucion: 0,0,0:green 0,0,1:blue 0,0,2:orangered 0,1,0:white 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:black 0,2,1:red 0,2,2:navy 1,0,0:mediumvioletred 1,0,1:black 1,0,2:red 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:yellow 2,0,0:yellow 2,0,1:navy 2,0,2:white 2,1,0:red 2,1,1:orangered 2,1,2:black 2,2,0:blue 2,2,1:mediumvioletred 2,2,2:green
+#+end_example
