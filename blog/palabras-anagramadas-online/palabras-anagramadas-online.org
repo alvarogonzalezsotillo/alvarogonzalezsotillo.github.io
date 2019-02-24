@@ -10,7 +10,7 @@
 #+DESCRIPTION: çayuda online para el concurso de Palabras Anagramadas del programa de radio No Es Un Día Cualquiera.
 
 
-Esta entrada es una continuación de [[../../../blog/palabras-anagramadas][palabras anagramadas]], en la que adapto la aplicación de consola a una página web.
+Esta entrada es una continuación de [[../../../blog/palabras-anagramadas][palabras anagramadas]], en la que adapto la aplicación de consola a una [[https://alvarogonzalezsotillo.github.io/palabras-anagramadas][página web]].
 
 La idea es conseguir una interfaz que vaya mostrando incrementalmente los resultados de un cálculo largo. En una GUI tradicional se utilizarían /threads/, pero en una página web la solución más simple es utilizar un /worker/.
 
@@ -28,7 +28,14 @@ Aunque se pueden hacer /builds/ multiproyecto con ScalaJS, he preferido hacer un
 - Cargar otra vez el fichero como un /worker/.
 - Distinguir en el =main= del fichero javascript si se ejecuta como página web o como /worker/.
 
-** Carga del /Worker/
+
+
+* /Corpus/ de palabras
+En la aplicación Scala leo directamente el [[http://corpus.rae.es/lfrecuencias.html][fichero de /corpus/ de la RAE]] (unos 20 Mb), en un tiempo aceptable. He intentado reutilizar el código Scala en la aplicación ScalaJS, y simplemente tarda demasiado. Aunque no he llegado a medirlo, el culpable del bajo rendimiento parece ser el uso de expresiones regulares en Javascript.
+
+Para acelerar la página, y por el ahorro de transferencia de datos, he convertido el /corpus/ a un fichero JSON con una estructura simple: es un array que en la  posición =n= tiene un array con las palabras de longitud =n+1=. 
+
+* Carga del /Worker/
 
 Desde =BrowserMain= localizo el último /script/ cargado en la página, y lo vuelvo a cargar, esta vez como un /worker/. Para localizar el último /script/, intento utilizar la propiedad =currentScript=, y si no existe, utilizo la ruta de generación del fichero =js= al compilar.
 
@@ -60,7 +67,7 @@ Como se ha visto, el /script/ se puede cargar varias veces, así que es necesari
   def isNode = !isBrowserPage && !isBrowserWorker
 #+end_src
 
-** Mensajes
+* Mensajes
 Entre la página y el /worker/ se intercambian mensajes. En un entorno Java, utilizaría una =case class= para cada tipo de mensaje, pero hay que tener en cuenta que entre la página y el /worker/ no se puede intercambiar memoria, solo objetos JSON.
 
 Esto obliga a utilizar objetos planos de Javascript, así que hay que implementar a mano las partes que hacen automáticamente las =case class=: la creación por factorías en vez de por constructor (método =apply=), y el pattern matching (método =unapply=). El siguiente ejemplo es del mensaje =LoadCorpus=, que tiene un único parámetro:
@@ -89,3 +96,90 @@ object Message{
 }
 #+end_src
 
+Los tipos de mensajes que he definido son:
+- De la página al /worker/:
+  - =LoadCorpus=: Solicitud de descarga del /corpus/
+  - =SearchAnagram=: Solicitud de búsqueda de un anagrama a partir de una palabra
+  - =SearchAnagramInSentence=: Solicitud de búsqueda de un anagrama en una frase, con una longitud dada
+- Del /worker/ a la página:
+  - =CorpusLoaded=: El /corpus/ ha sido descargado, y ya se pueden buscar anagramas.
+  - =AnagramFound=: Se ha encontrado un anagrama.
+  - =NoMoreAnagrams=: La búsqueda de anagramas ha terminado.
+
+
+** Recepción y envío de mensajes
+
+Una vez definidos los mensajes, su recepción es muy simple con una estructura =match=. Este es el manejo de mensajes realizado en la página web:
+#+begin_src scala
+  def onMessage( m: org.scalajs.dom.raw.MessageEvent ) = {
+
+    m.data match{
+      case CorpusLoaded(_) =>
+        enableButtons()
+        ui.output.text("")
+
+      case AnagramFound(found,_) =>
+        addWord(found)
+
+      case NoMoreAnagrams(s) =>
+        enableButtons()
+        ui.botonPalabra.value("Busca anagramas")
+        ui.botonFrase.value("Busca anagramas en la frase")
+        addLog( s"No se encuentran más anagramas para «$s»" )
+
+      case PreparseDone(size) =>
+        addLog( s"Preparseadas las palabras con longitud $size" )
+
+      case data =>
+        println( s"No entiendo el mensaje en html:$data")
+        js.Dynamic.global.console.log(data.asInstanceOf[js.Any])
+    }
+
+  }
+#+end_src
+
+Y este, en manejo de mensajes en el /worker/:
+
+#+begin_src scala
+
+  def onMessage(msg: dom.MessageEvent) = {
+
+    msg.data match{
+      case LoadCorpus(file) =>
+        Main.cargaCorpusJSON(file){ c =>
+          corpus = c
+          WorkerGlobal.postMessage( CorpusLoaded(file) )
+        }
+
+
+      case SearchAnagram(s) =>
+        val coincidencias = PalabrasAnagramadas.buscaCoincidenciaExacta( Corpus.Palabra(s) );
+
+        for( c <- coincidencias ){
+          WorkerGlobal.postMessage( AnagramFound(c.original,s) )
+        }
+
+        WorkerGlobal.postMessage( NoMoreAnagrams(s) )
+
+      case SearchAnagramInSentence(s,size) =>
+
+        val coincidencias = PalabrasAnagramadas.buscaExactoEnFrase( s, size );
+
+        for( c <- coincidencias ){
+          WorkerGlobal.postMessage( AnagramFound(c.original,s) )
+        }
+
+        WorkerGlobal.postMessage( NoMoreAnagrams(s) )
+
+
+      case data =>
+        println( s"  worker: me llega algo que no sé lo que es: $data" )
+        js.Dynamic.global.console.log(data.asInstanceOf[js.Any])
+
+    }
+  }
+
+#+end_src
+
+* Código fuente
+El código fuente puede consultarse en su [[https://github.com/alvarogonzalezsotillo/palabras-anagramadas][repositorio de Github]]. La página web donde utilizarlo es [[https://alvarogonzalezsotillo.github.io/palabras-anagramadas]].
