@@ -19,6 +19,8 @@ Hace un par de años que los Reyes Magos nos dejaron en casa un [[http://www.rec
 
 En principio no parecía un rompecabezas muy difícil, porque ya teníamos experiencia con los cubos de Rubick. Pero en la práctica nos encontramos incapaces de encontrar una solución. Aprovechando que aún no había programado nada en [[https://en.wikipedia.org/wiki/Prolog][prolog]], decidí intentar resolver el puzzle en este lenguaje.
 
+Aquí se puede descargar el [[./molecube.prolog][código completo del programa]].
+
 
 * Objetivo del solucionador
 El solucionador solo encontrará el estado final del molecube. Tras esto, un /humano/ deberá llevar el estado real del molecube al estado propuesto por el solucionador.
