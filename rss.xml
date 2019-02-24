@@ -4,10 +4,24 @@
     <title>Álvaro González Sotillo</title>
     <link>https://alvarogonzalezsotillo.github.io/</link>
     <description></description>
-    <pubDate>mié, 05 dic 2018 11:48:23 CET</pubDate>
-    <lastBuildDate>mié, 05 dic 2018 11:48:23 CET</lastBuildDate>
+    <pubDate>dom, 24 feb 2019 19:37:26 CET</pubDate>
+    <lastBuildDate>dom, 24 feb 2019 19:37:26 CET</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
+    <item>
+      <title>Palabras anagramadas online</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/palabras-anagramadas-online</link>
+      <description><![CDATA[çayuda online para el concurso de Palabras Anagramadas del programa de radio No Es Un Día Cualquiera.]]></description>
+      <pubDate>2019-02-24</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/palabras-anagramadas-online</guid>
+    </item>
+    <item>
+      <title>Cómo resolver molecube en prolog</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/resolver-molecube-en-prolog</link>
+      <description><![CDATA[Un rompecabezas nuevo es una buena excusa para experimentar un nuevo lenguaje de programación]]></description>
+      <pubDate>2019-02-24</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/resolver-molecube-en-prolog</guid>
+    </item>
     <item>
       <title>Literate Programming en la configuración de emacs</title>
       <link>https://alvarogonzalezsotillo.github.io/blog/literate-programming-configuracion-emacs</link>
@@ -59,7 +73,7 @@
     </item>
     <item>
       <title>Untitled</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/2018/12/05/untitled/</link>
+      <link>https://alvarogonzalezsotillo.github.io/blog/2019/02/24/untitled/</link>
       <description><![CDATA[<div>
 <div class="post">
 <h1>Untitled</h1>
@@ -70,21 +84,7 @@ Es posible que pase el blog a hugo (ahora está en org-page).
 </div>
 </div>]]></description>
       <pubDate>2018-11-11</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/2018/12/05/untitled/</guid>
-    </item>
-    <item>
-      <title>Mi propio hosting git</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/mi-propio-hosting-git</link>
-      <description><![CDATA[La nube es el ordenador de otro. Ya que utilizo git para mis archivos en línea, tiene sentido que mi nube sea mi ordenador]]></description>
-      <pubDate>2018-10-08</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/mi-propio-hosting-git</guid>
-    </item>
-    <item>
-      <title>Problemas lógicos de cajas en ¿Cómo se llama este libro?</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/como-se-llama-este-libro-porcia</link>
-      <description><![CDATA[En "¿Cómo se llama este libro?" se describen muchos problemas lógicos. Los de las cajas de Porcia pueden resolverse con programación por restricciones.]]></description>
-      <pubDate>2018-09-11</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/como-se-llama-este-libro-porcia</guid>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/2019/02/24/untitled/</guid>
     </item>
   </channel>
 </rss>

@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Cómo resolver molecube en prolog - Álvaro González Sotillo</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Álvaro González Sotillo" />
+    <meta name="description" content="Un rompecabezas nuevo es una buena excusa para experimentar un nuevo lenguaje de programación" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <!-- <link rel="stylesheet" href="/media/css/prettify.css" type="text/css"> -->
+  </head>
+
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">Álvaro González Sotillo</a></h1>
+        <p></p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/hugo/">Hugo</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">Acerca de mí</a></li>
+          <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="//www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Buscar">
+          <input type="hidden" name="as_sitesearch" value="alvarogonzalezsotillo.github.io">
+        </form>
+        <img class="avatar" src="/media/img/octaedron.png" />
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>Cómo resolver molecube en prolog</h1>
+
+<div class="figure">
+<p><img src="/assets/blog/resolver-molecube-en-prolog/molecube-mezclado.jpg" alt="/assets/blog/resolver-molecube-en-prolog/molecube-mezclado.jpg" style="float:left;" />
+</p>
+</div>
+
+<p>
+Hace un par de años que los Reyes Magos nos dejaron en casa un <a href="http://www.recenttoys.com/project/molecube/">molecube</a>. Consiste en un cubo parecido al cubo de Rubick, pero el objetivo no es conseguir caras de igual color. En cambio, no debe haber dos colores iguales en ninguna cara. Como anuncian en su página web, es como un sudoku tridimensional.
+</p>
+
+<p>
+En principio no parecía un rompecabezas muy difícil, porque ya teníamos experiencia con los cubos de Rubick. Pero en la práctica nos encontramos incapaces de encontrar una solución. Aprovechando que aún no había programado nada en <a href="https://en.wikipedia.org/wiki/Prolog">prolog</a>, decidí intentar resolver el puzzle en este lenguaje.
+</p>
+
+
+<div id="outline-container-orgca1d702" class="outline-2">
+<h2 id="orgca1d702">Objetivo del solucionador</h2>
+<div class="outline-text-2" id="text-orgca1d702">
+<p>
+El solucionador solo encontrará el estado final del molecube. Tras esto, un <i>humano</i> deberá llevar el estado real del molecube al estado propuesto por el solucionador.
+</p>
+
+<p>
+Esto no es un gran problema, ya que tenemos experiencia con cubos de Rubick.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org589af75" class="outline-2">
+<h2 id="org589af75">Definición del problema</h2>
+<div class="outline-text-2" id="text-org589af75">
+<p>
+Para solucionar el molecube se necesita que:
+</p>
+<ul class="org-ul">
+<li>Cada <i>cubito</i> sea de uno de los 9 colores posibles: blanco,   azul,     rosa,     morado,   amarillo, negro,    rojo,     naranja y  verde.</li>
+<li>Los centros de las caras son inmóviles, así que deben ser del color del molecube real.</li>
+<li>Cada cara debe tener todos sus colores distintos.</li>
+<li>Cada color móvil debe aparecer las mismas veces que el molecube, en el mismo sitio. Por ejemplo el color blanco debe aparecer en 1 vez en las esquinas y 1 vez en las aristas (entre dos esquinas)</li>
+</ul>
+
+<p>
+Todo esto suena bastante a programación por restricciones, y puede programarse de forma bastante natural en prolog.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orge75a7ce" class="outline-2">
+<h2 id="orge75a7ce">Implementación en prolog</h2>
+<div class="outline-text-2" id="text-orge75a7ce">
+</div>
+<div id="outline-container-org7ad3786" class="outline-3">
+<h3 id="org7ad3786">Estructura básica</h3>
+<div class="outline-text-3" id="text-org7ad3786">
+<p>
+Un color se representa por un número del 0 al 8
+</p>
+<div class="org-src-container">
+<pre class="src src-prolog">color(C) :-
+    C in 0..8.
+</pre>
+</div>
+
+<p>
+Las coordenadas tridimensionales de una celda van del 0 al 2
+</p>
+<div class="org-src-container">
+<pre class="src src-prolog">coordenada(X) :-
+    X in 0..2 .
+
+coordenadas([X,Y,Z]) :-
+    aplica_a_todos(coordenada,[X,Y,Z]).
+</pre>
+</div>
+
+<p>
+Finalmente, una celda tiene unas coordenadas y un color.
+</p>
+<div class="org-src-container">
+<pre class="src src-prolog">celda([XYZ,C]) :-
+    color(C),
+    coordenadas(XYZ).
+</pre>
+</div>
+
+<p>
+El molecube se construye con 26 de estas celdas. El siguiente código genera una secuencia de 0 a 26, quita el número 13, y construye las 26 celdas del cubo.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-prolog">coordenadas_desde_orden(ORDEN,[X,Y,Z]) :-
+    ORDEN &lt; 27,
+    X is ORDEN//9,
+    Y is (ORDEN-X*9)//3,
+    Z is ORDEN mod 3.
+
+cubo(L) :-
+    secuencia(0,26,SEQ),
+    filtra_lista(dif(13), SEQ, SEQSINCENTRO),
+    mapea_lista(coordenadas_desde_orden,SEQSINCENTRO,COORS),
+    mapea_lista(coordenadas_de_celda,L,COORS),
+    aplica_a_todos(celda,L).
+</pre>
+</div>
+
+<p>
+Tras esto, hay que aplicar las restricciones adecuadas a caras, aristas y esquinas. Por ejemplo para conseguir que en cada cara todos los colores sean distintos:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-prolog">coordenadas_de_celdaZ(Z,C) :-
+    coordenadas_de_celda(C,[_,_,Z]).
+
+caraXY(CUBO,Z,CARA) :-
+    filtra_lista(coordenadas_de_celdaZ(Z),CUBO,CARA).
+
+[...] Similar para la cara XZ y la cara YZ
+
+% En una cara, todos los colores deben ser distintos
+colores_de_celdas_distintos(CELDAS) :-
+    colores_de_celdas(CELDAS,COLORES),
+    todos_distintos(COLORES).
+
+restricciones_caras_de_cubo(CUBO) :-
+    caraXY(CUBO,0,CARAXY0),
+    colores_de_celdas_distintos(CARAXY0),
+    caraXY(CUBO,2,CARAXY2),
+    colores_de_celdas_distintos(CARAXY2),
+
+    caraXZ(CUBO,0,CARAXZ0),
+    colores_de_celdas_distintos(CARAXZ0),
+    caraXZ(CUBO,2,CARAXZ2),
+    colores_de_celdas_distintos(CARAXZ2),
+
+    caraYZ(CUBO,0,CARAYZ0),
+    colores_de_celdas_distintos(CARAYZ0),
+    caraYZ(CUBO,2,CARAYZ2),
+    colores_de_celdas_distintos(CARAYZ2).
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org8a9c80c" class="outline-3">
+<h3 id="org8a9c80c">Datos del molecube real</h3>
+<div class="outline-text-3" id="text-org8a9c80c">
+<p>
+Las restricciones sobre aristas y esquinas son un poco más laboriosas. Examinando el molecube podemos contar cuántos <i>cubitos</i> de cada tipo y color hay:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Color</th>
+<th scope="col" class="org-right">Vértices</th>
+<th scope="col" class="org-right">Aristas</th>
+<th scope="col" class="org-right">Índice en el programa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">blanco</td>
+<td class="org-right">1</td>
+<td class="org-right">1</td>
+<td class="org-right">0</td>
+</tr>
+
+<tr>
+<td class="org-left">azul</td>
+<td class="org-right">1</td>
+<td class="org-right">1</td>
+<td class="org-right">1</td>
+</tr>
+
+<tr>
+<td class="org-left">rosa</td>
+<td class="org-right">0</td>
+<td class="org-right">3</td>
+<td class="org-right">2</td>
+</tr>
+
+<tr>
+<td class="org-left">azul oscuro</td>
+<td class="org-right">1</td>
+<td class="org-right">1</td>
+<td class="org-right">3</td>
+</tr>
+
+<tr>
+<td class="org-left">amarillo</td>
+<td class="org-right">1</td>
+<td class="org-right">1</td>
+<td class="org-right">4</td>
+</tr>
+
+<tr>
+<td class="org-left">negro</td>
+<td class="org-right">1</td>
+<td class="org-right">1</td>
+<td class="org-right">5</td>
+</tr>
+
+<tr>
+<td class="org-left">rojo</td>
+<td class="org-right">0</td>
+<td class="org-right">3</td>
+<td class="org-right">6</td>
+</tr>
+
+<tr>
+<td class="org-left">naranja</td>
+<td class="org-right">1</td>
+<td class="org-right">1</td>
+<td class="org-right">7</td>
+</tr>
+
+<tr>
+<td class="org-left">verde</td>
+<td class="org-right">2</td>
+<td class="org-right">2</td>
+<td class="org-right">8</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>
+Tras esto, podemos fijar límites sobre las aristas y las esquinas:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-prolog">% Extractor de esquinas de un cubo. Una esquina no tiene ninguna coordenada a 1
+es_esquina(CELDA) :-
+    coordenadas_de_celda(CELDA,[X,Y,Z]),
+    contar([X,Y,Z],1,0).
+
+esquinas(CUBO,ESQUINAS) :-
+    filtra_lista(es_esquina,CUBO,ESQUINAS).
+
+% Extractor de aristas. Una arista tiene una coordenada a 1.
+es_arista(CELDA) :-
+    coordenadas_de_celda(CELDA,[X,Y,Z]),
+    contar([X,Y,Z],1,1).
+
+aristas(CUBO,ARISTAS) :-
+    filtra_lista(es_arista,CUBO,ARISTAS).
+
+limita_esquinas_y_aristas(CUBO,COLOR,E,A) :-
+    aristas(CUBO,ARISTAS),
+    colores_de_celdas(ARISTAS,CA),
+    contar(CA,COLOR,A),
+    esquinas(CUBO,ESQUINAS),
+    colores_de_celdas(ESQUINAS,CE),
+    contar(CE,COLOR,E).
+
+restricciones_esquinas_aristas(CUBO) :-
+    limita_esquinas_y_aristas(CUBO,0,1,1),
+    limita_esquinas_y_aristas(CUBO,1,1,1),
+    limita_esquinas_y_aristas(CUBO,2,0,3),
+    limita_esquinas_y_aristas(CUBO,3,1,1),
+    limita_esquinas_y_aristas(CUBO,4,1,1),
+    limita_esquinas_y_aristas(CUBO,5,1,1),
+    limita_esquinas_y_aristas(CUBO,6,0,3),
+    limita_esquinas_y_aristas(CUBO,7,1,1),
+    limita_esquinas_y_aristas(CUBO,8,2,0).
+</pre>
+</div>
+
+<p>
+Y también podemos apuntar los colores centrales de las caras (que no se mueven):
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">x=0, y=1</th>
+<th scope="col" class="org-left">x=1</th>
+<th scope="col" class="org-left">x=2,y=1</th>
+<th scope="col" class="org-left">&#xa0;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">azul</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">z=2, y=1</td>
+</tr>
+
+<tr>
+<td class="org-left">amarillo</td>
+<td class="org-left">negro</td>
+<td class="org-left">naranja</td>
+<td class="org-left">z=1</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">azul oscuro</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">z=0, y=1</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">blanco</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">z=1, y=2</td>
+</tr>
+</tbody>
+</table>
+
+<div class="org-src-container">
+<pre class="src src-prolog">restriciones_colores_centrales_de_caras(CUBO) :-
+    % Los centros de las caras tienen dos coordenadas a 1
+    color_en_coordenadas(CUBO,[0,1,1], 4),
+    color_en_coordenadas(CUBO,[1,1,2], 1),
+    color_en_coordenadas(CUBO,[1,0,1], 5),
+    color_en_coordenadas(CUBO,[1,1,0], 3),
+    color_en_coordenadas(CUBO,[1,2,1], 0),
+    color_en_coordenadas(CUBO,[2,1,1], 7).
+</pre>
+</div>
+
+<p>
+Por tanto, ya tenemos la construcción de un molecube completo, con todas sus restricciones
+</p>
+
+<div class="org-src-container">
+<pre class="src src-prolog">cubo_con_restricciones(CUBO) :-
+    cubo(CUBO),
+    restricciones_caras_de_cubo(CUBO),
+    restriciones_colores_centrales_de_caras(CUBO),
+    restricciones_esquinas_aristas(CUBO).
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org12d2735" class="outline-3">
+<h3 id="org12d2735">Salida de la solución</h3>
+<div class="outline-text-3" id="text-org12d2735">
+<p>
+Para visualizar un cubo, he optado por utilizar <a href="https://www.x3dom.org/">x3dom</a>, que me permite visualizar directamente un modelo en tres dimensiones en páginas web.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-prolog">color_a_nombre(0, white).
+color_a_nombre(1, blue).
+color_a_nombre(2, mediumvioletred ). %pink
+color_a_nombre(3, navy). %darkblue
+color_a_nombre(4, yellow).
+color_a_nombre(5, black).
+color_a_nombre(6, red).
+color_a_nombre(7, orangered).
+color_a_nombre(8, green).
+
+imprime_celda_x3d(CELDA) :-
+    [[X,Y,Z],C] = CELDA,
+    color_a_nombre(C,N),
+    format("
+        &lt;transform translation='~d ~d ~d'&gt;    
+          &lt;shape&gt;
+            &lt;appearance&gt;
+              &lt;material diffuseColor='~a'&gt;
+              &lt;/material&gt;
+            &lt;/appearance&gt;
+            &lt;sphere&gt;&lt;/sphere&gt;
+          &lt;/shape&gt;
+        &lt;/transform&gt;
+    ", [(X-1)*2,(Y-1)*2,(Z-1)*2,N]).
+
+imprime_solucion_x3d(CUBO) :-
+    write("
+      &lt;x3d height='500px' style='border:none; display:block; width:100%'&gt; 
+        &lt;scene&gt;
+    "),
+    aplica_a_todos(imprime_celda,CUBO),
+    write("
+        &lt;/scene&gt;
+      &lt;/x3d&gt; 
+    ").
+</pre>
+</div>
+
+<p>
+Finalmente, el cálculo de todas las soluciones se ejecuta con este código:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-prolog">findall(CUBO, cubo_con_restricciones(CUBO),SOLUCIONES),
+   aplica_a_todos(imprime_solucion_x3d,SOLUCIONES),
+   aplica_a_todos(imprime_solucion,SOLUCIONES),
+   length(SOLUCIONES,X),
+   format("Número de soluciones:~d",X).
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org70144b2" class="outline-2">
+<h2 id="org70144b2">Soluciones</h2>
+<div class="outline-text-2" id="text-org70144b2">
+<p>
+El programa encuentra 80 soluciones distintas. A continuación se muestra una de ellas (un dedo para mover, dos para hacer zoom):
+</p>
+
+<iframe src="/assets/blog/resolver-molecube-en-prolog/molecube.html" scrolling="no" style="overflow:hidden;width:100%;height:500px;border:none;"></iframe>
+</div>
+</div>
+
+<div id="outline-container-org43f8b4c" class="outline-2">
+<h2 id="org43f8b4c">Invariantes de un cubo de Rubick</h2>
+<div class="outline-text-2" id="text-org43f8b4c">
+<p>
+Es sabido que en un cubo de Rubick no pueden conseguirse todas las configuraciones que en principio parecen posibles, ya que es necesario que la <a href="https://math.stackexchange.com/a/127627">permutación de sus aristas y esquinas debe ser par</a>.
+</p>
+
+<p>
+Aunque no lo he comprobado, creo que todas las 80 soluciones halladas son posibles, ya que siempre se puede jugar con las piezas <i>repetidas</i> de un molecube: dos esquinas verdes, y tres aristas rojas. En mi caso, marqué una arista verde con un cordel, y si una solución era alcanzable con la esquina verde en la cara inferior, repetía la solución dejando la esquina marcada para la cara superior.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org88c9df3" class="outline-2">
+<h2 id="org88c9df3">Lista completa de soluciones</h2>
+<div class="outline-text-2" id="text-org88c9df3">
+<pre class="example">
+Solucion: 0,0,0:white 0,0,1:red 0,0,2:orangered 0,1,0:black 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:blue 0,2,1:navy 0,2,2:green 1,0,0:mediumvioletred 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:red 2,0,0:green 2,0,1:blue 2,0,2:navy 2,1,0:red 2,1,1:orangered 2,1,2:white 2,2,0:yellow 2,2,1:mediumvioletred 2,2,2:black 
+Solucion: 0,0,0:white 0,0,1:red 0,0,2:orangered 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:black 0,2,0:blue 0,2,1:navy 0,2,2:green 1,0,0:yellow 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:red 2,0,0:green 2,0,1:blue 2,0,2:navy 2,1,0:red 2,1,1:orangered 2,1,2:white 2,2,0:black 2,2,1:mediumvioletred 2,2,2:yellow 
+Solucion: 0,0,0:white 0,0,1:mediumvioletred 0,0,2:orangered 0,1,0:black 0,1,1:yellow 0,1,2:red 0,2,0:blue 0,2,1:navy 0,2,2:green 1,0,0:red 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:mediumvioletred 2,0,0:green 2,0,1:blue 2,0,2:navy 2,1,0:mediumvioletred 2,1,1:orangered 2,1,2:white 2,2,0:yellow 2,2,1:red 2,2,2:black 
+Solucion: 0,0,0:white 0,0,1:mediumvioletred 0,0,2:orangered 0,1,0:red 0,1,1:yellow 0,1,2:black 0,2,0:blue 0,2,1:navy 0,2,2:green 1,0,0:yellow 1,0,1:black 1,0,2:red 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:mediumvioletred 2,0,0:green 2,0,1:blue 2,0,2:navy 2,1,0:mediumvioletred 2,1,1:orangered 2,1,2:white 2,2,0:black 2,2,1:red 2,2,2:yellow 
+Solucion: 0,0,0:white 0,0,1:red 0,0,2:navy 0,1,0:black 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:green 0,2,1:blue 0,2,2:orangered 1,0,0:orangered 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:mediumvioletred 1,2,1:white 1,2,2:red 2,0,0:blue 2,0,1:mediumvioletred 2,0,2:green 2,1,0:red 2,1,1:orangered 2,1,2:white 2,2,0:yellow 2,2,1:navy 2,2,2:black 
+Solucion: 0,0,0:white 0,0,1:red 0,0,2:green 0,1,0:black 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:orangered 0,2,1:blue 0,2,2:navy 1,0,0:mediumvioletred 1,0,1:black 1,0,2:orangered 1,1,0:navy 1,1,2:blue 1,2,0:yellow 1,2,1:white 1,2,2:red 2,0,0:blue 2,0,1:navy 2,0,2:yellow 2,1,0:red 2,1,1:orangered 2,1,2:white 2,2,0:green 2,2,1:mediumvioletred 2,2,2:black 
+Solucion: 0,0,0:white 0,0,1:red 0,0,2:orangered 0,1,0:black 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:green 0,2,1:blue 0,2,2:navy 1,0,0:mediumvioletred 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:red 2,0,0:blue 2,0,1:navy 2,0,2:green 2,1,0:red 2,1,1:orangered 2,1,2:white 2,2,0:yellow 2,2,1:mediumvioletred 2,2,2:black 
+Solucion: 0,0,0:white 0,0,1:navy 0,0,2:green 0,1,0:red 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:orangered 0,2,1:blue 0,2,2:black 1,0,0:mediumvioletred 1,0,1:black 1,0,2:orangered 1,1,0:navy 1,1,2:blue 1,2,0:yellow 1,2,1:white 1,2,2:red 2,0,0:blue 2,0,1:red 2,0,2:yellow 2,1,0:black 2,1,1:orangered 2,1,2:white 2,2,0:green 2,2,1:mediumvioletred 2,2,2:navy 
+Solucion: 0,0,0:white 0,0,1:navy 0,0,2:orangered 0,1,0:red 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:green 0,2,1:blue 0,2,2:black 1,0,0:mediumvioletred 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:red 2,0,0:blue 2,0,1:red 2,0,2:green 2,1,0:black 2,1,1:orangered 2,1,2:white 2,2,0:yellow 2,2,1:mediumvioletred 2,2,2:navy 
+Solucion: 0,0,0:white 0,0,1:navy 0,0,2:green 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:red 0,2,0:orangered 0,2,1:blue 0,2,2:black 1,0,0:red 1,0,1:black 1,0,2:orangered 1,1,0:navy 1,1,2:blue 1,2,0:yellow 1,2,1:white 1,2,2:mediumvioletred 2,0,0:blue 2,0,1:mediumvioletred 2,0,2:yellow 2,1,0:black 2,1,1:orangered 2,1,2:white 2,2,0:green 2,2,1:red 2,2,2:navy 
+Solucion: 0,0,0:white 0,0,1:navy 0,0,2:orangered 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:red 0,2,0:green 0,2,1:blue 0,2,2:black 1,0,0:red 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:mediumvioletred 2,0,0:blue 2,0,1:mediumvioletred 2,0,2:green 2,1,0:black 2,1,1:orangered 2,1,2:white 2,2,0:yellow 2,2,1:red 2,2,2:navy 
+Solucion: 0,0,0:white 0,0,1:red 0,0,2:orangered 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:black 0,2,0:green 0,2,1:blue 0,2,2:navy 1,0,0:yellow 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:red 2,0,0:blue 2,0,1:navy 2,0,2:green 2,1,0:red 2,1,1:orangered 2,1,2:white 2,2,0:black 2,2,1:mediumvioletred 2,2,2:yellow 
+Solucion: 0,0,0:white 0,0,1:mediumvioletred 0,0,2:navy 0,1,0:black 0,1,1:yellow 0,1,2:red 0,2,0:green 0,2,1:blue 0,2,2:orangered 1,0,0:orangered 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:red 1,2,1:white 1,2,2:mediumvioletred 2,0,0:blue 2,0,1:red 2,0,2:green 2,1,0:mediumvioletred 2,1,1:orangered 2,1,2:white 2,2,0:yellow 2,2,1:navy 2,2,2:black 
+Solucion: 0,0,0:white 0,0,1:mediumvioletred 0,0,2:green 0,1,0:black 0,1,1:yellow 0,1,2:red 0,2,0:orangered 0,2,1:blue 0,2,2:navy 1,0,0:red 1,0,1:black 1,0,2:orangered 1,1,0:navy 1,1,2:blue 1,2,0:yellow 1,2,1:white 1,2,2:mediumvioletred 2,0,0:blue 2,0,1:navy 2,0,2:yellow 2,1,0:mediumvioletred 2,1,1:orangered 2,1,2:white 2,2,0:green 2,2,1:red 2,2,2:black 
+Solucion: 0,0,0:white 0,0,1:mediumvioletred 0,0,2:orangered 0,1,0:black 0,1,1:yellow 0,1,2:red 0,2,0:green 0,2,1:blue 0,2,2:navy 1,0,0:red 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:mediumvioletred 2,0,0:blue 2,0,1:navy 2,0,2:green 2,1,0:mediumvioletred 2,1,1:orangered 2,1,2:white 2,2,0:yellow 2,2,1:red 2,2,2:black 
+Solucion: 0,0,0:white 0,0,1:mediumvioletred 0,0,2:orangered 0,1,0:red 0,1,1:yellow 0,1,2:black 0,2,0:green 0,2,1:blue 0,2,2:navy 1,0,0:yellow 1,0,1:black 1,0,2:red 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:mediumvioletred 2,0,0:blue 2,0,1:navy 2,0,2:green 2,1,0:mediumvioletred 2,1,1:orangered 2,1,2:white 2,2,0:black 2,2,1:red 2,2,2:yellow 
+Solucion: 0,0,0:white 0,0,1:blue 0,0,2:navy 0,1,0:black 0,1,1:yellow 0,1,2:red 0,2,0:green 0,2,1:mediumvioletred 0,2,2:orangered 1,0,0:orangered 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:red 1,2,1:white 1,2,2:yellow 2,0,0:yellow 2,0,1:red 2,0,2:green 2,1,0:mediumvioletred 2,1,1:orangered 2,1,2:white 2,2,0:blue 2,2,1:navy 2,2,2:black 
+Solucion: 0,0,0:white 0,0,1:blue 0,0,2:orangered 0,1,0:black 0,1,1:yellow 0,1,2:red 0,2,0:green 0,2,1:mediumvioletred 0,2,2:navy 1,0,0:red 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:yellow 2,0,0:yellow 2,0,1:navy 2,0,2:green 2,1,0:mediumvioletred 2,1,1:orangered 2,1,2:white 2,2,0:blue 2,2,1:red 2,2,2:black 
+Solucion: 0,0,0:white 0,0,1:blue 0,0,2:navy 0,1,0:black 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:green 0,2,1:red 0,2,2:orangered 1,0,0:orangered 1,0,1:black 1,0,2:red 1,1,0:navy 1,1,2:blue 1,2,0:mediumvioletred 1,2,1:white 1,2,2:yellow 2,0,0:yellow 2,0,1:mediumvioletred 2,0,2:green 2,1,0:red 2,1,1:orangered 2,1,2:white 2,2,0:blue 2,2,1:navy 2,2,2:black 
+Solucion: 0,0,0:white 0,0,1:blue 0,0,2:orangered 0,1,0:black 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:green 0,2,1:red 0,2,2:navy 1,0,0:mediumvioletred 1,0,1:black 1,0,2:red 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:yellow 2,0,0:yellow 2,0,1:navy 2,0,2:green 2,1,0:red 2,1,1:orangered 2,1,2:white 2,2,0:blue 2,2,1:mediumvioletred 2,2,2:black 
+Solucion: 0,0,0:blue 0,0,1:navy 0,0,2:white 0,1,0:red 0,1,1:yellow 0,1,2:black 0,2,0:orangered 0,2,1:mediumvioletred 0,2,2:green 1,0,0:mediumvioletred 1,0,1:black 1,0,2:orangered 1,1,0:navy 1,1,2:blue 1,2,0:yellow 1,2,1:white 1,2,2:red 2,0,0:green 2,0,1:red 2,0,2:yellow 2,1,0:white 2,1,1:orangered 2,1,2:mediumvioletred 2,2,0:black 2,2,1:blue 2,2,2:navy 
+Solucion: 0,0,0:blue 0,0,1:red 0,0,2:white 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:black 0,2,0:orangered 0,2,1:navy 0,2,2:green 1,0,0:yellow 1,0,1:black 1,0,2:orangered 1,1,0:navy 1,1,2:blue 1,2,0:red 1,2,1:white 1,2,2:mediumvioletred 2,0,0:green 2,0,1:mediumvioletred 2,0,2:navy 2,1,0:white 2,1,1:orangered 2,1,2:red 2,2,0:black 2,2,1:blue 2,2,2:yellow 
+Solucion: 0,0,0:blue 0,0,1:navy 0,0,2:white 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:black 0,2,0:orangered 0,2,1:red 0,2,2:green 1,0,0:red 1,0,1:black 1,0,2:orangered 1,1,0:navy 1,1,2:blue 1,2,0:yellow 1,2,1:white 1,2,2:mediumvioletred 2,0,0:green 2,0,1:mediumvioletred 2,0,2:yellow 2,1,0:white 2,1,1:orangered 2,1,2:red 2,2,0:black 2,2,1:blue 2,2,2:navy 
+Solucion: 0,0,0:blue 0,0,1:mediumvioletred 0,0,2:white 0,1,0:red 0,1,1:yellow 0,1,2:black 0,2,0:orangered 0,2,1:navy 0,2,2:green 1,0,0:yellow 1,0,1:black 1,0,2:orangered 1,1,0:navy 1,1,2:blue 1,2,0:mediumvioletred 1,2,1:white 1,2,2:red 2,0,0:green 2,0,1:red 2,0,2:navy 2,1,0:white 2,1,1:orangered 2,1,2:mediumvioletred 2,2,0:black 2,2,1:blue 2,2,2:yellow 
+Solucion: 0,0,0:orangered 0,0,1:navy 0,0,2:white 0,1,0:red 0,1,1:yellow 0,1,2:black 0,2,0:blue 0,2,1:mediumvioletred 0,2,2:green 1,0,0:mediumvioletred 1,0,1:black 1,0,2:red 1,1,0:navy 1,1,2:blue 1,2,0:yellow 1,2,1:white 1,2,2:orangered 2,0,0:green 2,0,1:blue 2,0,2:yellow 2,1,0:white 2,1,1:orangered 2,1,2:mediumvioletred 2,2,0:black 2,2,1:red 2,2,2:navy 
+Solucion: 0,0,0:orangered 0,0,1:red 0,0,2:white 0,1,0:black 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:blue 0,2,1:navy 0,2,2:green 1,0,0:mediumvioletred 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:red 1,2,1:white 1,2,2:orangered 2,0,0:green 2,0,1:blue 2,0,2:navy 2,1,0:white 2,1,1:orangered 2,1,2:red 2,2,0:yellow 2,2,1:mediumvioletred 2,2,2:black 
+Solucion: 0,0,0:green 0,0,1:red 0,0,2:white 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:black 0,2,0:blue 0,2,1:navy 0,2,2:orangered 1,0,0:orangered 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:red 1,2,1:white 1,2,2:yellow 2,0,0:yellow 2,0,1:blue 2,0,2:navy 2,1,0:white 2,1,1:orangered 2,1,2:red 2,2,0:black 2,2,1:mediumvioletred 2,2,2:green 
+Solucion: 0,0,0:orangered 0,0,1:red 0,0,2:white 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:black 0,2,0:blue 0,2,1:navy 0,2,2:green 1,0,0:yellow 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:red 1,2,1:white 1,2,2:orangered 2,0,0:green 2,0,1:blue 2,0,2:navy 2,1,0:white 2,1,1:orangered 2,1,2:red 2,2,0:black 2,2,1:mediumvioletred 2,2,2:yellow 
+Solucion: 0,0,0:orangered 0,0,1:navy 0,0,2:white 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:black 0,2,0:blue 0,2,1:red 0,2,2:green 1,0,0:red 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:yellow 1,2,1:white 1,2,2:orangered 2,0,0:green 2,0,1:blue 2,0,2:yellow 2,1,0:white 2,1,1:orangered 2,1,2:red 2,2,0:black 2,2,1:mediumvioletred 2,2,2:navy 
+Solucion: 0,0,0:green 0,0,1:mediumvioletred 0,0,2:white 0,1,0:red 0,1,1:yellow 0,1,2:black 0,2,0:blue 0,2,1:navy 0,2,2:orangered 1,0,0:orangered 1,0,1:black 1,0,2:red 1,1,0:navy 1,1,2:blue 1,2,0:mediumvioletred 1,2,1:white 1,2,2:yellow 2,0,0:yellow 2,0,1:blue 2,0,2:navy 2,1,0:white 2,1,1:orangered 2,1,2:mediumvioletred 2,2,0:black 2,2,1:red 2,2,2:green 
+Solucion: 0,0,0:orangered 0,0,1:mediumvioletred 0,0,2:white 0,1,0:black 0,1,1:yellow 0,1,2:red 0,2,0:blue 0,2,1:navy 0,2,2:green 1,0,0:red 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:mediumvioletred 1,2,1:white 1,2,2:orangered 2,0,0:green 2,0,1:blue 2,0,2:navy 2,1,0:white 2,1,1:orangered 2,1,2:mediumvioletred 2,2,0:yellow 2,2,1:red 2,2,2:black 
+Solucion: 0,0,0:orangered 0,0,1:mediumvioletred 0,0,2:white 0,1,0:red 0,1,1:yellow 0,1,2:black 0,2,0:blue 0,2,1:navy 0,2,2:green 1,0,0:yellow 1,0,1:black 1,0,2:red 1,1,0:navy 1,1,2:blue 1,2,0:mediumvioletred 1,2,1:white 1,2,2:orangered 2,0,0:green 2,0,1:blue 2,0,2:navy 2,1,0:white 2,1,1:orangered 2,1,2:mediumvioletred 2,2,0:black 2,2,1:red 2,2,2:yellow 
+Solucion: 0,0,0:orangered 0,0,1:red 0,0,2:white 0,1,0:black 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:green 0,2,1:blue 0,2,2:navy 1,0,0:mediumvioletred 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:red 1,2,1:white 1,2,2:orangered 2,0,0:blue 2,0,1:navy 2,0,2:green 2,1,0:white 2,1,1:orangered 2,1,2:red 2,2,0:yellow 2,2,1:mediumvioletred 2,2,2:black 
+Solucion: 0,0,0:orangered 0,0,1:red 0,0,2:white 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:black 0,2,0:green 0,2,1:blue 0,2,2:navy 1,0,0:yellow 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:red 1,2,1:white 1,2,2:orangered 2,0,0:blue 2,0,1:navy 2,0,2:green 2,1,0:white 2,1,1:orangered 2,1,2:red 2,2,0:black 2,2,1:mediumvioletred 2,2,2:yellow 
+Solucion: 0,0,0:orangered 0,0,1:mediumvioletred 0,0,2:white 0,1,0:black 0,1,1:yellow 0,1,2:red 0,2,0:green 0,2,1:blue 0,2,2:navy 1,0,0:red 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:mediumvioletred 1,2,1:white 1,2,2:orangered 2,0,0:blue 2,0,1:navy 2,0,2:green 2,1,0:white 2,1,1:orangered 2,1,2:mediumvioletred 2,2,0:yellow 2,2,1:red 2,2,2:black 
+Solucion: 0,0,0:orangered 0,0,1:mediumvioletred 0,0,2:white 0,1,0:red 0,1,1:yellow 0,1,2:black 0,2,0:green 0,2,1:blue 0,2,2:navy 1,0,0:yellow 1,0,1:black 1,0,2:red 1,1,0:navy 1,1,2:blue 1,2,0:mediumvioletred 1,2,1:white 1,2,2:orangered 2,0,0:blue 2,0,1:navy 2,0,2:green 2,1,0:white 2,1,1:orangered 2,1,2:mediumvioletred 2,2,0:black 2,2,1:red 2,2,2:yellow 
+Solucion: 0,0,0:green 0,0,1:blue 0,0,2:white 0,1,0:red 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:black 0,2,1:navy 0,2,2:orangered 1,0,0:orangered 1,0,1:black 1,0,2:red 1,1,0:navy 1,1,2:blue 1,2,0:mediumvioletred 1,2,1:white 1,2,2:yellow 2,0,0:yellow 2,0,1:mediumvioletred 2,0,2:navy 2,1,0:white 2,1,1:orangered 2,1,2:black 2,2,0:blue 2,2,1:red 2,2,2:green 
+Solucion: 0,0,0:orangered 0,0,1:blue 0,0,2:white 0,1,0:red 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:black 0,2,1:navy 0,2,2:green 1,0,0:yellow 1,0,1:black 1,0,2:red 1,1,0:navy 1,1,2:blue 1,2,0:mediumvioletred 1,2,1:white 1,2,2:orangered 2,0,0:green 2,0,1:mediumvioletred 2,0,2:navy 2,1,0:white 2,1,1:orangered 2,1,2:black 2,2,0:blue 2,2,1:red 2,2,2:yellow 
+Solucion: 0,0,0:green 0,0,1:blue 0,0,2:white 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:red 0,2,0:black 0,2,1:navy 0,2,2:orangered 1,0,0:orangered 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:red 1,2,1:white 1,2,2:yellow 2,0,0:yellow 2,0,1:red 2,0,2:navy 2,1,0:white 2,1,1:orangered 2,1,2:black 2,2,0:blue 2,2,1:mediumvioletred 2,2,2:green 
+Solucion: 0,0,0:orangered 0,0,1:blue 0,0,2:white 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:red 0,2,0:black 0,2,1:navy 0,2,2:green 1,0,0:yellow 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:red 1,2,1:white 1,2,2:orangered 2,0,0:green 2,0,1:red 2,0,2:navy 2,1,0:white 2,1,1:orangered 2,1,2:black 2,2,0:blue 2,2,1:mediumvioletred 2,2,2:yellow 
+Solucion: 0,0,0:blue 0,0,1:navy 0,0,2:green 0,1,0:red 0,1,1:yellow 0,1,2:white 0,2,0:black 0,2,1:mediumvioletred 0,2,2:orangered 1,0,0:orangered 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:yellow 1,2,1:white 1,2,2:red 2,0,0:white 2,0,1:red 2,0,2:yellow 2,1,0:mediumvioletred 2,1,1:orangered 2,1,2:black 2,2,0:green 2,2,1:blue 2,2,2:navy 
+Solucion: 0,0,0:blue 0,0,1:red 0,0,2:green 0,1,0:black 0,1,1:yellow 0,1,2:white 0,2,0:orangered 0,2,1:mediumvioletred 0,2,2:navy 1,0,0:mediumvioletred 1,0,1:black 1,0,2:orangered 1,1,0:navy 1,1,2:blue 1,2,0:yellow 1,2,1:white 1,2,2:red 2,0,0:white 2,0,1:navy 2,0,2:yellow 2,1,0:red 2,1,1:orangered 2,1,2:mediumvioletred 2,2,0:green 2,2,1:blue 2,2,2:black 
+Solucion: 0,0,0:blue 0,0,1:red 0,0,2:orangered 0,1,0:black 0,1,1:yellow 0,1,2:white 0,2,0:green 0,2,1:mediumvioletred 0,2,2:navy 1,0,0:mediumvioletred 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:red 2,0,0:white 2,0,1:navy 2,0,2:green 2,1,0:red 2,1,1:orangered 2,1,2:mediumvioletred 2,2,0:yellow 2,2,1:blue 2,2,2:black 
+Solucion: 0,0,0:blue 0,0,1:navy 0,0,2:green 0,1,0:red 0,1,1:yellow 0,1,2:white 0,2,0:orangered 0,2,1:mediumvioletred 0,2,2:black 1,0,0:mediumvioletred 1,0,1:black 1,0,2:orangered 1,1,0:navy 1,1,2:blue 1,2,0:yellow 1,2,1:white 1,2,2:red 2,0,0:white 2,0,1:red 2,0,2:yellow 2,1,0:black 2,1,1:orangered 2,1,2:mediumvioletred 2,2,0:green 2,2,1:blue 2,2,2:navy 
+Solucion: 0,0,0:blue 0,0,1:navy 0,0,2:orangered 0,1,0:red 0,1,1:yellow 0,1,2:white 0,2,0:green 0,2,1:mediumvioletred 0,2,2:black 1,0,0:mediumvioletred 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:red 2,0,0:white 2,0,1:red 2,0,2:green 2,1,0:black 2,1,1:orangered 2,1,2:mediumvioletred 2,2,0:yellow 2,2,1:blue 2,2,2:navy 
+Solucion: 0,0,0:blue 0,0,1:red 0,0,2:green 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:white 0,2,0:orangered 0,2,1:navy 0,2,2:black 1,0,0:yellow 1,0,1:black 1,0,2:orangered 1,1,0:navy 1,1,2:blue 1,2,0:red 1,2,1:white 1,2,2:mediumvioletred 2,0,0:white 2,0,1:mediumvioletred 2,0,2:navy 2,1,0:black 2,1,1:orangered 2,1,2:red 2,2,0:green 2,2,1:blue 2,2,2:yellow 
+Solucion: 0,0,0:blue 0,0,1:navy 0,0,2:green 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:white 0,2,0:black 0,2,1:red 0,2,2:orangered 1,0,0:orangered 1,0,1:black 1,0,2:red 1,1,0:navy 1,1,2:blue 1,2,0:yellow 1,2,1:white 1,2,2:mediumvioletred 2,0,0:white 2,0,1:mediumvioletred 2,0,2:yellow 2,1,0:red 2,1,1:orangered 2,1,2:black 2,2,0:green 2,2,1:blue 2,2,2:navy 
+Solucion: 0,0,0:blue 0,0,1:navy 0,0,2:green 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:white 0,2,0:orangered 0,2,1:red 0,2,2:black 1,0,0:red 1,0,1:black 1,0,2:orangered 1,1,0:navy 1,1,2:blue 1,2,0:yellow 1,2,1:white 1,2,2:mediumvioletred 2,0,0:white 2,0,1:mediumvioletred 2,0,2:yellow 2,1,0:black 2,1,1:orangered 2,1,2:red 2,2,0:green 2,2,1:blue 2,2,2:navy 
+Solucion: 0,0,0:blue 0,0,1:navy 0,0,2:orangered 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:white 0,2,0:green 0,2,1:red 0,2,2:black 1,0,0:red 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:mediumvioletred 2,0,0:white 2,0,1:mediumvioletred 2,0,2:green 2,1,0:black 2,1,1:orangered 2,1,2:red 2,2,0:yellow 2,2,1:blue 2,2,2:navy 
+Solucion: 0,0,0:blue 0,0,1:mediumvioletred 0,0,2:green 0,1,0:black 0,1,1:yellow 0,1,2:white 0,2,0:orangered 0,2,1:red 0,2,2:navy 1,0,0:red 1,0,1:black 1,0,2:orangered 1,1,0:navy 1,1,2:blue 1,2,0:yellow 1,2,1:white 1,2,2:mediumvioletred 2,0,0:white 2,0,1:navy 2,0,2:yellow 2,1,0:mediumvioletred 2,1,1:orangered 2,1,2:red 2,2,0:green 2,2,1:blue 2,2,2:black 
+Solucion: 0,0,0:blue 0,0,1:mediumvioletred 0,0,2:orangered 0,1,0:black 0,1,1:yellow 0,1,2:white 0,2,0:green 0,2,1:red 0,2,2:navy 1,0,0:red 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:mediumvioletred 2,0,0:white 2,0,1:navy 2,0,2:green 2,1,0:mediumvioletred 2,1,1:orangered 2,1,2:red 2,2,0:yellow 2,2,1:blue 2,2,2:black 
+Solucion: 0,0,0:blue 0,0,1:mediumvioletred 0,0,2:green 0,1,0:red 0,1,1:yellow 0,1,2:white 0,2,0:orangered 0,2,1:navy 0,2,2:black 1,0,0:yellow 1,0,1:black 1,0,2:orangered 1,1,0:navy 1,1,2:blue 1,2,0:mediumvioletred 1,2,1:white 1,2,2:red 2,0,0:white 2,0,1:red 2,0,2:navy 2,1,0:black 2,1,1:orangered 2,1,2:mediumvioletred 2,2,0:green 2,2,1:blue 2,2,2:yellow 
+Solucion: 0,0,0:orangered 0,0,1:navy 0,0,2:green 0,1,0:red 0,1,1:yellow 0,1,2:white 0,2,0:blue 0,2,1:mediumvioletred 0,2,2:black 1,0,0:mediumvioletred 1,0,1:black 1,0,2:red 1,1,0:navy 1,1,2:blue 1,2,0:yellow 1,2,1:white 1,2,2:orangered 2,0,0:white 2,0,1:blue 2,0,2:yellow 2,1,0:black 2,1,1:orangered 2,1,2:mediumvioletred 2,2,0:green 2,2,1:red 2,2,2:navy 
+Solucion: 0,0,0:orangered 0,0,1:red 0,0,2:green 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:white 0,2,0:blue 0,2,1:navy 0,2,2:black 1,0,0:yellow 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:red 1,2,1:white 1,2,2:orangered 2,0,0:white 2,0,1:blue 2,0,2:navy 2,1,0:black 2,1,1:orangered 2,1,2:red 2,2,0:green 2,2,1:mediumvioletred 2,2,2:yellow 
+Solucion: 0,0,0:orangered 0,0,1:navy 0,0,2:green 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:white 0,2,0:blue 0,2,1:red 0,2,2:black 1,0,0:red 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:yellow 1,2,1:white 1,2,2:orangered 2,0,0:white 2,0,1:blue 2,0,2:yellow 2,1,0:black 2,1,1:orangered 2,1,2:red 2,2,0:green 2,2,1:mediumvioletred 2,2,2:navy 
+Solucion: 0,0,0:orangered 0,0,1:mediumvioletred 0,0,2:green 0,1,0:red 0,1,1:yellow 0,1,2:white 0,2,0:blue 0,2,1:navy 0,2,2:black 1,0,0:yellow 1,0,1:black 1,0,2:red 1,1,0:navy 1,1,2:blue 1,2,0:mediumvioletred 1,2,1:white 1,2,2:orangered 2,0,0:white 2,0,1:blue 2,0,2:navy 2,1,0:black 2,1,1:orangered 2,1,2:mediumvioletred 2,2,0:green 2,2,1:red 2,2,2:yellow 
+Solucion: 0,0,0:green 0,0,1:blue 0,0,2:navy 0,1,0:red 0,1,1:yellow 0,1,2:white 0,2,0:black 0,2,1:mediumvioletred 0,2,2:orangered 1,0,0:orangered 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:yellow 1,2,1:white 1,2,2:red 2,0,0:white 2,0,1:red 2,0,2:yellow 2,1,0:mediumvioletred 2,1,1:orangered 2,1,2:black 2,2,0:blue 2,2,1:navy 2,2,2:green 
+Solucion: 0,0,0:green 0,0,1:blue 0,0,2:navy 0,1,0:red 0,1,1:yellow 0,1,2:white 0,2,0:orangered 0,2,1:mediumvioletred 0,2,2:black 1,0,0:mediumvioletred 1,0,1:black 1,0,2:orangered 1,1,0:navy 1,1,2:blue 1,2,0:yellow 1,2,1:white 1,2,2:red 2,0,0:white 2,0,1:red 2,0,2:yellow 2,1,0:black 2,1,1:orangered 2,1,2:mediumvioletred 2,2,0:blue 2,2,1:navy 2,2,2:green 
+Solucion: 0,0,0:green 0,0,1:blue 0,0,2:navy 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:white 0,2,0:black 0,2,1:red 0,2,2:orangered 1,0,0:orangered 1,0,1:black 1,0,2:red 1,1,0:navy 1,1,2:blue 1,2,0:yellow 1,2,1:white 1,2,2:mediumvioletred 2,0,0:white 2,0,1:mediumvioletred 2,0,2:yellow 2,1,0:red 2,1,1:orangered 2,1,2:black 2,2,0:blue 2,2,1:navy 2,2,2:green 
+Solucion: 0,0,0:green 0,0,1:blue 0,0,2:navy 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:white 0,2,0:orangered 0,2,1:red 0,2,2:black 1,0,0:red 1,0,1:black 1,0,2:orangered 1,1,0:navy 1,1,2:blue 1,2,0:yellow 1,2,1:white 1,2,2:mediumvioletred 2,0,0:white 2,0,1:mediumvioletred 2,0,2:yellow 2,1,0:black 2,1,1:orangered 2,1,2:red 2,2,0:blue 2,2,1:navy 2,2,2:green 
+Solucion: 0,0,0:blue 0,0,1:navy 0,0,2:green 0,1,0:white 0,1,1:yellow 0,1,2:red 0,2,0:black 0,2,1:mediumvioletred 0,2,2:orangered 1,0,0:orangered 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:red 1,2,1:white 1,2,2:yellow 2,0,0:yellow 2,0,1:red 2,0,2:white 2,1,0:mediumvioletred 2,1,1:orangered 2,1,2:black 2,2,0:green 2,2,1:blue 2,2,2:navy 
+Solucion: 0,0,0:blue 0,0,1:navy 0,0,2:green 0,1,0:white 0,1,1:yellow 0,1,2:red 0,2,0:orangered 0,2,1:mediumvioletred 0,2,2:black 1,0,0:mediumvioletred 1,0,1:black 1,0,2:orangered 1,1,0:navy 1,1,2:blue 1,2,0:red 1,2,1:white 1,2,2:yellow 2,0,0:yellow 2,0,1:red 2,0,2:white 2,1,0:black 2,1,1:orangered 2,1,2:mediumvioletred 2,2,0:green 2,2,1:blue 2,2,2:navy 
+Solucion: 0,0,0:blue 0,0,1:navy 0,0,2:green 0,1,0:white 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:black 0,2,1:red 0,2,2:orangered 1,0,0:orangered 1,0,1:black 1,0,2:red 1,1,0:navy 1,1,2:blue 1,2,0:mediumvioletred 1,2,1:white 1,2,2:yellow 2,0,0:yellow 2,0,1:mediumvioletred 2,0,2:white 2,1,0:red 2,1,1:orangered 2,1,2:black 2,2,0:green 2,2,1:blue 2,2,2:navy 
+Solucion: 0,0,0:blue 0,0,1:navy 0,0,2:green 0,1,0:white 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:orangered 0,2,1:red 0,2,2:black 1,0,0:red 1,0,1:black 1,0,2:orangered 1,1,0:navy 1,1,2:blue 1,2,0:mediumvioletred 1,2,1:white 1,2,2:yellow 2,0,0:yellow 2,0,1:mediumvioletred 2,0,2:white 2,1,0:black 2,1,1:orangered 2,1,2:red 2,2,0:green 2,2,1:blue 2,2,2:navy 
+Solucion: 0,0,0:green 0,0,1:red 0,0,2:navy 0,1,0:white 0,1,1:yellow 0,1,2:black 0,2,0:blue 0,2,1:mediumvioletred 0,2,2:orangered 1,0,0:orangered 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:red 1,2,1:white 1,2,2:yellow 2,0,0:yellow 2,0,1:blue 2,0,2:white 2,1,0:mediumvioletred 2,1,1:orangered 2,1,2:red 2,2,0:black 2,2,1:navy 2,2,2:green 
+Solucion: 0,0,0:orangered 0,0,1:red 0,0,2:navy 0,1,0:white 0,1,1:yellow 0,1,2:black 0,2,0:blue 0,2,1:mediumvioletred 0,2,2:green 1,0,0:yellow 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:red 1,2,1:white 1,2,2:orangered 2,0,0:green 2,0,1:blue 2,0,2:white 2,1,0:mediumvioletred 2,1,1:orangered 2,1,2:red 2,2,0:black 2,2,1:navy 2,2,2:yellow 
+Solucion: 0,0,0:green 0,0,1:mediumvioletred 0,0,2:navy 0,1,0:white 0,1,1:yellow 0,1,2:black 0,2,0:blue 0,2,1:red 0,2,2:orangered 1,0,0:orangered 1,0,1:black 1,0,2:red 1,1,0:navy 1,1,2:blue 1,2,0:mediumvioletred 1,2,1:white 1,2,2:yellow 2,0,0:yellow 2,0,1:blue 2,0,2:white 2,1,0:red 2,1,1:orangered 2,1,2:mediumvioletred 2,2,0:black 2,2,1:navy 2,2,2:green 
+Solucion: 0,0,0:orangered 0,0,1:mediumvioletred 0,0,2:navy 0,1,0:white 0,1,1:yellow 0,1,2:black 0,2,0:blue 0,2,1:red 0,2,2:green 1,0,0:yellow 1,0,1:black 1,0,2:red 1,1,0:navy 1,1,2:blue 1,2,0:mediumvioletred 1,2,1:white 1,2,2:orangered 2,0,0:green 2,0,1:blue 2,0,2:white 2,1,0:red 2,1,1:orangered 2,1,2:mediumvioletred 2,2,0:black 2,2,1:navy 2,2,2:yellow 
+Solucion: 0,0,0:green 0,0,1:red 0,0,2:navy 0,1,0:white 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:black 0,2,1:blue 0,2,2:orangered 1,0,0:orangered 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:mediumvioletred 1,2,1:white 1,2,2:red 2,0,0:blue 2,0,1:mediumvioletred 2,0,2:white 2,1,0:red 2,1,1:orangered 2,1,2:black 2,2,0:yellow 2,2,1:navy 2,2,2:green 
+Solucion: 0,0,0:green 0,0,1:red 0,0,2:orangered 0,1,0:white 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:black 0,2,1:blue 0,2,2:navy 1,0,0:mediumvioletred 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:red 2,0,0:blue 2,0,1:navy 2,0,2:white 2,1,0:red 2,1,1:orangered 2,1,2:black 2,2,0:yellow 2,2,1:mediumvioletred 2,2,2:green 
+Solucion: 0,0,0:green 0,0,1:mediumvioletred 0,0,2:navy 0,1,0:white 0,1,1:yellow 0,1,2:red 0,2,0:black 0,2,1:blue 0,2,2:orangered 1,0,0:orangered 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:red 1,2,1:white 1,2,2:mediumvioletred 2,0,0:blue 2,0,1:red 2,0,2:white 2,1,0:mediumvioletred 2,1,1:orangered 2,1,2:black 2,2,0:yellow 2,2,1:navy 2,2,2:green 
+Solucion: 0,0,0:green 0,0,1:mediumvioletred 0,0,2:orangered 0,1,0:white 0,1,1:yellow 0,1,2:red 0,2,0:black 0,2,1:blue 0,2,2:navy 1,0,0:red 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:mediumvioletred 2,0,0:blue 2,0,1:navy 2,0,2:white 2,1,0:mediumvioletred 2,1,1:orangered 2,1,2:black 2,2,0:yellow 2,2,1:red 2,2,2:green 
+Solucion: 0,0,0:green 0,0,1:blue 0,0,2:navy 0,1,0:white 0,1,1:yellow 0,1,2:red 0,2,0:black 0,2,1:mediumvioletred 0,2,2:orangered 1,0,0:orangered 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:red 1,2,1:white 1,2,2:yellow 2,0,0:yellow 2,0,1:red 2,0,2:white 2,1,0:mediumvioletred 2,1,1:orangered 2,1,2:black 2,2,0:blue 2,2,1:navy 2,2,2:green 
+Solucion: 0,0,0:orangered 0,0,1:blue 0,0,2:navy 0,1,0:white 0,1,1:yellow 0,1,2:red 0,2,0:black 0,2,1:mediumvioletred 0,2,2:green 1,0,0:yellow 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:red 1,2,1:white 1,2,2:orangered 2,0,0:green 2,0,1:red 2,0,2:white 2,1,0:mediumvioletred 2,1,1:orangered 2,1,2:black 2,2,0:blue 2,2,1:navy 2,2,2:yellow 
+Solucion: 0,0,0:green 0,0,1:blue 0,0,2:orangered 0,1,0:white 0,1,1:yellow 0,1,2:red 0,2,0:black 0,2,1:mediumvioletred 0,2,2:navy 1,0,0:red 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:yellow 2,0,0:yellow 2,0,1:navy 2,0,2:white 2,1,0:mediumvioletred 2,1,1:orangered 2,1,2:black 2,2,0:blue 2,2,1:red 2,2,2:green 
+Solucion: 0,0,0:green 0,0,1:blue 0,0,2:navy 0,1,0:white 0,1,1:yellow 0,1,2:red 0,2,0:orangered 0,2,1:mediumvioletred 0,2,2:black 1,0,0:mediumvioletred 1,0,1:black 1,0,2:orangered 1,1,0:navy 1,1,2:blue 1,2,0:red 1,2,1:white 1,2,2:yellow 2,0,0:yellow 2,0,1:red 2,0,2:white 2,1,0:black 2,1,1:orangered 2,1,2:mediumvioletred 2,2,0:blue 2,2,1:navy 2,2,2:green 
+Solucion: 0,0,0:green 0,0,1:blue 0,0,2:navy 0,1,0:white 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:black 0,2,1:red 0,2,2:orangered 1,0,0:orangered 1,0,1:black 1,0,2:red 1,1,0:navy 1,1,2:blue 1,2,0:mediumvioletred 1,2,1:white 1,2,2:yellow 2,0,0:yellow 2,0,1:mediumvioletred 2,0,2:white 2,1,0:red 2,1,1:orangered 2,1,2:black 2,2,0:blue 2,2,1:navy 2,2,2:green 
+Solucion: 0,0,0:green 0,0,1:blue 0,0,2:navy 0,1,0:white 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:orangered 0,2,1:red 0,2,2:black 1,0,0:red 1,0,1:black 1,0,2:orangered 1,1,0:navy 1,1,2:blue 1,2,0:mediumvioletred 1,2,1:white 1,2,2:yellow 2,0,0:yellow 2,0,1:mediumvioletred 2,0,2:white 2,1,0:black 2,1,1:orangered 2,1,2:red 2,2,0:blue 2,2,1:navy 2,2,2:green 
+Solucion: 0,0,0:orangered 0,0,1:blue 0,0,2:navy 0,1,0:white 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:black 0,2,1:red 0,2,2:green 1,0,0:yellow 1,0,1:black 1,0,2:red 1,1,0:navy 1,1,2:blue 1,2,0:mediumvioletred 1,2,1:white 1,2,2:orangered 2,0,0:green 2,0,1:mediumvioletred 2,0,2:white 2,1,0:red 2,1,1:orangered 2,1,2:black 2,2,0:blue 2,2,1:navy 2,2,2:yellow 
+Solucion: 0,0,0:green 0,0,1:blue 0,0,2:orangered 0,1,0:white 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:black 0,2,1:red 0,2,2:navy 1,0,0:mediumvioletred 1,0,1:black 1,0,2:red 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:yellow 2,0,0:yellow 2,0,1:navy 2,0,2:white 2,1,0:red 2,1,1:orangered 2,1,2:black 2,2,0:blue 2,2,1:mediumvioletred 2,2,2:green
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2019-02-28</span>
+        <span title="last modification date" class="post-info">2019-02-24</span>
+        <span title="tags" class="post-info"><a href="/tags/programación/">programación</a>, <a href="/tags/ai/">AI</a></span>
+        <span title="author" class="post-info">Álvaro González Sotillo</span>
+      </div>
+      <section>
+        <h1>Comments</h1>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+          //var disqus_developer = 1;
+          var disqus_identifier = "/blog/resolver-molecube-en-prolog";
+          var disqus_url = "https://alvarogonzalezsotillo.github.io/blog/resolver-molecube-en-prolog";
+          var disqus_shortname = 'alvarogonzalezsotillo';
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="//disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      </section>
+      <!-- <script src="//code.jquery.com/jquery-latest.min.js"></script> -->
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->
+      <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>  -->
+      <!--<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>-->
+      <script src="/media/js/jquery-3.2.1.min.js"></script>
+      <script src="/media/js/main.js"></script>
+      <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="/media/js/code-prettify/loader/run_prettify.js"></script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 26.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:alvarogonzalezsotillo <at> gmail <dot> com">Álvaro González Sotillo</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>
