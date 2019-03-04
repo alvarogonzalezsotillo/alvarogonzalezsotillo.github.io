@@ -4,10 +4,17 @@
     <title>Álvaro González Sotillo</title>
     <link>https://alvarogonzalezsotillo.github.io/</link>
     <description></description>
-    <pubDate>dom, 24 feb 2019 19:43:10 CET</pubDate>
-    <lastBuildDate>dom, 24 feb 2019 19:43:10 CET</lastBuildDate>
+    <pubDate>lun, 04 mar 2019 16:37:55 CET</pubDate>
+    <lastBuildDate>lun, 04 mar 2019 16:37:55 CET</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
+    <item>
+      <title>Palabras anagramadas</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/palabras-anagramadas</link>
+      <description><![CDATA[En casa somos fans del concurso de Palabras Anagramadas del programa de radio No Es Un Día Cualquiera.]]></description>
+      <pubDate>2019-03-04</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/palabras-anagramadas</guid>
+    </item>
     <item>
       <title>Palabras anagramadas online</title>
       <link>https://alvarogonzalezsotillo.github.io/blog/palabras-anagramadas-online</link>
@@ -28,13 +35,6 @@
       <description><![CDATA[=org-babel= permite ejecutar los listados incluidos en un documento. Incluso la propia configuración de /emacs/ puede estar en un fichero =org=]]></description>
       <pubDate>2018-12-05</pubDate>
       <guid>https://alvarogonzalezsotillo.github.io/blog/literate-programming-configuracion-emacs</guid>
-    </item>
-    <item>
-      <title>Palabras anagramadas</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/palabras-anagramadas</link>
-      <description><![CDATA[En casa somos fans del concurso de Palabras Anagramadas del programa de radio No Es Un Día Cualquiera.]]></description>
-      <pubDate>2018-11-20</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/palabras-anagramadas</guid>
     </item>
     <item>
       <title>Practicar ortografía desde el navegador</title>
@@ -73,7 +73,7 @@
     </item>
     <item>
       <title>Untitled</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/2019/02/24/untitled/</link>
+      <link>https://alvarogonzalezsotillo.github.io/blog/2019/03/04/untitled/</link>
       <description><![CDATA[<div>
 <div class="post">
 <h1>Untitled</h1>
@@ -84,7 +84,7 @@ Es posible que pase el blog a hugo (ahora está en org-page).
 </div>
 </div>]]></description>
       <pubDate>2018-11-11</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/2019/02/24/untitled/</guid>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/2019/03/04/untitled/</guid>
     </item>
   </channel>
 </rss>
