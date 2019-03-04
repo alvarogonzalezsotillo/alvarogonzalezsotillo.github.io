@@ -26,7 +26,7 @@ Es un juego interesante para pensar, y a la vez es fácilmente resoluble mediant
 - Compara su histograma con el de un /corpus/ de palabras almacenadas
 - Suelen quedar unas pocas palabras entre las que es fácil discriminar por la definición.
 
-El código fuente está disponible en [[https://github.com/alvarogonzalezsotillo/palabras-anagramadas][https://github.com/alvarogonzalezsotillo/palabras-anagramadas]]. Hay una [[../palabras-anagramadas-online][segunda parte de este post]] en la que se migra el código a una página web.
+El código fuente está disponible en [[https://github.com/alvarogonzalezsotillo/palabras-anagramadas][https://github.com/alvarogonzalezsotillo/palabras-anagramadas]]. Hay una [[../../../blog/palabras-anagramadas-online/index.html][segunda parte de este post]] en la que se migra el código a una página web.
 
 
 * Implementación del algoritmo
