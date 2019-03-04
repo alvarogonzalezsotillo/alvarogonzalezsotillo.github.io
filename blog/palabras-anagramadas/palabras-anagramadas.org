@@ -9,7 +9,6 @@
 #+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 #+DESCRIPTION: En casa somos fans del concurso de Palabras Anagramadas del programa de radio No Es Un Día Cualquiera.
 
-
 #+ATTR_HTML: :style float:right;clear:both;max-width:50%;
 [[file:concurso-2018-10-06.png]]
 
@@ -27,7 +26,7 @@ Es un juego interesante para pensar, y a la vez es fácilmente resoluble mediant
 - Compara su histograma con el de un /corpus/ de palabras almacenadas
 - Suelen quedar unas pocas palabras entre las que es fácil discriminar por la definición.
 
-El código fuente está disponible en [[https://github.com/alvarogonzalezsotillo/palabras-anagramadas][https://github.com/alvarogonzalezsotillo/palabras-anagramadas]]
+El código fuente está disponible en [[https://github.com/alvarogonzalezsotillo/palabras-anagramadas][https://github.com/alvarogonzalezsotillo/palabras-anagramadas]]. Hay una [[../palabras-anagramadas-online][segunda parte de este post]] en la que se migra el código a una página web.
 
 
 * Implementación del algoritmo
