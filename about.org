@@ -2,6 +2,9 @@
 #+AUTHOR:      Álvaro González Sotillo
 #+EMAIL:       alvarogonzalezsotillo@gmail.com
 
+#+ATTR_HTML: :style float:right;max-width:150px;max-height:150px;
+[[file:octaedro-perfil_400x400.png]]
+
 Me puedes encontrar en
 - [[https://github.com/alvarogonzalezsotillo/region-occurrences-highlighter][alvarogonzalezsotillo - Github]]
 - [[https://twitter.com/alvarogonzalez/][alvarogonzalez - Twitter]]
