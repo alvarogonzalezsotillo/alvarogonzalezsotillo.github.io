@@ -21,5 +21,5 @@ Emacs ya tiene sus propios comandos para resaltar expresiones regulares (por eje
 
 [[file:screencast-emacs.gif]]
 
-El paquete se llama ~region-occurrences-highlighter~, y está disponible en [[https://melpa.org/#/region-occurrences-highlighter][MELPA]] [[https://melpa.org/#/region-occurrences-highlighter][file:https://melpa.org/packages/region-occurrences-highlighter-badge.svg]]
+El paquete se llama ~region-occurrences-highlighter~, y está disponible en [[https://melpa.org/#/region-occurrences-highlighter][MELPA]] [[https://melpa.org/#/region-occurrences-highlighter][https://melpa.org/packages/region-occurrences-highlighter-badge.svg]]
 . Su código fuente está en un [[https://github.com/alvarogonzalezsotillo/region-occurrences-highlighter][repositorio de Github]].
