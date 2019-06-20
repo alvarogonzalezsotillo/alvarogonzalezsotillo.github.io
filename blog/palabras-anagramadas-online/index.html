@@ -18,7 +18,6 @@
         <p></p>
         <ul>
           <li><a href="/blog/">Blog</a></li>
-          <li><a href="/hugo/">Hugo</a></li>
           <li><a href="/tags/">Tags</a></li>
           <li><a href="/about/">Acerca de mí</a></li>
           <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
@@ -69,9 +68,9 @@ Aunque se pueden hacer <i>builds</i> multiproyecto con ScalaJS, he preferido hac
 
 
 
-<div id="outline-container-org5d56625" class="outline-2">
-<h2 id="org5d56625"><i>Corpus</i> de palabras</h2>
-<div class="outline-text-2" id="text-org5d56625">
+<div id="outline-container-org0187e71" class="outline-2">
+<h2 id="org0187e71"><i>Corpus</i> de palabras</h2>
+<div class="outline-text-2" id="text-org0187e71">
 <p>
 En la aplicación Scala leo directamente el <a href="http://corpus.rae.es/lfrecuencias.html">fichero de <i>corpus</i> de la RAE</a> (unos 20 Mb), en un tiempo aceptable. He intentado reutilizar el código Scala en la aplicación ScalaJS, y simplemente tarda demasiado. Aunque no he llegado a medirlo, el culpable del bajo rendimiento parece ser el uso de expresiones regulares en Javascript.
 </p>
@@ -82,9 +81,9 @@ Para acelerar la página, y por el ahorro de transferencia de datos, he converti
 </div>
 </div>
 
-<div id="outline-container-orgb18f9a9" class="outline-2">
-<h2 id="orgb18f9a9">Carga del <i>Worker</i></h2>
-<div class="outline-text-2" id="text-orgb18f9a9">
+<div id="outline-container-org373bf25" class="outline-2">
+<h2 id="org373bf25">Carga del <i>Worker</i></h2>
+<div class="outline-text-2" id="text-org373bf25">
 <p>
 Desde <code>BrowserMain</code> localizo el último <i>script</i> cargado en la página, y lo vuelvo a cargar, esta vez como un <i>worker</i>. Para localizar el último <i>script</i>, intento utilizar la propiedad <code>currentScript</code>, y si no existe, utilizo la ruta de generación del fichero <code>js</code> al compilar.
 </p>
@@ -112,9 +111,9 @@ Tras este código,  la variable <code>worker</code> es un <code>Option</code>, q
 </p>
 </div>
 
-<div id="outline-container-orgde3d8ea" class="outline-3">
-<h3 id="orgde3d8ea">¿Soy parte de la página o un <i>worker</i>?</h3>
-<div class="outline-text-3" id="text-orgde3d8ea">
+<div id="outline-container-orgf48ab93" class="outline-3">
+<h3 id="orgf48ab93">¿Soy parte de la página o un <i>worker</i>?</h3>
+<div class="outline-text-3" id="text-orgf48ab93">
 <p>
 Como se ha visto, el <i>script</i> se puede cargar varias veces, así que es necesario saber en qué tipo de entorno se ejecuta. Una forma simple es detectar si existe <code>document</code> (página web) o <code>importScripts</code> (<i>worker</i>). 
 </p>
@@ -129,9 +128,9 @@ def isNode = !isBrowserPage &amp;&amp; !isBrowserWorker
 </div>
 </div>
 
-<div id="outline-container-org34384ed" class="outline-2">
-<h2 id="org34384ed">Mensajes</h2>
-<div class="outline-text-2" id="text-org34384ed">
+<div id="outline-container-org29a9e27" class="outline-2">
+<h2 id="org29a9e27">Mensajes</h2>
+<div class="outline-text-2" id="text-org29a9e27">
 <p>
 Entre la página y el <i>worker</i> se intercambian mensajes. En un entorno Java, utilizaría una <code>case class</code> para cada tipo de mensaje, pero hay que tener en cuenta que entre la página y el <i>worker</i> no se puede intercambiar memoria, solo objetos JSON.
 </p>
@@ -185,9 +184,9 @@ Los tipos de mensajes que he definido son:
 </div>
 
 
-<div id="outline-container-org894fa93" class="outline-3">
-<h3 id="org894fa93">Recepción y envío de mensajes</h3>
-<div class="outline-text-3" id="text-org894fa93">
+<div id="outline-container-org7dc77cc" class="outline-3">
+<h3 id="org7dc77cc">Recepción y envío de mensajes</h3>
+<div class="outline-text-3" id="text-org7dc77cc">
 <p>
 Una vez definidos los mensajes, su recepción es muy simple con una estructura <code>match</code>. Este es el manejo de mensajes realizado en la página web:
 </p>
@@ -269,9 +268,9 @@ def onMessage(msg: dom.MessageEvent) = {
 </div>
 </div>
 
-<div id="outline-container-orga9b0e22" class="outline-2">
-<h2 id="orga9b0e22">Código fuente</h2>
-<div class="outline-text-2" id="text-orga9b0e22">
+<div id="outline-container-org1f328b7" class="outline-2">
+<h2 id="org1f328b7">Código fuente</h2>
+<div class="outline-text-2" id="text-org1f328b7">
 <p>
 El código fuente puede consultarse en su <a href="https://github.com/alvarogonzalezsotillo/palabras-anagramadas">repositorio de Github</a>. La página web donde utilizarlo es <a href="https://alvarogonzalezsotillo.github.io/palabras-anagramadas">https://alvarogonzalezsotillo.github.io/palabras-anagramadas</a>.
 </p>
@@ -289,21 +288,6 @@ El código fuente puede consultarse en su <a href="https://github.com/alvarogonz
       </div>
       <section>
         <h1>Comments</h1>
-        <div id="disqus_thread"></div>
-        <script type="text/javascript">
-          //var disqus_developer = 1;
-          var disqus_identifier = "/blog/palabras-anagramadas-online";
-          var disqus_url = "https://alvarogonzalezsotillo.github.io/blog/palabras-anagramadas-online";
-          var disqus_shortname = 'alvarogonzalezsotillo';
-          /* * * DON'T EDIT BELOW THIS LINE * * */
-          (function() {
-          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-          })();
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-        <a href="//disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
       </section>
       <!-- <script src="//code.jquery.com/jquery-latest.min.js"></script> -->
       <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->

@@ -17,7 +17,6 @@
         <p></p>
         <ul>
           <li><a href="/blog/">Blog</a></li>
-          <li><a href="/hugo/">Hugo</a></li>
           <li><a href="/tags/">Tags</a></li>
           <li><a href="/about/">Acerca de mí</a></li>
           <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
@@ -53,9 +52,9 @@ Aquí se puede descargar el <a href="/assets/blog/resolver-molecube-en-prolog/mo
 </p>
 
 
-<div id="outline-container-org7c566e4" class="outline-2">
-<h2 id="org7c566e4">Objetivo del solucionador</h2>
-<div class="outline-text-2" id="text-org7c566e4">
+<div id="outline-container-orgc84912b" class="outline-2">
+<h2 id="orgc84912b">Objetivo del solucionador</h2>
+<div class="outline-text-2" id="text-orgc84912b">
 <p>
 El solucionador solo encontrará el estado final del molecube. Tras esto, un <i>humano</i> deberá llevar el estado real del molecube al estado propuesto por el solucionador.
 </p>
@@ -66,9 +65,9 @@ Esto no es un gran problema, ya que tenemos experiencia con cubos de Rubick.
 </div>
 </div>
 
-<div id="outline-container-org818a104" class="outline-2">
-<h2 id="org818a104">Definición del problema</h2>
-<div class="outline-text-2" id="text-org818a104">
+<div id="outline-container-org8b9108e" class="outline-2">
+<h2 id="org8b9108e">Definición del problema</h2>
+<div class="outline-text-2" id="text-org8b9108e">
 <p>
 Para solucionar el molecube se necesita que:
 </p>
@@ -85,13 +84,13 @@ Todo esto suena bastante a programación por restricciones, y puede programarse 
 </div>
 </div>
 
-<div id="outline-container-orgfacbfa7" class="outline-2">
-<h2 id="orgfacbfa7">Implementación en prolog</h2>
-<div class="outline-text-2" id="text-orgfacbfa7">
+<div id="outline-container-orgbd57631" class="outline-2">
+<h2 id="orgbd57631">Implementación en prolog</h2>
+<div class="outline-text-2" id="text-orgbd57631">
 </div>
-<div id="outline-container-org07dd81b" class="outline-3">
-<h3 id="org07dd81b">Estructura básica</h3>
-<div class="outline-text-3" id="text-org07dd81b">
+<div id="outline-container-orga9cec37" class="outline-3">
+<h3 id="orga9cec37">Estructura básica</h3>
+<div class="outline-text-3" id="text-orga9cec37">
 <p>
 Un color se representa por un número del 0 al 8
 </p>
@@ -181,9 +180,9 @@ restricciones_caras_de_cubo(CUBO) :-
 </div>
 </div>
 
-<div id="outline-container-org451273f" class="outline-3">
-<h3 id="org451273f">Datos del molecube real</h3>
-<div class="outline-text-3" id="text-org451273f">
+<div id="outline-container-org424a0b4" class="outline-3">
+<h3 id="org424a0b4">Datos del molecube real</h3>
+<div class="outline-text-3" id="text-org424a0b4">
 <p>
 Las restricciones sobre aristas y esquinas son un poco más laboriosas. Examinando el molecube podemos contar cuántos <i>cubitos</i> de cada tipo y color hay:
 </p>
@@ -399,9 +398,9 @@ Por tanto, ya tenemos la construcción de un molecube completo, con todas sus re
 </div>
 </div>
 
-<div id="outline-container-orgb09e53f" class="outline-3">
-<h3 id="orgb09e53f">Salida de la solución</h3>
-<div class="outline-text-3" id="text-orgb09e53f">
+<div id="outline-container-org483a72c" class="outline-3">
+<h3 id="org483a72c">Salida de la solución</h3>
+<div class="outline-text-3" id="text-org483a72c">
 <p>
 Para visualizar un cubo, he optado por utilizar <a href="https://www.x3dom.org/">x3dom</a>, que me permite visualizar directamente un modelo en tres dimensiones en páginas web.
 </p>
@@ -462,9 +461,9 @@ Finalmente, el cálculo de todas las soluciones se ejecuta con este código:
 </div>
 
 
-<div id="outline-container-org1ae24da" class="outline-2">
-<h2 id="org1ae24da">Soluciones</h2>
-<div class="outline-text-2" id="text-org1ae24da">
+<div id="outline-container-org3dbb0ef" class="outline-2">
+<h2 id="org3dbb0ef">Soluciones</h2>
+<div class="outline-text-2" id="text-org3dbb0ef">
 <p>
 El programa encuentra 80 soluciones distintas. A continuación se muestra una de ellas (un dedo para mover, dos para hacer zoom):
 </p>
@@ -473,9 +472,9 @@ El programa encuentra 80 soluciones distintas. A continuación se muestra una de
 </div>
 </div>
 
-<div id="outline-container-org3051bbf" class="outline-2">
-<h2 id="org3051bbf">Invariantes de un cubo de Rubick</h2>
-<div class="outline-text-2" id="text-org3051bbf">
+<div id="outline-container-org61bd271" class="outline-2">
+<h2 id="org61bd271">Invariantes de un cubo de Rubick</h2>
+<div class="outline-text-2" id="text-org61bd271">
 <p>
 Es sabido que en un cubo de Rubick no pueden conseguirse todas las configuraciones que en principio parecen posibles, ya que es necesario que la <a href="https://math.stackexchange.com/a/127627">permutación de sus aristas y esquinas debe ser par</a>.
 </p>
@@ -486,9 +485,9 @@ Aunque no lo he comprobado, creo que todas las 80 soluciones halladas son posibl
 </div>
 </div>
 
-<div id="outline-container-orga4d3bb2" class="outline-2">
-<h2 id="orga4d3bb2">Lista completa de soluciones</h2>
-<div class="outline-text-2" id="text-orga4d3bb2">
+<div id="outline-container-orgc3d5411" class="outline-2">
+<h2 id="orgc3d5411">Lista completa de soluciones</h2>
+<div class="outline-text-2" id="text-orgc3d5411">
 <pre class="example">
 Solucion: 0,0,0:white 0,0,1:red 0,0,2:orangered 0,1,0:black 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:blue 0,2,1:navy 0,2,2:green 1,0,0:mediumvioletred 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:red 2,0,0:green 2,0,1:blue 2,0,2:navy 2,1,0:red 2,1,1:orangered 2,1,2:white 2,2,0:yellow 2,2,1:mediumvioletred 2,2,2:black 
 Solucion: 0,0,0:white 0,0,1:red 0,0,2:orangered 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:black 0,2,0:blue 0,2,1:navy 0,2,2:green 1,0,0:yellow 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:red 2,0,0:green 2,0,1:blue 2,0,2:navy 2,1,0:red 2,1,1:orangered 2,1,2:white 2,2,0:black 2,2,1:mediumvioletred 2,2,2:yellow 
@@ -585,21 +584,6 @@ Solucion: 0,0,0:green 0,0,1:blue 0,0,2:orangered 0,1,0:white 0,1,1:yellow 0,1,2:
       </div>
       <section>
         <h1>Comments</h1>
-        <div id="disqus_thread"></div>
-        <script type="text/javascript">
-          //var disqus_developer = 1;
-          var disqus_identifier = "/blog/resolver-molecube-en-prolog";
-          var disqus_url = "https://alvarogonzalezsotillo.github.io/blog/resolver-molecube-en-prolog";
-          var disqus_shortname = 'alvarogonzalezsotillo';
-          /* * * DON'T EDIT BELOW THIS LINE * * */
-          (function() {
-          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-          })();
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-        <a href="//disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
       </section>
       <!-- <script src="//code.jquery.com/jquery-latest.min.js"></script> -->
       <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->

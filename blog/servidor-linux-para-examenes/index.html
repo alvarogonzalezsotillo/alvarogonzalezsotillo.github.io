@@ -18,7 +18,6 @@
         <p></p>
         <ul>
           <li><a href="/blog/">Blog</a></li>
-          <li><a href="/hugo/">Hugo</a></li>
           <li><a href="/tags/">Tags</a></li>
           <li><a href="/about/">Acerca de mí</a></li>
           <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
@@ -36,9 +35,9 @@
 <div class="post">
 <h1>Servidor linux para exámenes</h1>
 
-<div id="outline-container-orgc5ca2c9" class="outline-2">
-<h2 id="orgc5ca2c9">El problema</h2>
-<div class="outline-text-2" id="text-orgc5ca2c9">
+<div id="outline-container-org4dc60d6" class="outline-2">
+<h2 id="org4dc60d6">El problema</h2>
+<div class="outline-text-2" id="text-org4dc60d6">
 <p>
 A la hora de realizar un trabajo o examen práctico sobre un ordenador, los profesores tenemos varias alternativas:
 </p>
@@ -58,9 +57,9 @@ A continuación, describiré qué pasos sigo para crear un entorno Linux para mi
 </div>
 </div>
 
-<div id="outline-container-org3738ca1" class="outline-2">
-<h2 id="org3738ca1">Entorno Linux</h2>
-<div class="outline-text-2" id="text-org3738ca1">
+<div id="outline-container-org5736c0c" class="outline-2">
+<h2 id="org5736c0c">Entorno Linux</h2>
+<div class="outline-text-2" id="text-org5736c0c">
 <p>
 Cada alumno tendrá su propia contraseña. Generar las contraseñas aleatoriamente no es una buena idea, puesto que dificulta su recuperación en caso de pérdida. Es mejor que la contraseña dependa del nombre del usuario, por ejemplo los primeros caracteres del hash del usuario. 
 </p>
@@ -153,9 +152,9 @@ lista_usuarios $usuarios
 </div>
 
 
-<div id="outline-container-org8c709b4" class="outline-2">
-<h2 id="org8c709b4">Oracle</h2>
-<div class="outline-text-2" id="text-org8c709b4">
+<div id="outline-container-orgf9c18bd" class="outline-2">
+<h2 id="orgf9c18bd">Oracle</h2>
+<div class="outline-text-2" id="text-orgf9c18bd">
 <p>
 Utilizo la versión <a href="http://www.oracle.com/technetwork/database/database-technologies/express-edition/overview/index.html">Oracle XE</a>, para evitar problemas de licencia, y porque es bastante simple de instalar a partir de paquetes RPM en un Centos/Fedora.
 </p>
@@ -241,9 +240,9 @@ EOF
 </div>
 </div>
 
-<div id="outline-container-orgd48a824" class="outline-2">
-<h2 id="orgd48a824">LAMP</h2>
-<div class="outline-text-2" id="text-orgd48a824">
+<div id="outline-container-org2f7b098" class="outline-2">
+<h2 id="org2f7b098">LAMP</h2>
+<div class="outline-text-2" id="text-org2f7b098">
 <p>
 Para los exámenes <a href="https://es.wikipedia.org/wiki/LAMP">LAMP</a> se necesita una base de datos y un sitio web por cada alumno.
 </p>
@@ -456,21 +455,6 @@ sudo service apache2 restart
       </div>
       <section>
         <h1>Comments</h1>
-        <div id="disqus_thread"></div>
-        <script type="text/javascript">
-          //var disqus_developer = 1;
-          var disqus_identifier = "/blog/servidor-linux-para-examenes";
-          var disqus_url = "https://alvarogonzalezsotillo.github.io/blog/servidor-linux-para-examenes";
-          var disqus_shortname = 'alvarogonzalezsotillo';
-          /* * * DON'T EDIT BELOW THIS LINE * * */
-          (function() {
-          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-          })();
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-        <a href="//disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
       </section>
       <!-- <script src="//code.jquery.com/jquery-latest.min.js"></script> -->
       <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->

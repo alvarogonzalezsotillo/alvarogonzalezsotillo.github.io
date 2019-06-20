@@ -18,7 +18,6 @@
         <p></p>
         <ul>
           <li><a href="/blog/">Blog</a></li>
-          <li><a href="/hugo/">Hugo</a></li>
           <li><a href="/tags/">Tags</a></li>
           <li><a href="/about/">Acerca de mí</a></li>
           <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
@@ -70,17 +69,17 @@ El código fuente está disponible en <a href="https://github.com/alvarogonzalez
 </p>
 
 
-<div id="outline-container-org138560e" class="outline-2">
-<h2 id="org138560e">Implementación del algoritmo</h2>
-<div class="outline-text-2" id="text-org138560e">
+<div id="outline-container-orgcce6f4b" class="outline-2">
+<h2 id="orgcce6f4b">Implementación del algoritmo</h2>
+<div class="outline-text-2" id="text-orgcce6f4b">
 <p>
 La siguiente implementación se ha realizado en lenguaje <code>scala</code>.
 </p>
 </div>
 
-<div id="outline-container-org55a2422" class="outline-3">
-<h3 id="org55a2422"><code>Palabra</code></h3>
-<div class="outline-text-3" id="text-org55a2422">
+<div id="outline-container-orga372d69" class="outline-3">
+<h3 id="orga372d69"><code>Palabra</code></h3>
+<div class="outline-text-3" id="text-orga372d69">
 <p>
 Lo primero es una clase que encapsule una palabra y sepa calcular su histograma. También normaliza normaliza su representación, quitando espacios, acentos y mayúsculas. 
 </p>
@@ -122,9 +121,9 @@ case class Palabra(p: String) {
 </div>
 </div>
 
-<div id="outline-container-orgec1bf27" class="outline-3">
-<h3 id="orgec1bf27"><i>Corpus</i> de palabras</h3>
-<div class="outline-text-3" id="text-orgec1bf27">
+<div id="outline-container-orgce67a00" class="outline-3">
+<h3 id="orgce67a00"><i>Corpus</i> de palabras</h3>
+<div class="outline-text-3" id="text-orgce67a00">
 <p>
 El programa necesita un <i>vocabulario</i> donde buscar las palabras. Una opción sería extraerlas de varios libros gratuitos del Proyecto Gutengberg, pero he encontrado un <a href="http://corpus.rae.es/lfrecuencias.html"><i>corpus</i> de la Real Academia de la Lengua</a> con 737799 palabras distintas, ordenadas por frecuencia de uso. 
 </p>
@@ -189,9 +188,9 @@ val palabras: Map[Int, Array[Palabra]] = cronometro("Lectura de palabras"){
 </div>
 </div>
 
-<div id="outline-container-org8e94c03" class="outline-3">
-<h3 id="org8e94c03">Búsqueda de anagramas</h3>
-<div class="outline-text-3" id="text-org8e94c03">
+<div id="outline-container-org2b8e1ed" class="outline-3">
+<h3 id="org2b8e1ed">Búsqueda de anagramas</h3>
+<div class="outline-text-3" id="text-org2b8e1ed">
 <p>
 Una vez tengo la lista de palabras, para econtrar los anagramas de una dada basta con buscar las que tienen el mismo histograma de letras. La búsqueda se realiza solo entre las que tienen la misma longitud.
 </p>
@@ -276,9 +275,9 @@ Cada palabra para adivinar tiene una definición y una pista. La pista (en los c
 </div>
 </div>
 
-<div id="outline-container-orgaf23525" class="outline-3">
-<h3 id="orgaf23525">Solución a un día</h3>
-<div class="outline-text-3" id="text-orgaf23525">
+<div id="outline-container-org3773584" class="outline-3">
+<h3 id="org3773584">Solución a un día</h3>
+<div class="outline-text-3" id="text-org3773584">
 <p>
 Con estas funciones, ya es posible concursar para un día concreto. Por ejemplo, este es el código del <a href="https://www.facebook.com/noesundia/photos/a.133963369947769/2158091877534898/?type=3&amp;__tn__=-R">concurso del 6/oct/2018</a>:
 </p>
@@ -362,21 +361,6 @@ Para probar el código en tu propio ordenador, puedes descargarlo de <a href="ht
       </div>
       <section>
         <h1>Comments</h1>
-        <div id="disqus_thread"></div>
-        <script type="text/javascript">
-          //var disqus_developer = 1;
-          var disqus_identifier = "/blog/palabras-anagramadas";
-          var disqus_url = "https://alvarogonzalezsotillo.github.io/blog/palabras-anagramadas";
-          var disqus_shortname = 'alvarogonzalezsotillo';
-          /* * * DON'T EDIT BELOW THIS LINE * * */
-          (function() {
-          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-          })();
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-        <a href="//disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
       </section>
       <!-- <script src="//code.jquery.com/jquery-latest.min.js"></script> -->
       <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->

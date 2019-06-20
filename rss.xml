@@ -4,10 +4,17 @@
     <title>Álvaro González Sotillo</title>
     <link>https://alvarogonzalezsotillo.github.io/</link>
     <description></description>
-    <pubDate>lun, 04 mar 2019 16:37:55 CET</pubDate>
-    <lastBuildDate>lun, 04 mar 2019 16:37:55 CET</lastBuildDate>
+    <pubDate>jue, 20 jun 2019 11:00:16 CEST</pubDate>
+    <lastBuildDate>jue, 20 jun 2019 11:00:16 CEST</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
+    <item>
+      <title>Resaltar las ocurrencias de la selección en Emacs</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/resaltar-ocurrencias-seleccion-emacs</link>
+      <description><![CDATA[Un paquete simple para resaltar las ocurrencias de la selección en Emacs, como lo hacen otros editores]]></description>
+      <pubDate>2019-06-20</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/resaltar-ocurrencias-seleccion-emacs</guid>
+    </item>
     <item>
       <title>Palabras anagramadas</title>
       <link>https://alvarogonzalezsotillo.github.io/blog/palabras-anagramadas</link>
@@ -70,21 +77,6 @@
       <description><![CDATA[Cada vez que llego a un nuevo ordenador tengo que preparar mi entorno, y se puede hacer fácilmente con un par de /scripts/]]></description>
       <pubDate>2018-11-11</pubDate>
       <guid>https://alvarogonzalezsotillo.github.io/blog/como-preparo-mi-entorno-con-emacs</guid>
-    </item>
-    <item>
-      <title>Untitled</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/2019/03/04/untitled/</link>
-      <description><![CDATA[<div>
-<div class="post">
-<h1>Untitled</h1>
-<p>
-Es posible que pase el blog a hugo (ahora está en org-page).
-</p>
-
-</div>
-</div>]]></description>
-      <pubDate>2018-11-11</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/2019/03/04/untitled/</guid>
     </item>
   </channel>
 </rss>
