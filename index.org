@@ -3,7 +3,7 @@
 #+EMAIL:       alvarogonzalezsotillo@gmail.com
 
 
-Esta es una página del tipo /Acerca de mí/. Seguramente prefieras [[file:../blog/index.html][el blog]].
+Esta es una página del tipo /Acerca de mí/. Seguramente prefieras [[file:../blog/index.html][el blog]] o la [[./about][forma de contacto]].
 
 #+attr_html: :width 40% :align left :style padding:10px;border-radius:20px;
 [[file:lego-con-imanes.jpg]]

@@ -1,0 +1,8 @@
+#+TITLE: El blog
+#+AUTHOR:      Álvaro González Sotillo
+#+EMAIL:       alvarogonzalezsotillo@gmail.com
+
+Me puedes encontrar en
+- [[https://github.com/alvarogonzalezsotillo/region-occurrences-highlighter][alvarogonzalezsotillo - Github]]
+- [[https://twitter.com/alvarogonzalez/][alvarogonzalez - Twitter]]
+- [[https://www.linkedin.com/in/alvarogonzalezsotillo/][alvarogonzalezsotillo - LinkedIn]]
