@@ -1,0 +1,16 @@
+#+TITLE:       Resaltar las ocurrencias de la selección en Emacs
+#+AUTHOR:      Álvaro González Sotillo
+#+EMAIL:       alvarogonzalezsotillo@gmail.com
+#+DATE:        2019-06-20
+#+URI:         /blog/resaltar-ocurrencias-seleccion-emacs
+#+KEYWORDS:    elisp, emacs
+#+TAGS:        elisp, emacs
+#+LANGUAGE:    es
+#+OPTIONS:     H:3 num:t toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: Un paquete simple para resaltar las ocurrencias de la selección en Emacs, como lo hacen otros editores
+
+[[file:screencast-emacs.gif]]
+
+Utilizo emacs para casi todo, como ya he [[../../../blog/mi-publicacion-de-materiales-para-clase][contado]] en [[../../../literate-codejam][otras]] ocasiones.
+
+[[file:screencast-vscode.gif]]
