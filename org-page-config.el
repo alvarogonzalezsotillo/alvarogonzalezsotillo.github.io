@@ -16,8 +16,8 @@
   (setq op/site-domain "https://alvarogonzalezsotillo.github.io/")
 
   ;;; for commenting, you can choose either disqus, duoshuo or hashover
-  (setq op/personal-disqus-shortname "alvarogonzalezsotillo")
-  (setq op/hashover-comments nil)
+  ;;; (setq op/personal-disqus-shortname "alvarogonzalezsotillo")
+  ;;; (setq op/hashover-comments nil)
 
   (setq op/personal-github-link "https://github.com/alvarogonzalezsotillo")
 
