@@ -9,8 +9,17 @@
 #+OPTIONS:     H:3 num:t toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 #+DESCRIPTION: Un paquete simple para resaltar las ocurrencias de la selección en Emacs, como lo hacen otros editores
 
-[[file:screencast-emacs.gif]]
 
-Utilizo emacs para casi todo, como ya he [[../../../blog/mi-publicacion-de-materiales-para-clase][contado]] en [[../../../literate-codejam][otras]] ocasiones.
+Utilizo emacs para casi todo, como ya he [[../../../blog/mi-publicacion-de-materiales-para-clase][contado]] en [[../../../blog/literate-codejam][otras]] ocasiones. Que sea un gran editor no significa que no tenga sus problemas: es lento, consume mucha memoria, y su interfaz no tiene los avances de los nuevos editores.
+
+Algo que echaba especialmente de menos (léase, me daba envidia) era la capacidad de Visual Code para resaltar las ocurrencias de la selección automáticamente.
 
 [[file:screencast-vscode.gif]]
+
+Emacs ya tiene sus propios comandos para resaltar expresiones regulares (por ejemplo, ~highlight-symbol-at-point~, que se invoca con ~ALT-s~ ~h~ ~.~). Como estaba todo prácticamente hecho, y solo faltaba el /puente/ entre la selección y el comando, me he decidido a hacer un paquete que simule el comportamiento de Visual Code.
+
+
+[[file:screencast-emacs.gif]]
+
+El paquete se llama ~region-occurrences-highlighter~, y está disponible en [[https://melpa.org/#/region-occurrences-highlighter][MELPA]] [[https://melpa.org/#/region-occurrences-highlighter][file:https://melpa.org/packages/region-occurrences-highlighter-badge.svg]]
+. Su código fuente está en un [[https://github.com/alvarogonzalezsotillo/region-occurrences-highlighter][repositorio de Github]].
