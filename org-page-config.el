@@ -75,12 +75,16 @@
   ;; TRAS LA CONFIGURACIÓN, GENERO EL SITIO DE PRUEBA
   (setq httpd-host "0.0.0.0")
   (setq httpd-port 8081)
-  (op/do-publication-and-preview-site op/site-preview-directory))
+  (disable-babel)
+  (op/do-publication-and-preview-site op/site-preview-directory)
+  (enable-babel))
 
 (defun publicar-blog()
   (interactive)
   (configurar-blog)
-  (op/do-publication t nil nil t nil))
+  (disable-babel)
+  (op/do-publication t nil nil t nil)
+  (enable-babel))
 
 ;;; org-page-config.el ends here
 
