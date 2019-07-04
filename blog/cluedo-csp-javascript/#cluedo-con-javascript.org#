@@ -1,0 +1,295 @@
+
+#+TITLE:       El Cluedo como problema de lógica de segundo orden
+#+AUTHOR:      Álvaro González Sotillo
+#+EMAIL:       alvarogonzalezsotillo@gmail.com
+#+DATE:        2017-08-29 mar
+#+URI:         /blog/el-cluedo-como-problema-de-logica
+#+KEYWORDS:    AI,programación,javascript
+#+TAGS:        javascript,AI,programación
+#+LANGUAGE:    es
+#+OPTIONS:     H:3 num:t toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: El Cluedo es considerado un juego para niños, pero bajo su superficie hay un interesante problema de lógica de segundo orden.
+
+#+ATTR_HTML: :style float:right;
+[[https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/Cluedo_Clue_pack_logo.png/250px-Cluedo_Clue_pack_logo.png]]
+
+El [[https://en.wikipedia.org/wiki/Cluedo][Cluedo]] es un juego infantil cuyas normas resumidas son:
+- Las cartas tienen tres categorías: *personajes*, *herramientas* y *lugar*. 
+- Se oculta una carta de cada tipo en un sobre.
+- El resto de cartas se reparte entre los jugadores
+- Los jugadores deben deducir qué cartas están ocultas mediante sus preguntas. 
+- En cada turno, un jugador hace una /predicción/ de tres cartas
+  - El jugador a su derecha debe mostrar una de esas cartas al jugador que ha preguntado (si es poseedor de ellas). 
+  - Si no posee ninguna, debe admitirlo y se hace la misma pregunta al siguiente jugador, hasta que algún jugador muestra una carta, o se llega de nuevo al jugador que hizo la pregunta.
+- Cuando un jugador crea tener la combinación oculta en el sobre, debe hacer una /acusación/, diciendo en alto esas tres cartas.
+  - Comprobará él mismo si ha acertado con las tres cartas, en cuyo caso ha ganado el juego.
+  - Si no ha acertado, seguirá jugando, pero sin la posibilidad de ganar.
+- En las normas completas del juego se utilizan también dados y fichas sobre un tablero, pero esas normas no son importantes para el problema de lógica.
+
+
+Con el material del juego se incluyen unas plantillas de ayuda a los jugadores, donde hay una casilla por cada posible carta. En las instrucciones se indica que se debe apuntar cada carta que se posea, o que se descubra mediante preguntas que otros jugadores tienen. Al final, las tres cartas que queden sin apuntar serán las cartas ocultas. 
+
+Aunque este enfoque es correcto, es mejorable utilizando el resto de información disponible para cada jugador. Como se verá posteriormente, cada respuesta a una pregunta puede representarse como una fórmula lógica de primer orden, permite realizar muchas más deducciones.
+
+Se puede acceder a una [[https://alvarogonzalezsotillo.github.io/cluedo/cluedo.html][interfaz HTML]] que realiza las mejores deducciones posibles en una partida real de Cluedo.
+
+#+TOC: headlines 2 local
+
+
+* Variables lógicas
+Supongamos que hay $J$ jugadores, $P$ cartas de personaje, $H$ cartas de herramientas y $L$ cartas de lugar. En total habrá $M=P+H+L$ cartas. El sobre puede considerarse un jugador más (por ejemplo, el número $0$). Para cada carta y jugador tendremos en cuenta una variable que indica si ese jugador posee esa carta, $c_{ij}$, con los subíndices variando entre los posibles valores de jugadores y cartas ($i \in M, j \in J$).
+
+En el resto de la discusión, supondremos que el valor lógico $verdadero$ equivale a $1$ al utilizarse con operadores numéricos, y que $falso$ equivale a $0$.
+
+La estructura del problema impone varias condiciones sobre las variables $c_{ij}$:
+- Si un jugador posee una carta, el resto de jugadores no pueden tenerla: ${\sum_{j} c_{ij} = 1}, \forall i \in M$
+- Cada jugador tiene un número de cartas $n_j$, por lo que $\sum_{i} c_{ij} = n_j$. Por ejemplo, en el sobre (jugador $0$) siempre hay tres cartas, por lo que $\sum_{i} c_{i0} = 3$.
+- En el sobre hay una carta de cada tipo. Por tanto $\sum_{i \in J} c_{i0} = 1$, $\sum_{i \in P} c_{i0} = 1$, $\sum_{i \in L} c_{i0} = 1$ 
+- Si el jugador $j$ nos muestra la carta $i$, podemos asignar el valor $c_{ij}=true$.
+- Si el jugador $j$ reconoce no tener ninguna de las cartas $x,y,z$ podemos asignar los valores $c_{xj}=false$ ,  $c_{yj}=false$ ,  $c_{zj}=false$
+- Si el jugador $j$ reconoce tener alguna de las cartas $x,y,z$ a otro jugador, podemos deducir que $(c_{xj} \lor c_{yj} \lor c_{zj}) = true$
+- Si un jugador hace una /acusación/ con cartas $x,y,z$, pero no acierta, podemos deducir que $\lnot(c_{x0} \land c_{y0} \land c_{z0}) = true$.
+
+
+Puede verse que cada una de estas ecuaciones es una *restricción* que deben cumplir las variables $c_{ij}$. Las restricciones impiden que todos los valores sean válidos.
+
+* Expresiones lógicas
+En el punto anterior, se vio que puede modelarse el problema utilizando las funciones lógicas $\lnot$ (negación), $\land$ (conjunción), $\lor$ (disyunción), y una función que cuente si el número de variables con valor $true$ es un número determinado $n$, que llamaremos $V_n()$.
+
+De estas funciones, sólo $\lnot$ y $V_n()$ son primitivas:
+- $a_1 \land a_2 \land \ldots \land a_n$ puede expresarse como $V_n(a_1, a_2, \ldots, a_n)$
+- $a_1 \lor a_2 \lor \ldots \lor a_n$ puede expresarse como $\lnot( \lnot a_1 \land \lnot a_2 \land \ldots \land \lnot a_n)$ (leyes de Morgan)
+
+* Programación por restricciones
+La [[https://es.wikipedia.org/wiki/Programaci%25C3%25B3n_con_restricciones][programación por restricciones]] es una técnica para dar valores a variables de una forma coherente con las restricciones impuestas entre ellas.
+
+Los elementos de un sistema de programación por restricciones son:
+- Las variables (nuestras $c_{ij}$)
+- Las restricciones entre ellas
+- Una forma de *propagar* las restricciones: aplicar las consecuencias de los valores de variables y restricciones en los posibles valores de otras variables
+- Un sistema de *prueba y error*: cuando la propagación no es suficiente para dar valor a todas las variables, se realiza una búsqueda entre los posibles valores hasta encontrar un conjunto coherente.
+
+** Variables
+Las variables tienen un dominio inicial, que es el conjunto de sus valores posibles. Como son variables lógicas, este dominio es $\{true,false\}$. Es importante señalar que durante la propagación y la búsqueda este dominio nunca se amplía, sino que se reduce. 
+
+Si una variable tiene solo un valor en su dominio, se considera que ese es su valor, y la variable está *definida*.
+
+Si alguna variable llega a tener un dominio sin posibles valores (dominio vacío), es porque dicha variable no puede tener ningún valor posible, por lo que las restricciones y los dominios de las demás variables no son coherentes.
+
+** Expresiones
+Las expresiones pueden verse también como variables. Por ejemplo, si el dominio de $a$ y $b$ es $\{true,false\}$, $a \land b$ tiene el mismo dominio. Pero si el dominio de $b$ se reduce a $\{false\}$, el dominio de $a \land b$ también se reduce (ya no puede ser $true$). Esto hace que una /expresión/ pueda utilizarse como una variable más.
+
+** Restricciones
+Una restricción es una expresión a la que se fija un valor. Por ejemplo, $a \land b$ es una expresión, pero $a \land b = false$ se convierte en una restricción. Es importante recalcar que las restricciones *eliminan* valores del dominio de una variable, por lo que no hay forma de *incrementar* el dominio.
+
+** Propagación
+En la propagación se extraen consecuencias de las expresiones y los dominios de variables. Basta con estudiar $\lnot$ y $V_n()$, puesto que las demás pueden basarse en estas.
+
+Pueden distinguirse dos direcciones en la propagación: desde los elementos de una expresión hacia la expresión (hacia /arriba/), y desde la expresión hacia sus elementos (hacia /abajo/)
+
+*** Propagación hacia /arriba/
+- Si se elimina $true$ de $a$, puede eliminarse $false$ de $\lnot a$.
+- Si se elimina $false$ de  $a$, puede eliminarse $true$ de $\lnot a$.
+- Para $V_n(a_1,a_2,\ldots,a_m)$
+  - Si hay más de $n$ variables definidas a $true$, la expresión es $false$ (se elimina $true$ del dominio de la expresión)
+  - Si hay más de $m-n$ variables definidas a $false$, la expresión es $false$ (se elimina $true$ del dominio de la expresión)
+  - Si están definidas todas las variables y hay $n$ a $true$, se elimina $false$ del dominio de la expresión.
+
+
+*** Propagación hacia /abajo/
+- Si se elimina $true$ de $\lnot a$, puede eliminarse $false$ de $a$.
+- Si se elimina $false$ de  $\lnot a$, puede eliminarse $true$ de $a$.
+- Si $V_n(a_1,a_2,\ldots,a_m)$ es $false$ y todas las variables están definidas menos $a_i$
+  - Si hay $n-1$ variables $true$, entonces $a_i$ es $false$ (se le quita $true$)
+  - Si hay n variables a $true$, entonces $a_i$ es $true$ (se le quita $false$)
+- Si $V_n(a_1,a_2,\ldots,a_m)$ es $true$ y todas las variables están definidas menos $l$ de ellas:
+  - Si hay $n$ variables $true$, entonces todas las $l$ variables sin definir son $false$ (se les quita $true$)
+  - Si hay $n-l$ variables a $true$, entonces todas las $l$ variables son $true$ (se les quita $false$)
+  
+** Prueba y error (/branch and bound/) 
+El algoritmo de propagación descrito no es capaz de deducir todos los valores posibles por sí mismo. Para mejorarlo, puede seguirse el siguiente procedimiento:
+1. Sea $U$ el conjunto de las variables $c_{ij}$ tales que su dominio no está definido.
+2. Por cada $c \in U$
+   - Se quita $true$ del dominio de $c$ y se realiza la propagación. Si alguna variable se queda con el dominio vacío, es que $c$ no puede ser $false$, así que se quita $false$ de su dominio.
+   - Se quita $false$ del dominio de $c$ y se realiza la propagación. Si alguna variable se queda con el dominio vacío, es que $c$ no puede ser $true$, así que se quita $true$ de su dominio.
+   
+
+* Implementación
+[[https://github.com/alvarogonzalezsotillo/cluedo/blob/master/js/cp.js][La implementación del sistema de restricciones para variables booleanas]] está disponible en [[https://github.com/alvarogonzalezsotillo/cluedo/blob/master/js/cp.js][Github]], y su interfaz puede verse en [[https://github.com/alvarogonzalezsotillo/cluedo/blob/master/js/cp.simple.test.js][varios casos de prueba]]. 
+
+En el siguiente ejemplo, se comprueba la propagación del equivalente a la función $V_n()$:
+
+#+begin_src javascript
+            // CREACIÓN DE 4 VARIABLES
+            var CP = new CPManager();
+            var a = CP.Boolean("a");
+            var b = CP.Boolean("b");
+            var c = CP.Boolean("c");
+            var d = CP.Boolean("d");
+
+            // EXPRESIÓN: DE LAS 4, UNA ES VERDADERA
+            var st = CP.SomeTrue([a,b,c,d],1);
+
+            // LA EXPRESIÓN ES CIERTA
+            st.remove(false);
+
+            // a NO PUEDE SER FALSE
+            a.remove(false);
+
+            // LA PROPAGACIÓN HACE QUE EL RESTO DE VARIABLES TENGA QUE SER FALSA
+            assert(b.isFalse());
+            assert(c.isFalse());
+            assert(d.isFalse());
+
+#+end_src 
+
+Y este es un ejemplo de propagación de la expresión $\lor$ (o lógico):
+#+begin_src javascript
+            // CREACIÓN DE 3 VARIABLES
+            var CP = new CPManager();
+            var a = CP.Boolean("a");
+            var b = CP.Boolean("b");
+            var c = CP.Boolean("c");
+            var or = CP.Or([a,b,c]);
+
+            // LA EXPRESIÓN or ES CIERTA, PERO a Y b SON FALSAS
+            or.remove(false);
+            a.remove(true);
+            b.remove(true);
+            
+            // POR TANTO, c ES OBLIGATORIAMENTE CIERTA
+            assert(a.isFalse());
+            assert(b.isFalse());
+            assert(c.isTrue());
+
+#+end_src
+
+
+Con estas primitivas lógicas, se ha implementado el juego del Cluedo ([[https://github.com/alvarogonzalezsotillo/cluedo/blob/master/js/cluedo.js][código fuente del Cluedo]]). Primero se prepara una lista de hechos, con las preguntas y respuestas del juego. Este es un ejemplo de una partida real:
+#+begin_src javascript
+var facts = [
+    // NÚMERO DE JUGADORES Y CARTAS DE CADA UNO
+    new PlayersFact( [4,4,4,3,3] ),
+
+    // CARTAS PROPIAS
+    new PlayerHasSomeFact(0,["Herramienta"]),
+    new PlayerHasSomeFact(0,["Candelabro"]),
+    new PlayerHasSomeFact(0,["Amapola"]),
+    new PlayerHasSomeFact(0,["Biblioteca"]),
+
+    // PREGUNTAS Y RESPUESTAS
+    new PlayerDoesntHaveAnyFact(3,["Sala de billar","Puñal","Rubio"]),
+    new PlayerHasSomeFact(2,["Sala de billar","Puñal","Rubio"]),
+    new PlayerHasSomeFact(2,["Puñal"]),
+    new PlayerHasSomeFact( 1, ["Rubio"] ),
+    new PlayerDoesntHaveAnyFact( 1, ["Amapola", "Biblioteca", "Pistola" ] ),
+    new PlayerDoesntHaveAnyFact(3, ["Pistola", "Mora", "Sala de billar" ] ),
+    new PlayerHasSomeFact(2, ["Pistola", "Mora", "Sala de billar" ] ), 
+    new PlayerDoesntHaveAnyFact( 3, ["Sala de baile", "Cuerda", "Mora" ]),
+    new PlayerHasSomeFact( 2, ["Sala de baile", "Cuerda", "Mora" ] ),
+    new PlayerDoesntHaveAnyFact(  4 ,  ["Sala de baile", "Mora", "Candelabro" ] ),
+    new PlayerDoesntHaveAnyFact(  3 ,  ["Sala de baile", "Mora", "Candelabro" ] ),
+    new PlayerHasSomeFact( 2, ["Sala de baile"] ),
+    new PlayerHasSomeFact( 4, ["Prado", "Pistola", "Invernadero" ] ),
+    new PlayerDoesntHaveAnyFact(  1 ,  ["Vestíbulo", "Cuerda", "Prado" ] ),
+    new PlayerDoesntHaveAnyFact(  3 ,  ["Vestíbulo", "Cuerda", "Prado" ] ),
+    new PlayerDoesntHaveAnyFact(  4 ,  ["Vestíbulo", "Cuerda", "Prado" ] ),
+    new PlayerDoesntHaveAnyFact(  2 ,  ["Prado", "Cuerda", "Invernadero" ] ),
+    new PlayerDoesntHaveAnyFact(  1 ,  ["Prado", "Cuerda", "Invernadero" ] ),
+    new PlayerDoesntHaveAnyFact(  0 ,  ["Prado", "Cuerda", "Invernadero" ] ),
+    new PlayerDoesntHaveAnyFact(  4 ,  ["Prado", "Cuerda", "Invernadero" ] ),
+    new PlayerDoesntHaveAnyFact(  3 ,  ["Tubería", "Cocina", "Celeste" ] ),
+    new PlayerHasSomeFact(  2 ,  ["Tubería", "Cocina", "Celeste" ] ),
+    new PlayerHasSomeFact(  4 ,  ["Pistola" ] ),
+    new PlayerHasSomeFact(  2, ["Salón", "Prado", "Tubería" ] ),
+];
+#+end_src
+
+Después, se definen las cartas posibles en el juego (hay bastantes versiones):
+
+#+begin_src javascript
+
+    var flavor = {
+        flavorName : "El gran juego de detectives (con Orquídea)",
+        characterNames : ["Amapola", "Celeste", "Orquídea", "Prado", "Mora", "Rubio"],
+        toolNames : ["Candelabro", "Tubería", "Cuerda", "Puñal", "Pistola", "Herramienta"],
+        placeNames : ["Sala de billar", "Salón", "Estudio", "Comedor", "Sala de baile", "Cocina", "Biblioteca", "Invernadero", "Vestíbulo"]
+    };
+
+#+end_src
+
+Por último se calculan los posibles valores de las cartas:
+
+#+begin_src javascript
+
+    var c = new Cluedo(flavor,facts);
+
+    // CARTAS DEDUCIDAS POR PROPAGACIÓN
+    c.printCards(c.cards());
+
+#+end_src
+
+La salida del programa es la siguiente (=V= indica que la carta la tiene ese jugador, =x= que la carta no la tiene ese jugador, y =.= indica que no se puede saber con los datos introducidos):
+
+#+begin_src html
+                    Player 0  Player 1  Player 2  Player 3  Player 4  Envelope  
+Candelabro          V         x         x         x         x         x         
+Tubería             x         .         .         x         .         x         
+Cuerda              x         x         x         x         x         V         
+Puñal               x         x         V         x         x         x         
+Pistola             x         x         x         x         V         x         
+Herramienta         V         x         x         x         x         x         
+Sala de billar      x         .         .         x         .         .         
+Salón               x         .         .         .         .         .         
+Estudio             x         .         .         .         .         .         
+Comedor             x         .         .         .         .         .         
+Sala de baile       x         x         V         x         x         x         
+Cocina              x         .         .         x         .         .         
+Biblioteca          V         x         x         x         x         x         
+Invernadero         x         x         x         .         x         .         
+Vestíbulo           x         x         .         x         x         .         
+Amapola             V         x         x         x         x         x         
+Celeste             x         .         .         x         .         x         
+Orquídea            x         .         .         .         .         x         
+Prado               x         x         x         x         x         V         
+Mora                x         .         .         x         x         x         
+Rubio               x         V         x         x         x         x    
+#+end_src
+
+Las deducciones pueden mejorarse con la prueba y error:
+
+#+begin_src javascript
+    // CARTAS MEJORADAS CON PRUEBA Y ERROR
+    c.improveByGuessing();
+    c.printCards(c.cards());
+#+end_src
+
+Que da lugar al descubrimiento de que dos cartas no pueden estar en el sobre:
+
+
+#+BEGIN_SRC html 
+Hechos deducidos:[{"_factType":"EnvelopeDoesntHaveFact","_cards":["Sala de billar"]},{"_factType":"EnvelopeDoesntHaveFact","_cards":["Salón"]}]
+                    Player 0  Player 1  Player 2  Player 3  Player 4  Envelope  
+Candelabro          V         x         x         x         x         x         
+Tubería             x         .         .         x         .         x         
+Cuerda              x         x         x         x         x         V         
+Puñal               x         x         V         x         x         x         
+Pistola             x         x         x         x         V         x         
+Herramienta         V         x         x         x         x         x         
+Sala de billar      x         .         .         x         .         x         
+Salón               x         .         .         .         .         x         
+Estudio             x         .         .         .         .         .         
+Comedor             x         .         .         .         .         .         
+Sala de baile       x         x         V         x         x         x         
+Cocina              x         .         .         x         .         .         
+Biblioteca          V         x         x         x         x         x         
+Invernadero         x         x         x         .         x         .         
+Vestíbulo           x         x         .         x         x         .         
+Amapola             V         x         x         x         x         x         
+Celeste             x         .         .         x         .         x         
+Orquídea            x         .         .         .         .         x         
+Prado               x         x         x         x         x         V         
+Mora                x         .         .         x         x         x         
+Rubio               x         V         x         x         x         x  
+
+#+END_SRC

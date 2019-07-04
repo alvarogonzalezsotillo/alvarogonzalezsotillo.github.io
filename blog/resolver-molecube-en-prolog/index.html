@@ -52,9 +52,9 @@ Aquí se puede descargar el <a href="/assets/blog/resolver-molecube-en-prolog/mo
 </p>
 
 
-<div id="outline-container-org5285c63" class="outline-2">
-<h2 id="org5285c63">Objetivo del solucionador</h2>
-<div class="outline-text-2" id="text-org5285c63">
+<div id="outline-container-org4fe48c3" class="outline-2">
+<h2 id="org4fe48c3">Objetivo del solucionador</h2>
+<div class="outline-text-2" id="text-org4fe48c3">
 <p>
 El solucionador solo encontrará el estado final del molecube. Tras esto, un <i>humano</i> deberá llevar el estado real del molecube al estado propuesto por el solucionador.
 </p>
@@ -65,9 +65,9 @@ Esto no es un gran problema, ya que tenemos experiencia con cubos de Rubick.
 </div>
 </div>
 
-<div id="outline-container-org16c89e7" class="outline-2">
-<h2 id="org16c89e7">Definición del problema</h2>
-<div class="outline-text-2" id="text-org16c89e7">
+<div id="outline-container-org71d0749" class="outline-2">
+<h2 id="org71d0749">Definición del problema</h2>
+<div class="outline-text-2" id="text-org71d0749">
 <p>
 Para solucionar el molecube se necesita que:
 </p>
@@ -84,13 +84,13 @@ Todo esto suena bastante a programación por restricciones, y puede programarse 
 </div>
 </div>
 
-<div id="outline-container-org34b733a" class="outline-2">
-<h2 id="org34b733a">Implementación en prolog</h2>
-<div class="outline-text-2" id="text-org34b733a">
+<div id="outline-container-org998d668" class="outline-2">
+<h2 id="org998d668">Implementación en prolog</h2>
+<div class="outline-text-2" id="text-org998d668">
 </div>
-<div id="outline-container-org693f679" class="outline-3">
-<h3 id="org693f679">Estructura básica</h3>
-<div class="outline-text-3" id="text-org693f679">
+<div id="outline-container-org96746a0" class="outline-3">
+<h3 id="org96746a0">Estructura básica</h3>
+<div class="outline-text-3" id="text-org96746a0">
 <p>
 Un color se representa por un número del 0 al 8
 </p>
@@ -180,9 +180,9 @@ restricciones_caras_de_cubo(CUBO) :-
 </div>
 </div>
 
-<div id="outline-container-orgbad6bc3" class="outline-3">
-<h3 id="orgbad6bc3">Datos del molecube real</h3>
-<div class="outline-text-3" id="text-orgbad6bc3">
+<div id="outline-container-org4e21ac5" class="outline-3">
+<h3 id="org4e21ac5">Datos del molecube real</h3>
+<div class="outline-text-3" id="text-org4e21ac5">
 <p>
 Las restricciones sobre aristas y esquinas son un poco más laboriosas. Examinando el molecube podemos contar cuántos <i>cubitos</i> de cada tipo y color hay:
 </p>
@@ -398,9 +398,9 @@ Por tanto, ya tenemos la construcción de un molecube completo, con todas sus re
 </div>
 </div>
 
-<div id="outline-container-org96f441b" class="outline-3">
-<h3 id="org96f441b">Salida de la solución</h3>
-<div class="outline-text-3" id="text-org96f441b">
+<div id="outline-container-org20bb0cc" class="outline-3">
+<h3 id="org20bb0cc">Salida de la solución</h3>
+<div class="outline-text-3" id="text-org20bb0cc">
 <p>
 Para visualizar un cubo, he optado por utilizar <a href="https://www.x3dom.org/">x3dom</a>, que me permite visualizar directamente un modelo en tres dimensiones en páginas web.
 </p>
@@ -461,9 +461,9 @@ Finalmente, el cálculo de todas las soluciones se ejecuta con este código:
 </div>
 
 
-<div id="outline-container-org57287ed" class="outline-2">
-<h2 id="org57287ed">Soluciones</h2>
-<div class="outline-text-2" id="text-org57287ed">
+<div id="outline-container-org8fa62ad" class="outline-2">
+<h2 id="org8fa62ad">Soluciones</h2>
+<div class="outline-text-2" id="text-org8fa62ad">
 <p>
 El programa encuentra 80 soluciones distintas. A continuación se muestra una de ellas (un dedo para mover, dos para hacer zoom):
 </p>
@@ -472,9 +472,9 @@ El programa encuentra 80 soluciones distintas. A continuación se muestra una de
 </div>
 </div>
 
-<div id="outline-container-org7112088" class="outline-2">
-<h2 id="org7112088">Invariantes de un cubo de Rubick</h2>
-<div class="outline-text-2" id="text-org7112088">
+<div id="outline-container-org0523dae" class="outline-2">
+<h2 id="org0523dae">Invariantes de un cubo de Rubick</h2>
+<div class="outline-text-2" id="text-org0523dae">
 <p>
 Es sabido que en un cubo de Rubick no pueden conseguirse todas las configuraciones que en principio parecen posibles, ya que es necesario que la <a href="https://math.stackexchange.com/a/127627">permutación de sus aristas y esquinas debe ser par</a>.
 </p>
@@ -485,9 +485,9 @@ Aunque no lo he comprobado, creo que todas las 80 soluciones halladas son posibl
 </div>
 </div>
 
-<div id="outline-container-orgc058f73" class="outline-2">
-<h2 id="orgc058f73">Lista completa de soluciones</h2>
-<div class="outline-text-2" id="text-orgc058f73">
+<div id="outline-container-org95753c7" class="outline-2">
+<h2 id="org95753c7">Lista completa de soluciones</h2>
+<div class="outline-text-2" id="text-org95753c7">
 <pre class="example">
 Solucion: 0,0,0:white 0,0,1:red 0,0,2:orangered 0,1,0:black 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:blue 0,2,1:navy 0,2,2:green 1,0,0:mediumvioletred 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:red 2,0,0:green 2,0,1:blue 2,0,2:navy 2,1,0:red 2,1,1:orangered 2,1,2:white 2,2,0:yellow 2,2,1:mediumvioletred 2,2,2:black 
 Solucion: 0,0,0:white 0,0,1:red 0,0,2:orangered 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:black 0,2,0:blue 0,2,1:navy 0,2,2:green 1,0,0:yellow 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:red 2,0,0:green 2,0,1:blue 2,0,2:navy 2,1,0:red 2,1,1:orangered 2,1,2:white 2,2,0:black 2,2,1:mediumvioletred 2,2,2:yellow 

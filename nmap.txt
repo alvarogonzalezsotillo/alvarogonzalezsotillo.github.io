@@ -1,0 +1,10 @@
+Starting Nmap 7.70 ( https://nmap.org ) at 2019-04-14 19:12 CEST
+NSE: Loaded 148 scripts for scanning.
+NSE: Script Pre-scanning.
+Initiating NSE at 19:12
+Completed NSE at 19:12, 0.00s elapsed
+Initiating NSE at 19:12
+Completed NSE at 19:12, 0.00s elapsed
+Initiating Ping Scan at 19:12
+Scanning 4096 hosts [2 ports/host]
+Ping Scan Timing: About 1.10% done; ETC: 19:58 (0:46:15 remaining)
