@@ -4,8 +4,8 @@
 #+EMAIL:       alvarogonzalezsotillo@gmail.com
 #+DATE:        2019-07-02
 #+URI:         /blog/ordenador-bolsillo-termux/ordenador-bolsillo-termux.org
-#+KEYWORDS:    
-#+TAGS:        
+#+KEYWORDS:    termux
+#+TAGS:        termux
 #+LANGUAGE:    es
 #+OPTIONS:     H:3 num:t toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 #+DESCRIPTION: Una ventaja de usar sobre todo herramientas de consola es que es uno de los sistemas UI más antiguos y simples de implementar y, por tanto, más extendido y estándar. También en tu Android.
@@ -31,10 +31,10 @@ Esto es lo que hace [[https://termux.com/][Termux]] para los móviles Android: u
 - Apache: lo uso ocasionalmente para compartir ficheros de la tarjeta SD  por wifi. Para casos más especiales, utilizo Netcat.
 - Git: en vez de Dropbox, es mi nube particular.
 - Graphviz, Latex: necesarios para algunos materiales de mis clases.
-- Emacs: para casi todo. Por ejemplo, esta entrada del blog está escrita en el móvil (org-page). Pero he llegado a hacer exámenes (Latex) y a publicar apuntes (org-reveal) desde el móvil.
+- Emacs: para casi todo. Por ejemplo, esta entrada del blog está escrita en el móvil [[../../../blog/blogueando-con-orgmode][con org-page]]. Pero he llegado a hacer exámenes (Latex) y a [[../../../blog/mi-publicacion-de-materiales-para-clase][publicar apuntes]] (org-reveal) desde el móvil.
 - Nmap: no sea que me encuentre una red wifi abierta y mucho tiempo libre.
-- Ssh: no el servidor, sino el cliente, para conectarme al PC de casa (o a lo que se encuentre con nmap)
+- Ssh: no el servidor, sino el cliente, para conectarme al [[../../../blog/ordenador-de-sobremesa-servidor-htpc][PC de casa]] (o a lo que se encuentre con nmap)
 - Prolog: experimenté con este lenguaje directamente en el teléfono, y solo me pasé al portátil cuando [[../../../blog/resolver-molecube-en-prolog][el programa que estaba desarrollando]] avanzaba y tenía problemas de rendimiento.
-- Tmux: sin multiplexor de pantalla la vida es muy triste
+- [[https://es.wikipedia.org/wiki/Tmux][Tmux]]: sin multiplexor de pantalla la vida es muy triste
 
 
