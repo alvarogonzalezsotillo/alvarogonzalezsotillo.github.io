@@ -29,10 +29,10 @@ Esto es lo que hace [[https://termux.com/][Termux]] para los móviles Android: u
 
 * Qué me he instalado
 - Apache: lo uso ocasionalmente para compartir ficheros de la tarjeta SD  por wifi. Para casos más especiales, utilizo Netcat.
-- Git: en vez de Dropbox, es mi nube particular.
+- Git: en vez de Dropbox, es [[../../../blog/mi-propio-hosting-git][mi nube particular]].
 - Graphviz, Latex: necesarios para algunos materiales de mis clases.
 - Emacs: para casi todo. Por ejemplo, esta entrada del blog está escrita en el móvil [[../../../blog/blogueando-con-orgmode][con org-page]]. Pero he llegado a hacer exámenes (Latex) y a [[../../../blog/mi-publicacion-de-materiales-para-clase][publicar apuntes]] (org-reveal) desde el móvil.
-- Nmap: no sea que me encuentre una red wifi abierta y mucho tiempo libre.
+- Nmap: no sea que me encuentre una red wifi abierta y mucho tiempo libre 😈.
 - Ssh: no el servidor, sino el cliente, para conectarme al [[../../../blog/ordenador-de-sobremesa-servidor-htpc][PC de casa]] (o a lo que se encuentre con nmap)
 - Prolog: experimenté con este lenguaje directamente en el teléfono, y solo me pasé al portátil cuando [[../../../blog/resolver-molecube-en-prolog][el programa que estaba desarrollando]] avanzaba y tenía problemas de rendimiento.
 - [[https://es.wikipedia.org/wiki/Tmux][Tmux]]: sin multiplexor de pantalla la vida es muy triste
