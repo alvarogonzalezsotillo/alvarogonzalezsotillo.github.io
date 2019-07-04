@@ -16,11 +16,15 @@
 [[file:Screenshot_2019-07-03-08-36-54.png]]
 
 
-#+begin_src sh :results raw :export both
+#+begin_src sh :results raw :wrap EXAMPLE :export both
 dpkg --get-selections
 #+end_src
 
-#+RESULTS:
+
+Mis paquetes instalados:
+
+
+#+BEGIN_EXAMPLE
 apache2						install
 apr						install
 apr-util					install
@@ -152,6 +156,4 @@ w3m						install
 wget						install
 xz-utils					install
 zlib						install
-
-
-
+#+END_EXAMPLE
