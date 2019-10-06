@@ -1,0 +1,18 @@
+
+#+TITLE:       Pihole y monitorización de red
+#+AUTHOR:      Álvaro González Sotillo
+#+EMAIL:       alvarogonzalezsotillo@gmail.com
+#+DATE:        2019-10-06
+#+URI:         /blog/pihole-monitorizacion-red/pihole-monitorizacion-red.org
+#+KEYWORDS:    pihole,nmap,tcpdump
+#+TAGS:        pihole,nmap,tcpdump
+#+LANGUAGE:    es
+#+OPTIONS:     H:3 num:t toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: He instalado /pihole/ en la red del instituto donde trabajo para intentar mejorar la velocidad de la red. y de forma imprevista, me ha ayudado a encontrar un intruso que pretendía hacer un MIM.
+
+
+Hace tiempo que la ONT de la red de mi instituto se colapsaba periódicamente. Para intentar descargarla, instalé un pihole para reducir las peticiones de DNS, y por tanto la memoria destinada a las conexiones UDP.
+
+A pesar de ello, volvimos a tener una conexión a Internet inestable: unas aulas podían conectarse y otras no, e incluso llegaba a haber diferencias dentro de la misma aula. En mi caso, todos los ordenadores funcionaban excepto el del puesto del profesor.
+
+
