@@ -44,15 +44,15 @@ A pesar de ello, volvimos a tener una conexión a Internet inestable: unas aulas
 
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgd0b579e">Descubriendo el ataque</a></li>
-<li><a href="#org3c01482">El contraataque</a></li>
-<li><a href="#orgc2c2cc8">Medidas a tomar en un futuro</a></li>
+<li><a href="#org5474ba5">Descubriendo el ataque</a></li>
+<li><a href="#org9512f86">El contraataque</a></li>
+<li><a href="#org9298316">Medidas a tomar en un futuro</a></li>
 </ul>
 </div>
 
-<div id="outline-container-orgd0b579e" class="outline-2">
-<h2 id="orgd0b579e">Descubriendo el ataque</h2>
-<div class="outline-text-2" id="text-orgd0b579e">
+<div id="outline-container-org5474ba5" class="outline-2">
+<h2 id="org5474ba5">Descubriendo el ataque</h2>
+<div class="outline-text-2" id="text-org5474ba5">
 <p>
 Utilizando la función de <i>network</i> de <code>Pihole</code> encontramos algo anormal: la dirección IP del router se utilizaba por dos equipos de la red con <a href="https://es.wikipedia.org/wiki/Direcci%C3%B3n_MAC">dirección MAC</a> distintas: la propia de la ONT y <code>1c:6f:65:a7:4d:79</code>. De hecho, la MAC sospechosa se había anunciado en apenas dos horas como 7 direcciones IP distintas.
 </p>
@@ -82,9 +82,9 @@ El ordenador con MAC <code>1c:6f:65:a7:4d:79</code> enviaba cada dos segundos un
 </div>
 </div>
 
-<div id="outline-container-org3c01482" class="outline-2">
-<h2 id="org3c01482">El contraataque</h2>
-<div class="outline-text-2" id="text-org3c01482">
+<div id="outline-container-org9512f86" class="outline-2">
+<h2 id="org9512f86">El contraataque</h2>
+<div class="outline-text-2" id="text-org9512f86">
 <p>
 Utilizando <a href="https://nmap.org/">Nmap</a> descubrimos que el ordenador atacante tenía abiertos los puertos típicos de un ordenador Linux, entre ellos el puerto 22 de SSH. Ante la posibilidad de que fuera uno de los ordenadores del centro intentamos acceder por SSH con los usuarios y contraseñas que dejamos en las maquetas de los PC's de aula. Conseguimos entrar sin problemas, lo que nos permitió localizar el aula y puesto del PC.
 </p>
@@ -95,10 +95,12 @@ Nos <b>desplazamos físicamente hasta el ordenador</b> en un momento en el que l
 
 
 <div class="figure">
-<p><a href="/assets/blog/pihole-monitorizacion-red/pihole-monitorizacion-red.org//assets/blog/pihole-monitorizacion-red/pihole-monitorizacion-red.org/tty4.png"><img src="/assets/blog/pihole-monitorizacion-red/pihole-monitorizacion-red.org//assets/blog/pihole-monitorizacion-red/pihole-monitorizacion-red.org/tty4.png" alt="/assets/blog/pihole-monitorizacion-red/pihole-monitorizacion-red.org//assets/blog/pihole-monitorizacion-red/pihole-monitorizacion-red.org/tty4.png" /></a>
+<p><img src="/assets/blog/pihole-monitorizacion-red/pihole-monitorizacion-red.org/tty4.png" alt="/assets/blog/pihole-monitorizacion-red/pihole-monitorizacion-red.org/tty4.png" />
 </p>
 <p><span class="figure-number">Figura 3: </span>Reconstrucción del <code>tty4</code> (a partir de <code>/dev/vcs4</code>)</p>
 </div>
+
+
 
 <p>
 Creemos que consiguió ser superusuario arrancando linux en <a href="https://askubuntu.com/questions/132965/how-do-i-boot-into-single-user-mode-from-grub">modo <i>singleuser</i></a>, ya que el arranque <code>GRUB</code> no está protegido por contraseña.
@@ -106,9 +108,9 @@ Creemos que consiguió ser superusuario arrancando linux en <a href="https://ask
 </div>
 </div>
 
-<div id="outline-container-orgc2c2cc8" class="outline-2">
-<h2 id="orgc2c2cc8">Medidas a tomar en un futuro</h2>
-<div class="outline-text-2" id="text-orgc2c2cc8">
+<div id="outline-container-org9298316" class="outline-2">
+<h2 id="org9298316">Medidas a tomar en un futuro</h2>
+<div class="outline-text-2" id="text-org9298316">
 <p>
 En nuestro centro todas las aulas comparten la misma <a href="https://es.wikipedia.org/wiki/VLAN"><code>VLAN</code></a>, y la asignación de <code>IP</code> se hace dinámicamente por <code>DHCP</code>, por lo que <b>la localización del PC atacante fue cuestión de suerte</b>. Si el alumno hubiera utilizado un aula virtual, tendríamos que haber localizado el aula desconectando poco a poco los switches.
 </p>
@@ -122,6 +124,22 @@ Para que esto no vuelva a suceder tendríamos que tomar las siguientes medidas:
 <li>Instalar switches gestionables en todas las aulas, que nos permitan localizar de forma fácil las tramas con determinada dirección <code>MAC</code> de origen.</li>
 <li>Securizar el arranque de los ordenadores de los alumnos: no se debería poder arrancar desde un disco externo ni desde la red, y la <code>BIOS</code> debería estar protegida con contraseña. También debería tener contraseña el gestor de arranque <code>GRUB</code>, y la cuenta de <code>root</code> debería tener una contraseña en vez de estar deshabilitada.</li>
 </ul>
+
+
+
+<script>
+window.addEventListener("load",()=>{
+  let images = document.getElementsByTagName('img'); 
+  console.log(images);
+  for( let i of images){
+    console.log( "Autoenlazando:" + i );
+    console.log( i );
+    i.style.cursor = "pointer";
+    i.onclick = ()=> window.location = i.src; 
+  }
+});
+
+</script>
 </div>
 </div>
 
