@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Palabras anagramadas online - Álvaro González Sotillo</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Álvaro González Sotillo" />
+    <meta name="description" content="çayuda online para el concurso de Palabras Anagramadas del programa de radio No Es Un Día Cualquiera." />
+    <meta name="keywords" content="scala,rne,anagramas,programación" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <!-- <link rel="stylesheet" href="/media/css/prettify.css" type="text/css"> -->
+  </head>
+
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">Álvaro González Sotillo</a></h1>
+        <p></p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">Acerca de mí</a></li>
+          <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="//www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Buscar">
+          <input type="hidden" name="as_sitesearch" value="alvarogonzalezsotillo.github.io">
+        </form>
+        <img class="avatar" src="/media/img/octaedron.png" />
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>Palabras anagramadas online</h1>
+<p>
+Esta entrada es una continuación de <a href="../../../blog/palabras-anagramadas">palabras anagramadas</a>, en la que adapto la aplicación de consola a una <a href="https://alvarogonzalezsotillo.github.io/palabras-anagramadas">página web</a>.
+</p>
+
+<p>
+La idea es conseguir una interfaz que vaya mostrando incrementalmente los resultados de un cálculo largo. En una GUI tradicional se utilizarían <i>threads</i>, pero en una página web la solución más simple es utilizar un <i>worker</i>.
+</p>
+
+<p>
+Un <i>worker</i> es un <i>script</i> que el navegador carga en un entorno aislado en su propio <i>thread</i>. Los <i>scripts</i> de la página solo pueden comunicarse con el <i>worker</i> mediante el envío y recepción de mensajes. Dicho envío es asíncrono.
+</p>
+
+<p>
+Mi solución está programada en ScalaJS. Tengo varias razones para ello, en orden aproximado de importancia:
+</p>
+<ul class="org-ul">
+<li>El programa original de palabras anagramadas está hecho en Scala.</li>
+<li>Soy fan de los lenguajes tipados: Scala me gusta bastante más que Javascript.</li>
+<li>La forma de comunicación entre <i>worker</i> y página web se parece a los actores de Scala.</li>
+<li>Porque puedo.</li>
+</ul>
+
+
+<p>
+Aunque se pueden hacer <i>builds</i> multiproyecto con ScalaJS, he preferido hacer un único fichero javascript que tiene el código de la página y del <i>worker</i>. Eso me obliga a:
+</p>
+<ul class="org-ul">
+<li>Cargar una vez el fichero javascript como <i>script</i> normal.</li>
+<li>Cargar otra vez el fichero como un <i>worker</i>.</li>
+<li>Distinguir en el <code>main</code> del fichero javascript si se ejecuta como página web o como <i>worker</i>.</li>
+</ul>
+
+
+
+<div id="outline-container-orgd594019" class="outline-2">
+<h2 id="orgd594019"><i>Corpus</i> de palabras</h2>
+<div class="outline-text-2" id="text-orgd594019">
+<p>
+En la aplicación Scala leo directamente el <a href="http://corpus.rae.es/lfrecuencias.html">fichero de <i>corpus</i> de la RAE</a> (unos 20 Mb), en un tiempo aceptable. He intentado reutilizar el código Scala en la aplicación ScalaJS, y simplemente tarda demasiado. Aunque no he llegado a medirlo, el culpable del bajo rendimiento parece ser el uso de expresiones regulares en Javascript.
+</p>
+
+<p>
+Para acelerar la página, y por el ahorro de transferencia de datos, he convertido el <i>corpus</i> a un fichero JSON con una estructura simple: es un array que en la  posición <code>n</code> tiene un array con las palabras de longitud <code>n+1</code>. 
+</p>
+</div>
+</div>
+
+<div id="outline-container-org30d41dd" class="outline-2">
+<h2 id="org30d41dd">Carga del <i>Worker</i></h2>
+<div class="outline-text-2" id="text-org30d41dd">
+<p>
+Desde <code>BrowserMain</code> localizo el último <i>script</i> cargado en la página, y lo vuelvo a cargar, esta vez como un <i>worker</i>. Para localizar el último <i>script</i>, intento utilizar la propiedad <code>currentScript</code>, y si no existe, utilizo la ruta de generación del fichero <code>js</code> al compilar.
+</p>
+
+
+<div class="org-src-container">
+<pre class="src src-scala">val currentScript = {
+  val ret = js.Dynamic.global.document
+  if( js.isUndefined(ret) ) None else Some(ret.currentScript)
+}
+
+val lastLoadedScript : Option[String] = currentScript.map{ c =&gt;
+  if( js.isUndefined(c) )
+    "./palabras/js/target/scala-2.11/palabras-fastopt.js"
+  else
+    c.src.toString
+}
+
+val worker = lastLoadedScript.map( new org.scalajs.dom.raw.Worker(_) )
+</pre>
+</div>
+
+<p>
+Tras este código,  la variable <code>worker</code> es un <code>Option</code>, que puede ser <code>None</code>, o un <code>Worker</code>.
+</p>
+</div>
+
+<div id="outline-container-orgb7e6516" class="outline-3">
+<h3 id="orgb7e6516">¿Soy parte de la página o un <i>worker</i>?</h3>
+<div class="outline-text-3" id="text-orgb7e6516">
+<p>
+Como se ha visto, el <i>script</i> se puede cargar varias veces, así que es necesario saber en qué tipo de entorno se ejecuta. Una forma simple es detectar si existe <code>document</code> (página web) o <code>importScripts</code> (<i>worker</i>). 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-scala">def isBrowserPage = !js.isUndefined(document)
+def isBrowserWorker = !js.isUndefined(js.Dynamic.global.importScripts)
+def isNode = !isBrowserPage &amp;&amp; !isBrowserWorker
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org2917f12" class="outline-2">
+<h2 id="org2917f12">Mensajes</h2>
+<div class="outline-text-2" id="text-org2917f12">
+<p>
+Entre la página y el <i>worker</i> se intercambian mensajes. En un entorno Java, utilizaría una <code>case class</code> para cada tipo de mensaje, pero hay que tener en cuenta que entre la página y el <i>worker</i> no se puede intercambiar memoria, solo objetos JSON.
+</p>
+
+<p>
+Esto obliga a utilizar objetos planos de Javascript, así que hay que implementar a mano las partes que hacen automáticamente las <code>case class</code>: la creación por factorías en vez de por constructor (método <code>apply</code>), y el pattern matching (método <code>unapply</code>). El siguiente ejemplo es del mensaje <code>LoadCorpus</code>, que tiene un único parámetro:
+</p>
+
+
+<div class="org-src-container">
+<pre class="src src-scala">object Message{
+  def jsProp[T](o: Any)(property: String) : Option[T] = {
+    val value = o.asInstanceOf[js.Dynamic].selectDynamic(property)
+    if( js.isUndefined(value) ) None else Some(value.asInstanceOf[T])
+  }
+
+  def jsStr(o: Any) = jsProp[String](o) _
+
+  def unapply( o: Any ) : Option[String] = jsStr(o)("messageType")
+
+  object LoadCorpus{
+    def apply( file: String ) = js.Dynamic.literal( "messageType" -&gt; "LoadCorpus", "file" -&gt; file )
+    def unapply( o: Any ) : Option[String] = o match{
+      case Message("LoadCorpus") =&gt; jsStr(o)("file")
+      case _ =&gt; None
+    }
+  }
+
+  [...]
+}
+</pre>
+</div>
+
+<p>
+Los tipos de mensajes que he definido son:
+</p>
+<ul class="org-ul">
+<li>De la página al <i>worker</i>:
+<ul class="org-ul">
+<li><code>LoadCorpus</code>: Solicitud de descarga del <i>corpus</i></li>
+<li><code>SearchAnagram</code>: Solicitud de búsqueda de un anagrama a partir de una palabra</li>
+<li><code>SearchAnagramInSentence</code>: Solicitud de búsqueda de un anagrama en una frase, con una longitud dada</li>
+</ul></li>
+<li>Del <i>worker</i> a la página:
+<ul class="org-ul">
+<li><code>CorpusLoaded</code>: El <i>corpus</i> ha sido descargado, y ya se pueden buscar anagramas.</li>
+<li><code>AnagramFound</code>: Se ha encontrado un anagrama.</li>
+<li><code>NoMoreAnagrams</code>: La búsqueda de anagramas ha terminado.</li>
+</ul></li>
+</ul>
+</div>
+
+
+<div id="outline-container-org4cc86ff" class="outline-3">
+<h3 id="org4cc86ff">Recepción y envío de mensajes</h3>
+<div class="outline-text-3" id="text-org4cc86ff">
+<p>
+Una vez definidos los mensajes, su recepción es muy simple con una estructura <code>match</code>. Este es el manejo de mensajes realizado en la página web:
+</p>
+<div class="org-src-container">
+<pre class="src src-scala">def onMessage( m: org.scalajs.dom.raw.MessageEvent ) = {
+
+  m.data match{
+    case CorpusLoaded(_) =&gt;
+      enableButtons()
+      ui.output.text("")
+
+    case AnagramFound(found,_) =&gt;
+      addWord(found)
+
+    case NoMoreAnagrams(s) =&gt;
+      enableButtons()
+      ui.botonPalabra.value("Busca anagramas")
+      ui.botonFrase.value("Busca anagramas en la frase")
+      addLog( s"No se encuentran más anagramas para «$s»" )
+
+    case PreparseDone(size) =&gt;
+      addLog( s"Preparseadas las palabras con longitud $size" )
+
+    case data =&gt;
+      println( s"No entiendo el mensaje en html:$data")
+      js.Dynamic.global.console.log(data.asInstanceOf[js.Any])
+  }
+
+}
+</pre>
+</div>
+
+<p>
+Y este, en manejo de mensajes en el <i>worker</i>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-scala">
+def onMessage(msg: dom.MessageEvent) = {
+
+  msg.data match{
+    case LoadCorpus(file) =&gt;
+      Main.cargaCorpusJSON(file){ c =&gt;
+        corpus = c
+        WorkerGlobal.postMessage( CorpusLoaded(file) )
+      }
+
+
+    case SearchAnagram(s) =&gt;
+      val coincidencias = PalabrasAnagramadas.buscaCoincidenciaExacta( Corpus.Palabra(s) );
+
+      for( c &lt;- coincidencias ){
+        WorkerGlobal.postMessage( AnagramFound(c.original,s) )
+      }
+
+      WorkerGlobal.postMessage( NoMoreAnagrams(s) )
+
+    case SearchAnagramInSentence(s,size) =&gt;
+
+      val coincidencias = PalabrasAnagramadas.buscaExactoEnFrase( s, size );
+
+      for( c &lt;- coincidencias ){
+        WorkerGlobal.postMessage( AnagramFound(c.original,s) )
+      }
+
+      WorkerGlobal.postMessage( NoMoreAnagrams(s) )
+
+
+    case data =&gt;
+      println( s"  worker: me llega algo que no sé lo que es: $data" )
+      js.Dynamic.global.console.log(data.asInstanceOf[js.Any])
+
+  }
+}
+
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6beb165" class="outline-2">
+<h2 id="org6beb165">Código fuente</h2>
+<div class="outline-text-2" id="text-org6beb165">
+<p>
+El código fuente puede consultarse en su <a href="https://github.com/alvarogonzalezsotillo/palabras-anagramadas">repositorio de Github</a>. La página web donde utilizarlo es <a href="https://alvarogonzalezsotillo.github.io/palabras-anagramadas">https://alvarogonzalezsotillo.github.io/palabras-anagramadas</a>.
+</p>
+</div>
+</div>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2018-10-06</span>
+        <span title="last modification date" class="post-info">2019-02-24</span>
+        <span title="tags" class="post-info"><a href="/tags/scala/">scala</a>, <a href="/tags/rne/">rne</a>, <a href="/tags/anagramas/">anagramas</a>, <a href="/tags/programación/">programación</a></span>
+        <span title="author" class="post-info">Álvaro González Sotillo</span>
+      </div>
+      <section>
+        <!-- <h1>Comments</h1> -->
+      </section>
+      <!-- <script src="//code.jquery.com/jquery-latest.min.js"></script> -->
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->
+      <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>  -->
+      <!--<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>-->
+      <script src="/media/js/jquery-3.2.1.min.js"></script>
+      <script src="/media/js/main.js"></script>
+      <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="/media/js/code-prettify/loader/run_prettify.js"></script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 26.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:alvarogonzalezsotillo <at> gmail <dot> com">Álvaro González Sotillo</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>

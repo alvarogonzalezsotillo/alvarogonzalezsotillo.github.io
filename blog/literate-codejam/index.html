@@ -17,7 +17,6 @@
         <p></p>
         <ul>
           <li><a href="/blog/">Blog</a></li>
-          <li><a href="/hugo/">Hugo</a></li>
           <li><a href="/tags/">Tags</a></li>
           <li><a href="/about/">Acerca de mí</a></li>
           <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
@@ -38,21 +37,21 @@
 <h2>&Iacute;ndice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgb68f8ab">1. CodeJam utilizando <i>emacs</i></a>
+<li><a href="#org94102b5">1. CodeJam utilizando <i>emacs</i></a>
 <ul>
-<li><a href="#orgb81d0e8">1.1. <i>source  block</i></a></li>
+<li><a href="#org3a1d2ec">1.1. <i>source  block</i></a></li>
 </ul>
 </li>
-<li><a href="#orgf6dbfb3">2. Saving The Universe Again</a>
+<li><a href="#org6d09921">2. Saving The Universe Again</a>
 <ul>
-<li><a href="#orged6623c">2.1. Solución</a></li>
-<li><a href="#org2af6a9d">2.2. Problem</a></li>
+<li><a href="#org30f060c">2.1. Solución</a></li>
+<li><a href="#orgb27127c">2.2. Problem</a></li>
 </ul>
 </li>
-<li><a href="#org9302b4d">3. Cubic UFO</a>
+<li><a href="#orgb0957e4">3. Cubic UFO</a>
 <ul>
-<li><a href="#orgc1cefee">3.1. Solución</a></li>
-<li><a href="#org17d4e1a">3.2. Problem</a></li>
+<li><a href="#org98b56c2">3.1. Solución</a></li>
+<li><a href="#org1e06a2d">3.2. Problem</a></li>
 </ul>
 </li>
 </ul>
@@ -60,8 +59,8 @@
 </div>
 
 
-<div id="outline-container-orgb68f8ab" class="outline-2">
-<h2 id="orgb68f8ab"><span class="section-number-2">1</span> <a href="https://code.google.com/codejam/">CodeJam</a> utilizando <i>emacs</i></h2>
+<div id="outline-container-org94102b5" class="outline-2">
+<h2 id="org94102b5"><span class="section-number-2">1</span> <a href="https://code.google.com/codejam/">CodeJam</a> utilizando <i>emacs</i></h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Este año han cambiado las normas usuales en el concurso de programación <a href="https://code.google.com/codejam/">CodeJam</a> de Google.
@@ -84,8 +83,8 @@ Esta entrada de blog <b>no solo cuenta</b> qué programas hice en la ronda de cl
 </p>
 </div>
 
-<div id="outline-container-orgb81d0e8" class="outline-3">
-<h3 id="orgb81d0e8"><span class="section-number-3">1.1</span> <i>source  block</i></h3>
+<div id="outline-container-org3a1d2ec" class="outline-3">
+<h3 id="org3a1d2ec"><span class="section-number-3">1.1</span> <i>source  block</i></h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 Un <i>source  block</i> es una parte de un documento org que se considera código fuente de algún lenguaje de programación. Este es un ejemplo de un <i>source block</i> de javascript:
@@ -137,15 +136,15 @@ Por supuesto, esto se hace con un bloque de código que ejecuto con <code>C-c C-
 </div>
 </div>
 
-<div id="outline-container-orgf6dbfb3" class="outline-2">
-<h2 id="orgf6dbfb3"><span class="section-number-2">2</span> Saving The Universe Again</h2>
+<div id="outline-container-org6d09921" class="outline-2">
+<h2 id="org6d09921"><span class="section-number-2">2</span> Saving The Universe Again</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Se puede resolver con un <a href="https://en.wikipedia.org/wiki/Greedy_algorithm">algoritmo avaricioso</a>, ya que el mejor cambio posible es siempre la última aparición de la cadena <code>CS</code> (ver la función <code>nextBestChange</code>).
 </p>
 </div>
-<div id="outline-container-orged6623c" class="outline-3">
-<h3 id="orged6623c"><span class="section-number-3">2.1</span> Solución</h3>
+<div id="outline-container-org30f060c" class="outline-3">
+<h3 id="org30f060c"><span class="section-number-3">2.1</span> Solución</h3>
 <div class="outline-text-3" id="text-2-1">
 <div class="org-src-container">
 <pre class="src src-cpp">
@@ -248,8 +247,8 @@ Case #6: 5
 
 
 
-<div id="outline-container-org2af6a9d" class="outline-3">
-<h3 id="org2af6a9d"><span class="section-number-3">2.2</span> Problem</h3>
+<div id="outline-container-orgb27127c" class="outline-3">
+<h3 id="orgb27127c"><span class="section-number-3">2.2</span> Problem</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 An alien robot is threatening the universe, using a beam that will destroy all algorithms knowledge. We have to stop it!
@@ -292,8 +291,8 @@ To prevent the robot from getting too suspicious, the President does not want to
 </p>
 </div>
 
-<div id="outline-container-org684b390" class="outline-4">
-<h4 id="org684b390"><span class="section-number-4">2.2.1</span> Input</h4>
+<div id="outline-container-orgbf89898" class="outline-4">
+<h4 id="orgbf89898"><span class="section-number-4">2.2.1</span> Input</h4>
 <div class="outline-text-4" id="text-2-2-1">
 <p>
 The first line of the input gives the number of test cases, T. T test cases follow. Each consists of one line containing an integer D and a string P: the maximum total damage our shield can withstand, and the robot's program.
@@ -301,8 +300,8 @@ The first line of the input gives the number of test cases, T. T test cases foll
 </div>
 </div>
 
-<div id="outline-container-org4ed60ed" class="outline-4">
-<h4 id="org4ed60ed"><span class="section-number-4">2.2.2</span> Output</h4>
+<div id="outline-container-org70f73a6" class="outline-4">
+<h4 id="org70f73a6"><span class="section-number-4">2.2.2</span> Output</h4>
 <div class="outline-text-4" id="text-2-2-2">
 <p>
 For each test case, output one line containing Case #x: y, where x is the test case number (starting from 1) and y is either the minimum number of hacks needed to accomplish the goal, or IMPOSSIBLE if it is not possible.
@@ -310,8 +309,8 @@ For each test case, output one line containing Case #x: y, where x is the test c
 </div>
 </div>
 
-<div id="outline-container-orgb9570bb" class="outline-4">
-<h4 id="orgb9570bb"><span class="section-number-4">2.2.3</span> Limits</h4>
+<div id="outline-container-orgcec898b" class="outline-4">
+<h4 id="orgcec898b"><span class="section-number-4">2.2.3</span> Limits</h4>
 <div class="outline-text-4" id="text-2-2-3">
 <p>
 1 ≤ T ≤ 100.
@@ -324,8 +323,8 @@ Memory limit: 1GB.
 </div>
 </div>
 
-<div id="outline-container-org4a43b1a" class="outline-4">
-<h4 id="org4a43b1a"><span class="section-number-4">2.2.4</span> Sample</h4>
+<div id="outline-container-org888a129" class="outline-4">
+<h4 id="org888a129"><span class="section-number-4">2.2.4</span> Sample</h4>
 <div class="outline-text-4" id="text-2-2-4">
 <p>
 Al ejecutar este código (con <code>C-c C-c</code>), se genera el fichero de entrada de prueba.
@@ -348,8 +347,8 @@ EOF
 </div>
 
 
-<div id="outline-container-org9302b4d" class="outline-2">
-<h2 id="org9302b4d"><span class="section-number-2">3</span> Cubic UFO</h2>
+<div id="outline-container-orgb0957e4" class="outline-2">
+<h2 id="orgb0957e4"><span class="section-number-2">3</span> Cubic UFO</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 Este es un problema geométrico. Se puede dividir en dos partes
@@ -370,8 +369,8 @@ Este es un problema geométrico. Se puede dividir en dos partes
 </div>
 </div>
 
-<div id="outline-container-orgc1cefee" class="outline-3">
-<h3 id="orgc1cefee"><span class="section-number-3">3.1</span> Solución</h3>
+<div id="outline-container-org98b56c2" class="outline-3">
+<h3 id="org98b56c2"><span class="section-number-3">3.1</span> Solución</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 Este código lo uso como calculadora de algunas constantes
@@ -563,8 +562,8 @@ Case #3:
 </div>
 
 
-<div id="outline-container-org17d4e1a" class="outline-3">
-<h3 id="org17d4e1a"><span class="section-number-3">3.2</span> Problem</h3>
+<div id="outline-container-org1e06a2d" class="outline-3">
+<h3 id="org1e06a2d"><span class="section-number-3">3.2</span> Problem</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 A mysterious cubic alien ship has appeared in the sky over Toronto! In this problem, Toronto is a plane in three-dimensional space that is parallel to the xz plane at y = -3 km. The alien ship is a solid cube with side length 1 km, centered at (0 km, 0 km, 0 km), with its eight corners at (+/- 0.5 km, +/- 0.5 km, +/- 0.5 km). The ship is casting an ominous shadow onto the plane; formally, the shadow is the orthogonal projection of the cube onto the plane. (We consider the sun to be a point infinitely far above the Toronto plane along the y-axis.)
@@ -579,8 +578,8 @@ Please find a way that the aliens can rotate the ship so that the shadow's area 
 </p>
 </div>
 
-<div id="outline-container-org2036f4c" class="outline-4">
-<h4 id="org2036f4c"><span class="section-number-4">3.2.1</span> Input</h4>
+<div id="outline-container-org3571d9f" class="outline-4">
+<h4 id="org3571d9f"><span class="section-number-4">3.2.1</span> Input</h4>
 <div class="outline-text-4" id="text-3-2-1">
 <p>
 The first line of the input gives the number of test cases, T. T test cases follow; each consists of one line with a rational A, the desired area of the shadow, in km2, with exactly six digits after the decimal point.
@@ -592,8 +591,8 @@ It is guaranteed that there is always a way to rotate the ship in the desired ma
 </div>
 </div>
 
-<div id="outline-container-org702cba2" class="outline-4">
-<h4 id="org702cba2"><span class="section-number-4">3.2.2</span> Output</h4>
+<div id="outline-container-org39492ef" class="outline-4">
+<h4 id="org39492ef"><span class="section-number-4">3.2.2</span> Output</h4>
 <div class="outline-text-4" id="text-3-2-2">
 <p>
 For each test case, first output one line containing Case #x:, where x is the test case number (starting from 1). Then, output three more lines with three rational values each: the x, y, and z coordinates of one of your three provided face-centers, as described above. You are welcome to use decimal (e.g., 0.000123456) or scientific notation (e.g., 1.23456e-4).
@@ -615,8 +614,8 @@ Please note that you might need to output more than 6 digits after the decimal p
 </div>
 </div>
 
-<div id="outline-container-org2cfbecc" class="outline-4">
-<h4 id="org2cfbecc"><span class="section-number-4">3.2.3</span> Limits</h4>
+<div id="outline-container-orgff09159" class="outline-4">
+<h4 id="orgff09159"><span class="section-number-4">3.2.3</span> Limits</h4>
 <div class="outline-text-4" id="text-3-2-3">
 <p>
 1 ≤ T ≤ 100.
@@ -636,8 +635,8 @@ Test set 2 (Hidden)
 </div>
 </div>
 
-<div id="outline-container-org2faee71" class="outline-4">
-<h4 id="org2faee71"><span class="section-number-4">3.2.4</span> Sample</h4>
+<div id="outline-container-org24fa60a" class="outline-4">
+<h4 id="org24fa60a"><span class="section-number-4">3.2.4</span> Sample</h4>
 <div class="outline-text-4" id="text-3-2-4">
 <p>
 Al ejecutar este código (con <code>C-c C-c</code>), se genera el fichero de entrada de prueba.
@@ -666,30 +665,15 @@ EOF
         <span title="author" class="post-info">Álvaro González Sotillo</span>
       </div>
       <section>
-        <h1>Comments</h1>
-        <div id="disqus_thread"></div>
-        <script type="text/javascript">
-          //var disqus_developer = 1;
-          var disqus_identifier = "/blog/literate-codejam";
-          var disqus_url = "https://alvarogonzalezsotillo.github.io/blog/literate-codejam";
-          var disqus_shortname = 'alvarogonzalezsotillo';
-          /* * * DON'T EDIT BELOW THIS LINE * * */
-          (function() {
-          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-          })();
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-        <a href="//disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        <!-- <h1>Comments</h1> -->
       </section>
       <!-- <script src="//code.jquery.com/jquery-latest.min.js"></script> -->
       <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->
       <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>  -->
+      <!--<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>-->
       <script src="/media/js/jquery-3.2.1.min.js"></script>
       <script src="/media/js/main.js"></script>
       <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-      <!--<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>-->
       <script src="/media/js/code-prettify/loader/run_prettify.js"></script>
       <div class="footer">
         <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 26.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>

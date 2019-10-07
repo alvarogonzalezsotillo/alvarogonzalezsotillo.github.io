@@ -17,7 +17,6 @@
         <p></p>
         <ul>
           <li><a href="/blog/">Blog</a></li>
-          <li><a href="/hugo/">Hugo</a></li>
           <li><a href="/tags/">Tags</a></li>
           <li><a href="/about/">Acerca de mí</a></li>
           <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
@@ -39,9 +38,9 @@
 Durante el desarrollo de ciclos formativos de grado medio y superior, es muy común la necesidad de compartir ficheros con los alumnos. Para ilustrar el problema, supondremos que el profesor necesita distribuir una ISO de instalación de Ubuntu (1.6 GBytes) en un aula con 15 ordenadores.
 </p>
 
-<div id="outline-container-org5133936" class="outline-2">
-<h2 id="org5133936">Solución 1: Uso de <i>pen drive</i></h2>
-<div class="outline-text-2" id="text-org5133936">
+<div id="outline-container-org4740bff" class="outline-2">
+<h2 id="org4740bff">Solución 1: Uso de <i>pen drive</i></h2>
+<div class="outline-text-2" id="text-org4740bff">
 <p style="float:right;">
 <img src="/assets/blog/bittorent-en-el-aula/pendrive-small.jpg" alt="/assets/blog/bittorent-en-el-aula/pendrive-small.jpg" style="float:right;" />
 El profesor pasa por cada puesto de alumno, copiando desde un disco duro externo o <i>pen drive</i> el fichero deseado. Suponiendo una  tasa de transferencia de 25 MBytes/segundo, cada alumno necesita unos 60 segundos para conseguir su copia. Incluyendo el proceso de conexión y desconexión cada alumno necesita unos 2 minutos. Esto hace un total de 30 minutos para distribuir el fichero.
@@ -49,18 +48,18 @@ El profesor pasa por cada puesto de alumno, copiando desde un disco duro externo
 </div>
 </div>
 
-<div id="outline-container-org35ee110" class="outline-2">
-<h2 id="org35ee110">Solución 2: Uso de pen drive y copias de alumnos</h2>
-<div class="outline-text-2" id="text-org35ee110">
+<div id="outline-container-orgecbc013" class="outline-2">
+<h2 id="orgecbc013">Solución 2: Uso de pen drive y copias de alumnos</h2>
+<div class="outline-text-2" id="text-orgecbc013">
 <p>
 Si cada alumno que consigue el fichero lo  copia a un pen drive propio y lo distribuye a otros alumnos, puede copiarse el fichero mucho más rápido. Esta es una posibilidad teórica más que real, puesto que los alumnos no suelen entender el proceso y se tarda más en explicarlo que en aplicar la primera solución.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org2b4030b" class="outline-2">
-<h2 id="org2b4030b">Solución 3: Uso de un servidor de ficheros</h2>
-<div class="outline-text-2" id="text-org2b4030b">
+<div id="outline-container-org1f5051b" class="outline-2">
+<h2 id="org1f5051b">Solución 3: Uso de un servidor de ficheros</h2>
+<div class="outline-text-2" id="text-org1f5051b">
 
 <div class="figure">
 <p><img src="/assets/blog/bittorent-en-el-aula/sharedfolder-small.jpg" alt="/assets/blog/bittorent-en-el-aula/sharedfolder-small.jpg" style="float:right;" />
@@ -78,9 +77,9 @@ El fichero puede hacerse accesible desde la red, y cada alumno baja su propia co
 </div>
 </div>
 
-<div id="outline-container-orgb293f2d" class="outline-2">
-<h2 id="orgb293f2d">Solución 4: Uso de un protocolo de red p2p</h2>
-<div class="outline-text-2" id="text-orgb293f2d">
+<div id="outline-container-org5f8a327" class="outline-2">
+<h2 id="org5f8a327">Solución 4: Uso de un protocolo de red p2p</h2>
+<div class="outline-text-2" id="text-org5f8a327">
 <p style="float:right;">
 <img src="/assets/blog/bittorent-en-el-aula/utorrent.jpg" alt="/assets/blog/bittorent-en-el-aula/utorrent.jpg" style="float:right;" />
 El problema fundamental del servidor de ficheros es que una sola conexión debe dar servicio a todos los alumnos. Si conseguimos que cada alumno comparta su conexión con los demás, este cuello de botella queda resuelto. De esta forma, se consigue una transferencia casi simultánea a todos los alumnos del fichero, necesitando solo 3 minutos para una red a 100 MB.
@@ -145,30 +144,15 @@ Posibles problemas con <code>PsExec</code>
         <span title="author" class="post-info">Álvaro González Sotillo</span>
       </div>
       <section>
-        <h1>Comments</h1>
-        <div id="disqus_thread"></div>
-        <script type="text/javascript">
-          //var disqus_developer = 1;
-          var disqus_identifier = "/blog/bittorent-en-el-aula";
-          var disqus_url = "https://alvarogonzalezsotillo.github.io/blog/bittorent-en-el-aula";
-          var disqus_shortname = 'alvarogonzalezsotillo';
-          /* * * DON'T EDIT BELOW THIS LINE * * */
-          (function() {
-          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-          })();
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-        <a href="//disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        <!-- <h1>Comments</h1> -->
       </section>
       <!-- <script src="//code.jquery.com/jquery-latest.min.js"></script> -->
       <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->
       <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>  -->
+      <!--<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>-->
       <script src="/media/js/jquery-3.2.1.min.js"></script>
       <script src="/media/js/main.js"></script>
       <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-      <!--<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>-->
       <script src="/media/js/code-prettify/loader/run_prettify.js"></script>
       <div class="footer">
         <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 26.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>

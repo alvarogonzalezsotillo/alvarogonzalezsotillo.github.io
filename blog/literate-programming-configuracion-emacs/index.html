@@ -17,7 +17,6 @@
         <p></p>
         <ul>
           <li><a href="/blog/">Blog</a></li>
-          <li><a href="/hugo/">Hugo</a></li>
           <li><a href="/tags/">Tags</a></li>
           <li><a href="/about/">Acerca de mí</a></li>
           <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
@@ -42,8 +41,8 @@ Mi configuración de <i>emacs</i> estaba basada en un fichero <code>init.el</cod
 Esto se debía a una falta de comentarios, que se nos suele "olvidar" cuando sentimos que estamos programando, pero que solemos incluir cuando estamos redactando un documento. Descubrí en el blog de  <a href="http://pages.sachachua.com/.emacs.d/Sacha.html">Sacha Chua</a> que podía mantener la configuración en un fichero <code>orgmode</code> y así documentar fácilmente cada opción.
 </p>
 
-<div id="outline-container-org534cfd4" class="outline-2">
-<h2 id="org534cfd4"><span class="section-number-2">1</span> <code>init.el</code></h2>
+<div id="outline-container-orgf642214" class="outline-2">
+<h2 id="orgf642214"><span class="section-number-2">1</span> <code>init.el</code></h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Emacs comienza cargando el fichero <code>~/.emacs.d/init.el</code>. Este fichero simplemente inicializa el sistema de paquetes y carga el paquete <code>org</code>, que es el que permite a Emacs manejar este tipo de ficheros. Después, carga este fichero interpretando los bloques de código.
@@ -72,15 +71,15 @@ Tras esto, <code>emacs</code> carga el fichero <code>config.org</code>, extrae l
 </div>
 </div>
 
-<div id="outline-container-orge5648e1" class="outline-2">
-<h2 id="orge5648e1"><span class="section-number-2">2</span> Mi configuración</h2>
+<div id="outline-container-orga35c395" class="outline-2">
+<h2 id="orga35c395"><span class="section-number-2">2</span> Mi configuración</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Se puede consultar mi configuración directamente en <a href="https://github.com/alvarogonzalezsotillo/.emacs.d/blob/master/config.org">https://github.com/alvarogonzalezsotillo/.emacs.d/blob/master/config.org</a>. Github es capaz de formatear el formato <code>org</code>, así que se ve bastante bonito.
 </p>
 
 <p>
-También he generado una <a href="/assets/blog/literate-programming-configuracion-emacs/config.pdf">versión en pdf de la configuración</a>.
+También he generado una <a href="/assets/blog/literate-programming-configuracion-emacs/config-ejemplo.pdf">versión en pdf de la configuración, a fecha de esta entrada</a> (pero es mejor mirar <a href="https://alvarogonzalezsotillo.github.io/.emacs.d/config.pdf">la última versión en PDF</a> y en <a href="https://alvarogonzalezsotillo.github.io/.emacs.d/config.html">HTML</a>)
 </p>
 </div>
 </div>
@@ -90,35 +89,20 @@ También he generado una <a href="/assets/blog/literate-programming-configuracio
     <div>
       <div class="post-meta">
         <span title="post date" class="post-info">2018-11-11</span>
-        <span title="last modification date" class="post-info">2018-11-11</span>
+        <span title="last modification date" class="post-info">2018-12-05</span>
         <span title="tags" class="post-info"><a href="/tags/emacs/">emacs</a>, <a href="/tags/orgmode/">orgmode</a></span>
         <span title="author" class="post-info">Álvaro González Sotillo</span>
       </div>
       <section>
-        <h1>Comments</h1>
-        <div id="disqus_thread"></div>
-        <script type="text/javascript">
-          //var disqus_developer = 1;
-          var disqus_identifier = "/blog/literate-programming-configuracion-emacs";
-          var disqus_url = "https://alvarogonzalezsotillo.github.io/blog/literate-programming-configuracion-emacs";
-          var disqus_shortname = 'alvarogonzalezsotillo';
-          /* * * DON'T EDIT BELOW THIS LINE * * */
-          (function() {
-          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-          })();
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-        <a href="//disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        <!-- <h1>Comments</h1> -->
       </section>
       <!-- <script src="//code.jquery.com/jquery-latest.min.js"></script> -->
       <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->
       <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>  -->
+      <!--<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>-->
       <script src="/media/js/jquery-3.2.1.min.js"></script>
       <script src="/media/js/main.js"></script>
       <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-      <!--<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>-->
       <script src="/media/js/code-prettify/loader/run_prettify.js"></script>
       <div class="footer">
         <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 26.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>

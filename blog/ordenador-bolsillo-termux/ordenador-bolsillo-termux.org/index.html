@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Mi ordenador de bolsillo con termux  - Álvaro González Sotillo</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Álvaro González Sotillo" />
+    <meta name="description" content="Una ventaja de usar sobre todo herramientas de consola es que es uno de los sistemas UI más antiguos y simples de implementar y, por tanto, más extendido y estándar. También en tu Android." />
+    <meta name="keywords" content="termux" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <!-- <link rel="stylesheet" href="/media/css/prettify.css" type="text/css"> -->
+  </head>
+
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">Álvaro González Sotillo</a></h1>
+        <p></p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">Acerca de mí</a></li>
+          <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="//www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Buscar">
+          <input type="hidden" name="as_sitesearch" value="alvarogonzalezsotillo.github.io">
+        </form>
+        <img class="avatar" src="/media/img/octaedron.png" />
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>Mi ordenador de bolsillo con termux </h1>
+<p>
+No recuerdo en qué momento empecé a preferir las herramientas de consola a las GUI, pero sí que tengo una lista de razones para esta elección:
+</p>
+<ul class="org-ul">
+<li>Gastan menos en recursos: memoria, ancho de banda si se usan en remoto... lo que al final implica un tiempo de respuesta menor</li>
+<li>Son más estables. Desde Windows XP han cambiado unas 3 veces la forma de crear usuarios, pero yo sigo con <code>net user /add</code></li>
+<li>Son automatizables</li>
+<li>El terminal es un sistema muy antiguo, pero por eso mismo muy extendido y muy bien soportado. Se pueden encontrar emuladores de terminal para casi todos los sistemas.</li>
+</ul>
+
+
+<p>
+Si nos centramos en Linux/GNU, estas ventajas se ven ampliadas, ya que son como una mala hierba. El <i>kernel</i> y la <i>libc</i> crecen en cualquier sitio, y con eso ya tienes el <i>gcc</i> y una miriada de software que funcioma en un terminal.
+</p>
+
+<div id="outline-container-org6092477" class="outline-2">
+<h2 id="org6092477"><span class="section-number-2">1</span> Termux</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Esto es lo que hace <a href="https://termux.com/">Termux</a> para los móviles Android: un emulador de terminal con un sistema de paquetes similar a Debian. Combinado con un teclado externo, o en su defecto, <a href="https://play.google.com/store/apps/details?id=org.pocketworkstation.pckeyboard&amp;hl=en_US">Hacker Keyboard</a>, se puede conseguir algo muy parecido a un entorno de trabajo de sobremesa.
+</p>
+
+
+<div class="figure">
+<p><img src="/assets/blog/ordenador-bolsillo-termux/ordenador-bolsillo-termux.org/Screenshot_2019-07-03-08-36-54.png" alt="/assets/blog/ordenador-bolsillo-termux/ordenador-bolsillo-termux.org/Screenshot_2019-07-03-08-36-54.png" />
+</p>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-orgd029176" class="outline-2">
+<h2 id="orgd029176"><span class="section-number-2">2</span> Qué me he instalado</h2>
+<div class="outline-text-2" id="text-2">
+<ul class="org-ul">
+<li>Apache: lo uso ocasionalmente para compartir ficheros de la tarjeta SD  por wifi. Para casos más especiales, utilizo Netcat.</li>
+<li>Git: en vez de Dropbox, es <a href="../../../blog/mi-propio-hosting-git">mi nube particular</a>.</li>
+<li>Graphviz, Latex: necesarios para algunos materiales de mis clases.</li>
+<li>Emacs: para casi todo. Por ejemplo, esta entrada del blog está escrita en el móvil <a href="../../../blog/blogueando-con-orgmode">con org-page</a>. Pero he llegado a hacer exámenes (Latex) y a <a href="../../../blog/mi-publicacion-de-materiales-para-clase">publicar apuntes</a> (org-reveal) desde el móvil.</li>
+<li>Nmap: no sea que me encuentre una red wifi abierta y mucho tiempo libre 😈.</li>
+<li>Ssh: no el servidor, sino el cliente, para conectarme al <a href="../../../blog/ordenador-de-sobremesa-servidor-htpc">PC de casa</a> (o a lo que se encuentre con nmap)</li>
+<li>Prolog: experimenté con este lenguaje directamente en el teléfono, y solo me pasé al portátil cuando <a href="../../../blog/resolver-molecube-en-prolog">el programa que estaba desarrollando</a> avanzaba y tenía problemas de rendimiento.</li>
+<li><a href="https://es.wikipedia.org/wiki/Tmux">Tmux</a>: sin multiplexor de pantalla la vida es muy triste</li>
+</ul>
+</div>
+</div>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2019-07-02</span>
+        <span title="last modification date" class="post-info">2019-07-05</span>
+        <span title="tags" class="post-info"><a href="/tags/termux/">termux</a></span>
+        <span title="author" class="post-info">Álvaro González Sotillo</span>
+      </div>
+      <section>
+        <!-- <h1>Comments</h1> -->
+      </section>
+      <!-- <script src="//code.jquery.com/jquery-latest.min.js"></script> -->
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->
+      <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>  -->
+      <!--<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>-->
+      <script src="/media/js/jquery-3.2.1.min.js"></script>
+      <script src="/media/js/main.js"></script>
+      <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="/media/js/code-prettify/loader/run_prettify.js"></script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 26.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:alvarogonzalezsotillo <at> gmail <dot> com">Álvaro González Sotillo</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>
