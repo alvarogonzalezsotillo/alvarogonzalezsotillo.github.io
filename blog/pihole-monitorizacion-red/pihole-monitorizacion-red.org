@@ -46,7 +46,7 @@ Nos *desplazamos físicamente hasta el ordenador* en un momento en el que los al
 Creemos que consiguió ser superusuario arrancando linux en [[https://askubuntu.com/questions/132965/how-do-i-boot-into-single-user-mode-from-grub][modo /singleuser/]], ya que el arranque =GRUB= no está protegido por contraseña.
 
 * Medidas a tomar en un futuro
-En nuestro centro todas las aulas comparten la misma [[https://es.wikipedia.org/wiki/VLAN][=VLAN=]], y la asignación de =IP= se hace dinámicamente por =DHCP=, por lo que *la localización del PC atacante fue cuestión de suerte*. Si el alumno hubiera utilizado un aula virtual, tendríamos que haber localizado el aula desconectando poco a poco los switches.
+En nuestro centro todas las aulas comparten la misma [[https://es.wikipedia.org/wiki/VLAN][=VLAN=]], y la asignación de =IP= se hace dinámicamente por =DHCP=, por lo que *la localización del PC atacante fue cuestión de suerte*. Si el alumno hubiera utilizado una máquina virtual en modo /bridged/, tendríamos que haber localizado el aula desconectando poco a poco los switches.
 
 Para que esto no vuelva a suceder tendríamos que tomar las siguientes medidas:
 - Realizar un inventario de direcciones =MAC=.
