@@ -44,15 +44,15 @@ A pesar de ello, volvimos a tener una conexión a Internet inestable: unas aulas
 
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org53f7844">Descubriendo el ataque</a></li>
-<li><a href="#org134fe23">El contraataque</a></li>
-<li><a href="#org1597ef2">Medidas a tomar en un futuro</a></li>
+<li><a href="#org78161ef">Descubriendo el ataque</a></li>
+<li><a href="#org29e6883">El contraataque</a></li>
+<li><a href="#org188e616">Medidas a tomar en un futuro</a></li>
 </ul>
 </div>
 
-<div id="outline-container-org53f7844" class="outline-2">
-<h2 id="org53f7844">Descubriendo el ataque</h2>
-<div class="outline-text-2" id="text-org53f7844">
+<div id="outline-container-org78161ef" class="outline-2">
+<h2 id="org78161ef">Descubriendo el ataque</h2>
+<div class="outline-text-2" id="text-org78161ef">
 <p>
 Utilizando la función de <i>network</i> de <code>Pihole</code> encontramos algo anormal: la dirección IP del router se utilizaba por dos equipos de la red con <a href="https://es.wikipedia.org/wiki/Direcci%C3%B3n_MAC">dirección MAC</a> distintas: la propia de la ONT y <code>1c:6f:65:a7:4d:79</code>. De hecho, la MAC sospechosa se había anunciado en apenas dos horas como 7 direcciones IP distintas.
 </p>
@@ -82,9 +82,9 @@ El ordenador con MAC <code>1c:6f:65:a7:4d:79</code> enviaba cada dos segundos un
 </div>
 </div>
 
-<div id="outline-container-org134fe23" class="outline-2">
-<h2 id="org134fe23">El contraataque</h2>
-<div class="outline-text-2" id="text-org134fe23">
+<div id="outline-container-org29e6883" class="outline-2">
+<h2 id="org29e6883">El contraataque</h2>
+<div class="outline-text-2" id="text-org29e6883">
 <p>
 Utilizando <a href="https://nmap.org/">Nmap</a> descubrimos que el ordenador atacante tenía abiertos los puertos típicos de un ordenador Linux, entre ellos el puerto 22 de SSH. Ante la posibilidad de que fuera uno de los ordenadores del centro intentamos acceder por SSH con los usuarios y contraseñas que dejamos en las maquetas de los PC's de aula. Conseguimos entrar sin problemas, lo que nos permitió localizar el aula y puesto del PC.
 </p>
@@ -108,9 +108,9 @@ Creemos que consiguió ser superusuario arrancando linux en <a href="https://ask
 </div>
 </div>
 
-<div id="outline-container-org1597ef2" class="outline-2">
-<h2 id="org1597ef2">Medidas a tomar en un futuro</h2>
-<div class="outline-text-2" id="text-org1597ef2">
+<div id="outline-container-org188e616" class="outline-2">
+<h2 id="org188e616">Medidas a tomar en un futuro</h2>
+<div class="outline-text-2" id="text-org188e616">
 <p>
 En nuestro centro todas las aulas comparten la misma <a href="https://es.wikipedia.org/wiki/VLAN"><code>VLAN</code></a>, y la asignación de <code>IP</code> se hace dinámicamente por <code>DHCP</code>, por lo que <b>la localización del PC atacante fue cuestión de suerte</b>. Si el alumno hubiera utilizado un aula virtual, tendríamos que haber localizado el aula desconectando poco a poco los switches.
 </p>
