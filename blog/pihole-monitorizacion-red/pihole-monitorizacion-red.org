@@ -11,8 +11,42 @@
 #+DESCRIPTION: He instalado /pihole/ en la red del instituto donde trabajo para intentar mejorar la velocidad de la red. y de forma imprevista, me ha ayudado a encontrar un intruso que pretendía hacer un MIM.
 
 
-Hace tiempo que la ONT de la red de mi instituto se colapsaba periódicamente. Para intentar descargarla, instalé un pihole para reducir las peticiones de DNS, y por tanto la memoria destinada a las conexiones UDP.
+Hace tiempo que la [[https://naseros.com/2017/01/16/es-el-ont-y-router-integrado-una-ventaja/][ONT]] de la red de mi instituto se colapsaba periódicamente. Para intentar descargarla, instalamos [[https://pi-hole.net/][=Pihole=]] para reducir las peticiones de DNS, y por tanto la memoria destinada a las conexiones UDP.
 
 A pesar de ello, volvimos a tener una conexión a Internet inestable: unas aulas podían conectarse y otras no, e incluso llegaba a haber diferencias dentro de la misma aula. En mi caso, todos los ordenadores funcionaban excepto el del puesto del profesor.
+
+* Descubriendo el ataque
+
+Utilizando la función de /network/ de =Pihole= encontramos algo anormal: la dirección IP del router se utilizaba por dos equipos de la red con [[https://es.wikipedia.org/wiki/Direcci%25C3%25B3n_MAC][dirección MAC]] distintas: la propia de la ONT y ~1c:6f:65:a7:4d:79~. De hecho, la MAC sospechosa se había anunciado en apenas dos horas como 7 direcciones IP distintas.
+
+#+title: Listado de direcciónes =MAC= e =IP= conocidas por =pihole=
+[[file:mac-con-siete-ips.png]]
+
+Empezaba a parecer un caso de [[https://es.wikipedia.org/wiki/Suplantaci%25C3%25B3n_de_ARP][ARP Spoofing]], quizás como paso previo para un [[https://es.wikipedia.org/wiki/Ataque_de_intermediario][man in the middle]]MIM. Con [[https://es.wikipedia.org/wiki/Tcpdump][=tcpdump=]] confirmamos nuestras sospechas.
+
+#+title: Comprobación de tráfico =ARP= con =tcpdump=
+[[file:arp-en-tcpdump.png]]
+
+
+El ordenador con MAC ~1c:6f:65:a7:4d:79~ enviaba cada dos segundos una [[https://es.wikipedia.org/wiki/Protocolo_de_resoluci%25C3%25B3n_de_direcciones#Alcance_de_funcionamiento][respuesta ARP]] suplantando la identidad del /router/. En ese momento dicho ordenador consideraba su dirección IP principal como ~10.1.0.201~.
+
+* El contraataque
+Utilizando [[https://nmap.org/][Nmap]] descubrimos que el ordenador atacante tenía abiertos los puertos típicos de un ordenador Linux, entre ellos el puerto 22 de SSH. Ante la posibilidad de que fuera uno de los ordenadores del centro intentamos acceder por SSH con los usuarios y contraseñas que dejamos en las maquetas de los PC's de aula. Conseguimos entrar sin problemas, lo que nos permitió localizar el aula y puesto del PC.
+
+Nos *desplazamos físicamente hasta el ordenador* en un momento en el que los alumnos estaban en otro aula. Utilizando el =tty4= observamos que el alumno había utilizado el =tty3= para ser superusuario y arrancar un script de python que realizaba las acciones maliciosas de red. Por lo visto, el script no servía para realizar MIM sino para limitar la velocidad del tráfico de algunos ordenadores (una denegación de servicio).
+
+#+title: Reconstrucción del =tty4= (a partir de =/dev/vcs4=)
+[[file:tty4.png]]
+
+Creemos que consiguió ser superusuario arrancando linux en [[https://askubuntu.com/questions/132965/how-do-i-boot-into-single-user-mode-from-grub][modo /singleuser/]], ya que el arranque =GRUB= no está protegido por contraseña.
+
+* Medidas a tomar en un futuro
+En nuestro centro todas las aulas comparten la misma [[https://es.wikipedia.org/wiki/VLAN][=VLAN=]], y la asignación de =IP= se hace dinámicamente por =DHCP=, por lo que *la localización del PC atacante fue cuestión de suerte*. Si el alumno hubiera utilizado un aula virtual, tendríamos que haber localizado el aula desconectando poco a poco los switches.
+
+Para que esto no vuelva a suceder tendríamos que tomar las siguientes medidas:
+- Realizar un inventario de direcciones =MAC=.
+- Definir una =VLAN= para cada aula, o separar cada aula detrás de un =NAT=, de forma que el tráfico =ARP= no se extienda por todo el instituto.
+- Instalar switches gestionables en todas las aulas, que nos permitan localizar de forma fácil las tramas con determinada dirección =MAC= de origen.
+- Securizar el arranque de los ordenadores de los alumnos: no se debería poder arrancar desde un disco externo ni desde la red, y la =BIOS= debería estar protegida con contraseña. También debería tener contraseña el gestor de arranque =GRUB=, y la cuenta de =root= debería tener una contraseña en vez de estar deshabilitada.
 
 
