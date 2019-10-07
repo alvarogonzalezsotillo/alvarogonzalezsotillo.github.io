@@ -8,7 +8,8 @@
 #+TAGS:        pihole,nmap,tcpdump
 #+LANGUAGE:    es
 #+OPTIONS:     H:3 num:t toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
-#+DESCRIPTION: He instalado /pihole/ en la red del instituto donde trabajo para intentar mejorar la velocidad de la red. y de forma imprevista, me ha ayudado a encontrar un intruso que pretendía hacer un MIM.
+#+options:     toc:2
+#+DESCRIPTION: He instalado /pihole/ en la red del instituto donde trabajo para intentar mejorar la velocidad de la red. y de forma imprevista, me ha ayudado a encontrar un intruso que pretendía hacer un ataque de denegación de servicio.
 
 
 Hace tiempo que la [[https://naseros.com/2017/01/16/es-el-ont-y-router-integrado-una-ventaja/][ONT]] de la red de mi instituto se colapsaba periódicamente. Para intentar descargarla, instalamos [[https://pi-hole.net/][=Pihole=]] para reducir las peticiones de DNS, y por tanto la memoria destinada a las conexiones UDP.
@@ -19,12 +20,12 @@ A pesar de ello, volvimos a tener una conexión a Internet inestable: unas aulas
 
 Utilizando la función de /network/ de =Pihole= encontramos algo anormal: la dirección IP del router se utilizaba por dos equipos de la red con [[https://es.wikipedia.org/wiki/Direcci%25C3%25B3n_MAC][dirección MAC]] distintas: la propia de la ONT y ~1c:6f:65:a7:4d:79~. De hecho, la MAC sospechosa se había anunciado en apenas dos horas como 7 direcciones IP distintas.
 
-#+title: Listado de direcciónes =MAC= e =IP= conocidas por =pihole=
+#+caption: Listado de direcciónes =MAC= e =IP= conocidas por =pihole=
 [[file:mac-con-siete-ips.png]]
 
-Empezaba a parecer un caso de [[https://es.wikipedia.org/wiki/Suplantaci%25C3%25B3n_de_ARP][ARP Spoofing]], quizás como paso previo para un [[https://es.wikipedia.org/wiki/Ataque_de_intermediario][man in the middle]]MIM. Con [[https://es.wikipedia.org/wiki/Tcpdump][=tcpdump=]] confirmamos nuestras sospechas.
+Empezaba a parecer un caso de [[https://es.wikipedia.org/wiki/Suplantaci%25C3%25B3n_de_ARP][ARP Spoofing]], quizás como paso previo para un [[https://es.wikipedia.org/wiki/Ataque_de_intermediario][man in the middle]]. Con [[https://es.wikipedia.org/wiki/Tcpdump][=tcpdump=]] confirmamos nuestras sospechas.
 
-#+title: Comprobación de tráfico =ARP= con =tcpdump=
+#+caption: Comprobación de tráfico =ARP= con =tcpdump=
 [[file:arp-en-tcpdump.png]]
 
 
@@ -35,7 +36,7 @@ Utilizando [[https://nmap.org/][Nmap]] descubrimos que el ordenador atacante ten
 
 Nos *desplazamos físicamente hasta el ordenador* en un momento en el que los alumnos estaban en otro aula. Utilizando el =tty4= observamos que el alumno había utilizado el =tty3= para ser superusuario y arrancar un script de python que realizaba las acciones maliciosas de red. Por lo visto, el script no servía para realizar MIM sino para limitar la velocidad del tráfico de algunos ordenadores (una denegación de servicio).
 
-#+title: Reconstrucción del =tty4= (a partir de =/dev/vcs4=)
+#+caption: Reconstrucción del =tty4= (a partir de =/dev/vcs4=)
 [[file:tty4.png]]
 
 Creemos que consiguió ser superusuario arrancando linux en [[https://askubuntu.com/questions/132965/how-do-i-boot-into-single-user-mode-from-grub][modo /singleuser/]], ya que el arranque =GRUB= no está protegido por contraseña.
