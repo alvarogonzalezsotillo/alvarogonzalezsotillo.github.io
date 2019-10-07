@@ -3,7 +3,8 @@
 ;;; Code:
 
 (require 'org-page)
-(defvar raiz-de-blog "/data/data/com.termux/files/home/storage/external-1/alvarogonzalezsotillo.github.io")
+;(defvar raiz-de-blog "/data/data/com.termux/files/home/storage/external-1/alvarogonzalezsotillo.github.io")
+(defvar raiz-de-blog "/home/alvaro/github/alvarogonzalezsotillo.github.io")
 
 (defun enable-babel ()
   (interactive)
@@ -40,7 +41,7 @@
   (require 'org-page)
 
   (setq op/repository-directory raiz-de-blog)
-  (setq op/repository-org-branch "termux")
+  (setq op/repository-org-branch "source")
   (setq op/repository-html-branch "master")
   (setq op/site-domain "https://alvarogonzalezsotillo.github.io/")
 
