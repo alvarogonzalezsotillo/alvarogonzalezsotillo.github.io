@@ -42,17 +42,18 @@ Hace tiempo que la <a href="https://naseros.com/2017/01/16/es-el-ont-y-router-in
 A pesar de ello, volvimos a tener una conexión a Internet inestable: unas aulas podían conectarse y otras no, e incluso llegaba a haber diferencias dentro de la misma aula. En mi caso, todos los ordenadores funcionaban excepto el del puesto del profesor.
 </p>
 
+
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orge089363">Descubriendo el ataque</a></li>
-<li><a href="#orgdb4241a">El contraataque</a></li>
-<li><a href="#org641b0d9">Medidas a tomar en un futuro</a></li>
+<li><a href="#org18fa203">Descubriendo el ataque</a></li>
+<li><a href="#orgeeb6009">El contraataque</a></li>
+<li><a href="#org6542a72">Medidas a tomar en un futuro</a></li>
 </ul>
 </div>
 
-<div id="outline-container-orge089363" class="outline-2">
-<h2 id="orge089363">Descubriendo el ataque</h2>
-<div class="outline-text-2" id="text-orge089363">
+<div id="outline-container-org18fa203" class="outline-2">
+<h2 id="org18fa203">Descubriendo el ataque</h2>
+<div class="outline-text-2" id="text-org18fa203">
 <p>
 Utilizando la función de <i>network</i> de <code>Pihole</code> encontramos algo anormal: la dirección IP del router se utilizaba por dos equipos de la red con <a href="https://es.wikipedia.org/wiki/Direcci%C3%B3n_MAC">dirección MAC</a> distintas: la propia de la ONT y <code>1c:6f:65:a7:4d:79</code>. De hecho, la MAC sospechosa se había anunciado en apenas dos horas como 7 direcciones IP distintas.
 </p>
@@ -82,15 +83,15 @@ El ordenador con MAC <code>1c:6f:65:a7:4d:79</code> enviaba cada dos segundos un
 </div>
 </div>
 
-<div id="outline-container-orgdb4241a" class="outline-2">
-<h2 id="orgdb4241a">El contraataque</h2>
-<div class="outline-text-2" id="text-orgdb4241a">
+<div id="outline-container-orgeeb6009" class="outline-2">
+<h2 id="orgeeb6009">El contraataque</h2>
+<div class="outline-text-2" id="text-orgeeb6009">
 <p>
-Utilizando <a href="https://nmap.org/">Nmap</a> descubrimos que el ordenador atacante tenía abiertos los puertos típicos de un ordenador Linux, entre ellos el puerto 22 de SSH. Ante la posibilidad de que fuera uno de los ordenadores del centro intentamos acceder por SSH con los usuarios y contraseñas que dejamos en las maquetas de los PC's de aula. Conseguimos entrar sin problemas, lo que nos permitió localizar el aula y puesto del PC.
+Utilizando <a href="https://nmap.org/">Nmap</a> descubrimos que el ordenador atacante tenía abiertos los puertos típicos de un ordenador Linux, entre ellos el puerto 22 de SSH. Ante la posibilidad de que fuera uno de los ordenadores del centro intentamos acceder por SSH con los usuarios y contraseñas que dejamos en las maquetas de los PC's de aula. Conseguimos entrar sin problemas, lo que nos permitió localizar el aula y puesto del PC. A partir de aquí solo quedaba recuperar información forense para saber exactamente qué había pasado.
 </p>
 
 <p>
-Nos <b>desplazamos físicamente hasta el ordenador</b> en un momento en el que los alumnos estaban en otro aula. Utilizando el <code>tty4</code> observamos que el alumno había utilizado el <code>tty3</code> para ser superusuario y arrancar un script de python que realizaba las acciones maliciosas de red. Por lo visto, el script no servía para realizar MIM sino para limitar la velocidad del tráfico de algunos ordenadores (una denegación de servicio).
+Nos <b>desplazamos físicamente hasta el ordenador</b> en un momento en el que los alumnos estaban en otro aula. Utilizando el <code>tty4</code> observamos que el alumno había utilizado el <code>tty3</code> para ser superusuario y arrancar un script de python que realizaba las acciones maliciosas de red. Por lo visto, el script no servía para realizar MIM sino para limitar la velocidad del tráfico de algunos ordenadores (una denegación de servicio). 
 </p>
 
 
@@ -108,11 +109,11 @@ Creemos que consiguió ser superusuario arrancando linux en <a href="https://ask
 </div>
 </div>
 
-<div id="outline-container-org641b0d9" class="outline-2">
-<h2 id="org641b0d9">Medidas a tomar en un futuro</h2>
-<div class="outline-text-2" id="text-org641b0d9">
+<div id="outline-container-org6542a72" class="outline-2">
+<h2 id="org6542a72">Medidas a tomar en un futuro</h2>
+<div class="outline-text-2" id="text-org6542a72">
 <p>
-En nuestro centro todas las aulas comparten la misma <a href="https://es.wikipedia.org/wiki/VLAN"><code>VLAN</code></a>, y la asignación de <code>IP</code> se hace dinámicamente por <code>DHCP</code>, por lo que <b>la localización del PC atacante fue cuestión de suerte</b>. Si el alumno hubiera utilizado un aula virtual, tendríamos que haber localizado el aula desconectando poco a poco los switches.
+En nuestro centro todas las aulas comparten la misma <a href="https://es.wikipedia.org/wiki/VLAN"><code>VLAN</code></a>, y la asignación de <code>IP</code> se hace dinámicamente por <code>DHCP</code>, por lo que <b>la localización del PC atacante fue cuestión de suerte</b>. Si el alumno hubiera utilizado una máquina virtual en modo <i>bridged</i>, tendríamos que haber localizado el aula desconectando poco a poco los switches.
 </p>
 
 <p>
