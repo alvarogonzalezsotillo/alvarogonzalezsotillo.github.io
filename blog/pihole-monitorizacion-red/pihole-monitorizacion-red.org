@@ -16,6 +16,7 @@ Hace tiempo que la [[https://naseros.com/2017/01/16/es-el-ont-y-router-integrado
 
 A pesar de ello, volvimos a tener una conexión a Internet inestable: unas aulas podían conectarse y otras no, e incluso llegaba a haber diferencias dentro de la misma aula. En mi caso, todos los ordenadores funcionaban excepto el del puesto del profesor.
 
+
 #+TOC: headlines 2 local
 
 * Descubriendo el ataque
