@@ -35,9 +35,9 @@ Empezaba a parecer un caso de [[https://es.wikipedia.org/wiki/Suplantaci%25C3%25
 El ordenador con MAC ~1c:6f:65:a7:4d:79~ enviaba cada dos segundos una [[https://es.wikipedia.org/wiki/Protocolo_de_resoluci%25C3%25B3n_de_direcciones#Alcance_de_funcionamiento][respuesta ARP]] suplantando la identidad del /router/. En ese momento dicho ordenador consideraba su dirección IP principal como ~10.1.0.201~.
 
 * El contraataque
-Utilizando [[https://nmap.org/][Nmap]] descubrimos que el ordenador atacante tenía abiertos los puertos típicos de un ordenador Linux, entre ellos el puerto 22 de SSH. Ante la posibilidad de que fuera uno de los ordenadores del centro intentamos acceder por SSH con los usuarios y contraseñas que dejamos en las maquetas de los PC's de aula. Conseguimos entrar sin problemas, lo que nos permitió localizar el aula y puesto del PC.
+Utilizando [[https://nmap.org/][Nmap]] descubrimos que el ordenador atacante tenía abiertos los puertos típicos de un ordenador Linux, entre ellos el puerto 22 de SSH. Ante la posibilidad de que fuera uno de los ordenadores del centro intentamos acceder por SSH con los usuarios y contraseñas que dejamos en las maquetas de los PC's de aula. Conseguimos entrar sin problemas, lo que nos permitió localizar el aula y puesto del PC. A partir de aquí solo quedaba recuperar información forense para saber exactamente qué había pasado.
 
-Nos *desplazamos físicamente hasta el ordenador* en un momento en el que los alumnos estaban en otro aula. Utilizando el =tty4= observamos que el alumno había utilizado el =tty3= para ser superusuario y arrancar un script de python que realizaba las acciones maliciosas de red. Por lo visto, el script no servía para realizar MIM sino para limitar la velocidad del tráfico de algunos ordenadores (una denegación de servicio).
+Nos *desplazamos físicamente hasta el ordenador* en un momento en el que los alumnos estaban en otro aula. Utilizando el =tty4= observamos que el alumno había utilizado el =tty3= para ser superusuario y arrancar un script de python que realizaba las acciones maliciosas de red. Por lo visto, el script no servía para realizar MIM sino para limitar la velocidad del tráfico de algunos ordenadores (una denegación de servicio). 
 
 #+caption: Reconstrucción del =tty4= (a partir de =/dev/vcs4=)
 [[file:tty4.png]]
