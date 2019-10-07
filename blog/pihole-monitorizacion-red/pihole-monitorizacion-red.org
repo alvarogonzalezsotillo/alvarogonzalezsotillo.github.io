@@ -12,7 +12,6 @@
 #+options:     num:nil
 #+DESCRIPTION: He instalado /pihole/ en la red del instituto donde trabajo para intentar mejorar la velocidad de la red. y de forma imprevista, me ha ayudado a encontrar un intruso que pretendía hacer un ataque de denegación de servicio.
 
-
 Hace tiempo que la [[https://naseros.com/2017/01/16/es-el-ont-y-router-integrado-una-ventaja/][ONT]] de la red de mi instituto se colapsaba periódicamente. Para intentar descargarla, instalamos [[https://pi-hole.net/][=Pihole=]] para reducir las peticiones de DNS, y por tanto la memoria destinada a las conexiones UDP.
 
 A pesar de ello, volvimos a tener una conexión a Internet inestable: unas aulas podían conectarse y otras no, e incluso llegaba a haber diferencias dentro de la misma aula. En mi caso, todos los ordenadores funcionaban excepto el del puesto del profesor.
@@ -40,7 +39,9 @@ Utilizando [[https://nmap.org/][Nmap]] descubrimos que el ordenador atacante ten
 Nos *desplazamos físicamente hasta el ordenador* en un momento en el que los alumnos estaban en otro aula. Utilizando el =tty4= observamos que el alumno había utilizado el =tty3= para ser superusuario y arrancar un script de python que realizaba las acciones maliciosas de red. Por lo visto, el script no servía para realizar MIM sino para limitar la velocidad del tráfico de algunos ordenadores (una denegación de servicio).
 
 #+caption: Reconstrucción del =tty4= (a partir de =/dev/vcs4=)
-[[file:tty4.png][file:tty4.png]]
+[[file:tty4.png]]
+
+
 
 Creemos que consiguió ser superusuario arrancando linux en [[https://askubuntu.com/questions/132965/how-do-i-boot-into-single-user-mode-from-grub][modo /singleuser/]], ya que el arranque =GRUB= no está protegido por contraseña.
 
@@ -53,4 +54,21 @@ Para que esto no vuelva a suceder tendríamos que tomar las siguientes medidas:
 - Instalar switches gestionables en todas las aulas, que nos permitan localizar de forma fácil las tramas con determinada dirección =MAC= de origen.
 - Securizar el arranque de los ordenadores de los alumnos: no se debería poder arrancar desde un disco externo ni desde la red, y la =BIOS= debería estar protegida con contraseña. También debería tener contraseña el gestor de arranque =GRUB=, y la cuenta de =root= debería tener una contraseña en vez de estar deshabilitada.
 
+
+
+#+begin_export html
+<script>
+window.addEventListener("load",()=>{
+  let images = document.getElementsByTagName('img'); 
+  console.log(images);
+  for( let i of images){
+    console.log( "Autoenlazando:" + i );
+    console.log( i );
+    i.style.cursor = "pointer";
+    i.onclick = ()=> window.location = i.src; 
+  }
+});
+
+</script>
+#+end_export
 
