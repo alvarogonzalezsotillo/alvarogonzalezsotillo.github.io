@@ -11,6 +11,7 @@
 
 #+language:    es
 #+options: toc:2
+#+options: num:nil
 
 #+attr_html: :align right :style width:10%;max-width:200px;min-width:100px;margin:2em;
 [[https://www.asus.com/us/mini-pcs/vivomini-vc66/][file:./asus-vc66.png]]
