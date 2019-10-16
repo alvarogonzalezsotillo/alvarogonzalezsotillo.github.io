@@ -27,5 +27,61 @@ Estoy empezando a entrenar, y en mi rutina está incluida una caminata con cambi
 
 Hay muchísimas apps para realizar este tipo de entrenamientos (en *Runtastic* se llama [[https://help.runtastic.com/hc/en-us/articles/203335601-Create-an-interval-training][interval training]]), pero utilizarlas no tiene mérito ☺. Es mucho más divertido utilizar =termux-vibrate= y =termux-tts-speak= en un script para conseguir este efecto.
 
+#+BEGIN_SRC 
+mensaje(){
+    echo $(date +%H:%M:%S) " -- " $*
+}
 
+hablar(){
+    mensaje "$1"
+    (termux-vibrate;
+    termux-tts-speak "$1")&
+}
+
+temporizador(){
+    # Temporizador con cuenta atrás
+    for s in $(seq "$1" -10 9)
+    do
+        printf "%d " $s
+        sleep 10
+    done
+    printf "\n"
+}
+
+esperar_y_hablar(){
+    mensaje "Esperando $1 segundos para:" "$2"
+
+    # El temporizador tiene problemas de precisión
+    # Mejor lanzarlo asíncrono y esperar con sleep
+    temporizador "$1"&
+    sleep "$1"
+
+    hablar "$2"
+}
+
+
+# Solicitamos no entrar en deep sleep
+termux-wake-lock
+
+hablar "en 5 minutos se comenzará a andar rápido"
+esperar_y_hablar $((5*60)) "Ahora hay que andar rápido"
+
+esperar_y_hablar $((2*60)) "Ahora hay que andar lento"
+esperar_y_hablar $((2*60)) "Ahora hay que andar rápido"
+
+esperar_y_hablar $((2*60)) "Ahora hay que andar lento"
+esperar_y_hablar $((2*60)) "Ahora hay que andar rápido"
+
+esperar_y_hablar $((2*60)) "Ahora hay que andar lento"
+esperar_y_hablar $((2*60)) "Ahora hay que andar rápido"
+
+esperar_y_hablar $((2*60)) "Ahora hay que andar lento"
+esperar_y_hablar $((2*60)) "Ahora hay que andar rápido"
+
+esperar_y_hablar $((2*60)) "ya hemos acabado"
+
+# Ya podemos ir a deep sleep
+termux-wake-unlock
+
+#+END_SRC
 
