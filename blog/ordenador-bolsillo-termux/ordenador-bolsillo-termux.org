@@ -3,7 +3,7 @@
 #+AUTHOR:      Álvaro González Sotillo
 #+EMAIL:       alvarogonzalezsotillo@gmail.com
 #+DATE:        2019-07-02
-#+URI:         /blog/ordenador-bolsillo-termux/ordenador-bolsillo-termux.org
+#+URI:         /blog/ordenador-bolsillo-termux/
 #+KEYWORDS:    termux
 #+TAGS:        termux
 #+LANGUAGE:    es

@@ -14,7 +14,7 @@
 
 * Qué es Termux:API
 
-Ya comenté que [[../../../blog/ordenador-bolsillo-termux][Android tenía un terminal]] muy interesante con Termux. El problema es que estaba algo limitado ya que no tenía una integración real con el teléfono. Este problema está en vía de solución con [[https://wiki.termux.com/wiki/Termux:API][*Termux:API*]].
+Ya comenté que [[../../../blog/ordenador-bolsillo-termux/][Android tenía un terminal]] muy interesante con Termux. El problema es que estaba algo limitado ya que no tenía una integración real con el teléfono. Este problema está en vía de solución con [[https://wiki.termux.com/wiki/Termux:API][*Termux:API*]].
 
 Las instrucciones de instalación son simples:
 - Instalar la aplicación [[https://play.google.com/store/apps/details?id=com.termux.api&hl=en_US][*Termux:API*]] desde Google Play
