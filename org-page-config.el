@@ -4,7 +4,9 @@
 
 (require 'org-page)
 ;(defvar raiz-de-blog "/data/data/com.termux/files/home/storage/external-1/alvarogonzalezsotillo.github.io")
-(defvar raiz-de-blog "/home/alvaro/github/alvarogonzalezsotillo.github.io")
+(defvar raiz-de-blog "/home/alvaro/alvarogonzalezsotillo.github.io")
+(defvar branch-de-blog "source")
+(setq branch-de-blog "termux-api")
 
 (defun enable-babel ()
   (interactive)
@@ -41,7 +43,7 @@
   (require 'org-page)
 
   (setq op/repository-directory raiz-de-blog)
-  (setq op/repository-org-branch "source")
+  (setq op/repository-org-branch branch-de-blog)
   (setq op/repository-html-branch "master")
   (setq op/site-domain "https://alvarogonzalezsotillo.github.io/")
 

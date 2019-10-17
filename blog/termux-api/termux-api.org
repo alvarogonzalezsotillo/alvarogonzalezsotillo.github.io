@@ -1,0 +1,92 @@
+
+#+TITLE:       Termux-api
+#+AUTHOR:      Álvaro González Sotillo
+#+EMAIL:       alvarogonzalezsotillo@gmail.com
+#+DATE:        2019-10-16
+#+URI:         /blog/termux-api/termux-api.org
+#+KEYWORDS:    termux
+#+TAGS:        termux
+#+LANGUAGE:    es
+#+OPTIONS:     H:3 num:t toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+# #+options:     toc:2
+#+options:     num:nil
+#+DESCRIPTION: /Termux/ instala un terminal y muchos de los comandos de Linux en Android. Ahora con /Termux:API/ se añaden algunos comandos para interactuar con Android desde la shell.
+
+* Qué es Termux:API
+
+Ya comenté que [[../../../blog/ordenador-bolsillo-termux/ordenador-bolsillo-termux.org][Android tenía un terminal]] muy interesante con Termux. El problema es que estaba algo limitado ya que no tenía una integración real con el teléfono. Este problema está en vía de solución con [[https://wiki.termux.com/wiki/Termux:API][*Termux:API*]].
+
+Las instrucciones de instalación son simples:
+- Instalar la aplicación [[https://play.google.com/store/apps/details?id=com.termux.api&hl=en_US][*Termux:API*]] desde Google Play
+- Instalar el paquete =termux-api= desde la terminal de Termux.
+
+Con esto ya se pueden crear /scripts/ de /shell/ que interaccionen con el teléfono. 
+
+* Un ejemplo de uso
+Estoy empezando a entrenar, y en mi rutina está incluida una caminata con cambios de ritmo: 5 minutos de calentamiento, 2 minutos a paso rápido, 2 a paso lento... hasta los 23 minutos en total. 
+
+Hay muchísimas apps para realizar este tipo de entrenamientos (en *Runtastic* se llama [[https://help.runtastic.com/hc/en-us/articles/203335601-Create-an-interval-training][interval training]]), pero utilizarlas no tiene mérito ☺. Es mucho más divertido utilizar =termux-vibrate= y =termux-tts-speak= (ver funcion =hablar=) en un script para conseguir este efecto.
+
+#+BEGIN_SRC shell
+# Solicitamos no entrar en deep sleep
+termux-wake-lock
+
+hablar "en 5 minutos se comenzará a andar rápido"
+esperar_y_hablar $((5*60)) "Ahora hay que andar rápido"
+
+esperar_y_hablar $((2*60)) "Ahora hay que andar lento"
+esperar_y_hablar $((2*60)) "Ahora hay que andar rápido"
+
+esperar_y_hablar $((2*60)) "Ahora hay que andar lento"
+esperar_y_hablar $((2*60)) "Ahora hay que andar rápido"
+
+esperar_y_hablar $((2*60)) "Ahora hay que andar lento"
+esperar_y_hablar $((2*60)) "Ahora hay que andar rápido"
+
+esperar_y_hablar $((2*60)) "Ahora hay que andar lento"
+esperar_y_hablar $((2*60)) "Ahora hay que andar rápido"
+
+esperar_y_hablar $((2*60)) "ya hemos acabado"
+
+# Ya podemos ir a deep sleep
+termux-wake-unlock
+#+END_SRC
+
+El listado anterior utiliza estas funciones de /shell/:
+
+#+BEGIN_SRC sh
+#!/bin/bash
+
+mensaje(){
+    echo $(date +%H:%M:%S) " -- " $*
+}
+
+hablar(){
+    mensaje "$1"
+    (termux-vibrate;
+    termux-tts-speak "$1")&
+}
+
+temporizador(){
+    # Temporizador con cuenta atrás
+    for s in $(seq "$1" -10 9)
+    do
+        printf "%d " $s
+        sleep 10
+    done
+    printf "\n"
+}
+
+esperar_y_hablar(){
+    mensaje "Esperando $1 segundos para:" "$2"
+
+    # El temporizador tiene problemas de precisión
+    # Mejor lanzarlo asíncrono y esperar con sleep
+    temporizador "$1"&
+    sleep "$1"
+
+    hablar "$2"
+}
+#+END_SRC
+
+
