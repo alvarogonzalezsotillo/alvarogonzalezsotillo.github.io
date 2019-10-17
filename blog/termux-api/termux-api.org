@@ -25,9 +25,38 @@ Con esto ya se pueden crear /scripts/ de /shell/ que interaccionen con el teléf
 * Un ejemplo de uso
 Estoy empezando a entrenar, y en mi rutina está incluida una caminata con cambios de ritmo: 5 minutos de calentamiento, 2 minutos a paso rápido, 2 a paso lento... hasta los 23 minutos en total. 
 
-Hay muchísimas apps para realizar este tipo de entrenamientos (en *Runtastic* se llama [[https://help.runtastic.com/hc/en-us/articles/203335601-Create-an-interval-training][interval training]]), pero utilizarlas no tiene mérito ☺. Es mucho más divertido utilizar =termux-vibrate= y =termux-tts-speak= en un script para conseguir este efecto.
+Hay muchísimas apps para realizar este tipo de entrenamientos (en *Runtastic* se llama [[https://help.runtastic.com/hc/en-us/articles/203335601-Create-an-interval-training][interval training]]), pero utilizarlas no tiene mérito ☺. Es mucho más divertido utilizar =termux-vibrate= y =termux-tts-speak= (ver funcion =hablar=) en un script para conseguir este efecto.
 
-#+BEGIN_SRC 
+#+BEGIN_SRC shell
+# Solicitamos no entrar en deep sleep
+termux-wake-lock
+
+hablar "en 5 minutos se comenzará a andar rápido"
+esperar_y_hablar $((5*60)) "Ahora hay que andar rápido"
+
+esperar_y_hablar $((2*60)) "Ahora hay que andar lento"
+esperar_y_hablar $((2*60)) "Ahora hay que andar rápido"
+
+esperar_y_hablar $((2*60)) "Ahora hay que andar lento"
+esperar_y_hablar $((2*60)) "Ahora hay que andar rápido"
+
+esperar_y_hablar $((2*60)) "Ahora hay que andar lento"
+esperar_y_hablar $((2*60)) "Ahora hay que andar rápido"
+
+esperar_y_hablar $((2*60)) "Ahora hay que andar lento"
+esperar_y_hablar $((2*60)) "Ahora hay que andar rápido"
+
+esperar_y_hablar $((2*60)) "ya hemos acabado"
+
+# Ya podemos ir a deep sleep
+termux-wake-unlock
+#+END_SRC
+
+El listado anterior utiliza estas funciones de /shell/:
+
+#+BEGIN_SRC sh
+#!/bin/bash
+
 mensaje(){
     echo $(date +%H:%M:%S) " -- " $*
 }
@@ -58,30 +87,6 @@ esperar_y_hablar(){
 
     hablar "$2"
 }
-
-
-# Solicitamos no entrar en deep sleep
-termux-wake-lock
-
-hablar "en 5 minutos se comenzará a andar rápido"
-esperar_y_hablar $((5*60)) "Ahora hay que andar rápido"
-
-esperar_y_hablar $((2*60)) "Ahora hay que andar lento"
-esperar_y_hablar $((2*60)) "Ahora hay que andar rápido"
-
-esperar_y_hablar $((2*60)) "Ahora hay que andar lento"
-esperar_y_hablar $((2*60)) "Ahora hay que andar rápido"
-
-esperar_y_hablar $((2*60)) "Ahora hay que andar lento"
-esperar_y_hablar $((2*60)) "Ahora hay que andar rápido"
-
-esperar_y_hablar $((2*60)) "Ahora hay que andar lento"
-esperar_y_hablar $((2*60)) "Ahora hay que andar rápido"
-
-esperar_y_hablar $((2*60)) "ya hemos acabado"
-
-# Ya podemos ir a deep sleep
-termux-wake-unlock
-
 #+END_SRC
+
 
