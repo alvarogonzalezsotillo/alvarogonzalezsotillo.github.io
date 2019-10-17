@@ -4,10 +4,45 @@
     <title>Álvaro González Sotillo</title>
     <link>https://alvarogonzalezsotillo.github.io/</link>
     <description></description>
-    <pubDate>jue, 20 jun 2019 17:39:34 CEST</pubDate>
-    <lastBuildDate>jue, 20 jun 2019 17:39:34 CEST</lastBuildDate>
+    <pubDate>jue, 17 oct 2019 13:23:35 CEST</pubDate>
+    <lastBuildDate>jue, 17 oct 2019 13:23:35 CEST</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
+    <item>
+      <title>Mi ordenador de bolsillo con termux </title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/ordenador-bolsillo-termux/</link>
+      <description><![CDATA[Una ventaja de usar sobre todo herramientas de consola es que es uno de los sistemas UI más antiguos y simples de implementar y, por tanto, más extendido y estándar. También en tu Android.]]></description>
+      <pubDate>2019-10-17</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/ordenador-bolsillo-termux/</guid>
+    </item>
+    <item>
+      <title>Termux-api</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/termux-api/termux-api.org</link>
+      <description><![CDATA[/Termux/ instala un terminal y muchos de los comandos de Linux en Android. Ahora con /Termux:API/ se añaden algunos comandos para interactuar con Android desde la shell.]]></description>
+      <pubDate>2019-10-17</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/termux-api/termux-api.org</guid>
+    </item>
+    <item>
+      <title>Nuevo HTPC en casa</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/ordenador-de-sobremesa-servidor-htpc</link>
+      <description><![CDATA[Acabo de comprarme un asus vc-66. Mi intención es utilizarlo como servidor accesible desde internet, pero también como htpc. Estos son los pasos que he seguido para configurarlo.]]></description>
+      <pubDate>2019-10-07</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/ordenador-de-sobremesa-servidor-htpc</guid>
+    </item>
+    <item>
+      <title>Pihole y monitorización de red</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/pihole-monitorizacion-red/pihole-monitorizacion-red.org</link>
+      <description><![CDATA[He instalado /pihole/ en la red del instituto donde trabajo para intentar mejorar la velocidad de la red. y de forma imprevista, me ha ayudado a encontrar un intruso que pretendía hacer un ataque de denegación de servicio.]]></description>
+      <pubDate>2019-10-07</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/pihole-monitorizacion-red/pihole-monitorizacion-red.org</guid>
+    </item>
+    <item>
+      <title>Blogueando con orgmode</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/blogueando-con-orgmode</link>
+      <description><![CDATA[Es posible crear un blog sin (casi) salir de emacs.]]></description>
+      <pubDate>2019-07-04</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/blogueando-con-orgmode</guid>
+    </item>
     <item>
       <title>Resaltar las ocurrencias de la selección en Emacs</title>
       <link>https://alvarogonzalezsotillo.github.io/blog/resaltar-ocurrencias-seleccion-emacs</link>
@@ -42,41 +77,6 @@
       <description><![CDATA[=org-babel= permite ejecutar los listados incluidos en un documento. Incluso la propia configuración de /emacs/ puede estar en un fichero =org=]]></description>
       <pubDate>2018-12-05</pubDate>
       <guid>https://alvarogonzalezsotillo.github.io/blog/literate-programming-configuracion-emacs</guid>
-    </item>
-    <item>
-      <title>Practicar ortografía desde el navegador</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/practicar-ortografia</link>
-      <description><![CDATA[La mejor forma de practicar ortografía es mediante dictados, oyendo la palabra a escribir]]></description>
-      <pubDate>2018-11-20</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/practicar-ortografia</guid>
-    </item>
-    <item>
-      <title>El Cluedo como problema de lógica de segundo orden</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/el-cluedo-como-problema-de-logica</link>
-      <description><![CDATA[El Cluedo es considerado un juego para niños, pero bajo su superficie hay un interesante problema de lógica de segundo orden.]]></description>
-      <pubDate>2018-11-13</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/el-cluedo-como-problema-de-logica</guid>
-    </item>
-    <item>
-      <title>Ajuste de ecuaciones moleculares</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/ajuste-de-ecuaciones-moleculares</link>
-      <description><![CDATA[Ajuste de ecuaciones moleculares en Scalajs con el método algebarico.]]></description>
-      <pubDate>2018-11-13</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/ajuste-de-ecuaciones-moleculares</guid>
-    </item>
-    <item>
-      <title>Cómo publico materiales para clase</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/mi-publicacion-de-materiales-para-clase</link>
-      <description><![CDATA[Los materiales que preparamos los profesores se distribuyen entre los alumnos mediante plataformas de aprendizaje como Moodle. Lo interesante es cómo llegan esos materiales a la plataforma.]]></description>
-      <pubDate>2018-11-13</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/mi-publicacion-de-materiales-para-clase</guid>
-    </item>
-    <item>
-      <title>Cómo preparo mi entorno con Emacs</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/como-preparo-mi-entorno-con-emacs</link>
-      <description><![CDATA[Cada vez que llego a un nuevo ordenador tengo que preparar mi entorno, y se puede hacer fácilmente con un par de /scripts/]]></description>
-      <pubDate>2018-11-11</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/como-preparo-mi-entorno-con-emacs</guid>
     </item>
   </channel>
 </rss>

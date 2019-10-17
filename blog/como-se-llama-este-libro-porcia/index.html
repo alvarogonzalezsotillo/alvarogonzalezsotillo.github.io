@@ -38,19 +38,19 @@
 <h2>&Iacute;ndice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org20ff65c">1. Problemas de cajas de Porcia</a></li>
-<li><a href="#org3472301">2. Motor lógico</a></li>
-<li><a href="#org14901a6">3. Cofres</a></li>
-<li><a href="#org97575a2">4. Solucionador</a></li>
-<li><a href="#orga7978ed">5. Problemas resueltos</a>
+<li><a href="#org637036b">1. Problemas de cajas de Porcia</a></li>
+<li><a href="#orgb335b47">2. Motor lógico</a></li>
+<li><a href="#org742a082">3. Cofres</a></li>
+<li><a href="#orgccc5232">4. Solucionador</a></li>
+<li><a href="#org9540966">5. Problemas resueltos</a>
 <ul>
-<li><a href="#org2508285">5.1. Primer problema</a></li>
-<li><a href="#org908ae03">5.2. Segundo problema</a></li>
-<li><a href="#org709858c">5.3. Tercer problema</a></li>
-<li><a href="#org1528f7a">5.4. Cuarto problema</a></li>
-<li><a href="#orgabc1523">5.5. Quinto problema</a></li>
-<li><a href="#org74632fb">5.6. Sexto problema</a></li>
-<li><a href="#org855474e">5.7. Séptimo problema</a></li>
+<li><a href="#org1e1b2bd">5.1. Primer problema</a></li>
+<li><a href="#orgf328884">5.2. Segundo problema</a></li>
+<li><a href="#org0cf0a8c">5.3. Tercer problema</a></li>
+<li><a href="#org70be6ed">5.4. Cuarto problema</a></li>
+<li><a href="#orga69c24b">5.5. Quinto problema</a></li>
+<li><a href="#org10d2dcd">5.6. Sexto problema</a></li>
+<li><a href="#orge4eb170">5.7. Séptimo problema</a></li>
 </ul>
 </li>
 </ul>
@@ -60,8 +60,8 @@
 Todo el <a href="https://github.com/alvarogonzalezsotillo/cluedo/blob/master/js/ejemplos-porcia.js">código al que se hace referencia</a> en esta entrada está disponible en <a href="https://github.com/alvarogonzalezsotillo/cluedo">un repositorio Github</a>
 </p>
 
-<div id="outline-container-org20ff65c" class="outline-2">
-<h2 id="org20ff65c"><span class="section-number-2">1</span> Problemas de cajas de Porcia</h2>
+<div id="outline-container-org637036b" class="outline-2">
+<h2 id="org637036b"><span class="section-number-2">1</span> Problemas de cajas de Porcia</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 El libro <i><a href="https://www.casadellibro.com/libro-como-se-llama-este-libro-el-enigma-de-dracula-y-otros-pasatiem-pos-logicos-9-ed/9788437602974/297161">¿Cómo se llama este libro?</a></i>, de <a href="https://es.wikipedia.org/wiki/Raymond_Smullyan">Raymond Smullyan</a> es un clásico de las matemáticas recreativas. Entre sus numerosos problemas, hay un tipo relativo a cajas con inscripciones ciertas o falsas, y se debe encontrar la caja que contiene un retrato (o una daga) utilizando sólo la lógica. Este es el primero de esos problemas:
@@ -156,8 +156,8 @@ Este problema puede resolverse utilizando como motor lógico el ya implementado 
 </div>
 </div>
 
-<div id="outline-container-org3472301" class="outline-2">
-<h2 id="org3472301"><span class="section-number-2">2</span> Motor lógico</h2>
+<div id="outline-container-orgb335b47" class="outline-2">
+<h2 id="orgb335b47"><span class="section-number-2">2</span> Motor lógico</h2>
 <div class="outline-text-2" id="text-2">
 <ul class="org-ul">
 <li><p>
@@ -223,8 +223,8 @@ Entre las expresiones implementadas, se encuentran:
 </div>
 </div>
 
-<div id="outline-container-org14901a6" class="outline-2">
-<h2 id="org14901a6"><span class="section-number-2">3</span> Cofres</h2>
+<div id="outline-container-org742a082" class="outline-2">
+<h2 id="org742a082"><span class="section-number-2">3</span> Cofres</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 Cada cofre tiene un nombre y una variable booleana que indica si contiene o no algo. Posteriormente a su creación se le pueden añadir varias inscripciones.
@@ -246,14 +246,14 @@ Cada cofre tiene un nombre y una variable booleana que indica si contiene o no a
         if( typeof this._inscripciones != "undefined" ){
             throw new Error("No se pueden cambiar las inscripciones de un cofre");
         }
-
+   
         this._inscripciones = ins.slice(0);
     }
 
     get inscripciones(){
         return this._inscripciones.slice(0);
     }
-
+    
 
     get cofreLleno(){
         return this._cofreLleno;
@@ -400,8 +400,8 @@ era verdad. ¿Cuál cofre debe de elegir el pretendiente?
 </div>
 
 
-<div id="outline-container-org97575a2" class="outline-2">
-<h2 id="org97575a2"><span class="section-number-2">4</span> Solucionador</h2>
+<div id="outline-container-orgccc5232" class="outline-2">
+<h2 id="orgccc5232"><span class="section-number-2">4</span> Solucionador</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 Para solucionar los problemas de cajas, debemos tener en cuenta que:
@@ -460,12 +460,12 @@ La función <code>CPAllPosibilies</code> da valor a las variables pasadas, y dev
 </div>
 
 
-<div id="outline-container-orga7978ed" class="outline-2">
-<h2 id="orga7978ed"><span class="section-number-2">5</span> Problemas resueltos</h2>
+<div id="outline-container-org9540966" class="outline-2">
+<h2 id="org9540966"><span class="section-number-2">5</span> Problemas resueltos</h2>
 <div class="outline-text-2" id="text-5">
 </div>
-<div id="outline-container-org2508285" class="outline-3">
-<h3 id="org2508285"><span class="section-number-3">5.1</span> Primer problema</h3>
+<div id="outline-container-org1e1b2bd" class="outline-3">
+<h3 id="org1e1b2bd"><span class="section-number-3">5.1</span> Primer problema</h3>
 <div class="outline-text-3" id="text-5-1">
 <problemaporciaysolucionresuelta>
 <div class="PORCIA">
@@ -576,8 +576,8 @@ Se debe elegir el cofre:Plata
 </div>
 
 
-<div id="outline-container-org908ae03" class="outline-3">
-<h3 id="org908ae03"><span class="section-number-3">5.2</span> Segundo problema</h3>
+<div id="outline-container-orgf328884" class="outline-3">
+<h3 id="orgf328884"><span class="section-number-3">5.2</span> Segundo problema</h3>
 <div class="outline-text-3" id="text-5-2">
 <problemaporciaysolucionresuelta>
 <div class="PORCIA">
@@ -681,7 +681,7 @@ enunciados era verdadero y que por lo menos otro era falso.
 
     const solucion = porcia(cofres,true);
     console.log("Se debe elegir el cofre:" + solucion.cofre.nombre);
-
+    
 }
 </pre>
 </div>
@@ -693,8 +693,8 @@ Se debe elegir el cofre:Oro
 </div>
 
 
-<div id="outline-container-org709858c" class="outline-3">
-<h3 id="org709858c"><span class="section-number-3">5.3</span> Tercer problema</h3>
+<div id="outline-container-org0cf0a8c" class="outline-3">
+<h3 id="org0cf0a8c"><span class="section-number-3">5.3</span> Tercer problema</h3>
 <div class="outline-text-3" id="text-5-3">
 <p>
 Este problema incluye una novedad: los cofres tienen más de una inscripción. Además, se incluye una variable externa en dos de las inscripciones, no relativa a los cofres.
@@ -784,7 +784,7 @@ que ninguna de ellas tenía más que un enunciado falso.
     let [cofreOro,cofrePlata,cofrePlomo] = cofres;
 
     let veneciano = CP.Boolean( "El autor es veneciano");
-
+    
     cofreOro.inscripciones = [CP.Not(cofreOro.cofreLleno), veneciano];
     cofrePlata.inscripciones = [CP.Not(cofreOro.cofreLleno), CP.Not(veneciano)];
     cofrePlomo.inscripciones = [CP.Not(cofrePlomo.cofreLleno), cofrePlata.cofreLleno];
@@ -806,8 +806,8 @@ Se debe elegir el cofre:Plata
 </div>
 
 
-<div id="outline-container-org1528f7a" class="outline-3">
-<h3 id="org1528f7a"><span class="section-number-3">5.4</span> Cuarto problema</h3>
+<div id="outline-container-org70be6ed" class="outline-3">
+<h3 id="org70be6ed"><span class="section-number-3">5.4</span> Cuarto problema</h3>
 <div class="outline-text-3" id="text-5-4">
 <problemaporciaysolucionresuelta>
 <div class="PORCIA">
@@ -893,7 +893,7 @@ uno era verdadero y otro falso:
     const cofres = Cofre.creaCofres(CP,["Oro","Plata","Plomo"]);
     const [cofreOro,cofrePlata,cofrePlomo] = cofres;
 
-
+    
     cofreOro.inscripciones = [CP.Not(cofreOro.cofreLleno), cofrePlata.cofreLleno];
     cofrePlata.inscripciones = [CP.Not(cofreOro.cofreLleno), cofrePlomo.cofreLleno];
     cofrePlomo.inscripciones = [CP.Not(cofrePlomo.cofreLleno), cofreOro.cofreLleno];
@@ -910,7 +910,7 @@ uno era verdadero y otro falso:
     ]));
 
     CP.SomeTrue(posibilidades,1).asTrue().rename("Una caja cierta, otra caja falsa, y otra caja a medias");
-
+    
     const solucion = porcia(cofres,true);
     console.log("Se debe elegir el cofre:" + solucion.cofre.nombre);
 }
@@ -926,7 +926,7 @@ function permutaciones(array){
     const tail = array.slice(1);
 
     const subpermutaciones = permutaciones(tail);
-
+    
     const ret = [];
     for( let i = 0 ; i &lt; subpermutaciones.length ; i += 1 ){
         const subpermutacion = subpermutaciones[i];
@@ -952,8 +952,8 @@ Se debe elegir el cofre:Plomo
 </div>
 
 
-<div id="outline-container-orgabc1523" class="outline-3">
-<h3 id="orgabc1523"><span class="section-number-3">5.5</span> Quinto problema</h3>
+<div id="outline-container-orga69c24b" class="outline-3">
+<h3 id="orga69c24b"><span class="section-number-3">5.5</span> Quinto problema</h3>
 <div class="outline-text-3" id="text-5-5">
 <p>
 En este problema una inscripción es auto-referente, ya que habla de la verdad de las propias inscripciones. En la implementación, se ha creado una variable booleana adicional, ya que una vez asignadas las inscripciones de los cofres no pueden cambiarse.
@@ -1077,8 +1077,8 @@ Se debe elegir el cofre:Plomo
 
 
 
-<div id="outline-container-org74632fb" class="outline-3">
-<h3 id="org74632fb"><span class="section-number-3">5.6</span> Sexto problema</h3>
+<div id="outline-container-org10d2dcd" class="outline-3">
+<h3 id="org10d2dcd"><span class="section-number-3">5.6</span> Sexto problema</h3>
 <div class="outline-text-3" id="text-5-6">
 <problemaporciaysolucionresuelta>
 <div class="PORCIA">
@@ -1137,12 +1137,12 @@ Bellini y en ellos se leía:
     const [cofreOro,cofrePlata] = cofres;
 
     const unoYSoloUnoEsDeBellini = CP.Boolean("Un cofre y solo uno es de Bellini");
-
+    
     cofreOro.inscripciones = [ cofrePlata.cofreLleno ];
     cofrePlata.inscripciones = [ unoYSoloUnoEsDeBellini ];
 
     const todasLasInscripciones = cofreOro.inscripciones.concat(cofrePlata.inscripciones);
-
+    
     CP.Bind( unoYSoloUnoEsDeBellini, CP.SomeTrue(todasLasInscripciones,1) );
 
     const solucion = porcia(cofres,true);
@@ -1159,8 +1159,8 @@ Se debe elegir el cofre:Oro
 
 
 
-<div id="outline-container-org855474e" class="outline-3">
-<h3 id="org855474e"><span class="section-number-3">5.7</span> Séptimo problema</h3>
+<div id="outline-container-orge4eb170" class="outline-3">
+<h3 id="orge4eb170"><span class="section-number-3">5.7</span> Séptimo problema</h3>
 <div class="outline-text-3" id="text-5-7">
 <problemaporciaysolucionresuelta>
 <div class="PORCIA">

@@ -35,9 +35,9 @@
 <div class="post">
 <h1>Servidor linux para exámenes</h1>
 
-<div id="outline-container-org8ba0c66" class="outline-2">
-<h2 id="org8ba0c66">El problema</h2>
-<div class="outline-text-2" id="text-org8ba0c66">
+<div id="outline-container-org7f906bc" class="outline-2">
+<h2 id="org7f906bc">El problema</h2>
+<div class="outline-text-2" id="text-org7f906bc">
 <p>
 A la hora de realizar un trabajo o examen práctico sobre un ordenador, los profesores tenemos varias alternativas:
 </p>
@@ -57,9 +57,9 @@ A continuación, describiré qué pasos sigo para crear un entorno Linux para mi
 </div>
 </div>
 
-<div id="outline-container-org0c5377b" class="outline-2">
-<h2 id="org0c5377b">Entorno Linux</h2>
-<div class="outline-text-2" id="text-org0c5377b">
+<div id="outline-container-org20fce6a" class="outline-2">
+<h2 id="org20fce6a">Entorno Linux</h2>
+<div class="outline-text-2" id="text-org20fce6a">
 <p>
 Cada alumno tendrá su propia contraseña. Generar las contraseñas aleatoriamente no es una buena idea, puesto que dificulta su recuperación en caso de pérdida. Es mejor que la contraseña dependa del nombre del usuario, por ejemplo los primeros caracteres del hash del usuario. 
 </p>
@@ -92,7 +92,7 @@ Los usuarios se crean la contraseña especificada por la función anterior. El d
     local USER=$1
     local PASS=$(password_para_alumno $USER)
 
-
+    
     sudo useradd $USER -m -s /bin/bash
     echo "$USER:$PASS" | sudo chpasswd
 
@@ -120,7 +120,7 @@ En el momento del examen, es necesario que los alumnos conozcan su contraseña d
 <label class="org-src-name"><span class="listing-number">Listado de programa 4 </span>Creación de un fichero con todos los usuarios y contraseñas</label><pre class="src src-sh">lista_usuarios(){
     rm usuarios_linux.org
     local USUARIOS="$*"
-
+    
     for USER in $USUARIOS
     do
         local PASS=$(password_para_alumno $USER)
@@ -152,9 +152,9 @@ lista_usuarios $usuarios
 </div>
 
 
-<div id="outline-container-orgef8634f" class="outline-2">
-<h2 id="orgef8634f">Oracle</h2>
-<div class="outline-text-2" id="text-orgef8634f">
+<div id="outline-container-org01718c3" class="outline-2">
+<h2 id="org01718c3">Oracle</h2>
+<div class="outline-text-2" id="text-org01718c3">
 <p>
 Utilizo la versión <a href="http://www.oracle.com/technetwork/database/database-technologies/express-edition/overview/index.html">Oracle XE</a>, para evitar problemas de licencia, y porque es bastante simple de instalar a partir de paquetes RPM en un Centos/Fedora.
 </p>
@@ -212,7 +212,7 @@ Después se carga un <i>script</i> de SQL inicial para la creación de tablas, q
     grant resource,connect to $user;
     grant create view to $user;
     grant create any directory to $user;
-
+    
 
     GRANT SELECT ON sys.v_${S}session TO $user;
     GRANT SELECT ON sys.v_${S}gsession TO $user;
@@ -240,9 +240,9 @@ EOF
 </div>
 </div>
 
-<div id="outline-container-org5034ac6" class="outline-2">
-<h2 id="org5034ac6">LAMP</h2>
-<div class="outline-text-2" id="text-org5034ac6">
+<div id="outline-container-orgc5e14b3" class="outline-2">
+<h2 id="orgc5e14b3">LAMP</h2>
+<div class="outline-text-2" id="text-orgc5e14b3">
 <p>
 Para los exámenes <a href="https://es.wikipedia.org/wiki/LAMP">LAMP</a> se necesita una base de datos y un sitio web por cada alumno.
 </p>
