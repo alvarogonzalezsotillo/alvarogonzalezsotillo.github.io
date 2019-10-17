@@ -6,35 +6,17 @@
 ;(defvar raiz-de-blog "/data/data/com.termux/files/home/storage/external-1/alvarogonzalezsotillo.github.io")
 (defvar raiz-de-blog "/home/alvaro/alvarogonzalezsotillo.github.io")
 (defvar branch-de-blog "source")
-(setq branch-de-blog "termux-api")
+
 
 (defun enable-babel ()
   (interactive)
-  (setq org-babel-load-languages '((scala . t) (shell . t) (emacs-lisp . t) (dot . t) (plantuml . t ) ( C . t)))
-
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '(
-     (C . t )
-     (dot . t)
-     (plantuml . t)
-     (scala . t)
-     (shell . t)))
+  (setq org-export-use-babel t)
   )
 
 (defun disable-babel ()
   (interactive)
+  (setq org-export-use-babel nil)
   (setq org-babel-load-languages '())
-
-  ;; (org-babel-do-load-languages
-  ;;  'org-babel-load-languages
-  ;;  '(
-  ;;    (C . t )
-  ;;    (dot . t)
-  ;;    (plantuml . t)
-  ;;    (scala . t)
-  ;;    (shell . t)))
-  ;; )
 )
 
 (defun configurar-blog()
