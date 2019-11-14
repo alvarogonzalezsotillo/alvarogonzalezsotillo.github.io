@@ -12,5 +12,8 @@
 
 Los números en hexadecimal a veces son (o recuerdan a) palabras. Aprovechando un [[http://corpus.rae.es/lfrecuencias.html][corpus de la RAE]] he realizado un [[https://alvarogonzalezsotillo.github.io/colores-html][listado de las palabras que también son colores]] válidos RGB en html.
 
-#+html_export: <iframe width="100%" src="http://corpus.rae.es/lfrecuencias.html"></iframe>
+
+#+begin_export html
+<iframe width="100%" height="100%" src="https://alvarogonzalezsotillo.github.io/colores-html"></iframe>
+#+end_export
 
