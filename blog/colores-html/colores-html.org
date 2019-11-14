@@ -1,0 +1,16 @@
+#+TITLE:       Colores HTML
+#+AUTHOR:      Álvaro González Sotillo
+#+EMAIL:       alvarogonzalezsotillo@gmail.com
+#+DATE:        2019-11-14
+#+URI:         /blog/colores-html
+#+KEYWORDS:    javascript, html
+#+TAGS:        javascript, html
+#+LANGUAGE:    es
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: Los colores HTML pueden parecer palabras. Esta es una lista de esas palabras.
+
+
+Los números en hexadecimal a veces son (o recuerdan a) palabras. Aprovechando un [[http://corpus.rae.es/lfrecuencias.html][corpus de la RAE]] he realizado un [[https://alvarogonzalezsotillo.github.io/colores-html][listado de las palabras que también son colores]] válidos RGB en html.
+
+#+html_export: <iframe width="100%" src="http://corpus.rae.es/lfrecuencias.html"></iframe>
+
