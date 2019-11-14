@@ -52,9 +52,9 @@ Aquí se puede descargar el <a href="/assets/blog/resolver-molecube-en-prolog/mo
 </p>
 
 
-<div id="outline-container-orgdaf4e03" class="outline-2">
-<h2 id="orgdaf4e03">Objetivo del solucionador</h2>
-<div class="outline-text-2" id="text-orgdaf4e03">
+<div id="outline-container-org2d9bcf2" class="outline-2">
+<h2 id="org2d9bcf2">Objetivo del solucionador</h2>
+<div class="outline-text-2" id="text-org2d9bcf2">
 <p>
 El solucionador solo encontrará el estado final del molecube. Tras esto, un <i>humano</i> deberá llevar el estado real del molecube al estado propuesto por el solucionador.
 </p>
@@ -65,9 +65,9 @@ Esto no es un gran problema, ya que tenemos experiencia con cubos de Rubick.
 </div>
 </div>
 
-<div id="outline-container-org4b45223" class="outline-2">
-<h2 id="org4b45223">Definición del problema</h2>
-<div class="outline-text-2" id="text-org4b45223">
+<div id="outline-container-orgbb7d95e" class="outline-2">
+<h2 id="orgbb7d95e">Definición del problema</h2>
+<div class="outline-text-2" id="text-orgbb7d95e">
 <p>
 Para solucionar el molecube se necesita que:
 </p>
@@ -84,13 +84,13 @@ Todo esto suena bastante a programación por restricciones, y puede programarse 
 </div>
 </div>
 
-<div id="outline-container-org0eb2a46" class="outline-2">
-<h2 id="org0eb2a46">Implementación en prolog</h2>
-<div class="outline-text-2" id="text-org0eb2a46">
+<div id="outline-container-org3429254" class="outline-2">
+<h2 id="org3429254">Implementación en prolog</h2>
+<div class="outline-text-2" id="text-org3429254">
 </div>
-<div id="outline-container-org4f5dbd8" class="outline-3">
-<h3 id="org4f5dbd8">Estructura básica</h3>
-<div class="outline-text-3" id="text-org4f5dbd8">
+<div id="outline-container-orgd335d9e" class="outline-3">
+<h3 id="orgd335d9e">Estructura básica</h3>
+<div class="outline-text-3" id="text-orgd335d9e">
 <p>
 Un color se representa por un número del 0 al 8
 </p>
@@ -180,9 +180,9 @@ restricciones_caras_de_cubo(CUBO) :-
 </div>
 </div>
 
-<div id="outline-container-org7cf746d" class="outline-3">
-<h3 id="org7cf746d">Datos del molecube real</h3>
-<div class="outline-text-3" id="text-org7cf746d">
+<div id="outline-container-org9b5e9c1" class="outline-3">
+<h3 id="org9b5e9c1">Datos del molecube real</h3>
+<div class="outline-text-3" id="text-org9b5e9c1">
 <p>
 Las restricciones sobre aristas y esquinas son un poco más laboriosas. Examinando el molecube podemos contar cuántos <i>cubitos</i> de cada tipo y color hay:
 </p>
@@ -398,9 +398,9 @@ Por tanto, ya tenemos la construcción de un molecube completo, con todas sus re
 </div>
 </div>
 
-<div id="outline-container-org97cb26e" class="outline-3">
-<h3 id="org97cb26e">Salida de la solución</h3>
-<div class="outline-text-3" id="text-org97cb26e">
+<div id="outline-container-org13c2fe4" class="outline-3">
+<h3 id="org13c2fe4">Salida de la solución</h3>
+<div class="outline-text-3" id="text-org13c2fe4">
 <p>
 Para visualizar un cubo, he optado por utilizar <a href="https://www.x3dom.org/">x3dom</a>, que me permite visualizar directamente un modelo en tres dimensiones en páginas web.
 </p>
@@ -461,9 +461,9 @@ Finalmente, el cálculo de todas las soluciones se ejecuta con este código:
 </div>
 
 
-<div id="outline-container-orgd745673" class="outline-2">
-<h2 id="orgd745673">Soluciones</h2>
-<div class="outline-text-2" id="text-orgd745673">
+<div id="outline-container-org110af49" class="outline-2">
+<h2 id="org110af49">Soluciones</h2>
+<div class="outline-text-2" id="text-org110af49">
 <p>
 El programa encuentra 80 soluciones distintas. A continuación se muestra una de ellas (un dedo para mover, dos para hacer zoom):
 </p>
@@ -472,9 +472,9 @@ El programa encuentra 80 soluciones distintas. A continuación se muestra una de
 </div>
 </div>
 
-<div id="outline-container-orgd665e5d" class="outline-2">
-<h2 id="orgd665e5d">Invariantes de un cubo de Rubick</h2>
-<div class="outline-text-2" id="text-orgd665e5d">
+<div id="outline-container-orga069918" class="outline-2">
+<h2 id="orga069918">Invariantes de un cubo de Rubick</h2>
+<div class="outline-text-2" id="text-orga069918">
 <p>
 Es sabido que en un cubo de Rubick no pueden conseguirse todas las configuraciones que en principio parecen posibles, ya que es necesario que la <a href="https://math.stackexchange.com/a/127627">permutación de sus aristas y esquinas debe ser par</a>.
 </p>
@@ -485,9 +485,9 @@ Aunque no lo he comprobado, creo que todas las 80 soluciones halladas son posibl
 </div>
 </div>
 
-<div id="outline-container-org86c76a1" class="outline-2">
-<h2 id="org86c76a1">Lista completa de soluciones</h2>
-<div class="outline-text-2" id="text-org86c76a1">
+<div id="outline-container-org203b636" class="outline-2">
+<h2 id="org203b636">Lista completa de soluciones</h2>
+<div class="outline-text-2" id="text-org203b636">
 <pre class="example">
 Solucion: 0,0,0:white 0,0,1:red 0,0,2:orangered 0,1,0:black 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:blue 0,2,1:navy 0,2,2:green 1,0,0:mediumvioletred 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:red 2,0,0:green 2,0,1:blue 2,0,2:navy 2,1,0:red 2,1,1:orangered 2,1,2:white 2,2,0:yellow 2,2,1:mediumvioletred 2,2,2:black 
 Solucion: 0,0,0:white 0,0,1:red 0,0,2:orangered 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:black 0,2,0:blue 0,2,1:navy 0,2,2:green 1,0,0:yellow 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:red 2,0,0:green 2,0,1:blue 2,0,2:navy 2,1,0:red 2,1,1:orangered 2,1,2:white 2,2,0:black 2,2,1:mediumvioletred 2,2,2:yellow 
@@ -594,7 +594,7 @@ Solucion: 0,0,0:green 0,0,1:blue 0,0,2:orangered 0,1,0:white 0,1,1:yellow 0,1,2:
       <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
       <script src="/media/js/code-prettify/loader/run_prettify.js"></script>
       <div class="footer">
-        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 26.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 27.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
         <p>
           Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:alvarogonzalezsotillo <at> gmail <dot> com">Álvaro González Sotillo</a>
           &nbsp;&nbsp;-&nbsp;&nbsp;
