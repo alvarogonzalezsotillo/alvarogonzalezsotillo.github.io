@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
-    <title>Colores HTML - Álvaro González Sotillo</title>
+    <title>Colores HTML con nombre - Álvaro González Sotillo</title>
     <meta charset="utf-8" />
     <meta name="author" content="Álvaro González Sotillo" />
     <meta name="description" content="Los colores HTML pueden parecer palabras. Esta es una lista de esas palabras." />
@@ -33,13 +33,13 @@
 
 <div>
 <div class="post">
-<h1>Colores HTML</h1>
+<h1>Colores HTML con nombre</h1>
 <p>
-Los números en hexadecimal a veces son (o recuerdan a) palabras. Aprovechando un <a href="http://corpus.rae.es/lfrecuencias.html">corpus de la RAE</a> he realizado un <a href="https://alvarogonzalezsotillo.github.io/colores-html">listado de las palabras que también son colores</a> válidos RGB en html.
+Los números en hexadecimal a veces son (o recuerdan a) palabras. Aprovechando un <a href="http://corpus.rae.es/lfrecuencias.html">corpus de la RAE</a> he realizado una página web tirando de <a href="https://www.w3schools.com/HTML/html5_webworkers.asp">worker</a> con un <a href="https://alvarogonzalezsotillo.github.io/colores-html">listado de las palabras que también son colores RGB</a>  válidos en html.
 </p>
 
 <p>
-Puedes pinchar en un color para ver su definición RGB.
+En esta entrada dejo una versión estática de la página anterior. Puedes pinchar en un color para ver su definición RGB.
 </p>
 
 
@@ -48,7 +48,7 @@ Puedes pinchar en un color para ver su definición RGB.
 <script>
 
  function clickOnColor(element){
-
+     console.log("clickOnColor:" + element );
      return function (event){
          const div = element;
          const expandido = div.expandido;
@@ -72,20 +72,24 @@ Puedes pinchar en un color para ver su definición RGB.
 
  function addListeners(){
      const elements = document.querySelectorAll( "div.color" );
-
+     console.log("Encontrados colores:" + elements.length );
      for( let element of elements ){
-         element.onClick = clickOnColor(element);
+         element.onclick = clickOnColor(element);
      }
  }
 
- addListener();
+    window.addEventListener("load", ()=>{
+        console.log("on load");
+        addListeners();
+    });
+
 
 </script>
 
 
 <style> .color {vertical-align: middle; text-align: center; border-radius: 3px; font-size: 1.5em; display:inline-block;margin:0.3em; padding:0.4em; text-shadow: -0.01em -0.01em 1px #ffffff,-0.01em 0em 1px #ffffff,-0.01em 0.01em 1px #ffffff,0em -0.01em 1px #ffffff,0em 0em 1px #ffffff,0em 0.01em 1px #ffffff,0.01em -0.01em 1px #ffffff,0.01em 0em 1px #ffffff,0.01em 0.01em 1px #ffffff;} </style>
 
-
+<div style="text-align: center">
 
 <div class="color" style="background-color:#DEB1D0" title="#DEB1D0">
     debido
@@ -6824,6 +6828,8 @@ Puedes pinchar en un color para ver su definición RGB.
 
 <div class="color" style="background-color:#555555" title="#555555">
     ssssss
+</div>
+
 </div>
 
 </div>
