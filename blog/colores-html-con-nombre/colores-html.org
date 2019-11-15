@@ -2,7 +2,7 @@
 #+AUTHOR:      Álvaro González Sotillo
 #+EMAIL:       alvarogonzalezsotillo@gmail.com
 #+DATE:        2019-11-14
-#+URI:         /blog/colores-html
+#+URI:         /blog/colores-html-con-nombre
 #+KEYWORDS:    javascript, html
 #+TAGS:        javascript, html
 #+LANGUAGE:    es
@@ -51,7 +51,7 @@ Puedes pinchar en un color para ver su definición RGB.
      }
  }
 
- addListener();
+ addListeners();
 
 </script>
 
