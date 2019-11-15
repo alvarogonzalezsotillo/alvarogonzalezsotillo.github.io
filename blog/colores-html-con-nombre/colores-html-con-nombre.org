@@ -1,4 +1,4 @@
-#+TITLE:       Colores HTML
+#+TITLE:       Colores HTML con nombre
 #+AUTHOR:      Álvaro González Sotillo
 #+EMAIL:       alvarogonzalezsotillo@gmail.com
 #+DATE:        2019-11-14
@@ -10,9 +10,9 @@
 #+DESCRIPTION: Los colores HTML pueden parecer palabras. Esta es una lista de esas palabras.
 
 
-Los números en hexadecimal a veces son (o recuerdan a) palabras. Aprovechando un [[http://corpus.rae.es/lfrecuencias.html][corpus de la RAE]] he realizado un [[https://alvarogonzalezsotillo.github.io/colores-html][listado de las palabras que también son colores]] válidos RGB en html.
+Los números en hexadecimal a veces son (o recuerdan a) palabras. Aprovechando un [[http://corpus.rae.es/lfrecuencias.html][corpus de la RAE]] he realizado una página web tirando de [[https://www.w3schools.com/HTML/html5_webworkers.asp][worker]] con un [[https://alvarogonzalezsotillo.github.io/colores-html][listado de las palabras que también son colores RGB]]  válidos en html.
 
-Puedes pinchar en un color para ver su definición RGB.
+En esta entrada dejo una versión estática de la página anterior. Puedes pinchar en un color para ver su definición RGB.
 
 
 #+begin_export html
@@ -21,7 +21,7 @@ Puedes pinchar en un color para ver su definición RGB.
 <script>
 
  function clickOnColor(element){
-
+     console.log("clickOnColor:" + element );
      return function (event){
          const div = element;
          const expandido = div.expandido;
@@ -45,20 +45,24 @@ Puedes pinchar en un color para ver su definición RGB.
 
  function addListeners(){
      const elements = document.querySelectorAll( "div.color" );
-
+     console.log("Encontrados colores:" + elements.length );
      for( let element of elements ){
-         element.onClick = clickOnColor(element);
+         element.onclick = clickOnColor(element);
      }
  }
 
- addListeners();
+    window.addEventListener("load", ()=>{
+        console.log("on load");
+        addListeners();
+    });
+
 
 </script>
 
 
 <style> .color {vertical-align: middle; text-align: center; border-radius: 3px; font-size: 1.5em; display:inline-block;margin:0.3em; padding:0.4em; text-shadow: -0.01em -0.01em 1px #ffffff,-0.01em 0em 1px #ffffff,-0.01em 0.01em 1px #ffffff,0em -0.01em 1px #ffffff,0em 0em 1px #ffffff,0em 0.01em 1px #ffffff,0.01em -0.01em 1px #ffffff,0.01em 0em 1px #ffffff,0.01em 0.01em 1px #ffffff;} </style>
 
-
+<div style="text-align: center">
 
 <div class="color" style="background-color:#DEB1D0" title="#DEB1D0">
     debido
@@ -6799,4 +6803,5 @@ Puedes pinchar en un color para ver su definición RGB.
     ssssss
 </div>
 
+</div>
 #+end_export
