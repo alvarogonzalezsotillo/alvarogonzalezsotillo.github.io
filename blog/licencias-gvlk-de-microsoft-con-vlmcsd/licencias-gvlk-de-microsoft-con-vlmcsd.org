@@ -90,7 +90,7 @@ dic 19 08:48:50 PI systemd[1]: Started vlmcsd kms server.
 ** Configuración manual de los clientes
 Los productos de Microsoft deben ser configurados para utilizar el nuevo sevidor KMS.
 - Microsoft Windows ofrece la utilidad [[https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/dn502540(v%253Dws.11)][=slmgr=]]. La opción =/skms= permite definir la dirección IP y puerto del servidor KMS
-- Microsoft Office se configura mediante =[[https://docs.microsoft.com/en-us/deployoffice/vlactivation/tools-to-manage-volume-activation-of-office][==ospp]]=. Las opciones =/sethst= y =/setprt= permiten definir la IP y puerto del servidor KMS.
+- Microsoft Office se configura mediante [[https://docs.microsoft.com/en-us/deployoffice/vlactivation/tools-to-manage-volume-activation-of-office][=ospp=]]. Las opciones =/sethst= y =/setprt= permiten definir la IP y puerto del servidor KMS.
 
 ** Configuración por autodescubrimiento DNS
 Es posible [[https://blogs.technet.microsoft.com/odsupport/2011/11/14/how-to-discover-office-and-windows-kms-hosts-via-dns-and-remove-unauthorized-instances/][configurar una entrada =SRV=]] en el servidor DNS para que los clientes localicen el servidor KMS. Para ello, hay que definir el servidor ~_vlmcs._tcp~ en el dominio de los equipos (suele definirlo el servidor de DHCP)
@@ -196,7 +196,7 @@ Last 5 characters of installed product key: GVGXT
 #+END_EXAMPLE
 
 * Qué hacen los activadores /alternativos/ de Office
-Existen varios productos que se anuncian como activadores / /crackers/ de productos de Microsoft. Tras este experimento se puede deducir que su forma de funcionamiento es:
+Existen [[http://www.kmsauto.info/][varios]] [[https://official-kmspico.com/][productos]] que se anuncian como activadores / /crackers/ de productos de Microsoft. Tras este experimento se puede deducir que su forma de funcionamiento es:
 1. Instalan un servidor KMS local
 2. Determinan las versiones de Windows y Office instaladas
 3. Localizan las licencias GVLK apropiadas
