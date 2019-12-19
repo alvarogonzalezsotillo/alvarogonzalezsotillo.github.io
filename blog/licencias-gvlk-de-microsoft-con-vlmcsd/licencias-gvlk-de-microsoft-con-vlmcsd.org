@@ -1,7 +1,7 @@
 #+TITLE:       Licencias GVLK de Microsoft con vlmcsd
 #+AUTHOR:      Álvaro González Sotillo
 #+EMAIL:       alvarogonzalezsotillo@gmail.com
-#+DATE:        2019-10-06
+#+DATE:        2019-12-19
 #+URI:         /blog/licencias-gvlk-de-microsoft-con-vlmcsd
 #+KEYWORDS:    KMS, vlmscd
 #+TAGS:        KMS, vlmscd
@@ -68,7 +68,7 @@ Existen otros productos similares, como [[https://github.com/SystemRage/py-kms/]
    $ sudo systemctl start vlmcsd
    #+END_SRC
 5. Tras esto compruebo que el servicio se ha iniciado correctamente
-   #+begin_example
+   #+begin_src lisp
 
 $ systemctl status vlmcsd.service
 ● vlmcsd.service - vlmcsd kms server
@@ -83,7 +83,7 @@ $ systemctl status vlmcsd.service
 dic 19 08:48:50 PI systemd[1]: Starting vlmcsd kms server...
 dic 19 08:48:50 PI vlmcsd[7627]: vlmcsd 1112, built 2018-10-20 09:49:18 UTC starte
 dic 19 08:48:50 PI systemd[1]: Started vlmcsd kms server.
-   #+end_example
+   #+end_src
 
 
 * Configuración de los clientes
@@ -110,7 +110,7 @@ address=/vlmcs/vlmcs.Home/10.3.0.111
 En una máquina virtual he instalado Office 2013, y he intentando activarla con procesador de comandos de Windows con privilegios de administrador. La licencia introducida puede conseguirse en [[https://docs.microsoft.com/en-us/previous-versions/office/dn385360(v=office.15)?redirectedfrom=MSDN][la documentación de Microsoft]].
 
 #+caption: Introducción de la licencia y activación
-#+begin_example
+#+begin_src lisp
 C:\Program Files\Microsoft Office\Office15>cscript ospp.vbs /inpkey:yc7dk-g2np3-2qqc3-j6h88-gvgxt
 Microsoft (R) Windows Script Host versión 5.8
 Copyright (C) Microsoft Corporation 1996-2006. Reservados todos los derechos.
@@ -137,13 +137,13 @@ Last 5 characters of installed product key: GVGXT
 ---------------------------------------
 ---Exiting-----------------------------
 
-#+end_example
+#+end_src
 
 
 En el servidor se consigue la siguiente traza:
 
 #+caption: Traza de la activación en el servidor
-#+begin_example
+#+begin_src lisp
 Dec 19 10:13:49 PI vlmcsd[8156]: IPv4 connection accepted: 10.3.0.240:49187.
 Dec 19 10:13:49 PI vlmcsd[8156]: <<< Incoming KMS request
 Dec 19 10:13:49 PI vlmcsd[8156]: Protocol version                : 4.0
@@ -166,13 +166,13 @@ Dec 19 10:13:49 PI vlmcsd[8156]: Client request timestamp (UTC)  : 2019-12-19 09
 Dec 19 10:13:49 PI vlmcsd[8156]: KMS host current active clients : 10
 Dec 19 10:13:49 PI vlmcsd[8156]: Renewal interval policy         : 10080
 Dec 19 10:13:49 PI vlmcsd[8156]: Activation interval policy      : 120
-#+end_example
+#+end_src
 
 
 Tras esto, la licencia queda activada y puede consultarse su estado
 
 #+caption: Estado de la licencia tras la activación
-#+BEGIN_EXAMPLE
+#+begin_src lisp
 C:\Program Files\Microsoft Office\Office15>cscript ospp.vbs /dstatus
 Microsoft (R) Windows Script Host versión 5.8
 Copyright (C) Microsoft Corporation 1996-2006. Reservados todos los derechos.  
@@ -193,7 +193,7 @@ Last 5 characters of installed product key: GVGXT
 ---------------------------------------
 ---------------------------------------
 ---Exiting-----------------------------
-#+END_EXAMPLE
+#+END_SRC
 
 * Qué hacen los activadores /alternativos/ de Office
 Existen [[http://www.kmsauto.info/][varios]] [[https://official-kmspico.com/][productos]] que se anuncian como activadores / /crackers/ de productos de Microsoft. Tras este experimento se puede deducir que su forma de funcionamiento es:
