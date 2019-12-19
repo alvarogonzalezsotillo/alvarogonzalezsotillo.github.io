@@ -3,7 +3,7 @@
 #+AUTHOR:      Álvaro González Sotillo
 #+EMAIL:       alvarogonzalezsotillo@gmail.com
 #+DATE:        2019-10-06
-#+URI:         /blog/pihole-monitorizacion-red/pihole-monitorizacion-red.org
+#+URI:         /blog/pihole-monitorizacion-red
 #+KEYWORDS:    pihole,nmap,tcpdump
 #+TAGS:        pihole,nmap,tcpdump
 #+LANGUAGE:    es

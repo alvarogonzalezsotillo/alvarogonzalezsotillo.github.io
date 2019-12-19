@@ -1,0 +1,101 @@
+
+#+TITLE:       Licencias GVLK de Microsoft con vlmcsd
+#+AUTHOR:      Álvaro González Sotillo
+#+EMAIL:       alvarogonzalezsotillo@gmail.com
+#+DATE:        2019-10-06
+#+URI:         /blog/licencias-gvlk-de-microsoft-con-vlmcsd
+#+KEYWORDS:    KMS, vlmscd
+#+TAGS:        KMS, vlmscd
+#+LANGUAGE:    es
+#+OPTIONS:     H:3 num:t toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+# #+options:     toc:2
+#+options:     num:nil
+#+DESCRIPTION: El mecanismo de licencias GVLK (por volumen) de Microsoft, utilizado en muchas versiones de Windows y Office, puede entenderse fácilmente experimentando con vlmcsd
+
+
+El mecanismo de licencias GVLK (por volumen) de Microsoft siempre me pareció algo difícil de entender. Aprovechando que mi instituto ha adquirido un paquete de licencias de Microsoft, decidí que era el momento de experimentar con él.
+
+#+TOC: headlines 2 local
+
+* Activación de productos Microsoft
+Los productos de Microsoft necesitan ser activados. Una de las posibilidades es la activación por internet, en la que el producto se conecta a los servidores de Microsoft periódicamente para comprobar si su licencia es válida. Tras cada activación, el producto permanece activado por varias semanas o meses.
+
+* Licencias GLVK y servidores KMS
+Para particulares y entornos SOHO, es aceptable introducir un número de licencia en cada ordenador y producto, pero para grandes empresas se necesita un mecanismo para activar multitud de ordenadores a la vez, preferiblemente con la misma licencia (para poder clonar equipos). Además, no siempre está disponible la conexión a Internet.
+
+Una empresa puede instalar un servidor KMS, que es un sofware facilitado por Microsoft para que las licencias puedan activarse en la propia red local. Este servidor solo activa las licencias que la empresa ha contratado.
+
+* Vlmscd
+[[https://github.com/kkkgo/vlmcsd/tree/master/binaries][vlmscd]] es una implementación independiente del protocolo de activación de licencias GLVK. Incluye un cliente para simular peticiones (vlmcs) y un servidor (vlmcsd). El servidor activa todas las solicitudes de licencia, y puede compilarse para una [[https://github.com/kkkgo/vlmcsd/tree/master/binaries][gran variedad de plataformas]].
+
+
+* Instalación en una Raspberry Pi
+1. El binario puede obtenerse compilando el código fuente, pero también se ofrecen precompilados. Para mi Raspberry Pi 4 con Raspbian he utilizado [[https://github.com/kkkgo/vlmcsd/blob/master/binaries/Linux/arm/little-endian/glibc/vlmcsd-armv7el-glibc][vlmcsd-armv7el-glibc]]. 
+2. He instalado el binario en el directorio ~/opt/vlmcsd~, y he creado un usuario para el servicio.
+   #+BEGIN_SRC sh
+   $ sudo adduser vlmcsd
+   $ sudo mkdir /opt/vlmcsd
+   $ sudo wget -O /opt/vlmcsd/vlmcsd-armv7el-glibc "https://github.com/kkkgo/vlmcsd/raw/master/binaries/Linux/arm/little-endian/glibc/vlmcsd-armv7el-glibc"
+   $ sudo ln -s /opt/vlmcsd/vlmcsd-armv7el-glibc /opt/vlmcsd/vlmcsd
+   $ sudo chmod +x /opt/vlmcsd/vlmcsd*
+   $ sudo chown -R vlmcsd:vlmcsd /opt/vlmcsd
+   #+END_SRC
+3. Para que se ejecute al inicio, he añadido un servicio de ~systemd~. Configuro el servicio para que las trazas acaben en ~syslog~.
+   #+caption: Fichero ~/lib/systemd/system/vlmcsd.service~
+   #+BEGIN_SRC ini
+   [Unit]
+   Description=vlmcsd kms server
+   Requires=networking.service
+
+   [Service]
+   Type=forking
+   User=vlmcsd
+   ExecStart=/opt/vlmcsd/vlmcsd -v -l syslog
+
+   [Install]
+   WantedBy=multi-user.target
+   #+END_SRC
+4. Habilito (para el próximo reinicio) y activo el servicio
+   #+BEGIN_SRC sh
+   $ sudo systemctl daemon-reload
+   $ sudo systemctl enable vlmcsd
+   $ sudo systemctl start vlmcsd
+   #+END_SRC
+5. Tras esto compruebo que el servicio se ha iniciado correctamente
+   #+begin_example
+$ systemctl status vlmcsd.service
+● vlmcsd.service - vlmcsd kms server
+   Loaded: loaded (/lib/systemd/system/vlmcsd.service; enabled; vendor preset: enabled)
+   Active: active (running) since Thu 2019-12-19 08:48:50 CET; 1h 7min ago
+  Process: 7626 ExecStart=/opt/vlmcsd/vlmcsd -v -l syslog (code=exited, status=0/SUCCES
+ Main PID: 7627 (vlmcsd)
+    Tasks: 1 (limit: 4915)
+   CGroup: /system.slice/vlmcsd.service
+           └─7627 /opt/vlmcsd/vlmcsd -v -l syslog
+
+dic 19 08:48:50 PI systemd[1]: Starting vlmcsd kms server...
+dic 19 08:48:50 PI vlmcsd[7627]: vlmcsd 1112, built 2018-10-20 09:49:18 UTC starte
+dic 19 08:48:50 PI systemd[1]: Started vlmcsd kms server.
+   #+end_example
+
+
+* Configuración de los clientes
+** Configuración manual de los clientes
+Los productos de Microsoft deben ser configurados para utilizar el nuevo sevidor KMS.
+- Microsoft Windows ofrece la utilidad =[[https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/dn502540(v%253Dws.11)][slmgr]]=. La opción =/skms= permite definir la dirección IP y puerto del servidor KMS
+- Microsoft Office se configura mediante =[[https://docs.microsoft.com/en-us/deployoffice/vlactivation/tools-to-manage-volume-activation-of-office][ospp]]=. Las opciones =/sethst= y =/setprt= permiten definir la IP y puerto del servidor KMS.
+
+** Configuración por autodescubrimiento DNS
+Es posible [[https://blogs.technet.microsoft.com/odsupport/2011/11/14/how-to-discover-office-and-windows-kms-hosts-via-dns-and-remove-unauthorized-instances/][configurar una entrada =SRV=]] en el servidor DNS para que los clientes localicen el servidor KMS. Para ello, hay que definir el servidor ~_vlmcs._tcp~ en el dominio de los equipos (suele definirlo el servidor de DHCP)
+
+En mi Raspberry tengo ya instalado Pihole, por lo que utilizo su servidor DNS para definir el registro SRV ~_vlmcs._tcp.Home~ apuntando a ~vlmcs.Home~ y su correspondiente registro A. El puerto por defecto del servidor es ~1688~.
+
+ Defino también el registro SRV ~_vlmcs._tcp~, porque la verdad no sé muy bien cuál de los dos se está usando 🤔.
+
+#+caption: Fichero ~/etc/dnsmasq.d/02-vlmcsd.conf~
+#+BEGIN_SRC conf
+srv-host=_vlmcs._tcp,vlmcs,1688
+srv-host=_vlmcs._tcp.Home,vlmcs.Home,1688
+address=/vlmcs/vlmcs.Home/10.3.0.111
+#+END_SRC
+
