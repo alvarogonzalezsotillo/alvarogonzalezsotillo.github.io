@@ -68,9 +68,9 @@ Aunque se pueden hacer <i>builds</i> multiproyecto con ScalaJS, he preferido hac
 
 
 
-<div id="outline-container-org0028e8a" class="outline-2">
-<h2 id="org0028e8a"><i>Corpus</i> de palabras</h2>
-<div class="outline-text-2" id="text-org0028e8a">
+<div id="outline-container-org52026d9" class="outline-2">
+<h2 id="org52026d9"><i>Corpus</i> de palabras</h2>
+<div class="outline-text-2" id="text-org52026d9">
 <p>
 En la aplicación Scala leo directamente el <a href="http://corpus.rae.es/lfrecuencias.html">fichero de <i>corpus</i> de la RAE</a> (unos 20 Mb), en un tiempo aceptable. He intentado reutilizar el código Scala en la aplicación ScalaJS, y simplemente tarda demasiado. Aunque no he llegado a medirlo, el culpable del bajo rendimiento parece ser el uso de expresiones regulares en Javascript.
 </p>
@@ -81,28 +81,28 @@ Para acelerar la página, y por el ahorro de transferencia de datos, he converti
 </div>
 </div>
 
-<div id="outline-container-orga05ab2b" class="outline-2">
-<h2 id="orga05ab2b">Carga del <i>Worker</i></h2>
-<div class="outline-text-2" id="text-orga05ab2b">
+<div id="outline-container-org1298adc" class="outline-2">
+<h2 id="org1298adc">Carga del <i>Worker</i></h2>
+<div class="outline-text-2" id="text-org1298adc">
 <p>
 Desde <code>BrowserMain</code> localizo el último <i>script</i> cargado en la página, y lo vuelvo a cargar, esta vez como un <i>worker</i>. Para localizar el último <i>script</i>, intento utilizar la propiedad <code>currentScript</code>, y si no existe, utilizo la ruta de generación del fichero <code>js</code> al compilar.
 </p>
 
 
 <div class="org-src-container">
-<pre class="src src-scala">val currentScript = {
-  val ret = js.Dynamic.global.document
-  if( js.isUndefined(ret) ) None else Some(ret.currentScript)
-}
+<pre class="src src-scala">  val currentScript = {
+    val ret = js.Dynamic.global.document
+    if( js.isUndefined(ret) ) None else Some(ret.currentScript)
+  }
 
-val lastLoadedScript : Option[String] = currentScript.map{ c =&gt;
-  if( js.isUndefined(c) )
-    "./palabras/js/target/scala-2.11/palabras-fastopt.js"
-  else
-    c.src.toString
-}
+  val lastLoadedScript : Option[String] = currentScript.map{ c =&gt;
+    if( js.isUndefined(c) )
+      "./palabras/js/target/scala-2.11/palabras-fastopt.js"
+    else
+      c.src.toString
+  }
 
-val worker = lastLoadedScript.map( new org.scalajs.dom.raw.Worker(_) )
+  val worker = lastLoadedScript.map( new org.scalajs.dom.raw.Worker(_) )
 </pre>
 </div>
 
@@ -111,26 +111,26 @@ Tras este código,  la variable <code>worker</code> es un <code>Option</code>, q
 </p>
 </div>
 
-<div id="outline-container-orgaf02d23" class="outline-3">
-<h3 id="orgaf02d23">¿Soy parte de la página o un <i>worker</i>?</h3>
-<div class="outline-text-3" id="text-orgaf02d23">
+<div id="outline-container-orgd65af71" class="outline-3">
+<h3 id="orgd65af71">¿Soy parte de la página o un <i>worker</i>?</h3>
+<div class="outline-text-3" id="text-orgd65af71">
 <p>
 Como se ha visto, el <i>script</i> se puede cargar varias veces, así que es necesario saber en qué tipo de entorno se ejecuta. Una forma simple es detectar si existe <code>document</code> (página web) o <code>importScripts</code> (<i>worker</i>). 
 </p>
 
 <div class="org-src-container">
-<pre class="src src-scala">def isBrowserPage = !js.isUndefined(document)
-def isBrowserWorker = !js.isUndefined(js.Dynamic.global.importScripts)
-def isNode = !isBrowserPage &amp;&amp; !isBrowserWorker
+<pre class="src src-scala">  def isBrowserPage = !js.isUndefined(document)
+  def isBrowserWorker = !js.isUndefined(js.Dynamic.global.importScripts)
+  def isNode = !isBrowserPage &amp;&amp; !isBrowserWorker
 </pre>
 </div>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org419b8ad" class="outline-2">
-<h2 id="org419b8ad">Mensajes</h2>
-<div class="outline-text-2" id="text-org419b8ad">
+<div id="outline-container-org931d928" class="outline-2">
+<h2 id="org931d928">Mensajes</h2>
+<div class="outline-text-2" id="text-org931d928">
 <p>
 Entre la página y el <i>worker</i> se intercambian mensajes. En un entorno Java, utilizaría una <code>case class</code> para cada tipo de mensaje, pero hay que tener en cuenta que entre la página y el <i>worker</i> no se puede intercambiar memoria, solo objetos JSON.
 </p>
@@ -184,38 +184,38 @@ Los tipos de mensajes que he definido son:
 </div>
 
 
-<div id="outline-container-orgc8af229" class="outline-3">
-<h3 id="orgc8af229">Recepción y envío de mensajes</h3>
-<div class="outline-text-3" id="text-orgc8af229">
+<div id="outline-container-org7249e47" class="outline-3">
+<h3 id="org7249e47">Recepción y envío de mensajes</h3>
+<div class="outline-text-3" id="text-org7249e47">
 <p>
 Una vez definidos los mensajes, su recepción es muy simple con una estructura <code>match</code>. Este es el manejo de mensajes realizado en la página web:
 </p>
 <div class="org-src-container">
-<pre class="src src-scala">def onMessage( m: org.scalajs.dom.raw.MessageEvent ) = {
+<pre class="src src-scala">  def onMessage( m: org.scalajs.dom.raw.MessageEvent ) = {
 
-  m.data match{
-    case CorpusLoaded(_) =&gt;
-      enableButtons()
-      ui.output.text("")
+    m.data match{
+      case CorpusLoaded(_) =&gt;
+        enableButtons()
+        ui.output.text("")
 
-    case AnagramFound(found,_) =&gt;
-      addWord(found)
+      case AnagramFound(found,_) =&gt;
+        addWord(found)
 
-    case NoMoreAnagrams(s) =&gt;
-      enableButtons()
-      ui.botonPalabra.value("Busca anagramas")
-      ui.botonFrase.value("Busca anagramas en la frase")
-      addLog( s"No se encuentran más anagramas para «$s»" )
+      case NoMoreAnagrams(s) =&gt;
+        enableButtons()
+        ui.botonPalabra.value("Busca anagramas")
+        ui.botonFrase.value("Busca anagramas en la frase")
+        addLog( s"No se encuentran más anagramas para «$s»" )
 
-    case PreparseDone(size) =&gt;
-      addLog( s"Preparseadas las palabras con longitud $size" )
+      case PreparseDone(size) =&gt;
+        addLog( s"Preparseadas las palabras con longitud $size" )
 
-    case data =&gt;
-      println( s"No entiendo el mensaje en html:$data")
-      js.Dynamic.global.console.log(data.asInstanceOf[js.Any])
+      case data =&gt;
+        println( s"No entiendo el mensaje en html:$data")
+        js.Dynamic.global.console.log(data.asInstanceOf[js.Any])
+    }
+
   }
-
-}
 </pre>
 </div>
 
@@ -225,42 +225,42 @@ Y este, en manejo de mensajes en el <i>worker</i>:
 
 <div class="org-src-container">
 <pre class="src src-scala">
-def onMessage(msg: dom.MessageEvent) = {
+  def onMessage(msg: dom.MessageEvent) = {
 
-  msg.data match{
-    case LoadCorpus(file) =&gt;
-      Main.cargaCorpusJSON(file){ c =&gt;
-        corpus = c
-        WorkerGlobal.postMessage( CorpusLoaded(file) )
-      }
-
-
-    case SearchAnagram(s) =&gt;
-      val coincidencias = PalabrasAnagramadas.buscaCoincidenciaExacta( Corpus.Palabra(s) );
-
-      for( c &lt;- coincidencias ){
-        WorkerGlobal.postMessage( AnagramFound(c.original,s) )
-      }
-
-      WorkerGlobal.postMessage( NoMoreAnagrams(s) )
-
-    case SearchAnagramInSentence(s,size) =&gt;
-
-      val coincidencias = PalabrasAnagramadas.buscaExactoEnFrase( s, size );
-
-      for( c &lt;- coincidencias ){
-        WorkerGlobal.postMessage( AnagramFound(c.original,s) )
-      }
-
-      WorkerGlobal.postMessage( NoMoreAnagrams(s) )
+    msg.data match{
+      case LoadCorpus(file) =&gt;
+        Main.cargaCorpusJSON(file){ c =&gt;
+          corpus = c
+          WorkerGlobal.postMessage( CorpusLoaded(file) )
+        }
 
 
-    case data =&gt;
-      println( s"  worker: me llega algo que no sé lo que es: $data" )
-      js.Dynamic.global.console.log(data.asInstanceOf[js.Any])
+      case SearchAnagram(s) =&gt;
+        val coincidencias = PalabrasAnagramadas.buscaCoincidenciaExacta( Corpus.Palabra(s) );
 
+        for( c &lt;- coincidencias ){
+          WorkerGlobal.postMessage( AnagramFound(c.original,s) )
+        }
+
+        WorkerGlobal.postMessage( NoMoreAnagrams(s) )
+
+      case SearchAnagramInSentence(s,size) =&gt;
+
+        val coincidencias = PalabrasAnagramadas.buscaExactoEnFrase( s, size );
+
+        for( c &lt;- coincidencias ){
+          WorkerGlobal.postMessage( AnagramFound(c.original,s) )
+        }
+
+        WorkerGlobal.postMessage( NoMoreAnagrams(s) )
+
+
+      case data =&gt;
+        println( s"  worker: me llega algo que no sé lo que es: $data" )
+        js.Dynamic.global.console.log(data.asInstanceOf[js.Any])
+
+    }
   }
-}
 
 </pre>
 </div>
@@ -268,9 +268,9 @@ def onMessage(msg: dom.MessageEvent) = {
 </div>
 </div>
 
-<div id="outline-container-orgb56b505" class="outline-2">
-<h2 id="orgb56b505">Código fuente</h2>
-<div class="outline-text-2" id="text-orgb56b505">
+<div id="outline-container-org26d89db" class="outline-2">
+<h2 id="org26d89db">Código fuente</h2>
+<div class="outline-text-2" id="text-org26d89db">
 <p>
 El código fuente puede consultarse en su <a href="https://github.com/alvarogonzalezsotillo/palabras-anagramadas">repositorio de Github</a>. La página web donde utilizarlo es <a href="https://alvarogonzalezsotillo.github.io/palabras-anagramadas">https://alvarogonzalezsotillo.github.io/palabras-anagramadas</a>.
 </p>

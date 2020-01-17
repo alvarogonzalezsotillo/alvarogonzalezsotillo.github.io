@@ -4,10 +4,31 @@
     <title>Álvaro González Sotillo</title>
     <link>https://alvarogonzalezsotillo.github.io/</link>
     <description></description>
-    <pubDate>vie, 15 nov 2019 16:09:41 CET</pubDate>
-    <lastBuildDate>vie, 15 nov 2019 16:09:41 CET</lastBuildDate>
+    <pubDate>vie, 17 ene 2020 11:42:57 CET</pubDate>
+    <lastBuildDate>vie, 17 ene 2020 11:42:57 CET</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
+    <item>
+      <title>Instalar Emacs como servicio</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/instalar-emacs-como-servicio</link>
+      <description><![CDATA[El tiempo de arranque de Emacs se puede disimular al inicio del sistema, y ser manejado como un servicio al que conectarse.]]></description>
+      <pubDate>2020-01-17</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/instalar-emacs-como-servicio</guid>
+    </item>
+    <item>
+      <title>Licencias GVLK de Microsoft con vlmcsd</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/licencias-gvlk-de-microsoft-con-vlmcsd</link>
+      <description><![CDATA[El mecanismo de licencias GVLK (por volumen) de Microsoft, utilizado en muchas versiones de Windows y Office, puede entenderse fácilmente experimentando con vlmcsd]]></description>
+      <pubDate>2019-12-19</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/licencias-gvlk-de-microsoft-con-vlmcsd</guid>
+    </item>
+    <item>
+      <title>Pihole y monitorización de red</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/pihole-monitorizacion-red</link>
+      <description><![CDATA[He instalado /pihole/ en la red del instituto donde trabajo para intentar mejorar la velocidad de la red. y de forma imprevista, me ha ayudado a encontrar un intruso que pretendía hacer un ataque de denegación de servicio.]]></description>
+      <pubDate>2019-12-19</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/pihole-monitorizacion-red</guid>
+    </item>
     <item>
       <title>Colores HTML con nombre</title>
       <link>https://alvarogonzalezsotillo.github.io/blog/colores-html-con-nombre</link>
@@ -37,13 +58,6 @@
       <guid>https://alvarogonzalezsotillo.github.io/blog/ordenador-de-sobremesa-servidor-htpc</guid>
     </item>
     <item>
-      <title>Pihole y monitorización de red</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/pihole-monitorizacion-red/pihole-monitorizacion-red.org</link>
-      <description><![CDATA[He instalado /pihole/ en la red del instituto donde trabajo para intentar mejorar la velocidad de la red. y de forma imprevista, me ha ayudado a encontrar un intruso que pretendía hacer un ataque de denegación de servicio.]]></description>
-      <pubDate>2019-10-07</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/pihole-monitorizacion-red/pihole-monitorizacion-red.org</guid>
-    </item>
-    <item>
       <title>Blogueando con orgmode</title>
       <link>https://alvarogonzalezsotillo.github.io/blog/blogueando-con-orgmode</link>
       <description><![CDATA[Es posible crear un blog sin (casi) salir de emacs.]]></description>
@@ -63,20 +77,6 @@
       <description><![CDATA[En casa somos fans del concurso de Palabras Anagramadas del programa de radio No Es Un Día Cualquiera.]]></description>
       <pubDate>2019-03-04</pubDate>
       <guid>https://alvarogonzalezsotillo.github.io/blog/palabras-anagramadas</guid>
-    </item>
-    <item>
-      <title>Palabras anagramadas online</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/palabras-anagramadas-online</link>
-      <description><![CDATA[çayuda online para el concurso de Palabras Anagramadas del programa de radio No Es Un Día Cualquiera.]]></description>
-      <pubDate>2019-02-24</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/palabras-anagramadas-online</guid>
-    </item>
-    <item>
-      <title>Cómo resolver molecube en prolog</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/resolver-molecube-en-prolog</link>
-      <description><![CDATA[Un rompecabezas nuevo es una buena excusa para experimentar un nuevo lenguaje de programación]]></description>
-      <pubDate>2019-02-24</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/resolver-molecube-en-prolog</guid>
     </item>
   </channel>
 </rss>

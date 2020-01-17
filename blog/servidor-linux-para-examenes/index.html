@@ -35,9 +35,9 @@
 <div class="post">
 <h1>Servidor linux para exámenes</h1>
 
-<div id="outline-container-orgc102720" class="outline-2">
-<h2 id="orgc102720">El problema</h2>
-<div class="outline-text-2" id="text-orgc102720">
+<div id="outline-container-org0a6e869" class="outline-2">
+<h2 id="org0a6e869">El problema</h2>
+<div class="outline-text-2" id="text-org0a6e869">
 <p>
 A la hora de realizar un trabajo o examen práctico sobre un ordenador, los profesores tenemos varias alternativas:
 </p>
@@ -57,9 +57,9 @@ A continuación, describiré qué pasos sigo para crear un entorno Linux para mi
 </div>
 </div>
 
-<div id="outline-container-org1909ac3" class="outline-2">
-<h2 id="org1909ac3">Entorno Linux</h2>
-<div class="outline-text-2" id="text-org1909ac3">
+<div id="outline-container-org0c8c77e" class="outline-2">
+<h2 id="org0c8c77e">Entorno Linux</h2>
+<div class="outline-text-2" id="text-org0c8c77e">
 <p>
 Cada alumno tendrá su propia contraseña. Generar las contraseñas aleatoriamente no es una buena idea, puesto que dificulta su recuperación en caso de pérdida. Es mejor que la contraseña dependa del nombre del usuario, por ejemplo los primeros caracteres del hash del usuario. 
 </p>
@@ -152,9 +152,9 @@ lista_usuarios $usuarios
 </div>
 
 
-<div id="outline-container-orgb3d34c3" class="outline-2">
-<h2 id="orgb3d34c3">Oracle</h2>
-<div class="outline-text-2" id="text-orgb3d34c3">
+<div id="outline-container-org44af02b" class="outline-2">
+<h2 id="org44af02b">Oracle</h2>
+<div class="outline-text-2" id="text-org44af02b">
 <p>
 Utilizo la versión <a href="http://www.oracle.com/technetwork/database/database-technologies/express-edition/overview/index.html">Oracle XE</a>, para evitar problemas de licencia, y porque es bastante simple de instalar a partir de paquetes RPM en un Centos/Fedora.
 </p>
@@ -240,9 +240,9 @@ EOF
 </div>
 </div>
 
-<div id="outline-container-org0d8f286" class="outline-2">
-<h2 id="org0d8f286">LAMP</h2>
-<div class="outline-text-2" id="text-org0d8f286">
+<div id="outline-container-org6e089cc" class="outline-2">
+<h2 id="org6e089cc">LAMP</h2>
+<div class="outline-text-2" id="text-org6e089cc">
 <p>
 Para los exámenes <a href="https://es.wikipedia.org/wiki/LAMP">LAMP</a> se necesita una base de datos y un sitio web por cada alumno.
 </p>
@@ -323,43 +323,43 @@ Para evitar cientos de preguntas al inicio del examen dejo una página inicial d
 </ul>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listado de programa 10 </span>Página de bienvenida al <i>hosting</i> de exámenes</label><pre class="src src-sh">crea_pagina_inicio()
-{
-    local USERS="$1"
-    local IPADDRESS=$(hostname -I)
-    local IPADDRESS="${IPADDRESS#"${IPADDRESS%%[![:space:]]*}"}"
-    local IPADDRESS="${IPADDRESS%"${IPADDRESS##*[![:space:]]}"}"
+<label class="org-src-name"><span class="listing-number">Listado de programa 10 </span>Página de bienvenida al <i>hosting</i> de exámenes</label><pre class="src src-sh">  crea_pagina_inicio()
+  {
+      local USERS="$1"
+      local IPADDRESS=$(hostname -I)
+      local IPADDRESS="${IPADDRESS#"${IPADDRESS%%[![:space:]]*}"}"
+      local IPADDRESS="${IPADDRESS%"${IPADDRESS##*[![:space:]]}"}"
+    
+      local HOSTNAME=$(hostname).local
+      #local HOSTNAME=$IPADDRESS
 
-    local HOSTNAME=$(hostname).local
-    #local HOSTNAME=$IPADDRESS
+      local INDEXHTML=/var/www/html/index.html
+      cat &lt;&lt;EOF &gt; $INDEXHTML 
+      &lt;h1&gt;Aplicaciones Web. Examen 1 evaluacion 3&lt;/h1&gt;
+      &lt;p&gt;Conexion con ssh a la IP:&lt;b&gt;$IPADDRESS&lt;/b&gt;  ($HOSTNAME)&lt;/p&gt;
+      &lt;table border=1&gt;
+  EOF
+    
+      for i in $USERS
+      do
+          cat &lt;&lt;EOF &gt;&gt; $INDEXHTML
+            &lt;tr&gt;
+              &lt;td&gt;
+                &lt;a href=$i/phpBB3&gt;$i&lt;/a&gt;
+              &lt;/td&gt;
+              &lt;td&gt;Misma contrase&amp;ntilde;a inicial&lt;/td&gt;
+              &lt;td&gt;
+                &lt;a href=sftp://$i@$HOSTNAME/home/$i&gt;SFTP&lt;/a&gt;
+              &lt;/td&gt;
+              &lt;td&gt;
+                &lt;a href=phpMyAdmin&gt;phpMyAdmin&lt;/a&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+  EOF
+      done
 
-    local INDEXHTML=/var/www/html/index.html
-    cat &lt;&lt;EOF &gt; $INDEXHTML 
-    &lt;h1&gt;Aplicaciones Web. Examen 1 evaluacion 3&lt;/h1&gt;
-    &lt;p&gt;Conexion con ssh a la IP:&lt;b&gt;$IPADDRESS&lt;/b&gt;  ($HOSTNAME)&lt;/p&gt;
-    &lt;table border=1&gt;
-EOF
-
-    for i in $USERS
-    do
-        cat &lt;&lt;EOF &gt;&gt; $INDEXHTML
-          &lt;tr&gt;
-            &lt;td&gt;
-              &lt;a href=$i/phpBB3&gt;$i&lt;/a&gt;
-            &lt;/td&gt;
-            &lt;td&gt;Misma contrase&amp;ntilde;a inicial&lt;/td&gt;
-            &lt;td&gt;
-              &lt;a href=sftp://$i@$HOSTNAME/home/$i&gt;SFTP&lt;/a&gt;
-            &lt;/td&gt;
-            &lt;td&gt;
-              &lt;a href=phpMyAdmin&gt;phpMyAdmin&lt;/a&gt;
-            &lt;/td&gt;
-          &lt;/tr&gt;
-EOF
-    done
-
-    echo "&lt;/table&gt;" &gt;&gt; $INDEXHTML
-}
+      echo "&lt;/table&gt;" &gt;&gt; $INDEXHTML
+  }
 
 </pre>
 </div>

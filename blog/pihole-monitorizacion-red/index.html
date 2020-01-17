@@ -44,22 +44,22 @@ A pesar de ello, volvimos a tener una conexión a Internet inestable: unas aulas
 
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org38d64a0">Descubriendo el ataque</a></li>
-<li><a href="#org1be372c">El contraataque</a></li>
-<li><a href="#org26cf41c">Medidas a tomar en un futuro</a></li>
+<li><a href="#orgecd8e13">Descubriendo el ataque</a></li>
+<li><a href="#orge62b91c">El contraataque</a></li>
+<li><a href="#org2d524a9">Medidas a tomar en un futuro</a></li>
 </ul>
 </div>
 
-<div id="outline-container-org38d64a0" class="outline-2">
-<h2 id="org38d64a0">Descubriendo el ataque</h2>
-<div class="outline-text-2" id="text-org38d64a0">
+<div id="outline-container-orgecd8e13" class="outline-2">
+<h2 id="orgecd8e13">Descubriendo el ataque</h2>
+<div class="outline-text-2" id="text-orgecd8e13">
 <p>
 Utilizando la función de <i>network</i> de <code>Pihole</code> encontramos algo anormal: la dirección IP del router se utilizaba por dos equipos de la red con <a href="https://es.wikipedia.org/wiki/Direcci%C3%B3n_MAC">dirección MAC</a> distintas: la propia de la ONT y <code>1c:6f:65:a7:4d:79</code>. De hecho, la MAC sospechosa se había anunciado en apenas dos horas como 7 direcciones IP distintas.
 </p>
 
 
 <div class="figure">
-<p><img src="/assets/blog/pihole-monitorizacion-red/pihole-monitorizacion-red.org/mac-con-siete-ips.png" alt="/assets/blog/pihole-monitorizacion-red/pihole-monitorizacion-red.org/mac-con-siete-ips.png" />
+<p><img src="/assets/blog/pihole-monitorizacion-red/mac-con-siete-ips.png" alt="/assets/blog/pihole-monitorizacion-red/mac-con-siete-ips.png" />
 </p>
 <p><span class="figure-number">Figura 1: </span>Listado de direcciónes <code>MAC</code> e <code>IP</code> conocidas por <code>pihole</code></p>
 </div>
@@ -70,7 +70,7 @@ Empezaba a parecer un caso de <a href="https://es.wikipedia.org/wiki/Suplantaci%
 
 
 <div class="figure">
-<p><img src="/assets/blog/pihole-monitorizacion-red/pihole-monitorizacion-red.org/arp-en-tcpdump.png" alt="/assets/blog/pihole-monitorizacion-red/pihole-monitorizacion-red.org/arp-en-tcpdump.png" />
+<p><img src="/assets/blog/pihole-monitorizacion-red/arp-en-tcpdump.png" alt="/assets/blog/pihole-monitorizacion-red/arp-en-tcpdump.png" />
 </p>
 <p><span class="figure-number">Figura 2: </span>Comprobación de tráfico <code>ARP</code> con <code>tcpdump</code></p>
 </div>
@@ -82,9 +82,9 @@ El ordenador con MAC <code>1c:6f:65:a7:4d:79</code> enviaba cada dos segundos un
 </div>
 </div>
 
-<div id="outline-container-org1be372c" class="outline-2">
-<h2 id="org1be372c">El contraataque</h2>
-<div class="outline-text-2" id="text-org1be372c">
+<div id="outline-container-orge62b91c" class="outline-2">
+<h2 id="orge62b91c">El contraataque</h2>
+<div class="outline-text-2" id="text-orge62b91c">
 <p>
 Utilizando <a href="https://nmap.org/">Nmap</a> descubrimos que el ordenador atacante tenía abiertos los puertos típicos de un ordenador Linux, entre ellos el puerto 22 de SSH. Ante la posibilidad de que fuera uno de los ordenadores del centro intentamos acceder por SSH con los usuarios y contraseñas que dejamos en las maquetas de los PC's de aula. Conseguimos entrar sin problemas, lo que nos permitió localizar el aula y puesto del PC. A partir de aquí solo quedaba recuperar información forense para saber exactamente qué había pasado.
 </p>
@@ -95,7 +95,7 @@ Nos <b>desplazamos físicamente hasta el ordenador</b> en un momento en el que l
 
 
 <div class="figure">
-<p><img src="/assets/blog/pihole-monitorizacion-red/pihole-monitorizacion-red.org/tty4.png" alt="/assets/blog/pihole-monitorizacion-red/pihole-monitorizacion-red.org/tty4.png" />
+<p><img src="/assets/blog/pihole-monitorizacion-red/tty4.png" alt="/assets/blog/pihole-monitorizacion-red/tty4.png" />
 </p>
 <p><span class="figure-number">Figura 3: </span>Reconstrucción del <code>tty4</code> (a partir de <code>/dev/vcs4</code>)</p>
 </div>
@@ -108,9 +108,9 @@ Creemos que consiguió ser superusuario arrancando linux en <a href="https://ask
 </div>
 </div>
 
-<div id="outline-container-org26cf41c" class="outline-2">
-<h2 id="org26cf41c">Medidas a tomar en un futuro</h2>
-<div class="outline-text-2" id="text-org26cf41c">
+<div id="outline-container-org2d524a9" class="outline-2">
+<h2 id="org2d524a9">Medidas a tomar en un futuro</h2>
+<div class="outline-text-2" id="text-org2d524a9">
 <p>
 En nuestro centro todas las aulas comparten la misma <a href="https://es.wikipedia.org/wiki/VLAN"><code>VLAN</code></a>, y la asignación de <code>IP</code> se hace dinámicamente por <code>DHCP</code>, por lo que <b>la localización del PC atacante fue cuestión de suerte</b>. Si el alumno hubiera utilizado una máquina virtual en modo <i>bridged</i>, tendríamos que haber localizado el aula desconectando poco a poco los switches.
 </p>
@@ -148,7 +148,7 @@ window.addEventListener("load",()=>{
     <div>
       <div class="post-meta">
         <span title="post date" class="post-info">2019-10-06</span>
-        <span title="last modification date" class="post-info">2019-10-07</span>
+        <span title="last modification date" class="post-info">2019-12-19</span>
         <span title="tags" class="post-info"><a href="/tags/pihole/">pihole</a>, <a href="/tags/nmap/">nmap</a>, <a href="/tags/tcpdump/">tcpdump</a></span>
         <span title="author" class="post-info">Álvaro González Sotillo</span>
       </div>

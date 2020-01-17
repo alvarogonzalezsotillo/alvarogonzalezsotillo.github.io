@@ -606,6 +606,10 @@ html body.container div div.post ul.org-ul li.categoryitem{
     padding-left: 6em;
 }
 
+/* CODE DEMASIADO GRANDE */
+code{
+    font-size: 0.8em;
+}
 
 
 
