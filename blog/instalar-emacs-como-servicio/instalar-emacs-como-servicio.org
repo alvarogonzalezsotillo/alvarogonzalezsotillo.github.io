@@ -2,7 +2,7 @@
 
 #+AUTHOR:      Álvaro González Sotillo
 #+EMAIL:       alvarogonzalezsotillo@gmail.com
-#+DATE:        2018-04-08
+#+DATE:        2019-01-17
 #+URI:         /blog/instalar-emacs-como-servicio
 
 #+TAGS: emacs, orgmode
@@ -17,7 +17,7 @@ Al final, la mejor solución no es reducir el tiempo de arranque, sino /camuflar
 
 El /hack/ final es hacer que la instancia de *emacs* se arranque automáticamente al iniciar sesión, o mejor aún, cuando se inicia el sistema como un servicio.
 
-Utilizo este fichero *org* para configurar mis ordenadores *GNU Linux*, con [[https://caiorss.github.io/Emacs-Elisp-Programming/Org-mode-recipes.html][literate]] [[http://cachestocaches.com/2018/6/org-literate-programming/][programming]]. Para activar la ejecución de bloques =shell= necesito ejecutar el siguiente bloque =elisp=:
+Utilizo [[https://raw.githubusercontent.com/alvarogonzalezsotillo/alvarogonzalezsotillo.github.io/source/blog/instalar-emacs-como-servicio/instalar-emacs-como-servicio.org][este mismo fichero]] *org* para publicar esta entrada y para configurar mis ordenadores *GNU Linux*, con [[https://caiorss.github.io/Emacs-Elisp-Programming/Org-mode-recipes.html][literate]] [[http://cachestocaches.com/2018/6/org-literate-programming/][programming]]. Para activar la ejecución de bloques =shell= necesito ejecutar el siguiente bloque =elisp=:
 #+begin_src emacs-lisp
   (org-babel-do-load-languages
    'org-babel-load-languages
