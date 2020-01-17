@@ -2,7 +2,7 @@
 
 #+AUTHOR:      Álvaro González Sotillo
 #+EMAIL:       alvarogonzalezsotillo@gmail.com
-#+DATE:        2019-01-17
+#+DATE:        2020-01-17
 #+URI:         /blog/instalar-emacs-como-servicio
 
 #+TAGS: emacs, orgmode
