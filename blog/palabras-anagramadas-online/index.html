@@ -68,9 +68,9 @@ Aunque se pueden hacer <i>builds</i> multiproyecto con ScalaJS, he preferido hac
 
 
 
-<div id="outline-container-orgfb0f4d0" class="outline-2">
-<h2 id="orgfb0f4d0"><i>Corpus</i> de palabras</h2>
-<div class="outline-text-2" id="text-orgfb0f4d0">
+<div id="outline-container-orgd3c5410" class="outline-2">
+<h2 id="orgd3c5410"><i>Corpus</i> de palabras</h2>
+<div class="outline-text-2" id="text-orgd3c5410">
 <p>
 En la aplicación Scala leo directamente el <a href="http://corpus.rae.es/lfrecuencias.html">fichero de <i>corpus</i> de la RAE</a> (unos 20 Mb), en un tiempo aceptable. He intentado reutilizar el código Scala en la aplicación ScalaJS, y simplemente tarda demasiado. Aunque no he llegado a medirlo, el culpable del bajo rendimiento parece ser el uso de expresiones regulares en Javascript.
 </p>
@@ -81,9 +81,9 @@ Para acelerar la página, y por el ahorro de transferencia de datos, he converti
 </div>
 </div>
 
-<div id="outline-container-org070eee4" class="outline-2">
-<h2 id="org070eee4">Carga del <i>Worker</i></h2>
-<div class="outline-text-2" id="text-org070eee4">
+<div id="outline-container-org472cac9" class="outline-2">
+<h2 id="org472cac9">Carga del <i>Worker</i></h2>
+<div class="outline-text-2" id="text-org472cac9">
 <p>
 Desde <code>BrowserMain</code> localizo el último <i>script</i> cargado en la página, y lo vuelvo a cargar, esta vez como un <i>worker</i>. Para localizar el último <i>script</i>, intento utilizar la propiedad <code>currentScript</code>, y si no existe, utilizo la ruta de generación del fichero <code>js</code> al compilar.
 </p>
@@ -111,9 +111,9 @@ Tras este código,  la variable <code>worker</code> es un <code>Option</code>, q
 </p>
 </div>
 
-<div id="outline-container-org0c423b9" class="outline-3">
-<h3 id="org0c423b9">¿Soy parte de la página o un <i>worker</i>?</h3>
-<div class="outline-text-3" id="text-org0c423b9">
+<div id="outline-container-org0564103" class="outline-3">
+<h3 id="org0564103">¿Soy parte de la página o un <i>worker</i>?</h3>
+<div class="outline-text-3" id="text-org0564103">
 <p>
 Como se ha visto, el <i>script</i> se puede cargar varias veces, así que es necesario saber en qué tipo de entorno se ejecuta. Una forma simple es detectar si existe <code>document</code> (página web) o <code>importScripts</code> (<i>worker</i>). 
 </p>
@@ -128,9 +128,9 @@ Como se ha visto, el <i>script</i> se puede cargar varias veces, así que es nec
 </div>
 </div>
 
-<div id="outline-container-org3dac9ea" class="outline-2">
-<h2 id="org3dac9ea">Mensajes</h2>
-<div class="outline-text-2" id="text-org3dac9ea">
+<div id="outline-container-orga2208af" class="outline-2">
+<h2 id="orga2208af">Mensajes</h2>
+<div class="outline-text-2" id="text-orga2208af">
 <p>
 Entre la página y el <i>worker</i> se intercambian mensajes. En un entorno Java, utilizaría una <code>case class</code> para cada tipo de mensaje, pero hay que tener en cuenta que entre la página y el <i>worker</i> no se puede intercambiar memoria, solo objetos JSON.
 </p>
@@ -184,9 +184,9 @@ Los tipos de mensajes que he definido son:
 </div>
 
 
-<div id="outline-container-orgff1cba9" class="outline-3">
-<h3 id="orgff1cba9">Recepción y envío de mensajes</h3>
-<div class="outline-text-3" id="text-orgff1cba9">
+<div id="outline-container-org2b0e230" class="outline-3">
+<h3 id="org2b0e230">Recepción y envío de mensajes</h3>
+<div class="outline-text-3" id="text-org2b0e230">
 <p>
 Una vez definidos los mensajes, su recepción es muy simple con una estructura <code>match</code>. Este es el manejo de mensajes realizado en la página web:
 </p>
@@ -268,9 +268,9 @@ Y este, en manejo de mensajes en el <i>worker</i>:
 </div>
 </div>
 
-<div id="outline-container-org9df7f08" class="outline-2">
-<h2 id="org9df7f08">Código fuente</h2>
-<div class="outline-text-2" id="text-org9df7f08">
+<div id="outline-container-org30ff7c0" class="outline-2">
+<h2 id="org30ff7c0">Código fuente</h2>
+<div class="outline-text-2" id="text-org30ff7c0">
 <p>
 El código fuente puede consultarse en su <a href="https://github.com/alvarogonzalezsotillo/palabras-anagramadas">repositorio de Github</a>. La página web donde utilizarlo es <a href="https://alvarogonzalezsotillo.github.io/palabras-anagramadas">https://alvarogonzalezsotillo.github.io/palabras-anagramadas</a>.
 </p>

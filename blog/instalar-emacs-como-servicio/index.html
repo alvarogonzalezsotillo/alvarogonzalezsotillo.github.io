@@ -37,14 +37,14 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org6bfced2">1. Servicio</a></li>
-<li><a href="#orgc8dbb83">2. Cliente</a>
+<li><a href="#orgc9ddfb1">1. Servicio</a></li>
+<li><a href="#org515c3cc">2. Cliente</a>
 <ul>
-<li><a href="#org6ed4cf3">2.1. fichero <code>.desktop</code></a></li>
-<li><a href="#org4d29ca1">2.2. Icono</a></li>
+<li><a href="#org0041abc">2.1. fichero <code>.desktop</code></a></li>
+<li><a href="#org32ae583">2.2. Icono</a></li>
 </ul>
 </li>
-<li><a href="#org44190f0">3. Problemas</a></li>
+<li><a href="#orgf69c422">3. Problemas</a></li>
 </ul>
 </div>
 </div>
@@ -75,8 +75,8 @@ Utilizo <a href="https://raw.githubusercontent.com/alvarogonzalezsotillo/alvarog
 </pre>
 </div>
 
-<div id="outline-container-org6bfced2" class="outline-2">
-<h2 id="org6bfced2"><span class="section-number-2">1</span> Servicio</h2>
+<div id="outline-container-orgc9ddfb1" class="outline-2">
+<h2 id="orgc9ddfb1"><span class="section-number-2">1</span> Servicio</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Basado en <a href="https://www.emacswiki.org/emacs/EmacsAsDaemon">https://www.emacswiki.org/emacs/EmacsAsDaemon</a>, utilizo la versión de <b>centos</b>, ya que funciona en <b>centos</b> y <b>ubuntu</b>. La diferencia está en el directorio que uso para dejar la <b>unit</b>:
@@ -119,12 +119,12 @@ sudo systemctl enable emacs@alvaro
 </div>
 </div>
 
-<div id="outline-container-orgc8dbb83" class="outline-2">
-<h2 id="orgc8dbb83"><span class="section-number-2">2</span> Cliente</h2>
+<div id="outline-container-org515c3cc" class="outline-2">
+<h2 id="org515c3cc"><span class="section-number-2">2</span> Cliente</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-org6ed4cf3" class="outline-3">
-<h3 id="org6ed4cf3"><span class="section-number-3">2.1</span> fichero <code>.desktop</code></h3>
+<div id="outline-container-org0041abc" class="outline-3">
+<h3 id="org0041abc"><span class="section-number-3">2.1</span> fichero <code>.desktop</code></h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 Sistemas con <b>Gnome</b> o <b>KDE</b> utilizan ficheros <code>.desktop</code> para añadir aplicaciones a sus menús de inicio. Voy a añadir una nueva aplicación para <code>emacsclient</code>, basándome en el fichero <code>.desktop</code> que ya viene con <b>emacs</b> y la documentación en <a href="https://specifications.freedesktop.org/desktop-entry-spec/latest/index.html">https://specifications.freedesktop.org/desktop-entry-spec/latest/index.html</a> 
@@ -154,8 +154,8 @@ EOF
 </div>
 
 
-<div id="outline-container-org4d29ca1" class="outline-3">
-<h3 id="org4d29ca1"><span class="section-number-3">2.2</span> Icono</h3>
+<div id="outline-container-org32ae583" class="outline-3">
+<h3 id="org32ae583"><span class="section-number-3">2.2</span> Icono</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 Para estar seguro de que el icono existe, copio el fichero <code>svg</code> que tengo para emacs26 al lado del fichero <code>.desktop</code>.
@@ -458,8 +458,8 @@ EOF
 
 
 
-<div id="outline-container-org44190f0" class="outline-2">
-<h2 id="org44190f0"><span class="section-number-2">3</span> Problemas</h2>
+<div id="outline-container-orgf69c422" class="outline-2">
+<h2 id="orgf69c422"><span class="section-number-2">3</span> Problemas</h2>
 <div class="outline-text-2" id="text-3">
 <ul class="org-ul">
 <li><b>emacsclient</b> no encuentra el socket: añadir el parámetro <code>-s</code> con <code>/tmp/emacs1000/server</code>. El número <code>1000</code> indica el identificador del usuario. También puede especificarse la variable <code>server-socket-dir</code> al iniciar el servidor.</li>
@@ -471,7 +471,7 @@ EOF
 </div>
     <div>
       <div class="post-meta">
-        <span title="post date" class="post-info">2019-01-17</span>
+        <span title="post date" class="post-info">2020-01-17</span>
         <span title="last modification date" class="post-info">2020-01-17</span>
         <span title="tags" class="post-info"><a href="/tags/emacs/">emacs</a>, <a href="/tags/orgmode/">orgmode</a></span>
         <span title="author" class="post-info">Álvaro González Sotillo</span>
