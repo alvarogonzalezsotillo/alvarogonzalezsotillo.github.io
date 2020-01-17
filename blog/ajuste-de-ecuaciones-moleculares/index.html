@@ -38,8 +38,8 @@
 Este proyecto es un ajustador de ecuaciones estequiométricas. Puede verse en vivo en <a href="https://alvarogonzalezsotillo.github.io/ecuacion-molecular">https://alvarogonzalezsotillo.github.io/ecuacion-molecular</a>. También puede <a href="https://alvarogonzalezsotillo.github.io/ecuacion-molecular#H2+O2=H2O">enlazarse directamente</a> con la ecuación ajustar.
 </p>
 
-<div id="outline-container-orgc55f930" class="outline-2">
-<h2 id="orgc55f930"><span class="section-number-2">1</span> Ecuaciones estequiométricas</h2>
+<div id="outline-container-org3fb71f0" class="outline-2">
+<h2 id="org3fb71f0"><span class="section-number-2">1</span> Ecuaciones estequiométricas</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Una ecuación estequiométrica o ecuación química muestra las moléculas iniciales de una reacción y los resultados de dicha reacción.
@@ -68,8 +68,8 @@ Una ecuación <b>ajustada</b> es una en la que los coeficientes estequiométrico
 </div>
 </div>
 
-<div id="outline-container-org49ec8ae" class="outline-2">
-<h2 id="org49ec8ae"><span class="section-number-2">2</span> Ajuste de ecuaciones</h2>
+<div id="outline-container-org3a43daf" class="outline-2">
+<h2 id="org3a43daf"><span class="section-number-2">2</span> Ajuste de ecuaciones</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Se pueden ajustar ecuaciones estequiométricas por el método del tanteo o por el método algebraico.
@@ -136,16 +136,16 @@ Quedando la ecuación ajustada como \(2H_2 + O_2 = 2H_{2}O\)
 </div>
 </div>
 
-<div id="outline-container-org79fb0a2" class="outline-2">
-<h2 id="org79fb0a2"><span class="section-number-2">3</span> Implementación</h2>
+<div id="outline-container-org0ca38e7" class="outline-2">
+<h2 id="org0ca38e7"><span class="section-number-2">3</span> Implementación</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 Se ha implementado la lógica en Scala, y se ha <i>transpilado</i> posteriormente a Javascript con <a href="https://www.scala-js.org/">Scalajs</a>. El código fuente está disponible en un <a href="https://github.com/alvarogonzalezsotillo/ecuacion-molecular">repositorio de Github</a>, y puede probarse en vivo en <a href="https://alvarogonzalezsotillo.github.io/ecuacion-molecular">https://alvarogonzalezsotillo.github.io/ecuacion-molecular</a>.
 </p>
 </div>
 
-<div id="outline-container-orgf49f1fb" class="outline-3">
-<h3 id="orgf49f1fb"><span class="section-number-3">3.1</span> Parseo de la ecuación</h3>
+<div id="outline-container-orgd8b3452" class="outline-3">
+<h3 id="orgd8b3452"><span class="section-number-3">3.1</span> Parseo de la ecuación</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 Se ha utilizado <a href="http://www.scala-lang.org/api/2.12.3/scala-parser-combinators/scala/util/parsing/combinator/RegexParsers.html"><code>scala.util.parsing.combinator.RegexParsers</code></a> para validar la ecuación introducida.
@@ -220,8 +220,8 @@ Se necesitan varias <i>case class</i> para representar internamente una ecuació
 </div>
 </div>
 
-<div id="outline-container-org7140dd6" class="outline-3">
-<h3 id="org7140dd6"><span class="section-number-3">3.2</span> Explicaciones del proceso</h3>
+<div id="outline-container-orgd1c72df" class="outline-3">
+<h3 id="orgd1c72df"><span class="section-number-3">3.2</span> Explicaciones del proceso</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 Durante el proceso de ajuste, se generan explicaciones de los pasos seguidos. Esto se consigue a partir de <a href="https://alvinalexander.com/scala/scala-xml-examples-xml-literals-source-code-searching-xpath">literales XML</a> volcados en un <code>Explicador</code>. Este explicador se pasa como parámetro implícito, se importan sus métodos <code>explica</code> y <code>siExplicadorActivo</code> para poder usarse directamente.
@@ -261,8 +261,8 @@ Durante el proceso de ajuste, se generan explicaciones de los pasos seguidos. Es
 </div>
 </div>
 
-<div id="outline-container-orgf5c1dff" class="outline-3">
-<h3 id="orgf5c1dff"><span class="section-number-3">3.3</span> Ajuste de la ecuación</h3>
+<div id="outline-container-org7e884a4" class="outline-3">
+<h3 id="org7e884a4"><span class="section-number-3">3.3</span> Ajuste de la ecuación</h3>
 <div class="outline-text-3" id="text-3-3">
 <p>
 A partir de la ecuación molecular, se construye una matriz que representa el sistema de ecuaciones lineales descrito anteriormente.

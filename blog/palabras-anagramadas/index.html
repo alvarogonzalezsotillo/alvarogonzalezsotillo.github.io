@@ -69,17 +69,17 @@ El código fuente está disponible en <a href="https://github.com/alvarogonzalez
 </p>
 
 
-<div id="outline-container-orgb31ad90" class="outline-2">
-<h2 id="orgb31ad90">Implementación del algoritmo</h2>
-<div class="outline-text-2" id="text-orgb31ad90">
+<div id="outline-container-org03ec1a1" class="outline-2">
+<h2 id="org03ec1a1">Implementación del algoritmo</h2>
+<div class="outline-text-2" id="text-org03ec1a1">
 <p>
 La siguiente implementación se ha realizado en lenguaje <code>scala</code>.
 </p>
 </div>
 
-<div id="outline-container-org40be8ed" class="outline-3">
-<h3 id="org40be8ed"><code>Palabra</code></h3>
-<div class="outline-text-3" id="text-org40be8ed">
+<div id="outline-container-orgb6998b5" class="outline-3">
+<h3 id="orgb6998b5"><code>Palabra</code></h3>
+<div class="outline-text-3" id="text-orgb6998b5">
 <p>
 Lo primero es una clase que encapsule una palabra y sepa calcular su histograma. También normaliza normaliza su representación, quitando espacios, acentos y mayúsculas. 
 </p>
@@ -121,9 +121,9 @@ El histograma se calcula de forma perezosa, ya que no es necesario calcularlo de
 </div>
 </div>
 
-<div id="outline-container-orgb42467d" class="outline-3">
-<h3 id="orgb42467d"><i>Corpus</i> de palabras</h3>
-<div class="outline-text-3" id="text-orgb42467d">
+<div id="outline-container-org210242a" class="outline-3">
+<h3 id="org210242a"><i>Corpus</i> de palabras</h3>
+<div class="outline-text-3" id="text-org210242a">
 <p>
 El programa necesita un <i>vocabulario</i> donde buscar las palabras. Una opción sería extraerlas de varios libros gratuitos del Proyecto Gutengberg, pero he encontrado un <a href="http://corpus.rae.es/lfrecuencias.html"><i>corpus</i> de la Real Academia de la Lengua</a> con 737799 palabras distintas, ordenadas por frecuencia de uso. 
 </p>
@@ -188,9 +188,9 @@ Para leer las palabras utilizo una expresión regular por cada una de las línea
 </div>
 </div>
 
-<div id="outline-container-org4f3644a" class="outline-3">
-<h3 id="org4f3644a">Búsqueda de anagramas</h3>
-<div class="outline-text-3" id="text-org4f3644a">
+<div id="outline-container-orgdfbdde5" class="outline-3">
+<h3 id="orgdfbdde5">Búsqueda de anagramas</h3>
+<div class="outline-text-3" id="text-orgdfbdde5">
 <p>
 Una vez tengo la lista de palabras, para econtrar los anagramas de una dada basta con buscar las que tienen el mismo histograma de letras. La búsqueda se realiza solo entre las que tienen la misma longitud.
 </p>
@@ -275,9 +275,9 @@ Cada palabra para adivinar tiene una definición y una pista. La pista (en los c
 </div>
 </div>
 
-<div id="outline-container-orgf317a3c" class="outline-3">
-<h3 id="orgf317a3c">Solución a un día</h3>
-<div class="outline-text-3" id="text-orgf317a3c">
+<div id="outline-container-orgab7d345" class="outline-3">
+<h3 id="orgab7d345">Solución a un día</h3>
+<div class="outline-text-3" id="text-orgab7d345">
 <p>
 Con estas funciones, ya es posible concursar para un día concreto. Por ejemplo, este es el código del <a href="https://www.facebook.com/noesundia/photos/a.133963369947769/2158091877534898/?type=3&amp;__tn__=-R">concurso del 6/oct/2018</a>:
 </p>

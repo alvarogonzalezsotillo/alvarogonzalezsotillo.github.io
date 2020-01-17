@@ -37,14 +37,14 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org2ab0c37">1. Servicio</a></li>
-<li><a href="#orgc7be053">2. Cliente</a>
+<li><a href="#org6bfced2">1. Servicio</a></li>
+<li><a href="#orgc8dbb83">2. Cliente</a>
 <ul>
-<li><a href="#org362e333">2.1. fichero <code>.desktop</code></a></li>
-<li><a href="#org3950901">2.2. Icono</a></li>
+<li><a href="#org6ed4cf3">2.1. fichero <code>.desktop</code></a></li>
+<li><a href="#org4d29ca1">2.2. Icono</a></li>
 </ul>
 </li>
-<li><a href="#orgb26e5a0">3. Problemas</a></li>
+<li><a href="#org44190f0">3. Problemas</a></li>
 </ul>
 </div>
 </div>
@@ -57,7 +57,7 @@ Al final, la mejor solución no es reducir el tiempo de arranque, sino <i>camufl
 </p>
 <ul class="org-ul">
 <li>Abrir una instancia de <b>emacs</b> y arrancar el <a href="http://wikemacs.org/wiki/Emacs_server">servidor</a>.</li>
-<li>Cuando se necesite abrir un fichero, no se ejecuta una nueva instancia de <b>emacs</b>, sino que se utiliza <b><a href="https://www.emacswiki.org/emacs/EmacsClient">emacsclient</a></b>. Este se conecta la instancia inicial.</li>
+<li>Cuando se necesite abrir un fichero, no se ejecuta una nueva instancia de <b>emacs</b>, sino que se utiliza <b><a href="https://www.emacswiki.org/emacs/EmacsClient">emacsclient</a></b>. Este se conecta a la instancia inicial.</li>
 </ul>
 
 <p>
@@ -75,8 +75,8 @@ Utilizo <a href="https://raw.githubusercontent.com/alvarogonzalezsotillo/alvarog
 </pre>
 </div>
 
-<div id="outline-container-org2ab0c37" class="outline-2">
-<h2 id="org2ab0c37"><span class="section-number-2">1</span> Servicio</h2>
+<div id="outline-container-org6bfced2" class="outline-2">
+<h2 id="org6bfced2"><span class="section-number-2">1</span> Servicio</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Basado en <a href="https://www.emacswiki.org/emacs/EmacsAsDaemon">https://www.emacswiki.org/emacs/EmacsAsDaemon</a>, utilizo la versión de <b>centos</b>, ya que funciona en <b>centos</b> y <b>ubuntu</b>. La diferencia está en el directorio que uso para dejar la <b>unit</b>:
@@ -119,12 +119,12 @@ sudo systemctl enable emacs@alvaro
 </div>
 </div>
 
-<div id="outline-container-orgc7be053" class="outline-2">
-<h2 id="orgc7be053"><span class="section-number-2">2</span> Cliente</h2>
+<div id="outline-container-orgc8dbb83" class="outline-2">
+<h2 id="orgc8dbb83"><span class="section-number-2">2</span> Cliente</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-org362e333" class="outline-3">
-<h3 id="org362e333"><span class="section-number-3">2.1</span> fichero <code>.desktop</code></h3>
+<div id="outline-container-org6ed4cf3" class="outline-3">
+<h3 id="org6ed4cf3"><span class="section-number-3">2.1</span> fichero <code>.desktop</code></h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 Sistemas con <b>Gnome</b> o <b>KDE</b> utilizan ficheros <code>.desktop</code> para añadir aplicaciones a sus menús de inicio. Voy a añadir una nueva aplicación para <code>emacsclient</code>, basándome en el fichero <code>.desktop</code> que ya viene con <b>emacs</b> y la documentación en <a href="https://specifications.freedesktop.org/desktop-entry-spec/latest/index.html">https://specifications.freedesktop.org/desktop-entry-spec/latest/index.html</a> 
@@ -154,8 +154,8 @@ EOF
 </div>
 
 
-<div id="outline-container-org3950901" class="outline-3">
-<h3 id="org3950901"><span class="section-number-3">2.2</span> Icono</h3>
+<div id="outline-container-org4d29ca1" class="outline-3">
+<h3 id="org4d29ca1"><span class="section-number-3">2.2</span> Icono</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 Para estar seguro de que el icono existe, copio el fichero <code>svg</code> que tengo para emacs26 al lado del fichero <code>.desktop</code>.
@@ -458,8 +458,8 @@ EOF
 
 
 
-<div id="outline-container-orgb26e5a0" class="outline-2">
-<h2 id="orgb26e5a0"><span class="section-number-2">3</span> Problemas</h2>
+<div id="outline-container-org44190f0" class="outline-2">
+<h2 id="org44190f0"><span class="section-number-2">3</span> Problemas</h2>
 <div class="outline-text-2" id="text-3">
 <ul class="org-ul">
 <li><b>emacsclient</b> no encuentra el socket: añadir el parámetro <code>-s</code> con <code>/tmp/emacs1000/server</code>. El número <code>1000</code> indica el identificador del usuario. También puede especificarse la variable <code>server-socket-dir</code> al iniciar el servidor.</li>
