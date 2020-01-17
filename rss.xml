@@ -4,6 +4,7 @@
     <title>Álvaro González Sotillo</title>
     <link>https://alvarogonzalezsotillo.github.io/</link>
     <description></description>
+<<<<<<< HEAD
     <pubDate>vie, 17 ene 2020 11:42:57 CET</pubDate>
     <lastBuildDate>vie, 17 ene 2020 11:42:57 CET</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
@@ -16,6 +17,13 @@
       <guid>https://alvarogonzalezsotillo.github.io/blog/instalar-emacs-como-servicio</guid>
     </item>
     <item>
+=======
+    <pubDate>jue, 19 dic 2019 11:28:37 CET</pubDate>
+    <lastBuildDate>jue, 19 dic 2019 11:28:37 CET</lastBuildDate>
+    <docs>http://www.rssboard.org/rss-specification</docs>
+    <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
+    <item>
+>>>>>>> c1e9de0bc5845b731900d2ed9d101177816ba2b3
       <title>Licencias GVLK de Microsoft con vlmcsd</title>
       <link>https://alvarogonzalezsotillo.github.io/blog/licencias-gvlk-de-microsoft-con-vlmcsd</link>
       <description><![CDATA[El mecanismo de licencias GVLK (por volumen) de Microsoft, utilizado en muchas versiones de Windows y Office, puede entenderse fácilmente experimentando con vlmcsd]]></description>
@@ -78,5 +86,15 @@
       <pubDate>2019-03-04</pubDate>
       <guid>https://alvarogonzalezsotillo.github.io/blog/palabras-anagramadas</guid>
     </item>
+<<<<<<< HEAD
+=======
+    <item>
+      <title>Palabras anagramadas online</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/palabras-anagramadas-online</link>
+      <description><![CDATA[çayuda online para el concurso de Palabras Anagramadas del programa de radio No Es Un Día Cualquiera.]]></description>
+      <pubDate>2019-02-24</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/palabras-anagramadas-online</guid>
+    </item>
+>>>>>>> c1e9de0bc5845b731900d2ed9d101177816ba2b3
   </channel>
 </rss>
