@@ -13,7 +13,7 @@ Los usarios de *emacs* tenemos un complejo de inferioridad respecto del tiempo d
 
 Al final, la mejor solución no es reducir el tiempo de arranque, sino /camuflarlo/. La mayoría de usuarios de *emacs* no abren una instancia cada vez que lo necesitan, sino que *emacs* está corriendo permanentemente y se abren nuevas /frames/ o /windows/. La forma de trabajo sería la siguiente
 - Abrir una instancia de *emacs* y arrancar el [[http://wikemacs.org/wiki/Emacs_server][servidor]].
-- Cuando se necesite abrir un fichero, no se ejecuta una nueva instancia de *emacs*, sino que se utiliza *[[https://www.emacswiki.org/emacs/EmacsClient][emacsclient]]*. Este se conecta la instancia inicial.
+- Cuando se necesite abrir un fichero, no se ejecuta una nueva instancia de *emacs*, sino que se utiliza *[[https://www.emacswiki.org/emacs/EmacsClient][emacsclient]]*. Este se conecta a la instancia inicial.
 
 El /hack/ final es hacer que la instancia de *emacs* se arranque automáticamente al iniciar sesión, o mejor aún, cuando se inicia el sistema como un servicio.
 
