@@ -20,5 +20,8 @@
 
 * Tirar de la cadena
 
+* Pizarra de clase
+
+
 
 
