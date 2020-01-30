@@ -1,0 +1,24 @@
+
+#+TITLE:       Palabras obsoletas
+#+AUTHOR:      Álvaro González Sotillo
+#+EMAIL:       alvarogonzalezsotillo@gmail.com
+#+DATE:        2020-01-30
+#+URI:         /blog/palabras-obsoletas
+#+KEYWORDS:    
+#+TAGS:        
+#+LANGUAGE:    es
+#+OPTIONS:     H:3 num:t toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+# #+options:     toc:2
+#+options:     num:nil
+#+DESCRIPTION: Palabras que originalmente indicaban un uso u objeto, que siguen utilizándose para el uso u objeto actual que cumple la misma función, pero que no tiene nada que ver con el orginal
+
+* Mechero
+
+* Pantalla
+
+* Colgar el teléfono
+
+* Tirar de la cadena
+
+
+
