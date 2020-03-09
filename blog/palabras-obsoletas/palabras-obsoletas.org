@@ -13,25 +13,47 @@
 #+DESCRIPTION: Palabras que originalmente indicaban un uso u objeto, que siguen utilizándose para el uso u objeto actual que cumple la misma función, pero que no tiene nada que ver con el orginal
 
 * Mechero
+Los encendedores actuales utilizan una chispa para encender un gas (benceno, butano, propano...). La chispa se consigue por medio del [[https://es.wikipedia.org/wiki/Piezoelectricidad][efecto piezoeléctrico]] o a partir de una piedra de [[https://es.wikipedia.org/wiki/Ferrocerio][ferrocerio]].
 
-https://es.m.wikipedia.org/wiki/Encendedor
-https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Mechero.JPG/1280px-Mechero.JPG
+El nombre de *mechero* 
+
+
+[[https://es.m.wikipedia.org/wiki/Encendedor]]
+
+
+[[file:mechero.jpg]]
+[[https://commons.wikimedia.org/wiki/File:Chisquero.jpg][Fuente]]
+
 * Pantalla
 
 https://dle.rae.es/?w=pantalla
+
+
 * Colgar el teléfono
 
-http://1.bp.blogspot.com/-7ZQTzcwa-4g/UYE6jvnFtVI/AAAAAAAAARw/0s0eCIo44lk/s1600/el+bueno.JPG
+[[file:colgar-el-telefono.jpg]]
+[[https://commons.wikimedia.org/wiki/File:Western_Electric_WE_520_-_Telephone_Museum_-_Waltham,_Massachusetts_-_DSC08243.jpg][Fuente]]
+
 * Tirar de la cadena
 
-https://cdn.manomano.com/inodoro-wc-tradicional-en-ceramica-con-cisterna-alta-y-salida-horizontal-P-256512-3213578_1.jpg
+[[file:tirar-de-la-cadena.jpg]]
+[[https://commons.wikimedia.org/wiki/File:Text-book_of_hygiene;_a_comprehensive_treatise_on_the_principles_and_practice_of_preventive_medicine_from_an_American_stand-point_(1890)_(14596171869).jpg][Fuente]]
+
 * Pizarra de clase
-https://es.m.wikipedia.org/wiki/Pizarr%C3%B3n
+
+[[file:pizarra.jpg]]
+[[https://commons.wikimedia.org/wiki/File:Tafel_(Lehrmittel).jpg#mw-jump-to-license][Fuente]]
+
+
+
 * Ordenador
 
 
 
-película
+* Película
+
+[[file:pelicula.jpg]]
+[[https://commons.wikimedia.org/wiki/File:8_mm_Kodak_safety_film_reel_03.jpg][Fuente]]
 
 
 
