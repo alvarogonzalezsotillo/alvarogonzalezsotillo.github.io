@@ -44,17 +44,17 @@ A pesar de ello, volvimos a tener una conexión a Internet inestable: unas aulas
 
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgf59f338">Descubriendo el ataque</a></li>
-<li><a href="#orgc70c9b9">El contraataque</a></li>
-<li><a href="#org20ee75b">Medidas a tomar en un futuro</a></li>
+<li><a href="#orge33bbed">Descubriendo el ataque</a></li>
+<li><a href="#orga0a99b8">El contraataque</a></li>
+<li><a href="#org0abe266">Medidas a tomar en un futuro</a></li>
 </ul>
 </div>
 
-<div id="outline-container-orgf59f338" class="outline-2">
-<h2 id="orgf59f338">Descubriendo el ataque</h2>
-<div class="outline-text-2" id="text-orgf59f338">
+<div id="outline-container-orge33bbed" class="outline-2">
+<h2 id="orge33bbed">Descubriendo el ataque</h2>
+<div class="outline-text-2" id="text-orge33bbed">
 <p>
-Utilizando la función de <i>network</i> de <code>Pihole</code> encontramos algo anormal: la dirección IP del router se utilizaba por dos equipos de la red con <a href="https://es.wikipedia.org/wiki/Direcci%C3%B3n_MAC">dirección MAC</a> distintas: la propia de la ONT y <code>1c:6f:65:a7:4d:79</code>. De hecho, la MAC sospechosa se había anunciado en apenas dos horas como 7 direcciones IP distintas.
+Utilizando la función de <i>network</i> de <code>Pihole</code> encontramos algo anormal: la dirección IP del router se utilizaba por dos equipos de la red con <a href="https://es.wikipedia.org/wiki/Direcci%25C3%25B3n_MAC">dirección MAC</a> distintas: la propia de la ONT y <code>1c:6f:65:a7:4d:79</code>. De hecho, la MAC sospechosa se había anunciado en apenas dos horas como 7 direcciones IP distintas.
 </p>
 
 
@@ -65,7 +65,7 @@ Utilizando la función de <i>network</i> de <code>Pihole</code> encontramos algo
 </div>
 
 <p>
-Empezaba a parecer un caso de <a href="https://es.wikipedia.org/wiki/Suplantaci%C3%B3n_de_ARP">ARP Spoofing</a>, quizás como paso previo para un <a href="https://es.wikipedia.org/wiki/Ataque_de_intermediario">man in the middle</a>. Con <a href="https://es.wikipedia.org/wiki/Tcpdump"><code>tcpdump</code></a> confirmamos nuestras sospechas.
+Empezaba a parecer un caso de <a href="https://es.wikipedia.org/wiki/Suplantaci%25C3%25B3n_de_ARP">ARP Spoofing</a>, quizás como paso previo para un <a href="https://es.wikipedia.org/wiki/Ataque_de_intermediario">man in the middle</a>. Con <a href="https://es.wikipedia.org/wiki/Tcpdump"><code>tcpdump</code></a> confirmamos nuestras sospechas.
 </p>
 
 
@@ -77,14 +77,14 @@ Empezaba a parecer un caso de <a href="https://es.wikipedia.org/wiki/Suplantaci%
 
 
 <p>
-El ordenador con MAC <code>1c:6f:65:a7:4d:79</code> enviaba cada dos segundos una <a href="https://es.wikipedia.org/wiki/Protocolo_de_resoluci%C3%B3n_de_direcciones#Alcance_de_funcionamiento">respuesta ARP</a> suplantando la identidad del <i>router</i>. En ese momento dicho ordenador consideraba su dirección IP principal como <code>10.1.0.201</code>.
+El ordenador con MAC <code>1c:6f:65:a7:4d:79</code> enviaba cada dos segundos una <a href="https://es.wikipedia.org/wiki/Protocolo_de_resoluci%25C3%25B3n_de_direcciones#Alcance_de_funcionamiento">respuesta ARP</a> suplantando la identidad del <i>router</i>. En ese momento dicho ordenador consideraba su dirección IP principal como <code>10.1.0.201</code>.
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgc70c9b9" class="outline-2">
-<h2 id="orgc70c9b9">El contraataque</h2>
-<div class="outline-text-2" id="text-orgc70c9b9">
+<div id="outline-container-orga0a99b8" class="outline-2">
+<h2 id="orga0a99b8">El contraataque</h2>
+<div class="outline-text-2" id="text-orga0a99b8">
 <p>
 Utilizando <a href="https://nmap.org/">Nmap</a> descubrimos que el ordenador atacante tenía abiertos los puertos típicos de un ordenador Linux, entre ellos el puerto 22 de SSH. Ante la posibilidad de que fuera uno de los ordenadores del centro intentamos acceder por SSH con los usuarios y contraseñas que dejamos en las maquetas de los PC's de aula. Conseguimos entrar sin problemas, lo que nos permitió localizar el aula y puesto del PC. A partir de aquí solo quedaba recuperar información forense para saber exactamente qué había pasado.
 </p>
@@ -108,9 +108,9 @@ Creemos que consiguió ser superusuario arrancando linux en <a href="https://ask
 </div>
 </div>
 
-<div id="outline-container-org20ee75b" class="outline-2">
-<h2 id="org20ee75b">Medidas a tomar en un futuro</h2>
-<div class="outline-text-2" id="text-org20ee75b">
+<div id="outline-container-org0abe266" class="outline-2">
+<h2 id="org0abe266">Medidas a tomar en un futuro</h2>
+<div class="outline-text-2" id="text-org0abe266">
 <p>
 En nuestro centro todas las aulas comparten la misma <a href="https://es.wikipedia.org/wiki/VLAN"><code>VLAN</code></a>, y la asignación de <code>IP</code> se hace dinámicamente por <code>DHCP</code>, por lo que <b>la localización del PC atacante fue cuestión de suerte</b>. Si el alumno hubiera utilizado una máquina virtual en modo <i>bridged</i>, tendríamos que haber localizado el aula desconectando poco a poco los switches.
 </p>

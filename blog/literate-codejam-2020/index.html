@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Literate Programming y Google Code Jam 2020 - Álvaro González Sotillo</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Álvaro González Sotillo" />
+    <meta name="description" content="Nueva edición de Codejam con literate programming" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <!-- <link rel="stylesheet" href="/media/css/prettify.css" type="text/css"> -->
+  </head>
+
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">Álvaro González Sotillo</a></h1>
+        <p></p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">Acerca de mí</a></li>
+          <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="//www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Buscar">
+          <input type="hidden" name="as_sitesearch" value="alvarogonzalezsotillo.github.io">
+        </form>
+        <img class="avatar" src="/media/img/octaedron.png" />
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>Literate Programming y Google Code Jam 2020</h1>
+<div id="table-of-contents">
+<h2>&Iacute;ndice</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgb152573">1. CodeJam utilizando <i>emacs</i></a></li>
+<li><a href="#org1bea10b">2. Vestigium</a>
+<ul>
+<li><a href="#orgeaa9760">2.1. Problem</a></li>
+<li><a href="#org83f88b8">2.2. Input</a></li>
+<li><a href="#orge53c654">2.3. Output</a></li>
+<li><a href="#orge6886de">2.4. Mi solución</a></li>
+</ul>
+</li>
+<li><a href="#orgf48f377">3. Nesting Depth</a>
+<ul>
+<li><a href="#org9c3f7f7">3.1. Problem</a></li>
+<li><a href="#org9180a1b">3.2. Input</a></li>
+<li><a href="#org78cd66c">3.3. Input</a></li>
+<li><a href="#orgfe6b0b0">3.4. Output</a></li>
+<li><a href="#org83fbc73">3.5. Mi solución</a></li>
+</ul>
+</li>
+<li><a href="#org95b2988">4. Parenting Partnering Returns</a>
+<ul>
+<li><a href="#org7040927">4.1. Problem</a></li>
+<li><a href="#org234c860">4.2. Input</a></li>
+<li><a href="#org1a987a1">4.3. Output</a></li>
+<li><a href="#orgccf0da9">4.4. Limits</a></li>
+<li><a href="#orgf6e3e17">4.5. Sample</a></li>
+<li><a href="#org35682d9">4.6. Mi solución</a></li>
+</ul>
+</li>
+<li><a href="#org4826da3">5. ESAb ATAb</a>
+<ul>
+<li><a href="#org32e10db">5.1. Problem</a></li>
+<li><a href="#org73d177f">5.2. Input and output</a></li>
+<li><a href="#org6f5cd8d">5.3. Limits</a></li>
+<li><a href="#org687fef4">5.4. Testing Tool</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-orgb152573" class="outline-2">
+<h2 id="orgb152573"><span class="section-number-2">1</span> <a href="https://code.google.com/codejam/">CodeJam</a> utilizando <i>emacs</i></h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Estos son mis programas para la edición de 2020 de CodeJam. Como en mi anterior participación, están hechos con org-babel
+</p>
+</div>
+</div>
+
+<div id="outline-container-org1bea10b" class="outline-2">
+<h2 id="org1bea10b"><span class="section-number-2">2</span> Vestigium</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-orgeaa9760" class="outline-3">
+<h3 id="orgeaa9760"><span class="section-number-3">2.1</span> Problem</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+Vestigium means "trace" in Latin. In this problem we work with Latin squares and matrix traces.
+</p>
+
+<p>
+The trace of a square matrix is the sum of the values on the main diagonal (which runs from the upper left to the lower right).
+</p>
+
+<p>
+An N-by-N square matrix is a Latin square if each cell contains one of N different values, and no value is repeated within a row or a column. In this problem, we will deal only with "natural Latin squares" in which the N values are the integers between 1 and N.
+</p>
+
+<p>
+Given a matrix that contains only integers between 1 and N, we want to compute its trace and check whether it is a natural Latin square. To give some additional information, instead of simply telling us whether the matrix is a natural Latin square or not, please compute the number of rows and the number of columns that contain repeated values.
+Input
+</p>
+
+<p>
+The first line of the input gives the number of test cases, T. T test cases follow. Each starts with a line containing a single integer N: the size of the matrix to explore. Then, N lines follow. The i-th of these lines contains N integers Mi,1, Mi,2 &#x2026;, Mi,N. Mi,j is the integer in the i-th row and j-th column of the matrix.
+Output
+</p>
+
+<p>
+For each test case, output one line containing Case #x: k r c, where x is the test case number (starting from 1), k is the trace of the matrix, r is the number of rows of the matrix that contain repeated elements, and c is the number of columns of the matrix that contain repeated elements.
+Limits
+Test set 1 (Visible Verdict)
+</p>
+
+<p>
+Time limit: 20 seconds per test set.
+Memory limit: 1GB.
+1 ≤ T ≤ 100.
+2 ≤ N ≤ 100.
+1 ≤ Mi,j ≤ N, for all i, j.
+Sample
+</p>
+</div>
+</div>
+
+<div id="outline-container-org83f88b8" class="outline-3">
+<h3 id="org83f88b8"><span class="section-number-3">2.2</span> Input</h3>
+<div class="outline-text-3" id="text-2-2">
+<pre class="example">
+3
+4
+1 2 3 4
+2 1 4 3
+3 4 1 2
+4 3 2 1
+4
+2 2 2 2
+2 3 2 3
+2 2 2 3
+2 2 2 2
+3
+2 1 3
+1 3 2
+1 2 3
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-orge53c654" class="outline-3">
+<h3 id="orge53c654"><span class="section-number-3">2.3</span> Output</h3>
+<div class="outline-text-3" id="text-2-3">
+<pre class="example">
+Case #1: 4 0 0
+Case #2: 9 4 4
+Case #3: 8 0 2
+</pre>
+
+
+
+<p>
+In Sample Case #1, the input is a natural Latin square, which means no row or column has repeated elements. All four values in the main diagonal are 1, and so the trace (their sum) is 4.
+</p>
+
+<p>
+In Sample Case #2, all rows and columns have repeated elements. Notice that each row or column with repeated elements is counted only once regardless of the number of elements that are repeated or how often they are repeated within the row or column. In addition, notice that some integers in the range 1 through N may be absent from the input.
+</p>
+
+<p>
+In Sample Case #3, the leftmost and rightmost columns have repeated elements.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orge6886de" class="outline-3">
+<h3 id="orge6886de"><span class="section-number-3">2.4</span> Mi solución</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+Importante: La clase que se envía debe llamarse <code>Solution</code>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-scala">object Solution extends App{
+
+  val in = {
+    var ret = new java.util.Scanner(System.in);
+
+    scala.util.Try{
+      // EN PRUEBAS LOCALES, LO HAGO CON UN FICHERO
+      ret = new java.util.Scanner( new java.io.FileInputStream("vestigium.in"))
+    }
+
+    ret
+  }
+
+  def readInt = in.nextInt()
+
+  val T = readInt;
+  for( t &lt;- 1 to T ){
+    val N = readInt
+    val rows = Array.fill(N)( new Array[Int](N) )
+    val columns = Array.fill(N)( new Array[Int](N) )
+
+    for( row &lt;- 0 until N ; col &lt;- 0 until N ){
+      val v = readInt
+      rows(row)(col) = v
+      columns(col)(row) = v
+    }
+
+    def repeated(rowOrColumn: Array[Int]) = {
+      val groups = rowOrColumn.groupBy(v=&gt;v)
+      val filtered = groups.filter{ case (k,v) =&gt; v.size &gt; 1 }
+      filtered.size &gt; 0
+    }
+
+    val r = rows.filter( repeated ).size
+    val c = columns.filter(repeated).size
+
+    val k = (0 until N).map( i =&gt; rows(i)(i) ).sum
+
+    println( s"Case #$t: $k $r $c" )
+  }
+}
+
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="outline-container-orgf48f377" class="outline-2">
+<h2 id="orgf48f377"><span class="section-number-2">3</span> Nesting Depth</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-org9c3f7f7" class="outline-3">
+<h3 id="org9c3f7f7"><span class="section-number-3">3.1</span> Problem</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+tl;dr: Given a string of digits S, insert a minimum number of opening and closing parentheses into it such that the resulting string is balanced and each digit d is inside exactly d pairs of matching parentheses.
+</p>
+
+<p>
+Let the nesting of two parentheses within a string be the substring that occurs strictly between them. An opening parenthesis and a closing parenthesis that is further to its right are said to match if their nesting is empty, or if every parenthesis in their nesting matches with another parenthesis in their nesting. The nesting depth of a position p is the number of pairs of matching parentheses m such that p is included in the nesting of m.
+</p>
+
+<p>
+For example, in the following strings, all digits match their nesting depth: 0((2)1), (((3))1(2)), ((((4)))), ((2))((2))(1). The first three strings have minimum length among those that have the same digits in the same order, but the last one does not since ((22)1) also has the digits 221 and is shorter.
+</p>
+
+<p>
+Given a string of digits S, find another string S', comprised of parentheses and digits, such that:
+</p>
+
+<p>
+all parentheses in S' match some other parenthesis,
+removing any and all parentheses from S' results in S,
+each digit in S' is equal to its nesting depth, and
+S' is of minimum length.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org9180a1b" class="outline-3">
+<h3 id="org9180a1b"><span class="section-number-3">3.2</span> Input</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+The first line of the input gives the number of test cases, T. T lines follow. Each line represents a test case and contains only the string S.
+Output
+</p>
+
+<p>
+For each test case, output one line containing Case #x: y, where x is the test case number (starting from 1) and y is the string S' defined above.
+Limits
+</p>
+
+<p>
+Time limit: 20 seconds per test set.
+Memory limit: 1GB.
+1 ≤ T ≤ 100.
+1 ≤ length of S ≤ 100.
+Test set 1 (Visible Verdict)
+</p>
+
+<p>
+Each character in S is either 0 or 1.
+Test set 2 (Visible Verdict)
+</p>
+
+<p>
+Each character in S is a decimal digit between 0 and 9, inclusive.
+Sample
+</p>
+</div>
+</div>
+
+<div id="outline-container-org78cd66c" class="outline-3">
+<h3 id="org78cd66c"><span class="section-number-3">3.3</span> Input</h3>
+<div class="outline-text-3" id="text-3-3">
+<pre class="example">
+4
+0000
+101
+111000
+1
+</pre>
+</div>
+</div>
+
+
+
+<div id="outline-container-orgfe6b0b0" class="outline-3">
+<h3 id="orgfe6b0b0"><span class="section-number-3">3.4</span> Output</h3>
+<div class="outline-text-3" id="text-3-4">
+<pre class="example">
+Case #1: 0000
+Case #2: (1)0(1)
+Case #3: (111)000
+Case #4: (1)
+</pre>
+
+
+
+<p>
+The strings ()0000(), (1)0(((()))1) and (1)(11)000 are not valid solutions to Sample Cases #1, #2 and #3, respectively, only because they are not of minimum length. In addition, 1)( and )(1 are not valid solutions to Sample Case #4 because they contain unmatched parentheses and the nesting depth is 0 at the position where there is a 1.
+</p>
+
+<p>
+You can create sample inputs that are valid only for Test Set 2 by removing the parentheses from the example strings mentioned in the problem statement. 
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org83fbc73" class="outline-3">
+<h3 id="org83fbc73"><span class="section-number-3">3.5</span> Mi solución</h3>
+<div class="outline-text-3" id="text-3-5">
+<div class="org-src-container">
+<pre class="src src-scala">
+
+object Solution extends App{
+
+  val in = {
+    var ret = new java.util.Scanner(System.in);
+
+    scala.util.Try{
+      // EN PRUEBAS LOCALES, LO HAGO CON UN FICHERO
+      ret = new java.util.Scanner( new java.io.FileInputStream("nesting-depth.in"))
+    }
+
+    ret
+  }
+
+  def readInt = in.nextInt()
+  def readLine = in.nextLine()
+
+  val T = readLine.toInt
+  for( t &lt;- 1 to T ){
+
+    val line = readLine
+
+    var currentDepth = 0;
+    var ret = "";
+
+    for( c &lt;- line.toArray.map( c =&gt; ("" + c).toInt ) ){
+      for( _ &lt;- currentDepth until c ){
+        ret += "("
+      }
+      for( _ &lt;- c until currentDepth ){
+        ret += ")"
+      }
+      ret += c.toString
+      currentDepth = c;
+    }
+    for( _ &lt;- 0 until currentDepth ){
+      ret += ")"
+    }
+
+
+    println( s"Case #$t: $ret" )
+  }
+}
+
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-org95b2988" class="outline-2">
+<h2 id="org95b2988"><span class="section-number-2">4</span> Parenting Partnering Returns</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-org7040927" class="outline-3">
+<h3 id="org7040927"><span class="section-number-3">4.1</span> Problem</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+Cameron and Jamie's kid is almost 3 years old! However, even though the child is more independent now, scheduling kid activities and domestic necessities is still a challenge for the couple.
+</p>
+
+<p>
+Cameron and Jamie have a list of N activities to take care of during the day. Each activity happens during a specified interval during the day. They need to assign each activity to one of them, so that neither of them is responsible for two activities that overlap. An activity that ends at time t is not considered to overlap with another activity that starts at time t.
+</p>
+
+<p>
+For example, suppose that Jamie and Cameron need to cover 3 activities: one running from 18:00 to 20:00, another from 19:00 to 21:00 and another from 22:00 to 23:00. One possibility would be for Jamie to cover the activity running from 19:00 to 21:00, with Cameron covering the other two. Another valid schedule would be for Cameron to cover the activity from 18:00 to 20:00 and Jamie to cover the other two. Notice that the first two activities overlap in the time between 19:00 and 20:00, so it is impossible to assign both of those activities to the same partner.
+</p>
+
+<p>
+Given the starting and ending times of each activity, find any schedule that does not require the same person to cover overlapping activities, or say that it is impossible.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org234c860" class="outline-3">
+<h3 id="org234c860"><span class="section-number-3">4.2</span> Input</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+The first line of the input gives the number of test cases, T. T test cases follow. Each test case starts with a line containing a single integer N, the number of activities to assign. Then, N more lines follow. The i-th of these lines (counting starting from 1) contains two integers Si and Ei. The i-th activity starts exactly Si minutes after midnight and ends exactly Ei minutes after midnight.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org1a987a1" class="outline-3">
+<h3 id="org1a987a1"><span class="section-number-3">4.3</span> Output</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+For each test case, output one line containing Case #x: y, where x is the test case number (starting from 1) and y is IMPOSSIBLE if there is no valid schedule according to the above rules, or a string of exactly N characters otherwise. The i-th character in y must be C if the i-th activity is assigned to Cameron in your proposed schedule, and J if it is assigned to Jamie.
+</p>
+
+<p>
+If there are multiple solutions, you may output any one of them. (See "What if a test case has multiple correct solutions?" in the Competing section of the FAQ. This information about multiple solutions will not be explicitly stated in the remainder of the 2020 contest.)
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgccf0da9" class="outline-3">
+<h3 id="orgccf0da9"><span class="section-number-3">4.4</span> Limits</h3>
+<div class="outline-text-3" id="text-4-4">
+<p>
+Time limit: 20 seconds per test set.
+Memory limit: 1GB.
+1 ≤ T ≤ 100.
+0 ≤ Si &lt; Ei ≤ 24 × 60.
+</p>
+
+<p>
+Test set 1 (Visible Verdict)
+2 ≤ N ≤ 10.
+</p>
+
+<p>
+Test set 2 (Visible Verdict)
+2 ≤ N ≤ 1000.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf6e3e17" class="outline-3">
+<h3 id="orgf6e3e17"><span class="section-number-3">4.5</span> Sample</h3>
+<div class="outline-text-3" id="text-4-5">
+<p>
+***Input
+</p>
+
+
+<pre class="example">
+4
+3
+360 480
+420 540
+600 660
+3
+0 1440
+1 3
+2 4
+5
+99 150
+1 100
+100 301
+2 5
+150 250
+2
+0 720
+720 1440
+</pre>
+</div>
+
+<div id="outline-container-orgfb77b6b" class="outline-4">
+<h4 id="orgfb77b6b"><span class="section-number-4">4.5.1</span> Output</h4>
+<div class="outline-text-4" id="text-4-5-1">
+<pre class="example">
+Case #1: CJC
+Case #2: IMPOSSIBLE
+Case #3: JCCJJ
+Case #4: CC
+</pre>
+
+
+<p>
+Sample Case #1 is the one described in the problem statement. As mentioned above, there are other valid solutions, like JCJ and JCC.
+</p>
+
+<p>
+In Sample Case #2, all three activities overlap with each other. Assigning them all would mean someone would end up with at least two overlapping activities, so there is no valid schedule.
+</p>
+
+<p>
+In Sample Case #3, notice that Cameron ends an activity and starts another one at minute 100.
+</p>
+
+<p>
+In Sample Case #4, any schedule would be valid. Specifically, it is OK for one partner to do all activities.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org35682d9" class="outline-3">
+<h3 id="org35682d9"><span class="section-number-3">4.6</span> Mi solución</h3>
+<div class="outline-text-3" id="text-4-6">
+<div class="org-src-container">
+<pre class="src src-scala">
+
+object Solution extends App{
+
+
+
+  val in = {
+    var ret = new java.util.Scanner(System.in);
+
+    scala.util.Try{
+      // EN PRUEBAS LOCALES, LO HAGO CON UN FICHERO
+      ret = new java.util.Scanner( new java.io.FileInputStream("parenting-partnering-returns.in"))
+    }
+
+    ret
+  }
+
+
+  def readInt = in.nextInt()
+  def readLine = in.nextLine()
+
+  case class Task(start:Int,end:Int,inputOrder:Int)
+
+
+  val T = readLine.toInt
+  for( t &lt;- 1 to T ){
+    val N = readLine.toInt
+    val tasks = Array.tabulate(N){ order =&gt;
+      val Array(start,end) = readLine.split(" ").map(_.toInt)
+      Task(start,end,order)
+    }.sortBy{
+      case Task(start,_,_) =&gt; start
+    }
+
+    var busyC = 0;
+    var busyJ = 0;
+    var ret = "";
+    for( task &lt;- tasks ){
+      if( busyC &lt;= task.start ){
+        ret +="C";
+        busyC = task.end
+      }
+      else if( busyJ &lt;= task.start ){
+        ret +="J";
+        busyJ = task.end
+      }
+      else{
+        ret += "I";
+      }
+    }
+
+    val solution = if( ret.contains("I") ) "IMPOSSIBLE" else {
+      val chars : Array[Char] = new Array(tasks.size)
+      for( i &lt;- 0 until chars.size ){
+        chars(tasks(i).inputOrder) = ret(i)
+      }
+      chars.mkString("")
+    }
+
+    println( s"Case #$t: $solution" )
+  }
+}
+
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org4826da3" class="outline-2">
+<h2 id="org4826da3"><span class="section-number-2">5</span> ESAb ATAb</h2>
+<div class="outline-text-2" id="text-5">
+</div>
+<div id="outline-container-org32e10db" class="outline-3">
+<h3 id="org32e10db"><span class="section-number-3">5.1</span> Problem</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+Last year, a research consortium had some trouble with a distributed database system that sometimes lost pieces of the data. You do not need to read or understand that problem in order to solve this one!
+</p>
+
+<p>
+The consortium has decided that distributed systems are too complicated, so they are storing B bits of important information in a single array on one awesome machine. As an additional layer of security, they have made it difficult to obtain the information quickly; the user must query for a bit position between 1 and B, and then they receive that bit of the stored array as a response.
+</p>
+
+<p>
+Unfortunately, this ultra-modern machine is subject to random quantum fluctuations! Specifically, after every 1st, 11th, 21st, 31st&#x2026; etc. query is sent, but before the response is given, quantum fluctuation causes exactly one of the following four effects, with equal probability:
+</p>
+
+<p>
+25% of the time, the array is complemented: every 0 becomes a 1, and vice versa.
+25% of the time, the array is reversed: the first bit swaps with the last bit, the second bit swaps with the second-to-last bit, and so on.
+25% of the time, both of the things above (complementation and reversal) happen to the array. (Notice that the order in which they happen does not matter.)
+25% of the time, nothing happens to the array.
+Moreover, there is no indication of what effect the quantum fluctuation has had each time. The consortium is now concerned, and it has hired you to get its precious data back, in whatever form it is in! Can you find the entire array, such that your answer is accurate as of the time that you give it? Answering does not count as a query, so if you answer after your 30th query, for example, the array will be the same as it was after your 21st through 30th queries.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org73d177f" class="outline-3">
+<h3 id="org73d177f"><span class="section-number-3">5.2</span> Input and output</h3>
+<div class="outline-text-3" id="text-5-2">
+<p>
+This is an interactive problem. You should make sure you have read the information in the Interactive Problems section of our FAQ.
+</p>
+
+<p>
+Initially, your program should read a single line containing two integers T and B: the number of test cases and the number of bits in the array, respectively. Note that B is the same for every test case.
+</p>
+
+<p>
+Then, you need to process T test cases. In each case, the judge begins with a predetermined B-bit array; note that this array can vary from test case to test case, and is not necessarily chosen at random. Then, you may make up to 150 queries of the following form:
+</p>
+
+<p>
+Your program outputs one line containing a single integer P between 1 and B, inclusive, indicating which position in the array you wish to look at.
+If the number of queries you have made so far ends with a 1, the judge chooses one of the four possibilities described above (complementation, reversal, complementation + reversal, or nothing), uniformly at random and independently of all other choices, and alters the stored array accordingly. (Notice that this will happen on the very first query you make.)
+The judge responds with one line containing a single character 0 or 1, the value it currently has stored at bit position P, or N if you provided a malformed line (e.g., an invalid position).
+Then, after you have made as many of the 150 queries above as you want, you must make one more exchange of the following form:
+</p>
+
+<p>
+Your program outputs one line containing a string of B characters, each of which is 0 or 1, representing the bits currently stored in the array (which will not necessarily match the bits that were initially present!)
+The judge responds with one line containing a single letter: uppercase Y if your answer was correct, and uppercase N if it was not (or you provided a malformed line). If you receive Y, you should begin the next test case, or stop sending input if there are no more test cases.
+After the judge sends N to your input stream, it will not send any other output. If your program continues to wait for the judge after receiving N, your program will time out, resulting in a Time Limit Exceeded error. Notice that it is your responsibility to have your program exit in time to receive a Wrong Answer judgment instead of a Time Limit Exceeded error. As usual, if the memory limit is exceeded, or your program gets a runtime error, you will receive the appropriate judgment.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6f5cd8d" class="outline-3">
+<h3 id="org6f5cd8d"><span class="section-number-3">5.3</span> Limits</h3>
+<div class="outline-text-3" id="text-5-3">
+<p>
+Time limit: 40 seconds per test set.
+Memory limit: 1GB.
+1 ≤ T ≤ 100.
+</p>
+
+<p>
+Test set 1 (Visible Verdict)
+B = 10.
+</p>
+
+<p>
+Test set 2 (Visible Verdict)
+B = 20.
+</p>
+
+<p>
+Test set 3 (Hidden Verdict)
+B = 100.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org687fef4" class="outline-3">
+<h3 id="org687fef4"><span class="section-number-3">5.4</span> Testing Tool</h3>
+<div class="outline-text-3" id="text-5-4">
+<p>
+You can use this testing tool to test locally or on our servers. To test locally, you will need to run the tool in parallel with your code; you can use our interactive runner for that. The interactive runner was changed after the 2019 contest. Be sure to download the latest version. For more information, read the Interactive Problems section of the FAQ.
+</p>
+
+<p>
+Local Testing Tool
+To better facilitate local testing, we provide you the following script. Instructions are included inside. You are encouraged to add more test cases for better testing. Please be advised that although the testing tool is intended to simulate the judging system, it is NOT the real judging system and might behave differently.
+</p>
+
+<p>
+If your code passes the testing tool but fails the real judge, please check the Coding section of our FAQ to make sure that you are using the same compiler as us.
+</p>
+
+<p>
+Download local testing tool
+</p>
+
+<p>
+Sample Interaction
+The following interaction corresponds to Test Set 1.
+</p>
+
+<p>
+t, b = readline<sub>int</sub><sub>list</sub>()      <i>/ reads 100 into t and 10 into b.
+/</i> The judge starts with the predetermined array for this test case:
+<i>/ 0001101111. (Note: the actual Test Set 1 will not necessarily
+/</i> use this array.)
+printline 1 to stdout   // we ask about position 1.
+flush stdout
+<i>/ Since this is our 1st query, and 1 is 1 mod 10, the judge secretly and
+/</i> randomly chooses one of the four possible quantum fluctuation effects, as
+<i>/ described above. It happens to choose complementation + reversal, so now
+/</i> the stored value is 0000100111.
+r = readline<sub>chr</sub>()      <i>/ reads 0.
+printline 6 to stdout   /</i> we ask about position 6.
+flush stdout
+<i>/ Since this is our 2nd query, and 2 is 2 mod 10, the judge does not choose
+/</i> a quantum fluctuation effect.
+r = readline<sub>chr</sub>()      // reads 0.
+&#x2026;
+// We have omitted the third through tenth queries in this example.
+&#x2026;
+printline 1 to stdout   // we decide to ask about position 1 again.
+flush stdout
+<i>/ Since this is our 11th query, and 11 is 1 mod 10, the judge secretly and
+/</i> randomly chooses a quantum fluctuation effect, and happens to get
+<i>/ reversal, so now the stored value is 1110010000.
+r = readline<sub>chr</sub>()      /</i> reads 1.
+printline 1110110000 to stdout   // we try to answer. why?!?!
+flush stdout
+ok = readline<sub>chr</sub>()     <i>/ reads N &#x2013; we have made a mistake!
+exit                    /</i> exits to avoid an ambiguous TLE error
+</p>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2020-04-04</span>
+        <span title="last modification date" class="post-info">2020-04-04</span>
+        <span title="tags" class="post-info"><a href="/tags/emacs/">emacs</a>, <a href="/tags/orgmode/">orgmode</a>, <a href="/tags/codejam/">codejam</a>, <a href="/tags/programación/">programación</a></span>
+        <span title="author" class="post-info">Álvaro González Sotillo</span>
+      </div>
+      <section>
+        <!-- <h1>Comments</h1> -->
+      </section>
+      <!-- <script src="//code.jquery.com/jquery-latest.min.js"></script> -->
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->
+      <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>  -->
+      <!--<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>-->
+      <script src="/media/js/jquery-3.2.1.min.js"></script>
+      <script src="/media/js/main.js"></script>
+      <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="/media/js/code-prettify/loader/run_prettify.js"></script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 27.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:alvarogonzalezsotillo <at> gmail <dot> com">Álvaro González Sotillo</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>

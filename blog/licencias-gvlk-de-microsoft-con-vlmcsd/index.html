@@ -42,33 +42,33 @@ El mecanismo de licencias GVLK (por volumen) de Microsoft siempre me pareció al
 
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org9e99239">Activación de productos Microsoft</a></li>
-<li><a href="#org57b91e8">Licencias GLVK y servidores KMS</a></li>
-<li><a href="#orgb7f2e6f">Vlmscd</a></li>
-<li><a href="#org842be76">Instalación en una Raspberry Pi</a></li>
-<li><a href="#org95a2122">Configuración de los clientes</a>
+<li><a href="#orgcda0690">Activación de productos Microsoft</a></li>
+<li><a href="#org986018a">Licencias GLVK y servidores KMS</a></li>
+<li><a href="#orgd2037bf">Vlmscd</a></li>
+<li><a href="#org2128018">Instalación en una Raspberry Pi</a></li>
+<li><a href="#org885ec75">Configuración de los clientes</a>
 <ul>
-<li><a href="#org0e0e017">Configuración manual de los clientes</a></li>
-<li><a href="#org99d945f">Configuración por autodescubrimiento DNS</a></li>
+<li><a href="#org52d5de8">Configuración manual de los clientes</a></li>
+<li><a href="#org495aefa">Configuración por autodescubrimiento DNS</a></li>
 </ul>
 </li>
-<li><a href="#orgfc73eb1">Ejemplo de uso</a></li>
-<li><a href="#org4ccc1d2">Qué hacen los activadores <i>alternativos</i> de Office</a></li>
+<li><a href="#org8f9aa43">Ejemplo de uso</a></li>
+<li><a href="#org847aaaa">Qué hacen los activadores <i>alternativos</i> de Office</a></li>
 </ul>
 </div>
 
-<div id="outline-container-org9e99239" class="outline-2">
-<h2 id="org9e99239">Activación de productos Microsoft</h2>
-<div class="outline-text-2" id="text-org9e99239">
+<div id="outline-container-orgcda0690" class="outline-2">
+<h2 id="orgcda0690">Activación de productos Microsoft</h2>
+<div class="outline-text-2" id="text-orgcda0690">
 <p>
 Los productos de Microsoft necesitan ser activados. Una de las posibilidades es la activación por internet, en la que el producto se conecta a los servidores de Microsoft periódicamente para comprobar si su licencia es válida. Tras cada activación, el producto permanece activado por varias semanas o meses.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org57b91e8" class="outline-2">
-<h2 id="org57b91e8">Licencias GLVK y servidores KMS</h2>
-<div class="outline-text-2" id="text-org57b91e8">
+<div id="outline-container-org986018a" class="outline-2">
+<h2 id="org986018a">Licencias GLVK y servidores KMS</h2>
+<div class="outline-text-2" id="text-org986018a">
 <p>
 Para particulares y entornos SOHO, es aceptable introducir un número de licencia en cada ordenador y producto, pero para grandes empresas se necesita un mecanismo para activar multitud de ordenadores a la vez, preferiblemente con la misma licencia (para poder clonar equipos). Además, no siempre está disponible la conexión a Internet.
 </p>
@@ -79,9 +79,9 @@ Una empresa puede instalar un servidor KMS, que es un sofware facilitado por Mic
 </div>
 </div>
 
-<div id="outline-container-orgb7f2e6f" class="outline-2">
-<h2 id="orgb7f2e6f">Vlmscd</h2>
-<div class="outline-text-2" id="text-orgb7f2e6f">
+<div id="outline-container-orgd2037bf" class="outline-2">
+<h2 id="orgd2037bf">Vlmscd</h2>
+<div class="outline-text-2" id="text-orgd2037bf">
 <p>
 <a href="https://github.com/kkkgo/vlmcsd/tree/master/binaries">vlmscd</a> es una implementación independiente del protocolo de activación de licencias GLVK. Incluye un cliente para simular peticiones (vlmcs) y un servidor (vlmcsd). El servidor activa todas las solicitudes de licencia, y puede compilarse para una <a href="https://github.com/kkkgo/vlmcsd/tree/master/binaries">gran variedad de plataformas</a>.
 </p>
@@ -93,9 +93,9 @@ Existen otros productos similares, como <a href="https://github.com/SystemRage/p
 </div>
 
 
-<div id="outline-container-org842be76" class="outline-2">
-<h2 id="org842be76">Instalación en una Raspberry Pi</h2>
-<div class="outline-text-2" id="text-org842be76">
+<div id="outline-container-org2128018" class="outline-2">
+<h2 id="org2128018">Instalación en una Raspberry Pi</h2>
+<div class="outline-text-2" id="text-org2128018">
 <ol class="org-ol">
 <li>El binario puede obtenerse compilando el código fuente, pero también se ofrecen precompilados. Para mi Raspberry Pi 4 con Raspbian he utilizado <a href="https://github.com/kkkgo/vlmcsd/blob/master/binaries/Linux/arm/little-endian/glibc/vlmcsd-armv7el-glibc">vlmcsd-armv7el-glibc</a>.</li>
 <li><p>
@@ -164,26 +164,26 @@ dic 19 08:48:50 PI systemd[1]: Started vlmcsd kms server.
 </div>
 
 
-<div id="outline-container-org95a2122" class="outline-2">
-<h2 id="org95a2122">Configuración de los clientes</h2>
-<div class="outline-text-2" id="text-org95a2122">
+<div id="outline-container-org885ec75" class="outline-2">
+<h2 id="org885ec75">Configuración de los clientes</h2>
+<div class="outline-text-2" id="text-org885ec75">
 </div>
-<div id="outline-container-org0e0e017" class="outline-3">
-<h3 id="org0e0e017">Configuración manual de los clientes</h3>
-<div class="outline-text-3" id="text-org0e0e017">
+<div id="outline-container-org52d5de8" class="outline-3">
+<h3 id="org52d5de8">Configuración manual de los clientes</h3>
+<div class="outline-text-3" id="text-org52d5de8">
 <p>
 Los productos de Microsoft deben ser configurados para utilizar el nuevo sevidor KMS.
 </p>
 <ul class="org-ul">
-<li>Microsoft Windows ofrece la utilidad <a href="https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/dn502540(v%3Dws.11)"><code>slmgr</code></a>. La opción <code>/skms</code> permite definir la dirección IP y puerto del servidor KMS</li>
+<li>Microsoft Windows ofrece la utilidad <a href="https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/dn502540(v%253Dws.11)"><code>slmgr</code></a>. La opción <code>/skms</code> permite definir la dirección IP y puerto del servidor KMS</li>
 <li>Microsoft Office se configura mediante <a href="https://docs.microsoft.com/en-us/deployoffice/vlactivation/tools-to-manage-volume-activation-of-office"><code>ospp</code></a>. Las opciones <code>/sethst</code> y <code>/setprt</code> permiten definir la IP y puerto del servidor KMS.</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org99d945f" class="outline-3">
-<h3 id="org99d945f">Configuración por autodescubrimiento DNS</h3>
-<div class="outline-text-3" id="text-org99d945f">
+<div id="outline-container-org495aefa" class="outline-3">
+<h3 id="org495aefa">Configuración por autodescubrimiento DNS</h3>
+<div class="outline-text-3" id="text-org495aefa">
 <p>
 Es posible <a href="https://blogs.technet.microsoft.com/odsupport/2011/11/14/how-to-discover-office-and-windows-kms-hosts-via-dns-and-remove-unauthorized-instances/">configurar una entrada <code>SRV</code></a> en el servidor DNS para que los clientes localicen el servidor KMS. Para ello, hay que definir el servidor <code>_vlmcs._tcp</code> en el dominio de los equipos (suele definirlo el servidor de DHCP)
 </p>
@@ -206,9 +206,9 @@ address=/vlmcs/vlmcs.Home/10.3.0.111
 </div>
 </div>
 
-<div id="outline-container-orgfc73eb1" class="outline-2">
-<h2 id="orgfc73eb1">Ejemplo de uso</h2>
-<div class="outline-text-2" id="text-orgfc73eb1">
+<div id="outline-container-org8f9aa43" class="outline-2">
+<h2 id="org8f9aa43">Ejemplo de uso</h2>
+<div class="outline-text-2" id="text-org8f9aa43">
 <p>
 En una máquina virtual he instalado Office 2013, y he intentando activarla con procesador de comandos de Windows con privilegios de administrador. La licencia introducida puede conseguirse en <a href="https://docs.microsoft.com/en-us/previous-versions/office/dn385360(v=office.15)?redirectedfrom=MSDN">la documentación de Microsoft</a>.
 </p>
@@ -305,9 +305,9 @@ Last 5 characters of installed product key: GVGXT
 </div>
 </div>
 
-<div id="outline-container-org4ccc1d2" class="outline-2">
-<h2 id="org4ccc1d2">Qué hacen los activadores <i>alternativos</i> de Office</h2>
-<div class="outline-text-2" id="text-org4ccc1d2">
+<div id="outline-container-org847aaaa" class="outline-2">
+<h2 id="org847aaaa">Qué hacen los activadores <i>alternativos</i> de Office</h2>
+<div class="outline-text-2" id="text-org847aaaa">
 <p>
 Existen <a href="http://www.kmsauto.info/">varios</a> <a href="https://official-kmspico.com/">productos</a> que se anuncian como activadores / <i>crackers</i> de productos de Microsoft. Tras este experimento se puede deducir que su forma de funcionamiento es:
 </p>
