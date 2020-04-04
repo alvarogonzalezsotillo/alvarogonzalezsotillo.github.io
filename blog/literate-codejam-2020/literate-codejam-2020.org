@@ -96,7 +96,52 @@ In Sample Case #3, the leftmost and rightmost columns have repeated elements.
 
 ** Mi solución
 Importante: La clase que se envía debe llamarse =Solution=
-#+INCLUDE: "01-vestigium.scala" src scala
+# +INCLUDE: "01-vestigium.scala" src scala
+
+#+begin_src scala
+object Solution extends App{
+
+  val in = {
+    var ret = new java.util.Scanner(System.in);
+
+    scala.util.Try{
+      // EN PRUEBAS LOCALES, LO HAGO CON UN FICHERO
+      ret = new java.util.Scanner( new java.io.FileInputStream("vestigium.in"))
+    }
+
+    ret
+  }
+
+  def readInt = in.nextInt()
+
+  val T = readInt;
+  for( t <- 1 to T ){
+    val N = readInt
+    val rows = Array.fill(N)( new Array[Int](N) )
+    val columns = Array.fill(N)( new Array[Int](N) )
+
+    for( row <- 0 until N ; col <- 0 until N ){
+      val v = readInt
+      rows(row)(col) = v
+      columns(col)(row) = v
+    }
+
+    def repeated(rowOrColumn: Array[Int]) = {
+      val groups = rowOrColumn.groupBy(v=>v)
+      val filtered = groups.filter{ case (k,v) => v.size > 1 }
+      filtered.size > 0
+    }
+
+    val r = rows.filter( repeated ).size
+    val c = columns.filter(repeated).size
+
+    val k = (0 until N).map( i => rows(i)(i) ).sum
+
+    println( s"Case #$t: $k $r $c" )
+  }
+}
+
+#+end_src
 
 
 
@@ -182,7 +227,55 @@ You can create sample inputs that are valid only for Test Set 2 by removing the 
 
 ** Mi solución
 
-#+INCLUDE: "02-nesting-depth.scala" src scala
+# +INCLUDE: "02-nesting-depth.scala" src scala
+#+begin_src scala
+
+
+object Solution extends App{
+
+  val in = {
+    var ret = new java.util.Scanner(System.in);
+
+    scala.util.Try{
+      // EN PRUEBAS LOCALES, LO HAGO CON UN FICHERO
+      ret = new java.util.Scanner( new java.io.FileInputStream("nesting-depth.in"))
+    }
+
+    ret
+  }
+
+  def readInt = in.nextInt()
+  def readLine = in.nextLine()
+
+  val T = readLine.toInt
+  for( t <- 1 to T ){
+
+    val line = readLine
+
+    var currentDepth = 0;
+    var ret = "";
+
+    for( c <- line.toArray.map( c => ("" + c).toInt ) ){
+      for( _ <- currentDepth until c ){
+        ret += "("
+      }
+      for( _ <- c until currentDepth ){
+        ret += ")"
+      }
+      ret += c.toString
+      currentDepth = c;
+    }
+    for( _ <- 0 until currentDepth ){
+      ret += ")"
+    }
+
+
+    println( s"Case #$t: $ret" )
+  }
+}
+
+#+end_src
+
 
 
 * Parenting Partnering Returns
@@ -260,8 +353,72 @@ In Sample Case #3, notice that Cameron ends an activity and starts another one a
 In Sample Case #4, any schedule would be valid. Specifically, it is OK for one partner to do all activities.
 ** Mi solución
 
-#+INCLUDE: "03-parenting-partnering-returns.scala" src scala
+# +INCLUDE: "03-parenting-partnering-returns.scala" src scala
+#+begin_src scala
 
+
+object Solution extends App{
+
+
+
+  val in = {
+    var ret = new java.util.Scanner(System.in);
+
+    scala.util.Try{
+      // EN PRUEBAS LOCALES, LO HAGO CON UN FICHERO
+      ret = new java.util.Scanner( new java.io.FileInputStream("parenting-partnering-returns.in"))
+    }
+
+    ret
+  }
+
+
+  def readInt = in.nextInt()
+  def readLine = in.nextLine()
+
+  case class Task(start:Int,end:Int,inputOrder:Int)
+
+
+  val T = readLine.toInt
+  for( t <- 1 to T ){
+    val N = readLine.toInt
+    val tasks = Array.tabulate(N){ order =>
+      val Array(start,end) = readLine.split(" ").map(_.toInt)
+      Task(start,end,order)
+    }.sortBy{
+      case Task(start,_,_) => start
+    }
+
+    var busyC = 0;
+    var busyJ = 0;
+    var ret = "";
+    for( task <- tasks ){
+      if( busyC <= task.start ){
+        ret +="C";
+        busyC = task.end
+      }
+      else if( busyJ <= task.start ){
+        ret +="J";
+        busyJ = task.end
+      }
+      else{
+        ret += "I";
+      }
+    }
+
+    val solution = if( ret.contains("I") ) "IMPOSSIBLE" else {
+      val chars : Array[Char] = new Array(tasks.size)
+      for( i <- 0 until chars.size ){
+        chars(tasks(i).inputOrder) = ret(i)
+      }
+      chars.mkString("")
+    }
+
+    println( s"Case #$t: $solution" )
+  }
+}
+
+#+end_src
 
 
 * ESAb ATAb
