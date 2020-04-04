@@ -96,7 +96,7 @@ In Sample Case #3, the leftmost and rightmost columns have repeated elements.
 
 ** Mi solución
 Importante: La clase que se envía debe llamarse =Solution=
-#+INCLUDE: "./blog/lliterate-code-jam-2020/01-vestigium.scala" src scala
+#+INCLUDE: "01-vestigium.scala" src scala
 
 
 
@@ -182,7 +182,7 @@ You can create sample inputs that are valid only for Test Set 2 by removing the 
 
 ** Mi solución
 
-#+INCLUDE: "./blog/lliterate-code-jam-2020/02-nesting-depth.scala" src scala
+#+INCLUDE: "02-nesting-depth.scala" src scala
 
 
 * Parenting Partnering Returns
@@ -260,7 +260,7 @@ In Sample Case #3, notice that Cameron ends an activity and starts another one a
 In Sample Case #4, any schedule would be valid. Specifically, it is OK for one partner to do all activities.
 ** Mi solución
 
-#+INCLUDE: "./blog/lliterate-code-jam-2020/03-parenting-partnering-returns.scala" src scala
+#+INCLUDE: "03-parenting-partnering-returns.scala" src scala
 
 
 
