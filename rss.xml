@@ -4,10 +4,17 @@
     <title>Álvaro González Sotillo</title>
     <link>https://alvarogonzalezsotillo.github.io/</link>
     <description></description>
-    <pubDate>sáb, 04 abr 2020 20:11:49 CEST</pubDate>
-    <lastBuildDate>sáb, 04 abr 2020 20:11:49 CEST</lastBuildDate>
+    <pubDate>lun, 13 abr 2020 12:59:54 CEST</pubDate>
+    <lastBuildDate>lun, 13 abr 2020 12:59:54 CEST</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
+    <item>
+      <title>Juego tipo escape room virtual</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/juego-escape-room-virtual</link>
+      <description><![CDATA[Un juego simple tipo escape room implementado con baja tecnología]]></description>
+      <pubDate>2020-04-13</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/juego-escape-room-virtual</guid>
+    </item>
     <item>
       <title>Literate Programming y Google Code Jam 2020</title>
       <link>https://alvarogonzalezsotillo.github.io/blog/literate-codejam-2020</link>
@@ -70,13 +77,6 @@
       <description><![CDATA[Acabo de comprarme un asus vc-66. Mi intención es utilizarlo como servidor accesible desde internet, pero también como htpc. Estos son los pasos que he seguido para configurarlo.]]></description>
       <pubDate>2019-10-07</pubDate>
       <guid>https://alvarogonzalezsotillo.github.io/blog/ordenador-de-sobremesa-servidor-htpc</guid>
-    </item>
-    <item>
-      <title>Blogueando con orgmode</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/blogueando-con-orgmode</link>
-      <description><![CDATA[Es posible crear un blog sin (casi) salir de emacs.]]></description>
-      <pubDate>2019-07-04</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/blogueando-con-orgmode</guid>
     </item>
   </channel>
 </rss>
