@@ -14,7 +14,7 @@ Durante la cuarentena del COVID-19 ha habido tiempo para casi todo. Después de 
 
 
 #+attr_html: :style text-align:center;font-size:150%;color:blue
-[[file:inicio/index.org][El secreto de Despair Corp]]
+[[https://alvarogonzalezsotillo.gitlab.io/aventura][El secreto de Despair Corp]]
 
 
 El código fuente está oculto, para que no se vean las soluciones a los acertijos.
