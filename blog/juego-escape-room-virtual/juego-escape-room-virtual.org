@@ -5,14 +5,19 @@
 #+DATE:        2020-04-13
 #+URI:         /blog/juego-escape-room-virtual
 
+#+options: num:nil index:nil
+
 #+TAGS: escape room,orgmode
 #+DESCRIPTION: Un juego simple tipo escape room implementado con baja tecnología
 
 Durante la cuarentena del COVID-19 ha habido tiempo para casi todo. Después de jugar a un par de juegos /escape room virtuales/ ([[https://theparadoxroom.com/digital/game/apocalipsis-higienico/][paradoxroom]], [[https://www.escaperoomdigital.com/laextorsiondelhacker][escaperoomdigital]]) me ha parecido interesante inventarme el mio propio.
 
 
-#+attr_html: :style text-align:center;font-size:xx-large
+#+attr_html: :style text-align:center;font-size:150%;color:blue
 [[file:inicio/index.org][El secreto de Despair Corp]]
+
+
+El código fuente está oculto, para que no se vean las soluciones a los acertijos.
 
 * Opciones para la implementación del juego
 Solo dispongo de alojamiento web estático ([[https://pages.github.com/][Github Pages]] y similar), así que hay que implementar la lógica en el lado cliente. Para que cada página no tenga la solución en el código html, hay dos soluciones
@@ -64,3 +69,46 @@ Utilizo el siguiente /script/ para saber si un recurso existe:
 #+end_src
 
 De esta forma, se detecta una respuesta correcta porque existe una página en el servidor con ese nombre, y se salta a esa página. Más /serverless/ no puede ser 😎
+
+* Generación de páginas
+Cualquier generador de sitios estáticos valdría para implementar el juego. Yo he elegido [[https://orgmode.org/manual/Publishing.html][org-publish]], para no salir de [[https://www.gnu.org/software/emacs/][emacs]]. 
+
+La configuración se basa en dos proyectos: uno que transforma los ficheros =org= en =html=, y otro que copia el resto de recursos (=js=, =css=, =zip=...)
+
+#+begin_src emacs-lisp
+(setq org-publish-project-alist
+      '(
+        ("aventura-org"
+         :base-directory "/home/alvaro/github/aventura/org/"
+         :base-extension "org"
+         :publishing-directory "/home/alvaro/github/aventura/public/"
+         :recursive t
+         :publishing-function org-html-publish-to-html
+         :headline-levels 4             ; Just the default for this project.
+         :auto-preamble t
+         )
+
+        ("aventura-static"
+         :base-directory "/home/alvaro/github/aventura/org/"
+         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|html\\|svg\\|zip\\|ttf"
+         :publishing-directory "/home/alvaro/github/aventura/public/"
+         :recursive t
+         :publishing-function org-publish-attachment
+         )
+
+        ("aventura"
+         :components ("aventura-org" "aventura-static")
+         )
+        
+        ))
+#+end_src
+
+Para generar las páginas utilizo esta función interactiva:
+
+#+begin_src emacs-lisp
+(defun publicar-aventura()
+  (interactive)
+  (delete-directory "/home/alvaro/github/aventura/public/" t)
+  (org-publish-remove-all-timestamps)
+  (org-publish-project "aventura" t))
+#+end_src
