@@ -1,0 +1,63 @@
+#+title: Juego tipo /escape room/ virtual
+
+#+AUTHOR:      Álvaro González Sotillo
+#+EMAIL:       alvarogonzalezsotillo@gmail.com
+#+DATE:        2020-04-13
+#+URI:         /blog/juego-escape-room-virtual
+
+#+TAGS: escape room,orgmode
+#+DESCRIPTION: Un juego simple tipo /escape room/ implementado con baja tecnología
+
+Durante la cuarentena del COVID-19 ha habido tiempo para casi todo. Después de jugar a un par de juegos /escape room virtuales/ ([[https://theparadoxroom.com/digital/game/apocalipsis-higienico/][paradoxroom]], [[https://www.escaperoomdigital.com/laextorsiondelhacker][escaperoomdigital]]) me ha parecido interesante inventarme el mio propio.
+
+
+#+attr_html: :style text-align:center;font-size:xx-large
+[[file:inicio/index.org][El secreto de Despair Corp]]
+
+* Opciones para la implementación del juego
+Solo dispongo de alojamiento web estático ([[https://pages.github.com/][Github Pages]] y similar), así que hay que implementar la lógica en el lado cliente. Para que cada página no tenga la solución en el código html, hay dos soluciones
+- *Ofuscar la respuesta correcta*: La respuesta puede estar incluida en la página, pero no en texto legible.
+  - Usando un sistema reversible como [[https://es.wikipedia.org/wiki/Base64][base64]] se oculta de forma superficial. No costaría demasiado saber la respuesta.
+  - Se puede guardar su [[https://es.wikipedia.org/wiki/Funci%C3%B3n_hash_criptogr%C3%A1fica][hash]], de forma que no se pueda saber la respuesta a partir del hash.
+- *Preguntar al servidor si la respuesta es correcta*: Aunque sea un hosting estático, el servidor responde con un código [[https://es.wikipedia.org/wiki/Anexo:C%C3%B3digos_de_estado_HTTP#2xx:_Peticiones_correctas][HTTP 200]] si el recurso existe, u otro código si no existe.
+
+* Opción utilizada
+Cuando el jugador introduce la respuesta, la /normalizo/ pasándola a mayúsculas y quitando caracteres /sobrantes/, como espacio, guión, acentos...
+
+#+begin_src javascript
+    function normalizaRespuesta(str){
+        let sustituciones = {
+            " " : "",
+            "-" : "",
+            "," : "",
+            "." : "",
+            "Á" : "A",
+            "É" : "E",
+            "Í" : "I",
+            "Ó" : "O",
+            "Ú" : "U",
+            "Ü" : "U",
+            "Ñ" : "N"
+        };
+
+        letras = Array.from(str.toUpperCase());
+        let sanitized = letras.map( c => typeof sustituciones[c] != "undefined" ? sustituciones[c] : c ).join("");
+        log( `normalizado: ${str} -> ${sanitized}`);
+        return sanitized;
+    }
+#+end_src
+
+Cada página web de la aventura está en un directorio que tiene por nombre la solución del paso anterior. Por ejemplo, si el paso 1 tiene como respuesta correcta /El cantar del mío Cid/, esta respuesta se normaliza a =ELCANTARDELMIOCID= y el siguiente paso se almacena en la URL ~../ELCANTARDELMIOCID/index.hml~.
+
+Utilizo el siguiente /script/ para saber si un recurso existe:
+
+#+begin_src javascript
+    function existeURL(url){
+        let request = new XMLHttpRequest();  
+        request.open('GET', url, false);
+        request.send(null);
+        let found = request.status != 404;
+        return found;
+    }
+#+end_src
+
