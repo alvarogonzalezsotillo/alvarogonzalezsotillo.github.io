@@ -1,4 +1,4 @@
-#+title: Juego tipo /escape room/ virtual
+#+title: Juego tipo escape room virtual
 
 #+AUTHOR:      Álvaro González Sotillo
 #+EMAIL:       alvarogonzalezsotillo@gmail.com
@@ -6,7 +6,7 @@
 #+URI:         /blog/juego-escape-room-virtual
 
 #+TAGS: escape room,orgmode
-#+DESCRIPTION: Un juego simple tipo /escape room/ implementado con baja tecnología
+#+DESCRIPTION: Un juego simple tipo escape room implementado con baja tecnología
 
 Durante la cuarentena del COVID-19 ha habido tiempo para casi todo. Después de jugar a un par de juegos /escape room virtuales/ ([[https://theparadoxroom.com/digital/game/apocalipsis-higienico/][paradoxroom]], [[https://www.escaperoomdigital.com/laextorsiondelhacker][escaperoomdigital]]) me ha parecido interesante inventarme el mio propio.
 
@@ -41,8 +41,10 @@ Cuando el jugador introduce la respuesta, la /normalizo/ pasándola a mayúscula
         };
 
         letras = Array.from(str.toUpperCase());
-        let sanitized = letras.map( c => typeof sustituciones[c] != "undefined" ? sustituciones[c] : c ).join("");
-        log( `normalizado: ${str} -> ${sanitized}`);
+        let sanitized = letras.map( 
+          c => typeof sustituciones[c] != "undefined" ? 
+               sustituciones[c] : 
+               c ).join("");
         return sanitized;
     }
 #+end_src
@@ -61,3 +63,4 @@ Utilizo el siguiente /script/ para saber si un recurso existe:
     }
 #+end_src
 
+De esta forma, se detecta una respuesta correcta porque existe una página en el servidor con ese nombre, y se salta a esa página. Más /serverless/ no puede ser 😎
