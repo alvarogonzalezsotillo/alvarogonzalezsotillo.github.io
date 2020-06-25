@@ -9,7 +9,9 @@
 #+OPTIONS:     H:3 num:t toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 #+DESCRIPTION: Un paquete simple para ocultar secciones de código fuente al abrir un fichero, para Emacs
 
-Tras mi [[../../../enlace][primer paquete para Emacs]], presento ahora este otro para ocultar inicialmente secciones de código fuente.
+
+
+Tras mi [[../../../blog/resaltar-ocurrencias-seleccion-emacs][primer paquete para Emacs]], presento ahora este otro para ocultar inicialmente secciones de código fuente.
 
 * Motivación
 
@@ -68,3 +70,5 @@ Como ejemplo adicional, cuando abro los ficheros =sql=  oculto todas las creacio
 #+end_src
 
 
+* Cómo está hecho
+El código fuente puede encontrarse en el [[https://github.com/alvarogonzalezsotillo/origami-predef.git][repositorio de Github]]. Está también disponible en [[https://melpa.org][Melpa]].
