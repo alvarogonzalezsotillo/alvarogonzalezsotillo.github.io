@@ -24,7 +24,8 @@ Hay varios paquetes que se dedican a ocultar secciones de código, basándose si
 Pero en todos ellos el fichero aparece inicialmente /desenrollado/, sin ocultar ninguna sección. Pero a mí me gustaría que se ocultasen inicialmente algunas secciones que estuvieran marcadas con algún tag especial. Decidí extender Origami e implementar esa funcionalidad.
 
 * Cómo se usa
-Cuando se desea que un bloque aparezca oculto al abrir un fichero, se añade ~*autofold*~ en la primera línea del bloque.
+
+Se puede instalar desde [[https://melpa.org/#/origami-predef][Melpa]]. Cuando se desea que un bloque aparezca oculto al abrir un fichero, se añade ~*autofold*~ en la primera línea del bloque.
  #+begin_src java
    public void boringMethod(){ // *autofold*
       foo();
@@ -71,4 +72,4 @@ Como ejemplo adicional, cuando abro los ficheros =sql=  oculto todas las creacio
 
 
 * Cómo está hecho
-El código fuente puede encontrarse en el [[https://github.com/alvarogonzalezsotillo/origami-predef.git][repositorio de Github]]. Está también disponible en [[https://melpa.org][Melpa]].
+El código fuente puede encontrarse en el [[https://github.com/alvarogonzalezsotillo/origami-predef.git][repositorio de Github]].
