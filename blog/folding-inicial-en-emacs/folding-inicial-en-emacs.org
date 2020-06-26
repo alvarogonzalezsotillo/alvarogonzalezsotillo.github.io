@@ -1,0 +1,75 @@
+#+TITLE:       Folding inicial en Emacs
+#+AUTHOR:      Álvaro González Sotillo
+#+EMAIL:       alvarogonzalezsotillo@gmail.com
+#+DATE:        2020-06-24
+#+URI:         /blog/folding-inicial-en-emacs
+#+KEYWORDS:    elisp, emacs
+#+TAGS:        elisp, emacs
+#+LANGUAGE:    es
+#+OPTIONS:     H:3 num:t toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: Un paquete simple para ocultar secciones de código fuente al abrir un fichero, para Emacs
+
+
+
+Tras mi [[../../../blog/resaltar-ocurrencias-seleccion-emacs][primer paquete para Emacs]], presento ahora este otro para ocultar inicialmente secciones de código fuente.
+
+* Motivación
+
+Hay varios paquetes que se dedican a ocultar secciones de código, basándose simplemente en la indentación de las líneas o en la detección de estructuras y funciones. 
+- [[https://www.emacswiki.org/emacs/FoldingMode][Folding mode]]
+- [[https://www.emacswiki.org/emacs/HideShow][Hide show]]
+- [[https://github.com/gregsexton/origami.el][Origami]]
+- [[https://github.com/zenozeng/yafolding.el][Yafolding]]
+
+Pero en todos ellos el fichero aparece inicialmente /desenrollado/, sin ocultar ninguna sección. Pero a mí me gustaría que se ocultasen inicialmente algunas secciones que estuvieran marcadas con algún tag especial. Decidí extender Origami e implementar esa funcionalidad.
+
+* Cómo se usa
+
+Se puede instalar desde [[https://melpa.org/#/origami-predef][Melpa]]. Cuando se desea que un bloque aparezca oculto al abrir un fichero, se añade ~*autofold*~ en la primera línea del bloque.
+ #+begin_src java
+   public void boringMethod(){ // *autofold*
+      foo();
+      bar();
+   }
+ #+end_src
+
+En algunos casos no se puede añadir nada en la primera línea del bloque. Por ejemplo, tengo algunos /shell scripts/ con variables que ocupan muchas líneas. En ese caso uso ~*autofold:*~, que colapsa la línea siguiente.
+
+   #+begin_src sh
+   # A very long shell variable with newlines
+    # *autofold:*
+   LOREM="
+     Pellentesque dapibus suscipit ligula.  
+     Donec posuere augue in quam.  
+     Etiam vel tortor sodales tellus ultricies commodo. 
+     Suspendisse potenti.
+     Aenean in sem ac leo mollis blandit. 
+     ...
+   "
+   #+end_src
+
+En otros casos, las secciones a ocultar se pueden identificar con un patrón del propio código fuente. Por ejemplo, puede ser interesante ocultar todos los métodos privados en un fichero java. Para ello pueden usarse expresiones regulares que los encuentren cada vez que se active el =java-mode=:
+
+#+begin_src emacs-lisp
+  (defun origami-predef-java()
+    "Close some predefined patterns, useful in java."
+    (interactive)
+    (origami-predef-apply-patterns '("private .*{" "protected .*{")))
+  (add-hook 'java-mode-hook #'origami-predef-java)
+#+end_src
+
+El código anterior forma parte del fichero de inicialización de Emacs. Crea una función de nombre =origami-predef-java= que cierra todos los bloques que encajen con la expresiones regulares ~private .*{~ y ~protected .*{~, por lo que se cierran todos los métodos privados y protegidos. Después, /engancha/ esa función a los ficheros con el modo =java-mode=.
+
+Como ejemplo adicional, cuando abro los ficheros =sql=  oculto todas las creaciones de tablas y vistas, y también los cuerpos de los procedimientos y funciones:
+
+#+begin_src emacs-lisp
+ (defun origami-predef-sql()
+    "Close some predefined patterns, useful in SQL."
+    (interactive)
+    (origami-predef-apply-patterns '("create .*table" "create .*view" "begin")))
+  (add-hook 'sql-mode-hook #'origami-predef-sql)
+#+end_src
+
+
+* Cómo está hecho
+El código fuente puede encontrarse en el [[https://github.com/alvarogonzalezsotillo/origami-predef.git][repositorio de Github]].
