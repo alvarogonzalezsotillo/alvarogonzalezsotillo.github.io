@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Folding inicial en Emacs - Álvaro González Sotillo</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Álvaro González Sotillo" />
+    <meta name="description" content="Un paquete simple para ocultar secciones de código fuente al abrir un fichero, para Emacs" />
+    <meta name="keywords" content="elisp, emacs" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <!-- <link rel="stylesheet" href="/media/css/prettify.css" type="text/css"> -->
+  </head>
+
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">Álvaro González Sotillo</a></h1>
+        <p></p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">Acerca de mí</a></li>
+          <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="//www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Buscar">
+          <input type="hidden" name="as_sitesearch" value="alvarogonzalezsotillo.github.io">
+        </form>
+        <img class="avatar" src="/media/img/octaedron.png" />
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>Folding inicial en Emacs</h1>
+<p>
+Tras mi <a href="../../../blog/resaltar-ocurrencias-seleccion-emacs">primer paquete para Emacs</a>, presento ahora este otro para ocultar inicialmente secciones de código fuente.
+</p>
+
+<div id="outline-container-org01fbf7c" class="outline-2">
+<h2 id="org01fbf7c"><span class="section-number-2">1</span> Motivación</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Hay varios paquetes que se dedican a ocultar secciones de código, basándose simplemente en la indentación de las líneas o en la detección de estructuras y funciones. 
+</p>
+<ul class="org-ul">
+<li><a href="https://www.emacswiki.org/emacs/FoldingMode">Folding mode</a></li>
+<li><a href="https://www.emacswiki.org/emacs/HideShow">Hide show</a></li>
+<li><a href="https://github.com/gregsexton/origami.el">Origami</a></li>
+<li><a href="https://github.com/zenozeng/yafolding.el">Yafolding</a></li>
+</ul>
+
+<p>
+Pero en todos ellos el fichero aparece inicialmente <i>desenrollado</i>, sin ocultar ninguna sección. Pero a mí me gustaría que se ocultasen inicialmente algunas secciones que estuvieran marcadas con algún tag especial. Decidí extender Origami e implementar esa funcionalidad.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org04c70ce" class="outline-2">
+<h2 id="org04c70ce"><span class="section-number-2">2</span> Cómo se usa</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Se puede instalar desde <a href="https://melpa.org/#/origami-predef">Melpa</a>. Cuando se desea que un bloque aparezca oculto al abrir un fichero, se añade <code>*autofold*</code> en la primera línea del bloque.
+</p>
+<div class="org-src-container">
+<pre class="src src-java">   public void boringMethod(){ // *autofold*
+      foo();
+      bar();
+   }
+</pre>
+</div>
+
+<p>
+En algunos casos no se puede añadir nada en la primera línea del bloque. Por ejemplo, tengo algunos <i>shell scripts</i> con variables que ocupan muchas líneas. En ese caso uso <code>*autofold:*</code>, que colapsa la línea siguiente.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">   # A very long shell variable with newlines
+    # *autofold:*
+   LOREM="
+     Pellentesque dapibus suscipit ligula.  
+     Donec posuere augue in quam.  
+     Etiam vel tortor sodales tellus ultricies commodo. 
+     Suspendisse potenti.
+     Aenean in sem ac leo mollis blandit. 
+     ...
+   "
+</pre>
+</div>
+
+<p>
+En otros casos, las secciones a ocultar se pueden identificar con un patrón del propio código fuente. Por ejemplo, puede ser interesante ocultar todos los métodos privados en un fichero java. Para ello pueden usarse expresiones regulares que los encuentren cada vez que se active el <code>java-mode</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">  (defun origami-predef-java()
+    "Close some predefined patterns, useful in java."
+    (interactive)
+    (origami-predef-apply-patterns '("private .*{" "protected .*{")))
+  (add-hook 'java-mode-hook #'origami-predef-java)
+</pre>
+</div>
+
+<p>
+El código anterior forma parte del fichero de inicialización de Emacs. Crea una función de nombre <code>origami-predef-java</code> que cierra todos los bloques que encajen con la expresiones regulares <code>private .*{</code> y <code>protected .*{</code>, por lo que se cierran todos los métodos privados y protegidos. Después, <i>engancha</i> esa función a los ficheros con el modo <code>java-mode</code>.
+</p>
+
+<p>
+Como ejemplo adicional, cuando abro los ficheros <code>sql</code>  oculto todas las creaciones de tablas y vistas, y también los cuerpos de los procedimientos y funciones:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"> (defun origami-predef-sql()
+    "Close some predefined patterns, useful in SQL."
+    (interactive)
+    (origami-predef-apply-patterns '("create .*table" "create .*view" "begin")))
+  (add-hook 'sql-mode-hook #'origami-predef-sql)
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org4b0f90c" class="outline-2">
+<h2 id="org4b0f90c"><span class="section-number-2">3</span> Cómo está hecho</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+El código fuente puede encontrarse en el <a href="https://github.com/alvarogonzalezsotillo/origami-predef.git">repositorio de Github</a>.
+</p>
+</div>
+</div>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2020-06-24</span>
+        <span title="last modification date" class="post-info">2020-06-26</span>
+        <span title="tags" class="post-info"><a href="/tags/elisp/">elisp</a>, <a href="/tags/emacs/">emacs</a></span>
+        <span title="author" class="post-info">Álvaro González Sotillo</span>
+      </div>
+      <section>
+        <!-- <h1>Comments</h1> -->
+      </section>
+      <!-- <script src="//code.jquery.com/jquery-latest.min.js"></script> -->
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->
+      <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>  -->
+      <!--<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>-->
+      <script src="/media/js/jquery-3.2.1.min.js"></script>
+      <script src="/media/js/main.js"></script>
+      <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="/media/js/code-prettify/loader/run_prettify.js"></script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 27.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:alvarogonzalezsotillo <at> gmail <dot> com">Álvaro González Sotillo</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>
