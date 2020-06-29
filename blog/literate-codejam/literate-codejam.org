@@ -29,7 +29,7 @@
 * [[https://code.google.com/codejam/][CodeJam]] utilizando /emacs/
 Este año han cambiado las normas usuales en el concurso de programación [[https://code.google.com/codejam/][CodeJam]] de Google.
 
-Antes, cada programador ejecutaba el código localmente, elgiendo el lenguaje de programación. Ahora, el código se compila y ejecuta en la plataforma del concurso, por lo que la elección de lenguajes está limitada.
+Antes, cada programador ejecutaba el código localmente, elIgiendo el lenguaje de programación. Ahora, el código se compila y ejecuta en la plataforma del concurso, por lo que la elección de lenguajes está limitada.
 
 Lamentablemente, *Scala* es mi lenguaje preferido, pero no estaba entre las opciones. Entre las opciones disponibles, elegí refrescar un poco mis conocimientos de *C++*.
 
