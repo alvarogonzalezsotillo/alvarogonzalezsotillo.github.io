@@ -26,7 +26,7 @@
 #+latex_header_extra: \captionsetup{font={scriptsize}}
 
 
-Me han retado a hacer un programa que resuelva el problema de las [[https://en.wikipedia.org/wiki/Eight_queens_puzzle][n-reinas]]. Esta es mi solución en c++ básico: sin =class=/=struct== y sin punteros a función. Solo utilizo =printf= y =system= para conseguir la hora de inicio y fin del programa.
+Me han retado a hacer un programa que resuelva el problema de las [[https://en.wikipedia.org/wiki/Eight_queens_puzzle][n-reinas]]. Esta es mi solución en c++ básico: sin =class=/=struct= y sin punteros a función. Solo utilizo =printf= y =system= para conseguir la hora de inicio y fin del programa.
 
 El límite práctico parece estar en las 30 reinas, con alrededor de 12 segundos de cálculo.
 
