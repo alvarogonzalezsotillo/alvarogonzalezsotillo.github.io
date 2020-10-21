@@ -33,29 +33,22 @@
 <div>
 <div class="post">
 <h1>Algunas reinas</h1>
-<div id="table-of-contents">
-<h2>&Iacute;ndice</h2>
-<div id="text-table-of-contents">
-<ul>
-<li><a href="#orgdaec804">1. Algunas reinas</a></li>
-</ul>
-</div>
-</div>
 <p>
-Me han retado a hacer un programa que resuelva el problema de las <a href="https://en.wikipedia.org/wiki/Eight_queens_puzzle">n-reinas</a>. Esta es mi solución en c++ básico: sin class/struct y sin punteros a función. Solo utilizo <code>printf</code> y <code>system</code> para conseguir la hora de inicio y fin del programa.
+Me han retado a hacer un programa que resuelva el problema de las <a href="https://en.wikipedia.org/wiki/Eight_queens_puzzle">n-reinas</a>. Esta es mi solución en c++ básico: sin <code>class</code> / <code>struct</code> , sin memoria dinámica y sin punteros a función. Solo utilizo <code>assert</code> , <code>=printf</code> y <code>system</code> para conseguir la hora de inicio y fin del programa.
 </p>
 
 <p>
 El límite práctico parece estar en las 30 reinas, con alrededor de 12 segundos de cálculo.
 </p>
 
-<div id="outline-container-orgdaec804" class="outline-2">
-<h2 id="orgdaec804"><span class="section-number-2">1</span> Algunas reinas</h2>
+<div id="outline-container-org50d56de" class="outline-2">
+<h2 id="org50d56de"><span class="section-number-2">1</span> Algunas reinas</h2>
 <div class="outline-text-2" id="text-1">
 <div class="org-src-container">
 <pre class="src src-cpp">
 #include &lt;stdio.h&gt;
 #include &lt;stdlib.h&gt;
+#include &lt;cassert&gt;
 
 using namespace std;
 
@@ -74,7 +67,7 @@ void initSeized(){
   }
 }
 
-inline bool seized(const int col, const int row, const int currentLevel ){
+bool seized(const int col, const int row, const int currentLevel ){
   return seizedAtLevel[col][row] &lt;= currentLevel;
 }
 
@@ -133,6 +126,7 @@ bool stillPossible( const int level, const int size ){
 }
 
 bool placeQueenAtLevel( const int level, const int size, int queensRows[] ){
+  assert(size &lt; maxSize );
 
   // printf( "\n INTENTANDO NIVEL:%d\n", level);
   // dumpSeized(size);
@@ -183,7 +177,7 @@ int main( int argc, char *argv[] ){
   int currentQueen = 0;
   const int size = 31;
 
-  int queensRows[maxSize];
+  int queensRows[size];
 
   initSeized();
   bool result = placeQueenAtLevel(0,size,queensRows);
@@ -199,9 +193,9 @@ int main( int argc, char *argv[] ){
 </pre>
 </div>
 
-<pre class="example" id="org15b556b">
-mié 21 oct 2020 10:45:51 CEST
-mié 21 oct 2020 10:46:07 CEST
+<pre class="example" id="org1307bc4">
+mié 21 oct 2020 10:58:18 CEST
+mié 21 oct 2020 10:58:34 CEST
 Conseguido:Si
  Q   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .
    .   .   .   .   .   .   .   . Q .   .   .   .   .   .   .  
@@ -244,7 +238,7 @@ Conseguido:Si
       <div class="post-meta">
         <span title="post date" class="post-info">2020-10-21</span>
         <span title="last modification date" class="post-info">2020-10-21</span>
-        <span title="tags" class="post-info">N/A</span>
+        <span title="tags" class="post-info"><a href="/tags/programación/">programación</a>, <a href="/tags/c++/">c++</a></span>
         <span title="author" class="post-info">Álvaro González Sotillo</span>
       </div>
       <section>

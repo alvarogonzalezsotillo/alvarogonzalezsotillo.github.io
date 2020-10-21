@@ -34,7 +34,7 @@
 <div class="post">
 <h1>Cómo resolver molecube en prolog</h1>
 
-<div id="org9359835" class="figure">
+<div id="org37001cd" class="figure">
 <p><img src="/assets/blog/resolver-molecube-en-prolog/molecube-mezclado.jpg" alt="/assets/blog/resolver-molecube-en-prolog/molecube-mezclado.jpg" style="float:left;" />
 </p>
 </div>
@@ -52,9 +52,9 @@ Aquí se puede descargar el <a href="/assets/blog/resolver-molecube-en-prolog/mo
 </p>
 
 
-<div id="outline-container-org49379c3" class="outline-2">
-<h2 id="org49379c3">Objetivo del solucionador</h2>
-<div class="outline-text-2" id="text-org49379c3">
+<div id="outline-container-org9b7db3f" class="outline-2">
+<h2 id="org9b7db3f">Objetivo del solucionador</h2>
+<div class="outline-text-2" id="text-org9b7db3f">
 <p>
 El solucionador solo encontrará el estado final del molecube. Tras esto, un <i>humano</i> deberá llevar el estado real del molecube al estado propuesto por el solucionador.
 </p>
@@ -65,9 +65,9 @@ Esto no es un gran problema, ya que tenemos experiencia con cubos de Rubick.
 </div>
 </div>
 
-<div id="outline-container-org627a72b" class="outline-2">
-<h2 id="org627a72b">Definición del problema</h2>
-<div class="outline-text-2" id="text-org627a72b">
+<div id="outline-container-org76c95a0" class="outline-2">
+<h2 id="org76c95a0">Definición del problema</h2>
+<div class="outline-text-2" id="text-org76c95a0">
 <p>
 Para solucionar el molecube se necesita que:
 </p>
@@ -84,13 +84,13 @@ Todo esto suena bastante a programación por restricciones, y puede programarse 
 </div>
 </div>
 
-<div id="outline-container-orgf6284d6" class="outline-2">
-<h2 id="orgf6284d6">Implementación en prolog</h2>
-<div class="outline-text-2" id="text-orgf6284d6">
+<div id="outline-container-org7e70630" class="outline-2">
+<h2 id="org7e70630">Implementación en prolog</h2>
+<div class="outline-text-2" id="text-org7e70630">
 </div>
-<div id="outline-container-orgb6f4b54" class="outline-3">
-<h3 id="orgb6f4b54">Estructura básica</h3>
-<div class="outline-text-3" id="text-orgb6f4b54">
+<div id="outline-container-org64cd6cd" class="outline-3">
+<h3 id="org64cd6cd">Estructura básica</h3>
+<div class="outline-text-3" id="text-org64cd6cd">
 <p>
 Un color se representa por un número del 0 al 8
 </p>
@@ -180,9 +180,9 @@ restricciones_caras_de_cubo(CUBO) :-
 </div>
 </div>
 
-<div id="outline-container-org6c5d741" class="outline-3">
-<h3 id="org6c5d741">Datos del molecube real</h3>
-<div class="outline-text-3" id="text-org6c5d741">
+<div id="outline-container-org26c0704" class="outline-3">
+<h3 id="org26c0704">Datos del molecube real</h3>
+<div class="outline-text-3" id="text-org26c0704">
 <p>
 Las restricciones sobre aristas y esquinas son un poco más laboriosas. Examinando el molecube podemos contar cuántos <i>cubitos</i> de cada tipo y color hay:
 </p>
@@ -398,9 +398,9 @@ Por tanto, ya tenemos la construcción de un molecube completo, con todas sus re
 </div>
 </div>
 
-<div id="outline-container-orgc1bf172" class="outline-3">
-<h3 id="orgc1bf172">Salida de la solución</h3>
-<div class="outline-text-3" id="text-orgc1bf172">
+<div id="outline-container-org490d7aa" class="outline-3">
+<h3 id="org490d7aa">Salida de la solución</h3>
+<div class="outline-text-3" id="text-org490d7aa">
 <p>
 Para visualizar un cubo, he optado por utilizar <a href="https://www.x3dom.org/">x3dom</a>, que me permite visualizar directamente un modelo en tres dimensiones en páginas web.
 </p>
@@ -461,9 +461,9 @@ Finalmente, el cálculo de todas las soluciones se ejecuta con este código:
 </div>
 
 
-<div id="outline-container-orgd940566" class="outline-2">
-<h2 id="orgd940566">Soluciones</h2>
-<div class="outline-text-2" id="text-orgd940566">
+<div id="outline-container-org37b85ca" class="outline-2">
+<h2 id="org37b85ca">Soluciones</h2>
+<div class="outline-text-2" id="text-org37b85ca">
 <p>
 El programa encuentra 80 soluciones distintas. A continuación se muestra una de ellas (un dedo para mover, dos para hacer zoom):
 </p>
@@ -472,9 +472,9 @@ El programa encuentra 80 soluciones distintas. A continuación se muestra una de
 </div>
 </div>
 
-<div id="outline-container-org71c1d2a" class="outline-2">
-<h2 id="org71c1d2a">Invariantes de un cubo de Rubick</h2>
-<div class="outline-text-2" id="text-org71c1d2a">
+<div id="outline-container-org079d1a0" class="outline-2">
+<h2 id="org079d1a0">Invariantes de un cubo de Rubick</h2>
+<div class="outline-text-2" id="text-org079d1a0">
 <p>
 Es sabido que en un cubo de Rubick no pueden conseguirse todas las configuraciones que en principio parecen posibles, ya que es necesario que la <a href="https://math.stackexchange.com/a/127627">permutación de sus aristas y esquinas debe ser par</a>.
 </p>
@@ -485,10 +485,10 @@ Aunque no lo he comprobado, creo que todas las 80 soluciones halladas son posibl
 </div>
 </div>
 
-<div id="outline-container-orgba24fb6" class="outline-2">
-<h2 id="orgba24fb6">Lista completa de soluciones</h2>
-<div class="outline-text-2" id="text-orgba24fb6">
-<pre class="example" id="org1c71d60">
+<div id="outline-container-org3140c83" class="outline-2">
+<h2 id="org3140c83">Lista completa de soluciones</h2>
+<div class="outline-text-2" id="text-org3140c83">
+<pre class="example" id="orgb8d440e">
 Solucion: 0,0,0:white 0,0,1:red 0,0,2:orangered 0,1,0:black 0,1,1:yellow 0,1,2:mediumvioletred 0,2,0:blue 0,2,1:navy 0,2,2:green 1,0,0:mediumvioletred 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:red 2,0,0:green 2,0,1:blue 2,0,2:navy 2,1,0:red 2,1,1:orangered 2,1,2:white 2,2,0:yellow 2,2,1:mediumvioletred 2,2,2:black 
 Solucion: 0,0,0:white 0,0,1:red 0,0,2:orangered 0,1,0:mediumvioletred 0,1,1:yellow 0,1,2:black 0,2,0:blue 0,2,1:navy 0,2,2:green 1,0,0:yellow 1,0,1:black 1,0,2:mediumvioletred 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:red 2,0,0:green 2,0,1:blue 2,0,2:navy 2,1,0:red 2,1,1:orangered 2,1,2:white 2,2,0:black 2,2,1:mediumvioletred 2,2,2:yellow 
 Solucion: 0,0,0:white 0,0,1:mediumvioletred 0,0,2:orangered 0,1,0:black 0,1,1:yellow 0,1,2:red 0,2,0:blue 0,2,1:navy 0,2,2:green 1,0,0:red 1,0,1:black 1,0,2:yellow 1,1,0:navy 1,1,2:blue 1,2,0:orangered 1,2,1:white 1,2,2:mediumvioletred 2,0,0:green 2,0,1:blue 2,0,2:navy 2,1,0:mediumvioletred 2,1,1:orangered 2,1,2:white 2,2,0:yellow 2,2,1:red 2,2,2:black 
