@@ -26,7 +26,7 @@
 #+latex_header_extra: \captionsetup{font={scriptsize}}
 
 
-Me han retado a hacer un programa que resuelva el problema de las [[https://en.wikipedia.org/wiki/Eight_queens_puzzle][n-reinas]]. Esta es mi solución en c++ básico: sin =class=/=struct= y sin punteros a función. Solo utilizo =printf= y =system= para conseguir la hora de inicio y fin del programa.
+Me han retado a hacer un programa que resuelva el problema de las [[https://en.wikipedia.org/wiki/Eight_queens_puzzle][n-reinas]]. Esta es mi solución en c++ básico: sin =class= / =struct= , sin memoria dinámica y sin punteros a función. Solo utilizo =assert= , ==printf= y =system= para conseguir la hora de inicio y fin del programa.
 
 El límite práctico parece estar en las 30 reinas, con alrededor de 12 segundos de cálculo.
 
@@ -36,6 +36,7 @@ El límite práctico parece estar en las 30 reinas, con alrededor de 12 segundos
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <cassert>
 
 using namespace std;
 
@@ -54,7 +55,7 @@ void initSeized(){
   }
 }
 
-inline bool seized(const int col, const int row, const int currentLevel ){
+bool seized(const int col, const int row, const int currentLevel ){
   return seizedAtLevel[col][row] <= currentLevel;
 }
 
@@ -113,6 +114,7 @@ bool stillPossible( const int level, const int size ){
 }
 
 bool placeQueenAtLevel( const int level, const int size, int queensRows[] ){
+  assert(size < maxSize );
 
   // printf( "\n INTENTANDO NIVEL:%d\n", level);
   // dumpSeized(size);
@@ -163,7 +165,7 @@ int main( int argc, char *argv[] ){
   int currentQueen = 0;
   const int size = 31;
 
-  int queensRows[maxSize];
+  int queensRows[size];
 
   initSeized();
   bool result = placeQueenAtLevel(0,size,queensRows);
@@ -180,8 +182,8 @@ int main( int argc, char *argv[] ){
 
 #+RESULTS:
 #+begin_EXAMPLE
-mié 21 oct 2020 10:45:51 CEST
-mié 21 oct 2020 10:46:07 CEST
+mié 21 oct 2020 10:58:18 CEST
+mié 21 oct 2020 10:58:34 CEST
 Conseguido:Si
  Q   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .
    .   .   .   .   .   .   .   . Q .   .   .   .   .   .   .  
