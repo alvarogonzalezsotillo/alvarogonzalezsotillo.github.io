@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Juego tipo escape room virtual - Álvaro González Sotillo</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Álvaro González Sotillo" />
+    <meta name="description" content="Un juego simple tipo escape room implementado con baja tecnología" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <!-- <link rel="stylesheet" href="/media/css/prettify.css" type="text/css"> -->
+  </head>
+
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">Álvaro González Sotillo</a></h1>
+        <p></p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">Acerca de mí</a></li>
+          <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="//www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Buscar">
+          <input type="hidden" name="as_sitesearch" value="alvarogonzalezsotillo.github.io">
+        </form>
+        <img class="avatar" src="/media/img/octaedron.png" />
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>Juego tipo escape room virtual</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgabe5e59">Opciones para la implementación del juego</a></li>
+<li><a href="#org5c2d15d">Opción utilizada</a></li>
+<li><a href="#orge3ecd95">Generación de páginas</a></li>
+</ul>
+</div>
+</div>
+<p>
+Durante la cuarentena del COVID-19 ha habido tiempo para casi todo. Después de jugar a un par de juegos <i>escape room virtuales</i> (<a href="https://theparadoxroom.com/digital/game/apocalipsis-higienico/">paradoxroom</a>, <a href="https://www.escaperoomdigital.com/laextorsiondelhacker">escaperoomdigital</a>) me ha parecido interesante inventarme el mio propio.
+</p>
+
+
+<p style="text-align:center;font-size:150%;color:blue">
+<a href="https://alvarogonzalezsotillo.gitlab.io/aventura" style="text-align:center;font-size:150%;color:blue">El secreto de Despair Corp</a>
+</p>
+
+
+<p>
+El código fuente está oculto, para que no se vean las soluciones a los acertijos.
+</p>
+
+<div id="outline-container-orgabe5e59" class="outline-2">
+<h2 id="orgabe5e59">Opciones para la implementación del juego</h2>
+<div class="outline-text-2" id="text-orgabe5e59">
+<p>
+Solo dispongo de alojamiento web estático (<a href="https://pages.github.com/">Github Pages</a> y similar), así que hay que implementar la lógica en el lado cliente. Para que cada página no tenga la solución en el código html, hay dos soluciones
+</p>
+<ul class="org-ul">
+<li><b>Ofuscar la respuesta correcta</b>: La respuesta puede estar incluida en la página, pero no en texto legible.
+<ul class="org-ul">
+<li>Usando un sistema reversible como <a href="https://es.wikipedia.org/wiki/Base64">base64</a> se oculta de forma superficial. No costaría demasiado saber la respuesta.</li>
+<li>Se puede guardar su <a href="https://es.wikipedia.org/wiki/Funci%C3%B3n_hash_criptogr%C3%A1fica">hash</a>, de forma que no se pueda saber la respuesta a partir del hash.</li>
+</ul></li>
+<li><b>Preguntar al servidor si la respuesta es correcta</b>: Aunque sea un hosting estático, el servidor responde con un código <a href="https://es.wikipedia.org/wiki/Anexo:C%C3%B3digos_de_estado_HTTP#2xx:_Peticiones_correctas">HTTP 200</a> si el recurso existe, u otro código si no existe.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org5c2d15d" class="outline-2">
+<h2 id="org5c2d15d">Opción utilizada</h2>
+<div class="outline-text-2" id="text-org5c2d15d">
+<p>
+Cuando el jugador introduce la respuesta, la <i>normalizo</i> pasándola a mayúsculas y quitando caracteres <i>sobrantes</i>, como espacio, guión, acentos&#x2026;
+</p>
+
+<div class="org-src-container">
+<pre class="src src-javascript">    function normalizaRespuesta(str){
+        let sustituciones = {
+            " " : "",
+            "-" : "",
+            "," : "",
+            "." : "",
+            "Á" : "A",
+            "É" : "E",
+            "Í" : "I",
+            "Ó" : "O",
+            "Ú" : "U",
+            "Ü" : "U",
+            "Ñ" : "N"
+        };
+
+        letras = Array.from(str.toUpperCase());
+        let sanitized = letras.map( 
+          c =&gt; typeof sustituciones[c] != "undefined" ? 
+               sustituciones[c] : 
+               c ).join("");
+        return sanitized;
+    }
+</pre>
+</div>
+
+<p>
+Cada página web de la aventura está en un directorio que tiene por nombre la solución del paso anterior. Por ejemplo, si el paso 1 tiene como respuesta correcta <i>El cantar del mío Cid</i>, esta respuesta se normaliza a <code>ELCANTARDELMIOCID</code> y el siguiente paso se almacena en la URL <code>../ELCANTARDELMIOCID/index.hml</code>.
+</p>
+
+<p>
+Utilizo el siguiente <i>script</i> para saber si un recurso existe:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-javascript">    function existeURL(url){
+        let request = new XMLHttpRequest();  
+        request.open('GET', url, false);
+        request.send(null);
+        let found = request.status != 404;
+        return found;
+    }
+</pre>
+</div>
+
+<p>
+De esta forma, se detecta una respuesta correcta porque existe una página en el servidor con ese nombre, y se salta a esa página. Más <i>serverless</i> no puede ser 😎
+</p>
+</div>
+</div>
+
+<div id="outline-container-orge3ecd95" class="outline-2">
+<h2 id="orge3ecd95">Generación de páginas</h2>
+<div class="outline-text-2" id="text-orge3ecd95">
+<p>
+Cualquier generador de sitios estáticos valdría para implementar el juego. Yo he elegido <a href="https://orgmode.org/manual/Publishing.html">org-publish</a>, para no salir de <a href="https://www.gnu.org/software/emacs/">emacs</a>. 
+</p>
+
+<p>
+La configuración se basa en dos proyectos: uno que transforma los ficheros <code>org</code> en <code>html</code>, y otro que copia el resto de recursos (<code>js</code>, <code>css</code>, <code>zip</code>&#x2026;)
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(setq org-publish-project-alist
+      '(
+        ("aventura-org"
+         :base-directory "/home/alvaro/github/aventura/org/"
+         :base-extension "org"
+         :publishing-directory "/home/alvaro/github/aventura/public/"
+         :recursive t
+         :publishing-function org-html-publish-to-html
+         :headline-levels 4             ; Just the default for this project.
+         :auto-preamble t
+         )
+
+        ("aventura-static"
+         :base-directory "/home/alvaro/github/aventura/org/"
+         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|html\\|svg\\|zip\\|ttf"
+         :publishing-directory "/home/alvaro/github/aventura/public/"
+         :recursive t
+         :publishing-function org-publish-attachment
+         )
+
+        ("aventura"
+         :components ("aventura-org" "aventura-static")
+         )
+        
+        ))
+</pre>
+</div>
+
+<p>
+Para generar las páginas utilizo esta función interactiva:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defun publicar-aventura()
+  (interactive)
+  (delete-directory "/home/alvaro/github/aventura/public/" t)
+  (org-publish-remove-all-timestamps)
+  (org-publish-project "aventura" t))
+</pre>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2020-04-13</span>
+        <span title="last modification date" class="post-info">2020-04-13</span>
+        <span title="tags" class="post-info"><a href="/tags/escape-room/">escape room</a>, <a href="/tags/orgmode/">orgmode</a></span>
+        <span title="author" class="post-info">Álvaro González Sotillo</span>
+      </div>
+      <section>
+        <!-- <h1>Comments</h1> -->
+      </section>
+      <!-- <script src="//code.jquery.com/jquery-latest.min.js"></script> -->
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->
+      <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>  -->
+      <!--<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>-->
+      <script src="/media/js/jquery-3.2.1.min.js"></script>
+      <script src="/media/js/main.js"></script>
+      <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="/media/js/code-prettify/loader/run_prettify.js"></script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 26.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:alvarogonzalezsotillo <at> gmail <dot> com">Álvaro González Sotillo</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>

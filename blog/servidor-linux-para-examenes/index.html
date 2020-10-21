@@ -35,9 +35,9 @@
 <div class="post">
 <h1>Servidor linux para exámenes</h1>
 
-<div id="outline-container-org5bcdc4e" class="outline-2">
-<h2 id="org5bcdc4e">El problema</h2>
-<div class="outline-text-2" id="text-org5bcdc4e">
+<div id="outline-container-org1fee327" class="outline-2">
+<h2 id="org1fee327">El problema</h2>
+<div class="outline-text-2" id="text-org1fee327">
 <p>
 A la hora de realizar un trabajo o examen práctico sobre un ordenador, los profesores tenemos varias alternativas:
 </p>
@@ -57,9 +57,9 @@ A continuación, describiré qué pasos sigo para crear un entorno Linux para mi
 </div>
 </div>
 
-<div id="outline-container-orgd4f1c13" class="outline-2">
-<h2 id="orgd4f1c13">Entorno Linux</h2>
-<div class="outline-text-2" id="text-orgd4f1c13">
+<div id="outline-container-org7f78db8" class="outline-2">
+<h2 id="org7f78db8">Entorno Linux</h2>
+<div class="outline-text-2" id="text-org7f78db8">
 <p>
 Cada alumno tendrá su propia contraseña. Generar las contraseñas aleatoriamente no es una buena idea, puesto que dificulta su recuperación en caso de pérdida. Es mejor que la contraseña dependa del nombre del usuario, por ejemplo los primeros caracteres del hash del usuario. 
 </p>
@@ -92,7 +92,7 @@ Los usuarios se crean la contraseña especificada por la función anterior. El d
     local USER=$1
     local PASS=$(password_para_alumno $USER)
 
-
+    
     sudo useradd $USER -m -s /bin/bash
     echo "$USER:$PASS" | sudo chpasswd
 
@@ -120,7 +120,7 @@ En el momento del examen, es necesario que los alumnos conozcan su contraseña d
 <label class="org-src-name"><span class="listing-number">Listado de programa 4 </span>Creación de un fichero con todos los usuarios y contraseñas</label><pre class="src src-sh">lista_usuarios(){
     rm usuarios_linux.org
     local USUARIOS="$*"
-
+    
     for USER in $USUARIOS
     do
         local PASS=$(password_para_alumno $USER)
@@ -152,9 +152,9 @@ lista_usuarios $usuarios
 </div>
 
 
-<div id="outline-container-org63cdc39" class="outline-2">
-<h2 id="org63cdc39">Oracle</h2>
-<div class="outline-text-2" id="text-org63cdc39">
+<div id="outline-container-orga87d27e" class="outline-2">
+<h2 id="orga87d27e">Oracle</h2>
+<div class="outline-text-2" id="text-orga87d27e">
 <p>
 Utilizo la versión <a href="http://www.oracle.com/technetwork/database/database-technologies/express-edition/overview/index.html">Oracle XE</a>, para evitar problemas de licencia, y porque es bastante simple de instalar a partir de paquetes RPM en un Centos/Fedora.
 </p>
@@ -212,7 +212,7 @@ Después se carga un <i>script</i> de SQL inicial para la creación de tablas, q
     grant resource,connect to $user;
     grant create view to $user;
     grant create any directory to $user;
-
+    
 
     GRANT SELECT ON sys.v_${S}session TO $user;
     GRANT SELECT ON sys.v_${S}gsession TO $user;
@@ -240,9 +240,9 @@ EOF
 </div>
 </div>
 
-<div id="outline-container-orgb010067" class="outline-2">
-<h2 id="orgb010067">LAMP</h2>
-<div class="outline-text-2" id="text-orgb010067">
+<div id="outline-container-org15b780c" class="outline-2">
+<h2 id="org15b780c">LAMP</h2>
+<div class="outline-text-2" id="text-org15b780c">
 <p>
 Para los exámenes <a href="https://es.wikipedia.org/wiki/LAMP">LAMP</a> se necesita una base de datos y un sitio web por cada alumno.
 </p>
@@ -323,43 +323,43 @@ Para evitar cientos de preguntas al inicio del examen dejo una página inicial d
 </ul>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listado de programa 10 </span>Página de bienvenida al <i>hosting</i> de exámenes</label><pre class="src src-sh">crea_pagina_inicio()
-{
-    local USERS="$1"
-    local IPADDRESS=$(hostname -I)
-    local IPADDRESS="${IPADDRESS#"${IPADDRESS%%[![:space:]]*}"}"
-    local IPADDRESS="${IPADDRESS%"${IPADDRESS##*[![:space:]]}"}"
+<label class="org-src-name"><span class="listing-number">Listado de programa 10 </span>Página de bienvenida al <i>hosting</i> de exámenes</label><pre class="src src-sh">  crea_pagina_inicio()
+  {
+      local USERS="$1"
+      local IPADDRESS=$(hostname -I)
+      local IPADDRESS="${IPADDRESS#"${IPADDRESS%%[![:space:]]*}"}"
+      local IPADDRESS="${IPADDRESS%"${IPADDRESS##*[![:space:]]}"}"
+    
+      local HOSTNAME=$(hostname).local
+      #local HOSTNAME=$IPADDRESS
 
-    local HOSTNAME=$(hostname).local
-    #local HOSTNAME=$IPADDRESS
+      local INDEXHTML=/var/www/html/index.html
+      cat &lt;&lt;EOF &gt; $INDEXHTML 
+      &lt;h1&gt;Aplicaciones Web. Examen 1 evaluacion 3&lt;/h1&gt;
+      &lt;p&gt;Conexion con ssh a la IP:&lt;b&gt;$IPADDRESS&lt;/b&gt;  ($HOSTNAME)&lt;/p&gt;
+      &lt;table border=1&gt;
+  EOF
+    
+      for i in $USERS
+      do
+          cat &lt;&lt;EOF &gt;&gt; $INDEXHTML
+            &lt;tr&gt;
+              &lt;td&gt;
+                &lt;a href=$i/phpBB3&gt;$i&lt;/a&gt;
+              &lt;/td&gt;
+              &lt;td&gt;Misma contrase&amp;ntilde;a inicial&lt;/td&gt;
+              &lt;td&gt;
+                &lt;a href=sftp://$i@$HOSTNAME/home/$i&gt;SFTP&lt;/a&gt;
+              &lt;/td&gt;
+              &lt;td&gt;
+                &lt;a href=phpMyAdmin&gt;phpMyAdmin&lt;/a&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+  EOF
+      done
 
-    local INDEXHTML=/var/www/html/index.html
-    cat &lt;&lt;EOF &gt; $INDEXHTML 
-    &lt;h1&gt;Aplicaciones Web. Examen 1 evaluacion 3&lt;/h1&gt;
-    &lt;p&gt;Conexion con ssh a la IP:&lt;b&gt;$IPADDRESS&lt;/b&gt;  ($HOSTNAME)&lt;/p&gt;
-    &lt;table border=1&gt;
-EOF
-
-    for i in $USERS
-    do
-        cat &lt;&lt;EOF &gt;&gt; $INDEXHTML
-          &lt;tr&gt;
-            &lt;td&gt;
-              &lt;a href=$i/phpBB3&gt;$i&lt;/a&gt;
-            &lt;/td&gt;
-            &lt;td&gt;Misma contrase&amp;ntilde;a inicial&lt;/td&gt;
-            &lt;td&gt;
-              &lt;a href=sftp://$i@$HOSTNAME/home/$i&gt;SFTP&lt;/a&gt;
-            &lt;/td&gt;
-            &lt;td&gt;
-              &lt;a href=phpMyAdmin&gt;phpMyAdmin&lt;/a&gt;
-            &lt;/td&gt;
-          &lt;/tr&gt;
-EOF
-    done
-
-    echo "&lt;/table&gt;" &gt;&gt; $INDEXHTML
-}
+      echo "&lt;/table&gt;" &gt;&gt; $INDEXHTML
+  }
 
 </pre>
 </div>

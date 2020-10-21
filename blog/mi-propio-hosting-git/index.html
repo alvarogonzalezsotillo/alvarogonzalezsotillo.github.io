@@ -59,11 +59,11 @@ El usuario <code>git</code> tendrá en su <code>$HOME</code> un directorio por r
 
 <div class="org-src-container">
 <pre class="src src-sh">
-sudo -u git bash # El usuario git no tiene shell
-cd $HOME
-mkdir repositorio.git
-cd repositorio.git
-git --bare init
+   sudo -u git bash # El usuario git no tiene shell
+   cd $HOME
+   mkdir repositorio.git
+   cd repositorio.git
+   git --bare init
 </pre>
 </div></li>
 
@@ -72,8 +72,8 @@ Desde el ordenador cliente, ya se puede añadir el repositorio remoto. La URL ti
 </p>
 <div class="org-src-container">
 <pre class="src src-sh">
-git remote add mihosting git@alvarogonzalez.no-ip.biz:/home/git/repositorio.git
-git push mihosting master
+   git remote add mihosting git@alvarogonzalez.no-ip.biz:/home/git/repositorio.git
+   git push mihosting master
 </pre>
 </div></li>
 
@@ -81,7 +81,7 @@ git push mihosting master
 </ol>
 
 
-<div class="figure">
+<div id="orgbded631" class="figure">
 <p><object type="image/svg+xml" data="/assets/blog/mi-propio-hosting-git/mi-propio-hosting-git.svg" class="org-svg">
 Sorry, your browser does not support SVG.</object>
 </p>

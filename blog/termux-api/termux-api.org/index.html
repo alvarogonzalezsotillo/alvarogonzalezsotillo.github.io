@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Termux-api - Álvaro González Sotillo</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Álvaro González Sotillo" />
+    <meta name="description" content="/Termux/ instala un terminal y muchos de los comandos de Linux en Android. Ahora con /Termux:API/ se añaden algunos comandos para interactuar con Android desde la shell." />
+    <meta name="keywords" content="termux" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <!-- <link rel="stylesheet" href="/media/css/prettify.css" type="text/css"> -->
+  </head>
+
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">Álvaro González Sotillo</a></h1>
+        <p></p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">Acerca de mí</a></li>
+          <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="//www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Buscar">
+          <input type="hidden" name="as_sitesearch" value="alvarogonzalezsotillo.github.io">
+        </form>
+        <img class="avatar" src="/media/img/octaedron.png" />
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>Termux-api</h1>
+
+<div id="outline-container-orgb056087" class="outline-2">
+<h2 id="orgb056087">Qué es Termux:API</h2>
+<div class="outline-text-2" id="text-orgb056087">
+<p>
+Ya comenté que <a href="../../../blog/ordenador-bolsillo-termux/ordenador-bolsillo-termux.html">Android tenía un terminal</a> muy interesante con Termux. El problema es que estaba algo limitado ya que no tenía una integración real con el teléfono. Este problema está en vía de solución con <a href="https://wiki.termux.com/wiki/Termux:API"><b>Termux:API</b></a>.
+</p>
+
+<p>
+Las instrucciones de instalación son simples:
+</p>
+<ul class="org-ul">
+<li>Instalar la aplicación <a href="https://play.google.com/store/apps/details?id=com.termux.api&amp;hl=en_US"><b>Termux:API</b></a> desde Google Play</li>
+<li>Instalar el paquete <code>termux-api</code> desde la terminal de Termux.</li>
+</ul>
+
+<p>
+Con esto ya se pueden crear <i>scripts</i> de <i>shell</i> que interaccionen con el teléfono. 
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgc0789bb" class="outline-2">
+<h2 id="orgc0789bb">Un ejemplo de uso</h2>
+<div class="outline-text-2" id="text-orgc0789bb">
+<p>
+Estoy empezando a entrenar, y en mi rutina está incluida una caminata con cambios de ritmo: 5 minutos de calentamiento, 2 minutos a paso rápido, 2 a paso lento... hasta los 23 minutos en total. 
+</p>
+
+<p>
+Hay muchísimas apps para realizar este tipo de entrenamientos (en <b>Runtastic</b> se llama <a href="https://help.runtastic.com/hc/en-us/articles/203335601-Create-an-interval-training">interval training</a>), pero utilizarlas no tiene mérito ☺. Es mucho más divertido utilizar <code>termux-vibrate</code> y <code>termux-tts-speak</code> en un script para conseguir este efecto.
+</p>
+
+<pre class="example">
+mensaje(){
+    echo $(date +%H:%M:%S) " -- " $*
+}
+
+hablar(){
+    mensaje "$1"
+    (termux-vibrate;
+    termux-tts-speak "$1")&amp;
+}
+
+temporizador(){
+    # Temporizador con cuenta atrás
+    for s in $(seq "$1" -10 9)
+    do
+        printf "%d " $s
+        sleep 10
+    done
+    printf "\n"
+}
+
+esperar_y_hablar(){
+    mensaje "Esperando $1 segundos para:" "$2"
+
+    # El temporizador tiene problemas de precisión
+    # Mejor lanzarlo asíncrono y esperar con sleep
+    temporizador "$1"&amp;
+    sleep "$1"
+
+    hablar "$2"
+}
+
+
+# Solicitamos no entrar en deep sleep
+termux-wake-lock
+
+hablar "en 5 minutos se comenzará a andar rápido"
+esperar_y_hablar $((5*60)) "Ahora hay que andar rápido"
+
+esperar_y_hablar $((2*60)) "Ahora hay que andar lento"
+esperar_y_hablar $((2*60)) "Ahora hay que andar rápido"
+
+esperar_y_hablar $((2*60)) "Ahora hay que andar lento"
+esperar_y_hablar $((2*60)) "Ahora hay que andar rápido"
+
+esperar_y_hablar $((2*60)) "Ahora hay que andar lento"
+esperar_y_hablar $((2*60)) "Ahora hay que andar rápido"
+
+esperar_y_hablar $((2*60)) "Ahora hay que andar lento"
+esperar_y_hablar $((2*60)) "Ahora hay que andar rápido"
+
+esperar_y_hablar $((2*60)) "ya hemos acabado"
+
+# Ya podemos ir a deep sleep
+termux-wake-unlock
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2019-10-16</span>
+        <span title="last modification date" class="post-info">2019-10-16</span>
+        <span title="tags" class="post-info"><a href="/tags/termux/">termux</a></span>
+        <span title="author" class="post-info">Álvaro González Sotillo</span>
+      </div>
+      <section>
+        <!-- <h1>Comments</h1> -->
+      </section>
+      <!-- <script src="//code.jquery.com/jquery-latest.min.js"></script> -->
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->
+      <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>  -->
+      <!--<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>-->
+      <script src="/media/js/jquery-3.2.1.min.js"></script>
+      <script src="/media/js/main.js"></script>
+      <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="/media/js/code-prettify/loader/run_prettify.js"></script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 26.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:alvarogonzalezsotillo <at> gmail <dot> com">Álvaro González Sotillo</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>

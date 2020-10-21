@@ -37,39 +37,39 @@
 <h2>&Iacute;ndice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgfab09fa">Instalación del sistema operativo</a>
+<li><a href="#org4225576">Instalación del sistema operativo</a>
 <ul>
-<li><a href="#org40497c6">Haciendo sitio en el disco</a></li>
-<li><a href="#orgd223791">Usuarios</a></li>
+<li><a href="#org8e36e45">Haciendo sitio en el disco</a></li>
+<li><a href="#orgfe475e1">Usuarios</a></li>
 </ul>
 </li>
-<li><a href="#org8a5dafe">Home Theater Personal Computer</a></li>
-<li><a href="#org94ec68c">Acceso remoto</a>
+<li><a href="#org05f71c7">Home Theater Personal Computer</a></li>
+<li><a href="#org1b31036">Acceso remoto</a>
 <ul>
-<li><a href="#org3409c30"><i>Always-on</i> vs <i>wake-on-lan</i></a></li>
-<li><a href="#org4008f99">Nombre del servidor</a></li>
+<li><a href="#org4d285f1"><i>Always-on</i> vs <i>wake-on-lan</i></a></li>
+<li><a href="#org35d48d3">Nombre del servidor</a></li>
 </ul>
 </li>
-<li><a href="#org6f88e34">Servidor</a>
+<li><a href="#org0ed0f78">Servidor</a>
 <ul>
-<li><a href="#org8fa4093">E-mail</a></li>
-<li><a href="#orgb8c3009">Servidor web</a></li>
-<li><a href="#org0cc57d0">Owncloud</a></li>
+<li><a href="#org6a02be8">E-mail</a></li>
+<li><a href="#orgad2092b">Servidor web</a></li>
+<li><a href="#orgdadaa00">Owncloud</a></li>
 </ul>
 </li>
-<li><a href="#orgbc6b91c">Configuración como <i>workstation</i></a>
+<li><a href="#org8922472">Configuración como <i>workstation</i></a>
 <ul>
-<li><a href="#orgd0286fb">Zsh</a></li>
-<li><a href="#org3309e46">Emacs</a></li>
-<li><a href="#orgbee8867">Materiales para clase</a></li>
-<li><a href="#orga12a69c">Ofimática</a></li>
+<li><a href="#org2dd568e">Zsh</a></li>
+<li><a href="#orgca8d050">Emacs</a></li>
+<li><a href="#org327cc77">Materiales para clase</a></li>
+<li><a href="#org33b4a90">Ofimática</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div class="figure">
+<div id="org350e51d" class="figure">
 <p><a href="https://www.asus.com/us/mini-pcs/vivomini-vc66/" align="right" style="width:10%;max-width:200px;min-width:100px;margin:2em;"><img src="/assets/blog/ordenador-de-sobremesa-servidor-htpc/asus-vc66.png" alt="asus-vc66.png" align="right" style="width:10%;max-width:200px;min-width:100px;margin:2em;" /></a>
 </p>
 </div>
@@ -79,9 +79,9 @@ Acabo de comprarme un <a href="https://www.asus.com/us/mini-pcs/vivomini-vc66/">
 </p>
 <p style="clear:both"></p>
 
-<div id="outline-container-orgfab09fa" class="outline-2">
-<h2 id="orgfab09fa">Instalación del sistema operativo</h2>
-<div class="outline-text-2" id="text-orgfab09fa">
+<div id="outline-container-org4225576" class="outline-2">
+<h2 id="org4225576">Instalación del sistema operativo</h2>
+<div class="outline-text-2" id="text-org4225576">
 <p>
 El ordenador venía con windows 10 preinstalado. Aunque el <i><a href="https://es.wikipedia.org/wiki/remote_desktop_protocol">remote desktop</a></i> es una buena forma de conectarte a un ordenador de tu LAN, no es tan adecuado para un acceso remoto con bajo ancho de banda. En esos casos, una conexión <a href="https://es.wikipedia.org/wiki/secure_shell">SSH</a>/<a href="https://es.wikipedia.org/wiki/ssh_file_transfer_protocol">FTP</a> con la posibilidad de redirigir puertos a <a href="https://es.wikipedia.org/wiki/vnc">VNC</a> me parece más adecuada.
 </p>
@@ -91,9 +91,9 @@ De todas formas, Windows sigue instalado, que tampoco es cuestión de despreciar
 </p>
 </div>
 
-<div id="outline-container-org40497c6" class="outline-3">
-<h3 id="org40497c6">Haciendo sitio en el disco</h3>
-<div class="outline-text-3" id="text-org40497c6">
+<div id="outline-container-org8e36e45" class="outline-3">
+<h3 id="org8e36e45">Haciendo sitio en el disco</h3>
+<div class="outline-text-3" id="text-org8e36e45">
 <ol class="org-ol">
 <li><p>
 Particiones del disco duro original
@@ -254,9 +254,9 @@ Crear partición datos compartidos con windows (formato ntfs)
 </div>
 </div>
 
-<div id="outline-container-orgd223791" class="outline-3">
-<h3 id="orgd223791">Usuarios</h3>
-<div class="outline-text-3" id="text-orgd223791">
+<div id="outline-container-orgfe475e1" class="outline-3">
+<h3 id="orgfe475e1">Usuarios</h3>
+<div class="outline-text-3" id="text-orgfe475e1">
 <p>
 He creado un usuario por defecto para la familia con el <a href="https://help.ubuntu.com/community/autologin">autologin</a> activado.
 </p>
@@ -274,7 +274,7 @@ sudo usermod -a -G discos usuario2
 <p>
 Las particiones de datos adicionales (como los datos compartidos con windows) se montan con este grupo    
 </p>
-<pre class="example">
+<pre class="example" id="org74c4089">
 # /etc/fstab: static file system information.
 #
 # use 'blkid' to print the universally unique identifier for a
@@ -296,11 +296,11 @@ uuid=9e1cf2601cf2333f /datos/datos-compartidos-200m ntfs gid=discos,dmask=002,fm
 </div>
 </div>
 
-<div id="outline-container-org8a5dafe" class="outline-2">
-<h2 id="org8a5dafe">Home Theater Personal Computer</h2>
-<div class="outline-text-2" id="text-org8a5dafe">
+<div id="outline-container-org05f71c7" class="outline-2">
+<h2 id="org05f71c7">Home Theater Personal Computer</h2>
+<div class="outline-text-2" id="text-org05f71c7">
 
-<div class="figure">
+<div id="org42abf17" class="figure">
 <p><a href="https://www.logitech.com/es-es/product/k400-wireless-keyboard-touchpad" align="right" style="width:15%;max-width:200px;min-width:100px;margin:1em;"><img src="/assets/blog/ordenador-de-sobremesa-servidor-htpc/wireless-touch-keyboard-k400-plus.png" alt="wireless-touch-keyboard-k400-plus.png" align="right" style="width:15%;max-width:200px;min-width:100px;margin:1em;" /></a>
 </p>
 </div>
@@ -341,9 +341,9 @@ Tras instalar transmission, he añadido el directorio de bajada a los directorio
 </div>
 </div>
 
-<div id="outline-container-org94ec68c" class="outline-2">
-<h2 id="org94ec68c">Acceso remoto</h2>
-<div class="outline-text-2" id="text-org94ec68c">
+<div id="outline-container-org1b31036" class="outline-2">
+<h2 id="org1b31036">Acceso remoto</h2>
+<div class="outline-text-2" id="text-org1b31036">
 <p>
 El acceso remoto no es solamente acceder al ordenador desde la lan, sino desde cualquier parte de Internet. los pasos a seguir son los siguientes:
 </p>
@@ -353,7 +353,7 @@ El acceso remoto no es solamente acceder al ordenador desde la lan, sino desde c
 Instalar <a href="https://www.openssh.com/">openssh server</a>, que nos permitirá acceder a un terminal y a los ficheros del servidor
 </p>
 <div class="org-src-container">
-<pre class="src src-bash">sudo apt install openssh-server
+<pre class="src src-bash">   sudo apt install openssh-server
 </pre>
 </div></li>
 <li>Redirigir un puerto para acceder a ssh desde internet. para ello
@@ -364,19 +364,19 @@ Instalar <a href="https://www.openssh.com/">openssh server</a>, que nos permitir
 </ol>
 </div>
 
-<div id="outline-container-org3409c30" class="outline-3">
-<h3 id="org3409c30"><i>Always-on</i> vs <i>wake-on-lan</i></h3>
-<div class="outline-text-3" id="text-org3409c30">
+<div id="outline-container-org4d285f1" class="outline-3">
+<h3 id="org4d285f1"><i>Always-on</i> vs <i>wake-on-lan</i></h3>
+<div class="outline-text-3" id="text-org4d285f1">
 <p>
 Idealmente, el servidor debería estar siempre encendido. en la práctica no siempre es deseable, aunque solo sea por el gasto continuo de 18W.
 </p>
 
 <p>
-Para conseguir lo mejor de ambas opciones, puede dejarse al ordenador suspendido (1W) y despertarlo con <a href="https://es.wikipedia.org/wiki/wake_on_lan">wake-on-lan</a> con alguna <a href="https://play.google.com/store/apps/details?id=com.cbsb.wakelan">aplicación desde el móvil</a>. este sistema consiste en enviar un <a href="https://es.wikipedia.org/wiki/wake_on_lan#paquete_m%c3%a1gico">paquete mágico</a> que contiene 16 veces la <a href="https://es.wikipedia.org/wiki/direcci%c3%b3n_mac">MAC</a> del equipo a despertar. desde la lan no hay ningún problema: el paquete se envía a la dirección de broadcast de la red, y el switch lo envía a todos los equipos.
+Para conseguir lo mejor de ambas opciones, puede dejarse al ordenador suspendido (1W) y despertarlo con <a href="https://es.wikipedia.org/wiki/wake_on_lan">wake-on-lan</a> con alguna <a href="https://play.google.com/store/apps/details?id=com.cbsb.wakelan">aplicación desde el móvil</a>. este sistema consiste en enviar un <a href="https://es.wikipedia.org/wiki/wake_on_lan#paquete_m%25c3%25a1gico">paquete mágico</a> que contiene 16 veces la <a href="https://es.wikipedia.org/wiki/direcci%25c3%25b3n_mac">MAC</a> del equipo a despertar. desde la lan no hay ningún problema: el paquete se envía a la dirección de broadcast de la red, y el switch lo envía a todos los equipos.
 </p>
 
 <p>
-Desde Internet es más complicado. Se puede intentar abrir un puerto para WoL, pero el router al intentar alcanzar al servidor en la IP interna lanzará un <a href="https://es.wikipedia.org/wiki/protocolo_de_resoluci%c3%b3n_de_direcciones">arp</a> para conocer su dirección MAC y poder enviar el paquete. Y si el ordenador está apagado no responderá, por lo que el paquete mágico se quedará sin enviar.
+Desde Internet es más complicado. Se puede intentar abrir un puerto para WoL, pero el router al intentar alcanzar al servidor en la IP interna lanzará un <a href="https://es.wikipedia.org/wiki/protocolo_de_resoluci%25c3%25b3n_de_direcciones">arp</a> para conocer su dirección MAC y poder enviar el paquete. Y si el ordenador está apagado no responderá, por lo que el paquete mágico se quedará sin enviar.
 </p>
 
 <p>
@@ -385,9 +385,9 @@ La solución es modificar la tabla arp del router, dejando como permanente la di
 </div>
 </div>
 
-<div id="outline-container-org4008f99" class="outline-3">
-<h3 id="org4008f99">Nombre del servidor</h3>
-<div class="outline-text-3" id="text-org4008f99">
+<div id="outline-container-org35d48d3" class="outline-3">
+<h3 id="org35d48d3">Nombre del servidor</h3>
+<div class="outline-text-3" id="text-org35d48d3">
 <p>
 La dirección IP asignada a mi router por el ISP es dinámica. Para poder localizar mi servidor en Internet es necesario tener un servicio de <a href="https://en.wikipedia.org/wiki/dynamic_dns">dynamic dns</a>. He elegido a <a href="https://www.noip.com/">noip.com</a> porque:
 </p>
@@ -400,17 +400,17 @@ La dirección IP asignada a mi router por el ISP es dinámica. Para poder locali
 </div>
 </div>
 
-<div id="outline-container-org6f88e34" class="outline-2">
-<h2 id="org6f88e34">Servidor</h2>
-<div class="outline-text-2" id="text-org6f88e34">
+<div id="outline-container-org0ed0f78" class="outline-2">
+<h2 id="org0ed0f78">Servidor</h2>
+<div class="outline-text-2" id="text-org0ed0f78">
 <p>
 En el ordenador he instalado los servicios e-mail y http.
 </p>
 </div>
 
-<div id="outline-container-org8fa4093" class="outline-3">
-<h3 id="org8fa4093">E-mail</h3>
-<div class="outline-text-3" id="text-org8fa4093">
+<div id="outline-container-org6a02be8" class="outline-3">
+<h3 id="org6a02be8">E-mail</h3>
+<div class="outline-text-3" id="text-org6a02be8">
 <p>
 Utilizo <a href="https://www.exim.org/">exim4</a> en una instalación estandar, con las siguientes configuraciones:
 </p>
@@ -425,15 +425,15 @@ A partir de aquí, ya puedo utilizar mi dirección <a href="mailto:spam@alvarogo
 </div>
 </div>
 
-<div id="outline-container-orgb8c3009" class="outline-3">
-<h3 id="orgb8c3009">Servidor web</h3>
-<div class="outline-text-3" id="text-orgb8c3009">
+<div id="outline-container-orgad2092b" class="outline-3">
+<h3 id="orgad2092b">Servidor web</h3>
+<div class="outline-text-3" id="text-orgad2092b">
 <p>
 El protocolo HTTP es una buena forma de compartir ficheros. He instalado <a href="https://httpd.apache.org/">apache</a> directamente desde el repositorio.
 </p>
 
 
-<pre class="example">
+<pre class="example" id="org41915da">
 apt install apache2 
 </pre>
 
@@ -441,24 +441,24 @@ apt install apache2
 Para no dejar la página por defecto, he instalado un mirror de este blog:
 </p>
 
-<pre class="example">
-documentroot /var/www/alvarogonzalezsotillo.github.io
-&lt;directory /var/www/alvarogonzalezsotillo.github.io&gt;
-         options followsymlinks
-         allowoverride all
-         require all granted
- &lt;/directory&gt;
+<pre class="example" id="org32eed9c">
+ documentroot /var/www/alvarogonzalezsotillo.github.io
+ &lt;directory /var/www/alvarogonzalezsotillo.github.io&gt;
+          options followsymlinks
+          allowoverride all
+          require all granted
+  &lt;/directory&gt;
 </pre>
 </div>
 </div>
 
-<div id="outline-container-org0cc57d0" class="outline-3">
-<h3 id="org0cc57d0">Owncloud</h3>
-<div class="outline-text-3" id="text-org0cc57d0">
+<div id="outline-container-orgdadaa00" class="outline-3">
+<h3 id="orgdadaa00">Owncloud</h3>
+<div class="outline-text-3" id="text-orgdadaa00">
 <p>
 Para acceder a mis ficheros (fundamentalmente fotografías) utilizo owncloud, instalado desde repositorios:
 </p>
-<pre class="example">
+<pre class="example" id="org53f7418">
 apt install mysql-server libapache2-mod-php php-mcrypt php-mysql
 apt install owncloud-files
 </pre>
@@ -467,37 +467,37 @@ apt install owncloud-files
 Con esto se consigue un servidor apache capaz de ejecutar owncloud, pero la instalación de owncloud (en <code>/var/www/owncloud</code>) no es accesible por apache. Es necesario crear un fichero de sitio en <code>/etc/apache/sites-available/owncloud.conf</code> con el siguiente contenido
 </p>
 
-<pre class="example">
-alias /owncloud /var/www/owncloud
+<pre class="example" id="org4a7530f">
+  alias /owncloud /var/www/owncloud
 
-&lt;directory /var/www/owncloud&gt;
-        options followsymlinks
-        allowoverride all
-        require all granted
-&lt;/directory&gt;
+  &lt;directory /var/www/owncloud&gt;
+          options followsymlinks
+          allowoverride all
+          require all granted
+  &lt;/directory&gt;
 </pre>
 
 <p>
 Después, se habilita el sitio con
 </p>
-<pre class="example">
+<pre class="example" id="org998e517">
 a2ensite owncloud
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgbc6b91c" class="outline-2">
-<h2 id="orgbc6b91c">Configuración como <i>workstation</i></h2>
-<div class="outline-text-2" id="text-orgbc6b91c">
+<div id="outline-container-org8922472" class="outline-2">
+<h2 id="org8922472">Configuración como <i>workstation</i></h2>
+<div class="outline-text-2" id="text-org8922472">
 <p>
 El servidor también debería servirme de <i>backup</i> en el caso de que no tenga disponible mi portátil. lA siguiente configuración es la que utilizo para mi trabajo diario.
 </p>
 </div>
 
-<div id="outline-container-orgd0286fb" class="outline-3">
-<h3 id="orgd0286fb">Zsh</h3>
-<div class="outline-text-3" id="text-orgd0286fb">
+<div id="outline-container-org2dd568e" class="outline-3">
+<h3 id="org2dd568e">Zsh</h3>
+<div class="outline-text-3" id="text-org2dd568e">
 <p>
 Zsh es una shell que puede sustituir a bash de forma casi transparente. Las razones por las que utilizo zsh son
 </p>
@@ -511,9 +511,9 @@ Zsh es una shell que puede sustituir a bash de forma casi transparente. Las razo
 </div>
 </div>
 
-<div id="outline-container-org3309e46" class="outline-3">
-<h3 id="org3309e46">Emacs</h3>
-<div class="outline-text-3" id="text-org3309e46">
+<div id="outline-container-orgca8d050" class="outline-3">
+<h3 id="orgca8d050">Emacs</h3>
+<div class="outline-text-3" id="text-orgca8d050">
 <p>
 Cuando tienes un martillo, todo te parecen clavos. <a href="//WWW.GNU.ORG/SOFTWARE/EMACS/">Emacs</a> es el martillo más grande que he usado nunca.
 </p>
@@ -527,9 +527,9 @@ En mi portátil he compilado emacs a partir de los fuentes, pero en el servidor 
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash">sudo add-apt-repository ppa:kelleyk/emacs
-sudo apt update
-sudo apt install emacs25
+<pre class="src src-bash">   sudo add-apt-repository ppa:kelleyk/emacs
+   sudo apt update
+   sudo apt install emacs25
 </pre>
 </div>
 
@@ -538,8 +538,8 @@ La mejor parte de Emacs es la configuración que cada usuario realiza con él. L
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash">cd
-git clone https://alvarogonzalezsotillo@github.com/alvarogonzalezsotillo/.emacs.d.git
+<pre class="src src-bash">   cd
+   git clone https://alvarogonzalezsotillo@github.com/alvarogonzalezsotillo/.emacs.d.git
 </pre>
 </div>
 
@@ -549,9 +549,9 @@ Al arrancar Emacs, automáticamente descargará <a href="https://github.com/alva
 </div>
 </div>
 
-<div id="outline-container-orgbee8867" class="outline-3">
-<h3 id="orgbee8867">Materiales para clase</h3>
-<div class="outline-text-3" id="text-orgbee8867">
+<div id="outline-container-org327cc77" class="outline-3">
+<h3 id="org327cc77">Materiales para clase</h3>
+<div class="outline-text-3" id="text-org327cc77">
 <p>
 Como cuento en <a href="../../../../blog/mi-publicacion-de-materiales-para-clase">otra entrada</a>, utilizo básicamente Latex y org-mode para mis clases.
 </p>
@@ -561,12 +561,12 @@ La instalación de Latex, y los paquetes que utilizo, se consigue fácilmente co
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh">sudo apt-get install texlive-collection-binextra \
-texlive-latex-recommended \
-texlive-extra-utils \
-texlive-collection-langspanish \
-texlive-collection-latex \
-texlive-collection-latexextra \
+<pre class="src src-sh">  sudo apt-get install texlive-collection-binextra \
+  texlive-latex-recommended \
+  texlive-extra-utils \
+  texlive-collection-langspanish \
+  texlive-collection-latex \
+  texlive-collection-latexextra \
 </pre>
 </div>
 
@@ -576,9 +576,9 @@ Además, utilizo otras herramientas como <a href="https://inkscape.org/en/">Inks
 </div>
 </div>
 
-<div id="outline-container-orga12a69c" class="outline-3">
-<h3 id="orga12a69c">Ofimática</h3>
-<div class="outline-text-3" id="text-orga12a69c">
+<div id="outline-container-org33b4a90" class="outline-3">
+<h3 id="org33b4a90">Ofimática</h3>
+<div class="outline-text-3" id="text-org33b4a90">
 <p>
 Aunque prácticamente ya no lo uso, de vez en cuando alguien de la familia necesita utiliza Microsoft Office. Para eso mantengo un prefijo de <a href="https://www.winehq.org/">Wine</a> que copio de ordenador en ordenador, con la suite ofimática ya instalada.
 </p>

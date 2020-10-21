@@ -37,21 +37,21 @@
 <h2>&Iacute;ndice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org1715af5">1. CodeJam utilizando <i>emacs</i></a>
+<li><a href="#org1e8cda4">1. CodeJam utilizando <i>emacs</i></a>
 <ul>
-<li><a href="#org5908f4c">1.1. <i>source  block</i></a></li>
+<li><a href="#orgf83f9d8">1.1. <i>source  block</i></a></li>
 </ul>
 </li>
-<li><a href="#orgb800f05">2. Saving The Universe Again</a>
+<li><a href="#orgd4bb1e6">2. Saving The Universe Again</a>
 <ul>
-<li><a href="#org977b6cb">2.1. Solución</a></li>
-<li><a href="#org4ba0d33">2.2. Problem</a></li>
+<li><a href="#org19ac829">2.1. Solución</a></li>
+<li><a href="#org2450601">2.2. Problem</a></li>
 </ul>
 </li>
-<li><a href="#orgc8d2e37">3. Cubic UFO</a>
+<li><a href="#org4cfe3d3">3. Cubic UFO</a>
 <ul>
-<li><a href="#org0edb010">3.1. Solución</a></li>
-<li><a href="#org5d24b09">3.2. Problem</a></li>
+<li><a href="#orgff19865">3.1. Solución</a></li>
+<li><a href="#orgdc2dc91">3.2. Problem</a></li>
 </ul>
 </li>
 </ul>
@@ -59,15 +59,15 @@
 </div>
 
 
-<div id="outline-container-org1715af5" class="outline-2">
-<h2 id="org1715af5"><span class="section-number-2">1</span> <a href="https://code.google.com/codejam/">CodeJam</a> utilizando <i>emacs</i></h2>
+<div id="outline-container-org1e8cda4" class="outline-2">
+<h2 id="org1e8cda4"><span class="section-number-2">1</span> <a href="https://code.google.com/codejam/">CodeJam</a> utilizando <i>emacs</i></h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Este año han cambiado las normas usuales en el concurso de programación <a href="https://code.google.com/codejam/">CodeJam</a> de Google.
 </p>
 
 <p>
-Antes, cada programador ejecutaba el código localmente, elgiendo el lenguaje de programación. Ahora, el código se compila y ejecuta en la plataforma del concurso, por lo que la elección de lenguajes está limitada.
+Antes, cada programador ejecutaba el código localmente, elIgiendo el lenguaje de programación. Ahora, el código se compila y ejecuta en la plataforma del concurso, por lo que la elección de lenguajes está limitada.
 </p>
 
 <p>
@@ -83,8 +83,8 @@ Esta entrada de blog <b>no solo cuenta</b> qué programas hice en la ronda de cl
 </p>
 </div>
 
-<div id="outline-container-org5908f4c" class="outline-3">
-<h3 id="org5908f4c"><span class="section-number-3">1.1</span> <i>source  block</i></h3>
+<div id="outline-container-orgf83f9d8" class="outline-3">
+<h3 id="orgf83f9d8"><span class="section-number-3">1.1</span> <i>source  block</i></h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 Un <i>source  block</i> es una parte de un documento org que se considera código fuente de algún lenguaje de programación. Este es un ejemplo de un <i>source block</i> de javascript:
@@ -92,9 +92,9 @@ Un <i>source  block</i> es una parte de un documento org que se considera códig
 
 <div class="org-src-container">
 <pre class="src src-org">
-#+begin_src javascript
-console.log("Me ejecuto en node!");
-#+end_src
+  #+begin_src javascript
+  console.log("Me ejecuto en node!");
+  #+end_src
 </pre>
 </div>
 
@@ -128,7 +128,7 @@ Por supuesto, esto se hace con un bloque de código que ejecuto con <code>C-c C-
 </p>
 
 
-<div class="figure">
+<div id="org85ab0b9" class="figure">
 <p><img src="/assets/blog/literate-codejam/screencast.gif" alt="/assets/blog/literate-codejam/screencast.gif" />
 </p>
 </div>
@@ -136,15 +136,15 @@ Por supuesto, esto se hace con un bloque de código que ejecuto con <code>C-c C-
 </div>
 </div>
 
-<div id="outline-container-orgb800f05" class="outline-2">
-<h2 id="orgb800f05"><span class="section-number-2">2</span> Saving The Universe Again</h2>
+<div id="outline-container-orgd4bb1e6" class="outline-2">
+<h2 id="orgd4bb1e6"><span class="section-number-2">2</span> Saving The Universe Again</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Se puede resolver con un <a href="https://en.wikipedia.org/wiki/Greedy_algorithm">algoritmo avaricioso</a>, ya que el mejor cambio posible es siempre la última aparición de la cadena <code>CS</code> (ver la función <code>nextBestChange</code>).
 </p>
 </div>
-<div id="outline-container-org977b6cb" class="outline-3">
-<h3 id="org977b6cb"><span class="section-number-3">2.1</span> Solución</h3>
+<div id="outline-container-org19ac829" class="outline-3">
+<h3 id="org19ac829"><span class="section-number-3">2.1</span> Solución</h3>
 <div class="outline-text-3" id="text-2-1">
 <div class="org-src-container">
 <pre class="src src-cpp">
@@ -182,7 +182,7 @@ void swap( string &amp;p, int pos ){
 }
 
 bool nextBestChange( string &amp;p ){
-
+  
   for( int i = p.length()-1 ; i &gt; 0 ; i-- ){
     log &lt;&lt; i &lt;&lt; endl;
     if( p[i] == 'S' &amp;&amp; p[i-1] == 'C' ){
@@ -233,7 +233,7 @@ int main( int argc, char *argv[] ){
 </pre>
 </div>
 
-<pre class="example">
+<pre class="example" id="org6a11e28">
 Case #1: 1
 Case #2: 0
 Case #3: IMPOSSIBLE
@@ -247,8 +247,8 @@ Case #6: 5
 
 
 
-<div id="outline-container-org4ba0d33" class="outline-3">
-<h3 id="org4ba0d33"><span class="section-number-3">2.2</span> Problem</h3>
+<div id="outline-container-org2450601" class="outline-3">
+<h3 id="org2450601"><span class="section-number-3">2.2</span> Problem</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 An alien robot is threatening the universe, using a beam that will destroy all algorithms knowledge. We have to stop it!
@@ -291,8 +291,8 @@ To prevent the robot from getting too suspicious, the President does not want to
 </p>
 </div>
 
-<div id="outline-container-org356166e" class="outline-4">
-<h4 id="org356166e"><span class="section-number-4">2.2.1</span> Input</h4>
+<div id="outline-container-orgca3b2a1" class="outline-4">
+<h4 id="orgca3b2a1"><span class="section-number-4">2.2.1</span> Input</h4>
 <div class="outline-text-4" id="text-2-2-1">
 <p>
 The first line of the input gives the number of test cases, T. T test cases follow. Each consists of one line containing an integer D and a string P: the maximum total damage our shield can withstand, and the robot's program.
@@ -300,8 +300,8 @@ The first line of the input gives the number of test cases, T. T test cases foll
 </div>
 </div>
 
-<div id="outline-container-org957c58a" class="outline-4">
-<h4 id="org957c58a"><span class="section-number-4">2.2.2</span> Output</h4>
+<div id="outline-container-orge88f65f" class="outline-4">
+<h4 id="orge88f65f"><span class="section-number-4">2.2.2</span> Output</h4>
 <div class="outline-text-4" id="text-2-2-2">
 <p>
 For each test case, output one line containing Case #x: y, where x is the test case number (starting from 1) and y is either the minimum number of hacks needed to accomplish the goal, or IMPOSSIBLE if it is not possible.
@@ -309,8 +309,8 @@ For each test case, output one line containing Case #x: y, where x is the test c
 </div>
 </div>
 
-<div id="outline-container-org717e170" class="outline-4">
-<h4 id="org717e170"><span class="section-number-4">2.2.3</span> Limits</h4>
+<div id="outline-container-org7703439" class="outline-4">
+<h4 id="org7703439"><span class="section-number-4">2.2.3</span> Limits</h4>
 <div class="outline-text-4" id="text-2-2-3">
 <p>
 1 ≤ T ≤ 100.
@@ -323,8 +323,8 @@ Memory limit: 1GB.
 </div>
 </div>
 
-<div id="outline-container-org9dfbbde" class="outline-4">
-<h4 id="org9dfbbde"><span class="section-number-4">2.2.4</span> Sample</h4>
+<div id="outline-container-org4b62ab2" class="outline-4">
+<h4 id="org4b62ab2"><span class="section-number-4">2.2.4</span> Sample</h4>
 <div class="outline-text-4" id="text-2-2-4">
 <p>
 Al ejecutar este código (con <code>C-c C-c</code>), se genera el fichero de entrada de prueba.
@@ -347,8 +347,8 @@ EOF
 </div>
 
 
-<div id="outline-container-orgc8d2e37" class="outline-2">
-<h2 id="orgc8d2e37"><span class="section-number-2">3</span> Cubic UFO</h2>
+<div id="outline-container-org4cfe3d3" class="outline-2">
+<h2 id="org4cfe3d3"><span class="section-number-2">3</span> Cubic UFO</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 Este es un problema geométrico. Se puede dividir en dos partes
@@ -358,24 +358,41 @@ Este es un problema geométrico. Se puede dividir en dos partes
 <li>Si la sombra debe tener un área mayor de \(\sqrt{2}\), se debe girar primero en un eje hasta conseguir un área de \(\sqrt{2}\) (45 grados). Después, se gira en el otro eje para que la sombra sea un hexágono. 
 <ul class="org-ul">
 <li>La máxima sombra se da cuando el giro en el segundo eje es de \(arccos(\frac{\sqrt{2}}{\sqrt{3}})\).</li>
-<li>El problema es que no sé calcular algebraicamente el segundo giro a partir del área, pero sí sé calcular el área a partir del ángulo de giro. He utilizado el <a href="https://es.wikipedia.org/wiki/M%C3%A9todo_de_bisecci%C3%B3n">método de la bisección</a> para encontrar el ángulo a partir del área (función <code>findAroundZ</code>).</li>
+<li>El problema es que no sé calcular algebraicamente el segundo giro a partir del área, pero sí sé calcular el área a partir del ángulo de giro. He utilizado el <a href="https://es.wikipedia.org/wiki/M%25C3%25A9todo_de_bisecci%25C3%25B3n">método de la bisección</a> para encontrar el ángulo a partir del área (función <code>findAroundZ</code>).</li>
 </ul></li>
 </ul>
 
 
-<div class="figure">
+<div id="orgce3fd87" class="figure">
 <p><img src="/assets/blog/literate-codejam/cubic-ufo.jpg" alt="/assets/blog/literate-codejam/cubic-ufo.jpg" />
 </p>
 </div>
 </div>
 
-<div id="outline-container-org0edb010" class="outline-3">
-<h3 id="org0edb010"><span class="section-number-3">3.1</span> Solución</h3>
+<div id="outline-container-orgff19865" class="outline-3">
+<h3 id="orgff19865"><span class="section-number-3">3.1</span> Solución</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 Este código lo uso como calculadora de algunas constantes
 </p>
-<pre class="example">
+<div class="org-src-container">
+<pre class="src src-cpp">#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include &lt;climits&gt;
+#include &lt;cstdlib&gt;
+#include &lt;string&gt;
+#include &lt;cmath&gt;
+
+using namespace std;
+
+int main(){
+  printf( "%lf\n", atan( 1 / (2*sqrt(2)) ) );
+  printf( "%lf\n", acos( (2*sqrt(2))/3 ) );
+}
+</pre>
+</div>
+
+<pre class="example" id="org1b50cc1">
 0.339837
 0.339837
 </pre>
@@ -431,7 +448,7 @@ class Point{
   public:
   double x,y,z;
   Point(double _x, double _y, double _z):x(_x),y(_y),z(_z){}
-
+  
   Point rotate(double aroundX, double aroundZ){
     // https://es.mathworks.com/help/phased/ref/rotx.html?requestedDomain=true
     Mat rx = rotX(aroundX);
@@ -507,7 +524,7 @@ double findAroundZ(double a){
   double ret = (maxz + minz)/2;
   double area = maxAreaForAroundZ(ret);
   while( fabs( area - a) &gt; 0.00000001 ){
-
+    
     if( area &gt; a )
       maxz = ret;
     else
@@ -544,7 +561,7 @@ int main( int argc, char *argv[] ){
 </pre>
 </div>
 
-<pre class="example">
+<pre class="example" id="orgfd6a117">
 Case #1:
 0.50000000000000000000 0.00000000000000000000 0.00000000000000000000 
 0.00000000000000000000 0.00000000000000003062 0.50000000000000000000 
@@ -562,8 +579,8 @@ Case #3:
 </div>
 
 
-<div id="outline-container-org5d24b09" class="outline-3">
-<h3 id="org5d24b09"><span class="section-number-3">3.2</span> Problem</h3>
+<div id="outline-container-orgdc2dc91" class="outline-3">
+<h3 id="orgdc2dc91"><span class="section-number-3">3.2</span> Problem</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 A mysterious cubic alien ship has appeared in the sky over Toronto! In this problem, Toronto is a plane in three-dimensional space that is parallel to the xz plane at y = -3 km. The alien ship is a solid cube with side length 1 km, centered at (0 km, 0 km, 0 km), with its eight corners at (+/- 0.5 km, +/- 0.5 km, +/- 0.5 km). The ship is casting an ominous shadow onto the plane; formally, the shadow is the orthogonal projection of the cube onto the plane. (We consider the sun to be a point infinitely far above the Toronto plane along the y-axis.)
@@ -578,8 +595,8 @@ Please find a way that the aliens can rotate the ship so that the shadow's area 
 </p>
 </div>
 
-<div id="outline-container-orgce7b329" class="outline-4">
-<h4 id="orgce7b329"><span class="section-number-4">3.2.1</span> Input</h4>
+<div id="outline-container-orgd4b8955" class="outline-4">
+<h4 id="orgd4b8955"><span class="section-number-4">3.2.1</span> Input</h4>
 <div class="outline-text-4" id="text-3-2-1">
 <p>
 The first line of the input gives the number of test cases, T. T test cases follow; each consists of one line with a rational A, the desired area of the shadow, in km2, with exactly six digits after the decimal point.
@@ -591,8 +608,8 @@ It is guaranteed that there is always a way to rotate the ship in the desired ma
 </div>
 </div>
 
-<div id="outline-container-org240254c" class="outline-4">
-<h4 id="org240254c"><span class="section-number-4">3.2.2</span> Output</h4>
+<div id="outline-container-orgcd98ec5" class="outline-4">
+<h4 id="orgcd98ec5"><span class="section-number-4">3.2.2</span> Output</h4>
 <div class="outline-text-4" id="text-3-2-2">
 <p>
 For each test case, first output one line containing Case #x:, where x is the test case number (starting from 1). Then, output three more lines with three rational values each: the x, y, and z coordinates of one of your three provided face-centers, as described above. You are welcome to use decimal (e.g., 0.000123456) or scientific notation (e.g., 1.23456e-4).
@@ -614,8 +631,8 @@ Please note that you might need to output more than 6 digits after the decimal p
 </div>
 </div>
 
-<div id="outline-container-org3f3a447" class="outline-4">
-<h4 id="org3f3a447"><span class="section-number-4">3.2.3</span> Limits</h4>
+<div id="outline-container-orgae2413e" class="outline-4">
+<h4 id="orgae2413e"><span class="section-number-4">3.2.3</span> Limits</h4>
 <div class="outline-text-4" id="text-3-2-3">
 <p>
 1 ≤ T ≤ 100.
@@ -635,8 +652,8 @@ Test set 2 (Hidden)
 </div>
 </div>
 
-<div id="outline-container-orgc0f1946" class="outline-4">
-<h4 id="orgc0f1946"><span class="section-number-4">3.2.4</span> Sample</h4>
+<div id="outline-container-org76d70f7" class="outline-4">
+<h4 id="org76d70f7"><span class="section-number-4">3.2.4</span> Sample</h4>
 <div class="outline-text-4" id="text-3-2-4">
 <p>
 Al ejecutar este código (con <code>C-c C-c</code>), se genera el fichero de entrada de prueba.
@@ -660,7 +677,7 @@ EOF
     <div>
       <div class="post-meta">
         <span title="post date" class="post-info">2018-04-08</span>
-        <span title="last modification date" class="post-info">2018-04-10</span>
+        <span title="last modification date" class="post-info">2020-04-04</span>
         <span title="tags" class="post-info"><a href="/tags/emacs/">emacs</a>, <a href="/tags/orgmode/">orgmode</a>, <a href="/tags/codejam/">codejam</a>, <a href="/tags/programación/">programación</a></span>
         <span title="author" class="post-info">Álvaro González Sotillo</span>
       </div>

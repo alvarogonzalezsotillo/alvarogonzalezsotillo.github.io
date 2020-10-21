@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Licencias GVLK de Microsoft con vlmcsd - Álvaro González Sotillo</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Álvaro González Sotillo" />
+    <meta name="description" content="El mecanismo de licencias GVLK (por volumen) de Microsoft, utilizado en muchas versiones de Windows y Office, puede entenderse fácilmente experimentando con vlmcsd" />
+    <meta name="keywords" content="KMS, vlmscd" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <!-- <link rel="stylesheet" href="/media/css/prettify.css" type="text/css"> -->
+  </head>
+
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">Álvaro González Sotillo</a></h1>
+        <p></p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">Acerca de mí</a></li>
+          <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="//www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Buscar">
+          <input type="hidden" name="as_sitesearch" value="alvarogonzalezsotillo.github.io">
+        </form>
+        <img class="avatar" src="/media/img/octaedron.png" />
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>Licencias GVLK de Microsoft con vlmcsd</h1>
+<p>
+El mecanismo de licencias GVLK (por volumen) de Microsoft siempre me pareció algo difícil de entender. Aprovechando que mi instituto ha adquirido un paquete de licencias de Microsoft, decidí que era el momento de experimentar con él.
+</p>
+
+
+
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org83bdb5f">Activación de productos Microsoft</a></li>
+<li><a href="#org6388d0d">Licencias GLVK y servidores KMS</a></li>
+<li><a href="#orgdde8fe8">Vlmscd</a></li>
+<li><a href="#org0d92c68">Instalación en una Raspberry Pi</a></li>
+<li><a href="#org947925e">Configuración de los clientes</a>
+<ul>
+<li><a href="#org69044ad">Configuración manual de los clientes</a></li>
+<li><a href="#org509fd1b">Configuración por autodescubrimiento DNS</a></li>
+</ul>
+</li>
+<li><a href="#org1fd5872">Ejemplo de uso</a></li>
+<li><a href="#orge932480">Qué hacen los activadores <i>alternativos</i> de Office</a></li>
+</ul>
+</div>
+
+<div id="outline-container-org83bdb5f" class="outline-2">
+<h2 id="org83bdb5f">Activación de productos Microsoft</h2>
+<div class="outline-text-2" id="text-org83bdb5f">
+<p>
+Los productos de Microsoft necesitan ser activados. Una de las posibilidades es la activación por internet, en la que el producto se conecta a los servidores de Microsoft periódicamente para comprobar si su licencia es válida. Tras cada activación, el producto permanece activado por varias semanas o meses.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6388d0d" class="outline-2">
+<h2 id="org6388d0d">Licencias GLVK y servidores KMS</h2>
+<div class="outline-text-2" id="text-org6388d0d">
+<p>
+Para particulares y entornos SOHO, es aceptable introducir un número de licencia en cada ordenador y producto, pero para grandes empresas se necesita un mecanismo para activar multitud de ordenadores a la vez, preferiblemente con la misma licencia (para poder clonar equipos). Además, no siempre está disponible la conexión a Internet.
+</p>
+
+<p>
+Una empresa puede instalar un servidor KMS, que es un sofware facilitado por Microsoft para que las licencias puedan activarse en la propia red local. Este servidor solo activa las licencias que la empresa ha contratado.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgdde8fe8" class="outline-2">
+<h2 id="orgdde8fe8">Vlmscd</h2>
+<div class="outline-text-2" id="text-orgdde8fe8">
+<p>
+<a href="https://github.com/kkkgo/vlmcsd/tree/master/binaries">vlmscd</a> es una implementación independiente del protocolo de activación de licencias GLVK. Incluye un cliente para simular peticiones (vlmcs) y un servidor (vlmcsd). El servidor activa todas las solicitudes de licencia, y puede compilarse para una <a href="https://github.com/kkkgo/vlmcsd/tree/master/binaries">gran variedad de plataformas</a>.
+</p>
+
+<p>
+Existen otros productos similares, como <a href="https://github.com/SystemRage/py-kms/">py-kms</a>. Su <a href="https://github.com/SystemRage/py-kms/wiki/Manual">manual</a> explica muy bien el funcionamiento de KMS.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org0d92c68" class="outline-2">
+<h2 id="org0d92c68">Instalación en una Raspberry Pi</h2>
+<div class="outline-text-2" id="text-org0d92c68">
+<ol class="org-ol">
+<li>El binario puede obtenerse compilando el código fuente, pero también se ofrecen precompilados. Para mi Raspberry Pi 4 con Raspbian he utilizado <a href="https://github.com/kkkgo/vlmcsd/blob/master/binaries/Linux/arm/little-endian/glibc/vlmcsd-armv7el-glibc">vlmcsd-armv7el-glibc</a>.</li>
+<li><p>
+He instalado el binario en el directorio <code>/opt/vlmcsd</code>, y he creado un usuario para el servicio.
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">   	
+   $ sudo adduser vlmcsd
+   $ sudo mkdir /opt/vlmcsd
+   $ sudo wget -O /opt/vlmcsd/vlmcsd-armv7el-glibc "https://github.com/kkkgo/vlmcsd/raw/master/binaries/Linux/arm/little-endian/glibc/vlmcsd-armv7el-glibc"
+   $ sudo ln -s /opt/vlmcsd/vlmcsd-armv7el-glibc /opt/vlmcsd/vlmcsd
+   $ sudo chmod +x /opt/vlmcsd/vlmcsd*
+   $ sudo chown -R vlmcsd:vlmcsd /opt/vlmcsd
+</pre>
+</div></li>
+<li><p>
+Para que se ejecute al inicio, he añadido un servicio de <code>systemd</code>. Configuro el servicio para que las trazas acaben en <code>syslog</code>.
+</p>
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 1 </span>Fichero <code>/lib/systemd/system/vlmcsd.service</code></label><pre class="src src-ini">   	
+   [Unit]
+   Description=vlmcsd kms server
+   Requires=networking.service
+
+   [Service]
+   Type=forking
+   User=vlmcsd
+   ExecStart=/opt/vlmcsd/vlmcsd -v -l syslog
+
+   [Install]
+   WantedBy=multi-user.target
+</pre>
+</div></li>
+<li><p>
+Habilito (para el próximo reinicio) y activo el servicio
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">   	
+   $ sudo systemctl daemon-reload
+   $ sudo systemctl enable vlmcsd
+   $ sudo systemctl start vlmcsd
+</pre>
+</div></li>
+<li><p>
+Tras esto compruebo que el servicio se ha iniciado correctamente
+</p>
+<div class="org-src-container">
+<pre class="src src-lisp">
+$ systemctl status vlmcsd.service
+● vlmcsd.service - vlmcsd kms server
+   Loaded: loaded (/lib/systemd/system/vlmcsd.service; enabled; vendor preset: enabled)
+   Active: active (running) since Thu 2019-12-19 08:48:50 CET; 1h 7min ago
+  Process: 7626 ExecStart=/opt/vlmcsd/vlmcsd -v -l syslog (code=exited, status=0/SUCCES
+ Main PID: 7627 (vlmcsd)
+    Tasks: 1 (limit: 4915)
+   CGroup: /system.slice/vlmcsd.service
+           └─7627 /opt/vlmcsd/vlmcsd -v -l syslog
+
+dic 19 08:48:50 PI systemd[1]: Starting vlmcsd kms server...
+dic 19 08:48:50 PI vlmcsd[7627]: vlmcsd 1112, built 2018-10-20 09:49:18 UTC starte
+dic 19 08:48:50 PI systemd[1]: Started vlmcsd kms server.
+</pre>
+</div></li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-org947925e" class="outline-2">
+<h2 id="org947925e">Configuración de los clientes</h2>
+<div class="outline-text-2" id="text-org947925e">
+</div>
+<div id="outline-container-org69044ad" class="outline-3">
+<h3 id="org69044ad">Configuración manual de los clientes</h3>
+<div class="outline-text-3" id="text-org69044ad">
+<p>
+Los productos de Microsoft deben ser configurados para utilizar el nuevo sevidor KMS.
+</p>
+<ul class="org-ul">
+<li>Microsoft Windows ofrece la utilidad <a href="https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/dn502540(v%253Dws.11)"><code>slmgr</code></a>. La opción <code>/skms</code> permite definir la dirección IP y puerto del servidor KMS</li>
+<li>Microsoft Office se configura mediante <a href="https://docs.microsoft.com/en-us/deployoffice/vlactivation/tools-to-manage-volume-activation-of-office"><code>ospp</code></a>. Las opciones <code>/sethst</code> y <code>/setprt</code> permiten definir la IP y puerto del servidor KMS.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org509fd1b" class="outline-3">
+<h3 id="org509fd1b">Configuración por autodescubrimiento DNS</h3>
+<div class="outline-text-3" id="text-org509fd1b">
+<p>
+Es posible <a href="https://blogs.technet.microsoft.com/odsupport/2011/11/14/how-to-discover-office-and-windows-kms-hosts-via-dns-and-remove-unauthorized-instances/">configurar una entrada <code>SRV</code></a> en el servidor DNS para que los clientes localicen el servidor KMS. Para ello, hay que definir el servidor <code>_vlmcs._tcp</code> en el dominio de los equipos (suele definirlo el servidor de DHCP)
+</p>
+
+<p>
+En mi Raspberry tengo ya instalado Pihole, por lo que utilizo su servidor DNS para definir el registro SRV <code>_vlmcs._tcp.Home</code> apuntando a <code>vlmcs.Home</code> y su correspondiente registro A. El puerto por defecto del servidor es <code>1688</code>.
+</p>
+
+<p>
+Defino también el registro SRV <code>_vlmcs._tcp</code>, porque la verdad no sé muy bien cuál de los dos se está usando 🤔.
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 2 </span>Fichero <code>/etc/dnsmasq.d/02-vlmcsd.conf</code></label><pre class="src src-conf">srv-host=_vlmcs._tcp,vlmcs,1688
+srv-host=_vlmcs._tcp.Home,vlmcs.Home,1688
+address=/vlmcs/vlmcs.Home/10.3.0.111
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org1fd5872" class="outline-2">
+<h2 id="org1fd5872">Ejemplo de uso</h2>
+<div class="outline-text-2" id="text-org1fd5872">
+<p>
+En una máquina virtual he instalado Office 2013, y he intentando activarla con procesador de comandos de Windows con privilegios de administrador. La licencia introducida puede conseguirse en <a href="https://docs.microsoft.com/en-us/previous-versions/office/dn385360(v=office.15)?redirectedfrom=MSDN">la documentación de Microsoft</a>.
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 3 </span>Introducción de la licencia y activación</label><pre class="src src-lisp">C:\Program Files\Microsoft Office\Office15&gt;cscript ospp.vbs /inpkey:yc7dk-g2np3-2qqc3-j6h88-gvgxt
+Microsoft (R) Windows Script Host versión 5.8
+Copyright (C) Microsoft Corporation 1996-2006. Reservados todos los derechos.
+
+---Processing--------------------------
+---------------------------------------
+&lt;Product key installation successful&gt;
+---------------------------------------
+---Exiting-----------------------------
+
+C:\Program Files\Microsoft Office\Office15&gt;cscript ospp.vbs /act
+Microsoft (R) Windows Script Host versión 5.8
+Copyright (C) Microsoft Corporation 1996-2006. Reservados todos los derechos.
+
+---Processing--------------------------
+---------------------------------------
+Installed product key detected - attempting to activate the following product:
+SKU ID: b322da9c-a2e2-4058-9e4e-f59a6970bd69
+LICENSE NAME: Office 15, OfficeProPlusVL_KMS_Client edition
+LICENSE DESCRIPTION: Office 15, VOLUME_KMSCLIENT channel
+Last 5 characters of installed product key: GVGXT
+&lt;Product activation successful&gt;
+---------------------------------------
+---------------------------------------
+---Exiting-----------------------------
+
+</pre>
+</div>
+
+
+<p>
+En el servidor se consigue la siguiente traza:
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 4 </span>Traza de la activación en el servidor</label><pre class="src src-lisp">Dec 19 10:13:49 PI vlmcsd[8156]: IPv4 connection accepted: 10.3.0.240:49187.
+Dec 19 10:13:49 PI vlmcsd[8156]: &lt;&lt;&lt; Incoming KMS request
+Dec 19 10:13:49 PI vlmcsd[8156]: Protocol version                : 4.0
+Dec 19 10:13:49 PI vlmcsd[8156]: Client is a virtual machine     : No
+Dec 19 10:13:49 PI vlmcsd[8156]: Licensing status                : 2 (OOB grace)
+Dec 19 10:13:49 PI vlmcsd[8156]: Remaining time (0 = forever)    : 43185 minutes
+Dec 19 10:13:49 PI vlmcsd[8156]: Application ID                  : 0ff1ce15-a989-479d-af46-f275c6370663 (Unknown)
+Dec 19 10:13:49 PI vlmcsd[8156]: SKU ID (aka Activation ID)      : b322da9c-a2e2-4058-9e4e-f59a6970bd69 (Unknown)
+Dec 19 10:13:49 PI vlmcsd[8156]: KMS ID (aka KMS counted ID)     : e6a6f1bf-9d40-40c3-aa9f-c77ba21578c0 (Unknown)
+Dec 19 10:13:49 PI vlmcsd[8156]: Client machine ID               : 7b523f81-f366-4703-9ba3-eb43b00554c5
+Dec 19 10:13:49 PI vlmcsd[8156]: Previous client machine ID      : 00000000-0000-0000-0000-000000000000
+Dec 19 10:13:49 PI vlmcsd[8156]: Client request timestamp (UTC)  : 2019-12-19 09:13:47
+Dec 19 10:13:49 PI vlmcsd[8156]: Workstation name                : alumno-PC
+Dec 19 10:13:49 PI vlmcsd[8156]: N count policy (minimum clients): 5
+Dec 19 10:13:49 PI vlmcsd[8156]: &gt;&gt;&gt; Sending response, ePID source = randomized at program start
+Dec 19 10:13:49 PI vlmcsd[8156]: Protocol version                : 4.0
+Dec 19 10:13:49 PI vlmcsd[8156]: KMS host extended PID           : 03612-00206-255-636601-03-2107-17763.0000-2782018
+Dec 19 10:13:49 PI vlmcsd[8156]: Client machine ID               : 7b523f81-f366-4703-9ba3-eb43b00554c5
+Dec 19 10:13:49 PI vlmcsd[8156]: Client request timestamp (UTC)  : 2019-12-19 09:13:47
+Dec 19 10:13:49 PI vlmcsd[8156]: KMS host current active clients : 10
+Dec 19 10:13:49 PI vlmcsd[8156]: Renewal interval policy         : 10080
+Dec 19 10:13:49 PI vlmcsd[8156]: Activation interval policy      : 120
+</pre>
+</div>
+
+
+<p>
+Tras esto, la licencia queda activada y puede consultarse su estado
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 5 </span>Estado de la licencia tras la activación</label><pre class="src src-lisp">C:\Program Files\Microsoft Office\Office15&gt;cscript ospp.vbs /dstatus
+Microsoft (R) Windows Script Host versión 5.8
+Copyright (C) Microsoft Corporation 1996-2006. Reservados todos los derechos.  
+
+---Processing--------------------------
+---------------------------------------
+SKU ID: b322da9c-a2e2-4058-9e4e-f59a6970bd69
+LICENSE NAME: Office 15, OfficeProPlusVL_KMS_Client edition
+LICENSE DESCRIPTION: Office 15, VOLUME_KMSCLIENT channel
+BETA EXPIRATION: 01/01/1601
+LICENSE STATUS:  ---LICENSED---
+REMAINING GRACE: 179 days  (259190 minute(s) before expiring)
+Last 5 characters of installed product key: GVGXT
+        KMS machine name from DNS: vlmcs.Home:1688
+        Activation Interval: 120 minutes
+        Renewal Interval: 10080 minutes
+        KMS host caching: Enabled
+---------------------------------------
+---------------------------------------
+---Exiting-----------------------------
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge932480" class="outline-2">
+<h2 id="orge932480">Qué hacen los activadores <i>alternativos</i> de Office</h2>
+<div class="outline-text-2" id="text-orge932480">
+<p>
+Existen <a href="http://www.kmsauto.info/">varios</a> <a href="https://official-kmspico.com/">productos</a> que se anuncian como activadores / <i>crackers</i> de productos de Microsoft. Tras este experimento se puede deducir que su forma de funcionamiento es:
+</p>
+<ol class="org-ol">
+<li>Instalan un servidor KMS local</li>
+<li>Determinan las versiones de Windows y Office instaladas</li>
+<li>Localizan las licencias GVLK apropiadas</li>
+<li>Utilizan <code>ossp.vbs</code> y <code>slmgr</code> para instalar y activar dichas licencias</li>
+<li>El servidor KMS queda habilitado como un servicio para futuras activaciones</li>
+</ol>
+</div>
+</div>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2019-12-19</span>
+        <span title="last modification date" class="post-info">2019-12-19</span>
+        <span title="tags" class="post-info"><a href="/tags/kms/">KMS</a>, <a href="/tags/vlmscd/">vlmscd</a></span>
+        <span title="author" class="post-info">Álvaro González Sotillo</span>
+      </div>
+      <section>
+        <!-- <h1>Comments</h1> -->
+      </section>
+      <!-- <script src="//code.jquery.com/jquery-latest.min.js"></script> -->
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->
+      <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>  -->
+      <!--<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>-->
+      <script src="/media/js/jquery-3.2.1.min.js"></script>
+      <script src="/media/js/main.js"></script>
+      <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="/media/js/code-prettify/loader/run_prettify.js"></script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 26.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:alvarogonzalezsotillo <at> gmail <dot> com">Álvaro González Sotillo</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>

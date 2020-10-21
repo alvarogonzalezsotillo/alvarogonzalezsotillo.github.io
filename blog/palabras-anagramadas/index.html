@@ -35,7 +35,7 @@
 <div class="post">
 <h1>Palabras anagramadas</h1>
 
-<div class="figure">
+<div id="org77c641f" class="figure">
 <p><img src="/assets/blog/palabras-anagramadas/concurso-2018-10-06.png" alt="/assets/blog/palabras-anagramadas/concurso-2018-10-06.png" style="float:right;clear:both;max-width:50%;" />
 </p>
 </div>
@@ -69,17 +69,17 @@ El código fuente está disponible en <a href="https://github.com/alvarogonzalez
 </p>
 
 
-<div id="outline-container-org36c4d35" class="outline-2">
-<h2 id="org36c4d35">Implementación del algoritmo</h2>
-<div class="outline-text-2" id="text-org36c4d35">
+<div id="outline-container-org4d5233e" class="outline-2">
+<h2 id="org4d5233e">Implementación del algoritmo</h2>
+<div class="outline-text-2" id="text-org4d5233e">
 <p>
 La siguiente implementación se ha realizado en lenguaje <code>scala</code>.
 </p>
 </div>
 
-<div id="outline-container-orgea566e9" class="outline-3">
-<h3 id="orgea566e9"><code>Palabra</code></h3>
-<div class="outline-text-3" id="text-orgea566e9">
+<div id="outline-container-org4dbf662" class="outline-3">
+<h3 id="org4dbf662"><code>Palabra</code></h3>
+<div class="outline-text-3" id="text-org4dbf662">
 <p>
 Lo primero es una clase que encapsule una palabra y sepa calcular su histograma. También normaliza normaliza su representación, quitando espacios, acentos y mayúsculas. 
 </p>
@@ -89,41 +89,41 @@ El histograma se calcula de forma perezosa, ya que no es necesario calcularlo de
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listado de programa 1 </span>Clase que normaliza una palabra y calcula su histograma</label><pre class="src src-scala">type Histograma = Map[Char, Int]
+<label class="org-src-name"><span class="listing-number">Listado de programa 1 </span>Clase que normaliza una palabra y calcula su histograma</label><pre class="src src-scala">  type Histograma = Map[Char, Int]
 
-case class Palabra(p: String) {
+  case class Palabra(p: String) {
 
-  import scala.concurrent.ExecutionContext.Implicits.global
+    import scala.concurrent.ExecutionContext.Implicits.global
 
-  private def quitaAcentosYEspacios(s: String): String = {
-    val acentos = Map(
-      'á' -&gt; 'a',
-      'é' -&gt; 'e',
-      'í' -&gt; 'i',
-      'ó' -&gt; 'o',
-      'ú' -&gt; 'u',
-      'ü' -&gt; 'u'
-    )
-    val sinAcentos = s.toLowerCase.map(c =&gt; if (acentos.isDefinedAt(c)) acentos(c) else c)
-    sinAcentos.replace(" ", "" )
+    private def quitaAcentosYEspacios(s: String): String = {
+      val acentos = Map(
+        'á' -&gt; 'a',
+        'é' -&gt; 'e',
+        'í' -&gt; 'i',
+        'ó' -&gt; 'o',
+        'ú' -&gt; 'u',
+        'ü' -&gt; 'u'
+      )
+      val sinAcentos = s.toLowerCase.map(c =&gt; if (acentos.isDefinedAt(c)) acentos(c) else c)
+      sinAcentos.replace(" ", "" )
+    }
+
+    lazy val size = palabra.size
+    lazy val palabra = quitaAcentosYEspacios(p)
+
+    lazy val histograma : Histograma = {
+      val ret = palabra.groupBy(c =&gt; c)
+      ret.map { case (c, set) =&gt; (c, set.size) }
+    }
   }
-
-  lazy val size = palabra.size
-  lazy val palabra = quitaAcentosYEspacios(p)
-
-  lazy val histograma : Histograma = {
-    val ret = palabra.groupBy(c =&gt; c)
-    ret.map { case (c, set) =&gt; (c, set.size) }
-  }
-}
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org223723f" class="outline-3">
-<h3 id="org223723f"><i>Corpus</i> de palabras</h3>
-<div class="outline-text-3" id="text-org223723f">
+<div id="outline-container-org3477ad6" class="outline-3">
+<h3 id="org3477ad6"><i>Corpus</i> de palabras</h3>
+<div class="outline-text-3" id="text-org3477ad6">
 <p>
 El programa necesita un <i>vocabulario</i> donde buscar las palabras. Una opción sería extraerlas de varios libros gratuitos del Proyecto Gutengberg, pero he encontrado un <a href="http://corpus.rae.es/lfrecuencias.html"><i>corpus</i> de la Real Academia de la Lengua</a> con 737799 palabras distintas, ordenadas por frecuencia de uso. 
 </p>
@@ -151,54 +151,54 @@ Para leer las palabras utilizo una expresión regular por cada una de las línea
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listado de programa 3 </span>Lectura de las 300000 <code>Palabra</code> más frecuentes, agrupadas por su longitud</label><pre class="src src-scala">def cronometro[T](msg: String)( proc : =&gt; T ) = {
-  val ini = System.currentTimeMillis()
-  val ret = proc
-  val fin = System.currentTimeMillis()
-  println( s"$msg: ${fin-ini} ms" )
-  ret
-}
-
-val palabras: Map[Int, Array[Palabra]] = cronometro("Lectura de palabras"){
-
-  val iterator = new Iterator[String] {
-
-    val palabrasFile = "./CREA_total.TXT"
-
-    val scanner = new Scanner(new FileInputStream(palabrasFile), "latin1")
-    val regex = """(?:\s*)(?:(\d|\.)*)(?:\s*)(\S*).*""".r
-
-    def hasNext = scanner.hasNextLine()
-
-    def next = {
-      val line = scanner.nextLine()
-      regex.findAllMatchIn(line).next.subgroups(1)
-    }
+<label class="org-src-name"><span class="listing-number">Listado de programa 3 </span>Lectura de las 300000 <code>Palabra</code> más frecuentes, agrupadas por su longitud</label><pre class="src src-scala">  def cronometro[T](msg: String)( proc : =&gt; T ) = {
+    val ini = System.currentTimeMillis()
+    val ret = proc
+    val fin = System.currentTimeMillis()
+    println( s"$msg: ${fin-ini} ms" )
+    ret
   }
 
-  val limite = 300000
-  val todas = iterator.take(limite).map(p =&gt; Palabra(p)).toArray.sortBy(_.palabra)
-  val ret = todas.groupBy(p =&gt; p.size)
+  val palabras: Map[Int, Array[Palabra]] = cronometro("Lectura de palabras"){
 
-  // COMO PALABRAS DE UNA SOLA LETRA, DEJAMOS SOLO a,o,y
-  ret.updated(1, Array("a", "o", "y").map(Palabra(_)))
-}
+    val iterator = new Iterator[String] {
+
+      val palabrasFile = "./CREA_total.TXT"
+
+      val scanner = new Scanner(new FileInputStream(palabrasFile), "latin1")
+      val regex = """(?:\s*)(?:(\d|\.)*)(?:\s*)(\S*).*""".r
+
+      def hasNext = scanner.hasNextLine()
+
+      def next = {
+        val line = scanner.nextLine()
+        regex.findAllMatchIn(line).next.subgroups(1)
+      }
+    }
+
+    val limite = 300000
+    val todas = iterator.take(limite).map(p =&gt; Palabra(p)).toArray.sortBy(_.palabra)
+    val ret = todas.groupBy(p =&gt; p.size)
+
+    // COMO PALABRAS DE UNA SOLA LETRA, DEJAMOS SOLO a,o,y
+    ret.updated(1, Array("a", "o", "y").map(Palabra(_)))
+  }
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org4d4909b" class="outline-3">
-<h3 id="org4d4909b">Búsqueda de anagramas</h3>
-<div class="outline-text-3" id="text-org4d4909b">
+<div id="outline-container-org01431ce" class="outline-3">
+<h3 id="org01431ce">Búsqueda de anagramas</h3>
+<div class="outline-text-3" id="text-org01431ce">
 <p>
 Una vez tengo la lista de palabras, para econtrar los anagramas de una dada basta con buscar las que tienen el mismo histograma de letras. La búsqueda se realiza solo entre las que tienen la misma longitud.
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listado de programa 4 </span>Búsqueda de las <code>Palabra</code> con el mismo histograma que una dada</label><pre class="src src-scala">def buscaCoincidenciaExacta(buscado: Palabra) = {
-  palabras(buscado.palabra.size).view.filter( _.histograma == buscado.histograma )
-}
+<label class="org-src-name"><span class="listing-number">Listado de programa 4 </span>Búsqueda de las <code>Palabra</code> con el mismo histograma que una dada</label><pre class="src src-scala">  def buscaCoincidenciaExacta(buscado: Palabra) = {
+    palabras(buscado.palabra.size).view.filter( _.histograma == buscado.histograma )
+  }
 </pre>
 </div>
 
@@ -208,24 +208,24 @@ En algunos casos, el anagrama está formado por más de una palabra en una frase
 
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listado de programa 5 </span>Búsqueda de las <code>Palabra</code> con el mismo histograma que las combinaciones de palabras de una frase que tengan cierta longitud</label><pre class="src src-scala">def buscaExactoEnFrase( frase: String, letras: Int ) ={
+<label class="org-src-name"><span class="listing-number">Listado de programa 5 </span>Búsqueda de las <code>Palabra</code> con el mismo histograma que las combinaciones de palabras de una frase que tengan cierta longitud</label><pre class="src src-scala">  def buscaExactoEnFrase( frase: String, letras: Int ) ={
 
-  val f = frase.split("""\s+""")
+    val f = frase.split("""\s+""")
 
-  val combinacionesDePalabrasConLetras = {
-    for (from &lt;- (0 to f.size).view;
-      until &lt;- (from to f.size).view;
-      slice = f.slice(from, until) if slice.map(_.size).sum == letras) yield {
-      slice.mkString
+    val combinacionesDePalabrasConLetras = {
+      for (from &lt;- (0 to f.size).view;
+        until &lt;- (from to f.size).view;
+        slice = f.slice(from, until) if slice.map(_.size).sum == letras) yield {
+        slice.mkString
+      }
+    }
+
+    for (c &lt;- combinacionesDePalabrasConLetras;
+      palabra = Palabra(c);
+      p &lt;- buscaCoincidenciaExacta(palabra)) yield {
+      p
     }
   }
-
-  for (c &lt;- combinacionesDePalabrasConLetras;
-    palabra = Palabra(c);
-    p &lt;- buscaCoincidenciaExacta(palabra)) yield {
-    p
-  }
-}
 </pre>
 </div>
 
@@ -240,66 +240,66 @@ Cada palabra para adivinar tiene una definición y una pista. La pista (en los c
 
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listado de programa 6 </span>Resolución de las pistas</label><pre class="src src-scala">def resuelvePista( pista : (String,Any) ) = {
-    pista match{
-      // LA ULTIMA PALABRA SE CONSIGUE CON EL INICIO Y FIN DE LAS TRES PRIMERAS 
-      case (msg, a:Array[String]) =&gt;
-        val palabras = a.take(3)
-        println( s"${msg.toUpperCase}: Con inicio y fin de ${palabras.mkString(",")}" );
-        val s = palabras.map( p =&gt; p.head.toString + p.last.toString ).mkString
-        val p = Palabra(s);
-        for (c &lt;- buscaCoincidenciaExacta(p)) {
-          println("  " + c)
-        }
+<label class="org-src-name"><span class="listing-number">Listado de programa 6 </span>Resolución de las pistas</label><pre class="src src-scala">  def resuelvePista( pista : (String,Any) ) = {
+      pista match{
+        // LA ULTIMA PALABRA SE CONSIGUE CON EL INICIO Y FIN DE LAS TRES PRIMERAS 
+        case (msg, a:Array[String]) =&gt;
+          val palabras = a.take(3)
+          println( s"${msg.toUpperCase}: Con inicio y fin de ${palabras.mkString(",")}" );
+          val s = palabras.map( p =&gt; p.head.toString + p.last.toString ).mkString
+          val p = Palabra(s);
+          for (c &lt;- buscaCoincidenciaExacta(p)) {
+            println("  " + c)
+          }
 
-      // NOS DAN UNA PALABRA PARA EL ANAGRAMA  
-      case (msg,p:Palabra) =&gt;
-        println( s"${msg.toUpperCase}: Con anagrama $p" );
-        for (c &lt;- buscaCoincidenciaExacta(p)) {
-          println("  " + c)
-        }
+        // NOS DAN UNA PALABRA PARA EL ANAGRAMA  
+        case (msg,p:Palabra) =&gt;
+          println( s"${msg.toUpperCase}: Con anagrama $p" );
+          for (c &lt;- buscaCoincidenciaExacta(p)) {
+            println("  " + c)
+          }
 
-      // EL ANAGRAMA ESTÁ EN LA DEFINICIÓN, NOS DAN EL NÚMERO DE LETRAS  
-      case (frase,size:Int) =&gt;
-        println( s"${frase.toUpperCase}: Anagrama en la fase, longitud $size" );
-        for (c &lt;- buscaExactoEnFrase(frase, size) ) {
-          println("  " + c)
-        }
+        // EL ANAGRAMA ESTÁ EN LA DEFINICIÓN, NOS DAN EL NÚMERO DE LETRAS  
+        case (frase,size:Int) =&gt;
+          println( s"${frase.toUpperCase}: Anagrama en la fase, longitud $size" );
+          for (c &lt;- buscaExactoEnFrase(frase, size) ) {
+            println("  " + c)
+          }
 
-      case _ =&gt;
-        throw new Error("Se espera String-&gt;Palabra, String-&gt;Int o String-&gt;Array[String]" )
-    }
-}
+        case _ =&gt;
+          throw new Error("Se espera String-&gt;Palabra, String-&gt;Int o String-&gt;Array[String]" )
+      }
+  }
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org2c6fdb1" class="outline-3">
-<h3 id="org2c6fdb1">Solución a un día</h3>
-<div class="outline-text-3" id="text-org2c6fdb1">
+<div id="outline-container-orgabc61af" class="outline-3">
+<h3 id="orgabc61af">Solución a un día</h3>
+<div class="outline-text-3" id="text-orgabc61af">
 <p>
 Con estas funciones, ya es posible concursar para un día concreto. Por ejemplo, este es el código del <a href="https://www.facebook.com/noesundia/photos/a.133963369947769/2158091877534898/?type=3&amp;__tn__=-R">concurso del 6/oct/2018</a>:
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listado de programa 7 </span>Concurso del día 6 de Octubre del 2018</label><pre class="src src-scala">def dia2018_10_06(){
-  println( "************ 6 octubre 2018");
+<label class="org-src-name"><span class="listing-number">Listado de programa 7 </span>Concurso del día 6 de Octubre del 2018</label><pre class="src src-scala">  def dia2018_10_06(){
+    println( "************ 6 octubre 2018");
 
-  val pistas = Seq(
-    "Vino de Francia" -&gt; Palabra("piromántico"),
-    "Rediseña la licorería para poder albergar buenos recuerdos" -&gt; 9 ,
-    "Vivir de administrar los remanentes de forma adecuada" -&gt; 10,
-    "Trabaja de cara a la galería" -&gt; Array("importación","relicario","mantenerse")   
-  );
+    val pistas = Seq(
+      "Vino de Francia" -&gt; Palabra("piromántico"),
+      "Rediseña la licorería para poder albergar buenos recuerdos" -&gt; 9 ,
+      "Vivir de administrar los remanentes de forma adecuada" -&gt; 10,
+      "Trabaja de cara a la galería" -&gt; Array("importación","relicario","mantenerse")   
+    );
 
-  pistas.foreach( resuelvePista );
-}
+    pistas.foreach( resuelvePista );
+  }
 
 
-cronometro("Solución"){
-  dia2018_10_06()
-}
+  cronometro("Solución"){
+    dia2018_10_06()
+  }
 
 </pre>
 </div>

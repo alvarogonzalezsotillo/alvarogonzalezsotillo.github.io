@@ -1,0 +1,6893 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Colores HTML con nombre - Álvaro González Sotillo</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Álvaro González Sotillo" />
+    <meta name="description" content="Los colores HTML pueden parecer palabras. Esta es una lista de esas palabras." />
+    <meta name="keywords" content="javascript, html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <!-- <link rel="stylesheet" href="/media/css/prettify.css" type="text/css"> -->
+  </head>
+
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">Álvaro González Sotillo</a></h1>
+        <p></p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">Acerca de mí</a></li>
+          <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="//www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Buscar">
+          <input type="hidden" name="as_sitesearch" value="alvarogonzalezsotillo.github.io">
+        </form>
+        <img class="avatar" src="/media/img/octaedron.png" />
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>Colores HTML con nombre</h1>
+<p>
+Los números en hexadecimal a veces son (o recuerdan a) palabras. Aprovechando un <a href="http://corpus.rae.es/lfrecuencias.html">corpus de la RAE</a> he realizado una página web tirando de <a href="https://www.w3schools.com/HTML/html5_webworkers.asp">worker</a> con un <a href="https://alvarogonzalezsotillo.github.io/colores-html">listado de las palabras que también son colores RGB</a>  válidos en html.
+</p>
+
+<p>
+En esta entrada dejo una versión estática de la página anterior. Puedes pinchar en un color para ver su definición RGB.
+</p>
+
+
+
+<input onclick="showHideExtended(this)" type="checkbox" checked="true">Utilizar 0 como O, 6 como G, 5 como S y 1 como I</input>
+
+<script>
+
+ function showHideExtended(checkBox){
+
+     function showHideElement(e,b,c){
+        if(b) e.classList.add(c); else e.classList.remove(c);
+     }
+
+     function extendedColor(color){
+        const extendedChars = ["1","0","5","6"];
+        return color.split("").some( l => extendedChars.includes(l) );
+     }
+
+     const visible = checkBox.checked;
+     const elements = document.querySelectorAll( "div.color" );
+     for( let element of elements ){
+         const color = element.title.trim();
+         if( extendedColor(color) ){
+           showHideElement(element,!visible,"hidden");
+         }
+
+     }
+ }
+
+ function clickOnColor(element){
+     return function (event){
+         const div = element;
+         const expandido = div.expandido;
+         console.log(event);
+         console.log( div );
+         console.log(expandido);
+         const color = div.title.trim();
+         if( !expandido ){
+             const palabra = div.innerHTML.trim();
+             div.innerHTML = `<p style="font-size: 3em;">${palabra}</p><p>Se parece al color ${color}</p>`;
+             div.expandido = true;
+             div.palabra = palabra;
+         }
+         else{
+             const palabra = div.palabra;
+             div.innerHTML = palabra;
+             div.expandido = false;
+         }
+     };
+ }
+
+ function addListeners(){
+     const elements = document.querySelectorAll( "div.color" );
+     console.log("Encontrados colores:" + elements.length );
+     for( let element of elements ){
+         element.onclick = clickOnColor(element);
+     }
+ }
+
+ window.addEventListener("load", ()=>{
+     console.log("on load");
+     addListeners();
+ });
+
+
+
+</script>
+
+
+<style>
+.color {vertical-align: middle; text-align: center; border-radius: 3px; font-size: 1.5em; display:inline-block;margin:0.3em; padding:0.4em; text-shadow: -0.01em -0.01em 1px #ffffff,-0.01em 0em 1px #ffffff,-0.01em 0.01em 1px #ffffff,0em -0.01em 1px #ffffff,0em 0em 1px #ffffff,0em 0.01em 1px #ffffff,0.01em -0.01em 1px #ffffff,0.01em 0em 1px #ffffff,0.01em 0.01em 1px #ffffff;}
+.hidden {display: none;}
+</style>
+
+<div style="text-align: center">
+
+<div class="color" style="background-color:#DEB1D0" title="#DEB1D0">
+    debido
+</div>
+
+
+<div class="color" style="background-color:#ACCE50" title="#ACCE50">
+    acceso
+</div>
+
+
+<div class="color" style="background-color:#F151CA" title="#F151CA">
+    física
+</div>
+
+
+<div class="color" style="background-color:#5ABAD0" title="#5ABAD0">
+    sábado
+</div>
+
+
+<div class="color" style="background-color:#DECADA" title="#DECADA">
+    década
+</div>
+
+
+<div class="color" style="background-color:#F151C0" title="#F151C0">
+    físico
+</div>
+
+
+<div class="color" style="background-color:#C0D160" title="#C0D160">
+    código
+</div>
+
+
+<div class="color" style="background-color:#0F1C10" title="#0F1C10">
+    oficio
+</div>
+
+
+<div class="color" style="background-color:#5AB1D0" title="#5AB1D0">
+    sabido
+</div>
+
+
+<div class="color" style="background-color:#DE5E05" title="#DE5E05">
+    deseos
+</div>
+
+
+<div class="color" style="background-color:#50C105" title="#50C105">
+    socios
+</div>
+
+
+<div class="color" style="background-color:#D105E5" title="#D105E5">
+    dioses
+</div>
+
+
+<div class="color" style="background-color:#E5CA5A" title="#E5CA5A">
+    escasa
+</div>
+
+
+<div class="color" style="background-color:#BA51CA" title="#BA51CA">
+    básica
+</div>
+
+
+<div class="color" style="background-color:#DEC1DE" title="#DEC1DE">
+    decide
+</div>
+
+
+<div class="color" style="background-color:#BA51C0" title="#BA51C0">
+    básico
+</div>
+
+
+<div class="color" style="background-color:#BA5ADA" title="#BA5ADA">
+    basada
+</div>
+
+
+<div class="color" style="background-color:#BA5AD0" title="#BA5AD0">
+    basado
+</div>
+
+
+<div class="color" style="background-color:#CA5AD0" title="#CA5AD0">
+    casado
+</div>
+
+
+<div class="color" style="background-color:#E5CA50" title="#E5CA50">
+    escaso
+</div>
+
+
+<div class="color" style="background-color:#D15C05" title="#D15C05">
+    discos
+</div>
+
+
+<div class="color" style="background-color:#DED1CA" title="#DED1CA">
+    dedica
+</div>
+
+
+<div class="color" style="background-color:#DED1C0" title="#DED1C0">
+    dedicó
+</div>
+
+
+<div class="color" style="background-color:#EDADE5" title="#EDADE5">
+    edades
+</div>
+
+
+<div class="color" style="background-color:#AC1D05" title="#AC1D05">
+    ácidos
+</div>
+
+
+<div class="color" style="background-color:#CA5C05" title="#CA5C05">
+    cascos
+</div>
+
+
+<div class="color" style="background-color:#5ACAD0" title="#5ACAD0">
+    sacado
+</div>
+
+
+<div class="color" style="background-color:#BEB1DA" title="#BEB1DA">
+    bebida
+</div>
+
+
+<div class="color" style="background-color:#DEB1DA" title="#DEB1DA">
+    debida
+</div>
+
+
+<div class="color" style="background-color:#DEC1D1" title="#DEC1D1">
+    decidí
+</div>
+
+
+<div class="color" style="background-color:#CA5ADA" title="#CA5ADA">
+    casada
+</div>
+
+
+<div class="color" style="background-color:#DEC1DA" title="#DEC1DA">
+    decida
+</div>
+
+
+<div class="color" style="background-color:#C0C1D0" title="#C0C1D0">
+    cocido
+</div>
+
+
+<div class="color" style="background-color:#5ACABA" title="#5ACABA">
+    sacaba
+</div>
+
+
+<div class="color" style="background-color:#C061D0" title="#C061D0">
+    cogido
+</div>
+
+
+<div class="color" style="background-color:#C1E605" title="#C1E605">
+    ciegos
+</div>
+
+
+<div class="color" style="background-color:#5AB105" title="#5AB105">
+    sabios
+</div>
+
+
+<div class="color" style="background-color:#BA6DAD" title="#BA6DAD">
+    bagdad
+</div>
+
+
+<div class="color" style="background-color:#CA1DA5" title="#CA1DA5">
+    caídas
+</div>
+
+
+<div class="color" style="background-color:#B0DE6A" title="#B0DE6A">
+    bodega
+</div>
+
+
+<div class="color" style="background-color:#CAB1DA" title="#CAB1DA">
+    cabida
+</div>
+
+
+<div class="color" style="background-color:#CA1D05" title="#CA1D05">
+    caídos
+</div>
+
+
+<div class="color" style="background-color:#A50C1A" title="#A50C1A">
+    asocia
+</div>
+
+
+<div class="color" style="background-color:#CED1D0" title="#CED1D0">
+    cedido
+</div>
+
+
+<div class="color" style="background-color:#ACCEDE" title="#ACCEDE">
+    accede
+</div>
+
+
+<div class="color" style="background-color:#BEB1D0" title="#BEB1D0">
+    bebido
+</div>
+
+
+<div class="color" style="background-color:#CE5AD0" title="#CE5AD0">
+    cesado
+</div>
+
+
+<div class="color" style="background-color:#5ABE15" title="#5ABE15">
+    sabéis
+</div>
+
+
+<div class="color" style="background-color:#5ECAD0" title="#5ECAD0">
+    secado
+</div>
+
+
+<div class="color" style="background-color:#5AB1A5" title="#5AB1A5">
+    sabías
+</div>
+
+
+<div class="color" style="background-color:#C1E6A5" title="#C1E6A5">
+    ciegas
+</div>
+
+
+<div class="color" style="background-color:#0D1ABA" title="#0D1ABA">
+    odiaba
+</div>
+
+
+<div class="color" style="background-color:#AC0610" title="#AC0610">
+    acogió
+</div>
+
+
+<div class="color" style="background-color:#0FF1CE" title="#0FF1CE">
+    office
+</div>
+
+
+<div class="color" style="background-color:#A5ED10" title="#A5ED10">
+    asedio
+</div>
+
+
+<div class="color" style="background-color:#CEBADA" title="#CEBADA">
+    cebada
+</div>
+
+
+<div class="color" style="background-color:#ABAD1A" title="#ABAD1A">
+    abadía
+</div>
+
+
+<div class="color" style="background-color:#05AD1A" title="#05AD1A">
+    osadía
+</div>
+
+
+<div class="color" style="background-color:#B0CAD0" title="#B0CAD0">
+    bocado
+</div>
+
+
+<div class="color" style="background-color:#C0C1DA" title="#C0C1DA">
+    cocida
+</div>
+
+
+<div class="color" style="background-color:#F1DE05" title="#F1DE05">
+    fideos
+</div>
+
+
+<div class="color" style="background-color:#E5C0BA" title="#E5C0BA">
+    escoba
+</div>
+
+
+<div class="color" style="background-color:#1DEAD0" title="#1DEAD0">
+    ideado
+</div>
+
+
+<div class="color" style="background-color:#0D15EA" title="#0D15EA">
+    odisea
+</div>
+
+
+<div class="color" style="background-color:#DE5EA5" title="#DE5EA5">
+    deseas
+</div>
+
+
+<div class="color" style="background-color:#A5AD05" title="#A5AD05">
+    asados
+</div>
+
+
+<div class="color" style="background-color:#BA5ABA" title="#BA5ABA">
+    basaba
+</div>
+
+
+<div class="color" style="background-color:#DEC1A5" title="#DEC1A5">
+    decías
+</div>
+
+
+<div class="color" style="background-color:#EF161E" title="#EF161E">
+    efigie
+</div>
+
+
+<div class="color" style="background-color:#ACABA5" title="#ACABA5">
+    acabas
+</div>
+
+
+<div class="color" style="background-color:#E5C06E" title="#E5C06E">
+    escoge
+</div>
+
+
+<div class="color" style="background-color:#BE5ABA" title="#BE5ABA">
+    besaba
+</div>
+
+
+<div class="color" style="background-color:#15A1A5" title="#15A1A5">
+    isaías
+</div>
+
+
+<div class="color" style="background-color:#A60B10" title="#A60B10">
+    agobio
+</div>
+
+
+<div class="color" style="background-color:#DED1C0" title="#DED1C0">
+    dedico
+</div>
+
+
+<div class="color" style="background-color:#C061DA" title="#C061DA">
+    cogida
+</div>
+
+
+<div class="color" style="background-color:#DEC1D0" title="#DEC1D0">
+    decido
+</div>
+
+
+<div class="color" style="background-color:#0D1AD0" title="#0D1AD0">
+    odiado
+</div>
+
+
+<div class="color" style="background-color:#0BE505" title="#0BE505">
+    obesos
+</div>
+
+
+<div class="color" style="background-color:#C05510" title="#C05510">
+    cossío
+</div>
+
+
+<div class="color" style="background-color:#A6A551" title="#A6A551">
+    agassi
+</div>
+
+
+<div class="color" style="background-color:#CE5ABA" title="#CE5ABA">
+    cesaba
+</div>
+
+
+<div class="color" style="background-color:#6ADAF1" title="#6ADAF1">
+    gadafi
+</div>
+
+
+<div class="color" style="background-color:#0C1050" title="#0C1050">
+    ocioso
+</div>
+
+
+<div class="color" style="background-color:#AB51DE" title="#AB51DE">
+    ábside
+</div>
+
+
+<div class="color" style="background-color:#DE1DAD" title="#DE1DAD">
+    deidad
+</div>
+
+
+<div class="color" style="background-color:#F0B1A5" title="#F0B1A5">
+    fobias
+</div>
+
+
+<div class="color" style="background-color:#D105A5" title="#D105A5">
+    diosas
+</div>
+
+
+<div class="color" style="background-color:#0D1050" title="#0D1050">
+    odioso
+</div>
+
+
+<div class="color" style="background-color:#5ACADA" title="#5ACADA">
+    sacada
+</div>
+
+
+<div class="color" style="background-color:#ACEBE5" title="#ACEBE5">
+    acebes
+</div>
+
+
+<div class="color" style="background-color:#A50C10" title="#A50C10">
+    asoció
+</div>
+
+
+<div class="color" style="background-color:#DEBE15" title="#DEBE15">
+    debéis
+</div>
+
+
+<div class="color" style="background-color:#CA5ACA" title="#CA5ACA">
+    casaca
+</div>
+
+
+<div class="color" style="background-color:#F1A5C0" title="#F1A5C0">
+    fiasco
+</div>
+
+
+<div class="color" style="background-color:#5AB1A5" title="#5AB1A5">
+    sabias
+</div>
+
+
+<div class="color" style="background-color:#0D105A" title="#0D105A">
+    odiosa
+</div>
+
+
+<div class="color" style="background-color:#50D1C0" title="#50D1C0">
+    sódico
+</div>
+
+
+<div class="color" style="background-color:#0C105A" title="#0C105A">
+    ociosa
+</div>
+
+
+<div class="color" style="background-color:#A5ADA5" title="#A5ADA5">
+    asadas
+</div>
+
+
+<div class="color" style="background-color:#DECE50" title="#DECE50">
+    deceso
+</div>
+
+
+<div class="color" style="background-color:#5AD1C0" title="#5AD1C0">
+    sádico
+</div>
+
+
+<div class="color" style="background-color:#ACCE55" title="#ACCE55">
+    access
+</div>
+
+
+<div class="color" style="background-color:#CA1FA5" title="#CA1FA5">
+    caifás
+</div>
+
+
+<div class="color" style="background-color:#CE6AD0" title="#CE6AD0">
+    cegado
+</div>
+
+
+<div class="color" style="background-color:#ADA610" title="#ADA610">
+    adagio
+</div>
+
+
+<div class="color" style="background-color:#AC1DA5" title="#AC1DA5">
+    ácidas
+</div>
+
+
+<div class="color" style="background-color:#ACCEDA" title="#ACCEDA">
+    acceda
+</div>
+
+
+<div class="color" style="background-color:#BE5AD0" title="#BE5AD0">
+    besado
+</div>
+
+
+<div class="color" style="background-color:#F06ADE" title="#F06ADE">
+    fogade
+</div>
+
+
+<div class="color" style="background-color:#CA5ABA" title="#CA5ABA">
+    casaba
+</div>
+
+
+<div class="color" style="background-color:#ACAC1A" title="#ACAC1A">
+    acacia
+</div>
+
+
+<div class="color" style="background-color:#F06050" title="#F06050">
+    fogoso
+</div>
+
+
+<div class="color" style="background-color:#C0D1CE" title="#C0D1CE">
+    códice
+</div>
+
+
+<div class="color" style="background-color:#5ECABA" title="#5ECABA">
+    secaba
+</div>
+
+
+<div class="color" style="background-color:#DE5EE5" title="#DE5EE5">
+    desees
+</div>
+
+
+<div class="color" style="background-color:#0F1C10" title="#0F1C10">
+    ofició
+</div>
+
+
+<div class="color" style="background-color:#C051D0" title="#C051D0">
+    cosido
+</div>
+
+
+<div class="color" style="background-color:#A60B1A" title="#A60B1A">
+    agobia
+</div>
+
+
+<div class="color" style="background-color:#50F0C0" title="#50F0C0">
+    sofoco
+</div>
+
+
+<div class="color" style="background-color:#1DEADA" title="#1DEADA">
+    ideada
+</div>
+
+
+<div class="color" style="background-color:#AC061A" title="#AC061A">
+    acogía
+</div>
+
+
+<div class="color" style="background-color:#50BAC0" title="#50BAC0">
+    sobaco
+</div>
+
+
+<div class="color" style="background-color:#5E5605" title="#5E5605">
+    sesgos
+</div>
+
+
+<div class="color" style="background-color:#CED1DA" title="#CED1DA">
+    cedida
+</div>
+
+
+<div class="color" style="background-color:#5AB1DA" title="#5AB1DA">
+    sabida
+</div>
+
+
+<div class="color" style="background-color:#DEB1A5" title="#DEB1A5">
+    debías
+</div>
+
+
+<div class="color" style="background-color:#B0BB10" title="#B0BB10">
+    bobbio
+</div>
+
+
+<div class="color" style="background-color:#B1F1DA" title="#B1F1DA">
+    bífida
+</div>
+
+
+<div class="color" style="background-color:#0BE5A5" title="#0BE5A5">
+    obesas
+</div>
+
+
+<div class="color" style="background-color:#BA6610" title="#BA6610">
+    baggio
+</div>
+
+
+<div class="color" style="background-color:#E5C061" title="#E5C061">
+    escogí
+</div>
+
+
+<div class="color" style="background-color:#AC1A60" title="#AC1A60">
+    aciago
+</div>
+
+
+<div class="color" style="background-color:#AD0BE5" title="#AD0BE5">
+    adobes
+</div>
+
+
+<div class="color" style="background-color:#FA5C1A" title="#FA5C1A">
+    fascia
+</div>
+
+
+<div class="color" style="background-color:#AD1DA5" title="#AD1DA5">
+    adidas
+</div>
+
+
+<div class="color" style="background-color:#FAC1E5" title="#FAC1E5">
+    facies
+</div>
+
+
+<div class="color" style="background-color:#05AD05" title="#05AD05">
+    osados
+</div>
+
+
+<div class="color" style="background-color:#ABBAD0" title="#ABBAD0">
+    abbado
+</div>
+
+
+<div class="color" style="background-color:#5ED050" title="#5ED050">
+    sedoso
+</div>
+
+
+<div class="color" style="background-color:#50ECE5" title="#50ECE5">
+    soeces
+</div>
+
+
+<div class="color" style="background-color:#B0BADA" title="#B0BADA">
+    bobada
+</div>
+
+
+<div class="color" style="background-color:#CEBAD0" title="#CEBAD0">
+    cebado
+</div>
+
+
+<div class="color" style="background-color:#B105CA" title="#B105CA">
+    biosca
+</div>
+
+
+<div class="color" style="background-color:#D1CE5E" title="#D1CE5E">
+    dícese
+</div>
+
+
+<div class="color" style="background-color:#5ACA5A" title="#5ACA5A">
+    sacasa
+</div>
+
+
+<div class="color" style="background-color:#ACAECE" title="#ACAECE">
+    acaece
+</div>
+
+
+<div class="color" style="background-color:#BAB050" title="#BAB050">
+    baboso
+</div>
+
+
+<div class="color" style="background-color:#AC1A6A" title="#AC1A6A">
+    aciaga
+</div>
+
+
+<div class="color" style="background-color:#AFA51A" title="#AFA51A">
+    afasia
+</div>
+
+
+<div class="color" style="background-color:#0F1C1A" title="#0F1C1A">
+    oficia
+</div>
+
+
+<div class="color" style="background-color:#B06AD0" title="#B06AD0">
+    bogado
+</div>
+
+
+<div class="color" style="background-color:#0D1ADA" title="#0D1ADA">
+    odiada
+</div>
+
+
+<div class="color" style="background-color:#50C1A5" title="#50C1A5">
+    socias
+</div>
+
+
+<div class="color" style="background-color:#A50C1E" title="#A50C1E">
+    asocie
+</div>
+
+
+<div class="color" style="background-color:#CE6ADA" title="#CE6ADA">
+    cegada
+</div>
+
+
+<div class="color" style="background-color:#5AD1CA" title="#5AD1CA">
+    sádica
+</div>
+
+
+<div class="color" style="background-color:#DEBB1E" title="#DEBB1E">
+    debbie
+</div>
+
+
+<div class="color" style="background-color:#F0605A" title="#F0605A">
+    fogosa
+</div>
+
+
+<div class="color" style="background-color:#5ED05A" title="#5ED05A">
+    sedosa
+</div>
+
+
+<div class="color" style="background-color:#5EC0F1" title="#5EC0F1">
+    secofi
+</div>
+
+
+<div class="color" style="background-color:#B106A5" title="#B106A5">
+    biogás
+</div>
+
+
+<div class="color" style="background-color:#D16A5E" title="#D16A5E">
+    dígase
+</div>
+
+
+<div class="color" style="background-color:#BAB05A" title="#BAB05A">
+    babosa
+</div>
+
+
+<div class="color" style="background-color:#ACCED1" title="#ACCED1">
+    accedí
+</div>
+
+
+<div class="color" style="background-color:#A5EAD0" title="#A5EAD0">
+    aseado
+</div>
+
+
+<div class="color" style="background-color:#BECAD0" title="#BECAD0">
+    becado
+</div>
+
+
+<div class="color" style="background-color:#ADEC05" title="#ADEC05">
+    adecos
+</div>
+
+
+<div class="color" style="background-color:#D16A15" title="#D16A15">
+    digáis
+</div>
+
+
+<div class="color" style="background-color:#CA6AD0" title="#CA6AD0">
+    cagado
+</div>
+
+
+<div class="color" style="background-color:#FABADA" title="#FABADA">
+    fabada
+</div>
+
+
+<div class="color" style="background-color:#C051DA" title="#C051DA">
+    cosida
+</div>
+
+
+<div class="color" style="background-color:#EFEB05" title="#EFEB05">
+    efebos
+</div>
+
+
+<div class="color" style="background-color:#5ECADA" title="#5ECADA">
+    secada
+</div>
+
+
+<div class="color" style="background-color:#CA6ADA" title="#CA6ADA">
+    cagada
+</div>
+
+
+<div class="color" style="background-color:#5ABAD0" title="#5ABAD0">
+    sabado
+</div>
+
+
+<div class="color" style="background-color:#CE6ABA" title="#CE6ABA">
+    cegaba
+</div>
+
+
+<div class="color" style="background-color:#E61D10" title="#E61D10">
+    egidio
+</div>
+
+
+<div class="color" style="background-color:#5151F0" title="#5151F0">
+    sísifo
+</div>
+
+
+<div class="color" style="background-color:#50F0CA" title="#50F0CA">
+    sofoca
+</div>
+
+
+<div class="color" style="background-color:#F151CA" title="#F151CA">
+    fisica
+</div>
+
+
+<div class="color" style="background-color:#B0CC1A" title="#B0CC1A">
+    boccia
+</div>
+
+
+<div class="color" style="background-color:#C1FE5A" title="#C1FE5A">
+    cifesa
+</div>
+
+
+<div class="color" style="background-color:#B1A661" title="#B1A661">
+    biaggi
+</div>
+
+
+<div class="color" style="background-color:#CADAFE" title="#CADAFE">
+    cadafe
+</div>
+
+
+<div class="color" style="background-color:#C05510" title="#C05510">
+    cossio
+</div>
+
+
+<div class="color" style="background-color:#F0B1CA" title="#F0B1CA">
+    fóbica
+</div>
+
+
+<div class="color" style="background-color:#0B5E50" title="#0B5E50">
+    obseso
+</div>
+
+
+<div class="color" style="background-color:#5ACA5E" title="#5ACA5E">
+    sacase
+</div>
+
+
+<div class="color" style="background-color:#0CC150" title="#0CC150">
+    occiso
+</div>
+
+
+<div class="color" style="background-color:#5ADABA" title="#5ADABA">
+    sádaba
+</div>
+
+
+<div class="color" style="background-color:#5051A5" title="#5051A5">
+    sosias
+</div>
+
+
+<div class="color" style="background-color:#05ADA5" title="#05ADA5">
+    osadas
+</div>
+
+
+<div class="color" style="background-color:#ABADE5" title="#ABADE5">
+    abades
+</div>
+
+
+<div class="color" style="background-color:#0D15E0" title="#0D15E0">
+    odiseo
+</div>
+
+
+<div class="color" style="background-color:#DEC1BE" title="#DEC1BE">
+    decibe
+</div>
+
+
+<div class="color" style="background-color:#ACEB05" title="#ACEB05">
+    acebos
+</div>
+
+
+<div class="color" style="background-color:#A50C10" title="#A50C10">
+    asocio
+</div>
+
+
+<div class="color" style="background-color:#B10B10" title="#B10B10">
+    biobío
+</div>
+
+
+<div class="color" style="background-color:#C05AC0" title="#C05AC0">
+    cosaco
+</div>
+
+
+<div class="color" style="background-color:#B1C0CA" title="#B1C0CA">
+    bicoca
+</div>
+
+
+<div class="color" style="background-color:#05600D" title="#05600D">
+    osgood
+</div>
+
+
+<div class="color" style="background-color:#50BAD0" title="#50BAD0">
+    sobado
+</div>
+
+
+<div class="color" style="background-color:#50F0FA" title="#50F0FA">
+    sofofa
+</div>
+
+
+<div class="color" style="background-color:#F1D1A5" title="#F1D1A5">
+    fidias
+</div>
+
+
+<div class="color" style="background-color:#BECADA" title="#BECADA">
+    becada
+</div>
+
+
+<div class="color" style="background-color:#CA16A5" title="#CA16A5">
+    caigas
+</div>
+
+
+<div class="color" style="background-color:#CAC1CA" title="#CAC1CA">
+    cacica
+</div>
+
+
+<div class="color" style="background-color:#C1BDAD" title="#C1BDAD">
+    cibdad
+</div>
+
+
+<div class="color" style="background-color:#0DE55A" title="#0DE55A">
+    odessa
+</div>
+
+
+<div class="color" style="background-color:#BE5ADA" title="#BE5ADA">
+    besada
+</div>
+
+
+<div class="color" style="background-color:#F0B1C0" title="#F0B1C0">
+    fóbico
+</div>
+
+
+<div class="color" style="background-color:#A5EADA" title="#A5EADA">
+    aseada
+</div>
+
+
+<div class="color" style="background-color:#A5ED1A" title="#A5ED1A">
+    asedia
+</div>
+
+
+<div class="color" style="background-color:#5E6AD0" title="#5E6AD0">
+    segado
+</div>
+
+
+<div class="color" style="background-color:#CAB1D0" title="#CAB1D0">
+    cabido
+</div>
+
+
+<div class="color" style="background-color:#50BABA" title="#50BABA">
+    sobaba
+</div>
+
+
+<div class="color" style="background-color:#50F0C0" title="#50F0C0">
+    sofocó
+</div>
+
+
+<div class="color" style="background-color:#AC0505" title="#AC0505">
+    acosos
+</div>
+
+
+<div class="color" style="background-color:#AF1D05" title="#AF1D05">
+    áfidos
+</div>
+
+
+<div class="color" style="background-color:#D10D05" title="#D10D05">
+    diodos
+</div>
+
+
+<div class="color" style="background-color:#CEBABA" title="#CEBABA">
+    cebaba
+</div>
+
+
+<div class="color" style="background-color:#FECCA5" title="#FECCA5">
+    feccas
+</div>
+
+
+<div class="color" style="background-color:#AC0D05" title="#AC0D05">
+    acodos
+</div>
+
+
+<div class="color" style="background-color:#CA0B05" title="#CA0B05">
+    caobos
+</div>
+
+
+<div class="color" style="background-color:#ACABE5" title="#ACABE5">
+    acabes
+</div>
+
+
+<div class="color" style="background-color:#CA5ABE" title="#CA5ABE">
+    casabe
+</div>
+
+
+<div class="color" style="background-color:#B05510" title="#B05510">
+    bossio
+</div>
+
+
+<div class="color" style="background-color:#F151C0" title="#F151C0">
+    fisico
+</div>
+
+
+<div class="color" style="background-color:#ABD1CA" title="#ABD1CA">
+    abdica
+</div>
+
+
+<div class="color" style="background-color:#B0061E" title="#B0061E">
+    boogie
+</div>
+
+
+<div class="color" style="background-color:#C1DADE" title="#C1DADE">
+    cidade
+</div>
+
+
+<div class="color" style="background-color:#D1ECE5" title="#D1ECE5">
+    dieces
+</div>
+
+
+<div class="color" style="background-color:#C0FFEE" title="#C0FFEE">
+    coffee
+</div>
+
+
+<div class="color" style="background-color:#ABD1C0" title="#ABD1C0">
+    abdicó
+</div>
+
+
+<div class="color" style="background-color:#BAD05A" title="#BAD05A">
+    badosa
+</div>
+
+
+<div class="color" style="background-color:#C0F1DE" title="#C0F1DE">
+    cofide
+</div>
+
+
+<div class="color" style="background-color:#50BADA" title="#50BADA">
+    sobada
+</div>
+
+
+<div class="color" style="background-color:#AD0B05" title="#AD0B05">
+    adobos
+</div>
+
+
+<div class="color" style="background-color:#A50C1E" title="#A50C1E">
+    asocié
+</div>
+
+
+<div class="color" style="background-color:#0F1D10" title="#0F1D10">
+    ofidio
+</div>
+
+
+<div class="color" style="background-color:#5EDAD0" title="#5EDAD0">
+    sedado
+</div>
+
+
+<div class="color" style="background-color:#D101CA" title="#D101CA">
+    dioica
+</div>
+
+
+<div class="color" style="background-color:#15AAC5" title="#15AAC5">
+    isaacs
+</div>
+
+
+<div class="color" style="background-color:#CA6ABA" title="#CA6ABA">
+    cagaba
+</div>
+
+
+<div class="color" style="background-color:#CE1BA5" title="#CE1BA5">
+    ceibas
+</div>
+
+
+<div class="color" style="background-color:#A51DA5" title="#A51DA5">
+    asidas
+</div>
+
+
+<div class="color" style="background-color:#B061E5" title="#B061E5">
+    bogies
+</div>
+
+
+<div class="color" style="background-color:#CE1B05" title="#CE1B05">
+    ceibos
+</div>
+
+
+<div class="color" style="background-color:#5EB050" title="#5EB050">
+    seboso
+</div>
+
+
+<div class="color" style="background-color:#5E6ADA" title="#5E6ADA">
+    segada
+</div>
+
+
+<div class="color" style="background-color:#ACCED0" title="#ACCED0">
+    accedo
+</div>
+
+
+<div class="color" style="background-color:#A51D05" title="#A51D05">
+    asidos
+</div>
+
+
+<div class="color" style="background-color:#B015E1" title="#B015E1">
+    boisei
+</div>
+
+
+<div class="color" style="background-color:#C0D160" title="#C0D160">
+    codigo
+</div>
+
+
+<div class="color" style="background-color:#0B5E5A" title="#0B5E5A">
+    obsesa
+</div>
+
+
+<div class="color" style="background-color:#BE0D05" title="#BE0D05">
+    beodos
+</div>
+
+
+<div class="color" style="background-color:#C1ADEA" title="#C1ADEA">
+    ciadea
+</div>
+
+
+<div class="color" style="background-color:#DECA1A" title="#DECA1A">
+    decaía
+</div>
+
+
+<div class="color" style="background-color:#B16610" title="#B16610">
+    biggio
+</div>
+
+
+<div class="color" style="background-color:#0CC15A" title="#0CC15A">
+    occisa
+</div>
+
+
+<div class="color" style="background-color:#516A15" title="#516A15">
+    sigáis
+</div>
+
+
+<div class="color" style="background-color:#515E05" title="#515E05">
+    siseos
+</div>
+
+
+<div class="color" style="background-color:#ACED1A" title="#ACED1A">
+    acedia
+</div>
+
+
+<div class="color" style="background-color:#AC1D05" title="#AC1D05">
+    acidos
+</div>
+
+
+<div class="color" style="background-color:#AFEABA" title="#AFEABA">
+    afeaba
+</div>
+
+
+<div class="color" style="background-color:#BA0BAB" title="#BA0BAB">
+    baobab
+</div>
+
+
+<div class="color" style="background-color:#50D1CA" title="#50D1CA">
+    sódica
+</div>
+
+
+<div class="color" style="background-color:#BA5CA5" title="#BA5CA5">
+    bascas
+</div>
+
+
+<div class="color" style="background-color:#CE5A5E" title="#CE5A5E">
+    cesase
+</div>
+
+
+<div class="color" style="background-color:#FA5C10" title="#FA5C10">
+    fascio
+</div>
+
+
+<div class="color" style="background-color:#DE5ECA" title="#DE5ECA">
+    deseca
+</div>
+
+
+<div class="color" style="background-color:#BE5C05" title="#BE5C05">
+    bescós
+</div>
+
+
+<div class="color" style="background-color:#BE551E" title="#BE551E">
+    bessie
+</div>
+
+
+<div class="color" style="background-color:#CACA05" title="#CACA05">
+    cacaos
+</div>
+
+
+<div class="color" style="background-color:#CA0BA5" title="#CA0BA5">
+    caobas
+</div>
+
+
+<div class="color" style="background-color:#FA51C0" title="#FA51C0">
+    fásico
+</div>
+
+
+<div class="color" style="background-color:#ACED1A" title="#ACED1A">
+    acedía
+</div>
+
+
+<div class="color" style="background-color:#CA551A" title="#CA551A">
+    cassia
+</div>
+
+
+<div class="color" style="background-color:#61B050" title="#61B050">
+    giboso
+</div>
+
+
+<div class="color" style="background-color:#CA5A5E" title="#CA5A5E">
+    casase
+</div>
+
+
+<div class="color" style="background-color:#CA5510" title="#CA5510">
+    cassio
+</div>
+
+
+<div class="color" style="background-color:#FA51CA" title="#FA51CA">
+    fásica
+</div>
+
+
+<div class="color" style="background-color:#FEC0DE" title="#FEC0DE">
+    fecode
+</div>
+
+
+<div class="color" style="background-color:#F06A5A" title="#F06A5A">
+    fogasa
+</div>
+
+
+<div class="color" style="background-color:#6EDDE5" title="#6EDDE5">
+    geddes
+</div>
+
+
+<div class="color" style="background-color:#6E0DA5" title="#6E0DA5">
+    geodas
+</div>
+
+
+<div class="color" style="background-color:#0CA510" title="#0CA510">
+    ocasio
+</div>
+
+
+<div class="color" style="background-color:#0CA505" title="#0CA505">
+    ocasos
+</div>
+
+
+<div class="color" style="background-color:#5EDADA" title="#5EDADA">
+    sedada
+</div>
+
+
+<div class="color" style="background-color:#ACAD10" title="#ACAD10">
+    acadio
+</div>
+
+
+<div class="color" style="background-color:#B0EC10" title="#B0EC10">
+    boecio
+</div>
+
+
+<div class="color" style="background-color:#CABAC0" title="#CABAC0">
+    cabaco
+</div>
+
+
+<div class="color" style="background-color:#CADECA" title="#CADECA">
+    cadeca
+</div>
+
+
+<div class="color" style="background-color:#6BA6B0" title="#6BA6B0">
+    gbagbo
+</div>
+
+
+<div class="color" style="background-color:#60B105" title="#60B105">
+    gobios
+</div>
+
+
+<div class="color" style="background-color:#5E15E5" title="#5E15E5">
+    seises
+</div>
+
+
+<div class="color" style="background-color:#A1E5EC" title="#A1E5EC">
+    aiesec
+</div>
+
+
+<div class="color" style="background-color:#CABADA" title="#CABADA">
+    cabada
+</div>
+
+
+<div class="color" style="background-color:#CADD1E" title="#CADD1E">
+    caddie
+</div>
+
+
+<div class="color" style="background-color:#C1CC1A" title="#C1CC1A">
+    ciccia
+</div>
+
+
+<div class="color" style="background-color:#C0DE50" title="#C0DE50">
+    codeso
+</div>
+
+
+<div class="color" style="background-color:#E5B0CE" title="#E5B0CE">
+    esbocé
+</div>
+
+
+<div class="color" style="background-color:#0BAD1A" title="#0BAD1A">
+    obadía
+</div>
+
+
+<div class="color" style="background-color:#5ADABA" title="#5ADABA">
+    sadaba
+</div>
+
+
+<div class="color" style="background-color:#50C1A5" title="#50C1A5">
+    socías
+</div>
+
+
+<div class="color" style="background-color:#AB06A0" title="#AB06A0">
+    abogao
+</div>
+
+
+<div class="color" style="background-color:#ACABA0" title="#ACABA0">
+    acabao
+</div>
+
+
+<div class="color" style="background-color:#A60B10" title="#A60B10">
+    agobió
+</div>
+
+
+<div class="color" style="background-color:#C0FFEA" title="#C0FFEA">
+    coffea
+</div>
+
+
+<div class="color" style="background-color:#DEC0DE" title="#DEC0DE">
+    decode
+</div>
+
+
+<div class="color" style="background-color:#F1AD05" title="#F1AD05">
+    fiados
+</div>
+
+
+<div class="color" style="background-color:#F0E55A" title="#F0E55A">
+    foessa
+</div>
+
+
+<div class="color" style="background-color:#F0661A" title="#F0661A">
+    foggia
+</div>
+
+
+<div class="color" style="background-color:#6ED15A" title="#6ED15A">
+    gedisa
+</div>
+
+
+<div class="color" style="background-color:#0F1C1E" title="#0F1C1E">
+    oficie
+</div>
+
+
+<div class="color" style="background-color:#5AFAD1" title="#5AFAD1">
+    safadi
+</div>
+
+
+<div class="color" style="background-color:#ABAD1E" title="#ABAD1E">
+    abadie
+</div>
+
+
+<div class="color" style="background-color:#ACD5EE" title="#ACD5EE">
+    acdsee
+</div>
+
+
+<div class="color" style="background-color:#ADECC0" title="#ADECC0">
+    adecco
+</div>
+
+
+<div class="color" style="background-color:#A5CA50" title="#A5CA50">
+    ascaso
+</div>
+
+
+<div class="color" style="background-color:#BA6DA6" title="#BA6DA6">
+    bagdag
+</div>
+
+
+<div class="color" style="background-color:#B1F1D0" title="#B1F1D0">
+    bífido
+</div>
+
+
+<div class="color" style="background-color:#B106A5" title="#B106A5">
+    biogas
+</div>
+
+
+<div class="color" style="background-color:#B05C05" title="#B05C05">
+    boscos
+</div>
+
+
+<div class="color" style="background-color:#CEDADE" title="#CEDADE">
+    cedade
+</div>
+
+
+<div class="color" style="background-color:#DECADA" title="#DECADA">
+    decada
+</div>
+
+
+<div class="color" style="background-color:#E5C0DA" title="#E5C0DA">
+    escoda
+</div>
+
+
+<div class="color" style="background-color:#5ADA1C" title="#5ADA1C">
+    sadaic
+</div>
+
+
+<div class="color" style="background-color:#ABAD1E" title="#ABAD1E">
+    abadíe
+</div>
+
+
+<div class="color" style="background-color:#A5ED10" title="#A5ED10">
+    asedió
+</div>
+
+
+<div class="color" style="background-color:#BA55A5" title="#BA55A5">
+    bassas
+</div>
+
+
+<div class="color" style="background-color:#C05C01" title="#C05C01">
+    coscói
+</div>
+
+
+<div class="color" style="background-color:#DEBE5E" title="#DEBE5E">
+    débese
+</div>
+
+
+<div class="color" style="background-color:#FACC10" title="#FACC10">
+    faccio
+</div>
+
+
+<div class="color" style="background-color:#15C111" title="#15C111">
+    isciii
+</div>
+
+
+<div class="color" style="background-color:#ABAC05" title="#ABAC05">
+    ábacos
+</div>
+
+
+<div class="color" style="background-color:#AD1610" title="#AD1610">
+    adigio
+</div>
+
+
+<div class="color" style="background-color:#A5EABA" title="#A5EABA">
+    aseaba
+</div>
+
+
+<div class="color" style="background-color:#BAF1C1" title="#BAF1C1">
+    bafici
+</div>
+
+
+<div class="color" style="background-color:#BA5ABE" title="#BA5ABE">
+    basabe
+</div>
+
+
+<div class="color" style="background-color:#B15BEE" title="#B15BEE">
+    bisbee
+</div>
+
+
+<div class="color" style="background-color:#CA1C05" title="#CA1C05">
+    caicos
+</div>
+
+
+<div class="color" style="background-color:#CA5EDA" title="#CA5EDA">
+    cáseda
+</div>
+
+
+<div class="color" style="background-color:#C0DEC5" title="#C0DEC5">
+    codecs
+</div>
+
+
+<div class="color" style="background-color:#C0F1A5" title="#C0F1A5">
+    cofias
+</div>
+
+
+<div class="color" style="background-color:#D15ECA" title="#D15ECA">
+    diseca
+</div>
+
+
+<div class="color" style="background-color:#ED0DE5" title="#ED0DE5">
+    edodes
+</div>
+
+
+<div class="color" style="background-color:#FA6EDA" title="#FA6EDA">
+    fageda
+</div>
+
+
+<div class="color" style="background-color:#1BA515" title="#1BA515">
+    ibasis
+</div>
+
+
+<div class="color" style="background-color:#1DEABA" title="#1DEABA">
+    ideaba
+</div>
+
+
+<div class="color" style="background-color:#51E6A5" title="#51E6A5">
+    siegas
+</div>
+
+
+<div class="color" style="background-color:#ABA551" title="#ABA551">
+    abassi
+</div>
+
+
+<div class="color" style="background-color:#ACABA5" title="#ACABA5">
+    acabás
+</div>
+
+
+<div class="color" style="background-color:#ACAD1A" title="#ACAD1A">
+    acadia
+</div>
+
+
+<div class="color" style="background-color:#BE16E5" title="#BE16E5">
+    beiges
+</div>
+
+
+<div class="color" style="background-color:#B1DE5A" title="#B1DE5A">
+    bidesa
+</div>
+
+
+<div class="color" style="background-color:#B06610" title="#B06610">
+    boggio
+</div>
+
+
+<div class="color" style="background-color:#CABED0" title="#CABED0">
+    cabedo
+</div>
+
+
+<div class="color" style="background-color:#CA5515" title="#CA5515">
+    cassis
+</div>
+
+
+<div class="color" style="background-color:#CE5ADA" title="#CE5ADA">
+    cesada
+</div>
+
+
+<div class="color" style="background-color:#C10FF1" title="#C10FF1">
+    cioffi
+</div>
+
+
+<div class="color" style="background-color:#C0CADA" title="#C0CADA">
+    cocada
+</div>
+
+
+<div class="color" style="background-color:#C061A5" title="#C061A5">
+    cogías
+</div>
+
+
+<div class="color" style="background-color:#EC050C" title="#EC050C">
+    ecosoc
+</div>
+
+
+<div class="color" style="background-color:#E55A15" title="#E55A15">
+    essais
+</div>
+
+
+<div class="color" style="background-color:#FADE5A" title="#FADE5A">
+    fadesa
+</div>
+
+
+<div class="color" style="background-color:#FED15A" title="#FED15A">
+    fedisa
+</div>
+
+
+<div class="color" style="background-color:#5E6ABA" title="#5E6ABA">
+    segaba
+</div>
+
+
+<div class="color" style="background-color:#5E6ADE" title="#5E6ADE">
+    segade
+</div>
+
+
+<div class="color" style="background-color:#505E60" title="#505E60">
+    sosegó
+</div>
+
+
+<div class="color" style="background-color:#ABC15A" title="#ABC15A">
+    abcisa
+</div>
+
+
+<div class="color" style="background-color:#ACABAD" title="#ACABAD">
+    acabad
+</div>
+
+
+<div class="color" style="background-color:#ACAC10" title="#ACAC10">
+    acacio
+</div>
+
+
+<div class="color" style="background-color:#BEB1A5" title="#BEB1A5">
+    bebías
+</div>
+
+
+<div class="color" style="background-color:#CACC1A" title="#CACC1A">
+    caccia
+</div>
+
+
+<div class="color" style="background-color:#CA5BA5" title="#CA5BA5">
+    casbas
+</div>
+
+
+<div class="color" style="background-color:#CA5E15" title="#CA5E15">
+    caséis
+</div>
+
+
+<div class="color" style="background-color:#CE55DA" title="#CE55DA">
+    cessda
+</div>
+
+
+<div class="color" style="background-color:#C0DEFF" title="#C0DEFF">
+    codeff
+</div>
+
+
+<div class="color" style="background-color:#DABA15" title="#DABA15">
+    dabais
+</div>
+
+
+<div class="color" style="background-color:#DE5EA5" title="#DE5EA5">
+    deseás
+</div>
+
+
+<div class="color" style="background-color:#FED0CA" title="#FED0CA">
+    fedoca
+</div>
+
+
+<div class="color" style="background-color:#5EBAC0" title="#5EBAC0">
+    sébaco
+</div>
+
+
+<div class="color" style="background-color:#51D050" title="#51D050">
+    sidoso
+</div>
+
+
+<div class="color" style="background-color:#AB15E0" title="#AB15E0">
+    abiseo
+</div>
+
+
+<div class="color" style="background-color:#A605BA" title="#A605BA">
+    agosba
+</div>
+
+
+<div class="color" style="background-color:#BAB1E5" title="#BAB1E5">
+    babies
+</div>
+
+
+<div class="color" style="background-color:#BE1B15" title="#BE1B15">
+    beibis
+</div>
+
+
+<div class="color" style="background-color:#CACEDA" title="#CACEDA">
+    cáceda
+</div>
+
+
+<div class="color" style="background-color:#CA1DA5" title="#CA1DA5">
+    caidas
+</div>
+
+
+<div class="color" style="background-color:#CA5E5E" title="#CA5E5E">
+    cásese
+</div>
+
+
+<div class="color" style="background-color:#C10CC0" title="#C10CC0">
+    ciocco
+</div>
+
+
+<div class="color" style="background-color:#C0C105" title="#C0C105">
+    cocios
+</div>
+
+
+<div class="color" style="background-color:#C06E15" title="#C06E15">
+    cogéis
+</div>
+
+
+<div class="color" style="background-color:#DEFECA" title="#DEFECA">
+    defeca
+</div>
+
+
+<div class="color" style="background-color:#D1E5E5" title="#D1E5E5">
+    dieses
+</div>
+
+
+<div class="color" style="background-color:#D15EC0" title="#D15EC0">
+    disecó
+</div>
+
+
+<div class="color" style="background-color:#EDE510" title="#EDE510">
+    edesio
+</div>
+
+
+<div class="color" style="background-color:#EDE55A" title="#EDE55A">
+    edessa
+</div>
+
+
+<div class="color" style="background-color:#6EA6EA" title="#6EA6EA">
+    geagea
+</div>
+
+
+<div class="color" style="background-color:#6E1C05" title="#6E1C05">
+    geicos
+</div>
+
+
+<div class="color" style="background-color:#5ACA15" title="#5ACA15">
+    sacáis
+</div>
+
+
+<div class="color" style="background-color:#5EB05A" title="#5EB05A">
+    sebosa
+</div>
+
+
+<div class="color" style="background-color:#5ECA5E" title="#5ECA5E">
+    secase
+</div>
+
+
+<div class="color" style="background-color:#5ED151" title="#5ED151">
+    sedisi
+</div>
+
+
+<div class="color" style="background-color:#51DD16" title="#51DD16">
+    siddig
+</div>
+
+
+<div class="color" style="background-color:#5051A5" title="#5051A5">
+    sosías
+</div>
+
+
+<div class="color" style="background-color:#AB16E0" title="#AB16E0">
+    abigeo
+</div>
+
+
+<div class="color" style="background-color:#AFEADA" title="#AFEADA">
+    afeada
+</div>
+
+
+<div class="color" style="background-color:#AFEAD0" title="#AFEAD0">
+    afeado
+</div>
+
+
+<div class="color" style="background-color:#BA51CA" title="#BA51CA">
+    basica
+</div>
+
+
+<div class="color" style="background-color:#BA51C5" title="#BA51C5">
+    basics
+</div>
+
+
+<div class="color" style="background-color:#BECC1A" title="#BECC1A">
+    beccia
+</div>
+
+
+<div class="color" style="background-color:#B1A610" title="#B1A610">
+    biagio
+</div>
+
+
+<div class="color" style="background-color:#B1A5C1" title="#B1A5C1">
+    biasci
+</div>
+
+
+<div class="color" style="background-color:#B1E5CA" title="#B1E5CA">
+    biesca
+</div>
+
+
+<div class="color" style="background-color:#CABD0A" title="#CABD0A">
+    cabdoa
+</div>
+
+
+<div class="color" style="background-color:#DABADA" title="#DABADA">
+    dabada
+</div>
+
+
+<div class="color" style="background-color:#D166E5" title="#D166E5">
+    digges
+</div>
+
+
+<div class="color" style="background-color:#EFEB1A" title="#EFEB1A">
+    efebía
+</div>
+
+
+<div class="color" style="background-color:#E5CADA" title="#E5CADA">
+    escada
+</div>
+
+
+<div class="color" style="background-color:#F1F1F1" title="#F1F1F1">
+    fififi
+</div>
+
+
+<div class="color" style="background-color:#6ADD15" title="#6ADD15">
+    gaddis
+</div>
+
+
+<div class="color" style="background-color:#6AFAD0" title="#6AFAD0">
+    gafado
+</div>
+
+
+<div class="color" style="background-color:#6A5D1A" title="#6A5D1A">
+    gasdia
+</div>
+
+
+<div class="color" style="background-color:#0B1D05" title="#0B1D05">
+    obidos
+</div>
+
+
+<div class="color" style="background-color:#516516" title="#516516">
+    sígsig
+</div>
+
+
+<div class="color" style="background-color:#AB51DE" title="#AB51DE">
+    abside
+</div>
+
+
+<div class="color" style="background-color:#ADE5CA" title="#ADE5CA">
+    adesca
+</div>
+
+
+<div class="color" style="background-color:#A60B1E" title="#A60B1E">
+    agobie
+</div>
+
+
+<div class="color" style="background-color:#BA16E5" title="#BA16E5">
+    baiges
+</div>
+
+
+<div class="color" style="background-color:#BE5A5E" title="#BE5A5E">
+    besase
+</div>
+
+
+<div class="color" style="background-color:#B106A5" title="#B106A5">
+    bíogas
+</div>
+
+
+<div class="color" style="background-color:#CA1DE5" title="#CA1DE5">
+    caídes
+</div>
+
+
+<div class="color" style="background-color:#CA1D05" title="#CA1D05">
+    caidos
+</div>
+
+
+<div class="color" style="background-color:#CA155E" title="#CA155E">
+    caisse
+</div>
+
+
+<div class="color" style="background-color:#CA5A15" title="#CA5A15">
+    casais
+</div>
+
+
+<div class="color" style="background-color:#CA5CA5" title="#CA5CA5">
+    cascas
+</div>
+
+
+<div class="color" style="background-color:#CA505E" title="#CA505E">
+    casóse
+</div>
+
+
+<div class="color" style="background-color:#CED1CE" title="#CED1CE">
+    cedice
+</div>
+
+
+<div class="color" style="background-color:#CE6A5E" title="#CE6A5E">
+    cegase
+</div>
+
+
+<div class="color" style="background-color:#D0C0B0" title="#D0C0B0">
+    docobo
+</div>
+
+
+<div class="color" style="background-color:#FA5C1E" title="#FA5C1E">
+    fascie
+</div>
+
+
+<div class="color" style="background-color:#F1ADA5" title="#F1ADA5">
+    fiadas
+</div>
+
+
+<div class="color" style="background-color:#F16615" title="#F16615">
+    figgis
+</div>
+
+
+<div class="color" style="background-color:#6A5EBA" title="#6A5EBA">
+    gaseba
+</div>
+
+
+<div class="color" style="background-color:#15A1A5" title="#15A1A5">
+    isaias
+</div>
+
+
+<div class="color" style="background-color:#0B5EDE" title="#0B5EDE">
+    obsede
+</div>
+
+
+<div class="color" style="background-color:#5ABE5E" title="#5ABE5E">
+    sábese
+</div>
+
+
+<div class="color" style="background-color:#5AF1C0" title="#5AF1C0">
+    sáfico
+</div>
+
+
+<div class="color" style="background-color:#50F1C0" title="#50F1C0">
+    sofico
+</div>
+
+
+<div class="color" style="background-color:#ABCE50" title="#ABCE50">
+    abceso
+</div>
+
+
+<div class="color" style="background-color:#AD16A5" title="#AD16A5">
+    adigas
+</div>
+
+
+<div class="color" style="background-color:#A5ED1E" title="#A5ED1E">
+    asedie
+</div>
+
+
+<div class="color" style="background-color:#A55AD1" title="#A55AD1">
+    assadi
+</div>
+
+
+<div class="color" style="background-color:#A5505A" title="#A5505A">
+    assosa
+</div>
+
+
+<div class="color" style="background-color:#BAB15A" title="#BAB15A">
+    babisa
+</div>
+
+
+<div class="color" style="background-color:#BA6AD0" title="#BA6AD0">
+    bagado
+</div>
+
+
+<div class="color" style="background-color:#BEBE15" title="#BEBE15">
+    bebéis
+</div>
+
+
+<div class="color" style="background-color:#B10CAF" title="#B10CAF">
+    biocaf
+</div>
+
+
+<div class="color" style="background-color:#B06ABA" title="#B06ABA">
+    bogaba
+</div>
+
+
+<div class="color" style="background-color:#CA5A15" title="#CA5A15">
+    casáis
+</div>
+
+
+<div class="color" style="background-color:#CECEDA" title="#CECEDA">
+    ceceda
+</div>
+
+
+<div class="color" style="background-color:#CEC0E5" title="#CEC0E5">
+    cecoes
+</div>
+
+
+<div class="color" style="background-color:#C0CC15" title="#C0CC15">
+    coccis
+</div>
+
+
+<div class="color" style="background-color:#C0DEC0" title="#C0DEC0">
+    codeco
+</div>
+
+
+<div class="color" style="background-color:#C05ACA" title="#C05ACA">
+    cosaca
+</div>
+
+
+<div class="color" style="background-color:#DEBEDA" title="#DEBEDA">
+    débeda
+</div>
+
+
+<div class="color" style="background-color:#DEFEC0" title="#DEFEC0">
+    defecó
+</div>
+
+
+<div class="color" style="background-color:#D16EC0" title="#D16EC0">
+    digeco
+</div>
+
+
+<div class="color" style="background-color:#ED1C5A" title="#ED1C5A">
+    edicsa
+</div>
+
+
+<div class="color" style="background-color:#FECDA5" title="#FECDA5">
+    fecdas
+</div>
+
+
+<div class="color" style="background-color:#FE50CA" title="#FE50CA">
+    fesoca
+</div>
+
+
+<div class="color" style="background-color:#6E01DE" title="#6E01DE">
+    geoide
+</div>
+
+
+<div class="color" style="background-color:#1A5A5A" title="#1A5A5A">
+    iasasa
+</div>
+
+
+<div class="color" style="background-color:#0BCECA" title="#0BCECA">
+    obceca
+</div>
+
+
+<div class="color" style="background-color:#0D1A15" title="#0D1A15">
+    odiáis
+</div>
+
+
+<div class="color" style="background-color:#5ABE15" title="#5ABE15">
+    sabeis
+</div>
+
+
+<div class="color" style="background-color:#5ADE5A" title="#5ADE5A">
+    sadesa
+</div>
+
+
+<div class="color" style="background-color:#51DEC0" title="#51DEC0">
+    sideco
+</div>
+
+
+<div class="color" style="background-color:#50B0CE" title="#50B0CE">
+    soboce
+</div>
+
+
+<div class="color" style="background-color:#ABBA51" title="#ABBA51">
+    abbasí
+</div>
+
+
+<div class="color" style="background-color:#ABEC1A" title="#ABEC1A">
+    abecia
+</div>
+
+
+<div class="color" style="background-color:#ACCE5A" title="#ACCE5A">
+    accesa
+</div>
+
+
+<div class="color" style="background-color:#AC1D1A" title="#AC1D1A">
+    acidia
+</div>
+
+
+<div class="color" style="background-color:#A6ADE5" title="#A6ADE5">
+    agadés
+</div>
+
+
+<div class="color" style="background-color:#A55A16" title="#A55A16">
+    assaig
+</div>
+
+
+<div class="color" style="background-color:#BAABDA" title="#BAABDA">
+    baabda
+</div>
+
+
+<div class="color" style="background-color:#BACCA5" title="#BACCA5">
+    baccas
+</div>
+
+
+<div class="color" style="background-color:#BAD1CA" title="#BAD1CA">
+    badica
+</div>
+
+
+<div class="color" style="background-color:#BEBA5E" title="#BEBA5E">
+    bébase
+</div>
+
+
+<div class="color" style="background-color:#B1E5E5" title="#B1E5E5">
+    bieses
+</div>
+
+
+<div class="color" style="background-color:#B0CA6E" title="#B0CA6E">
+    bocage
+</div>
+
+
+<div class="color" style="background-color:#CA551E" title="#CA551E">
+    cassie
+</div>
+
+
+<div class="color" style="background-color:#C0BE6A" title="#C0BE6A">
+    cobega
+</div>
+
+
+<div class="color" style="background-color:#C0DE5A" title="#C0DE5A">
+    codesa
+</div>
+
+
+<div class="color" style="background-color:#C0F1EC" title="#C0F1EC">
+    cofiec
+</div>
+
+
+<div class="color" style="background-color:#C05C1A" title="#C05C1A">
+    coscia
+</div>
+
+
+<div class="color" style="background-color:#DABBA5" title="#DABBA5">
+    dabbas
+</div>
+
+
+<div class="color" style="background-color:#DEBE5A" title="#DEBE5A">
+    debesa
+</div>
+
+
+<div class="color" style="background-color:#DEFEC0" title="#DEFEC0">
+    defeco
+</div>
+
+
+<div class="color" style="background-color:#DE0C5A" title="#DE0C5A">
+    deocsa
+</div>
+
+
+<div class="color" style="background-color:#DE5A5E" title="#DE5A5E">
+    desase
+</div>
+
+
+<div class="color" style="background-color:#DE501A" title="#DE501A">
+    desoía
+</div>
+
+
+<div class="color" style="background-color:#D1E605" title="#D1E605">
+    diegos
+</div>
+
+
+<div class="color" style="background-color:#D0B1A5" title="#D0B1A5">
+    dobías
+</div>
+
+
+<div class="color" style="background-color:#EDEC10" title="#EDEC10">
+    edecio
+</div>
+
+
+<div class="color" style="background-color:#FA5CE5" title="#FA5CE5">
+    fasces
+</div>
+
+
+<div class="color" style="background-color:#FEAC1A" title="#FEAC1A">
+    feacia
+</div>
+
+
+<div class="color" style="background-color:#F1C05A" title="#F1C05A">
+    ficosa
+</div>
+
+
+<div class="color" style="background-color:#F151CC" title="#F151CC">
+    fisicc
+</div>
+
+
+<div class="color" style="background-color:#F05C05" title="#F05C05">
+    foscos
+</div>
+
+
+<div class="color" style="background-color:#6AF050" title="#6AF050">
+    gafoso
+</div>
+
+
+<div class="color" style="background-color:#6E155E" title="#6E155E">
+    geisse
+</div>
+
+
+<div class="color" style="background-color:#61BADA" title="#61BADA">
+    gibada
+</div>
+
+
+<div class="color" style="background-color:#61B05A" title="#61B05A">
+    gibosa
+</div>
+
+
+<div class="color" style="background-color:#1DE5AC" title="#1DE5AC">
+    idesac
+</div>
+
+
+<div class="color" style="background-color:#0D1551" title="#0D1551">
+    odissi
+</div>
+
+
+<div class="color" style="background-color:#5ACC10" title="#5ACC10">
+    saccio
+</div>
+
+
+<div class="color" style="background-color:#5AFF1E" title="#5AFF1E">
+    saffie
+</div>
+
+
+<div class="color" style="background-color:#ABAD1A" title="#ABAD1A">
+    abadia
+</div>
+
+
+<div class="color" style="background-color:#ABD1A5" title="#ABD1A5">
+    abdías
+</div>
+
+
+<div class="color" style="background-color:#AB1D05" title="#AB1D05">
+    abidos
+</div>
+
+
+<div class="color" style="background-color:#AB06A5" title="#AB06A5">
+    abogas
+</div>
+
+
+<div class="color" style="background-color:#ACACEA" title="#ACACEA">
+    acacea
+</div>
+
+
+<div class="color" style="background-color:#AC1E60" title="#AC1E60">
+    aciego
+</div>
+
+
+<div class="color" style="background-color:#AC1605" title="#AC1605">
+    ácigos
+</div>
+
+
+<div class="color" style="background-color:#ADABA5" title="#ADABA5">
+    adabas
+</div>
+
+
+<div class="color" style="background-color:#ADECA5" title="#ADECA5">
+    adecas
+</div>
+
+
+<div class="color" style="background-color:#AD1CAE" title="#AD1CAE">
+    adicae
+</div>
+
+
+<div class="color" style="background-color:#AD165A" title="#AD165A">
+    adigsa
+</div>
+
+
+<div class="color" style="background-color:#AFA61A" title="#AFA61A">
+    afagia
+</div>
+
+
+<div class="color" style="background-color:#A5515E" title="#A5515E">
+    assise
+</div>
+
+
+<div class="color" style="background-color:#BA60A5" title="#BA60A5">
+    bagoas
+</div>
+
+
+<div class="color" style="background-color:#BA5A5E" title="#BA5A5E">
+    basase
+</div>
+
+
+<div class="color" style="background-color:#BEBA15" title="#BEBA15">
+    bebáis
+</div>
+
+
+<div class="color" style="background-color:#BE0C1A" title="#BE0C1A">
+    beocia
+</div>
+
+
+<div class="color" style="background-color:#BE5C05" title="#BE5C05">
+    bescos
+</div>
+
+
+<div class="color" style="background-color:#B1ABA5" title="#B1ABA5">
+    biabas
+</div>
+
+
+<div class="color" style="background-color:#B15BE5" title="#B15BE5">
+    bisbes
+</div>
+
+
+<div class="color" style="background-color:#B15ECA" title="#B15ECA">
+    biseca
+</div>
+
+
+<div class="color" style="background-color:#B0ADA5" title="#B0ADA5">
+    boadas
+</div>
+
+
+<div class="color" style="background-color:#B0A550" title="#B0A550">
+    boasso
+</div>
+
+
+<div class="color" style="background-color:#B0CA05" title="#B0CA05">
+    bocaos
+</div>
+
+
+<div class="color" style="background-color:#B0DD1E" title="#B0DD1E">
+    boddie
+</div>
+
+
+<div class="color" style="background-color:#B0D160" title="#B0D160">
+    bodigo
+</div>
+
+
+<div class="color" style="background-color:#B0661E" title="#B0661E">
+    boggie
+</div>
+
+
+<div class="color" style="background-color:#CA1AFA" title="#CA1AFA">
+    caiafa
+</div>
+
+
+<div class="color" style="background-color:#CA5A05" title="#CA5A05">
+    casaos
+</div>
+
+
+<div class="color" style="background-color:#C65A5B" title="#C65A5B">
+    cgsasb
+</div>
+
+
+<div class="color" style="background-color:#C1E5A5" title="#C1E5A5">
+    ciesas
+</div>
+
+
+<div class="color" style="background-color:#C16EF1" title="#C16EF1">
+    cigefi
+</div>
+
+
+<div class="color" style="background-color:#C10CCA" title="#C10CCA">
+    ciocca
+</div>
+
+
+<div class="color" style="background-color:#C15C05" title="#C15C05">
+    ciscos
+</div>
+
+
+<div class="color" style="background-color:#C0CC1A" title="#C0CC1A">
+    coccia
+</div>
+
+
+<div class="color" style="background-color:#C055A5" title="#C055A5">
+    cossas
+</div>
+
+
+<div class="color" style="background-color:#DAC105" title="#DAC105">
+    dacios
+</div>
+
+
+<div class="color" style="background-color:#DEBE15" title="#DEBE15">
+    debeis
+</div>
+
+
+<div class="color" style="background-color:#DEC1D1" title="#DEC1D1">
+    decidi
+</div>
+
+
+<div class="color" style="background-color:#DEEDEE" title="#DEEDEE">
+    deedee
+</div>
+
+
+<div class="color" style="background-color:#DE5A51" title="#DE5A51">
+    desasí
+</div>
+
+
+<div class="color" style="background-color:#D1E60A" title="#D1E60A">
+    diegoa
+</div>
+
+
+<div class="color" style="background-color:#D0CAB0" title="#D0CAB0">
+    docabo
+</div>
+
+
+<div class="color" style="background-color:#ED165A" title="#ED165A">
+    edigsa
+</div>
+
+
+<div class="color" style="background-color:#EEE111" title="#EEE111">
+    eeeiii
+</div>
+
+
+<div class="color" style="background-color:#EF161A" title="#EF161A">
+    efigia
+</div>
+
+
+<div class="color" style="background-color:#E55B10" title="#E55B10">
+    essbío
+</div>
+
+
+<div class="color" style="background-color:#FABAD0" title="#FABAD0">
+    fabado
+</div>
+
+
+<div class="color" style="background-color:#FA51E5" title="#FA51E5">
+    fasíes
+</div>
+
+
+<div class="color" style="background-color:#FEAFE5" title="#FEAFE5">
+    feafes
+</div>
+
+
+<div class="color" style="background-color:#FED0BE" title="#FED0BE">
+    fedobe
+</div>
+
+
+<div class="color" style="background-color:#F06D0E" title="#F06D0E">
+    fogdoe
+</div>
+
+
+<div class="color" style="background-color:#6AE5C0" title="#6AE5C0">
+    gaesco
+</div>
+
+
+<div class="color" style="background-color:#610610" title="#610610">
+    giogio
+</div>
+
+
+<div class="color" style="background-color:#1CAC05" title="#1CAC05">
+    icacos
+</div>
+
+
+<div class="color" style="background-color:#1DEF15" title="#1DEF15">
+    idefis
+</div>
+
+
+<div class="color" style="background-color:#1FEDEC" title="#1FEDEC">
+    ifedec
+</div>
+
+
+<div class="color" style="background-color:#10DADA" title="#10DADA">
+    iodada
+</div>
+
+
+<div class="color" style="background-color:#15A551" title="#15A551">
+    isassi
+</div>
+
+
+<div class="color" style="background-color:#0D1A5E" title="#0D1A5E">
+    odiase
+</div>
+
+
+<div class="color" style="background-color:#016A15" title="#016A15">
+    oigáis
+</div>
+
+
+<div class="color" style="background-color:#016A5E" title="#016A5E">
+    óigase
+</div>
+
+
+<div class="color" style="background-color:#05ECAC" title="#05ECAC">
+    osecac
+</div>
+
+
+<div class="color" style="background-color:#5ABEC0" title="#5ABEC0">
+    sabeco
+</div>
+
+
+<div class="color" style="background-color:#5ABE05" title="#5ABE05">
+    sabeos
+</div>
+
+
+<div class="color" style="background-color:#5AFEC0" title="#5AFEC0">
+    safeco
+</div>
+
+
+<div class="color" style="background-color:#5AF1CA" title="#5AF1CA">
+    sáfica
+</div>
+
+
+<div class="color" style="background-color:#5A5ABE" title="#5A5ABE">
+    sasabe
+</div>
+
+
+<div class="color" style="background-color:#51A51A" title="#51A51A">
+    siasia
+</div>
+
+
+<div class="color" style="background-color:#51BA51" title="#51BA51">
+    sibasi
+</div>
+
+
+<div class="color" style="background-color:#516A5E" title="#516A5E">
+    sígase
+</div>
+
+
+<div class="color" style="background-color:#511111" title="#511111">
+    sííííí
+</div>
+
+
+<div class="color" style="background-color:#50FA5A" title="#50FA5A">
+    sofasa
+</div>
+
+
+<div class="color" style="background-color:#ABAD10" title="#ABAD10">
+    abadío
+</div>
+
+
+<div class="color" style="background-color:#ABA51A" title="#ABA51A">
+    abasia
+</div>
+
+
+<div class="color" style="background-color:#ABD1C0" title="#ABD1C0">
+    abdico
+</div>
+
+
+<div class="color" style="background-color:#ACCE5E" title="#ACCE5E">
+    accese
+</div>
+
+
+<div class="color" style="background-color:#AC1E5A" title="#AC1E5A">
+    aciesa
+</div>
+
+
+<div class="color" style="background-color:#AC06E5" title="#AC06E5">
+    acoges
+</div>
+
+
+<div class="color" style="background-color:#ADE5C0" title="#ADE5C0">
+    adesco
+</div>
+
+
+<div class="color" style="background-color:#AE5EBA" title="#AE5EBA">
+    aeseba
+</div>
+
+
+<div class="color" style="background-color:#A1CE6A" title="#A1CE6A">
+    aicega
+</div>
+
+
+<div class="color" style="background-color:#A5A60E" title="#A5A60E">
+    asagoe
+</div>
+
+
+<div class="color" style="background-color:#A5FAC0" title="#A5FAC0">
+    asfaco
+</div>
+
+
+<div class="color" style="background-color:#A56EC0" title="#A56EC0">
+    asgeco
+</div>
+
+
+<div class="color" style="background-color:#A55151" title="#A55151">
+    assisi
+</div>
+
+
+<div class="color" style="background-color:#BABEA5" title="#BABEA5">
+    babeas
+</div>
+
+
+<div class="color" style="background-color:#BACAB5" title="#BACAB5">
+    bacabs
+</div>
+
+
+<div class="color" style="background-color:#BA6A6E" title="#BA6A6E">
+    bagage
+</div>
+
+
+<div class="color" style="background-color:#BA5DE0" title="#BA5DE0">
+    basdeo
+</div>
+
+
+<div class="color" style="background-color:#BA51C0" title="#BA51C0">
+    basico
+</div>
+
+
+<div class="color" style="background-color:#BA551E" title="#BA551E">
+    bassie
+</div>
+
+
+<div class="color" style="background-color:#B1BECA" title="#B1BECA">
+    bibeca
+</div>
+
+
+<div class="color" style="background-color:#B0B015" title="#B0B015">
+    bobois
+</div>
+
+
+<div class="color" style="background-color:#B0D1E5" title="#B0D1E5">
+    bodies
+</div>
+
+
+<div class="color" style="background-color:#CABAD0" title="#CABAD0">
+    cabado
+</div>
+
+
+<div class="color" style="background-color:#CABE15" title="#CABE15">
+    cabéis
+</div>
+
+
+<div class="color" style="background-color:#CA6AD0" title="#CA6AD0">
+    cágado
+</div>
+
+
+<div class="color" style="background-color:#CA6A05" title="#CA6A05">
+    cagaos
+</div>
+
+
+<div class="color" style="background-color:#CA5A10" title="#CA5A10">
+    casaio
+</div>
+
+
+<div class="color" style="background-color:#CA5C10" title="#CA5C10">
+    cascio
+</div>
+
+
+<div class="color" style="background-color:#CE1BE5" title="#CE1BE5">
+    ceibes
+</div>
+
+
+<div class="color" style="background-color:#CE5FAC" title="#CE5FAC">
+    cesfac
+</div>
+
+
+<div class="color" style="background-color:#C1AEBA" title="#C1AEBA">
+    ciaeba
+</div>
+
+
+<div class="color" style="background-color:#C1DE51" title="#C1DE51">
+    cidesi
+</div>
+
+
+<div class="color" style="background-color:#C1551E" title="#C1551E">
+    cissie
+</div>
+
+
+<div class="color" style="background-color:#C0CE5A" title="#C0CE5A">
+    cocesa
+</div>
+
+
+<div class="color" style="background-color:#C0C0A5" title="#C0C0A5">
+    cocoas
+</div>
+
+
+<div class="color" style="background-color:#C0FACE" title="#C0FACE">
+    coface
+</div>
+
+
+<div class="color" style="background-color:#C06ECA" title="#C06ECA">
+    cogeca
+</div>
+
+
+<div class="color" style="background-color:#C0661A" title="#C0661A">
+    coggia
+</div>
+
+
+<div class="color" style="background-color:#C0005A" title="#C0005A">
+    cooosa
+</div>
+
+
+<div class="color" style="background-color:#C051CA" title="#C051CA">
+    cósica
+</div>
+
+
+<div class="color" style="background-color:#DECADE" title="#DECADE">
+    decade
+</div>
+
+
+<div class="color" style="background-color:#DEFF15" title="#DEFF15">
+    deffis
+</div>
+
+
+<div class="color" style="background-color:#DE5EC0" title="#DE5EC0">
+    desecó
+</div>
+
+
+<div class="color" style="background-color:#DE55E5" title="#DE55E5">
+    desses
+</div>
+
+
+<div class="color" style="background-color:#D1BABA" title="#D1BABA">
+    dibaba
+</div>
+
+
+<div class="color" style="background-color:#D1FF1E" title="#D1FF1E">
+    diffie
+</div>
+
+
+<div class="color" style="background-color:#EBCD1C" title="#EBCD1C">
+    ebcdic
+</div>
+
+
+<div class="color" style="background-color:#EFFACE" title="#EFFACE">
+    effacé
+</div>
+
+
+<div class="color" style="background-color:#EF1C10" title="#EF1C10">
+    eficio
+</div>
+
+
+<div class="color" style="background-color:#E51D10" title="#E51D10">
+    esidio
+</div>
+
+
+<div class="color" style="background-color:#FADD15" title="#FADD15">
+    faddis
+</div>
+
+
+<div class="color" style="background-color:#FA16E5" title="#FA16E5">
+    faiges
+</div>
+
+
+<div class="color" style="background-color:#FA5C15" title="#FA5C15">
+    fascis
+</div>
+
+
+<div class="color" style="background-color:#FEC0BA" title="#FEC0BA">
+    fecoba
+</div>
+
+
+<div class="color" style="background-color:#F1CAFE" title="#F1CAFE">
+    ficafe
+</div>
+
+
+<div class="color" style="background-color:#F10CE5" title="#F10CE5">
+    fioces
+</div>
+
+
+<div class="color" style="background-color:#F0CE05" title="#F0CE05">
+    foceos
+</div>
+
+
+<div class="color" style="background-color:#F055A5" title="#F055A5">
+    fossas
+</div>
+
+
+<div class="color" style="background-color:#6ACC10" title="#6ACC10">
+    gaccio
+</div>
+
+
+<div class="color" style="background-color:#6AFABA" title="#6AFABA">
+    gafaba
+</div>
+
+
+<div class="color" style="background-color:#6AFADA" title="#6AFADA">
+    gafada
+</div>
+
+
+<div class="color" style="background-color:#6AFFE5" title="#6AFFE5">
+    gaffes
+</div>
+
+
+<div class="color" style="background-color:#6B06B0" title="#6B06B0">
+    gbogbo
+</div>
+
+
+<div class="color" style="background-color:#61E550" title="#61E550">
+    giesso
+</div>
+
+
+<div class="color" style="background-color:#616105" title="#616105">
+    gigios
+</div>
+
+
+<div class="color" style="background-color:#60DD10" title="#60DD10">
+    goddio
+</div>
+
+
+<div class="color" style="background-color:#601C0A" title="#601C0A">
+    goicoa
+</div>
+
+
+<div class="color" style="background-color:#600DE5" title="#600DE5">
+    goodes
+</div>
+
+
+<div class="color" style="background-color:#1DAC10" title="#1DAC10">
+    idacio
+</div>
+
+
+<div class="color" style="background-color:#1DEA5E" title="#1DEA5E">
+    idease
+</div>
+
+
+<div class="color" style="background-color:#151D15" title="#151D15">
+    isidis
+</div>
+
+
+<div class="color" style="background-color:#0BCEC0" title="#0BCEC0">
+    obcecó
+</div>
+
+
+<div class="color" style="background-color:#016A5E" title="#016A5E">
+    oigase
+</div>
+
+
+<div class="color" style="background-color:#5ABBA6" title="#5ABBA6">
+    sabbag
+</div>
+
+
+<div class="color" style="background-color:#5ACED0" title="#5ACED0">
+    sacedo
+</div>
+
+
+<div class="color" style="background-color:#5AC1F1" title="#5AC1F1">
+    sacifi
+</div>
+
+
+<div class="color" style="background-color:#5ECC10" title="#5ECC10">
+    secció
+</div>
+
+
+<div class="color" style="background-color:#5EC05E" title="#5EC05E">
+    secóse
+</div>
+
+
+<div class="color" style="background-color:#5EDABA" title="#5EDABA">
+    sedaba
+</div>
+
+
+<div class="color" style="background-color:#51DACA" title="#51DACA">
+    sidaca
+</div>
+
+
+<div class="color" style="background-color:#515AD0" title="#515AD0">
+    sisado
+</div>
+
+
+<div class="color" style="background-color:#50DADA" title="#50DADA">
+    sodada
+</div>
+
+
+<div class="color" style="background-color:#50F1A5" title="#50F1A5">
+    sofías
+</div>
+
+
+<div class="color" style="background-color:#AAAAAA" title="#AAAAAA">
+    aaaaaa
+</div>
+
+
+<div class="color" style="background-color:#AAAA51" title="#AAAA51">
+    aaaasí
+</div>
+
+
+<div class="color" style="background-color:#ABACAD" title="#ABACAD">
+    abacad
+</div>
+
+
+<div class="color" style="background-color:#ABAC0A" title="#ABAC0A">
+    abacoa
+</div>
+
+
+<div class="color" style="background-color:#ABBEBA" title="#ABBEBA">
+    abbeba
+</div>
+
+
+<div class="color" style="background-color:#ABEBBA" title="#ABEBBA">
+    abebba
+</div>
+
+
+<div class="color" style="background-color:#AB1E60" title="#AB1E60">
+    abiego
+</div>
+
+
+<div class="color" style="background-color:#ACAC10" title="#ACAC10">
+    acácio
+</div>
+
+
+<div class="color" style="background-color:#ACA505" title="#ACA505">
+    acasos
+</div>
+
+
+<div class="color" style="background-color:#ACE1FA" title="#ACE1FA">
+    aceifa
+</div>
+
+
+<div class="color" style="background-color:#AC05E5" title="#AC05E5">
+    acoses
+</div>
+
+
+<div class="color" style="background-color:#ADA61A" title="#ADA61A">
+    adagia
+</div>
+
+
+<div class="color" style="background-color:#ADE6A5" title="#ADE6A5">
+    adegas
+</div>
+
+
+<div class="color" style="background-color:#ADE55E" title="#ADE55E">
+    adesse
+</div>
+
+
+<div class="color" style="background-color:#AD15AC" title="#AD15AC">
+    adisac
+</div>
+
+
+<div class="color" style="background-color:#AD0BA5" title="#AD0BA5">
+    adobas
+</div>
+
+
+<div class="color" style="background-color:#AF1CEB" title="#AF1CEB">
+    aficeb
+</div>
+
+
+<div class="color" style="background-color:#A66666" title="#A66666">
+    aggggg
+</div>
+
+
+<div class="color" style="background-color:#A60605" title="#A60605">
+    agogós
+</div>
+
+
+<div class="color" style="background-color:#A5EBEC" title="#A5EBEC">
+    asebec
+</div>
+
+
+<div class="color" style="background-color:#A51CAD" title="#A51CAD">
+    asicad
+</div>
+
+
+<div class="color" style="background-color:#A55E55" title="#A55E55">
+    assess
+</div>
+
+
+<div class="color" style="background-color:#BABEE5" title="#BABEE5">
+    babees
+</div>
+
+
+<div class="color" style="background-color:#BAB1A5" title="#BAB1A5">
+    babias
+</div>
+
+
+<div class="color" style="background-color:#BACADA" title="#BACADA">
+    bacada
+</div>
+
+
+<div class="color" style="background-color:#BACAFE" title="#BACAFE">
+    bacafe
+</div>
+
+
+<div class="color" style="background-color:#BACC10" title="#BACC10">
+    baccio
+</div>
+
+
+<div class="color" style="background-color:#BAC1A5" title="#BAC1A5">
+    bacías
+</div>
+
+
+<div class="color" style="background-color:#BAD1A5" title="#BAD1A5">
+    badías
+</div>
+
+
+<div class="color" style="background-color:#BA16E5" title="#BA16E5">
+    baigés
+</div>
+
+
+<div class="color" style="background-color:#BA5AC0" title="#BA5AC0">
+    basaco
+</div>
+
+
+<div class="color" style="background-color:#BA55AE" title="#BA55AE">
+    bassae
+</div>
+
+
+<div class="color" style="background-color:#BA55E5" title="#BA55E5">
+    basses
+</div>
+
+
+<div class="color" style="background-color:#BECA5A" title="#BECA5A">
+    becasa
+</div>
+
+
+<div class="color" style="background-color:#BEFAD0" title="#BEFAD0">
+    befado
+</div>
+
+
+<div class="color" style="background-color:#BE6B1E" title="#BE6B1E">
+    begbie
+</div>
+
+
+<div class="color" style="background-color:#BE5A05" title="#BE5A05">
+    besaos
+</div>
+
+
+<div class="color" style="background-color:#B1B1D0" title="#B1B1D0">
+    bibido
+</div>
+
+
+<div class="color" style="background-color:#B1C01D" title="#B1C01D">
+    bicoid
+</div>
+
+
+<div class="color" style="background-color:#B10B10" title="#B10B10">
+    bíobío
+</div>
+
+
+<div class="color" style="background-color:#B15ADA" title="#B15ADA">
+    bisada
+</div>
+
+
+<div class="color" style="background-color:#B15B15" title="#B15B15">
+    bisbis
+</div>
+
+
+<div class="color" style="background-color:#B155A0" title="#B155A0">
+    bissao
+</div>
+
+
+<div class="color" style="background-color:#B0ABAD" title="#B0ABAD">
+    boabad
+</div>
+
+
+<div class="color" style="background-color:#B0BB1E" title="#B0BB1E">
+    bobbie
+</div>
+
+
+<div class="color" style="background-color:#B0B1C0" title="#B0B1C0">
+    bobico
+</div>
+
+
+<div class="color" style="background-color:#B0CAC0" title="#B0CAC0">
+    bocaco
+</div>
+
+
+<div class="color" style="background-color:#B0CC10" title="#B0CC10">
+    boccio
+</div>
+
+
+<div class="color" style="background-color:#B0C105" title="#B0C105">
+    bocios
+</div>
+
+
+<div class="color" style="background-color:#B05CA5" title="#B05CA5">
+    boscas
+</div>
+
+
+<div class="color" style="background-color:#B055E5" title="#B055E5">
+    bosses
+</div>
+
+
+<div class="color" style="background-color:#B05515" title="#B05515">
+    bossis
+</div>
+
+
+<div class="color" style="background-color:#CABAC0" title="#CABAC0">
+    cábaco
+</div>
+
+
+<div class="color" style="background-color:#CABEDA" title="#CABEDA">
+    cabeda
+</div>
+
+
+<div class="color" style="background-color:#CABE5A" title="#CABE5A">
+    cabesa
+</div>
+
+
+<div class="color" style="background-color:#CACE5A" title="#CACE5A">
+    cacesa
+</div>
+
+
+<div class="color" style="background-color:#CAD1CA" title="#CAD1CA">
+    cadica
+</div>
+
+
+<div class="color" style="background-color:#CAD1E5" title="#CAD1E5">
+    cadíes
+</div>
+
+
+<div class="color" style="background-color:#CA1CA1" title="#CA1CA1">
+    caicai
+</div>
+
+
+<div class="color" style="background-color:#CA155E" title="#CA155E">
+    caissé
+</div>
+
+
+<div class="color" style="background-color:#CA5AB0" title="#CA5AB0">
+    casabó
+</div>
+
+
+<div class="color" style="background-color:#CA5C1A" title="#CA5C1A">
+    cascia
+</div>
+
+
+<div class="color" style="background-color:#CA5FEC" title="#CA5FEC">
+    casfec
+</div>
+
+
+<div class="color" style="background-color:#CEBA15" title="#CEBA15">
+    cebáis
+</div>
+
+
+<div class="color" style="background-color:#CEB050" title="#CEB050">
+    ceboso
+</div>
+
+
+<div class="color" style="background-color:#CECADE" title="#CECADE">
+    cecade
+</div>
+
+
+<div class="color" style="background-color:#CEDE6E" title="#CEDE6E">
+    cedege
+</div>
+
+
+<div class="color" style="background-color:#CEDE15" title="#CEDE15">
+    cedéis
+</div>
+
+
+<div class="color" style="background-color:#CED1A5" title="#CED1A5">
+    cedías
+</div>
+
+
+<div class="color" style="background-color:#CE5E15" title="#CE5E15">
+    ceséis
+</div>
+
+
+<div class="color" style="background-color:#CE5510" title="#CE5510">
+    cessio
+</div>
+
+
+<div class="color" style="background-color:#C1CC10" title="#C1CC10">
+    ciccio
+</div>
+
+
+<div class="color" style="background-color:#C1CE5E" title="#C1CE5E">
+    cicese
+</div>
+
+
+<div class="color" style="background-color:#C1EDE6" title="#C1EDE6">
+    ciedeg
+</div>
+
+
+<div class="color" style="background-color:#C0F15A" title="#C0F15A">
+    cofisa
+</div>
+
+
+<div class="color" style="background-color:#C00ACE" title="#C00ACE">
+    cooace
+</div>
+
+
+<div class="color" style="background-color:#C05C10" title="#C05C10">
+    coscio
+</div>
+
+
+<div class="color" style="background-color:#C05505" title="#C05505">
+    cossos
+</div>
+
+
+<div class="color" style="background-color:#DABA15" title="#DABA15">
+    dábais
+</div>
+
+
+<div class="color" style="background-color:#DABA5E" title="#DABA5E">
+    dábase
+</div>
+
+
+<div class="color" style="background-color:#DAFF05" title="#DAFF05">
+    daffos
+</div>
+
+
+<div class="color" style="background-color:#DEE55A" title="#DEE55A">
+    deessa
+</div>
+
+
+<div class="color" style="background-color:#DE5510" title="#DE5510">
+    dessio
+</div>
+
+
+<div class="color" style="background-color:#D1A6E0" title="#D1A6E0">
+    diageo
+</div>
+
+
+<div class="color" style="background-color:#D1C0D1" title="#D1C0D1">
+    dicodi
+</div>
+
+
+<div class="color" style="background-color:#D1D15A" title="#D1D15A">
+    didisa
+</div>
+
+
+<div class="color" style="background-color:#D10DE5" title="#D10DE5">
+    diodes
+</div>
+
+
+<div class="color" style="background-color:#D1055A" title="#D1055A">
+    diossa
+</div>
+
+
+<div class="color" style="background-color:#D00005" title="#D00005">
+    doooos
+</div>
+
+
+<div class="color" style="background-color:#EA551E" title="#EA551E">
+    eassie
+</div>
+
+
+<div class="color" style="background-color:#EC06A5" title="#EC06A5">
+    ecogas
+</div>
+
+
+<div class="color" style="background-color:#EC01C0" title="#EC01C0">
+    ecoico
+</div>
+
+
+<div class="color" style="background-color:#EDD1C0" title="#EDD1C0">
+    éddico
+</div>
+
+
+<div class="color" style="background-color:#EFE51A" title="#EFE51A">
+    efesia
+</div>
+
+
+<div class="color" style="background-color:#EFE510" title="#EFE510">
+    efesio
+</div>
+
+
+<div class="color" style="background-color:#EFE505" title="#EFE505">
+    efesos
+</div>
+
+
+<div class="color" style="background-color:#EFF1C1" title="#EFF1C1">
+    effici
+</div>
+
+
+<div class="color" style="background-color:#EF1555" title="#EF1555">
+    efisss
+</div>
+
+
+<div class="color" style="background-color:#EF0FAC" title="#EF0FAC">
+    efofac
+</div>
+
+
+<div class="color" style="background-color:#E66666" title="#E66666">
+    eggggg
+</div>
+
+
+<div class="color" style="background-color:#E5B0CE" title="#E5B0CE">
+    esboce
+</div>
+
+
+<div class="color" style="background-color:#E5C06E" title="#E5C06E">
+    escogé
+</div>
+
+
+<div class="color" style="background-color:#E5EADE" title="#E5EADE">
+    eseade
+</div>
+
+
+<div class="color" style="background-color:#E55EC1" title="#E55EC1">
+    esseci
+</div>
+
+
+<div class="color" style="background-color:#FACC1A" title="#FACC1A">
+    faccia
+</div>
+
+
+<div class="color" style="background-color:#FECABA" title="#FECABA">
+    fecaba
+</div>
+
+
+<div class="color" style="background-color:#FEDEC0" title="#FEDEC0">
+    fedeco
+</div>
+
+
+<div class="color" style="background-color:#FE5EB5" title="#FE5EB5">
+    fesebs
+</div>
+
+
+<div class="color" style="background-color:#F1ACCA" title="#F1ACCA">
+    fiacca
+</div>
+
+
+<div class="color" style="background-color:#F1A5E5" title="#F1A5E5">
+    fiases
+</div>
+
+
+<div class="color" style="background-color:#F1CC10" title="#F1CC10">
+    ficció
+</div>
+
+
+<div class="color" style="background-color:#F1E1DE" title="#F1E1DE">
+    fieide
+</div>
+
+
+<div class="color" style="background-color:#F16EAC" title="#F16EAC">
+    figeac
+</div>
+
+
+<div class="color" style="background-color:#F15C05" title="#F15C05">
+    fiscos
+</div>
+
+
+<div class="color" style="background-color:#F05AF1" title="#F05AF1">
+    fosafi
+</div>
+
+
+<div class="color" style="background-color:#F055E5" title="#F055E5">
+    fossés
+</div>
+
+
+<div class="color" style="background-color:#6A6A1A" title="#6A6A1A">
+    gagaia
+</div>
+
+
+<div class="color" style="background-color:#6EDE5A" title="#6EDE5A">
+    gedesa
+</div>
+
+
+<div class="color" style="background-color:#61BAD0" title="#61BAD0">
+    gibado
+</div>
+
+
+<div class="color" style="background-color:#60BB05" title="#60BB05">
+    gobbos
+</div>
+
+
+<div class="color" style="background-color:#60EC1A" title="#60EC1A">
+    goecia
+</div>
+
+
+<div class="color" style="background-color:#60F105" title="#60F105">
+    gofios
+</div>
+
+
+<div class="color" style="background-color:#1B1CE5" title="#1B1CE5">
+    íbices
+</div>
+
+
+<div class="color" style="background-color:#10DAD0" title="#10DAD0">
+    iodado
+</div>
+
+
+<div class="color" style="background-color:#15AC10" title="#15AC10">
+    isacio
+</div>
+
+
+<div class="color" style="background-color:#0BAD1A" title="#0BAD1A">
+    obadia
+</div>
+
+
+<div class="color" style="background-color:#0B1CE5" title="#0B1CE5">
+    óbices
+</div>
+
+
+<div class="color" style="background-color:#0D1E15" title="#0D1E15">
+    odiéis
+</div>
+
+
+<div class="color" style="background-color:#0FEC0D" title="#0FEC0D">
+    ofecod
+</div>
+
+
+<div class="color" style="background-color:#0F1CCE" title="#0F1CCE">
+    oficce
+</div>
+
+
+<div class="color" style="background-color:#0F1C1E" title="#0F1C1E">
+    oficié
+</div>
+
+
+<div class="color" style="background-color:#0F1C15" title="#0F1C15">
+    oficis
+</div>
+
+
+<div class="color" style="background-color:#0F1D1A" title="#0F1D1A">
+    ofidia
+</div>
+
+
+<div class="color" style="background-color:#016AAA" title="#016AAA">
+    oigaaa
+</div>
+
+
+<div class="color" style="background-color:#010101" title="#010101">
+    oioioi
+</div>
+
+
+<div class="color" style="background-color:#001DE5" title="#001DE5">
+    ooides
+</div>
+
+
+<div class="color" style="background-color:#000000" title="#000000">
+    oooooo
+</div>
+
+
+<div class="color" style="background-color:#05ABA5" title="#05ABA5">
+    osabas
+</div>
+
+
+<div class="color" style="background-color:#05EA5E" title="#05EA5E">
+    oséase
+</div>
+
+
+<div class="color" style="background-color:#5ABB1A" title="#5ABB1A">
+    sabbia
+</div>
+
+
+<div class="color" style="background-color:#5AB1D0" title="#5AB1D0">
+    sábido
+</div>
+
+
+<div class="color" style="background-color:#5ACA15" title="#5ACA15">
+    sacais
+</div>
+
+
+<div class="color" style="background-color:#5AC1A5" title="#5AC1A5">
+    sacías
+</div>
+
+
+<div class="color" style="background-color:#5AFAFA" title="#5AFAFA">
+    safafa
+</div>
+
+
+<div class="color" style="background-color:#5A6A5A" title="#5A6A5A">
+    sagasa
+</div>
+
+
+<div class="color" style="background-color:#5CA550" title="#5CA550">
+    scasso
+</div>
+
+
+<div class="color" style="background-color:#5EEDED" title="#5EEDED">
+    seeded
+</div>
+
+
+<div class="color" style="background-color:#51BE5A" title="#51BE5A">
+    sibesa
+</div>
+
+
+<div class="color" style="background-color:#516516" title="#516516">
+    sigsig
+</div>
+
+
+<div class="color" style="background-color:#515ABA" title="#515ABA">
+    sisaba
+</div>
+
+
+<div class="color" style="background-color:#50BA05" title="#50BA05">
+    sobaos
+</div>
+
+
+<div class="color" style="background-color:#50CABA" title="#50CABA">
+    socaba
+</div>
+
+
+<div class="color" style="background-color:#50CADE" title="#50CADE">
+    socade
+</div>
+
+
+<div class="color" style="background-color:#50CAD0" title="#50CAD0">
+    socado
+</div>
+
+
+<div class="color" style="background-color:#50D16A" title="#50D16A">
+    sodiga
+</div>
+
+
+<div class="color" style="background-color:#50FF10" title="#50FF10">
+    soffio
+</div>
+
+
+<div class="color" style="background-color:#50F1CA" title="#50F1CA">
+    sofica
+</div>
+
+
+<div class="color" style="background-color:#505ADA" title="#505ADA">
+    sosada
+</div>
+
+
+<div class="color" style="background-color:#AAAAA6" title="#AAAAA6">
+    aaaaag
+</div>
+
+
+<div class="color" style="background-color:#AAA666" title="#AAA666">
+    aaaggg
+</div>
+
+
+<div class="color" style="background-color:#AAD1DE" title="#AAD1DE">
+    aadide
+</div>
+
+
+<div class="color" style="background-color:#ABAB5A" title="#ABAB5A">
+    ababsa
+</div>
+
+
+<div class="color" style="background-color:#ABBA51" title="#ABBA51">
+    abbasi
+</div>
+
+
+<div class="color" style="background-color:#ABDABA" title="#ABDABA">
+    abdaba
+</div>
+
+
+<div class="color" style="background-color:#ABEEFE" title="#ABEEFE">
+    abeefe
+</div>
+
+
+<div class="color" style="background-color:#ABE1DA" title="#ABE1DA">
+    abeidá
+</div>
+
+
+<div class="color" style="background-color:#AB1ABA" title="#AB1ABA">
+    abiaba
+</div>
+
+
+<div class="color" style="background-color:#AB1ADA" title="#AB1ADA">
+    abiada
+</div>
+
+
+<div class="color" style="background-color:#AB1B15" title="#AB1B15">
+    abibis
+</div>
+
+
+<div class="color" style="background-color:#AB1D15" title="#AB1D15">
+    abidis
+</div>
+
+
+<div class="color" style="background-color:#AB15A6" title="#AB15A6">
+    abisag
+</div>
+
+
+<div class="color" style="background-color:#AB15A1" title="#AB15A1">
+    abisaí
+</div>
+
+
+<div class="color" style="background-color:#AB15CA" title="#AB15CA">
+    abisca
+</div>
+
+
+<div class="color" style="background-color:#AB15DE" title="#AB15DE">
+    ábisde
+</div>
+
+
+<div class="color" style="background-color:#ACAEC1" title="#ACAEC1">
+    acaecí
+</div>
+
+
+<div class="color" style="background-color:#ACA1C0" title="#ACA1C0">
+    acaico
+</div>
+
+
+<div class="color" style="background-color:#ACCED1" title="#ACCED1">
+    accedi
+</div>
+
+
+<div class="color" style="background-color:#ACCE05" title="#ACCE05">
+    acceos
+</div>
+
+
+<div class="color" style="background-color:#ACCE50" title="#ACCE50">
+    accesó
+</div>
+
+
+<div class="color" style="background-color:#ACE5C0" title="#ACE5C0">
+    acesco
+</div>
+
+
+<div class="color" style="background-color:#AC1DE5" title="#AC1DE5">
+    acides
+</div>
+
+
+<div class="color" style="background-color:#AC1D1A" title="#AC1D1A">
+    acidía
+</div>
+
+
+<div class="color" style="background-color:#AC0D15" title="#AC0D15">
+    acodis
+</div>
+
+
+<div class="color" style="background-color:#ADA6E5" title="#ADA6E5">
+    adages
+</div>
+
+
+<div class="color" style="background-color:#ADDA1A" title="#ADDA1A">
+    addaia
+</div>
+
+
+<div class="color" style="background-color:#ADD1D1" title="#ADD1D1">
+    addidi
+</div>
+
+
+<div class="color" style="background-color:#ADECEC" title="#ADECEC">
+    adecec
+</div>
+
+
+<div class="color" style="background-color:#ADEFA5" title="#ADEFA5">
+    adefas
+</div>
+
+
+<div class="color" style="background-color:#AD6FAD" title="#AD6FAD">
+    adgfad
+</div>
+
+
+<div class="color" style="background-color:#AD161A" title="#AD161A">
+    adigia
+</div>
+
+
+<div class="color" style="background-color:#AD1605" title="#AD1605">
+    adigos
+</div>
+
+
+<div class="color" style="background-color:#AD05A5" title="#AD05A5">
+    adosas
+</div>
+
+
+<div class="color" style="background-color:#AEE5CA" title="#AEE5CA">
+    aeesca
+</div>
+
+
+<div class="color" style="background-color:#AE61D1" title="#AE61D1">
+    aegidi
+</div>
+
+
+<div class="color" style="background-color:#AFA51A" title="#AFA51A">
+    afasía
+</div>
+
+
+<div class="color" style="background-color:#AFECCA" title="#AFECCA">
+    afecca
+</div>
+
+
+<div class="color" style="background-color:#AF1ADE" title="#AF1ADE">
+    afiade
+</div>
+
+
+<div class="color" style="background-color:#AF1C1A" title="#AF1C1A">
+    aficiá
+</div>
+
+
+<div class="color" style="background-color:#A6AB10" title="#A6AB10">
+    agabio
+</div>
+
+
+<div class="color" style="background-color:#A6A50A" title="#A6A50A">
+    agasoa
+</div>
+
+
+<div class="color" style="background-color:#A6A55E" title="#A6A55E">
+    agasse
+</div>
+
+
+<div class="color" style="background-color:#A5ADE5" title="#A5ADE5">
+    asades
+</div>
+
+
+<div class="color" style="background-color:#A5A601" title="#A5A601">
+    asagoi
+</div>
+
+
+<div class="color" style="background-color:#A5C0F1" title="#A5C0F1">
+    ascofi
+</div>
+
+
+<div class="color" style="background-color:#A5C050" title="#A5C050">
+    ascoso
+</div>
+
+
+<div class="color" style="background-color:#A5FADE" title="#A5FADE">
+    asfade
+</div>
+
+
+<div class="color" style="background-color:#A51D1A" title="#A51D1A">
+    asidia
+</div>
+
+
+<div class="color" style="background-color:#A51E50" title="#A51E50">
+    asieso
+</div>
+
+
+<div class="color" style="background-color:#A50C1A" title="#A50C1A">
+    asocía
+</div>
+
+
+<div class="color" style="background-color:#A50C0A" title="#A50C0A">
+    asocoa
+</div>
+
+
+<div class="color" style="background-color:#A55AAD" title="#A55AAD">
+    assaad
+</div>
+
+
+<div class="color" style="background-color:#A55AD0" title="#A55AD0">
+    assado
+</div>
+
+
+<div class="color" style="background-color:#A55A60" title="#A55A60">
+    assago
+</div>
+
+
+<div class="color" style="background-color:#A55EFA" title="#A55EFA">
+    assefa
+</div>
+
+
+<div class="color" style="background-color:#A551FA" title="#A551FA">
+    assifa
+</div>
+
+
+<div class="color" style="background-color:#BABABA" title="#BABABA">
+    bababa
+</div>
+
+
+<div class="color" style="background-color:#BABAC0" title="#BABAC0">
+    babaco
+</div>
+
+
+<div class="color" style="background-color:#BABAC0" title="#BABAC0">
+    bábaco
+</div>
+
+
+<div class="color" style="background-color:#BABA5A" title="#BABA5A">
+    babasa
+</div>
+
+
+<div class="color" style="background-color:#BABE15" title="#BABE15">
+    babeis
+</div>
+
+
+<div class="color" style="background-color:#BABE05" title="#BABE05">
+    babeos
+</div>
+
+
+<div class="color" style="background-color:#BAE55A" title="#BAE55A">
+    baessa
+</div>
+
+
+<div class="color" style="background-color:#BA6A5A" title="#BA6A5A">
+    bagasa
+</div>
+
+
+<div class="color" style="background-color:#BA1B05" title="#BA1B05">
+    baibos
+</div>
+
+
+<div class="color" style="background-color:#BA1DE5" title="#BA1DE5">
+    baides
+</div>
+
+
+<div class="color" style="background-color:#BA155A" title="#BA155A">
+    baissa
+</div>
+
+
+<div class="color" style="background-color:#BA5ABE" title="#BA5ABE">
+    basabé
+</div>
+
+
+<div class="color" style="background-color:#BA5A15" title="#BA5A15">
+    basáis
+</div>
+
+
+<div class="color" style="background-color:#BA5BA5" title="#BA5BA5">
+    basbas
+</div>
+
+
+<div class="color" style="background-color:#BA5C1A" title="#BA5C1A">
+    bascia
+</div>
+
+
+<div class="color" style="background-color:#BA5C05" title="#BA5C05">
+    bascos
+</div>
+
+
+<div class="color" style="background-color:#BA5E5E" title="#BA5E5E">
+    básese
+</div>
+
+
+<div class="color" style="background-color:#BA51DA" title="#BA51DA">
+    basida
+</div>
+
+
+<div class="color" style="background-color:#BA50C0" title="#BA50C0">
+    basoco
+</div>
+
+
+<div class="color" style="background-color:#BEA61E" title="#BEA61E">
+    beagie
+</div>
+
+
+<div class="color" style="background-color:#BEBAD0" title="#BEBAD0">
+    bebado
+</div>
+
+
+<div class="color" style="background-color:#BECAA5" title="#BECAA5">
+    becaas
+</div>
+
+
+<div class="color" style="background-color:#BEDD0E" title="#BEDD0E">
+    beddoe
+</div>
+
+
+<div class="color" style="background-color:#BE61CA" title="#BE61CA">
+    bégica
+</div>
+
+
+<div class="color" style="background-color:#BE15E5" title="#BE15E5">
+    beises
+</div>
+
+
+<div class="color" style="background-color:#BE0C10" title="#BE0C10">
+    beocio
+</div>
+
+
+<div class="color" style="background-color:#BE0DA5" title="#BE0DA5">
+    beodas
+</div>
+
+
+<div class="color" style="background-color:#BE5A15" title="#BE5A15">
+    besáis
+</div>
+
+
+<div class="color" style="background-color:#BE51DE" title="#BE51DE">
+    beside
+</div>
+
+
+<div class="color" style="background-color:#BE505A" title="#BE505A">
+    besosa
+</div>
+
+
+<div class="color" style="background-color:#BE55E5" title="#BE55E5">
+    besses
+</div>
+
+
+<div class="color" style="background-color:#BE5515" title="#BE5515">
+    bessis
+</div>
+
+
+<div class="color" style="background-color:#BE5505" title="#BE5505">
+    bessos
+</div>
+
+
+<div class="color" style="background-color:#BE5505" title="#BE5505">
+    bessós
+</div>
+
+
+<div class="color" style="background-color:#B1A6E5" title="#B1A6E5">
+    biages
+</div>
+
+
+<div class="color" style="background-color:#B1A55E" title="#B1A55E">
+    biasse
+</div>
+
+
+<div class="color" style="background-color:#B1B1B1" title="#B1B1B1">
+    bibibi
+</div>
+
+
+<div class="color" style="background-color:#B1B051" title="#B1B051">
+    bibosi
+</div>
+
+
+<div class="color" style="background-color:#B1EDE5" title="#B1EDE5">
+    biedes
+</div>
+
+
+<div class="color" style="background-color:#B1FF15" title="#B1FF15">
+    biffis
+</div>
+
+
+<div class="color" style="background-color:#B1050C" title="#B1050C">
+    biosoc
+</div>
+
+
+<div class="color" style="background-color:#B15A5E" title="#B15A5E">
+    bisase
+</div>
+
+
+<div class="color" style="background-color:#B15C1A" title="#B15C1A">
+    biscia
+</div>
+
+
+<div class="color" style="background-color:#B15C0E" title="#B15C0E">
+    biscoe
+</div>
+
+
+<div class="color" style="background-color:#B15C05" title="#B15C05">
+    biscos
+</div>
+
+
+<div class="color" style="background-color:#B1551E" title="#B1551E">
+    bissié
+</div>
+
+
+<div class="color" style="background-color:#B15510" title="#B15510">
+    bissio
+</div>
+
+
+<div class="color" style="background-color:#B0AC05" title="#B0AC05">
+    boacos
+</div>
+
+
+<div class="color" style="background-color:#B0BB10" title="#B0BB10">
+    bobbió
+</div>
+
+
+<div class="color" style="background-color:#B0BE6A" title="#B0BE6A">
+    bóbega
+</div>
+
+
+<div class="color" style="background-color:#B0B1CA" title="#B0B1CA">
+    bobica
+</div>
+
+
+<div class="color" style="background-color:#B0CADA" title="#B0CADA">
+    bocada
+</div>
+
+
+<div class="color" style="background-color:#B0CA1B" title="#B0CA1B">
+    bocaib
+</div>
+
+
+<div class="color" style="background-color:#B0CA51" title="#B0CA51">
+    bocasí
+</div>
+
+
+<div class="color" style="background-color:#B0C1C0" title="#B0C1C0">
+    bocico
+</div>
+
+
+<div class="color" style="background-color:#B0DE5A" title="#B0DE5A">
+    bodesa
+</div>
+
+
+<div class="color" style="background-color:#B0EC1A" title="#B0EC1A">
+    boecia
+</div>
+
+
+<div class="color" style="background-color:#B06DA6" title="#B06DA6">
+    bogdag
+</div>
+
+
+<div class="color" style="background-color:#B0661A" title="#B0661A">
+    boggia
+</div>
+
+
+<div class="color" style="background-color:#B01ADA" title="#B01ADA">
+    boiada
+</div>
+
+
+<div class="color" style="background-color:#B01CAC" title="#B01CAC">
+    boicac
+</div>
+
+
+<div class="color" style="background-color:#B01D05" title="#B01D05">
+    boidos
+</div>
+
+
+<div class="color" style="background-color:#B01505" title="#B01505">
+    boisos
+</div>
+
+
+<div class="color" style="background-color:#B01550" title="#B01550">
+    boisso
+</div>
+
+
+<div class="color" style="background-color:#B00D00" title="#B00D00">
+    boodoo
+</div>
+
+
+<div class="color" style="background-color:#B055A5" title="#B055A5">
+    bossas
+</div>
+
+
+<div class="color" style="background-color:#CAADE5" title="#CAADE5">
+    caades
+</div>
+
+
+<div class="color" style="background-color:#CABDA5" title="#CABDA5">
+    cabdas
+</div>
+
+
+<div class="color" style="background-color:#CABE6A" title="#CABE6A">
+    cabega
+</div>
+
+
+<div class="color" style="background-color:#CABE60" title="#CABE60">
+    cabego
+</div>
+
+
+<div class="color" style="background-color:#CAB0C0" title="#CAB0C0">
+    caboco
+</div>
+
+
+<div class="color" style="background-color:#CAB00B" title="#CAB00B">
+    caboob
+</div>
+
+
+<div class="color" style="background-color:#CAB005" title="#CAB005">
+    caboos
+</div>
+
+
+<div class="color" style="background-color:#CACAC0" title="#CACAC0">
+    cacaco
+</div>
+
+
+<div class="color" style="background-color:#CACED0" title="#CACED0">
+    cacedo
+</div>
+
+
+<div class="color" style="background-color:#CAC050" title="#CAC050">
+    cacoso
+</div>
+
+
+<div class="color" style="background-color:#CADA10" title="#CADA10">
+    cadaio
+</div>
+
+
+<div class="color" style="background-color:#CAD1AC" title="#CAD1AC">
+    cadiac
+</div>
+
+
+<div class="color" style="background-color:#CAD0C5" title="#CAD0C5">
+    cadocs
+</div>
+
+
+<div class="color" style="background-color:#CAE51A" title="#CAE51A">
+    caesia
+</div>
+
+
+<div class="color" style="background-color:#CAFEE5" title="#CAFEE5">
+    cafées
+</div>
+
+
+<div class="color" style="background-color:#CAF15A" title="#CAF15A">
+    cafisa
+</div>
+
+
+<div class="color" style="background-color:#CA61A0" title="#CA61A0">
+    cagiao
+</div>
+
+
+<div class="color" style="background-color:#CA61DE" title="#CA61DE">
+    cagide
+</div>
+
+
+<div class="color" style="background-color:#CA1CE0" title="#CA1CE0">
+    caiceo
+</div>
+
+
+<div class="color" style="background-color:#CA1FFA" title="#CA1FFA">
+    caiffa
+</div>
+
+
+<div class="color" style="background-color:#CA15E5" title="#CA15E5">
+    caises
+</div>
+
+
+<div class="color" style="background-color:#CA15E5" title="#CA15E5">
+    caisés
+</div>
+
+
+<div class="color" style="background-color:#CA155A" title="#CA155A">
+    caissa
+</div>
+
+
+<div class="color" style="background-color:#CA5AAA" title="#CA5AAA">
+    casaaa
+</div>
+
+
+<div class="color" style="background-color:#CA5ABE" title="#CA5ABE">
+    casabé
+</div>
+
+
+<div class="color" style="background-color:#CA5AB1" title="#CA5AB1">
+    casabí
+</div>
+
+
+<div class="color" style="background-color:#CA5AC0" title="#CA5AC0">
+    casaco
+</div>
+
+
+<div class="color" style="background-color:#CA5ADE" title="#CA5ADE">
+    casade
+</div>
+
+
+<div class="color" style="background-color:#CA5AFE" title="#CA5AFE">
+    casafe
+</div>
+
+
+<div class="color" style="background-color:#CA5A5A" title="#CA5A5A">
+    casasa
+</div>
+
+
+<div class="color" style="background-color:#CA5CA0" title="#CA5CA0">
+    cascao
+</div>
+
+
+<div class="color" style="background-color:#CA5EA5" title="#CA5EA5">
+    caseas
+</div>
+
+
+<div class="color" style="background-color:#CA5EDA" title="#CA5EDA">
+    caseda
+</div>
+
+
+<div class="color" style="background-color:#CA5E5A" title="#CA5E5A">
+    casesa
+</div>
+
+
+<div class="color" style="background-color:#CA51DA" title="#CA51DA">
+    casida
+</div>
+
+
+<div class="color" style="background-color:#CA5000" title="#CA5000">
+    casooo
+</div>
+
+
+<div class="color" style="background-color:#CA55AB" title="#CA55AB">
+    cassab
+</div>
+
+
+<div class="color" style="background-color:#CA55E5" title="#CA55E5">
+    cassés
+</div>
+
+
+<div class="color" style="background-color:#CA551A" title="#CA551A">
+    cassiá
+</div>
+
+
+<div class="color" style="background-color:#CA5510" title="#CA5510">
+    cássio
+</div>
+
+
+<div class="color" style="background-color:#CA5515" title="#CA5515">
+    cassís
+</div>
+
+
+<div class="color" style="background-color:#CCFFAA" title="#CCFFAA">
+    ccffaa
+</div>
+
+
+<div class="color" style="background-color:#CEBA5E" title="#CEBA5E">
+    cebase
+</div>
+
+
+<div class="color" style="background-color:#CEB1AE" title="#CEB1AE">
+    cebiae
+</div>
+
+
+<div class="color" style="background-color:#CEB05E" title="#CEB05E">
+    cebóse
+</div>
+
+
+<div class="color" style="background-color:#CEB05E" title="#CEB05E">
+    cébose
+</div>
+
+
+<div class="color" style="background-color:#CECE05" title="#CECE05">
+    ceceos
+</div>
+
+
+<div class="color" style="background-color:#CEC1A5" title="#CEC1A5">
+    cecías
+</div>
+
+
+<div class="color" style="background-color:#CEC1C0" title="#CEC1C0">
+    cecico
+</div>
+
+
+<div class="color" style="background-color:#CEDAA1" title="#CEDAA1">
+    cedaai
+</div>
+
+
+<div class="color" style="background-color:#CEDA15" title="#CEDA15">
+    cedáis
+</div>
+
+
+<div class="color" style="background-color:#CEDE5A" title="#CEDE5A">
+    cedesa
+</div>
+
+
+<div class="color" style="background-color:#CEDE5E" title="#CEDE5E">
+    cedese
+</div>
+
+
+<div class="color" style="background-color:#CEFAE5" title="#CEFAE5">
+    cefaes
+</div>
+
+
+<div class="color" style="background-color:#CEFE1D" title="#CEFE1D">
+    cefeid
+</div>
+
+
+<div class="color" style="background-color:#CEF15A" title="#CEF15A">
+    cefisa
+</div>
+
+
+<div class="color" style="background-color:#CE1D05" title="#CE1D05">
+    ceidos
+</div>
+
+
+<div class="color" style="background-color:#CE51A5" title="#CE51A5">
+    cesias
+</div>
+
+
+<div class="color" style="background-color:#C1ACC1" title="#C1ACC1">
+    ciacci
+</div>
+
+
+<div class="color" style="background-color:#C1ACC0" title="#C1ACC0">
+    ciacco
+</div>
+
+
+<div class="color" style="background-color:#C1AC1A" title="#C1AC1A">
+    ciacia
+</div>
+
+
+<div class="color" style="background-color:#C1AD05" title="#C1AD05">
+    ciados
+</div>
+
+
+<div class="color" style="background-color:#C1AF1C" title="#C1AF1C">
+    ciafic
+</div>
+
+
+<div class="color" style="background-color:#C1CADA" title="#C1CADA">
+    cicada
+</div>
+
+
+<div class="color" style="background-color:#C1CA15" title="#C1CA15">
+    cicais
+</div>
+
+
+<div class="color" style="background-color:#C1CC5A" title="#C1CC5A">
+    ciccsa
+</div>
+
+
+<div class="color" style="background-color:#C1C0DE" title="#C1C0DE">
+    cicode
+</div>
+
+
+<div class="color" style="background-color:#C1F1C0" title="#C1F1C0">
+    cífico
+</div>
+
+
+<div class="color" style="background-color:#C11C5A" title="#C11C5A">
+    ciicsa
+</div>
+
+
+<div class="color" style="background-color:#C0BA5A" title="#C0BA5A">
+    cobasa
+</div>
+
+
+<div class="color" style="background-color:#C0B051" title="#C0B051">
+    cobosi
+</div>
+
+
+<div class="color" style="background-color:#C0C1C0" title="#C0C1C0">
+    cocico
+</div>
+
+
+<div class="color" style="background-color:#C0C105" title="#C0C105">
+    cocíos
+</div>
+
+
+<div class="color" style="background-color:#C0DEA5" title="#C0DEA5">
+    codeas
+</div>
+
+
+<div class="color" style="background-color:#C0DE5E" title="#C0DE5E">
+    codese
+</div>
+
+
+<div class="color" style="background-color:#C0D1CE" title="#C0D1CE">
+    codice
+</div>
+
+
+<div class="color" style="background-color:#C0D1C0" title="#C0D1C0">
+    códico
+</div>
+
+
+<div class="color" style="background-color:#C0D050" title="#C0D050">
+    codoso
+</div>
+
+
+<div class="color" style="background-color:#C0FEC0" title="#C0FEC0">
+    cofeco
+</div>
+
+
+<div class="color" style="background-color:#C0FFE5" title="#C0FFE5">
+    coffes
+</div>
+
+
+<div class="color" style="background-color:#C0F105" title="#C0F105">
+    cofios
+</div>
+
+
+<div class="color" style="background-color:#C06E5E" title="#C06E5E">
+    cógese
+</div>
+
+
+<div class="color" style="background-color:#C061D0" title="#C061D0">
+    cógido
+</div>
+
+
+<div class="color" style="background-color:#C06160" title="#C06160">
+    cógigo
+</div>
+
+
+<div class="color" style="background-color:#C006EE" title="#C006EE">
+    coogee
+</div>
+
+
+<div class="color" style="background-color:#C05C15" title="#C05C15">
+    coscis
+</div>
+
+
+<div class="color" style="background-color:#C05E15" title="#C05E15">
+    coséis
+</div>
+
+
+<div class="color" style="background-color:#C05E5A" title="#C05E5A">
+    cosesa
+</div>
+
+
+<div class="color" style="background-color:#C051A5" title="#C051A5">
+    cosías
+</div>
+
+
+<div class="color" style="background-color:#C051CA" title="#C051CA">
+    cosica
+</div>
+
+
+<div class="color" style="background-color:#C051C0" title="#C051C0">
+    cósico
+</div>
+
+
+<div class="color" style="background-color:#C0516A" title="#C0516A">
+    cosiga
+</div>
+
+
+<div class="color" style="background-color:#C05510" title="#C05510">
+    cossió
+</div>
+
+
+<div class="color" style="background-color:#DABA15" title="#DABA15">
+    dabáis
+</div>
+
+
+<div class="color" style="background-color:#DADABA" title="#DADABA">
+    dadaba
+</div>
+
+
+<div class="color" style="background-color:#DADEC0" title="#DADEC0">
+    dadeco
+</div>
+
+
+<div class="color" style="background-color:#DAD05E" title="#DAD05E">
+    dádose
+</div>
+
+
+<div class="color" style="background-color:#DA6E5A" title="#DA6E5A">
+    dagesa
+</div>
+
+
+<div class="color" style="background-color:#DA6015" title="#DA6015">
+    dagois
+</div>
+
+
+<div class="color" style="background-color:#DA1510" title="#DA1510">
+    daisio
+</div>
+
+
+<div class="color" style="background-color:#DD0055" title="#DD0055">
+    ddooss
+</div>
+
+
+<div class="color" style="background-color:#DEA5DE" title="#DEA5DE">
+    deasde
+</div>
+
+
+<div class="color" style="background-color:#DEBA15" title="#DEBA15">
+    debáis
+</div>
+
+
+<div class="color" style="background-color:#DEBA5E" title="#DEBA5E">
+    débase
+</div>
+
+
+<div class="color" style="background-color:#DEBDA5" title="#DEBDA5">
+    debdas
+</div>
+
+
+<div class="color" style="background-color:#DEBD05" title="#DEBD05">
+    debdos
+</div>
+
+
+<div class="color" style="background-color:#DEBEDE" title="#DEBEDE">
+    debede
+</div>
+
+
+<div class="color" style="background-color:#DEB1CA" title="#DEB1CA">
+    debica
+</div>
+
+
+<div class="color" style="background-color:#DEB015" title="#DEB015">
+    debois
+</div>
+
+
+<div class="color" style="background-color:#DECAD1" title="#DECAD1">
+    décadi
+</div>
+
+
+<div class="color" style="background-color:#DECAE5" title="#DECAE5">
+    decaes
+</div>
+
+
+<div class="color" style="background-color:#DEC1C1" title="#DEC1C1">
+    decicí
+</div>
+
+
+<div class="color" style="background-color:#DEC1DE" title="#DEC1DE">
+    décidé
+</div>
+
+
+<div class="color" style="background-color:#DEC1E5" title="#DEC1E5">
+    decies
+</div>
+
+
+<div class="color" style="background-color:#DEC11A" title="#DEC11A">
+    deciía
+</div>
+
+
+<div class="color" style="background-color:#DEC105" title="#DEC105">
+    decios
+</div>
+
+
+<div class="color" style="background-color:#DEC05A" title="#DEC05A">
+    decosa
+</div>
+
+
+<div class="color" style="background-color:#DEE515" title="#DEE515">
+    déesis
+</div>
+
+
+<div class="color" style="background-color:#DE1B15" title="#DE1B15">
+    deibis
+</div>
+
+
+<div class="color" style="background-color:#DE1510" title="#DE1510">
+    deisio
+</div>
+
+
+<div class="color" style="background-color:#DE05E5" title="#DE05E5">
+    deoses
+</div>
+
+
+<div class="color" style="background-color:#DE5AD0" title="#DE5AD0">
+    desado
+</div>
+
+
+<div class="color" style="background-color:#DE5C05" title="#DE5C05">
+    descós
+</div>
+
+
+<div class="color" style="background-color:#DE5E05" title="#DE5E05">
+    deseós
+</div>
+
+
+<div class="color" style="background-color:#DE5F15" title="#DE5F15">
+    desfis
+</div>
+
+
+<div class="color" style="background-color:#DE505E" title="#DE505E">
+    desosé
+</div>
+
+
+<div class="color" style="background-color:#DE55A1" title="#DE55A1">
+    dessai
+</div>
+
+
+<div class="color" style="background-color:#DE55A5" title="#DE55A5">
+    dessas
+</div>
+
+
+<div class="color" style="background-color:#DE55EA" title="#DE55EA">
+    dessea
+</div>
+
+
+<div class="color" style="background-color:#DE55E0" title="#DE55E0">
+    desseo
+</div>
+
+
+<div class="color" style="background-color:#DE5505" title="#DE5505">
+    dessos
+</div>
+
+
+<div class="color" style="background-color:#D1ADA5" title="#D1ADA5">
+    díadas
+</div>
+
+
+<div class="color" style="background-color:#D1CAB1" title="#D1CAB1">
+    dicabi
+</div>
+
+
+<div class="color" style="background-color:#D1CC10" title="#D1CC10">
+    diccio
+</div>
+
+
+<div class="color" style="background-color:#D1CC10" title="#D1CC10">
+    dicció
+</div>
+
+
+<div class="color" style="background-color:#D1DAC0" title="#D1DAC0">
+    didaco
+</div>
+
+
+<div class="color" style="background-color:#D1FE5A" title="#D1FE5A">
+    difesa
+</div>
+
+
+<div class="color" style="background-color:#D16AAA" title="#D16AAA">
+    digaaa
+</div>
+
+
+<div class="color" style="background-color:#D16A15" title="#D16A15">
+    digais
+</div>
+
+
+<div class="color" style="background-color:#D16E5A" title="#D16E5A">
+    digesa
+</div>
+
+
+<div class="color" style="background-color:#D16666" title="#D16666">
+    digggg
+</div>
+
+
+<div class="color" style="background-color:#D16005" title="#D16005">
+    digoos
+</div>
+
+
+<div class="color" style="background-color:#D101C0" title="#D101C0">
+    dioico
+</div>
+
+
+<div class="color" style="background-color:#D10005" title="#D10005">
+    diooos
+</div>
+
+
+<div class="color" style="background-color:#D10505" title="#D10505">
+    diosos
+</div>
+
+
+<div class="color" style="background-color:#D0B1A5" title="#D0B1A5">
+    dobias
+</div>
+
+
+<div class="color" style="background-color:#D0B015" title="#D0B015">
+    dobois
+</div>
+
+
+<div class="color" style="background-color:#D0CEB0" title="#D0CEB0">
+    docebo
+</div>
+
+
+<div class="color" style="background-color:#D0DECA" title="#D0DECA">
+    dodeca
+</div>
+
+
+<div class="color" style="background-color:#D0D6E5" title="#D0D6E5">
+    dodges
+</div>
+
+
+<div class="color" style="background-color:#D066A1" title="#D066A1">
+    doggai
+</div>
+
+
+<div class="color" style="background-color:#D01C05" title="#D01C05">
+    doicos
+</div>
+
+
+<div class="color" style="background-color:#D00B1E" title="#D00B1E">
+    doobie
+</div>
+
+
+<div class="color" style="background-color:#D05AD0" title="#D05AD0">
+    dosado
+</div>
+
+
+<div class="color" style="background-color:#D051C0" title="#D051C0">
+    dosico
+</div>
+
+
+<div class="color" style="background-color:#EAAAAA" title="#EAAAAA">
+    eaaaaa
+</div>
+
+
+<div class="color" style="background-color:#EAEAEA" title="#EAEAEA">
+    eaeaea
+</div>
+
+
+<div class="color" style="background-color:#EBCD1D" title="#EBCD1D">
+    ebcdid
+</div>
+
+
+<div class="color" style="background-color:#ECAADE" title="#ECAADE">
+    ecaade
+</div>
+
+
+<div class="color" style="background-color:#EC0BA5" title="#EC0BA5">
+    ecobas
+</div>
+
+
+<div class="color" style="background-color:#EDEA60" title="#EDEA60">
+    edeago
+</div>
+
+
+<div class="color" style="background-color:#ED1610" title="#ED1610">
+    edigio
+</div>
+
+
+<div class="color" style="background-color:#EEEEEA" title="#EEEEEA">
+    eeeeea
+</div>
+
+
+<div class="color" style="background-color:#EEEEEE" title="#EEEEEE">
+    eeeeee
+</div>
+
+
+<div class="color" style="background-color:#EEE000" title="#EEE000">
+    eeeooo
+</div>
+
+
+<div class="color" style="background-color:#EFEBA5" title="#EFEBA5">
+    efebas
+</div>
+
+
+<div class="color" style="background-color:#EFFEC5" title="#EFFEC5">
+    effecs
+</div>
+
+
+<div class="color" style="background-color:#EF1510" title="#EF1510">
+    efisio
+</div>
+
+
+<div class="color" style="background-color:#E6E55A" title="#E6E55A">
+    egessa
+</div>
+
+
+<div class="color" style="background-color:#E61CA5" title="#E61CA5">
+    égicas
+</div>
+
+
+<div class="color" style="background-color:#E1C05A" title="#E1C05A">
+    eicosa
+</div>
+
+
+<div class="color" style="background-color:#E1FE60" title="#E1FE60">
+    eifego
+</div>
+
+
+<div class="color" style="background-color:#E5B05A" title="#E5B05A">
+    esbosa
+</div>
+
+
+<div class="color" style="background-color:#E5CABA" title="#E5CABA">
+    escaba
+</div>
+
+
+<div class="color" style="background-color:#E5CAC5" title="#E5CAC5">
+    escacs
+</div>
+
+
+<div class="color" style="background-color:#E5CA05" title="#E5CA05">
+    escaos
+</div>
+
+
+<div class="color" style="background-color:#E5CA51" title="#E5CA51">
+    escasi
+</div>
+
+
+<div class="color" style="background-color:#E5CEDA" title="#E5CEDA">
+    esceda
+</div>
+
+
+<div class="color" style="background-color:#E5CE50" title="#E5CE50">
+    esceso
+</div>
+
+
+<div class="color" style="background-color:#E5ED05" title="#E5ED05">
+    esedos
+</div>
+
+
+<div class="color" style="background-color:#E51610" title="#E51610">
+    esigió
+</div>
+
+
+<div class="color" style="background-color:#E50000" title="#E50000">
+    esoooo
+</div>
+
+
+<div class="color" style="background-color:#E551DA" title="#E551DA">
+    essida
+</div>
+
+
+<div class="color" style="background-color:#FACAAD" title="#FACAAD">
+    facaad
+</div>
+
+
+<div class="color" style="background-color:#FACEA5" title="#FACEA5">
+    faceas
+</div>
+
+
+<div class="color" style="background-color:#FADEC0" title="#FADEC0">
+    fadeco
+</div>
+
+
+<div class="color" style="background-color:#FAECE5" title="#FAECE5">
+    faeces
+</div>
+
+
+<div class="color" style="background-color:#FAE55A" title="#FAE55A">
+    faessa
+</div>
+
+
+<div class="color" style="background-color:#FA1ADA" title="#FA1ADA">
+    faiada
+</div>
+
+
+<div class="color" style="background-color:#FA155A" title="#FA155A">
+    faissa
+</div>
+
+
+<div class="color" style="background-color:#FA0A6A" title="#FA0A6A">
+    faoaga
+</div>
+
+
+<div class="color" style="background-color:#FA51A5" title="#FA51A5">
+    fasias
+</div>
+
+
+<div class="color" style="background-color:#FA5510" title="#FA5510">
+    fassio
+</div>
+
+
+<div class="color" style="background-color:#FECA15" title="#FECA15">
+    fecais
+</div>
+
+
+<div class="color" style="background-color:#FEC0C1" title="#FEC0C1">
+    fecoci
+</div>
+
+
+<div class="color" style="background-color:#FEDACE" title="#FEDACE">
+    fedace
+</div>
+
+
+<div class="color" style="background-color:#FEDD1E" title="#FEDD1E">
+    feddie
+</div>
+
+
+<div class="color" style="background-color:#FED0C1" title="#FED0C1">
+    fedoci
+</div>
+
+
+<div class="color" style="background-color:#FE1BA1" title="#FE1BA1">
+    feibai
+</div>
+
+
+<div class="color" style="background-color:#FE5CE5" title="#FE5CE5">
+    fesces
+</div>
+
+
+<div class="color" style="background-color:#FE50F1" title="#FE50F1">
+    fesofi
+</div>
+
+
+<div class="color" style="background-color:#FE55E5" title="#FE55E5">
+    fesses
+</div>
+
+
+<div class="color" style="background-color:#FE5505" title="#FE5505">
+    fessos
+</div>
+
+
+<div class="color" style="background-color:#FFFFFF" title="#FFFFFF">
+    ffffff
+</div>
+
+
+<div class="color" style="background-color:#F1AC50" title="#F1AC50">
+    fiacso
+</div>
+
+
+<div class="color" style="background-color:#F1BB1E" title="#F1BB1E">
+    fibbie
+</div>
+
+
+<div class="color" style="background-color:#F1CCAB" title="#F1CCAB">
+    ficcab
+</div>
+
+
+<div class="color" style="background-color:#F1DA15" title="#F1DA15">
+    fidais
+</div>
+
+
+<div class="color" style="background-color:#F1DDE5" title="#F1DDE5">
+    fiddes
+</div>
+
+
+<div class="color" style="background-color:#F1DECA" title="#F1DECA">
+    fideca
+</div>
+
+
+<div class="color" style="background-color:#F1FEFE" title="#F1FEFE">
+    fifefe
+</div>
+
+
+<div class="color" style="background-color:#F1F1E5" title="#F1F1E5">
+    fifíes
+</div>
+
+
+<div class="color" style="background-color:#F16AD0" title="#F16AD0">
+    fígado
+</div>
+
+
+<div class="color" style="background-color:#F1661E" title="#F1661E">
+    figgie
+</div>
+
+
+<div class="color" style="background-color:#F11E5E" title="#F11E5E">
+    fíiese
+</div>
+
+
+<div class="color" style="background-color:#F10CC0" title="#F10CC0">
+    fiocco
+</div>
+
+
+<div class="color" style="background-color:#F15CA1" title="#F15CA1">
+    fiscai
+</div>
+
+
+<div class="color" style="background-color:#F15EC0" title="#F15EC0">
+    fiseco
+</div>
+
+
+<div class="color" style="background-color:#F1561A" title="#F1561A">
+    fisgia
+</div>
+
+
+<div class="color" style="background-color:#F0BE5A" title="#F0BE5A">
+    fobesa
+</div>
+
+
+<div class="color" style="background-color:#F0C1DA" title="#F0C1DA">
+    fócida
+</div>
+
+
+<div class="color" style="background-color:#F06ABA" title="#F06ABA">
+    fogaba
+</div>
+
+
+<div class="color" style="background-color:#F01DE5" title="#F01DE5">
+    foides
+</div>
+
+
+<div class="color" style="background-color:#F05AD0" title="#F05AD0">
+    fosado
+</div>
+
+
+<div class="color" style="background-color:#F05CAE" title="#F05CAE">
+    foscae
+</div>
+
+
+<div class="color" style="background-color:#F05CA0" title="#F05CA0">
+    foscao
+</div>
+
+
+<div class="color" style="background-color:#F05CA5" title="#F05CA5">
+    foscas
+</div>
+
+
+<div class="color" style="background-color:#6AB1A5" title="#6AB1A5">
+    gabias
+</div>
+
+
+<div class="color" style="background-color:#6AB1CA" title="#6AB1CA">
+    gabica
+</div>
+
+
+<div class="color" style="background-color:#6AB15A" title="#6AB15A">
+    gabisa
+</div>
+
+
+<div class="color" style="background-color:#6AB15E" title="#6AB15E">
+    gabise
+</div>
+
+
+<div class="color" style="background-color:#6AB050" title="#6AB050">
+    gaboso
+</div>
+
+
+<div class="color" style="background-color:#6ACEB0" title="#6ACEB0">
+    gacebo
+</div>
+
+
+<div class="color" style="background-color:#6ADABA" title="#6ADABA">
+    gadaba
+</div>
+
+
+<div class="color" style="background-color:#6ADAF1" title="#6ADAF1">
+    gadafí
+</div>
+
+
+<div class="color" style="background-color:#6ADA51" title="#6ADA51">
+    gadasi
+</div>
+
+
+<div class="color" style="background-color:#6ADDA5" title="#6ADDA5">
+    gaddas
+</div>
+
+
+<div class="color" style="background-color:#6ADDF1" title="#6ADDF1">
+    gaddfi
+</div>
+
+
+<div class="color" style="background-color:#6AFFA5" title="#6AFFA5">
+    gaffas
+</div>
+
+
+<div class="color" style="background-color:#6AF1AF" title="#6AF1AF">
+    gafiaf
+</div>
+
+
+<div class="color" style="background-color:#6A661A" title="#6A661A">
+    gaggia
+</div>
+
+
+<div class="color" style="background-color:#6A1050" title="#6A1050">
+    gaioso
+</div>
+
+
+<div class="color" style="background-color:#6A5C05" title="#6A5C05">
+    gascos
+</div>
+
+
+<div class="color" style="background-color:#6A51A5" title="#6A51A5">
+    gasias
+</div>
+
+
+<div class="color" style="background-color:#6A50FA" title="#6A50FA">
+    gasofa
+</div>
+
+
+<div class="color" style="background-color:#6A55ED" title="#6A55ED">
+    gassed
+</div>
+
+
+<div class="color" style="background-color:#6A55EE" title="#6A55EE">
+    gassée
+</div>
+
+
+<div class="color" style="background-color:#6A551A" title="#6A551A">
+    gassia
+</div>
+
+
+<div class="color" style="background-color:#6EDE55" title="#6EDE55">
+    gedess
+</div>
+
+
+<div class="color" style="background-color:#6E06A5" title="#6E06A5">
+    geogas
+</div>
+
+
+<div class="color" style="background-color:#6E06E5" title="#6E06E5">
+    geoges
+</div>
+
+
+<div class="color" style="background-color:#6E506A" title="#6E506A">
+    gesoga
+</div>
+
+
+<div class="color" style="background-color:#61AD05" title="#61AD05">
+    giados
+</div>
+
+
+<div class="color" style="background-color:#61A610" title="#61A610">
+    giagio
+</div>
+
+
+<div class="color" style="background-color:#61CAC0" title="#61CAC0">
+    gicaco
+</div>
+
+
+<div class="color" style="background-color:#610BBE" title="#610BBE">
+    giobbe
+</div>
+
+
+<div class="color" style="background-color:#610BB1" title="#610BB1">
+    giobbi
+</div>
+
+
+<div class="color" style="background-color:#610CC1" title="#610CC1">
+    giocci
+</div>
+
+
+<div class="color" style="background-color:#61061A" title="#61061A">
+    giogia
+</div>
+
+
+<div class="color" style="background-color:#615A15" title="#615A15">
+    gisais
+</div>
+
+
+<div class="color" style="background-color:#60BA5E" title="#60BA5E">
+    gobase
+</div>
+
+
+<div class="color" style="background-color:#60CE15" title="#60CE15">
+    gocéis
+</div>
+
+
+<div class="color" style="background-color:#60CE5E" title="#60CE5E">
+    gócese
+</div>
+
+
+<div class="color" style="background-color:#601ABA" title="#601ABA">
+    goiaba
+</div>
+
+
+<div class="color" style="background-color:#600F1E" title="#600F1E">
+    goofie
+</div>
+
+
+<div class="color" style="background-color:#605ABA" title="#605ABA">
+    gosaba
+</div>
+
+
+<div class="color" style="background-color:#6055EC" title="#6055EC">
+    gossec
+</div>
+
+
+<div class="color" style="background-color:#605505" title="#605505">
+    gossos
+</div>
+
+
+<div class="color" style="background-color:#1AAAAA" title="#1AAAAA">
+    iaaaaa
+</div>
+
+
+<div class="color" style="background-color:#1AC0BE" title="#1AC0BE">
+    iacobe
+</div>
+
+
+<div class="color" style="background-color:#1AC0B1" title="#1AC0B1">
+    iacobi
+</div>
+
+
+<div class="color" style="background-color:#1AC0CA" title="#1AC0CA">
+    iacoca
+</div>
+
+
+<div class="color" style="background-color:#1B15EC" title="#1B15EC">
+    ibisec
+</div>
+
+
+<div class="color" style="background-color:#1CC05A" title="#1CC05A">
+    iccosa
+</div>
+
+
+<div class="color" style="background-color:#1CFE55" title="#1CFE55">
+    icfess
+</div>
+
+
+<div class="color" style="background-color:#1C1DCA" title="#1C1DCA">
+    icidca
+</div>
+
+
+<div class="color" style="background-color:#1DE1CA" title="#1DE1CA">
+    ideíca
+</div>
+
+
+<div class="color" style="background-color:#1D0C1A" title="#1D0C1A">
+    idocia
+</div>
+
+
+<div class="color" style="background-color:#1EC15A" title="#1EC15A">
+    iecisa
+</div>
+
+
+<div class="color" style="background-color:#1FED15" title="#1FED15">
+    ifedis
+</div>
+
+
+<div class="color" style="background-color:#10DACC" title="#10DACC">
+    iodacc
+</div>
+
+
+<div class="color" style="background-color:#10D1CE" title="#10D1CE">
+    iodice
+</div>
+
+
+<div class="color" style="background-color:#15ACC0" title="#15ACC0">
+    isacco
+</div>
+
+
+<div class="color" style="background-color:#15C00D" title="#15C00D">
+    iscood
+</div>
+
+
+<div class="color" style="background-color:#15DABE" title="#15DABE">
+    isdabe
+</div>
+
+
+<div class="color" style="background-color:#151BAD" title="#151BAD">
+    isibad
+</div>
+
+
+<div class="color" style="background-color:#155AAC" title="#155AAC">
+    issaac
+</div>
+
+
+<div class="color" style="background-color:#155E1D" title="#155E1D">
+    isseid
+</div>
+
+
+<div class="color" style="background-color:#0BE1D1" title="#0BE1D1">
+    obeidi
+</div>
+
+
+<div class="color" style="background-color:#0B5EDA" title="#0B5EDA">
+    obseda
+</div>
+
+
+<div class="color" style="background-color:#0CAF1A" title="#0CAF1A">
+    ocafia
+</div>
+
+
+<div class="color" style="background-color:#0CA510" title="#0CA510">
+    ocasió
+</div>
+
+
+<div class="color" style="background-color:#0CC1DE" title="#0CC1DE">
+    occide
+</div>
+
+
+<div class="color" style="background-color:#0CC15E" title="#0CC15E">
+    occise
+</div>
+
+
+<div class="color" style="background-color:#0DE5EA" title="#0DE5EA">
+    odesea
+</div>
+
+
+<div class="color" style="background-color:#0D1A05" title="#0D1A05">
+    odiaos
+</div>
+
+
+<div class="color" style="background-color:#0D15C0" title="#0D15C0">
+    odisco
+</div>
+
+
+<div class="color" style="background-color:#0D1510" title="#0D1510">
+    odisio
+</div>
+
+
+<div class="color" style="background-color:#0D155E" title="#0D155E">
+    odisse
+</div>
+
+
+<div class="color" style="background-color:#0E0E0E" title="#0E0E0E">
+    oeoeoe
+</div>
+
+
+<div class="color" style="background-color:#0FF1D0" title="#0FF1D0">
+    offido
+</div>
+
+
+<div class="color" style="background-color:#0F1ADA" title="#0F1ADA">
+    ofíada
+</div>
+
+
+<div class="color" style="background-color:#0F1C10" title="#0F1C10">
+    ofício
+</div>
+
+
+<div class="color" style="background-color:#0F1D05" title="#0F1D05">
+    ofidos
+</div>
+
+
+<div class="color" style="background-color:#0F1510" title="#0F1510">
+    ofisio
+</div>
+
+
+<div class="color" style="background-color:#06A55A" title="#06A55A">
+    ogassa
+</div>
+
+
+<div class="color" style="background-color:#0660D0" title="#0660D0">
+    oggodo
+</div>
+
+
+<div class="color" style="background-color:#01D105" title="#01D105">
+    oidios
+</div>
+
+
+<div class="color" style="background-color:#016A5E" title="#016A5E">
+    oígase
+</div>
+
+
+<div class="color" style="background-color:#05AAEE" title="#05AAEE">
+    osaaee
+</div>
+
+
+<div class="color" style="background-color:#05AD1A" title="#05AD1A">
+    osadia
+</div>
+
+
+<div class="color" style="background-color:#050D1A" title="#050D1A">
+    osodia
+</div>
+
+
+<div class="color" style="background-color:#0551A5" title="#0551A5">
+    ossias
+</div>
+
+
+<div class="color" style="background-color:#0551C1" title="#0551C1">
+    ossici
+</div>
+
+
+<div class="color" style="background-color:#5AAD1A" title="#5AAD1A">
+    saadia
+</div>
+
+
+<div class="color" style="background-color:#5ABADA" title="#5ABADA">
+    sábada
+</div>
+
+
+<div class="color" style="background-color:#5ABAD1" title="#5ABAD1">
+    sábadi
+</div>
+
+
+<div class="color" style="background-color:#5ABE55" title="#5ABE55">
+    sabess
+</div>
+
+
+<div class="color" style="background-color:#5AB1CA" title="#5AB1CA">
+    sabica
+</div>
+
+
+<div class="color" style="background-color:#5AB1C0" title="#5AB1C0">
+    sabico
+</div>
+
+
+<div class="color" style="background-color:#5AB105" title="#5AB105">
+    sábios
+</div>
+
+
+<div class="color" style="background-color:#5ACADE" title="#5ACADE">
+    sacadé
+</div>
+
+
+<div class="color" style="background-color:#5ACEDA" title="#5ACEDA">
+    saceda
+</div>
+
+
+<div class="color" style="background-color:#5AC1A5" title="#5AC1A5">
+    sacias
+</div>
+
+
+<div class="color" style="background-color:#5AC1E5" title="#5AC1E5">
+    sacies
+</div>
+
+
+<div class="color" style="background-color:#5AC105" title="#5AC105">
+    sacios
+</div>
+
+
+<div class="color" style="background-color:#5A6ADE" title="#5A6ADE">
+    sagade
+</div>
+
+
+<div class="color" style="background-color:#5A6610" title="#5A6610">
+    saggio
+</div>
+
+
+<div class="color" style="background-color:#5A61B0" title="#5A61B0">
+    sagibo
+</div>
+
+
+<div class="color" style="background-color:#5A1CAC" title="#5A1CAC">
+    saicac
+</div>
+
+
+<div class="color" style="background-color:#5A1CA5" title="#5A1CA5">
+    saicas
+</div>
+
+
+<div class="color" style="background-color:#5A1C05" title="#5A1C05">
+    saicos
+</div>
+
+
+<div class="color" style="background-color:#5A1DA5" title="#5A1DA5">
+    saídas
+</div>
+
+
+<div class="color" style="background-color:#5A1D15" title="#5A1D15">
+    saidis
+</div>
+
+
+<div class="color" style="background-color:#5A16A5" title="#5A16A5">
+    saigas
+</div>
+
+
+<div class="color" style="background-color:#5A5ABE" title="#5A5ABE">
+    sásabe
+</div>
+
+
+<div class="color" style="background-color:#5A5EB0" title="#5A5EB0">
+    sasebo
+</div>
+
+
+<div class="color" style="background-color:#5A551A" title="#5A551A">
+    sassia
+</div>
+
+
+<div class="color" style="background-color:#5B0CCA" title="#5B0CCA">
+    sbocca
+</div>
+
+
+<div class="color" style="background-color:#5B0D10" title="#5B0D10">
+    sbodio
+</div>
+
+
+<div class="color" style="background-color:#5CAA51" title="#5CAA51">
+    scaasi
+</div>
+
+
+<div class="color" style="background-color:#5CABE1" title="#5CABE1">
+    scabei
+</div>
+
+
+<div class="color" style="background-color:#5CAF05" title="#5CAF05">
+    scafos
+</div>
+
+
+<div class="color" style="background-color:#5CA665" title="#5CA665">
+    scaggs
+</div>
+
+
+<div class="color" style="background-color:#5CA1FA" title="#5CA1FA">
+    scaifa
+</div>
+
+
+<div class="color" style="background-color:#5C0BEE" title="#5C0BEE">
+    scobee
+</div>
+
+
+<div class="color" style="background-color:#5C0B1E" title="#5C0B1E">
+    scobie
+</div>
+
+
+<div class="color" style="background-color:#5C0CCA" title="#5C0CCA">
+    scocca
+</div>
+
+
+<div class="color" style="background-color:#5C0E55" title="#5C0E55">
+    scoess
+</div>
+
+
+<div class="color" style="background-color:#5EADE5" title="#5EADE5">
+    seades
+</div>
+
+
+<div class="color" style="background-color:#5ECA15" title="#5ECA15">
+    secáis
+</div>
+
+
+<div class="color" style="background-color:#5ECC5A" title="#5ECC5A">
+    seccsa
+</div>
+
+
+<div class="color" style="background-color:#5EDEBA" title="#5EDEBA">
+    sedeba
+</div>
+
+
+<div class="color" style="background-color:#5EDE5A" title="#5EDE5A">
+    sedesa
+</div>
+
+
+<div class="color" style="background-color:#5EDE50" title="#5EDE50">
+    sedeso
+</div>
+
+
+<div class="color" style="background-color:#5E6EDA" title="#5E6EDA">
+    segeda
+</div>
+
+
+<div class="color" style="background-color:#5E60D0" title="#5E60D0">
+    segodo
+</div>
+
+
+<div class="color" style="background-color:#5E1C05" title="#5E1C05">
+    seicos
+</div>
+
+
+<div class="color" style="background-color:#5E16E1" title="#5E16E1">
+    seigei
+</div>
+
+
+<div class="color" style="background-color:#5E15A5" title="#5E15A5">
+    seisas
+</div>
+
+
+<div class="color" style="background-color:#5E5ADA" title="#5E5ADA">
+    sesada
+</div>
+
+
+<div class="color" style="background-color:#5E5EA5" title="#5E5EA5">
+    seseas
+</div>
+
+
+<div class="color" style="background-color:#5E5EB0" title="#5E5EB0">
+    sesebo
+</div>
+
+
+<div class="color" style="background-color:#5E5E05" title="#5E5E05">
+    seseos
+</div>
+
+
+<div class="color" style="background-color:#5E5105" title="#5E5105">
+    sesios
+</div>
+
+
+<div class="color" style="background-color:#56C11C" title="#56C11C">
+    sgciic
+</div>
+
+
+<div class="color" style="background-color:#560B15" title="#560B15">
+    sgobis
+</div>
+
+
+<div class="color" style="background-color:#51ADE5" title="#51ADE5">
+    siades
+</div>
+
+
+<div class="color" style="background-color:#51CCA5" title="#51CCA5">
+    siccas
+</div>
+
+
+<div class="color" style="background-color:#516EC0" title="#516EC0">
+    sigeco
+</div>
+
+
+<div class="color" style="background-color:#516105" title="#516105">
+    sigios
+</div>
+
+
+<div class="color" style="background-color:#5165A6" title="#5165A6">
+    sigsag
+</div>
+
+
+<div class="color" style="background-color:#5165E5" title="#5165E5">
+    sigses
+</div>
+
+
+<div class="color" style="background-color:#511CE0" title="#511CE0">
+    siíceo
+</div>
+
+
+<div class="color" style="background-color:#511111" title="#511111">
+    síiiii
+</div>
+
+
+<div class="color" style="background-color:#510CC0" title="#510CC0">
+    siocco
+</div>
+
+
+<div class="color" style="background-color:#515DE5" title="#515DE5">
+    sisdes
+</div>
+
+
+<div class="color" style="background-color:#5151D0" title="#5151D0">
+    sisido
+</div>
+
+
+<div class="color" style="background-color:#5151F0" title="#5151F0">
+    sisifo
+</div>
+
+
+<div class="color" style="background-color:#50BA5E" title="#50BA5E">
+    sobase
+</div>
+
+
+<div class="color" style="background-color:#50BE05" title="#50BE05">
+    sobeos
+</div>
+
+
+<div class="color" style="background-color:#50C1C0" title="#50C1C0">
+    socico
+</div>
+
+
+<div class="color" style="background-color:#50DADE" title="#50DADE">
+    sodade
+</div>
+
+
+<div class="color" style="background-color:#50FAE5" title="#50FAE5">
+    sofaes
+</div>
+
+
+<div class="color" style="background-color:#50FE5A" title="#50FE5A">
+    sofesa
+</div>
+
+
+<div class="color" style="background-color:#506AAA" title="#506AAA">
+    sogaaa
+</div>
+
+
+<div class="color" style="background-color:#5011D0" title="#5011D0">
+    sóiido
+</div>
+
+
+<div class="color" style="background-color:#500000" title="#500000">
+    sooooo
+</div>
+
+
+<div class="color" style="background-color:#55BBCC" title="#55BBCC">
+    ssbbcc
+</div>
+
+
+<div class="color" style="background-color:#555555" title="#555555">
+    ssssss
+</div>
+
+</div>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2019-11-14</span>
+        <span title="last modification date" class="post-info">2019-11-15</span>
+        <span title="tags" class="post-info"><a href="/tags/javascript/">javascript</a>, <a href="/tags/html/">html</a></span>
+        <span title="author" class="post-info">Álvaro González Sotillo</span>
+      </div>
+      <section>
+        <!-- <h1>Comments</h1> -->
+      </section>
+      <!-- <script src="//code.jquery.com/jquery-latest.min.js"></script> -->
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->
+      <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>  -->
+      <!--<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>-->
+      <script src="/media/js/jquery-3.2.1.min.js"></script>
+      <script src="/media/js/main.js"></script>
+      <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="/media/js/code-prettify/loader/run_prettify.js"></script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 26.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:alvarogonzalezsotillo <at> gmail <dot> com">Álvaro González Sotillo</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>

@@ -4,79 +4,79 @@
     <title>Álvaro González Sotillo</title>
     <link>https://alvarogonzalezsotillo.github.io/</link>
     <description></description>
-    <pubDate>lun, 07 oct 2019 22:06:39 CEST</pubDate>
-    <lastBuildDate>lun, 07 oct 2019 22:06:39 CEST</lastBuildDate>
+    <pubDate>mié, 21 oct 2020 09:20:28 CEST</pubDate>
+    <lastBuildDate>mié, 21 oct 2020 09:20:28 CEST</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
     <item>
-      <title>Nuevo HTPC en casa</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/ordenador-de-sobremesa-servidor-htpc</link>
-      <description><![CDATA[Acabo de comprarme un asus vc-66. Mi intención es utilizarlo como servidor accesible desde internet, pero también como htpc. Estos son los pasos que he seguido para configurarlo.]]></description>
-      <pubDate>2019-10-07</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/ordenador-de-sobremesa-servidor-htpc</guid>
+      <title>De Google Sites a blog estático</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/de-google-sites-a-blog-estatico</link>
+      <description><![CDATA[Empecé a usar un site de Google cuando aún quedaban rastros del /don't be evil/. Ahora creo que es mejor utilizar un blog estático.]]></description>
+      <pubDate>2020-10-21</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/de-google-sites-a-blog-estatico</guid>
     </item>
     <item>
       <title>Pihole y monitorización de red</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/pihole-monitorizacion-red/pihole-monitorizacion-red.org</link>
+      <link>https://alvarogonzalezsotillo.github.io/blog/pihole-monitorizacion-red</link>
       <description><![CDATA[He instalado /pihole/ en la red del instituto donde trabajo para intentar mejorar la velocidad de la red. y de forma imprevista, me ha ayudado a encontrar un intruso que pretendía hacer un ataque de denegación de servicio.]]></description>
-      <pubDate>2019-10-07</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/pihole-monitorizacion-red/pihole-monitorizacion-red.org</guid>
+      <pubDate>2020-10-21</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/pihole-monitorizacion-red</guid>
     </item>
     <item>
-      <title>Mi ordenador de bolsillo con termux </title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/ordenador-bolsillo-termux/ordenador-bolsillo-termux.org</link>
-      <description><![CDATA[Una ventaja de usar sobre todo herramientas de consola es que es uno de los sistemas UI más antiguos y simples de implementar y, por tanto, más extendido y estándar. También en tu Android.]]></description>
-      <pubDate>2019-07-05</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/ordenador-bolsillo-termux/ordenador-bolsillo-termux.org</guid>
+      <title>Folding inicial en Emacs</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/folding-inicial-en-emacs</link>
+      <description><![CDATA[Un paquete simple para ocultar secciones de código fuente al abrir un fichero, para Emacs]]></description>
+      <pubDate>2020-06-26</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/folding-inicial-en-emacs</guid>
     </item>
     <item>
-      <title>Blogueando con orgmode</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/blogueando-con-orgmode</link>
-      <description><![CDATA[Es posible crear un blog sin (casi) salir de emacs.]]></description>
-      <pubDate>2019-07-04</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/blogueando-con-orgmode</guid>
+      <title>Juego tipo escape room virtual</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/juego-escape-room-virtual</link>
+      <description><![CDATA[Un juego simple tipo escape room implementado con baja tecnología]]></description>
+      <pubDate>2020-04-13</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/juego-escape-room-virtual</guid>
     </item>
     <item>
-      <title>Resaltar las ocurrencias de la selección en Emacs</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/resaltar-ocurrencias-seleccion-emacs</link>
-      <description><![CDATA[Un paquete simple para resaltar las ocurrencias de la selección en Emacs, como lo hacen otros editores]]></description>
-      <pubDate>2019-06-20</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/resaltar-ocurrencias-seleccion-emacs</guid>
+      <title>Literate Programming y Google Code Jam 2020</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/literate-codejam-2020</link>
+      <description><![CDATA[Nueva edición de Codejam con literate programming]]></description>
+      <pubDate>2020-04-04</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/literate-codejam-2020</guid>
     </item>
     <item>
-      <title>Palabras anagramadas</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/palabras-anagramadas</link>
-      <description><![CDATA[En casa somos fans del concurso de Palabras Anagramadas del programa de radio No Es Un Día Cualquiera.]]></description>
-      <pubDate>2019-03-04</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/palabras-anagramadas</guid>
+      <title>Literate Programming y Google Code Jam</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/literate-codejam</link>
+      <description><![CDATA[Se puede utilizar orgmode para programar y documentar/publicar lo programado]]></description>
+      <pubDate>2020-04-04</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/literate-codejam</guid>
     </item>
     <item>
-      <title>Palabras anagramadas online</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/palabras-anagramadas-online</link>
-      <description><![CDATA[çayuda online para el concurso de Palabras Anagramadas del programa de radio No Es Un Día Cualquiera.]]></description>
-      <pubDate>2019-02-24</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/palabras-anagramadas-online</guid>
+      <title>Instalar Emacs como servicio</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/instalar-emacs-como-servicio</link>
+      <description><![CDATA[El tiempo de arranque de Emacs se puede disimular al inicio del sistema, y ser manejado como un servicio al que conectarse.]]></description>
+      <pubDate>2020-01-17</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/instalar-emacs-como-servicio</guid>
     </item>
     <item>
-      <title>Cómo resolver molecube en prolog</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/resolver-molecube-en-prolog</link>
-      <description><![CDATA[Un rompecabezas nuevo es una buena excusa para experimentar un nuevo lenguaje de programación]]></description>
-      <pubDate>2019-02-24</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/resolver-molecube-en-prolog</guid>
+      <title>Licencias GVLK de Microsoft con vlmcsd</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/licencias-gvlk-de-microsoft-con-vlmcsd</link>
+      <description><![CDATA[El mecanismo de licencias GVLK (por volumen) de Microsoft, utilizado en muchas versiones de Windows y Office, puede entenderse fácilmente experimentando con vlmcsd]]></description>
+      <pubDate>2019-12-19</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/licencias-gvlk-de-microsoft-con-vlmcsd</guid>
     </item>
     <item>
-      <title>Literate Programming en la configuración de emacs</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/literate-programming-configuracion-emacs</link>
-      <description><![CDATA[=org-babel= permite ejecutar los listados incluidos en un documento. Incluso la propia configuración de /emacs/ puede estar en un fichero =org=]]></description>
-      <pubDate>2018-12-05</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/literate-programming-configuracion-emacs</guid>
+      <title>Colores HTML con nombre</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/colores-html-con-nombre</link>
+      <description><![CDATA[Los colores HTML pueden parecer palabras. Esta es una lista de esas palabras.]]></description>
+      <pubDate>2019-11-15</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/colores-html-con-nombre</guid>
     </item>
     <item>
-      <title>Practicar ortografía desde el navegador</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/practicar-ortografia</link>
-      <description><![CDATA[La mejor forma de practicar ortografía es mediante dictados, oyendo la palabra a escribir]]></description>
-      <pubDate>2018-11-20</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/practicar-ortografia</guid>
+      <title>Termux-api</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/termux-api</link>
+      <description><![CDATA[/Termux/ instala un terminal y muchos de los comandos de Linux en Android. Ahora con /Termux:API/ se añaden algunos comandos para interactuar con Android desde la shell.]]></description>
+      <pubDate>2019-11-12</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/termux-api</guid>
     </item>
   </channel>
 </rss>
