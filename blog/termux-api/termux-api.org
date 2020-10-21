@@ -3,7 +3,7 @@
 #+AUTHOR:      Álvaro González Sotillo
 #+EMAIL:       alvarogonzalezsotillo@gmail.com
 #+DATE:        2019-10-16
-#+URI:         /blog/termux-api/termux-api.org
+#+URI:         /blog/termux-api
 #+KEYWORDS:    termux
 #+TAGS:        termux
 #+LANGUAGE:    es

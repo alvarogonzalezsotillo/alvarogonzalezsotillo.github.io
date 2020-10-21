@@ -1,0 +1,21 @@
+
+#+TITLE:       De Google Sites a blog estático
+#+AUTHOR:      Álvaro González Sotillo
+#+EMAIL:       alvarogonzalezsotillo@gmail.com
+#+DATE:        2010-1-1
+#+URI:         /blog/de-google-sites-a-blog-estatico
+#+KEYWORDS:    termux
+#+TAGS:        termux
+#+LANGUAGE:    es
+#+OPTIONS:     H:3 num:t toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+# #+options:     toc:2
+#+options:     num:nil
+#+DESCRIPTION: Empecé a usar un site de Google cuando aún quedaban rastros del /don't be evil/. Ahora creo que es mejor utilizar un blog estático.
+
+
+Empecé a usar un site de Google cuando aún quedaban rastros del /don't be evil/. Ahora creo que es mejor utilizar un blog estático.
+
+Mi antiguo sitio queda accesible en [[https://sites.google.com/site/alvarogonzalezsotillo/][https://sites.google.com/site/alvarogonzalezsotillo/]], pero iré migrando las entradas más interesantes a este blog.
+
+La fecha de esta entrada es ficticia, simplemente para que aparezca la primera.
+
