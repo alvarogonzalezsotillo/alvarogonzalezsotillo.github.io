@@ -1,0 +1,217 @@
+#+title: Algunas reinas
+
+#+AUTHOR:      Álvaro González Sotillo
+#+EMAIL:       alvarogonzalezsotillo@gmail.com
+#+DATE:        2020-10-21
+#+URI:         /blog/algunas-reinas
+
+#+TAGS: 
+#+DESCRIPTION: Problema de las n-queens
+
+
+#+PROPERTY: header-arg :eval query
+#+LANGUAGE: es
+#+options: toc:2
+#+latex_class_options: [a4paper]
+#+latex_header: \usepackage[margin=2cm]{geometry}
+#+latex_header: \usepackage{amsmath}
+#+latex_header: \usepackage{xcolor}
+#+latex_header: \usepackage[spanish]{babel}
+#+latex_header: \usepackage{caption}
+#+latex_header: \usepackage{listings}
+#+latex_header_extra: \lstset{frame=single,columns=fixed,basicstyle=\scriptsize\ttfamily,breaklines=true,postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}},keywordstyle=\color{blue}\ttfamily,stringstyle=\color{red}\ttfamily,commentstyle=\color{green}\ttfamily}
+#+latex_header_extra: \lstset{emph={function,let,len,import,translate,module,rotate,module,hull,sphere},emphstyle=\color{blue}\ttfamily}
+#+latex_header_extra: \hypersetup{colorlinks,citecolor=black,filecolor=black,linkcolor=black,urlcolor=blue}
+#+latex_header_extra: \renewcommand{\lstlistingname}{Listado}
+#+latex_header_extra: \captionsetup{font={scriptsize}}
+
+
+Me han retado a hacer un programa que resuelva el problema de las [[https://en.wikipedia.org/wiki/Eight_queens_puzzle][n-reinas]]. Esta es mi solución en c++ básico: sin class/struct y sin punteros a función. Solo utilizo =printf= y =system= para conseguir la hora de inicio y fin del programa.
+
+El límite práctico parece estar en las 30 reinas, con alrededor de 12 segundos de cálculo.
+
+* Algunas reinas
+
+#+begin_src cpp :results raw replace :wrap EXAMPLE :exports both :results output
+
+#include <stdio.h>
+#include <stdlib.h>
+
+using namespace std;
+
+
+
+const int maxSize = 100;
+const int notSeized = maxSize+1;
+
+int seizedAtLevel[maxSize][maxSize];
+
+void initSeized(){
+  for( int col = 0 ; col < maxSize ; col += 1 ){
+    for( int row = 0 ; row < maxSize ; row += 1 ){
+      seizedAtLevel[col][row] = notSeized;
+    }
+  }
+}
+
+inline bool seized(const int col, const int row, const int currentLevel ){
+  return seizedAtLevel[col][row] <= currentLevel;
+}
+
+void setSeizedValue(const int col, const int row, const int currentLevel, const int value ){
+
+  if( col < 0 || row < 0 || col >= maxSize || row >= maxSize ){
+    // out of board
+    return;
+  }
+  
+  if( seizedAtLevel[col][row] < currentLevel ){
+    // already seized by previous queen
+    return;
+  }
+  seizedAtLevel[col][row] = value;
+}
+
+
+void changeSeizedCells(const int row, const int level, const int size, const int value ){
+  for( int d = 1 ; d < size-level ; d += 1 ){
+    // same row
+    setSeizedValue(level+d,row,level,value);
+
+    // upwards diagonal
+    setSeizedValue(level+d,row-d,level,value);
+
+    // downwards diagonal
+    setSeizedValue(level+d,row+d,level,value);
+  }
+}
+
+
+void dumpSeized(const int size){
+  for( int row = 0 ; row < size ; row += 1 ){
+    for( int col = 0 ; col < size ; col += 1 ){
+      printf( "\t%d", seizedAtLevel[col][row] );
+    }
+    printf( "\n");
+  }
+}
+
+bool stillPossible( const int level, const int size ){
+  for( int col = level+1 ; col < size ; col += 1 ){
+    int freeCells = 0;
+    for( int row = 0; row < size ; row += 1 ){
+      if( !seized(col,row,level) ){
+        freeCells += 1;
+      }
+    }
+    if( freeCells < col-level-1){
+      // there are no enough free cells in the column
+      return false;
+    }
+  }
+  return true;
+}
+
+bool placeQueenAtLevel( const int level, const int size, int queensRows[] ){
+
+  // printf( "\n INTENTANDO NIVEL:%d\n", level);
+  // dumpSeized(size);
+  
+  if( level == size ){
+    return true;
+  }
+  
+  for( int row = 0 ; row < size ; row += 1 ){
+
+    if( seized(level,row,level) ){
+      continue;
+    }
+
+    // place queen in col=level, row=row
+    queensRows[level] = row;
+    changeSeizedCells(row,level, size,level);
+
+    // try next queen
+    if( stillPossible(level,size) ){
+      if( placeQueenAtLevel(level+1,size,queensRows) ){
+        return true;
+      }
+    }
+
+    // remove queen from col=level, row=row
+    changeSeizedCells(row,level, size,notSeized);
+  }
+
+  return false;
+}
+
+void dumpQueens(int queensRows[], int size){
+  for( int row = 0 ; row < size ; row += 1 ){
+    for( int col = 0 ; col < size ; col += 1 ){
+      const char cell = (col+row)%2==0 ? '.' : ' ';
+      printf( " %c", queensRows[col]==row ? 'Q' : cell );
+    }
+    printf( "\n");
+  }
+
+}
+  
+int main( int argc, char *argv[] ){
+
+  system("date");
+
+  int currentQueen = 0;
+  const int size = 31;
+
+  int queensRows[maxSize];
+
+  initSeized();
+  bool result = placeQueenAtLevel(0,size,queensRows);
+
+  printf( "Conseguido:%s\n", result ? "Si" : "No");
+  if( result ){
+    dumpQueens(queensRows, size);
+  }
+
+  system("date");
+  
+}
+#+end_src
+
+#+RESULTS:
+#+begin_EXAMPLE
+mié 21 oct 2020 10:45:51 CEST
+mié 21 oct 2020 10:46:07 CEST
+Conseguido:Si
+ Q   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .
+   .   .   .   .   .   .   .   . Q .   .   .   .   .   .   .  
+ . Q .   .   .   .   .   .   .   .   .   .   .   .   .   .   .
+   .   .   .   .   .   .   .   .   .   .   . Q .   .   .   .  
+ .   Q   .   .   .   .   .   .   .   .   .   .   .   .   .   .
+   .   .   .   .   .   .   .   .   .   Q   .   .   .   .   .  
+ .   .   .   .   .   .   .   .   .   .   .   .   Q   .   .   .
+   .   .   .   .   .   .   .   .   .   . Q .   .   .   .   .  
+ .   . Q .   .   .   .   .   .   .   .   .   .   .   .   .   .
+   .   .   .   .   .   . Q .   .   .   .   .   .   .   .   .  
+ .   .   Q   .   .   .   .   .   .   .   .   .   .   .   .   .
+   .   .   .   Q   .   .   .   .   .   .   .   .   .   .   .  
+ .   .   .   .   .   .   .   .   .   .   .   . Q .   .   .   .
+   .   .   . Q .   .   .   .   .   .   .   .   .   .   .   .  
+ .   .   .   .   .   .   .   . Q .   .   .   .   .   .   .   .
+   .   .   Q   .   .   .   .   .   .   .   .   .   .   .   .  
+ .   .   .   .   .   .   .   .   .   Q   .   .   .   .   .   .
+   .   .   .   .   Q   .   .   .   .   .   .   .   .   .   .  
+ .   .   .   .   .   .   .   .   .   .   .   .   .   .   Q   .
+   .   .   .   .   .   .   .   .   .   .   .   .   Q   .   .  
+ .   .   .   .   .   .   .   .   .   .   .   .   .   .   . Q .
+   .   .   .   .   .   .   .   .   .   .   .   .   . Q .   .  
+ .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   Q
+   .   .   .   .   .   .   .   .   .   .   .   .   .   Q   .  
+ .   .   .   .   .   .   .   .   .   .   . Q .   .   .   .   .
+   .   .   .   .   .   .   . Q .   .   .   .   .   .   .   .  
+ .   .   .   .   .   .   .   .   . Q .   .   .   .   .   .   .
+   .   .   .   .   . Q .   .   .   .   .   .   .   .   .   .  
+ .   .   .   .   .   .   . Q .   .   .   .   .   .   .   .   .
+   .   .   .   .   .   Q   .   .   .   .   .   .   .   .   .  
+ .   .   .   .   Q   .   .   .   .   .   .   .   .   .   .   .
+#+end_EXAMPLE
