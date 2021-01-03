@@ -57,3 +57,5 @@ https://dle.rae.es/?w=pantalla
 
 
 
+* Gamuza
+[[https://dle.rae.es/gamuza][Fuente]]
