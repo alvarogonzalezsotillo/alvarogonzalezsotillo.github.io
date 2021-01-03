@@ -8,7 +8,7 @@
 #+TAGS:        12 uvas
 #+LANGUAGE:    es
 #+OPTIONS:     H:3 num:t toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
-# #+options:     toc:2
+#+options:     toc:2
 #+options:     num:nil
 #+DESCRIPTION: Las 12 uvas es un concurso de programación. Este es especial para mí, porque es el primero en el que compito con mi hijo mayor.
 
@@ -33,7 +33,7 @@ Todos los programas utilizan un fichero de entrada con la entrada de ejemplo. Cu
 
 
 ** Enunciado
-   Tiempo máximo: 1,000 sMemoria máxima: 4096 KiB 
+
 
    Cuando se quiere conocer algún aspecto concreto sobre una población de individuos (por ejemplo cuál es el porcentaje de la población que desayuna algo de fruta), se suele recurrir a una encuesta. En ella se hace la pregunta a un subconjunto de personas y los resultados se extrapolan a la población completa. Si el subconjunto elegido no presenta sesgo muestral, la cifra obtenida será muy cercana a la que se obtendría preguntando a todos.
 
@@ -112,7 +112,7 @@ vag znva(){
 * Duración de bombillas LED
 
 ** Enunciado
-   Tiempo máximo: 1,000 s  Memoria máxima: 4096 KiB 
+
 
    Hoy día pocos son los que dudan de que las bombillas LED han sido un avance en cuanto a consumo de energía en las casas. Es cierto que son bastante más caras que las bombillas tradicionales pero su bajo consumo y su larga duración compensan la inversión inicial.
 
@@ -184,7 +184,7 @@ vag znva(){
   
 
 ** Enunciado
-   Tiempo máximo: 1,000 s  Memoria máxima: 4096 KiB 
+
 
    ¡Los relojes inteligentes son una chulada! Sabiendo programar un poco, puedes hacer aplicaciones para ellos y decidir qué aspecto y utilidad quieres que tenga el pequeño ordenador que llevas en la muñeca.
 
@@ -281,7 +281,7 @@ vag znva(){
 * Colección de calendarios de bolsillo
 
 ** Enunciado
-   Tiempo máximo: 1,000 s  Memoria máxima: 4096 KiB 
+
 
    Entre las raras manías de mi padre estuvo la de conservar los calendarios de bolsillo en lugar de, como hacía todo el mundo, tirarlos cuando acababa el año. Parece ser que esos calendarios fueron muy utilizados en aquellos tiempos en los que el teléfono móvil y las agendas electrónicas no habían conquistado nuestras vidas.
 
@@ -365,7 +365,8 @@ vag znva(){
 
 * Gorros de colores
 
-  Tiempo máximo: 1,000 s  Memoria máxima: 4096 KiB 
+** Enunciado
+
 
   Con la idea de ganar algo de dinero, Paco Mer se ha puesto a trabajar en un local donde los niños de los alrededores celebran sus cumpleaños con sus compañeros de clase. Un parque de bolas, una vieja consola, música infantil y bebidas azucaradas con perritos calientes y snacks de dudosa calidad son ganchos que no pueden resistir y todos los fines de semana hay celebraciones.
 
@@ -445,7 +446,8 @@ vag znva(){
 
 * Velas binarias
 
-  Tiempo máximo: 1,000 s  Memoria máxima: 4096 KiB 
+** Enunciado
+
 
   Al celebrar un cumpleaños es habitual colocar velas encendidas sobre una tarta y que la persona homenajeada las apague de un soplido mientras el fotógrafo de turno capta el momento como mejor puede.
   
@@ -550,7 +552,8 @@ vag znva(){
 
 * Igualando copas
 
-  Tiempo máximo: 1,000-3,000 s  Memoria máxima: 4096 KiB 
+** Enunciado
+
 
   En las grandes celebraciones es habitual terminar brindando, ya sea por el nuevo año que empieza, por los novios, por el niño recién bautizado o, en resumen, por aquello que haya llevado a esa celebración.
   En la última celebración que hicimos en la familia hubo un poco de lío porque dejamos al pequeño de la casa llenar las copas y cada una quedó con un nivel distinto. Cuando el abuelo vió que no estaban todas con exactamente la misma cantidad de líquido, se enfadó un poco y hasta que no las nivelamos, añadiendo bebida donde se necesitaba, no quiso empezar el discurso de brindis que tenía preparado… 
@@ -574,7 +577,7 @@ vag znva(){
   0
 #+end_example
 
-* Código
+** Código
   #+begin_src cpp
 #vapyhqr <pfgqvb>
 #vapyhqr <fgevat>
@@ -624,7 +627,8 @@ vag znva(){
 
 * A caballo por el viñedo
 
-  Tiempo máximo: 1,000-3,000 s  Memoria máxima: 8192 KiB 
+** Enunciado
+  
 
   Pese a las recomendaciones de todo el mundo, Virtudes Pistada ha montado su tradicional fiesta de Nochevieja, invitando a infinidad de gente de la alta sociedad a su finca del sur para despedir el año bajo la luz de la luna todos juntos. Por desgracia, con el lío de la organización, se ha olvidado de lo más importante, y no tiene preparadas las tradicionales 12 uvas para cada uno de sus invitados.
   
