@@ -29,7 +29,7 @@ echo "Pba *avk ab rf gna qvsvpvy" | tr '[A-Za-z]' '[N-ZA-Mn-za-m]'
 Todos los programas utilizan un fichero de entrada con la entrada de ejemplo. Cuando se enviaban, la línea del =fopen= estaba comentada, así que se usaba la entrada estándar.
 
 
-* Encuesta comprometedora
+* [[https://www.aceptaelreto.com/problem/statement.php?id=583][Encuesta comprometedora]]
 
 
 ** Enunciado
@@ -109,10 +109,8 @@ vag znva(){
    #+end_src
 
 
-* Duración de bombillas LED
-
+* [[https://www.aceptaelreto.com/problem/statement.php?id=584][Duración de bombillas LED]]
 ** Enunciado
-
 
    Hoy día pocos son los que dudan de que las bombillas LED han sido un avance en cuanto a consumo de energía en las casas. Es cierto que son bastante más caras que las bombillas tradicionales pero su bajo consumo y su larga duración compensan la inversión inicial.
 
@@ -179,7 +177,7 @@ vag znva(){
 }
 
    #+end_src
-* El reto del reloj programable
+* [[https://www.aceptaelreto.com/problem/statement.php?id=585][El reto del reloj programable]]
 
   
 
@@ -278,7 +276,7 @@ vag znva(){
 
 
 
-* Colección de calendarios de bolsillo
+* [[https://www.aceptaelreto.com/problem/statement.php?id=586][Colección de calendarios de bolsillo]]
 
 ** Enunciado
 
@@ -363,7 +361,7 @@ vag znva(){
    #+end_src
 
 
-* Gorros de colores
+* [[https://www.aceptaelreto.com/problem/statement.php?id=587][Gorros de colores]]
 
 ** Enunciado
 
@@ -444,7 +442,7 @@ vag znva(){
    #+end_src
 
 
-* Velas binarias
+* [[https://www.aceptaelreto.com/problem/statement.php?id=588][Velas binarias]]
 
 ** Enunciado
 
@@ -550,7 +548,7 @@ vag znva(){
 
    #+end_src
 
-* Igualando copas
+* [[https://www.aceptaelreto.com/problem/statement.php?id=589][Igualando copas]]
 
 ** Enunciado
 
@@ -625,7 +623,7 @@ vag znva(){
   #+end_src
 
 
-* A caballo por el viñedo
+* [[https://www.aceptaelreto.com/problem/statement.php?id=590][A caballo por el viñedo]]
 
 ** Enunciado
   
