@@ -25,7 +25,11 @@
 #+latex_header_extra: \renewcommand{\lstlistingname}{Listado}
 #+latex_header_extra: \captionsetup{font={scriptsize}}
 
-Una de las ventajas de Emacs sobre otros programas extensibles es un bajo escalón de entrada. Basta con abrir un /buffer/, escribir algo de lisp, y ejecutarlo
+Uso Emacs desde que necesité editar documentos en Latex. En ese momento no encontré un editor mejor para ello, aunque ahora posiblemente elegiría VSCode.
+
+Precisamente porque VSCode tiene buenas ideas, he acabado haciendo algunas contribuciones a Emacs para incluir algunas de esas cosas que hecho de menos. Porque no se puede vivir solo de no usar el ratón.
+
+En esta entrada de blog iré acumulando mis contribuciones a este proyecto.
 
 
 ** [[https://github.com/ema2159/centaur-tabs][centaur-tabs]]
@@ -47,3 +51,5 @@ Una de las ventajas de Emacs sobre otros programas extensibles es un bajo escal�
 ** [[https://github.com/alvarogonzalezsotillo/origami-predef][origami-predef]]
    Es un paquete propio, también [[../../../blog/folding-inicial-en-emacs/][comentado en este blog]]. Utiliza [[https://github.com/gregsexton/origami.el][origami]] para ocultar secciones de los ficheros cuando son abiertos, basándose en marcadores del fichero.
    
+** [[https://github.com/csrhodes/gift-mode][gift-mode]]
+   El formato [[https://docs.moodle.org/310/en/GIFT_format][gift]] se utiliza para crear cuestionarios en Moodle a partir de ficheros de texto plano. Emacs tiene un modo para este formato, pero carecía de integración con [[https://github.com/bmag/imenu-list][imenu]], así que me decidí a implementarlo. 
