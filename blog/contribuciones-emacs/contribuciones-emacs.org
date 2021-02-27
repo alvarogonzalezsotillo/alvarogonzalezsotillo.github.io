@@ -1,0 +1,55 @@
+#+title: Contribuciones a paquetes Emacs
+
+#+AUTHOR:      Álvaro González Sotillo
+#+EMAIL:       alvarogonzalezsotillo@gmail.com
+#+DATE:        2021-02-24
+#+URI:         /blog/contribuciones-emacs
+
+#+TAGS: programación, elisp, emacs
+#+DESCRIPTION: Mis contribuciones a paquetes Emacs
+
+
+#+PROPERTY: header-arg :eval query
+#+LANGUAGE: es
+#+OPTIONS:     H:7 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+latex_class_options: [a4paper]
+#+latex_header: \usepackage[margin=2cm]{geometry}
+#+latex_header: \usepackage{amsmath}
+#+latex_header: \usepackage{xcolor}
+#+latex_header: \usepackage[spanish]{babel}
+#+latex_header: \usepackage{caption}
+#+latex_header: \usepackage{listings}
+#+latex_header_extra: \lstset{frame=single,columns=fixed,basicstyle=\scriptsize\ttfamily,breaklines=true,postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}},keywordstyle=\color{blue}\ttfamily,stringstyle=\color{red}\ttfamily,commentstyle=\color{green}\ttfamily}
+#+latex_header_extra: \lstset{emph={function,let,len,import,translate,module,rotate,module,hull,sphere},emphstyle=\color{blue}\ttfamily}
+#+latex_header_extra: \hypersetup{colorlinks,citecolor=black,filecolor=black,linkcolor=black,urlcolor=blue}
+#+latex_header_extra: \renewcommand{\lstlistingname}{Listado}
+#+latex_header_extra: \captionsetup{font={scriptsize}}
+
+Uso Emacs desde que necesité editar documentos en Latex. En ese momento no encontré un editor mejor para ello, aunque ahora posiblemente elegiría VSCode.
+
+Precisamente porque VSCode tiene buenas ideas, he acabado haciendo algunas contribuciones a Emacs para incluir algunas de esas cosas que hecho de menos. Porque no se puede vivir solo de no usar el ratón.
+
+En esta entrada de blog iré acumulando mis contribuciones a este proyecto.
+
+
+** [[https://github.com/ema2159/centaur-tabs][centaur-tabs]]
+   Se trata de un paquete que implementa unas pestañas para cambiar de /buffer/, desde mi punto de vista más estético y funcional que los incluidos en Emacs. [[https://github.com/ema2159/centaur-tabs/commits?author=alvarogonzalezsotillo][Colaboré]] con los botones de navegación de la izquierda, y añadiendo un menú contextual a las pestañas, inspirado en el de VSCode.
+   [[file:centaur-tabs.png]]
+
+** [[https://github.com/jacktasia/dumb-jump][dump-jump]]
+   Implementa una forma simple, pero altamente efectiva, de localizar la declaración de una variable/funcion/objeto en un proyecto. [[https://github.com/jacktasia/dumb-jump/commits?author=alvarogonzalezsotillo][Contribuí]] con varias definiciones útiles para [[https://www.latex-project.org/][Latex]].
+
+** [[https://github.com/alvarogonzalezsotillo/region-occurrences-highlighter][region-occurrences-highlighter]]
+   Es un paquete propio, ya [[../../../blog/resaltar-ocurrencias-seleccion-emacs/][comentado en este blog]]. Hace que se resalten las ocurrencias de la selección actual, tal y como hace VSCode.
+
+   [[../../../assets/blog/resaltar-ocurrencias-seleccion-emacs/screencast-emacs.gif]]
+
+** [[https://github.com/dgutov/diff-hl][diff-hl]]
+   Resalta en el margen los cambios realizados a un fichero que aún no estén confirmados en el control de versiones. He [[https://github.com/dgutov/diff-hl/commits?author=alvarogonzalezsotillo][contribuído]] con ventanas emergentes que muestran los cambios realizados en cada /hunk/. Empezó como un intento de [[http://archive.eclipse.org/eclipse/downloads/drops/R-3.0-200406251208/eclipse-news-part2-R3.html][quick diff]] de eclipse, con ventanas independientes, y acabó /inline/ [[https://code.visualstudio.com/api/extension-guides/scm-provider#quick-diff][como en VSCode]].
+
+   [[file:inlinepopup.gif]]
+** [[https://github.com/alvarogonzalezsotillo/origami-predef][origami-predef]]
+   Es un paquete propio, también [[../../../blog/folding-inicial-en-emacs/][comentado en este blog]]. Utiliza [[https://github.com/gregsexton/origami.el][origami]] para ocultar secciones de los ficheros cuando son abiertos, basándose en marcadores del fichero.
+   
+** [[https://github.com/csrhodes/gift-mode][gift-mode]]
+   El formato [[https://docs.moodle.org/310/en/GIFT_format][gift]] se utiliza para crear cuestionarios en Moodle a partir de ficheros de texto plano. Emacs tiene un modo para este formato, pero carecía de integración con [[https://github.com/bmag/imenu-list][imenu]], así que me decidí a implementarlo. 
