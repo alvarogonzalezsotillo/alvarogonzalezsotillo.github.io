@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Las 12 uvas 2020 - Álvaro González Sotillo</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Álvaro González Sotillo" />
+    <meta name="description" content="Las 12 uvas es un concurso de programación. Este es especial para mí, porque es el primero en el que compito con mi hijo mayor." />
+    <meta name="keywords" content="12 uvas" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <!-- <link rel="stylesheet" href="/media/css/prettify.css" type="text/css"> -->
+  </head>
+
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">Álvaro González Sotillo</a></h1>
+        <p></p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">Acerca de mí</a></li>
+          <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="//www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Buscar">
+          <input type="hidden" name="as_sitesearch" value="alvarogonzalezsotillo.github.io">
+        </form>
+        <img class="avatar" src="/media/img/octaedron.png" />
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>Las 12 uvas 2020</h1>
+<div id="table-of-contents">
+<h2>&Iacute;ndice</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgd903374">Encuesta comprometedora</a>
+<ul>
+<li><a href="#org43e4535">Enunciado</a></li>
+<li><a href="#org5765a39">Código</a></li>
+</ul>
+</li>
+<li><a href="#org83880d2">Duración de bombillas LED</a>
+<ul>
+<li><a href="#org9b1c100">Enunciado</a></li>
+<li><a href="#org6fd49ab">Código</a></li>
+</ul>
+</li>
+<li><a href="#org783df8c">El reto del reloj programable</a>
+<ul>
+<li><a href="#org57561bc">Enunciado</a></li>
+<li><a href="#org74edad6">Código</a></li>
+</ul>
+</li>
+<li><a href="#orged2c796">Colección de calendarios de bolsillo</a>
+<ul>
+<li><a href="#org4b5b37e">Enunciado</a></li>
+<li><a href="#org1e1e3e5">Código</a></li>
+</ul>
+</li>
+<li><a href="#org7bd0122">Gorros de colores</a>
+<ul>
+<li><a href="#org4e95132">Enunciado</a></li>
+<li><a href="#org714116a">Código</a></li>
+</ul>
+</li>
+<li><a href="#org7945e8a">Velas binarias</a>
+<ul>
+<li><a href="#org1c038d8">Enunciado</a></li>
+<li><a href="#org0210e69">Código</a></li>
+</ul>
+</li>
+<li><a href="#orge342134">Igualando copas</a>
+<ul>
+<li><a href="#org2dc2b4f">Enunciado</a></li>
+<li><a href="#orgd42b526">Código</a></li>
+</ul>
+</li>
+<li><a href="#org254ccf3">A caballo por el viñedo</a>
+<ul>
+<li><a href="#org4fa0edc">Enunciado</a></li>
+<li><a href="#org9125efb">Código</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+He participado en el concurso de programación de <a href="http://las12uvas.es/2020/#/quees">Las Doce Uvas</a>. Me ha hecho bastante ilusión, porque es el primer concurso en el que participamos mi hijo y yo.
+</p>
+
+<p>
+Consiste en <a href="http://las12uvas.es/2020/#/problems">12 problemas</a> que hay que resolver, uno cada media hora, el día de fin de año. No conseguí hacerlos todos, pero aquí están mis soluciones.
+</p>
+
+<p>
+Como medida de precaución ante estudiantes que solo quieren la solución ya programada, los listados de programa tienen una encriptación leve: <a href="https://es.wikipedia.org/wiki/ROT13">rot13</a>. Me viene bien este cifrado porque viene <i>built-in</i> en <a href="https://www.gnu.org/software/emacs/">emacs</a>, que es lo que uso para crear este blog. Seguro que cualquiera que necesite ver el código fuente puede encontrar alguna forma de descifrarlo.
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listado de programa 1 </span><code>rot13</code> utilizando el comando <code>tr</code> de *nix</label><pre class="src src-bash">echo "Pba *avk ab rf gna qvsvpvy" | tr '[A-Za-z]' '[N-ZA-Mn-za-m]'
+</pre>
+</div>
+
+<p>
+Todos los programas utilizan un fichero de entrada con la entrada de ejemplo. Cuando se enviaban, la línea del <code>fopen</code> estaba comentada, así que se usaba la entrada estándar.
+</p>
+
+
+<div id="outline-container-orgd903374" class="outline-2">
+<h2 id="orgd903374"><a href="https://www.aceptaelreto.com/problem/statement.php?id=583">Encuesta comprometedora</a></h2>
+<div class="outline-text-2" id="text-orgd903374">
+</div>
+<div id="outline-container-org43e4535" class="outline-3">
+<h3 id="org43e4535">Enunciado</h3>
+<div class="outline-text-3" id="text-org43e4535">
+<p>
+Cuando se quiere conocer algún aspecto concreto sobre una población de individuos (por ejemplo cuál es el porcentaje de la población que desayuna algo de fruta), se suele recurrir a una encuesta. En ella se hace la pregunta a un subconjunto de personas y los resultados se extrapolan a la población completa. Si el subconjunto elegido no presenta sesgo muestral, la cifra obtenida será muy cercana a la que se obtendría preguntando a todos.
+</p>
+
+<p>
+Hay veces, no obstante, que la encuesta puede naufragar debido a que aquellos a los que se pregunta mienten. Esas mentiras pueden ocurrir aunque esté claro que la encuesta es completamente anónima, pues, se quiera o no, el encuestador que apunta las respuestas sí sabe quién eres y qué has contestado. Estas mentiras ocurren sobre todo cuando entre las respuestas hay una mejor aceptada socialmente que la otra. Al fin y al cabo es raro que alguien reconozca abiertamente que en ese momento lleva rotos los calcetines o que hace más de tres días que no se ducha.
+</p>
+
+<p>
+Existen, afortunadamente, estrategias para poder asegurar el éxito de estas encuestas en donde una de las respuestas es de difícil aceptación. Una de ellas es prestar al entrevistado una moneda y pedirle que la tire al aire antes de contestar. Si sale cara está obligado a usar esa respuesta comprometedora (aunque sea mentira). Si sale cruz deberá decir la verdad. De esa forma, el entrevistador no sabrá, ante esa respuesta difícil de aceptar, si es cierta o no, dado que no sabe lo que salió en la moneda y, por tanto, si es una respuesta obligada o sincera.
+</p>
+</div>
+
+<div id="outline-container-orgbd5ab3c" class="outline-4">
+<h4 id="orgbd5ab3c">Entrada</h4>
+<div class="outline-text-4" id="text-orgbd5ab3c">
+<p>
+El primer número de la entrada indica cuántos casos de prueba deberán ser procesados. 
+Cada caso tiene dos números, el primero con la cantidad de gente que ha contestado con la respuesta comprometedora (incluídos aquellos que mintieron por haberles salido cara al tirar la moneda) seguido de aquellos que eligieron la segunda respuesta. Nunca se preguntará a más de 109 personas.
+</p>
+</div>
+</div>
+<div id="outline-container-org01570b4" class="outline-4">
+<h4 id="org01570b4">Salida</h4>
+<div class="outline-text-4" id="text-org01570b4">
+<p>
+Por cada caso de prueba se escribirá el porcentaje real de población que cae dentro de esa respuesta comprometedora. Para realizar el cálculo se puede asumir una moneda perfecta que muestre cara el 50% de las veces y una selección de encuestados sin sesgo. La respuesta será siempre un número entero.
+</p>
+</div>
+</div>
+<div id="outline-container-orgabb2277" class="outline-4">
+<h4 id="orgabb2277">Entrada de ejemplo</h4>
+<div class="outline-text-4" id="text-orgabb2277">
+<pre class="example" id="org72daa97">
+2
+100 0
+50 50
+</pre>
+</div>
+</div>
+<div id="outline-container-orge0bd820" class="outline-4">
+<h4 id="orge0bd820">Salida de ejemplo</h4>
+<div class="outline-text-4" id="text-orge0bd820">
+<pre class="example" id="orgf4019c3">
+100
+0
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org5765a39" class="outline-3">
+<h3 id="org5765a39">Código</h3>
+<div class="outline-text-3" id="text-org5765a39">
+<div class="org-src-container">
+<pre class="src src-cpp">
+#vapyhqr &lt;pfgqvb&gt;
+#vapyhqr &lt;pzngu&gt;
+hfvat anzrfcnpr fgq;
+
+glcrqrs hafvtarq ybat ragreb;
+
+vag znva(){
+
+  nhgb va = fgqva;
+  nhgb bhg = fgqbhg;
+
+
+  va = sbcra( "fnzcyr.1.gkg", "e");
+  
+  ragreb A;
+  sfpnas(va,"%yq", &amp;A);
+
+  sbe( ragreb a = 0; a &lt; A ; a +=1 ){
+    ragreb erfchrfgnfPbzcebzrgvqnf,  erfchrfgnfNprcgnqnf;
+
+    sfpnas( va, "%yq %yq", &amp;erfchrfgnfPbzcebzrgvqnf, &amp;erfchrfgnfNprcgnqnf);
+
+    ragreb gbgnyErfchrfgnf = erfchrfgnfPbzcebzrgvqnf + erfchrfgnfNprcgnqnf;
+
+    ragreb gbgnyErfchrfgnfSnyfnf = gbgnyErfchrfgnf/2;
+
+    ragreb gbgnyErfchrfgnfFvaprenf = gbgnyErfchrfgnf-gbgnyErfchrfgnfSnyfnf;
+    
+    ragreb erfchrfgnfPbzcebzrgvqnfSnyfnf = gbgnyErfchrfgnfSnyfnf;
+
+    ragreb erfchrfgnfPbzcebzrgvqnfErnyrf = erfchrfgnfPbzcebzrgvqnf - erfchrfgnfPbzcebzrgvqnfSnyfnf;
+
+    ragreb cbepragnwrErfchrfgnfPbzcebzrgvqnf = (ragreb)ebhaq(100.0*erfchrfgnfPbzcebzrgvqnfErnyrf/gbgnyErfchrfgnfFvaprenf);
+
+    scevags( bhg, "%yq\a", cbepragnwrErfchrfgnfPbzcebzrgvqnf);
+    
+  }
+
+
+  
+}
+
+  
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org83880d2" class="outline-2">
+<h2 id="org83880d2"><a href="https://www.aceptaelreto.com/problem/statement.php?id=584">Duración de bombillas LED</a></h2>
+<div class="outline-text-2" id="text-org83880d2">
+</div>
+<div id="outline-container-org9b1c100" class="outline-3">
+<h3 id="org9b1c100">Enunciado</h3>
+<div class="outline-text-3" id="text-org9b1c100">
+<p>
+Hoy día pocos son los que dudan de que las bombillas LED han sido un avance en cuanto a consumo de energía en las casas. Es cierto que son bastante más caras que las bombillas tradicionales pero su bajo consumo y su larga duración compensan la inversión inicial.
+</p>
+
+<p>
+De lo que no estoy tan seguro es de la corriente que se ha instalado en muchos fabricantes de lámparas. Tienen tanta confianza en la longevidad de las bombillas que las lámparas que venden no permiten cambiarlas cuando éstas se funden, lo que obliga a desechar la lámpara completa.
+Este hecho me irrita bastante para lamparitas de mesa, pero me parece inadmisible para lámparas que se cuelgan en pared o techo. Al fin y al cabo su instalación requiere hacer agujeros en la pared que seguirán ahí cuando el tiempo de vida de la lámpara expire.
+</p>
+
+<p>
+Con esto, se entenderá que cuando voy a comprar una lámpara me estudie bien las características de las bombillas. Es curioso saber que éstas tienen dos factores que marcan cuándo dejan de funcionar. Por un lado tienen un número máximo de horas de iluminación y por otro tienen un número máximo de encendidos. Si enciendes la bombilla y no la vuelves a apagar durará muchísimas horas. Pero si la enciendes y apagas continuamente, dejará de funcionar mucho antes.
+</p>
+</div>
+
+<div id="outline-container-org299a3bf" class="outline-4">
+<h4 id="org299a3bf">Entrada</h4>
+<div class="outline-text-4" id="text-org299a3bf">
+<p>
+La entrada comienza con una línea indicando el número de casos de prueba que vendrán a continuación.
+Cada caso de prueba ocupa una única línea y contiene tres enteros. El primero es el número de horas que aguanta la bombilla encendida (hasta 109). El segundo es el número de encendidos que es capaz de soportar (nunca mayor de 108). Por último, aparece el número de horas que, estimo, mantendré la lámpara encendida en cada uso (como mucho 10).
+</p>
+</div>
+</div>
+<div id="outline-container-org9bc2020" class="outline-4">
+<h4 id="org9bc2020">Salida</h4>
+<div class="outline-text-4" id="text-org9bc2020">
+<p>
+Por cada caso de prueba se debe decir la causa de la muerte de la bombilla LED.
+Si ésta termina su vida debido a que se alcanza el número máximo de horas encendida se escribirá HORAS. Si es debido a que ya no admite más encendidos, se escribirá ENCENDIDOS. Por último si es por ambas cosas se escribirá AMBAS.
+</p>
+</div>
+</div>
+<div id="outline-container-org011da6d" class="outline-4">
+<h4 id="org011da6d">Entrada de ejemplo</h4>
+<div class="outline-text-4" id="text-org011da6d">
+<pre class="example" id="orgaa1f2b7">
+3
+1000 200 10
+1000 100 1
+1000 100 10
+</pre>
+</div>
+</div>
+<div id="outline-container-org35ce130" class="outline-4">
+<h4 id="org35ce130">Salida de ejemplo</h4>
+<div class="outline-text-4" id="text-org35ce130">
+<pre class="example" id="org17b6719">
+HORAS
+ENCENDIDOS
+AMBAS
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6fd49ab" class="outline-3">
+<h3 id="org6fd49ab">Código</h3>
+<div class="outline-text-3" id="text-org6fd49ab">
+<div class="org-src-container">
+<pre class="src src-cpp">#vapyhqr &lt;pfgqvb&gt;
+
+hfvat anzrfcnpr fgq;
+
+glcrqrs hafvtarq ybat ragreb;
+
+vag znva(){
+
+  nhgb va = fgqva;
+  nhgb bhg = fgqbhg;
+
+
+  va = sbcra( "fnzcyr.2.gkg", "e");
+  
+  ragreb A;
+  sfpnas(va,"%yq", &amp;A);
+
+  sbe( ragreb a = 0; a &lt; A ; a +=1 ){
+    ragreb ubenfRapraqvqnZnk, rapraqvqbfZnk, ubenfCbeRapraqvqb;
+
+    sfpnas( va, "%yq %yq %yq", &amp;ubenfRapraqvqnZnk, &amp;rapraqvqbfZnk, &amp;ubenfCbeRapraqvqb );
+
+    nhgb UBENF = ubenfRapraqvqnZnk &lt;= rapraqvqbfZnk * ubenfCbeRapraqvqb;
+    nhgb RAPRAQVQBF = ubenfRapraqvqnZnk/ubenfCbeRapraqvqb &gt;= rapraqvqbfZnk;
+
+    nhgb enmba = UBENF&amp;&amp;RAPRAQVQBF ? "NZONF" : (UBENF ? "UBENF" : "RAPRAQVQBF");
+
+    scevags( bhg, "%f\a", enmba);
+  }
+
+
+  
+}
+
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org783df8c" class="outline-2">
+<h2 id="org783df8c"><a href="https://www.aceptaelreto.com/problem/statement.php?id=585">El reto del reloj programable</a></h2>
+<div class="outline-text-2" id="text-org783df8c">
+</div>
+<div id="outline-container-org57561bc" class="outline-3">
+<h3 id="org57561bc">Enunciado</h3>
+<div class="outline-text-3" id="text-org57561bc">
+<p>
+¡Los relojes inteligentes son una chulada! Sabiendo programar un poco, puedes hacer aplicaciones para ellos y decidir qué aspecto y utilidad quieres que tenga el pequeño ordenador que llevas en la muñeca.
+</p>
+
+<p>
+Siguiendo un tutorial, he hecho una aplicación para mostrar la hora. Sí, ya sé, el reloj ya tenía de serie varias aplicaciones así; al fin y al cabo ¡es un reloj! Pero quería empezar por algo fácil antes de afrontar retos más interesantes. Y, bueno, debo reconocer que el asunto no ha salido muy bien. ¡Ahora tengo un reto cada vez que miro la hora! Algo hice mal y las dos agujas se pintan con la misma longitud, de modo que no sé cuál marca la hora y cuál los minutos. Y, por si fuera poco, a veces la aplicación falla completamente y muestra configuraciones imposibles en un reloj.
+</p>
+
+<p>
+Lo que tengo claro es que, cuando funciona, las dos agujas se desplazan cada minuto. Pensando un poco, me he dado cuenta de que, por lo menos, no hay ambigüedad. Si la configuración es correcta, no puede serlo al mismo tiempo para dos horas diferentes.
+</p>
+</div>
+
+<div id="outline-container-orgc401bd4" class="outline-4">
+<h4 id="orgc401bd4">Entrada</h4>
+<div class="outline-text-4" id="text-orgc401bd4">
+<p>
+El programa deberá leer de la entrada estándar un primer número que indica cuántas configuraciones del reloj habrá que procesar. Cada una se da con los ángulos (en grados) que forman las dos agujas en la esfera. Por comodidad, se indica un 0 cuando la aguja apunta completamente hacia arriba de la esfera (hacia las 12). Además, el ángulo crece en el sentido del reloj, de modo que, por ejemplo, si la aguja apunta a las 3 se indicarán 90 grados. 
+Los ángulos se dan con un único decimal. 
+</p>
+</div>
+</div>
+<div id="outline-container-org4987cdf" class="outline-4">
+<h4 id="org4987cdf">Salida</h4>
+<div class="outline-text-4" id="text-org4987cdf">
+<p>
+Por cada caso de prueba se indicará la hora actual en formato HH:MM (entre 00:00 y 11:59) si la configuración es correcta. Si no es posible identificar ninguna hora, se escribirá ERROR. 
+</p>
+</div>
+</div>
+<div id="outline-container-org7514df6" class="outline-4">
+<h4 id="org7514df6">Entrada de ejemplo</h4>
+<div class="outline-text-4" id="text-org7514df6">
+<pre class="example" id="orge250fd7">
+3
+0.0 90.0
+304.5 54.0
+</pre>
+<p>
+1.0 90.0
+</p>
+</div>
+</div>
+<div id="outline-container-org2562083" class="outline-4">
+<h4 id="org2562083">Salida de ejemplo</h4>
+<div class="outline-text-4" id="text-org2562083">
+<pre class="example" id="org7018021">
+03:00
+10:09
+ERROR
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org74edad6" class="outline-3">
+<h3 id="org74edad6">Código</h3>
+<div class="outline-text-3" id="text-org74edad6">
+<div class="org-src-container">
+<pre class="src src-cpp">#vapyhqr &lt;pfgqvb&gt;
+#vapyhqr &lt;fgevat&gt;
+#vapyhqr &lt;pzngu&gt;
+
+hfvat anzrfcnpr fgq;
+
+glcrqrs qbhoyr ahzreb;
+
+obby vthnyrf(ahzreb n, ahzreb o){
+  erghea nof(n-o) &lt; 0.0001;
+}
+
+fgevat pnyphynUben(ahzreb nathybUben, ahzreb nathybZvahgb){
+  
+  ahzreb uben = 12*nathybUben/360;
+  vag ubenRagren = sybbe(uben);
+  ahzreb senppvbaQrUben = uben-ubenRagren;
+  ahzreb zvahgbfQrSenppvbaQrUben = senppvbaQrUben*60;
+
+  ahzreb zvahgb = 60*nathybZvahgb/360;
+  vag zvahgbRagreb = sybbe(zvahgb);
+
+  vs( vthnyrf(zvahgbfQrSenppvbaQrUben,zvahgb) ){
+    pune ohss[1000];
+    fcevags( ohss, "%02q:%02q", ubenRagren, zvahgbRagreb );
+    erghea fgevat(ohss);
+  }
+
+  erghea "REEBE";
+  
+  
+}
+
+vag znva(){
+
+  nhgb va = fgqva;
+  nhgb bhg = fgqbhg;
+
+
+  va = sbcra( "fnzcyr.3.gkg", "e");
+  
+  vag A;
+  sfpnas(va,"%q", &amp;A);
+  sbe( vag a = 0 ; a &lt; A ; a++ ){
+    ahzreb nathyb1, nathyb2;
+
+    sfpnas( va, "%ys %ys", &amp;nathyb1, &amp;nathyb2 );
+
+    nhgb f1 = pnyphynUben(nathyb1,nathyb2);
+    nhgb f2 = pnyphynUben(nathyb2,nathyb1);
+
+    nhgb f = f1 == "REEBE" ? f2 : f1;
+
+    scevags( bhg, "%f\a", f.p_fge() );
+
+    
+  }
+
+
+}
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-orged2c796" class="outline-2">
+<h2 id="orged2c796"><a href="https://www.aceptaelreto.com/problem/statement.php?id=586">Colección de calendarios de bolsillo</a></h2>
+<div class="outline-text-2" id="text-orged2c796">
+</div>
+<div id="outline-container-org4b5b37e" class="outline-3">
+<h3 id="org4b5b37e">Enunciado</h3>
+<div class="outline-text-3" id="text-org4b5b37e">
+<p>
+Entre las raras manías de mi padre estuvo la de conservar los calendarios de bolsillo en lugar de, como hacía todo el mundo, tirarlos cuando acababa el año. Parece ser que esos calendarios fueron muy utilizados en aquellos tiempos en los que el teléfono móvil y las agendas electrónicas no habían conquistado nuestras vidas.
+</p>
+
+<p>
+Estos pequeños trozos de cartón tenían por un lado el calendario del año y por otro lado una foto o imagen, algunas veces religiosa y otras de propaganda. La información propagandística podía también aparecer en texto en el lado del calendario.
+</p>
+
+<p>
+No está claro cuándo comenzó a hacer la colección y tampoco cuándo decidió no guardarse más. Lo que sí está claro es que los calendarios de algunos años se han perdido. Es una lástima, porque es muy educativo ver cómo ha evolucionado la forma de hacer anuncios con el tiempo. Me pregunto cuántos, como mínimo, se han perdido.
+</p>
+</div>
+
+<div id="outline-container-orgec24b3f" class="outline-4">
+<h4 id="orgec24b3f">Entrada</h4>
+<div class="outline-text-4" id="text-orgec24b3f">
+<p>
+La entrada comienza con el número de casos de prueba que vendrán a continuación.
+Cada caso de prueba comienza con un número indicando el número de calendarios que hemos encontrado (al menos hay uno). En la siguiente línea aparecen los años de cada calendario. Todos ellos pertenecen al S.XX y, más concretamente, fluctúan entre 1930 y 1990. Ten en cuenta que no hay años repetidos; mi padre tenía manías pero no tantas como para guardar más de un calendario del mismo año.
+</p>
+</div>
+</div>
+<div id="outline-container-orga413004" class="outline-4">
+<h4 id="orga413004">Salida</h4>
+<div class="outline-text-4" id="text-orga413004">
+<p>
+Por cada caso de prueba se escribirá un único número indicando el mínimo número de calendarios que se han perdido.
+</p>
+</div>
+</div>
+<div id="outline-container-org05e680a" class="outline-4">
+<h4 id="org05e680a">Entrada de ejemplo</h4>
+<div class="outline-text-4" id="text-org05e680a">
+<pre class="example" id="org8f36234">
+3
+2
+1950 1952
+2
+1950 1951
+3
+1970 1960 1965
+</pre>
+</div>
+</div>
+<div id="outline-container-org8f22848" class="outline-4">
+<h4 id="org8f22848">Salida de ejemplo</h4>
+<div class="outline-text-4" id="text-org8f22848">
+<pre class="example" id="org58fcd8f">
+1
+0
+8
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org1e1e3e5" class="outline-3">
+<h3 id="org1e1e3e5">Código</h3>
+<div class="outline-text-3" id="text-org1e1e3e5">
+<div class="org-src-container">
+<pre class="src src-cpp">#vapyhqr &lt;pfgqvb&gt;
+#vapyhqr &lt;fgevat&gt;
+#vapyhqr &lt;pzngu&gt;
+#vapyhqr &lt;irpgbe&gt;
+
+hfvat anzrfcnpr fgq;
+
+glcrqrs qbhoyr ahzreb;
+
+vag znva(){
+
+  nhgb va = fgqva;
+  nhgb bhg = fgqbhg;
+
+
+  va = sbcra( "fnzcyr.4.gkg", "e");
+  
+  vag A;
+  sfpnas(va,"%q", &amp;A);
+  sbe( vag a = 0 ; a &lt; A ; a++ ){
+    vag pnyraqnevbf;
+
+    sfpnas( va, "%q", &amp;pnyraqnevbf );
+
+    vag zvavzb = 1000000;
+    vag znkvzb = -1000000;
+    sbe( vag p = 0 ; p &lt; pnyraqnevbf ; p++ ){
+      vag pnyraqnevb;
+      sfpnas( va, "%q", &amp;pnyraqnevb );
+      zvavzb = zva(zvavzb,pnyraqnevb);
+      znkvzb = znk(znkvzb,pnyraqnevb);
+    }
+
+    vag nonavpb = znkvzb - zvavzb + 1;
+    vag snygna = nonavpb - pnyraqnevbf;
+      
+    scevags( bhg, "%q\a", snygna );
+
+    
+  }
+
+
+}
+
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org7bd0122" class="outline-2">
+<h2 id="org7bd0122"><a href="https://www.aceptaelreto.com/problem/statement.php?id=587">Gorros de colores</a></h2>
+<div class="outline-text-2" id="text-org7bd0122">
+</div>
+<div id="outline-container-org4e95132" class="outline-3">
+<h3 id="org4e95132">Enunciado</h3>
+<div class="outline-text-3" id="text-org4e95132">
+<p>
+Con la idea de ganar algo de dinero, Paco Mer se ha puesto a trabajar en un local donde los niños de los alrededores celebran sus cumpleaños con sus compañeros de clase. Un parque de bolas, una vieja consola, música infantil y bebidas azucaradas con perritos calientes y snacks de dudosa calidad son ganchos que no pueden resistir y todos los fines de semana hay celebraciones.
+</p>
+
+<p>
+En la última, Paco colocó a los niños en fila, uno detrás de otro, y puso a cada uno un gorro, amarillo o rojo, de modo que cada niño podía ver el color de los gorros de los que tenía delante de la fila, pero no el suyo o el de los de detrás. Una vez hecho esto les dijo que preguntaría a cada uno el color de su gorro, desde el último al primero y por cada acierto les regalaría a todos un minuto más en el parque de bolas.
+</p>
+
+<p>
+Celia, la pequeña que estaba situada la última y contestaría la primera, puso orden en el revuelo que se montó. Pese a su corta edad, organizó un plan. Ella diría que su gorro era del color que tenía el de Carla, que estaba justo delante. Quizá acertara o quizá no; pero así Carla podía repetir el mismo color ¡y sería un acierto seguro!
+</p>
+
+<p>
+Después de Carla, Rodrigo, delante de ella, haría lo mismo. Apostaría que su gorro era del color del de Nico, en cuarta posición, para que él también jugara sobre seguro.
+</p>
+
+<p>
+Paco no daba crédito con la idea de la enana. Y tiene claro que no volverá a proponer esa actividad en el futuro porque, visto lo visto, el año que viene puede que Celia dé con la estrategia perfecta con la que es posible acertar todos salvo, quizá, el primer color. 
+</p>
+</div>
+
+<div id="outline-container-org0ced8cd" class="outline-4">
+<h4 id="org0ced8cd">Entrada</h4>
+<div class="outline-text-4" id="text-org0ced8cd">
+<p>
+El programa deberá leer de la entrada estándar un primer número que indica cuántos casos deberán ser procesados. 
+Cada uno está compuesto por una cadena de no más de 1.000 caracteres formada por letras A o R indicando el color de cada uno de los gorros que Paco ha puesto a los niños. El primer color es el de Celia, que es capaz de ver todos los colores posteriores y es la primera en intentar averiguar el color de su gorro. Siempre hay un número par de niños. 
+</p>
+</div>
+</div>
+<div id="outline-container-org1d7917d" class="outline-4">
+<h4 id="org1d7917d">Salida</h4>
+<div class="outline-text-4" id="text-org1d7917d">
+<p>
+Por cada caso de prueba el programa escribirá cuántos minutos tendrá Paco que regalar a los niños en el parque de bolas gracias a sus aciertos si siguen la estrategia de la pequeña. 
+</p>
+</div>
+</div>
+<div id="outline-container-orgd597787" class="outline-4">
+<h4 id="orgd597787">Entrada de ejemplo</h4>
+<div class="outline-text-4" id="text-orgd597787">
+<pre class="example" id="org1b67953">
+2
+ARRA
+AAAA
+</pre>
+</div>
+</div>
+<div id="outline-container-org0b14238" class="outline-4">
+<h4 id="org0b14238">Salida de ejemplo</h4>
+<div class="outline-text-4" id="text-org0b14238">
+<pre class="example" id="orgf9de65b">
+2
+4
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org714116a" class="outline-3">
+<h3 id="org714116a">Código</h3>
+<div class="outline-text-3" id="text-org714116a">
+<div class="org-src-container">
+<pre class="src src-cpp">#vapyhqr &lt;pfgqvb&gt;
+#vapyhqr &lt;fgevat&gt;
+#vapyhqr &lt;pfgevat&gt;
+#vapyhqr &lt;pzngu&gt;
+#vapyhqr &lt;irpgbe&gt;
+
+hfvat anzrfcnpr fgq;
+
+glcrqrs qbhoyr ahzreb;
+
+
+vag npvregbf(pbafg pune* f){
+  vag erg = 0;
+  sbe( vag v = 0 ; v &lt; fgeyra(f) ; v += 2 ){
+    erg += f[v]==f[v+1] ? 2 : 1;
+  }
+  erghea erg;
+}
+
+vag znva(){
+
+  nhgb va = fgqva;
+  nhgb bhg = fgqbhg;
+
+
+  va = sbcra( "fnzcyr.5.gkg", "e");
+  
+  vag A;
+  sfpnas(va,"%q", &amp;A);
+  sbe( vag a = 0 ; a &lt; A ; a++ ){
+
+    pune ohs[2000];
+
+    sfpnas( va, "%f", ohs);
+    scevags( bhg, "%q\a", npvregbf(ohs));
+    
+
+    
+  }
+
+
+}
+
+
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org7945e8a" class="outline-2">
+<h2 id="org7945e8a"><a href="https://www.aceptaelreto.com/problem/statement.php?id=588">Velas binarias</a></h2>
+<div class="outline-text-2" id="text-org7945e8a">
+</div>
+<div id="outline-container-org1c038d8" class="outline-3">
+<h3 id="org1c038d8">Enunciado</h3>
+<div class="outline-text-3" id="text-org1c038d8">
+<p>
+Al celebrar un cumpleaños es habitual colocar velas encendidas sobre una tarta y que la persona homenajeada las apague de un soplido mientras el fotógrafo de turno capta el momento como mejor puede.
+</p>
+
+<p>
+Tras la mejora de la técnica de fabricación de velas, éstas tienen forma de dígitos con los que se forma la edad que estrena el que las sopla. Desgraciadamente ocurre muchas veces que la tarta se coloca al revés y los dígitos individuales se ven mal, a excepción del ocho y el cero que son simétricos.
+</p>
+
+<p>
+En mi casa somos unos apasionados de la numeración binaria, así que utilizamos velas binarias: ponemos una hilera de velas tradicionales (de las que son simples cilindros en vertical) y encendemos sólo aquellas que ocupan la posición de un bit que está a uno. De esta forma no tenemos el problema de los dígitos al revés, pues al fin y al cabo los cilindros son simétricos. Pero sí ocurre a veces que la cifra representada no es la misma desde un lado de la tarta que desde el otro.
+</p>
+</div>
+
+<div id="outline-container-org6216716" class="outline-4">
+<h4 id="org6216716">Entrada</h4>
+<div class="outline-text-4" id="text-org6216716">
+<p>
+La entrada estará compuesta por varios casos de prueba, cada uno en una línea. Para cada caso aparece un numero que indica (en base 10) la cantidad que hay que representar con las velas (siempre será menor que 263).
+La entrada termina con un 0 que no debe procesarse.
+</p>
+</div>
+</div>
+<div id="outline-container-org26c002d" class="outline-4">
+<h4 id="org26c002d">Salida</h4>
+<div class="outline-text-4" id="text-org26c002d">
+<p>
+Por cada caso de prueba se indicará SI si el número admite una representación con velas binarias que pueda verse igual desde ambos lados de la tarta.
+</p>
+</div>
+</div>
+<div id="outline-container-orgbddaaf7" class="outline-4">
+<h4 id="orgbddaaf7">Entrada de ejemplo</h4>
+<div class="outline-text-4" id="text-orgbddaaf7">
+<pre class="example" id="orge2214a1">
+  34
+  4
+  13
+  0
+</pre>
+</div>
+</div>
+<div id="outline-container-org41317b8" class="outline-4">
+<h4 id="org41317b8">Salida de ejemplo</h4>
+<div class="outline-text-4" id="text-org41317b8">
+<pre class="example" id="org4e68a90">
+  SI
+  SI
+  NO
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0210e69" class="outline-3">
+<h3 id="org0210e69">Código</h3>
+<div class="outline-text-3" id="text-org0210e69">
+<div class="org-src-container">
+<pre class="src src-cpp">#vapyhqr &lt;pfgqvb&gt;
+#vapyhqr &lt;fgevat&gt;
+#vapyhqr &lt;pfgevat&gt;
+#vapyhqr &lt;pzngu&gt;
+#vapyhqr &lt;irpgbe&gt;
+#vapyhqr &lt;pfgqyvo&gt;
+
+hfvat anzrfcnpr fgq;
+
+glcrqrs hafvtarq ybat ybat ahzreb;
+
+
+
+ibvq yygbn(ahzreb a, pune* ohs, vag enqvk){
+
+  sbe( vag v = 0 ; a &gt; 0 ; v++ ){
+    pune qvtvgb = a%enqvk;
+    a /= enqvk;
+    ohs[v] = '0'+qvtvgb;
+    ohs[v+1] = '\0';
+  }
+
+  sbe( vag v = 0 ; v &lt; fgeyra(ohs)/2 ; v++ ){
+    pune p = ohs[v];
+    ohs[v] = ohs[fgeyra(ohs)-1-v];
+    ohs[fgeyra(ohs)-1-v] = p;
+  }
+  
+  
+}
+
+
+obby erirefvoyr(pbafg pune* f){
+  pune ohs[1000];
+  fgepcl(ohs,f);
+  pune *fvaPrebfSvanyrf = ohs+fgeyra(ohs)-1;
+  sbe( ; *fvaPrebfSvanyrf == '0' ; fvaPrebfSvanyrf-- );
+  fvaPrebfSvanyrf[1] = '\0';
+  //scevags( fgqree, "%f -&gt; %f\a", f, ohs );
+  
+  sbe( vag v = 0 ; v &lt; fgeyra(ohs)/2 ; v++ ){
+    vs( ohs[v] != ohs[fgeyra(ohs)-v-1] ){
+      erghea snyfr;
+    }
+  }
+  erghea gehr;
+}
+
+vag znva(){
+
+  nhgb va = fgqva;
+  nhgb bhg = fgqbhg;
+
+
+  va = sbcra( "fnzcyr.6.gkg", "e");
+  
+  ahzreb a;
+  sbe( sfpnas(va,"%yyh", &amp;a); a &gt; 0 ; sfpnas( va, "%yyh", &amp;a ) ){
+    
+    pune ohs[2000];
+    yygbn(a,ohs,2);
+    //scevags( fgqree, "%yh -&gt; %f\a", a, ohs);
+
+    scevags( bhg, "%f\a", erirefvoyr(ohs) ? "FV" : "AB");
+  }
+
+
+}
+
+
+
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge342134" class="outline-2">
+<h2 id="orge342134"><a href="https://www.aceptaelreto.com/problem/statement.php?id=589">Igualando copas</a></h2>
+<div class="outline-text-2" id="text-orge342134">
+</div>
+<div id="outline-container-org2dc2b4f" class="outline-3">
+<h3 id="org2dc2b4f">Enunciado</h3>
+<div class="outline-text-3" id="text-org2dc2b4f">
+<p>
+En las grandes celebraciones es habitual terminar brindando, ya sea por el nuevo año que empieza, por los novios, por el niño recién bautizado o, en resumen, por aquello que haya llevado a esa celebración.
+En la última celebración que hicimos en la familia hubo un poco de lío porque dejamos al pequeño de la casa llenar las copas y cada una quedó con un nivel distinto. Cuando el abuelo vió que no estaban todas con exactamente la misma cantidad de líquido, se enfadó un poco y hasta que no las nivelamos, añadiendo bebida donde se necesitaba, no quiso empezar el discurso de brindis que tenía preparado… 
+</p>
+</div>
+<div id="outline-container-org6d266d5" class="outline-4">
+<h4 id="org6d266d5">Entrada</h4>
+<div class="outline-text-4" id="text-org6d266d5">
+<p>
+La entrada estará formada por distintos casos de prueba, cada uno en dos líneas.
+La primera línea de cada caso contiene el número n de copas sobre la mesa. En la siguiente línea aparecen n números con la cantidad de líquido que tiene cada una (un número entre 0 y 1012).
+La entrada termina con un 0 que no debe procesarse.
+</p>
+</div>
+</div>
+<div id="outline-container-org82f5125" class="outline-4">
+<h4 id="org82f5125">Salida</h4>
+<div class="outline-text-4" id="text-org82f5125">
+<p>
+Para cada caso de prueba se escribirá una única línea con la cantidad mínima de líquido necesaria para equilibrar todas las copas. Se garantiza que la respuesta no excederá 1018.
+</p>
+</div>
+</div>
+<div id="outline-container-orgc4d033a" class="outline-4">
+<h4 id="orgc4d033a">Entrada de ejemplo</h4>
+<div class="outline-text-4" id="text-orgc4d033a">
+<pre class="example" id="org17c2547">
+  3
+  10 8 7
+  3
+  8 8 8
+  0
+</pre>
+</div>
+</div>
+<div id="outline-container-orgd1af45d" class="outline-4">
+<h4 id="orgd1af45d">Salida de ejemplo</h4>
+<div class="outline-text-4" id="text-orgd1af45d">
+<pre class="example" id="org2da9bf0">
+  5
+  0
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgd42b526" class="outline-3">
+<h3 id="orgd42b526">Código</h3>
+<div class="outline-text-3" id="text-orgd42b526">
+<div class="org-src-container">
+<pre class="src src-cpp">#vapyhqr &lt;pfgqvb&gt;
+#vapyhqr &lt;fgevat&gt;
+#vapyhqr &lt;pfgevat&gt;
+#vapyhqr &lt;pzngu&gt;
+#vapyhqr &lt;irpgbe&gt;
+#vapyhqr &lt;pfgqyvo&gt;
+
+hfvat anzrfcnpr fgq;
+
+glcrqrs hafvtarq ybat ybat ahzreb;
+#qrsvar AHZ "%yyq"
+
+vag znva(){
+
+  nhgb va = fgqva;
+  nhgb bhg = fgqbhg;
+
+
+  va = sbcra( "fnzcyr.7.gkg", "e");
+  
+  ahzreb a;
+  sbe( sfpnas(va,AHZ, &amp;a); a &gt; 0 ; sfpnas( va, AHZ, &amp;a ) ){
+    ahzreb eryyrab = 0;
+    ahzreb znkvzb=0;
+    sbe( vag p = 0 ; p &lt; a ; p++ ){
+      ahzreb pbcn;
+      sfpnas( va, AHZ, &amp;pbcn);
+      vs( znkvzb &lt; pbcn ){
+        eryyrab += p*(pbcn-znkvzb);
+        znkvzb = pbcn;
+      }
+      eryyrab += znkvzb - pbcn;
+    }
+
+    scevags( bhg, AHZ"\a", eryyrab );
+  }
+
+
+}
+
+
+
+
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org254ccf3" class="outline-2">
+<h2 id="org254ccf3"><a href="https://www.aceptaelreto.com/problem/statement.php?id=590">A caballo por el viñedo</a></h2>
+<div class="outline-text-2" id="text-org254ccf3">
+</div>
+<div id="outline-container-org4fa0edc" class="outline-3">
+<h3 id="org4fa0edc">Enunciado</h3>
+<div class="outline-text-3" id="text-org4fa0edc">
+<p>
+Pese a las recomendaciones de todo el mundo, Virtudes Pistada ha montado su tradicional fiesta de Nochevieja, invitando a infinidad de gente de la alta sociedad a su finca del sur para despedir el año bajo la luz de la luna todos juntos. Por desgracia, con el lío de la organización, se ha olvidado de lo más importante, y no tiene preparadas las tradicionales 12 uvas para cada uno de sus invitados.
+</p>
+
+<p>
+Pero no está todo perdido. En su viña tiene aún un montón de uva por recolectar. Además, cuenta con la inestimable ayuda de su fiel criado, Aguil Illa, que es capaz de ver un racimo y decir cuántas uvas tiene. Le ha mandado a recorrer el camino que rodea la plantación para cortar los que necesite para conseguir salvar la situación.
+</p>
+
+<p>
+Como va a ir a caballo, Illa ha decidido que cogerá un conjunto de racimos consecutivo. Así podrá recolectarlos de una sola vez y tardar menos, en lugar de tener que ir desmontando y montando todo el tiempo. Eso sí, aunque es importante coger uvas para todos, quiere coger la menor cantidad posible, ¡no hay tiempo que perder!
+</p>
+</div>
+
+<div id="outline-container-orga49118b" class="outline-4">
+<h4 id="orga49118b">Entrada</h4>
+<div class="outline-text-4" id="text-orga49118b">
+<p>
+La entrada está formada por distintos casos de prueba, cada uno en dos líneas.
+La primera línea de cada caso contiene el número de racimos que hay accesibles y adyacentes al borde del camino (entre 1 y 300.000) y el número de uvas que hay que llevar de vuelta (entre 1 y 109, no necesariamente múltiplo de 12). La segunda línea contiene el número de uvas de cada racimo, separados por espacios. Se garantiza que la suma de todos nunca será mayor que 109.
+Al último caso de prueba le sigue una línea con dos ceros.
+</p>
+</div>
+</div>
+<div id="outline-container-org1ca2ee3" class="outline-4">
+<h4 id="org1ca2ee3">Salida</h4>
+<div class="outline-text-4" id="text-org1ca2ee3">
+<p>
+Por cada caso de prueba se escribirá el número mínimo de uvas que Aguil Illa puede llevar de vuelta que sea mayor o igual que las necesarias, sabiendo que solo cogerá un conjunto de racimos consecutivos. Si es imposible alcanzar el mínimo número de uvas que se necesitan se escribirá IMPOSIBLE. 
+</p>
+</div>
+</div>
+<div id="outline-container-orgf707dc3" class="outline-4">
+<h4 id="orgf707dc3">Entrada de ejemplo</h4>
+<div class="outline-text-4" id="text-orgf707dc3">
+<pre class="example" id="orgf2db0ee">
+  6 15
+  5 5 5 5 5 5
+  7 15
+  4 2 4 4 4 4 17
+  2 10
+  4 4
+  0 0
+</pre>
+</div>
+</div>
+<div id="outline-container-org4d9aed1" class="outline-4">
+<h4 id="org4d9aed1">Salida de ejemplo</h4>
+<div class="outline-text-4" id="text-org4d9aed1">
+<pre class="example" id="org306bb4c">
+  15
+  16
+  IMPOSIBLE
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9125efb" class="outline-3">
+<h3 id="org9125efb">Código</h3>
+<div class="outline-text-3" id="text-org9125efb">
+<div class="org-src-container">
+<pre class="src src-cpp">#vapyhqr &lt;vbfgernz&gt;
+#vapyhqr &lt;pfgqvb&gt;
+#vapyhqr &lt;fgevat&gt;
+#vapyhqr &lt;pfgevat&gt;
+#vapyhqr &lt;pzngu&gt;
+#vapyhqr &lt;irpgbe&gt;
+#vapyhqr &lt;pfgqyvo&gt;
+
+hfvat anzrfcnpr fgq;
+
+glcrqrs hafvtarq ybat ybat ahzreb;
+#qrsvar AHZ "%yyq"
+
+vag znva(){
+
+  nhgb va = fgqva;
+  nhgb bhg = fgqbhg;
+
+
+  va = sbcra( "fnzcyr.8.gkg", "e");
+  
+  ahzreb enpvzbf;
+  ahzreb hinf;
+
+  fgngvp ahzreb e[300000];
+
+  sbe( sfpnas(va,AHZ AHZ, &amp;enpvzbf, &amp;hinf); enpvzbf &gt; 0 ; sfpnas( va, AHZ AHZ, &amp;enpvzbf, &amp;hinf ) ){
+    // scevags( fgqree, "------------------------------------------\a" );
+
+    sbe( vag v = 0 ; v &lt; enpvzbf ; v++ ){
+      sfpnas(va,AHZ,e+v);
+    }
+
+    // scevags( fgqree, "sva yrpghen " AHZ  " enpvzbf\a", enpvzbf );
+
+    ahzreb erfchrfgn = (ahzreb)1r10;
+    vag vav = 0;
+    ahzreb nphzhynqb = 0;
+
+    vag v = 0;
+    juvyr( v &lt; enpvzbf){
+
+      //  SNFR RKCNAFVIN
+      juvyr( nphzhynqb &lt; hinf &amp;&amp; v &lt; enpvzbf ){
+        nphzhynqb += e[v];
+        // scevags( fgqree, "v:%q nphzhynqb:" AHZ "\a", v, nphzhynqb );
+        
+        v += 1;
+      }
+      
+      vs( erfchrfgn &gt; nphzhynqb &amp;&amp; nphzhynqb &gt;= hinf ){
+        erfchrfgn = nphzhynqb;
+      }
+
+      
+      // SNFR PBAGENPGVIN
+      juvyr( nphzhynqb &gt;= hinf &amp;&amp; vav &lt; v ){
+        nphzhynqb -= e[vav];
+        // scevags( fgqree, "vav:%q nphzhynqb:" AHZ "\a", vav, nphzhynqb );
+        
+        vav++;
+        vs( erfchrfgn &gt; nphzhynqb &amp;&amp; nphzhynqb &gt;= hinf ){
+          erfchrfgn = nphzhynqb;
+        }
+      }
+    }
+
+    vs( erfchrfgn &lt; (ahzreb)1r10 ){
+      scevags( bhg, AHZ"\a", erfchrfgn );
+    }
+    ryfr{
+      scevags( bhg, "VZCBFVOYR\a");
+    }
+  }
+
+}
+
+
+
+
+
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2021-01-03</span>
+        <span title="last modification date" class="post-info">2021-01-03</span>
+        <span title="tags" class="post-info"><a href="/tags/12-uvas/">12 uvas</a></span>
+        <span title="author" class="post-info">Álvaro González Sotillo</span>
+      </div>
+      <section>
+        <!-- <h1>Comments</h1> -->
+      </section>
+      <!-- <script src="//code.jquery.com/jquery-latest.min.js"></script> -->
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->
+      <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>  -->
+      <!--<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>-->
+      <script src="/media/js/jquery-3.2.1.min.js"></script>
+      <script src="/media/js/main.js"></script>
+      <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="/media/js/code-prettify/loader/run_prettify.js"></script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 28.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:alvarogonzalezsotillo <at> gmail <dot> com">Álvaro González Sotillo</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>

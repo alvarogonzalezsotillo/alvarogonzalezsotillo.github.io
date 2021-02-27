@@ -4,10 +4,52 @@
     <title>Álvaro González Sotillo</title>
     <link>https://alvarogonzalezsotillo.github.io/</link>
     <description></description>
-    <pubDate>vie, 26 jun 2020 16:07:49 CEST</pubDate>
-    <lastBuildDate>vie, 26 jun 2020 16:07:49 CEST</lastBuildDate>
+    <pubDate>sáb, 27 feb 2021 20:11:16 CET</pubDate>
+    <lastBuildDate>sáb, 27 feb 2021 20:11:16 CET</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
+    <item>
+      <title>Contribuciones a paquetes Emacs</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/contribuciones-emacs</link>
+      <description><![CDATA[Mis contribuciones a paquetes Emacs]]></description>
+      <pubDate>2021-02-27</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/contribuciones-emacs</guid>
+    </item>
+    <item>
+      <title>Nuevo HTPC en casa</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/ordenador-de-sobremesa-servidor-htpc</link>
+      <description><![CDATA[Acabo de comprarme un asus vc-66. Mi intención es utilizarlo como servidor accesible desde internet, pero también como htpc. Estos son los pasos que he seguido para configurarlo.]]></description>
+      <pubDate>2021-02-25</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/ordenador-de-sobremesa-servidor-htpc</guid>
+    </item>
+    <item>
+      <title>Las 12 uvas 2020</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/las-doce-uvas-2020</link>
+      <description><![CDATA[Las 12 uvas es un concurso de programación. Este es especial para mí, porque es el primero en el que compito con mi hijo mayor.]]></description>
+      <pubDate>2021-01-03</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/las-doce-uvas-2020</guid>
+    </item>
+    <item>
+      <title>Algunas reinas</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/algunas-reinas</link>
+      <description><![CDATA[Problema de las n-queens]]></description>
+      <pubDate>2020-10-21</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/algunas-reinas</guid>
+    </item>
+    <item>
+      <title>De Google Sites a blog estático</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/de-google-sites-a-blog-estatico</link>
+      <description><![CDATA[Empecé a usar un site de Google cuando aún quedaban rastros del /don't be evil/. Ahora creo que es mejor utilizar un blog estático.]]></description>
+      <pubDate>2020-10-21</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/de-google-sites-a-blog-estatico</guid>
+    </item>
+    <item>
+      <title>Pihole y monitorización de red</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/pihole-monitorizacion-red</link>
+      <description><![CDATA[He instalado /pihole/ en la red del instituto donde trabajo para intentar mejorar la velocidad de la red. y de forma imprevista, me ha ayudado a encontrar un intruso que pretendía hacer un ataque de denegación de servicio.]]></description>
+      <pubDate>2020-10-21</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/pihole-monitorizacion-red</guid>
+    </item>
     <item>
       <title>Folding inicial en Emacs</title>
       <link>https://alvarogonzalezsotillo.github.io/blog/folding-inicial-en-emacs</link>
@@ -35,48 +77,6 @@
       <description><![CDATA[Se puede utilizar orgmode para programar y documentar/publicar lo programado]]></description>
       <pubDate>2020-04-04</pubDate>
       <guid>https://alvarogonzalezsotillo.github.io/blog/literate-codejam</guid>
-    </item>
-    <item>
-      <title>Instalar Emacs como servicio</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/instalar-emacs-como-servicio</link>
-      <description><![CDATA[El tiempo de arranque de Emacs se puede disimular al inicio del sistema, y ser manejado como un servicio al que conectarse.]]></description>
-      <pubDate>2020-01-17</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/instalar-emacs-como-servicio</guid>
-    </item>
-    <item>
-      <title>Licencias GVLK de Microsoft con vlmcsd</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/licencias-gvlk-de-microsoft-con-vlmcsd</link>
-      <description><![CDATA[El mecanismo de licencias GVLK (por volumen) de Microsoft, utilizado en muchas versiones de Windows y Office, puede entenderse fácilmente experimentando con vlmcsd]]></description>
-      <pubDate>2019-12-19</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/licencias-gvlk-de-microsoft-con-vlmcsd</guid>
-    </item>
-    <item>
-      <title>Pihole y monitorización de red</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/pihole-monitorizacion-red</link>
-      <description><![CDATA[He instalado /pihole/ en la red del instituto donde trabajo para intentar mejorar la velocidad de la red. y de forma imprevista, me ha ayudado a encontrar un intruso que pretendía hacer un ataque de denegación de servicio.]]></description>
-      <pubDate>2019-12-19</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/pihole-monitorizacion-red</guid>
-    </item>
-    <item>
-      <title>Colores HTML con nombre</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/colores-html-con-nombre</link>
-      <description><![CDATA[Los colores HTML pueden parecer palabras. Esta es una lista de esas palabras.]]></description>
-      <pubDate>2019-11-15</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/colores-html-con-nombre</guid>
-    </item>
-    <item>
-      <title>Mi ordenador de bolsillo con termux </title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/ordenador-bolsillo-termux/</link>
-      <description><![CDATA[Una ventaja de usar sobre todo herramientas de consola es que es uno de los sistemas UI más antiguos y simples de implementar y, por tanto, más extendido y estándar. También en tu Android.]]></description>
-      <pubDate>2019-10-17</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/ordenador-bolsillo-termux/</guid>
-    </item>
-    <item>
-      <title>Termux-api</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/termux-api/termux-api.org</link>
-      <description><![CDATA[/Termux/ instala un terminal y muchos de los comandos de Linux en Android. Ahora con /Termux:API/ se añaden algunos comandos para interactuar con Android desde la shell.]]></description>
-      <pubDate>2019-10-17</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/termux-api/termux-api.org</guid>
     </item>
   </channel>
 </rss>

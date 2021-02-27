@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Algunas reinas - Álvaro González Sotillo</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Álvaro González Sotillo" />
+    <meta name="description" content="Problema de las n-queens" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <!-- <link rel="stylesheet" href="/media/css/prettify.css" type="text/css"> -->
+  </head>
+
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">Álvaro González Sotillo</a></h1>
+        <p></p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">Acerca de mí</a></li>
+          <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="//www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Buscar">
+          <input type="hidden" name="as_sitesearch" value="alvarogonzalezsotillo.github.io">
+        </form>
+        <img class="avatar" src="/media/img/octaedron.png" />
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>Algunas reinas</h1>
+<p>
+Me han retado a hacer un programa que resuelva el problema de las <a href="https://en.wikipedia.org/wiki/Eight_queens_puzzle">n-reinas</a>. Esta es mi solución en c++ básico: sin <code>class</code> / <code>struct</code> , sin memoria dinámica y sin punteros a función. Solo utilizo <code>assert</code> , <code>=printf</code> y <code>system</code> para conseguir la hora de inicio y fin del programa.
+</p>
+
+<p>
+El límite práctico parece estar en las 30 reinas, con alrededor de 12 segundos de cálculo.
+</p>
+
+<div id="outline-container-org908ea1f" class="outline-2">
+<h2 id="org908ea1f"><span class="section-number-2">1</span> Algunas reinas</h2>
+<div class="outline-text-2" id="text-1">
+<div class="org-src-container">
+<pre class="src src-cpp">
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;cassert&gt;
+
+using namespace std;
+
+
+
+const int maxSize = 100;
+const int notSeized = maxSize+1;
+
+int seizedAtLevel[maxSize][maxSize];
+
+void initSeized(){
+  for( int col = 0 ; col &lt; maxSize ; col += 1 ){
+    for( int row = 0 ; row &lt; maxSize ; row += 1 ){
+      seizedAtLevel[col][row] = notSeized;
+    }
+  }
+}
+
+bool seized(const int col, const int row, const int currentLevel ){
+  return seizedAtLevel[col][row] &lt;= currentLevel;
+}
+
+void setSeizedValue(const int col, const int row, const int currentLevel, const int value ){
+
+  if( col &lt; 0 || row &lt; 0 || col &gt;= maxSize || row &gt;= maxSize ){
+    // out of board
+    return;
+  }
+  
+  if( seizedAtLevel[col][row] &lt; currentLevel ){
+    // already seized by previous queen
+    return;
+  }
+  seizedAtLevel[col][row] = value;
+}
+
+
+void changeSeizedCells(const int row, const int level, const int size, const int value ){
+  for( int d = 1 ; d &lt; size-level ; d += 1 ){
+    // same row
+    setSeizedValue(level+d,row,level,value);
+
+    // upwards diagonal
+    setSeizedValue(level+d,row-d,level,value);
+
+    // downwards diagonal
+    setSeizedValue(level+d,row+d,level,value);
+  }
+}
+
+
+void dumpSeized(const int size){
+  for( int row = 0 ; row &lt; size ; row += 1 ){
+    for( int col = 0 ; col &lt; size ; col += 1 ){
+      printf( "\t%d", seizedAtLevel[col][row] );
+    }
+    printf( "\n");
+  }
+}
+
+bool stillPossible( const int level, const int size ){
+  for( int col = level+1 ; col &lt; size ; col += 1 ){
+    int freeCells = 0;
+    for( int row = 0; row &lt; size ; row += 1 ){
+      if( !seized(col,row,level) ){
+        freeCells += 1;
+      }
+    }
+    if( freeCells &lt; col-level-1){
+      // there are no enough free cells in the column
+      return false;
+    }
+  }
+  return true;
+}
+
+bool placeQueenAtLevel( const int level, const int size, int queensRows[] ){
+  assert(size &lt; maxSize );
+
+  // printf( "\n INTENTANDO NIVEL:%d\n", level);
+  // dumpSeized(size);
+  
+  if( level == size ){
+    return true;
+  }
+  
+  for( int row = 0 ; row &lt; size ; row += 1 ){
+
+    if( seized(level,row,level) ){
+      continue;
+    }
+
+    // place queen in col=level, row=row
+    queensRows[level] = row;
+    changeSeizedCells(row,level, size,level);
+
+    // try next queen
+    if( stillPossible(level,size) ){
+      if( placeQueenAtLevel(level+1,size,queensRows) ){
+        return true;
+      }
+    }
+
+    // remove queen from col=level, row=row
+    changeSeizedCells(row,level, size,notSeized);
+  }
+
+  return false;
+}
+
+void dumpQueens(int queensRows[], int size){
+  for( int row = 0 ; row &lt; size ; row += 1 ){
+    for( int col = 0 ; col &lt; size ; col += 1 ){
+      const char cell = (col+row)%2==0 ? '.' : ' ';
+      printf( " %c", queensRows[col]==row ? 'Q' : cell );
+    }
+    printf( "\n");
+  }
+
+}
+  
+int main( int argc, char *argv[] ){
+
+  system("date");
+
+  int currentQueen = 0;
+  const int size = 31;
+
+  int queensRows[size];
+
+  initSeized();
+  bool result = placeQueenAtLevel(0,size,queensRows);
+
+  printf( "Conseguido:%s\n", result ? "Si" : "No");
+  if( result ){
+    dumpQueens(queensRows, size);
+  }
+
+  system("date");
+  
+}
+</pre>
+</div>
+
+<pre class="example" id="org5b0adea">
+mié 21 oct 2020 10:58:18 CEST
+mié 21 oct 2020 10:58:34 CEST
+Conseguido:Si
+ Q   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .
+   .   .   .   .   .   .   .   . Q .   .   .   .   .   .   .  
+ . Q .   .   .   .   .   .   .   .   .   .   .   .   .   .   .
+   .   .   .   .   .   .   .   .   .   .   . Q .   .   .   .  
+ .   Q   .   .   .   .   .   .   .   .   .   .   .   .   .   .
+   .   .   .   .   .   .   .   .   .   Q   .   .   .   .   .  
+ .   .   .   .   .   .   .   .   .   .   .   .   Q   .   .   .
+   .   .   .   .   .   .   .   .   .   . Q .   .   .   .   .  
+ .   . Q .   .   .   .   .   .   .   .   .   .   .   .   .   .
+   .   .   .   .   .   . Q .   .   .   .   .   .   .   .   .  
+ .   .   Q   .   .   .   .   .   .   .   .   .   .   .   .   .
+   .   .   .   Q   .   .   .   .   .   .   .   .   .   .   .  
+ .   .   .   .   .   .   .   .   .   .   .   . Q .   .   .   .
+   .   .   . Q .   .   .   .   .   .   .   .   .   .   .   .  
+ .   .   .   .   .   .   .   . Q .   .   .   .   .   .   .   .
+   .   .   Q   .   .   .   .   .   .   .   .   .   .   .   .  
+ .   .   .   .   .   .   .   .   .   Q   .   .   .   .   .   .
+   .   .   .   .   Q   .   .   .   .   .   .   .   .   .   .  
+ .   .   .   .   .   .   .   .   .   .   .   .   .   .   Q   .
+   .   .   .   .   .   .   .   .   .   .   .   .   Q   .   .  
+ .   .   .   .   .   .   .   .   .   .   .   .   .   .   . Q .
+   .   .   .   .   .   .   .   .   .   .   .   .   . Q .   .  
+ .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   Q
+   .   .   .   .   .   .   .   .   .   .   .   .   .   Q   .  
+ .   .   .   .   .   .   .   .   .   .   . Q .   .   .   .   .
+   .   .   .   .   .   .   . Q .   .   .   .   .   .   .   .  
+ .   .   .   .   .   .   .   .   . Q .   .   .   .   .   .   .
+   .   .   .   .   . Q .   .   .   .   .   .   .   .   .   .  
+ .   .   .   .   .   .   . Q .   .   .   .   .   .   .   .   .
+   .   .   .   .   .   Q   .   .   .   .   .   .   .   .   .  
+ .   .   .   .   Q   .   .   .   .   .   .   .   .   .   .   .
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2020-10-21</span>
+        <span title="last modification date" class="post-info">2020-10-21</span>
+        <span title="tags" class="post-info"><a href="/tags/programación/">programación</a>, <a href="/tags/c++/">c++</a></span>
+        <span title="author" class="post-info">Álvaro González Sotillo</span>
+      </div>
+      <section>
+        <!-- <h1>Comments</h1> -->
+      </section>
+      <!-- <script src="//code.jquery.com/jquery-latest.min.js"></script> -->
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->
+      <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>  -->
+      <!--<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>-->
+      <script src="/media/js/jquery-3.2.1.min.js"></script>
+      <script src="/media/js/main.js"></script>
+      <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="/media/js/code-prettify/loader/run_prettify.js"></script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 28.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:alvarogonzalezsotillo <at> gmail <dot> com">Álvaro González Sotillo</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>
