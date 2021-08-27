@@ -29,50 +29,36 @@
 * [[https://code.google.com/codejam/][CodeJam]] utilizando /emacs/
 Estos son mis programas para la edición de 2021 de CodeJam. Como en mi anterior participación, están hechos con org-babel
 
-
-* Prueba
-
-# +INCLUDE: "00-prueba.scala" src scala
-
-
 * Reverse sort
   https://codingcompetitions.withgoogle.com/codejam/round/000000000043580a/00000000006d0a5c
 
-*** Enunciado
+** Enunciado
      Note: The main parts of the statements of the problems "Reversort" and "Reversort Engineering" are identical, except for the last paragraph. The problems can otherwise be solved independently.
 
 Reversort is an algorithm to sort a list of distinct integers in increasing order. The algorithm is based on the "Reverse" operation. Each application of this operation reverses the order of some contiguous part of the list.
 
 The pseudocode of the algorithm is the following:
 
+#+begin_example
 Reversort(L):
   for i := 1 to length(L) - 1
     j := position with the minimum value in L between i and length(L), inclusive
     Reverse(L[i..j])
+    
+#+end_example
 
-After i−1
-iterations, the positions 1,2,…,i−1 of the list contain the i−1 smallest elements of L, in increasing order. During the i-th iteration, the process reverses the sublist going from the i-th position to the current position of the i-th minimum element. That makes the i-th minimum element end up in the i
-
--th position.
+After i−1 iterations, the positions 1,2,…,i−1 of the list contain the i−1 smallest elements of L, in increasing order. During the i-th iteration, the process reverses the sublist going from the i-th position to the current position of the i-th minimum element. That makes the i-th minimum element end up in the i-th position.
 
 For example, for a list with 4
-elements, the algorithm would perform 3 iterations. Here is how it would process L=[4,2,1,3]
+elements, the algorithm would perform 3 iterations. Here is how it would process L=[4,2,1,3] :
 
-:
-
-    i=1, j=3⟶L=[1,2,4,3]
-
+i=1, j=3⟶L=[1,2,4,3]
 i=2, j=2⟶L=[1,2,4,3]
 i=3, j=4⟶L=[1,2,3,4]
 
-The most expensive part of executing the algorithm on our architecture is the Reverse operation. Therefore, our measure for the cost of each iteration is simply the length of the sublist passed to Reverse, that is, the value j−i+1
+The most expensive part of executing the algorithm on our architecture is the Reverse operation. Therefore, our measure for the cost of each iteration is simply the length of the sublist passed to Reverse, that is, the value j−i+1. The cost of the whole algorithm is the sum of the costs of each iteration.
 
-. The cost of the whole algorithm is the sum of the costs of each iteration.
-
-In the example above, the iterations cost 3
-, 1, and 2, in that order, for a total of 6
-
-.
+In the example above, the iterations cost 3, 1, and 2, in that order, for a total of 6.
 
 Given the initial list, compute the cost of executing Reversort on it.
 
@@ -102,101 +88,59 @@ Case #3: 12
 #+end_example
 
 ** code
-# +INCLUDE: "01-reverse-sort.scala" src scala
+#+INCLUDE: "01-reverse-sort.scala" src scala
    
   
 * Moons and umbrellas
 
-  Problem
+** Problem
 
 Cody-Jamal is working on his latest piece of abstract art: a mural consisting of a row of waning moons and closed umbrellas. Unfortunately, greedy copyright trolls are claiming that waning moons look like an uppercase C and closed umbrellas look like a J, and they have a copyright on CJ and JC. Therefore, for each time CJ appears in the mural, Cody-Jamal must pay X
-, and for each time JC appears in the mural, he must pay Y
-
-.
+, and for each time JC appears in the mural, he must pay Y.
 
 Cody-Jamal is unwilling to let them compromise his art, so he will not change anything already painted. He decided, however, that the empty spaces he still has could be filled strategically, to minimize the copyright expenses.
 
 For example, if CJ?CC? represents the current state of the mural, with C representing a waning moon, J representing a closed umbrella, and ? representing a space that still needs to be painted with either a waning moon or a closed umbrella, he could finish the mural as CJCCCC, CJCCCJ, CJJCCC, or CJJCCJ. The first and third options would require paying X+Y
-in copyrights, while the second and fourth would require paying 2⋅X+Y
+in copyrights, while the second and fourth would require paying 2⋅X+Y.
 
-.
+Given the costs X and Y and a string representing the current state of the mural, how much does Cody-Jamal need to pay in copyrights if he finishes his mural in a way that minimizes that cost?
 
-Given the costs X
-and Y
+** Input
 
-and a string representing the current state of the mural, how much does Cody-Jamal need to pay in copyrights if he finishes his mural in a way that minimizes that cost?
-Input
+The first line of the input gives the number of test cases, T. T lines follow. Each line contains two integers X and Y and a string S representing the two costs and the current state of the mural, respectively.
 
-The first line of the input gives the number of test cases, T
-. T lines follow. Each line contains two integers X and Y and a string S
+** Output
 
-representing the two costs and the current state of the mural, respectively.
-Output
-
-For each test case, output one line containing Case #x
-: y, where x is the test case number (starting from 1) and y
+For each test case, output one line containing Case #x: y, where x is the test case number (starting from 1) and y
 
 is the minimum cost that Cody-Jamal needs to pay in copyrights for a finished mural.
-Limits
+
+** Limits
 
 Time limit: 10 seconds.
 Memory limit: 1 GB.
-1≤T≤100
-.
-Each character of S
-
-is either C, J, or ?.
-Test Set 1 (Visible Verdict)
-
-1≤
-the length of S ≤10.
-1≤X≤100.
-1≤Y≤100
-
-.
-Test Set 2 (Visible Verdict)
-
-1≤
-the length of S ≤1000.
-1≤X≤100.
-1≤Y≤100
-
-.
-Extra credit!
-
-What if some copyright holders could pay Cody-Jamal for the advertisement instead of being paid? Cody-Jamal getting paid is represented by a negative cost.
-Test Set 3 (Hidden Verdict)
-
-1≤
-the length of S ≤1000.
-−100≤X≤100.
-−100≤Y≤100
-
-.
-Sample
+1≤T≤100.
+Each character of S is either C, J, or ?.
+** Sample
 Note: there are additional samples that are not run on submissions down below.
-Sample Input
-save_alt
-content_copy
 
+#+begin_example
 4
 2 3 CJ?CC?
 4 2 CJCJ
 1 3 C?J
 2 5 ??J???
+#+end_example
 
-Sample Output
-save_alt
-content_copy
+** Sample Output
 
+#+begin_example
 Case #1: 5
 Case #2: 10
 Case #3: 1
 Case #4: 0
-
-Sample Case #1 is the one explained in the problem statement. The minimum cost is X+Y=2+3=5
-
-.
+#+end_example
+Sample Case #1 is the one explained in the problem statement. The minimum cost is X+Y=2+3=5.
 
 In Sample Case #2, Cody-Jamal is already finished, so he does not have a choice. There are two CJs and one JC in his mural.
 
@@ -204,31 +148,13 @@ In Sample Case #3, substituting either C or J results in one CJ either from the 
 
 In Sample Case #4, Cody-Jamal can finish his mural with all Js. Since that contains no instance of CJ nor JC, it yields no copyright cost.
 
-Additional Sample - Test Set 3
-The following additional sample fits the limits of Test Set 3. It will not be run against your submitted solutions.
-Sample Input
-save_alt
-content_copy
-
-1
-2 -5 ??JJ??
-
-Sample Output
-save_alt
-content_copy
-
-Case #1: -8
-
-In Sample Case #1 for Test Set 3, Cody-Jamal can finish his mural optimally as JCJJCC or JCJJJC. Either way, there is one CJ and two JCs in his mural. 
-
-
 
 ** code
-# +INCLUDE: "02-moons-and-umbrellas.scala" src scala
+#+INCLUDE: "02-moons-and-umbrellas.scala" src scala
 
 * Reversort engineering
 
-  Problem
+** Problem
 
 Note: The main parts of the statements of the problems "Reversort" and "Reversort Engineering" are identical, except for the last paragraph. The problems can otherwise be solved independently.
 
@@ -236,76 +162,47 @@ Reversort is an algorithm to sort a list of distinct integers in increasing orde
 
 The pseudocode of the algorithm is the following:
 
+#+begin_example
 Reversort(L):
   for i := 1 to length(L) - 1
     j := position with the minimum value in L between i and length(L), inclusive
     Reverse(L[i..j])
+#+end_example
 
 After i−1
-iterations, the positions 1,2,…,i−1 of the list contain the i−1 smallest elements of L, in increasing order. During the i-th iteration, the process reverses the sublist going from the i-th position to the current position of the i-th minimum element. That makes the i-th minimum element end up in the i
-
--th position.
+iterations, the positions 1,2,…,i−1 of the list contain the i−1 smallest elements of L, in increasing order. During the i-th iteration, the process reverses the sublist going from the i-th position to the current position of the i-th minimum element. That makes the i-th minimum element end up in the i-th position.
 
 For example, for a list with 4
-elements, the algorithm would perform 3 iterations. Here is how it would process L=[4,2,1,3]
+elements, the algorithm would perform 3 iterations. Here is how it would process L=[4,2,1,3]:
 
-:
-
-    i=1, j=3⟶L=[1,2,4,3]
-
+i=1, j=3⟶L=[1,2,4,3]
 i=2, j=2⟶L=[1,2,4,3]
 i=3, j=4⟶L=[1,2,3,4]
 
-The most expensive part of executing the algorithm on our architecture is the Reverse operation. Therefore, our measure for the cost of each iteration is simply the length of the sublist passed to Reverse, that is, the value j−i+1
+The most expensive part of executing the algorithm on our architecture is the Reverse operation. Therefore, our measure for the cost of each iteration is simply the length of the sublist passed to Reverse, that is, the value j−i+1. The cost of the whole algorithm is the sum of the costs of each iteration.
 
-. The cost of the whole algorithm is the sum of the costs of each iteration.
-
-In the example above, the iterations cost 3
-, 1, and 2, in that order, for a total of 6
-
-.
+In the example above, the iterations cost 3, 1, and 2, in that order, for a total of 6.
 
 You are given a size N
-and a cost C. Find a list of N distinct integers between 1 and N such that the cost of applying Reversort to it is exactly C
+and a cost C. Find a list of N distinct integers between 1 and N such that the cost of applying Reversort to it is exactly C, or say that there is no such list.
+** Input
 
-, or say that there is no such list.
-Input
+The first line of the input gives the number of test cases, T. T lines follow. Each line describes a test case with two integers N and C, the size of the wanted list and the desired cost, respectively.
+** Output
 
-The first line of the input gives the number of test cases, T
-. T lines follow. Each line describes a test case with two integers N and C
-
-, the size of the wanted list and the desired cost, respectively.
-Output
-
-For each test case, if there is no list of size N
-such that applying Reversort to it costs exactly C, output one line containing Case #x: IMPOSSIBLE, where x is the test case number (starting from 1). Otherwise, output one line containing Case #x: y1 y2 ... yN, where x is the test case number (starting from 1) and each yi is a distinct integer between 1 and N, representing the i
-
--th element of one such possible list.
+For each test case, if there is no list of size N such that applying Reversort to it costs exactly C, output one line containing Case #x: IMPOSSIBLE, where x is the test case number (starting from 1). Otherwise, output one line containing Case #x: y1 y2 ... yN, where x is the test case number (starting from 1) and each yi is a distinct integer between 1 and N, representing the i-th element of one such possible list.
 
 If there are multiple solutions, you may output any one of them. (See "What if a test case has multiple correct solutions?" in the Competing section of the FAQ.) This information about multiple solutions will not be explicitly stated in the remainder of the 2021 contest.
-Limits
+** Limits
 
 Time limit: 10 seconds.
 Memory limit: 1 GB.
-1≤T≤100
-.
-1≤C≤1000
+1≤T≤100.
+1≤C≤1000.
 
-.
-Test Set 1 (Visible Verdict)
+** Sample
+   #+begin_example
 
-2≤N≤7
-
-.
-Test Set 2 (Visible Verdict)
-
-2≤N≤100
-
-.
-Sample
-Sample Input
-save_alt
-content_copy
 
 5
 4 6
@@ -313,18 +210,18 @@ content_copy
 7 12
 7 2
 2 1000
-
-Sample Output
-save_alt
-content_copy
-
+   #+end_example
+   
+** Sample Output
+   #+begin_example
 Case #1: 4 2 1 3
 Case #2: 1 2
 Case #3: 7 6 5 4 3 2 1
 Case #4: IMPOSSIBLE
 Case #5: IMPOSSIBLE
+   #+end_example
 
-Sample Case #1 is described in the statement above.
+ Sample Case #1 is described in the statement above.
 
 In Sample Case #2, the algorithm runs for only one iteration on the proposed output. In that iteration, reverse is applied to a sublist of size 1, therefore, its cost is 1.
 
@@ -334,83 +231,46 @@ In Sample Case #4, Reversort will necessarily perform 6 iterations, each of whic
 
 
 ** code
-# +INCLUDE: "03-reversesort-engineering.scala" src scala
+#+INCLUDE: "./03-reversort-engineering.scala" src scala
 
 * Median sort
-  Problem
+
+** Problem
 
 You want to sort N
-distinct items, x1,x2,…,xN
-
-. Unfortunately, you do not have a way of comparing two of these items. You only have a way to, given three of them, find out which one is the median, that is, which one is neither the minimum nor the maximum among the three.
+distinct items, x1,x2,…,xN. Unfortunately, you do not have a way of comparing two of these items. You only have a way to, given three of them, find out which one is the median, that is, which one is neither the minimum nor the maximum among the three.
 
 For example, suppose N=5
 
 and you know that:
 
-    x1
+x1 is the median of {x1,x2,x3}
+x2 is the median of {x2,x3,x4}
+x3 is the median of {x3,x4,x5}
 
-is the median of {x1,x2,x3}
-x2
-is the median of {x2,x3,x4}
-x3
-is the median of {x3,x4,x5}
+Then, it is guaranteed that the sorted order of the elements is either x4,x2,x1,x3,x5 or its reverse x5,x3,x1,x2,x4. Notice that by knowing only medians, it is impossible to distinguish the order of any list from its reverse, since the median question has the same result for any three elements in both cases.
 
-Then, it is guaranteed that the sorted order of the elements is either x4,x2,x1,x3,x5
-or its reverse x5,x3,x1,x2,x4
+Your program will have to find the order of T lists of N elements using at most Q median questions in total (or Q/T queries per list on average). In each case, finding either the right order or its reverse is considered correct. The order for each case is generated uniformly at random from all possible orders, and independently of any other information.
 
-. Notice that by knowing only medians, it is impossible to distinguish the order of any list from its reverse, since the median question has the same result for any three elements in both cases.
-
-Your program will have to find the order of T
-lists of N elements using at most Q median questions in total (or Q/T
-
-queries per list on average). In each case, finding either the right order or its reverse is considered correct. The order for each case is generated uniformly at random from all possible orders, and independently of any other information.
-Input and output
+** Input and output
 
 This is an interactive problem. You should make sure you have read the information in the Interactive Problems section of our FAQ.
 
-Initially, the judge will send you a single line containing three integers T
-, N, and Q: the number of test cases, the number of elements to sort within each test case, and the total number of questions you are allowed across all test cases, respectively. Then, you must process T
-
+Initially, the judge will send you a single line containing three integers T , N, and Q: the number of test cases, the number of elements to sort within each test case, and the total number of questions you are allowed across all test cases, respectively. Then, you must process T 
 test cases. Each test case consists of a series of question exchanges plus an additional exchange to provide the answer.
 
-For a question exchange, your program must print a single line containing three distinct integers i,j,k
-all between 1 and N, inclusive, which corresponds to asking the judge "which element is the median of the set {xi,xj,xk}?" The judge will respond with a single line containing a single integer L, meaning that the median of that set is xL (L is always equal to one of i, j, or k). If you try to perform a (Q+1)
-
--th question exchange, the judge will simply output -1.
+For a question exchange, your program must print a single line containing three distinct integers i,j,k all between 1 and N, inclusive, which corresponds to asking the judge "which element is the median of the set {xi,xj,xk}?" The judge will respond with a single line containing a single integer L, meaning that the median of that set is xL (L is always equal to one of i, j, or k). If you try to perform a (Q+1)-th question exchange, the judge will simply output -1.
 
 Once you are ready to state the result, print a line containing N
-integers representing the indices of the elements in sorted or reverse sorted order. The judge will respond with a single integer 1 if your answer is correct or -1 if it is not. After receiving the judge's answer for the T-th case, your program must finish in time in order to not receive a Time Limit Exceeded error. In addition, if you print additional information after receiving the result for the T
-
--th case, you will get a Wrong Answer judgment.
+integers representing the indices of the elements in sorted or reverse sorted order. The judge will respond with a single integer 1 if your answer is correct or -1 if it is not. After receiving the judge's answer for the T-th case, your program must finish in time in order to not receive a Time Limit Exceeded error. In addition, if you print additional information after receiving the result for the T-th case, you will get a Wrong Answer judgment.
 
 If the judge receives an invalidly formatted line or invalid values from your program at any moment, the judge will print a single number -1. After the judge prints -1 for any of the reasons explained above, it will not print any further output. If your program continues to wait for the judge after receiving a -1, your program will time out, resulting in a Time Limit Exceeded error. Notice that it is your responsibility to have your program exit in time to receive a Wrong Answer judgment instead of a Time Limit Exceeded error. As usual, if the memory limit is exceeded, or your program gets a runtime error, you will receive the appropriate judgment.
-Limits
+
+** Limits
 
 Time limit: 40 seconds.
 Memory limit: 1 GB.
 T=100
-
-.
-Test Set 1 (Visible Verdict)
-
-N=10
-.
-Q=300⋅T
-
-.
-Test Set 2 (Visible Verdict)
-
-N=50
-.
-Q=300⋅T
-
-.
-Test Set 3 (Hidden Verdict)
-
-N=50
-.
-Q=170⋅T
 
 .
 Testing Tool
@@ -419,83 +279,3 @@ You can use this testing tool to test locally or on our platform. To test locall
 
 Instructions for the testing tool are included in comments within the tool. We encourage you to add your own test cases. Please be advised that although the testing tool is intended to simulate the judging system, it is NOT the real judging system and might behave differently. If your code passes the testing tool but fails the real judge, please check the Coding section of the FAQ to make sure that you are using the same compiler as us.
 
-Download testing tool
-Sample Interaction
-Judge
-Solution
-Constraints
-
-2 5 600
-
-Judge provides T
-, N, Q
-
-Case 1
-
-1 2 3
-
-Solution asks for the median of {x1,x2,x3}
-
-2
-
-Judge responds that the median is x2
-
-4 2 3
-
-Solution asks for the median of {x4,x2,x3}
-
-3
-
-Judge responds that the median is x3
-
-5 4 3
-
-Solution asks for the median of {x5,x4,x3}
-
-4
-
-Judge responds that the median is x4
-
-5 4 3 2 1
-
-Solution outputs the sorted list
-
-1
-
-Judge confirms that the answer is correct
-Case 2
-
-1 2 3
-
-Solution asks for the median of {x1,x2,x3}
-
-3
-
-Judge responds that the median is x3
-
-2 3 4
-
-Solution asks for the median of {x2,x3,x4}
-
-4
-
-Judge responds that the median is x4
-
-3 4 5
-
-Solution asks for the median of {x3,x4,x5}
-
-5
-
-Judge responds that the median is x5
-
-
-1 3 5 4 2
-
-Solution outputs the sorted list
-
-1
-
-Judge confirms that the answer is correct
-Syntax pre-check
-Test run mode
