@@ -8,7 +8,7 @@
 (setq raiz-de-blog "/data/data/com.termux/files/home/storage/external-1/alvarogonzalezsotillo.github.io")
 (setq raiz-de-blog "/home/alvaro/github/alvarogonzalezsotillo.github.io")
 (defvar branch-de-blog)
-(setq branch-de-blog "source")
+(setq branch-de-blog "2021-gcj")
 
 
 (defun enable-babel ()
