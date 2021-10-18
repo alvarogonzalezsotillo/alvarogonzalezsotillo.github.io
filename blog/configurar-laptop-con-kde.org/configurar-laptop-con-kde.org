@@ -1,5 +1,5 @@
 
-#+TITLE:       Termux-api
+#+TITLE:       Configuración de mi nuevo ordenador
 #+AUTHOR:      Álvaro González Sotillo
 #+EMAIL:       alvarogonzalezsotillo@gmail.com
 #+DATE:        2021-10-18
@@ -128,7 +128,7 @@ Firmado por $$SUBJECTCN$$ el día $$SIGNDATE=dd/MM/yyyy$$ con un certificado emi
 * Ficheros personales
 Dispongo de varias cuentas de =office365= que me dan la posibilidad de usar 1TB de disco en la nube. Lamentablemente, la sincronización en =linux= no está demasiado bien resuelta. Tanto =rclone= como =onedrive= son demasiado lentos, y tienen múltiples problemas de /throthling/.
 
-He acabado contratando un hosting de ficheros. =HiDrive= ofrece la posibilidad de acceso =rsync=, =sftp= y =cifs= (carpeta compartida de Windows). Esto resuelve el problema de la sincronización (=rsync=) y el acceso desde cualquier sistema operativo.
+He acabado contratando un hosting de ficheros. [[https://www.strato.es/almacenamiento-cloud/][=HiDrive=]] ofrece la posibilidad de acceso =rsync=, =sftp= y =cifs= (carpeta compartida de Windows). Esto resuelve el problema de la sincronización (=rsync=) y el acceso desde cualquier sistema operativo.
 
 * Hibernar
 Es una realidad incómoda que la hibernación en =linux= no está nada resuelta. Por suerte, tanto en mi antiguo ordenador como en el nuevo funciona bastante bien =uswsusp=.
