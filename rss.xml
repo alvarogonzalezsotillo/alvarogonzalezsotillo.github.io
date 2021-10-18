@@ -4,23 +4,16 @@
     <title>Álvaro González Sotillo</title>
     <link>https://alvarogonzalezsotillo.github.io/</link>
     <description></description>
-    <pubDate>sáb, 27 feb 2021 20:11:16 CET</pubDate>
-    <lastBuildDate>sáb, 27 feb 2021 20:11:16 CET</lastBuildDate>
+    <pubDate>lun, 18 oct 2021 16:32:20 CEST</pubDate>
+    <lastBuildDate>lun, 18 oct 2021 16:32:20 CEST</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
     <item>
-      <title>Contribuciones a paquetes Emacs</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/contribuciones-emacs</link>
-      <description><![CDATA[Mis contribuciones a paquetes Emacs]]></description>
-      <pubDate>2021-02-27</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/contribuciones-emacs</guid>
-    </item>
-    <item>
-      <title>Nuevo HTPC en casa</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/ordenador-de-sobremesa-servidor-htpc</link>
-      <description><![CDATA[Acabo de comprarme un asus vc-66. Mi intención es utilizarlo como servidor accesible desde internet, pero también como htpc. Estos son los pasos que he seguido para configurarlo.]]></description>
-      <pubDate>2021-02-25</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/ordenador-de-sobremesa-servidor-htpc</guid>
+      <title>Configuración de mi nuevo ordenador</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/configurar-laptop-con-kde</link>
+      <description><![CDATA[Lista de los pasos que he seguido para configurar un nuevo ordenador con mis gustos y preferencias.]]></description>
+      <pubDate>2021-10-18</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/configurar-laptop-con-kde</guid>
     </item>
     <item>
       <title>Las 12 uvas 2020</title>
@@ -77,6 +70,13 @@
       <description><![CDATA[Se puede utilizar orgmode para programar y documentar/publicar lo programado]]></description>
       <pubDate>2020-04-04</pubDate>
       <guid>https://alvarogonzalezsotillo.github.io/blog/literate-codejam</guid>
+    </item>
+    <item>
+      <title>Instalar Emacs como servicio</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/instalar-emacs-como-servicio</link>
+      <description><![CDATA[El tiempo de arranque de Emacs se puede disimular al inicio del sistema, y ser manejado como un servicio al que conectarse.]]></description>
+      <pubDate>2020-01-17</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/instalar-emacs-como-servicio</guid>
     </item>
   </channel>
 </rss>

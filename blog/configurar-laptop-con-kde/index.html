@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Configuración de mi nuevo ordenador - Álvaro González Sotillo</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Álvaro González Sotillo" />
+    <meta name="description" content="Lista de los pasos que he seguido para configurar un nuevo ordenador con mis gustos y preferencias." />
+    <meta name="keywords" content="kde, emacs, linux" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <!-- <link rel="stylesheet" href="/media/css/prettify.css" type="text/css"> -->
+  </head>
+
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">Álvaro González Sotillo</a></h1>
+        <p></p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">Acerca de mí</a></li>
+          <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="//www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Buscar">
+          <input type="hidden" name="as_sitesearch" value="alvarogonzalezsotillo.github.io">
+        </form>
+        <img class="avatar" src="/media/img/octaedron.png" />
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>Configuración de mi nuevo ordenador</h1>
+<p>
+Recientemente he jubilado mi Vaio e14 por un Thinkpad e14.
+</p>
+
+<p>
+Aunque el hardware ya no aguantaba mucho más, había estado configurándolo a mi gusto durante 8 años, y quería reproducir el mismo entorno de trabajo en el nuevo ordenador. Esta es una lista más o menos completa de los pasos que he seguido, por si necesito volver a configurarlo en el futuro.
+</p>
+
+<div id="outline-container-orga70ac57" class="outline-2">
+<h2 id="orga70ac57">Instalación de base</h2>
+<div class="outline-text-2" id="text-orga70ac57">
+<p>
+Windows no es una opción una vez que se ha probado la experiencia de no tener publicidad, ni antivirus, ni indexación de ficheros, ni actualizaciones que interrumpen el trabajo. Es posible que un Mac solucionase todos estos problemas, pero el presupuesto y sobre todo la cabezonería no dan para más.
+</p>
+
+<p>
+Ubuntu suele ser la mejor opción para el soporte del hardware, aunque Gnome no es de mi gusto. KDE permite una mayor personalización, así que la elección final es Kubuntu.
+</p>
+
+<p>
+El nuevo ordenador tiene dos discos nve. He utilizado el disco pequeño para el sistema, y el disco mayor para el directorio <code>/home</code> y <code>/opt</code>.
+</p>
+
+<p>
+Para montar un directorio utilizo un <code>mount --bind</code> en el fichero <code>fstab</code>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-conf">UUID=ca42fe72-45ec-4b58-85f3-a0c3bbabb84d /         ext4    errors=remount-ro 0 1
+UUID=9125dd39-2a6b-4e30-a1a2-d6e5ae9c356c /datos-1T ext4    errors=remount-ro 0 1
+/datos-1T/home                            /home     none    defaults,bind     0 0
+/datos-1T/opt                             /opt      note    defaults,bind     0 0
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgd76a871" class="outline-2">
+<h2 id="orgd76a871"><i>Shell</i></h2>
+<div class="outline-text-2" id="text-orgd76a871">
+<p>
+<code>zsh</code> supone una mejora en muchos aspectos a <code>bash</code>. Yo lo uso principalmente por la mejor autocomplección y el mejor manejo de la historia de comandos.
+</p>
+
+<p>
+Utilizo el tema por defecto, cambiando el <code>PROPMT</code> para que muestre la hora, usuario, nombre de host y directorio actual.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+PROMPT="%{$fg[blue]%}%T %{$fg[cyan]%}%n%{$fg[blue]%}@%{$fg[cyan]%}%m ${PROMPT}"
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgb71e3c0" class="outline-2">
+<h2 id="orgb71e3c0">Mis cosas</h2>
+<div class="outline-text-2" id="text-orgb71e3c0">
+<p>
+Muchos de los programas que utilizo pueden instalarse mediante <code>apt</code>, o con un un paquete <code>.deb</code>
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">sudo apt install zsh texlive-full inkscape htop tmux git iftop \
+                 iotop tcpdump curl silversearcher-ag graphviz \
+
+                 virtualbox pandoc pdftk krita wxmaxima gdebi \
+                 kmail korganizer obs-studio kdenlive
+wget https://github.com/xournalpp/xournalpp/releases/download/1.1.0/xournalpp-1.1.0-Ubuntu-focal-x86_64.deb
+gdebi xournalpp-1.1.0-Ubuntu-focal-x86_64.deb
+git config --global user.email "alvaro@thinkpad"
+git config --global user.name "alvaro@thinkpad"
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgfff4905" class="outline-2">
+<h2 id="orgfff4905">emacs</h2>
+<div class="outline-text-2" id="text-orgfff4905">
+<p>
+La versión de <code>emacs</code> incluida en <code>ubuntu</code> no está demasiado actualizada. La compilación de <code>lisp</code> a código nativo mejora bastante el (mediocre) rendimiento de <code>emacs</code>.
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">git clone git://git.sv.gnu.org/emacs.git
+cd emacs
+sudo apt-get install libtiff-dev build-essential libgtk-3-dev \
+                     libtiff5-dev libgif-dev libjpeg-dev libpng-dev \
+                     libxpm-dev libncurses-dev autoconf texinfo \
+                     libgnutls28-dev libxml2-dev libjansson-dev libgccjit-dev
+./autogen.sh 
+./configure --with-native-compilation
+make
+sudo make install
+</pre>
+</div>
+
+<p>
+para que los ficheros de texto se abran con emacs:
+</p>
+
+<p>
+xdg-mime default /usr/local/share/applications/emacsclient.desktop text/plain
+</p>
+
+<p>
+si no funciona, fichero por fichero: mimeopen -d instalaciones.org 
+</p>
+
+
+
+
+<p>
+<a href="https://github.com/alvarogonzalezsotillo/.emacs.d">Mi configuración de <code>emacs</code></a> la guardo en un repositorio de <code>Github</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">cd $HOME
+git clone https://github.com/alvarogonzalezsotillo/.emacs.d.git
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org12e8770" class="outline-2">
+<h2 id="org12e8770">educamadrid y PIM</h2>
+<div class="outline-text-2" id="text-org12e8770">
+<p>
+Como profesor de secundaria, utilizo a diario los servicios de <code>educamadrid</code>.
+</p>
+
+<p>
+La <i>nube</i> está basada en <code>onwcloud</code>, pero prefiero utilizar la interfaz web solo en caso de emergencia. Por lo general, sincronizo mis ficheros con un directorio local.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">KEY=https://download.owncloud.com/desktop/ownCloud/stable/latest/linux/Ubuntu_20.04/Release.key
+wget -nv $KEY -O - | sudo apt-key add -
+REPO='deb https://download.owncloud.com/desktop/ownCloud/stable/latest/linux/Ubuntu_20.04/ /'
+echo $REPO | sudo tee -a /etc/apt/sources.list.d/owncloud.list
+sudo apt install owncloud-client owncloud-client-dolphin
+</pre>
+</div>
+
+<p>
+El otro servicio que uso diariamente es el correo. Para ello utilizo el cliente de escritorio <code>kmail</code> conectado a los servidores de <code>pop</code> e <code>imap</code>.
+</p>
+
+<p>
+Los contactos y calendario están sincronizados con <code>Google</code> y <code>korganizer</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org633dd65" class="outline-2">
+<h2 id="org633dd65">Autofirma</h2>
+<div class="outline-text-2" id="text-org633dd65">
+<p>
+Utilizo autofirma para firmar PDFs. No consigo que encuentre mis certificados, así que cada vez tengo que encontrar el fichero de claves. 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">  wget https://estaticos.redsara.es/comunes/autofirma/1/6/5/AutoFirma_Linux.zip
+  unzip AutoFirma_Linux.zip
+  sudo gdebi AutoFirma_1_6_5.deb
+</pre>
+</div>
+
+<p>
+He cambiado la plantilla de la firma visible, porque aunque la firma es igual de válida a veces se me quejan de que no tiene tantos <i>numeritos</i> como la que pone el Acrobat. Para saber qué variables se pueden utilizar, hay que recurrir al <a href="https://github.com/ctt-gob-es/clienteafirma/blob/master/afirma-crypto-pdf/src/main/java/es/gob/afirma/signers/pades/PdfExtraParams.java">código fuente de autofirma</a>.
+</p>
+
+<pre class="example" id="orgbaf7cfd">
+Firmado por $$SUBJECTCN$$ el día $$SIGNDATE=dd/MM/yyyy$$ con un certificado emitido por $$ISSUERCN$$ con número de serie $$CERTSERIAL$$
+</pre>
+</div>
+</div>
+
+
+
+<div id="outline-container-org341e9e6" class="outline-2">
+<h2 id="org341e9e6">Ficheros personales</h2>
+<div class="outline-text-2" id="text-org341e9e6">
+<p>
+Dispongo de varias cuentas de <code>office365</code> que me dan la posibilidad de usar 1TB de disco en la nube. Lamentablemente, la sincronización en <code>linux</code> no está demasiado bien resuelta. Tanto <code>rclone</code> como <code>onedrive</code> son demasiado lentos, y tienen múltiples problemas de <i>throthling</i>.
+</p>
+
+<p>
+He acabado contratando un hosting de ficheros. <a href="https://www.strato.es/almacenamiento-cloud/"><code>HiDrive</code></a> ofrece la posibilidad de acceso <code>rsync</code>, <code>sftp</code> y <code>cifs</code> (carpeta compartida de Windows). Esto resuelve el problema de la sincronización (<code>rsync</code>) y el acceso desde cualquier sistema operativo.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf4eeb54" class="outline-2">
+<h2 id="orgf4eeb54">Hibernar</h2>
+<div class="outline-text-2" id="text-orgf4eeb54">
+<p>
+Es una realidad incómoda que la hibernación en <code>linux</code> no está nada resuelta. Por suerte, tanto en mi antiguo ordenador como en el nuevo funciona bastante bien <code>uswsusp</code>.
+</p>
+
+
+<div class="org-src-container">
+<pre class="src src-bash">sudo apt install uswsusp pm-tools
+</pre>
+</div>
+
+<p>
+Tras instalarlo, y montar una unidad de <i>swap</i> suficientemente grande como para guardar toda la memoria RAM, <code>pm-hibernate</code> consigue hibernar el ordenador sin problemas.
+</p>
+
+<p>
+Para poder hibernar cómodamente, he añadido <code>pm-hibernate</code> y <code>s2disk</code> al fichero de <code>sudoers</code>, de forma que no se necesite contraseña. Invoco estos comandos con <code>krunner</code> (se invoca con <code>alt-espacio</code> o <code>alt-f2</code>).
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">alvaro ALL=(ALL) NOPASSWD: /usr/sbin/pm-hibernate
+alvaro ALL=(ALL) NOPASSWD: /usr/sbin/s2disk
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org2b8e8da" class="outline-2">
+<h2 id="org2b8e8da"><i>Gestures</i></h2>
+<div class="outline-text-2" id="text-org2b8e8da">
+<p>
+Envidio la facilidad para cambiar de <i>workspace</i> con un simple gesto que tienen los Mac. Se puede conseguir algo muy parecido con <a href="https://github.com/bulletmark/libinput-gestures"><code>libinput-gestures</code></a>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">sudo apt-get install wmctrl xdotool  
+git clone https://github.com/bulletmark/libinput-gestures.git
+cd libinput-gestures
+sudo make install
+</pre>
+</div>
+
+
+<p>
+He cambiado los <i>gestures</i> por defecto para que los <i>workspaces</i> se cambien horizontalmente, y el pellizco se integre con KDE.
+</p>
+
+<pre class="example" id="org75327e1">
+gesture pinch in	xdotool key ctrl+F9
+gesture pinch out	xdotool key ctrl+F9
+gesture swipe right	_internal ws_up
+gesture swipe left	_internal ws_down
+</pre>
+</div>
+</div>
+
+
+
+<div id="outline-container-org1360bcc" class="outline-2">
+<h2 id="org1360bcc">SQLDeveloper y packettracer</h2>
+<div class="outline-text-2" id="text-org1360bcc">
+<p>
+Son herramientas que utilizo en clase de redes y bases de datos. Basta con descargar, Descomprimir y gdebi. Para SQLDeveloper se necesita openjdk-11-jdk
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">sudo apt install openjdk-11-jdk
+wget https://download.oracle.com/otn/java/sqldeveloper/sqldeveloper-21.2.1.204.1703-no-jre.zip #necesita login
+unzip sqldeveloper-21.2.1.204.1703-no-jre.zip
+wget https://gni-prod-resources.s3.us-west-1.amazonaws.com/resources/Packet%20Tracer%20Resources/PT%20Desktop/v8.0.1/CiscoPacketTracer_801_Ubuntu_64bit.deb #necesita login
+gdebi CiscoPacketTracer_801_Ubuntu_64bit.deb
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org02d524d" class="outline-2">
+<h2 id="org02d524d">Office 2010</h2>
+<div class="outline-text-2" id="text-org02d524d">
+<p>
+Tengo un <i>prefix</i> de Wine con Office 2010 instalado, que llevo arrastrando ya varios años, y que suele funcionar sin más que descomprimirlo
+Es necesario instalar previamente winbind
+</p>
+
+
+<div class="org-src-container">
+<pre class="src src-bash">curl https://dl.winehq.org/wine-builds/winehq.key | sudo apt-key add -
+sudo apt-add-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ focal main'
+sudo apt install winbind
+sudo apt install --install-recommends winehq-stable
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org2fc5d9f" class="outline-2">
+<h2 id="org2fc5d9f">Mensajería</h2>
+<div class="outline-text-2" id="text-org2fc5d9f">
+<p>
+He instalado los clientes de <code>telegram</code> y <code>teams</code>
+</p>
+
+<ul class="org-ul">
+<li><a href="https://desktop.telegram.org/">https://desktop.telegram.org/</a></li>
+<li><a href="https://www.microsoft.com/en-us/microsoft-teams/download-app#desktopAppDownloadregion">https://www.microsoft.com/en-us/microsoft-teams/download-app#desktopAppDownloadregion</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org8f10120" class="outline-2">
+<h2 id="org8f10120">Lenguajes de programación</h2>
+<div class="outline-text-2" id="text-org8f10120">
+</div>
+<div id="outline-container-orge4a3ea0" class="outline-3">
+<h3 id="orge4a3ea0"><code>rust</code></h3>
+<div class="outline-text-3" id="text-orge4a3ea0">
+<p>
+Instalado mediante <code>rustup</code>
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgcf7c149" class="outline-3">
+<h3 id="orgcf7c149"><code>scala</code></h3>
+<div class="outline-text-3" id="text-orgcf7c149">
+<p>
+Por alguna razón, me funciona ammonite pero scala con <code>sudo apt install --install-recommends scala</code> no 🤷‍♂️
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">sudo sh -c '(echo "#!/usr/bin/env sh" &amp;&amp; curl -L https://github.com/com-lihaoyi/Ammonite/releases/download/2.4.0/2.12-2.4.0) &gt; /usr/local/bin/amm &amp;&amp; chmod +x /usr/local/bin/amm' &amp;&amp; amm
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2021-10-18</span>
+        <span title="last modification date" class="post-info">2021-10-18</span>
+        <span title="tags" class="post-info"><a href="/tags/kde/">kde</a>, <a href="/tags/emacs/">emacs</a>, <a href="/tags/linux/">linux</a></span>
+        <span title="author" class="post-info">Álvaro González Sotillo</span>
+      </div>
+      <section>
+        <!-- <h1>Comments</h1> -->
+      </section>
+      <!-- <script src="//code.jquery.com/jquery-latest.min.js"></script> -->
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->
+      <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>  -->
+      <!--<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>-->
+      <script src="/media/js/jquery-3.2.1.min.js"></script>
+      <script src="/media/js/main.js"></script>
+      <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="/media/js/code-prettify/loader/run_prettify.js"></script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 28.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:alvarogonzalezsotillo <at> gmail <dot> com">Álvaro González Sotillo</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>
