@@ -4,8 +4,9 @@
 
 (require 'org-page)
 (defvar raiz-de-blog "/data/data/com.termux/files/home/storage/external-1/alvarogonzalezsotillo.github.io")
-;;(defvar raiz-de-blog "/home/alvaro/github/alvarogonzalezsotillo.github.io")
-(defvar branch-de-blog "source")
+
+(setq raiz-de-blog (file-name-directory buffer-file-name))
+(defvar branch-de-blog "nuevo-thinkpad")
 
 
 (defun enable-babel ()
