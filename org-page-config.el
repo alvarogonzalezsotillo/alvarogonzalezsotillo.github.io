@@ -7,7 +7,7 @@
 
 (setq raiz-de-blog (file-name-directory buffer-file-name))
 (defvar branch-de-blog "nuevo-thinkpad")
-
+(setq branch-de-blog "source")
 
 (defun enable-babel ()
   (interactive)

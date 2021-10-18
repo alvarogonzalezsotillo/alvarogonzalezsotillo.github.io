@@ -2,7 +2,7 @@
 #+TITLE:       Termux-api
 #+AUTHOR:      Álvaro González Sotillo
 #+EMAIL:       alvarogonzalezsotillo@gmail.com
-#+DATE:        2019-10-16
+#+DATE:        2021-10-18
 #+URI:         /blog/configurar-laptop-con-kde
 #+KEYWORDS:    kde, emacs, linux
 #+TAGS:        kde, emacs, linux
