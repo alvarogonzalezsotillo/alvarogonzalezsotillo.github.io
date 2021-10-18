@@ -41,3 +41,5 @@ object Solution extends App{
     println( s"Case #$t: $k $r $c" )
   }
 }
+
+Solution.main( Array() )
