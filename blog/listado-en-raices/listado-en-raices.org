@@ -6,28 +6,25 @@
 #+KEYWORDS:    javascript, raices
 #+TAGS:        javascript, raices
 #+LANGUAGE:    es
-#+OPTIONS:     H:3 num:t toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+OPTIONS:     H:3 num:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 #+options:     num:nil
 #+DESCRIPTION:  El proyecto Raices es la herramienta de gestión integrada de centros educativos de la Comunidad de Madrid. En la versión actual, no permite crear una página imprimible con las fotografías y nombres de todos los alumnos de un grupo.
 
 
 
-#+TOC: headlines 2 local
-
-
 * El problema
- El proyecto Raices es la herramienta de gestión integrada de centros educativos de la Comunidad de Madrid.
+ El proyecto Raices es la herramienta de gestión integrada de centros educativos de la Comunidad de Madrid.  En la versión actual, no permite crear una página imprimible con las fotografías y nombres de todos los alumnos de un grupo.
 
- En la versión actual, no permite crear una página imprimible con las fotografías y nombres de todos los alumnos de un grupo.
-
-* Solución
+* La solución
 A partir de la pantalla de *Faltas a día completo en una unidad en un periodo* se puede generar una página imprimible:
 
   
 - En Firefox o Chrome, pulsar las teclas =CONTROL+MAYÚSCULAS+B=, hasta que se muestre la barra de marcadores (/bookmarks/).
-- Después, arrastrar el enlace de más abajo a la barra de marcadores
+- Después, arrastrar el recuadro de más abajo a la barra de marcadores
 #+html: <a href="javascript:(function(){    try{        let inferior = window.frames['inferior'];        let principal = inferior.window.frames['principal'];        let cuerpo = principal.window.frames['cuerpo'];        let images = cuerpo.document.querySelectorAll('table.TableData \x3e tbody \x3e tr \x3e td \x3e img');        let names = cuerpo.document.querySelectorAll( 'table.TableData \x3e tbody \x3e tr \x3e td \x3e a');        let ciclo = cuerpo.document.querySelectorAll('select[name=X_OFERTAMATRIC] \x3e option[selected]')[0];                let newWindow = window.open();        let newDocument = newWindow.document;        let header = '\           \x3chead\x3e\             \x3cstyle\x3e\                body{\                   text-align: center;\                }\                titulo{\                   font-size: 20px;\                   text-align: center;\                }\                img{\                   min-width: 75px;\                   max-width: 75px;\                }\                td{\                  text-align: center;\                  font-size: 14px;\                }\             \x3c/style\x3e\           \x3c/head\x3e';        newDocument.writeln(header);        newDocument.writeln(`\x3cbody\x3e`);        newDocument.writeln(`\x3ctitulo\x3e${ciclo.title}\x3c/titulo\x3e`);        newDocument.writeln('\x3ctable\x3e');        let column = 0;        const maxColumns = 5;        for( let i = 0 ; i+1 != images.length ; i++ ){            let image = images[i];            let name = names[i];            if( column == 0 ){                newDocument.writeln('\x3ctr\x3e');            }                        let html = '\x3ctd\x3e\x3cimg src=\''+image.src+'\'\x3e\x3cbr\x3e'+name.innerText+'\x3c/td\x3e';            newDocument.writeln(html);            column += 1;            if( column == 5 ){                newDocument.writeln('\x3ctr\x3e');                column = 0;            }                    }        newDocument.writeln('\x3c/table\x3e');        newDocument.writeln('\x3c/body\x3e');        newWindow.print();    }    catch(error){        console.log(error);        alert(            `Solo funciona en las páginas de:\n  'Faltas a día completo en una unidad en un periodo'\n  'Faltas de asistencia de una unidad en una fecha'\n\nTambién podría ser que la versión de raices es incompatible. Versiones nuevas en alvaro.gonzalezsotillo@educa.madrid.org`        );    }    })();" style="border-style:solid">Página de fotografías de grupo</a>
+- Cuando se esté visualizando el listado de  *Faltas a día completo en una unidad en un periodo*, pulsar el botón creado usando el menú de /bookmarks/
 
+  
 
 
 * Explicación técnica
@@ -35,7 +32,7 @@ Se puede acceder mediante javascript a la estructura de una página web cargada 
 
 La ejecución del programa javascript se hace mediante un [[https://www.freecodecamp.org/news/what-are-bookmarklets/][bookmarklet]], que es un marcador que en vez de enviar el navegador a una paǵina, ejecuta un programa sobre la página ya cargada.
 
-El programa que se ejecuta es el siguiente:
+El programa que se ejecuta es el siguiente. Se puede observar que en 2021, la Comunidad de Madrid aún usa =framesets= 😵
 #+begin_src javascript
 (function(){
     try{
