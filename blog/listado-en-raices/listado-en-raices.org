@@ -1,0 +1,123 @@
+#+TITLE:       Listado de fotos de Raíces
+#+AUTHOR:      Álvaro González Sotillo
+#+EMAIL:       alvarogonzalezsotillo@gmail.com
+#+DATE:        2021-11-04
+#+URI:         /blog/listado-en-raices
+#+KEYWORDS:    javascript, raices
+#+TAGS:        javascript, raices
+#+LANGUAGE:    es
+#+OPTIONS:     H:3 num:t toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+options:     num:nil
+#+DESCRIPTION:  El proyecto Raices es la herramienta de gestión integrada de centros educativos de la Comunidad de Madrid. En la versión actual, no permite crear una página imprimible con las fotografías y nombres de todos los alumnos de un grupo.
+
+
+
+#+TOC: headlines 2 local
+
+
+* El problema
+ El proyecto Raices es la herramienta de gestión integrada de centros educativos de la Comunidad de Madrid.
+
+ En la versión actual, no permite crear una página imprimible con las fotografías y nombres de todos los alumnos de un grupo.
+
+* Solución
+A partir de la pantalla de *Faltas a día completo en una unidad en un periodo* se puede generar una página imprimible:
+
+  
+- En Firefox o Chrome, pulsar las teclas =CONTROL+MAYÚSCULAS+B=, hasta que se muestre la barra de marcadores (/bookmarks/).
+- Después, arrastrar el enlace de más abajo a la barra de marcadores
+#+html: <a href="javascript:(function(){    try{        let inferior = window.frames['inferior'];        let principal = inferior.window.frames['principal'];        let cuerpo = principal.window.frames['cuerpo'];        let images = cuerpo.document.querySelectorAll('table.TableData \x3e tbody \x3e tr \x3e td \x3e img');        let names = cuerpo.document.querySelectorAll( 'table.TableData \x3e tbody \x3e tr \x3e td \x3e a');        let ciclo = cuerpo.document.querySelectorAll('select[name=X_OFERTAMATRIC] \x3e option[selected]')[0];                let newWindow = window.open();        let newDocument = newWindow.document;        let header = '\           \x3chead\x3e\             \x3cstyle\x3e\                body{\                   text-align: center;\                }\                titulo{\                   font-size: 20px;\                   text-align: center;\                }\                img{\                   min-width: 75px;\                   max-width: 75px;\                }\                td{\                  text-align: center;\                  font-size: 14px;\                }\             \x3c/style\x3e\           \x3c/head\x3e';        newDocument.writeln(header);        newDocument.writeln(`\x3cbody\x3e`);        newDocument.writeln(`\x3ctitulo\x3e${ciclo.title}\x3c/titulo\x3e`);        newDocument.writeln('\x3ctable\x3e');        let column = 0;        const maxColumns = 5;        for( let i = 0 ; i+1 != images.length ; i++ ){            let image = images[i];            let name = names[i];            if( column == 0 ){                newDocument.writeln('\x3ctr\x3e');            }                        let html = '\x3ctd\x3e\x3cimg src=\''+image.src+'\'\x3e\x3cbr\x3e'+name.innerText+'\x3c/td\x3e';            newDocument.writeln(html);            column += 1;            if( column == 5 ){                newDocument.writeln('\x3ctr\x3e');                column = 0;            }                    }        newDocument.writeln('\x3c/table\x3e');        newDocument.writeln('\x3c/body\x3e');        newWindow.print();    }    catch(error){        console.log(error);        alert(            `Solo funciona en las páginas de:\n  'Faltas a día completo en una unidad en un periodo'\n  'Faltas de asistencia de una unidad en una fecha'\n\nTambién podría ser que la versión de raices es incompatible. Versiones nuevas en alvaro.gonzalezsotillo@educa.madrid.org`        );    }    })();" style="border-style:solid">Página de fotografías de grupo</a>
+
+
+
+* Explicación técnica
+Se puede acceder mediante javascript a la estructura de una página web cargada en el navegador, y copiarla en una nueva página. Puede ser un problema futuro si Raices cambia de versión y modifica la estructura de sus páginas.
+
+La ejecución del programa javascript se hace mediante un [[https://www.freecodecamp.org/news/what-are-bookmarklets/][bookmarklet]], que es un marcador que en vez de enviar el navegador a una paǵina, ejecuta un programa sobre la página ya cargada.
+
+El programa que se ejecuta es el siguiente:
+#+begin_src javascript
+(function(){
+    try{
+        let inferior = window.frames['inferior'];
+
+        let principal = inferior.window.frames['principal'];
+
+        let cuerpo = principal.window.frames['cuerpo'];
+
+        let images = cuerpo.document.querySelectorAll('table.TableData > tbody > tr > td > img');
+        let names = cuerpo.document.querySelectorAll( 'table.TableData > tbody > tr > td > a');
+        let ciclo = cuerpo.document.querySelectorAll('select[name=X_OFERTAMATRIC] > option[selected]')[0];
+
+        
+        let newWindow = window.open();
+        let newDocument = newWindow.document;
+
+        let header = '\
+           <head>\
+             <style>\
+                body{\
+                   text-align: center;\
+                }\
+                titulo{\
+                   font-size: 20px;\
+                   text-align: center;\
+                }\
+                img{\
+                   min-width: 75px;\
+                   max-width: 75px;\
+                }\
+                td{\
+                  text-align: center;\
+                  font-size: 14px;\
+                }\
+             </style>\
+           </head>';
+
+        newDocument.writeln(header);
+        newDocument.writeln(`<body>`);
+        newDocument.writeln(`<titulo>${ciclo.title}</titulo>`);
+        newDocument.writeln('<table>');
+
+        let column = 0;
+        const maxColumns = 5;
+        for( let i = 0 ; i+1 != images.length ; i++ ){
+            let image = images[i];
+            let name = names[i];
+
+            if( column == 0 ){
+                newDocument.writeln('<tr>');
+            }
+            
+            let html = '<td><img src=\''+image.src+'\'><br>'+name.innerText+'</td>';
+            newDocument.writeln(html);
+            column += 1;
+
+            if( column == 5 ){
+                newDocument.writeln('<tr>');
+                column = 0;
+            }
+            
+        }
+        newDocument.writeln('</table>');
+        newDocument.writeln('</body>');
+        newWindow.print();
+
+    }
+    catch(error){
+        console.log(error);
+        alert(
+            `Solo funciona en las páginas de:\n  'Faltas a día completo en una unidad en un periodo'\n  'Faltas de asistencia de una unidad en una fecha'\n\nTambién podría ser que la versión de raices es incompatible. Versiones nuevas en alvaro.gonzalezsotillo@educa.madrid.org`
+        );
+    }
+    
+})();
+#+end_src
+
+Para convertirlo en una sola línea, y poder crear el botón de más arriba, hay que escapar las comillas y los cierres de tag. Es necesario que el script no utilice, además, ninguna comilla doble ni =<= ni =>= fuera de literales de cadena.
+
+Utilizo el siguiente commando /bash/ en emacs con =shell-command-on-region=
+
+#+begin_src bash
+sed -e 's/</\\x3c/g' -e 's/>/\\x3e/g' | tr -d '\n'
+#+end_src
