@@ -38,33 +38,33 @@
 <h2>&Iacute;ndice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org07de565">El problema</a></li>
-<li><a href="#org8926c7d">La solución</a></li>
-<li><a href="#org54644df">Explicación técnica</a></li>
+<li><a href="#org90abffe">El problema</a></li>
+<li><a href="#orgd103c58">La solución</a></li>
+<li><a href="#org91c66c9">Explicación técnica</a></li>
 </ul>
 </div>
 </div>
 
 
 
-<div id="outline-container-org07de565" class="outline-2">
-<h2 id="org07de565">El problema</h2>
-<div class="outline-text-2" id="text-org07de565">
+<div id="outline-container-org90abffe" class="outline-2">
+<h2 id="org90abffe">El problema</h2>
+<div class="outline-text-2" id="text-org90abffe">
 <p>
 El proyecto Raices es la herramienta de gestión integrada de centros educativos de la Comunidad de Madrid.  En la versión actual, no permite crear una página imprimible con las fotografías y nombres de todos los alumnos de un grupo.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org8926c7d" class="outline-2">
-<h2 id="org8926c7d">La solución</h2>
-<div class="outline-text-2" id="text-org8926c7d">
+<div id="outline-container-orgd103c58" class="outline-2">
+<h2 id="orgd103c58">La solución</h2>
+<div class="outline-text-2" id="text-orgd103c58">
 <p>
 A partir de la pantalla de <b>Faltas a día completo en una unidad en un periodo</b> se puede generar una página imprimible:
 </p>
 
 
-<div id="org36cb935" class="figure">
+<div id="org3152229" class="figure">
 <p><img src="/assets/blog/listado-en-raices/menu-raices.png" alt="/assets/blog/listado-en-raices/menu-raices.png" />  
 </p>
 <p><span class="figure-number">Figura 1: </span>Menú de Raices que muestra la página requerida</p>
@@ -74,22 +74,22 @@ A partir de la pantalla de <b>Faltas a día completo en una unidad en un periodo
 <li>En Firefox o Chrome, pulsar las teclas <code>CONTROL+MAYÚSCULAS+B</code>, hasta que se muestre la barra de marcadores (<i>bookmarks</i>).</li>
 <li>Después, arrastrar el recuadro de más abajo a la barra de marcadores</li>
 </ul>
-<center><a href="javascript:(function(){    try{        let inferior = window.frames['inferior'];        let principal = inferior.window.frames['principal'];        let cuerpo = principal.window.frames['cuerpo'];        let images = cuerpo.document.querySelectorAll('table.TableData \x3e tbody \x3e tr \x3e td \x3e img');        let names = cuerpo.document.querySelectorAll( 'table.TableData \x3e tbody \x3e tr \x3e td \x3e a');        let ciclo = cuerpo.document.querySelectorAll('select[name=X_OFERTAMATRIC] \x3e option[selected]')[0];                let newWindow = window.open();        let newDocument = newWindow.document;        let header = '\           \x3chead\x3e\             \x3cstyle\x3e\                body{\                   text-align: center;\                }\                titulo{\                   font-size: 20px;\                   text-align: center;\                }\                img{\                   min-width: 75px;\                   max-width: 75px;\                }\                td{\                  text-align: center;\                  font-size: 14px;\                }\             \x3c/style\x3e\           \x3c/head\x3e';        newDocument.writeln(header);        newDocument.writeln(`\x3cbody\x3e`);        newDocument.writeln(`\x3ctitulo\x3e${ciclo.title}\x3c/titulo\x3e`);        newDocument.writeln('\x3ctable\x3e');        let column = 0;        const maxColumns = 5;        for( let i = 0 ; i+1 != images.length ; i++ ){            let image = images[i];            let name = names[i];            if( column == 0 ){                newDocument.writeln('\x3ctr\x3e');            }                        let html = '\x3ctd\x3e\x3cimg src=\''+image.src+'\'\x3e\x3cbr\x3e'+name.innerText+'\x3c/td\x3e';            newDocument.writeln(html);            column += 1;            if( column == 5 ){                newDocument.writeln('\x3ctr\x3e');                column = 0;            }                    }        newDocument.writeln('\x3c/table\x3e');        newDocument.writeln('\x3c/body\x3e');        newWindow.print();    }    catch(error){        console.log(error);        alert(            `Solo funciona en las páginas de:\n  'Faltas a día completo en una unidad en un periodo'\n  'Faltas de asistencia de una unidad en una fecha'\n\nTambién podría ser que la versión de raices es incompatible. Versiones nuevas en alvaro.gonzalezsotillo@educa.madrid.org`        );    }    })();" style="border-style:solid;background-color:yellow;">Página de fotografías de grupo</a></center>
+<center><a href="javascript:(function(){    try{        let inferior = window.frames['inferior'];        let principal = inferior.window.frames['principal'];        let cuerpo = principal.window.frames['cuerpo'];        let images = cuerpo.document.querySelectorAll('table.TableData \x3e tbody \x3e tr \x3e td \x3e img');        let names = cuerpo.document.querySelectorAll( 'table.TableData \x3e tbody \x3e tr \x3e td \x3e a');        let ciclo = cuerpo.document.querySelectorAll('select[name=X_OFERTAMATRIC] \x3e option[selected]')[0];                let newWindow = window.open();        let newDocument = newWindow.document;        let header = '\           \x3chead\x3e\             \x3cstyle\x3e\                body{\                   text-align: center;\                }\                titulo{\                   font-size: 20px;\                   text-align: center;\                }\                img{\                   min-width: 75px;\                   max-width: 75px;\                }\                td{\                  text-align: center;\                  font-size: 14px;\                }\             \x3c/style\x3e\           \x3c/head\x3e';        newDocument.writeln(header);        newDocument.writeln(`\x3cbody\x3e`);        newDocument.writeln(`\x3ctitulo\x3e${ciclo.title}\x3c/titulo\x3e`);        newDocument.writeln('\x3ctable\x3e');        let column = 0;        const maxColumns = 5;        for( let i = 0 ; i+1 != images.length ; i++ ){            let image = images[i];            let name = names[i];            if( column == 0 ){                newDocument.writeln('\x3ctr\x3e');            }                        let html = '\x3ctd\x3e\x3cimg src=\''+image.src+'\'\x3e\x3cbr\x3e'+name.innerText+'\x3c/td\x3e';            newDocument.writeln(html);            column += 1;            if( column == 5 ){                newDocument.writeln('\x3ctr\x3e');                column = 0;            }                    }        newDocument.writeln('\x3c/table\x3e');        newDocument.writeln('\x3c/body\x3e');       window.setTimeout( ()=> newWindow.print(), 2000 );    }    catch(error){        console.log(error);        alert(            `Solo funciona en las páginas de:\n  'Faltas a día completo en una unidad en un periodo'\n  'Faltas de asistencia de una unidad en una fecha'\n\nTambién podría ser que la versión de raices es incompatible. Versiones nuevas en alvaro.gonzalezsotillo@educa.madrid.org`        );    }    })();" style="border-style:solid;background-color:yellow;">Página de fotografías de grupo</a></center>
 <ul class="org-ul">
 <li>Cuando se esté visualizando el listado de  <b>Faltas a día completo en una unidad en un periodo</b>, pulsar el botón creado usando el menú de <i>bookmarks</i></li>
 </ul>
 
 
-<div id="orgc59e03d" class="figure">
+<div id="org5b2abc3" class="figure">
 <p><img src="/assets/blog/listado-en-raices/menu-bookmarks.png" alt="/assets/blog/listado-en-raices/menu-bookmarks.png" />
 </p>
 <p><span class="figure-number">Figura 2: </span>Invocar el <i>bookmark</i> desde el menú en Firefox</p>
 </div>
 </div>
 </div>
-<div id="outline-container-org54644df" class="outline-2">
-<h2 id="org54644df">Explicación técnica</h2>
-<div class="outline-text-2" id="text-org54644df">
+<div id="outline-container-org91c66c9" class="outline-2">
+<h2 id="org91c66c9">Explicación técnica</h2>
+<div class="outline-text-2" id="text-org91c66c9">
 <p>
 Se puede acceder mediante javascript a la estructura de una página web cargada en el navegador, y copiarla en una nueva página. Puede ser un problema futuro si Raices cambia de versión y modifica la estructura de sus páginas.
 </p>
@@ -166,7 +166,7 @@ El programa que se ejecuta es el siguiente. Se puede observar que, en 2021, la C
         }
         newDocument.writeln('&lt;/table&gt;');
         newDocument.writeln('&lt;/body&gt;');
-        newWindow.print();
+        window.setTimeout( ()=&gt; newWindow.print(), 2000 );
 
     }
     catch(error){
@@ -200,7 +200,7 @@ Utilizo el siguiente commando <i>bash</i> en emacs con <code>shell-command-on-re
     <div>
       <div class="post-meta">
         <span title="post date" class="post-info">2021-11-04</span>
-        <span title="last modification date" class="post-info">2021-11-04</span>
+        <span title="last modification date" class="post-info">2021-11-05</span>
         <span title="tags" class="post-info"><a href="/tags/javascript/">javascript</a>, <a href="/tags/raices/">raices</a></span>
         <span title="author" class="post-info">Álvaro González Sotillo</span>
       </div>
