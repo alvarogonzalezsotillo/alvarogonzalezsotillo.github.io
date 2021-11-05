@@ -38,9 +38,9 @@
 Desde hace un tiempo utilizo Latex para escribir mis exámenes. Al final he creado una plantilla con varias macros de Latex para facilitar la creación preguntas cerradas (de tipo <i>test</i>), preguntas abiertas de distinta longitud, y una tabla de respuestas inicial. Se puede <a href="/assets/blog/plantilla-latex-para-examenes/plantilla-latex-para-examenes.tex">descargar la plantilla</a> o verse <a href="/assets/blog/plantilla-latex-para-examenes/ejemplo.pdf">un ejemplo de la apariencia final de los examenes</a>.
 </p>
 
-<div id="outline-container-org62c5d6a" class="outline-2">
-<h2 id="org62c5d6a">Primera página</h2>
-<div class="outline-text-2" id="text-org62c5d6a">
+<div id="outline-container-orgee0e16f" class="outline-2">
+<h2 id="orgee0e16f">Primera página</h2>
+<div class="outline-text-2" id="text-orgee0e16f">
 <p>
 En la primera página del examen se incluye un cuadro para la identificación del alumno, la tabla de respuestas para las preguntas cerradas y las instrucciones del examen.
 </p>
@@ -76,7 +76,7 @@ Todos estos parámetros se especifican en la llamada a <code>FirstPage</code>
 </div>
 
 
-<div id="orgd3b982e" class="figure">
+<div id="orgd669021" class="figure">
 <p><a href="/assets/blog/plantilla-latex-para-examenes/cuadro-respuestas-grande.png"><img src="/assets/blog/plantilla-latex-para-examenes/cuadro-respuestas.png" alt="/assets/blog/plantilla-latex-para-examenes/cuadro-respuestas.png" /></a>
 </p>
 <p><span class="figure-number">Figura 1: </span>Ejemplo de página inicial con cuadro de respuestas</p>
@@ -84,9 +84,9 @@ Todos estos parámetros se especifican en la llamada a <code>FirstPage</code>
 </div>
 </div>
 
-<div id="outline-container-orga2a9285" class="outline-2">
-<h2 id="orga2a9285">Preguntas cerradas</h2>
-<div class="outline-text-2" id="text-orga2a9285">
+<div id="outline-container-org5e1ea10" class="outline-2">
+<h2 id="org5e1ea10">Preguntas cerradas</h2>
+<div class="outline-text-2" id="text-org5e1ea10">
 <p>
 Las preguntas cerradas son las que tienen un enunciado y varias opciones a elegir, de las cuales solo una es correcta. 
 </p>
@@ -123,7 +123,7 @@ las preguntas aparecerán numeradas. Para aprovechar el espacio en el papel las 
 </p>
 
 
-<div id="orga6e4125" class="figure">
+<div id="org8e51b97" class="figure">
 <p><a href="/assets/blog/plantilla-latex-para-examenes/preguntas-cerradas-grande.png"><img src="/assets/blog/plantilla-latex-para-examenes/preguntas-cerradas.png" alt="/assets/blog/plantilla-latex-para-examenes/preguntas-cerradas.png" /></a>
 </p>
 <p><span class="figure-number">Figura 2: </span>Ejemplo de página con preguntas cerradas</p>
@@ -131,9 +131,9 @@ las preguntas aparecerán numeradas. Para aprovechar el espacio en el papel las 
 </div>
 </div>
 
-<div id="outline-container-org49cba69" class="outline-2">
-<h2 id="org49cba69">Preguntas abiertas</h2>
-<div class="outline-text-2" id="text-org49cba69">
+<div id="outline-container-orgddb3d01" class="outline-2">
+<h2 id="orgddb3d01">Preguntas abiertas</h2>
+<div class="outline-text-2" id="text-orgddb3d01">
 <p>
 Para las preguntas abiertas, en las que los alumnos deben desarrollar una respuesta, se pueden utilizar varios entornos dependiendo de la extensión de página que se espera ocupe dicha respuesta:
 </p>
@@ -158,7 +158,7 @@ Para las preguntas abiertas, en las que los alumnos deben desarrollar una respue
 </div>
 
 
-<div id="org6051871" class="figure">
+<div id="org3e50c5e" class="figure">
 <p><a href="/assets/blog/plantilla-latex-para-examenes/preguntas-abiertas-grande.png"><img src="/assets/blog/plantilla-latex-para-examenes/preguntas-abiertas.png" alt="/assets/blog/plantilla-latex-para-examenes/preguntas-abiertas.png" /></a>
 </p>
 <p><span class="figure-number">Figura 3: </span>Ejemplo de página con preguntas abiertas</p>
@@ -166,9 +166,9 @@ Para las preguntas abiertas, en las que los alumnos deben desarrollar una respue
 </div>
 </div>
 
-<div id="outline-container-orga90fc85" class="outline-2">
-<h2 id="orga90fc85">Extras</h2>
-<div class="outline-text-2" id="text-orga90fc85">
+<div id="outline-container-org8f96ba5" class="outline-2">
+<h2 id="org8f96ba5">Extras</h2>
+<div class="outline-text-2" id="text-org8f96ba5">
 <p>
 Los ficheros <code>pdf</code> creados tienen varias características interesantes
 </p>
@@ -187,9 +187,9 @@ Todo esto puede consultarse en el <a href="/assets/blog/plantilla-latex-para-exa
 </div>
 </div>
 
-<div id="outline-container-org323533c" class="outline-2">
-<h2 id="org323533c">Generación automática de exámenes</h2>
-<div class="outline-text-2" id="text-org323533c">
+<div id="outline-container-org2ab28a1" class="outline-2">
+<h2 id="org2ab28a1">Generación automática de exámenes</h2>
+<div class="outline-text-2" id="text-org2ab28a1">
 <p>
 No suelo utilizar directamente esta plantilla, sino que un programa traduce un fichero <code>gift</code> a código <code>tex</code> con esta plantilla. Puede consultarse el código de este programa en <a href="https://github.com/alvarogonzalezsotillo/grading-questionnaire">https://github.com/alvarogonzalezsotillo/grading-questionnaire</a>. Este es el enlace a <a href="https://github.com/alvarogonzalezsotillo/grading-questionnaire/blob/master/questionnaire-from-gift/src/main/resources/giftToLatex/QuestionnaireGradingTest.template.tex">la última versión de la plantilla</a>.
 </p>

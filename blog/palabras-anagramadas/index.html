@@ -35,7 +35,7 @@
 <div class="post">
 <h1>Palabras anagramadas</h1>
 
-<div id="org09b3697" class="figure">
+<div id="org61bb2b2" class="figure">
 <p><img src="/assets/blog/palabras-anagramadas/concurso-2018-10-06.png" alt="/assets/blog/palabras-anagramadas/concurso-2018-10-06.png" style="float:right;clear:both;max-width:50%;" />
 </p>
 </div>
@@ -69,17 +69,17 @@ El código fuente está disponible en <a href="https://github.com/alvarogonzalez
 </p>
 
 
-<div id="outline-container-org5c62ca0" class="outline-2">
-<h2 id="org5c62ca0">Implementación del algoritmo</h2>
-<div class="outline-text-2" id="text-org5c62ca0">
+<div id="outline-container-org9efa045" class="outline-2">
+<h2 id="org9efa045">Implementación del algoritmo</h2>
+<div class="outline-text-2" id="text-org9efa045">
 <p>
 La siguiente implementación se ha realizado en lenguaje <code>scala</code>.
 </p>
 </div>
 
-<div id="outline-container-org64a0743" class="outline-3">
-<h3 id="org64a0743"><code>Palabra</code></h3>
-<div class="outline-text-3" id="text-org64a0743">
+<div id="outline-container-org035a8aa" class="outline-3">
+<h3 id="org035a8aa"><code>Palabra</code></h3>
+<div class="outline-text-3" id="text-org035a8aa">
 <p>
 Lo primero es una clase que encapsule una palabra y sepa calcular su histograma. También normaliza normaliza su representación, quitando espacios, acentos y mayúsculas. 
 </p>
@@ -121,9 +121,9 @@ El histograma se calcula de forma perezosa, ya que no es necesario calcularlo de
 </div>
 </div>
 
-<div id="outline-container-orgfcf8c1a" class="outline-3">
-<h3 id="orgfcf8c1a"><i>Corpus</i> de palabras</h3>
-<div class="outline-text-3" id="text-orgfcf8c1a">
+<div id="outline-container-org8ef4bfa" class="outline-3">
+<h3 id="org8ef4bfa"><i>Corpus</i> de palabras</h3>
+<div class="outline-text-3" id="text-org8ef4bfa">
 <p>
 El programa necesita un <i>vocabulario</i> donde buscar las palabras. Una opción sería extraerlas de varios libros gratuitos del Proyecto Gutengberg, pero he encontrado un <a href="http://corpus.rae.es/lfrecuencias.html"><i>corpus</i> de la Real Academia de la Lengua</a> con 737799 palabras distintas, ordenadas por frecuencia de uso. 
 </p>
@@ -188,9 +188,9 @@ Para leer las palabras utilizo una expresión regular por cada una de las línea
 </div>
 </div>
 
-<div id="outline-container-orgc4ca389" class="outline-3">
-<h3 id="orgc4ca389">Búsqueda de anagramas</h3>
-<div class="outline-text-3" id="text-orgc4ca389">
+<div id="outline-container-org655a070" class="outline-3">
+<h3 id="org655a070">Búsqueda de anagramas</h3>
+<div class="outline-text-3" id="text-org655a070">
 <p>
 Una vez tengo la lista de palabras, para econtrar los anagramas de una dada basta con buscar las que tienen el mismo histograma de letras. La búsqueda se realiza solo entre las que tienen la misma longitud.
 </p>
@@ -275,9 +275,9 @@ Cada palabra para adivinar tiene una definición y una pista. La pista (en los c
 </div>
 </div>
 
-<div id="outline-container-org5165739" class="outline-3">
-<h3 id="org5165739">Solución a un día</h3>
-<div class="outline-text-3" id="text-org5165739">
+<div id="outline-container-org1b311ab" class="outline-3">
+<h3 id="org1b311ab">Solución a un día</h3>
+<div class="outline-text-3" id="text-org1b311ab">
 <p>
 Con estas funciones, ya es posible concursar para un día concreto. Por ejemplo, este es el código del <a href="https://www.facebook.com/noesundia/photos/a.133963369947769/2158091877534898/?type=3&amp;__tn__=-R">concurso del 6/oct/2018</a>:
 </p>
