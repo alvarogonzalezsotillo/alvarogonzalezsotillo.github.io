@@ -49,7 +49,7 @@ sudo apt install zsh texlive-full inkscape htop tmux git iftop \
                  iotop tcpdump curl silversearcher-ag graphviz \
                  virtualbox pandoc pdftk krita wxmaxima gdebi \
                  kmail korganizer obs-studio kdenlive xclip \
-                 gromit-mpx openssh-server
+                 gromit-mpx openssh-server qgit screenruler
 wget https://github.com/xournalpp/xournalpp/releases/download/1.1.0/xournalpp-1.1.0-Ubuntu-focal-x86_64.deb
 gdebi xournalpp-1.1.0-Ubuntu-focal-x86_64.deb
 git config --global user.email "alvaro@thinkpad"
@@ -214,3 +214,11 @@ Por alguna razón, me funciona ammonite pero scala con =sudo apt install --insta
 sudo sh -c '(echo "#!/usr/bin/env sh" && curl -L https://github.com/com-lihaoyi/Ammonite/releases/download/2.4.0/2.12-2.4.0) > /usr/local/bin/amm && chmod +x /usr/local/bin/amm' && amm
    #+end_src   
 
+* Impresora
+Imprimir en mi Brother DCP 1610w, tanto por USB como WiFi, no ha tenido problemas.
+
+Para hacer funcionar el escáner he utilizado los drivers de [[https://support.brother.com/g/b/downloadlist.aspx?c=as_ot&lang=en&prod=dcp1610w_eu_as&os=128][https://support.brother.com/g/b/downloadlist.aspx?c=as_ot&lang=en&prod=dcp1610w_eu_as&os=128]]
+
+He instalado =linux-brprinter-installer-2.1.1-1.gz=
+
+El escáner solo funciona como administrador.
