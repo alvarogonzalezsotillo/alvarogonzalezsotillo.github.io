@@ -42,9 +42,9 @@ Recientemente he jubilado mi Vaio e14 por un Thinkpad e14.
 Aunque el hardware ya no aguantaba mucho más, había estado configurándolo a mi gusto durante 8 años, y quería reproducir el mismo entorno de trabajo en el nuevo ordenador. Esta es una lista más o menos completa de los pasos que he seguido, por si necesito volver a configurarlo en el futuro.
 </p>
 
-<div id="outline-container-org154733c" class="outline-2">
-<h2 id="org154733c">Instalación de base</h2>
-<div class="outline-text-2" id="text-org154733c">
+<div id="outline-container-org0000000" class="outline-2">
+<h2 id="org0000000">Instalación de base</h2>
+<div class="outline-text-2" id="text-org0000000">
 <p>
 Windows no es una opción una vez que se ha probado la experiencia de no tener publicidad, ni antivirus, ni indexación de ficheros, ni actualizaciones que interrumpen el trabajo. Es posible que un Mac solucionase todos estos problemas, pero el presupuesto y sobre todo la cabezonería no dan para más.
 </p>
@@ -71,9 +71,9 @@ UUID=9125dd39-2a6b-4e30-a1a2-d6e5ae9c356c /datos-1T ext4    errors=remount-ro 0 
 </div>
 </div>
 
-<div id="outline-container-org9d223b7" class="outline-2">
-<h2 id="org9d223b7"><i>Shell</i></h2>
-<div class="outline-text-2" id="text-org9d223b7">
+<div id="outline-container-org0000003" class="outline-2">
+<h2 id="org0000003"><i>Shell</i></h2>
+<div class="outline-text-2" id="text-org0000003">
 <p>
 <code>zsh</code> supone una mejora en muchos aspectos a <code>bash</code>. Yo lo uso principalmente por la mejor autocomplección y el mejor manejo de la historia de comandos.
 </p>
@@ -90,9 +90,9 @@ PROMPT="%{$fg[blue]%}%T %{$fg[cyan]%}%n%{$fg[blue]%}@%{$fg[cyan]%}%m ${PROMPT}"
 </div>
 </div>
 
-<div id="outline-container-org1876b0c" class="outline-2">
-<h2 id="org1876b0c">Mis cosas</h2>
-<div class="outline-text-2" id="text-org1876b0c">
+<div id="outline-container-org0000006" class="outline-2">
+<h2 id="org0000006">Mis cosas</h2>
+<div class="outline-text-2" id="text-org0000006">
 <p>
 Muchos de los programas que utilizo pueden instalarse mediante <code>apt</code>, o con un un paquete <code>.deb</code>
 </p>
@@ -101,7 +101,7 @@ Muchos de los programas que utilizo pueden instalarse mediante <code>apt</code>,
                  iotop tcpdump curl silversearcher-ag graphviz \
                  virtualbox pandoc pdftk krita wxmaxima gdebi \
                  kmail korganizer obs-studio kdenlive xclip \
-                 gromit-mpx openssh-server
+                 gromit-mpx openssh-server qgit screenruler
 wget https://github.com/xournalpp/xournalpp/releases/download/1.1.0/xournalpp-1.1.0-Ubuntu-focal-x86_64.deb
 gdebi xournalpp-1.1.0-Ubuntu-focal-x86_64.deb
 git config --global user.email "alvaro@thinkpad"
@@ -112,9 +112,9 @@ git config --global user.name "alvaro@thinkpad"
 </div>
 
 
-<div id="outline-container-orgec7a893" class="outline-2">
-<h2 id="orgec7a893">emacs</h2>
-<div class="outline-text-2" id="text-orgec7a893">
+<div id="outline-container-org0000009" class="outline-2">
+<h2 id="org0000009">emacs</h2>
+<div class="outline-text-2" id="text-org0000009">
 <p>
 La versión de <code>emacs</code> incluida en <code>ubuntu</code> no está demasiado actualizada. La compilación de <code>lisp</code> a código nativo mejora bastante el (mediocre) rendimiento de <code>emacs</code>.
 </p>
@@ -160,9 +160,9 @@ git clone https://github.com/alvarogonzalezsotillo/.emacs.d.git
 </div>
 
 
-<div id="outline-container-org928b5ad" class="outline-2">
-<h2 id="org928b5ad">educamadrid y PIM</h2>
-<div class="outline-text-2" id="text-org928b5ad">
+<div id="outline-container-org000000c" class="outline-2">
+<h2 id="org000000c">educamadrid y PIM</h2>
+<div class="outline-text-2" id="text-org000000c">
 <p>
 Como profesor de secundaria, utilizo a diario los servicios de <code>educamadrid</code>.
 </p>
@@ -190,9 +190,9 @@ Los contactos y calendario están sincronizados con <code>Google</code> y <code>
 </div>
 </div>
 
-<div id="outline-container-orgef08ac8" class="outline-2">
-<h2 id="orgef08ac8">Autofirma</h2>
-<div class="outline-text-2" id="text-orgef08ac8">
+<div id="outline-container-org0000010" class="outline-2">
+<h2 id="org0000010">Autofirma</h2>
+<div class="outline-text-2" id="text-org0000010">
 <p>
 Utilizo autofirma para firmar PDFs. No consigo que encuentre mis certificados, así que cada vez tengo que encontrar el fichero de claves. 
 </p>
@@ -208,7 +208,7 @@ Utilizo autofirma para firmar PDFs. No consigo que encuentre mis certificados, a
 He cambiado la plantilla de la firma visible, porque aunque la firma es igual de válida a veces se me quejan de que no tiene tantos <i>numeritos</i> como la que pone el Acrobat. Para saber qué variables se pueden utilizar, hay que recurrir al <a href="https://github.com/ctt-gob-es/clienteafirma/blob/master/afirma-crypto-pdf/src/main/java/es/gob/afirma/signers/pades/PdfExtraParams.java">código fuente de autofirma</a>.
 </p>
 
-<pre class="example" id="orgfeb15c6">
+<pre class="example" id="org000000f">
 Firmado por $$SUBJECTCN$$ el día $$SIGNDATE=dd/MM/yyyy$$ con un certificado emitido por $$ISSUERCN$$ con número de serie $$CERTSERIAL$$
 </pre>
 </div>
@@ -216,9 +216,9 @@ Firmado por $$SUBJECTCN$$ el día $$SIGNDATE=dd/MM/yyyy$$ con un certificado emi
 
 
 
-<div id="outline-container-org4b2770d" class="outline-2">
-<h2 id="org4b2770d">Ficheros personales</h2>
-<div class="outline-text-2" id="text-org4b2770d">
+<div id="outline-container-org0000013" class="outline-2">
+<h2 id="org0000013">Ficheros personales</h2>
+<div class="outline-text-2" id="text-org0000013">
 <p>
 Dispongo de varias cuentas de <code>office365</code> que me dan la posibilidad de usar 1TB de disco en la nube. Lamentablemente, la sincronización en <code>linux</code> no está demasiado bien resuelta. Tanto <code>rclone</code> como <code>onedrive</code> son demasiado lentos, y tienen múltiples problemas de <i>throthling</i>.
 </p>
@@ -229,9 +229,9 @@ He acabado contratando un hosting de ficheros. <a href="https://www.strato.es/al
 </div>
 </div>
 
-<div id="outline-container-org690b4ab" class="outline-2">
-<h2 id="org690b4ab">Hibernar</h2>
-<div class="outline-text-2" id="text-org690b4ab">
+<div id="outline-container-org0000016" class="outline-2">
+<h2 id="org0000016">Hibernar</h2>
+<div class="outline-text-2" id="text-org0000016">
 <p>
 Es una realidad incómoda que la hibernación en <code>linux</code> no está nada resuelta. Por suerte, tanto en mi antiguo ordenador como en el nuevo funciona bastante bien <code>uswsusp</code>.
 </p>
@@ -258,9 +258,9 @@ alvaro ALL=(ALL) NOPASSWD: /usr/sbin/s2disk
 </div>
 
 
-<div id="outline-container-orgec600ae" class="outline-2">
-<h2 id="orgec600ae"><i>Gestures</i></h2>
-<div class="outline-text-2" id="text-orgec600ae">
+<div id="outline-container-org000001a" class="outline-2">
+<h2 id="org000001a"><i>Gestures</i></h2>
+<div class="outline-text-2" id="text-org000001a">
 <p>
 Envidio la facilidad para cambiar de <i>workspace</i> con un simple gesto que tienen los Mac. Se puede conseguir algo muy parecido con <a href="https://github.com/bulletmark/libinput-gestures"><code>libinput-gestures</code></a>
 </p>
@@ -278,7 +278,7 @@ sudo make install
 He cambiado los <i>gestures</i> por defecto para que los <i>workspaces</i> se cambien horizontalmente, y el pellizco se integre con KDE.
 </p>
 
-<pre class="example" id="org04bed50">
+<pre class="example" id="org0000019">
 gesture pinch in	xdotool key ctrl+F9
 gesture pinch out	xdotool key ctrl+F9
 gesture swipe right	_internal ws_up
@@ -289,9 +289,9 @@ gesture swipe left	_internal ws_down
 
 
 
-<div id="outline-container-org9d4fa74" class="outline-2">
-<h2 id="org9d4fa74">SQLDeveloper y packettracer</h2>
-<div class="outline-text-2" id="text-org9d4fa74">
+<div id="outline-container-org000001d" class="outline-2">
+<h2 id="org000001d">SQLDeveloper y packettracer</h2>
+<div class="outline-text-2" id="text-org000001d">
 <p>
 Son herramientas que utilizo en clase de redes y bases de datos. Basta con descargar, Descomprimir y gdebi. Para SQLDeveloper se necesita openjdk-11-jdk
 </p>
@@ -307,9 +307,9 @@ gdebi CiscoPacketTracer_801_Ubuntu_64bit.deb
 </div>
 </div>
 
-<div id="outline-container-orgca89710" class="outline-2">
-<h2 id="orgca89710">Office 2010</h2>
-<div class="outline-text-2" id="text-orgca89710">
+<div id="outline-container-org0000020" class="outline-2">
+<h2 id="org0000020">Office 2010</h2>
+<div class="outline-text-2" id="text-org0000020">
 <p>
 Tengo un <i>prefix</i> de Wine con Office 2010 instalado, que llevo arrastrando ya varios años, y que suele funcionar sin más que descomprimirlo
 Es necesario instalar previamente winbind
@@ -327,9 +327,9 @@ sudo apt install --install-recommends winehq-stable
 </div>
 
 
-<div id="outline-container-org6581bc5" class="outline-2">
-<h2 id="org6581bc5">Mensajería</h2>
-<div class="outline-text-2" id="text-org6581bc5">
+<div id="outline-container-org0000023" class="outline-2">
+<h2 id="org0000023">Mensajería</h2>
+<div class="outline-text-2" id="text-org0000023">
 <p>
 He instalado los clientes de <code>telegram</code> y <code>teams</code>
 </p>
@@ -341,13 +341,13 @@ He instalado los clientes de <code>telegram</code> y <code>teams</code>
 </div>
 </div>
 
-<div id="outline-container-org64b4961" class="outline-2">
-<h2 id="org64b4961">Lenguajes de programación</h2>
-<div class="outline-text-2" id="text-org64b4961">
+<div id="outline-container-org000002c" class="outline-2">
+<h2 id="org000002c">Lenguajes de programación</h2>
+<div class="outline-text-2" id="text-org000002c">
 </div>
-<div id="outline-container-org0ffb306" class="outline-3">
-<h3 id="org0ffb306"><code>rust</code></h3>
-<div class="outline-text-3" id="text-org0ffb306">
+<div id="outline-container-org0000026" class="outline-3">
+<h3 id="org0000026"><code>rust</code></h3>
+<div class="outline-text-3" id="text-org0000026">
 <p>
 Instalado mediante <code>rustup</code>
 </p>
@@ -358,9 +358,9 @@ Instalado mediante <code>rustup</code>
 </div>
 </div>
 
-<div id="outline-container-org85c5bac" class="outline-3">
-<h3 id="org85c5bac"><code>scala</code></h3>
-<div class="outline-text-3" id="text-org85c5bac">
+<div id="outline-container-org0000029" class="outline-3">
+<h3 id="org0000029"><code>scala</code></h3>
+<div class="outline-text-3" id="text-org0000029">
 <p>
 Por alguna razón, me funciona ammonite pero scala con <code>sudo apt install --install-recommends scala</code> no 🤷‍♂️
 </p>
@@ -373,12 +373,33 @@ Por alguna razón, me funciona ammonite pero scala con <code>sudo apt install --
 </div>
 </div>
 
+<div id="outline-container-org000002f" class="outline-2">
+<h2 id="org000002f">Impresora</h2>
+<div class="outline-text-2" id="text-org000002f">
+<p>
+Imprimir en mi Brother DCP 1610w, tanto por USB como WiFi, no ha tenido problemas.
+</p>
+
+<p>
+Para hacer funcionar el escáner he utilizado los drivers de <a href="https://support.brother.com/g/b/downloadlist.aspx?c=as_ot&amp;lang=en&amp;prod=dcp1610w_eu_as&amp;os=128">https://support.brother.com/g/b/downloadlist.aspx?c=as_ot&amp;lang=en&amp;prod=dcp1610w_eu_as&amp;os=128</a>
+</p>
+
+<p>
+He instalado <code>linux-brprinter-installer-2.1.1-1.gz</code>
+</p>
+
+<p>
+El escáner solo funciona como administrador.
+</p>
+</div>
+</div>
+
 </div>
 </div>
     <div>
       <div class="post-meta">
         <span title="post date" class="post-info">2021-10-18</span>
-        <span title="last modification date" class="post-info">2021-11-03</span>
+        <span title="last modification date" class="post-info">2021-11-22</span>
         <span title="tags" class="post-info"><a href="/tags/kde/">kde</a>, <a href="/tags/emacs/">emacs</a>, <a href="/tags/linux/">linux</a></span>
         <span title="author" class="post-info">Álvaro González Sotillo</span>
       </div>
