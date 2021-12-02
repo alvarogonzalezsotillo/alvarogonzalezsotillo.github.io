@@ -57,5 +57,5 @@ En esta entrada de blog iré acumulando mis contribuciones a este proyecto.
 ** [[https://github.com/Artawower/blamer.el][blamer.el]]
    Imitando a [[https://gitlens.amod.io/][gitlens]], añade una anotación a la línea en curso con información del commit que introdujo dicha línea en el repositorio. [[https://github.com/Artawower/blamer.el/commits?author=alvarogonzalezsotillo][Mi contribución]] se centra en el toottip que muestra dicha información, y un ejemplo de acción al hacer click.
 
-   [[blamer-el.png]]
+   [[file:blamer-el.png]]
    
