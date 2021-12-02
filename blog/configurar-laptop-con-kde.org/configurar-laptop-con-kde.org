@@ -221,4 +221,7 @@ Para hacer funcionar el escáner he utilizado los drivers de [[https://support.b
 
 He instalado =linux-brprinter-installer-2.1.1-1.gz=
 
-El escáner solo funciona como administrador.
+El escáner solo funciona como administrador. Para tenerlo accesible por red:
+#+begin_src bash
+sudo brsaneconfig4 -a name=Brother-DCP-1610W-wifi model=DCP-1610W ip=192.168.1.100
+#+end_src
