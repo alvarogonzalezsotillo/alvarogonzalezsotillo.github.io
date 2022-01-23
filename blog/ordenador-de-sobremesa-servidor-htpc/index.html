@@ -33,43 +33,43 @@
 <div>
 <div class="post">
 <h1>Nuevo HTPC en casa</h1>
-<div id="table-of-contents">
+<div id="table-of-contents" role="doc-toc">
 <h2>&Iacute;ndice</h2>
-<div id="text-table-of-contents">
+<div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org587b2da">Instalación del sistema operativo</a>
+<li><a href="#org0000001">Instalación del sistema operativo</a>
 <ul>
-<li><a href="#org8383e15">Haciendo sitio en el disco</a></li>
-<li><a href="#orge7c7258">Usuarios</a></li>
+<li><a href="#org0000004">Haciendo sitio en el disco</a></li>
+<li><a href="#org0000008">Usuarios</a></li>
 </ul>
 </li>
-<li><a href="#orgc4e46eb">Home Theater Personal Computer</a></li>
-<li><a href="#org28b7897">Acceso remoto</a>
+<li><a href="#org000000c">Home Theater Personal Computer</a></li>
+<li><a href="#org000000f">Acceso remoto</a>
 <ul>
-<li><a href="#org14be746"><i>Always-on</i> vs <i>wake-on-lan</i></a></li>
-<li><a href="#orgaa52d87">Nombre del servidor</a></li>
+<li><a href="#org0000012"><i>Always-on</i> vs <i>wake-on-lan</i></a></li>
+<li><a href="#org0000015">Nombre del servidor</a></li>
 </ul>
 </li>
-<li><a href="#orgdf32175">Servidor</a>
+<li><a href="#org0000018">Servidor</a>
 <ul>
-<li><a href="#org057c288">E-mail</a></li>
-<li><a href="#orga2a5096">Servidor web</a></li>
-<li><a href="#orga172465">Owncloud</a></li>
+<li><a href="#org000001b">E-mail</a></li>
+<li><a href="#org0000020">Servidor web</a></li>
+<li><a href="#org0000026">Owncloud</a></li>
 </ul>
 </li>
-<li><a href="#org1e16c8d">Configuración como <i>workstation</i></a>
+<li><a href="#org0000029">Configuración como <i>workstation</i></a>
 <ul>
-<li><a href="#org700f21a">Zsh</a></li>
-<li><a href="#org07c4817">Emacs</a></li>
-<li><a href="#orgb9ff438">Materiales para clase</a></li>
-<li><a href="#org96b4081">Ofimática</a></li>
+<li><a href="#org000002c">Zsh</a></li>
+<li><a href="#org000002f">Emacs</a></li>
+<li><a href="#org0000032">Materiales para clase</a></li>
+<li><a href="#org0000035">Ofimática</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="orgc3acb8a" class="figure">
+<div id="org0000000" class="figure">
 <p><a href="https://www.asus.com/us/mini-pcs/vivomini-vc66/" align="right" style="width:10%;max-width:200px;min-width:100px;margin:2em;"><img src="/assets/blog/ordenador-de-sobremesa-servidor-htpc/asus-vc66.png" alt="asus-vc66.png" align="right" style="width:10%;max-width:200px;min-width:100px;margin:2em;" /></a>
 </p>
 </div>
@@ -79,9 +79,9 @@ Acabo de comprarme un <a href="https://www.asus.com/us/mini-pcs/vivomini-vc66/">
 </p>
 <p style="clear:both"></p>
 
-<div id="outline-container-org587b2da" class="outline-2">
-<h2 id="org587b2da">Instalación del sistema operativo</h2>
-<div class="outline-text-2" id="text-org587b2da">
+<div id="outline-container-org0000001" class="outline-2">
+<h2 id="org0000001">Instalación del sistema operativo</h2>
+<div class="outline-text-2" id="text-org0000001">
 <p>
 El ordenador venía con windows 10 preinstalado. Aunque el <i><a href="https://es.wikipedia.org/wiki/remote_desktop_protocol">remote desktop</a></i> es una buena forma de conectarte a un ordenador de tu LAN, no es tan adecuado para un acceso remoto con bajo ancho de banda. En esos casos, una conexión <a href="https://es.wikipedia.org/wiki/secure_shell">SSH</a>/<a href="https://es.wikipedia.org/wiki/ssh_file_transfer_protocol">FTP</a> con la posibilidad de redirigir puertos a <a href="https://es.wikipedia.org/wiki/vnc">VNC</a> me parece más adecuada.
 </p>
@@ -91,9 +91,9 @@ De todas formas, Windows sigue instalado, que tampoco es cuestión de despreciar
 </p>
 </div>
 
-<div id="outline-container-org8383e15" class="outline-3">
-<h3 id="org8383e15">Haciendo sitio en el disco</h3>
-<div class="outline-text-3" id="text-org8383e15">
+<div id="outline-container-org0000004" class="outline-3">
+<h3 id="org0000004">Haciendo sitio en el disco</h3>
+<div class="outline-text-3" id="text-org0000004">
 <ol class="org-ol">
 <li><p>
 Particiones del disco duro original
@@ -254,9 +254,9 @@ Crear partición datos compartidos con windows (formato ntfs)
 </div>
 </div>
 
-<div id="outline-container-orge7c7258" class="outline-3">
-<h3 id="orge7c7258">Usuarios</h3>
-<div class="outline-text-3" id="text-orge7c7258">
+<div id="outline-container-org0000008" class="outline-3">
+<h3 id="org0000008">Usuarios</h3>
+<div class="outline-text-3" id="text-org0000008">
 <p>
 He creado un usuario por defecto para la familia con el <a href="https://help.ubuntu.com/community/autologin">autologin</a> activado.
 </p>
@@ -274,7 +274,7 @@ sudo usermod -a -G discos usuario2
 <p>
 Las particiones de datos adicionales (como los datos compartidos con windows) se montan con este grupo    
 </p>
-<pre class="example" id="org89cc48a">
+<pre class="example" id="org0000007">
 # /etc/fstab: static file system information.
 #
 # use 'blkid' to print the universally unique identifier for a
@@ -296,11 +296,11 @@ uuid=9e1cf2601cf2333f /datos/datos-compartidos-200m ntfs gid=discos,dmask=002,fm
 </div>
 </div>
 
-<div id="outline-container-orgc4e46eb" class="outline-2">
-<h2 id="orgc4e46eb">Home Theater Personal Computer</h2>
-<div class="outline-text-2" id="text-orgc4e46eb">
+<div id="outline-container-org000000c" class="outline-2">
+<h2 id="org000000c">Home Theater Personal Computer</h2>
+<div class="outline-text-2" id="text-org000000c">
 
-<div id="org812cfa3" class="figure">
+<div id="org000000b" class="figure">
 <p><a href="https://www.logitech.com/es-es/product/k400-wireless-keyboard-touchpad" align="right" style="width:15%;max-width:200px;min-width:100px;margin:1em;"><img src="/assets/blog/ordenador-de-sobremesa-servidor-htpc/wireless-touch-keyboard-k400-plus.png" alt="wireless-touch-keyboard-k400-plus.png" align="right" style="width:15%;max-width:200px;min-width:100px;margin:1em;" /></a>
 </p>
 </div>
@@ -341,9 +341,9 @@ Tras instalar transmission, he añadido el directorio de bajada a los directorio
 </div>
 </div>
 
-<div id="outline-container-org28b7897" class="outline-2">
-<h2 id="org28b7897">Acceso remoto</h2>
-<div class="outline-text-2" id="text-org28b7897">
+<div id="outline-container-org000000f" class="outline-2">
+<h2 id="org000000f">Acceso remoto</h2>
+<div class="outline-text-2" id="text-org000000f">
 <p>
 El acceso remoto no es solamente acceder al ordenador desde la lan, sino desde cualquier parte de Internet. los pasos a seguir son los siguientes:
 </p>
@@ -364,9 +364,9 @@ Instalar <a href="https://www.openssh.com/">openssh server</a>, que nos permitir
 </ol>
 </div>
 
-<div id="outline-container-org14be746" class="outline-3">
-<h3 id="org14be746"><i>Always-on</i> vs <i>wake-on-lan</i></h3>
-<div class="outline-text-3" id="text-org14be746">
+<div id="outline-container-org0000012" class="outline-3">
+<h3 id="org0000012"><i>Always-on</i> vs <i>wake-on-lan</i></h3>
+<div class="outline-text-3" id="text-org0000012">
 <p>
 Idealmente, el servidor debería estar siempre encendido. en la práctica no siempre es deseable, aunque solo sea por el gasto continuo de 18W.
 </p>
@@ -385,9 +385,9 @@ La solución es modificar la tabla arp del router, dejando como permanente la di
 </div>
 </div>
 
-<div id="outline-container-orgaa52d87" class="outline-3">
-<h3 id="orgaa52d87">Nombre del servidor</h3>
-<div class="outline-text-3" id="text-orgaa52d87">
+<div id="outline-container-org0000015" class="outline-3">
+<h3 id="org0000015">Nombre del servidor</h3>
+<div class="outline-text-3" id="text-org0000015">
 <p>
 La dirección IP asignada a mi router por el ISP es dinámica. Para poder localizar mi servidor en Internet es necesario tener un servicio de <a href="https://en.wikipedia.org/wiki/dynamic_dns">dynamic dns</a>. He elegido a <a href="https://www.noip.com/">noip.com</a> porque:
 </p>
@@ -400,17 +400,17 @@ La dirección IP asignada a mi router por el ISP es dinámica. Para poder locali
 </div>
 </div>
 
-<div id="outline-container-orgdf32175" class="outline-2">
-<h2 id="orgdf32175">Servidor</h2>
-<div class="outline-text-2" id="text-orgdf32175">
+<div id="outline-container-org0000018" class="outline-2">
+<h2 id="org0000018">Servidor</h2>
+<div class="outline-text-2" id="text-org0000018">
 <p>
 En el ordenador he instalado los servicios e-mail y http.
 </p>
 </div>
 
-<div id="outline-container-org057c288" class="outline-3">
-<h3 id="org057c288">E-mail</h3>
-<div class="outline-text-3" id="text-org057c288">
+<div id="outline-container-org000001b" class="outline-3">
+<h3 id="org000001b">E-mail</h3>
+<div class="outline-text-3" id="text-org000001b">
 <p>
 Utilizo <a href="https://www.exim.org/">exim4</a> en una instalación estandar, con las siguientes configuraciones:
 </p>
@@ -425,15 +425,15 @@ A partir de aquí, ya puedo utilizar mi dirección <a href="mailto:spam@alvarogo
 </div>
 </div>
 
-<div id="outline-container-orga2a5096" class="outline-3">
-<h3 id="orga2a5096">Servidor web</h3>
-<div class="outline-text-3" id="text-orga2a5096">
+<div id="outline-container-org0000020" class="outline-3">
+<h3 id="org0000020">Servidor web</h3>
+<div class="outline-text-3" id="text-org0000020">
 <p>
 El protocolo HTTP es una buena forma de compartir ficheros. He instalado <a href="https://httpd.apache.org/">apache</a> directamente desde el repositorio.
 </p>
 
 
-<pre class="example" id="org5790bca">
+<pre class="example" id="org000001e">
 apt install apache2 
 </pre>
 
@@ -441,7 +441,7 @@ apt install apache2
 Para no dejar la página por defecto, he instalado un mirror de este blog:
 </p>
 
-<pre class="example" id="orgff0aca0">
+<pre class="example" id="org000001f">
  documentroot /var/www/alvarogonzalezsotillo.github.io
  &lt;directory /var/www/alvarogonzalezsotillo.github.io&gt;
           options followsymlinks
@@ -452,13 +452,13 @@ Para no dejar la página por defecto, he instalado un mirror de este blog:
 </div>
 </div>
 
-<div id="outline-container-orga172465" class="outline-3">
-<h3 id="orga172465">Owncloud</h3>
-<div class="outline-text-3" id="text-orga172465">
+<div id="outline-container-org0000026" class="outline-3">
+<h3 id="org0000026">Owncloud</h3>
+<div class="outline-text-3" id="text-org0000026">
 <p>
 Para acceder a mis ficheros (fundamentalmente fotografías) utilizo owncloud, instalado desde repositorios:
 </p>
-<pre class="example" id="orgc1eb629">
+<pre class="example" id="org0000023">
 apt install mysql-server libapache2-mod-php php-mcrypt php-mysql
 apt install owncloud-files
 </pre>
@@ -467,7 +467,7 @@ apt install owncloud-files
 Con esto se consigue un servidor apache capaz de ejecutar owncloud, pero la instalación de owncloud (en <code>/var/www/owncloud</code>) no es accesible por apache. Es necesario crear un fichero de sitio en <code>/etc/apache/sites-available/owncloud.conf</code> con el siguiente contenido
 </p>
 
-<pre class="example" id="orga0d6c51">
+<pre class="example" id="org0000024">
   alias /owncloud /var/www/owncloud
 
   &lt;directory /var/www/owncloud&gt;
@@ -480,24 +480,24 @@ Con esto se consigue un servidor apache capaz de ejecutar owncloud, pero la inst
 <p>
 Después, se habilita el sitio con
 </p>
-<pre class="example" id="org0ceddc1">
+<pre class="example" id="org0000025">
 a2ensite owncloud
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org1e16c8d" class="outline-2">
-<h2 id="org1e16c8d">Configuración como <i>workstation</i></h2>
-<div class="outline-text-2" id="text-org1e16c8d">
+<div id="outline-container-org0000029" class="outline-2">
+<h2 id="org0000029">Configuración como <i>workstation</i></h2>
+<div class="outline-text-2" id="text-org0000029">
 <p>
 El servidor también debería servirme de <i>backup</i> en el caso de que no tenga disponible mi portátil. lA siguiente configuración es la que utilizo para mi trabajo diario.
 </p>
 </div>
 
-<div id="outline-container-org700f21a" class="outline-3">
-<h3 id="org700f21a">Zsh</h3>
-<div class="outline-text-3" id="text-org700f21a">
+<div id="outline-container-org000002c" class="outline-3">
+<h3 id="org000002c">Zsh</h3>
+<div class="outline-text-3" id="text-org000002c">
 <p>
 Zsh es una shell que puede sustituir a bash de forma casi transparente. Las razones por las que utilizo zsh son
 </p>
@@ -511,9 +511,9 @@ Zsh es una shell que puede sustituir a bash de forma casi transparente. Las razo
 </div>
 </div>
 
-<div id="outline-container-org07c4817" class="outline-3">
-<h3 id="org07c4817">Emacs</h3>
-<div class="outline-text-3" id="text-org07c4817">
+<div id="outline-container-org000002f" class="outline-3">
+<h3 id="org000002f">Emacs</h3>
+<div class="outline-text-3" id="text-org000002f">
 <p>
 Cuando tienes un martillo, todo te parecen clavos. <a href="//WWW.GNU.ORG/SOFTWARE/EMACS/">Emacs</a> es el martillo más grande que he usado nunca.
 </p>
@@ -549,9 +549,9 @@ Al arrancar Emacs, automáticamente descargará <a href="https://github.com/alva
 </div>
 </div>
 
-<div id="outline-container-orgb9ff438" class="outline-3">
-<h3 id="orgb9ff438">Materiales para clase</h3>
-<div class="outline-text-3" id="text-orgb9ff438">
+<div id="outline-container-org0000032" class="outline-3">
+<h3 id="org0000032">Materiales para clase</h3>
+<div class="outline-text-3" id="text-org0000032">
 <p>
 Como cuento en <a href="../../../../blog/mi-publicacion-de-materiales-para-clase">otra entrada</a>, utilizo básicamente Latex y org-mode para mis clases.
 </p>
@@ -576,9 +576,9 @@ Además, utilizo otras herramientas como <a href="https://inkscape.org/en/">Inks
 </div>
 </div>
 
-<div id="outline-container-org96b4081" class="outline-3">
-<h3 id="org96b4081">Ofimática</h3>
-<div class="outline-text-3" id="text-org96b4081">
+<div id="outline-container-org0000035" class="outline-3">
+<h3 id="org0000035">Ofimática</h3>
+<div class="outline-text-3" id="text-org0000035">
 <p>
 Aunque prácticamente ya no lo uso, de vez en cuando alguien de la familia necesita utiliza Microsoft Office. Para eso mantengo un prefijo de <a href="https://www.winehq.org/">Wine</a> que copio de ordenador en ordenador, con la suite ofimática ya instalada.
 </p>
@@ -607,7 +607,7 @@ Aunque prácticamente ya no lo uso, de vez en cuando alguien de la familia neces
       <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
       <script src="/media/js/code-prettify/loader/run_prettify.js"></script>
       <div class="footer">
-        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 26.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 28.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
         <p>
           Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:alvarogonzalezsotillo <at> gmail <dot> com">Álvaro González Sotillo</a>
           &nbsp;&nbsp;-&nbsp;&nbsp;

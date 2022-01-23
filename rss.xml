@@ -4,16 +4,65 @@
     <title>Álvaro González Sotillo</title>
     <link>https://alvarogonzalezsotillo.github.io/</link>
     <description></description>
-    <pubDate>mié, 21 oct 2020 10:59:49 CEST</pubDate>
-    <lastBuildDate>mié, 21 oct 2020 10:59:49 CEST</lastBuildDate>
+    <pubDate>dom, 23 ene 2022 10:53:26 CET</pubDate>
+    <lastBuildDate>dom, 23 ene 2022 10:53:26 CET</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
+    <item>
+      <title>Mi propio hosting git</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/mi-propio-hosting-git</link>
+      <description><![CDATA[La nube es el ordenador de otro. Ya que utilizo git para mis archivos en línea, tiene sentido que mi nube sea mi ordenador]]></description>
+      <pubDate>2022-01-23</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/mi-propio-hosting-git</guid>
+    </item>
+    <item>
+      <title>Cómo publico materiales para clase</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/mi-publicacion-de-materiales-para-clase</link>
+      <description><![CDATA[Los materiales que preparamos los profesores se distribuyen entre los alumnos mediante plataformas de aprendizaje como Moodle. Lo interesante es cómo llegan esos materiales a la plataforma.]]></description>
+      <pubDate>2022-01-23</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/mi-publicacion-de-materiales-para-clase</guid>
+    </item>
+    <item>
+      <title>Configuración de mi nuevo ordenador</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/configurar-laptop-con-kde</link>
+      <description><![CDATA[Lista de los pasos que he seguido para configurar un nuevo ordenador con mis gustos y preferencias.]]></description>
+      <pubDate>2021-12-02</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/configurar-laptop-con-kde</guid>
+    </item>
+    <item>
+      <title>Contribuciones a paquetes Emacs</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/contribuciones-emacs</link>
+      <description><![CDATA[Mis contribuciones a paquetes Emacs]]></description>
+      <pubDate>2021-12-02</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/contribuciones-emacs</guid>
+    </item>
     <item>
       <title>Algunas reinas</title>
       <link>https://alvarogonzalezsotillo.github.io/blog/algunas-reinas</link>
       <description><![CDATA[Problema de las n-queens]]></description>
-      <pubDate>2020-10-21</pubDate>
+      <pubDate>2021-11-22</pubDate>
       <guid>https://alvarogonzalezsotillo.github.io/blog/algunas-reinas</guid>
+    </item>
+    <item>
+      <title>Listado de fotos de Raíces</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/listado-en-raices</link>
+      <description><![CDATA[El proyecto Raices es la herramienta de gestión integrada de centros educativos de la Comunidad de Madrid. En la versión actual, no permite crear una página imprimible con las fotografías y nombres de todos los alumnos de un grupo.]]></description>
+      <pubDate>2021-11-05</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/listado-en-raices</guid>
+    </item>
+    <item>
+      <title>Emisoras de radio por Internet (2021)</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/radio-por-internet-2021</link>
+      <description><![CDATA[Las emisoras de radio por Internet son muy interesantes, pero si se utilizan sus páginas web no son tan convenientes como podrían ser]]></description>
+      <pubDate>2021-11-05</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/radio-por-internet-2021</guid>
+    </item>
+    <item>
+      <title>Las 12 uvas 2020</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/las-doce-uvas-2020</link>
+      <description><![CDATA[Las 12 uvas es un concurso de programación. Este es especial para mí, porque es el primero en el que compito con mi hijo mayor.]]></description>
+      <pubDate>2021-01-03</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/las-doce-uvas-2020</guid>
     </item>
     <item>
       <title>De Google Sites a blog estático</title>
@@ -28,55 +77,6 @@
       <description><![CDATA[He instalado /pihole/ en la red del instituto donde trabajo para intentar mejorar la velocidad de la red. y de forma imprevista, me ha ayudado a encontrar un intruso que pretendía hacer un ataque de denegación de servicio.]]></description>
       <pubDate>2020-10-21</pubDate>
       <guid>https://alvarogonzalezsotillo.github.io/blog/pihole-monitorizacion-red</guid>
-    </item>
-    <item>
-      <title>Folding inicial en Emacs</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/folding-inicial-en-emacs</link>
-      <description><![CDATA[Un paquete simple para ocultar secciones de código fuente al abrir un fichero, para Emacs]]></description>
-      <pubDate>2020-06-26</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/folding-inicial-en-emacs</guid>
-    </item>
-    <item>
-      <title>Juego tipo escape room virtual</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/juego-escape-room-virtual</link>
-      <description><![CDATA[Un juego simple tipo escape room implementado con baja tecnología]]></description>
-      <pubDate>2020-04-13</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/juego-escape-room-virtual</guid>
-    </item>
-    <item>
-      <title>Literate Programming y Google Code Jam 2020</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/literate-codejam-2020</link>
-      <description><![CDATA[Nueva edición de Codejam con literate programming]]></description>
-      <pubDate>2020-04-04</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/literate-codejam-2020</guid>
-    </item>
-    <item>
-      <title>Literate Programming y Google Code Jam</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/literate-codejam</link>
-      <description><![CDATA[Se puede utilizar orgmode para programar y documentar/publicar lo programado]]></description>
-      <pubDate>2020-04-04</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/literate-codejam</guid>
-    </item>
-    <item>
-      <title>Instalar Emacs como servicio</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/instalar-emacs-como-servicio</link>
-      <description><![CDATA[El tiempo de arranque de Emacs se puede disimular al inicio del sistema, y ser manejado como un servicio al que conectarse.]]></description>
-      <pubDate>2020-01-17</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/instalar-emacs-como-servicio</guid>
-    </item>
-    <item>
-      <title>Licencias GVLK de Microsoft con vlmcsd</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/licencias-gvlk-de-microsoft-con-vlmcsd</link>
-      <description><![CDATA[El mecanismo de licencias GVLK (por volumen) de Microsoft, utilizado en muchas versiones de Windows y Office, puede entenderse fácilmente experimentando con vlmcsd]]></description>
-      <pubDate>2019-12-19</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/licencias-gvlk-de-microsoft-con-vlmcsd</guid>
-    </item>
-    <item>
-      <title>Colores HTML con nombre</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/colores-html-con-nombre</link>
-      <description><![CDATA[Los colores HTML pueden parecer palabras. Esta es una lista de esas palabras.]]></description>
-      <pubDate>2019-11-15</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/colores-html-con-nombre</guid>
     </item>
   </channel>
 </rss>

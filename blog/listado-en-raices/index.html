@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Listado de fotos de Raíces - Álvaro González Sotillo</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Álvaro González Sotillo" />
+    <meta name="description" content="El proyecto Raices es la herramienta de gestión integrada de centros educativos de la Comunidad de Madrid. En la versión actual, no permite crear una página imprimible con las fotografías y nombres de todos los alumnos de un grupo." />
+    <meta name="keywords" content="javascript, raices" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <!-- <link rel="stylesheet" href="/media/css/prettify.css" type="text/css"> -->
+  </head>
+
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">Álvaro González Sotillo</a></h1>
+        <p></p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">Acerca de mí</a></li>
+          <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="//www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Buscar">
+          <input type="hidden" name="as_sitesearch" value="alvarogonzalezsotillo.github.io">
+        </form>
+        <img class="avatar" src="/media/img/octaedron.png" />
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>Listado de fotos de Raíces</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>&Iacute;ndice</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org0000000">El problema</a></li>
+<li><a href="#org0000005">La solución</a></li>
+<li><a href="#org0000008">Explicación técnica</a></li>
+</ul>
+</div>
+</div>
+
+
+
+<div id="outline-container-org0000000" class="outline-2">
+<h2 id="org0000000">El problema</h2>
+<div class="outline-text-2" id="text-org0000000">
+<p>
+El proyecto Raices es la herramienta de gestión integrada de centros educativos de la Comunidad de Madrid.  En la versión actual, no permite crear una página imprimible con las fotografías y nombres de todos los alumnos de un grupo.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0000005" class="outline-2">
+<h2 id="org0000005">La solución</h2>
+<div class="outline-text-2" id="text-org0000005">
+<p>
+A partir de la pantalla de <b>Faltas a día completo en una unidad en un periodo</b> se puede generar una página imprimible:
+</p>
+
+
+<div id="org0000003" class="figure">
+<p><img src="/assets/blog/listado-en-raices/menu-raices.png" alt="/assets/blog/listado-en-raices/menu-raices.png" />  
+</p>
+<p><span class="figure-number">Figura 1: </span>Menú de Raices que muestra la página requerida</p>
+</div>
+
+<ul class="org-ul">
+<li>En Firefox o Chrome, pulsar las teclas <code>CONTROL+MAYÚSCULAS+B</code>, hasta que se muestre la barra de marcadores (<i>bookmarks</i>).</li>
+<li>Después, arrastrar el recuadro de más abajo a la barra de marcadores</li>
+</ul>
+<center><a href="javascript:(function(){    try{        let inferior = window.frames['inferior'];        let principal = inferior.window.frames['principal'];        let cuerpo = principal.window.frames['cuerpo'];        let images = cuerpo.document.querySelectorAll('table.TableData \x3e tbody \x3e tr \x3e td \x3e img');        let names = cuerpo.document.querySelectorAll( 'table.TableData \x3e tbody \x3e tr \x3e td \x3e a');        let ciclo = cuerpo.document.querySelectorAll('select[name=X_OFERTAMATRIC] \x3e option[selected]')[0];        let title = ciclo.title;                let newWindow = window.open();        let newDocument = newWindow.document;        let header = '\x3chead\x3e\x3ctitle\x3e' + ciclo.title + '\x3c/title\x3e' +             '\x3cstyle\x3ebody{text-align: center;}'+                    'titulo{font-size: 20px;text-align: center;}'+                    'img{min-width: 70px;max-width: 70px;}' +                    'td{text-align: center;font-size: 12px;}' +             '\x3c/style\x3e\x3c/head\x3e';        newDocument.writeln(header);        newDocument.writeln(`\x3cbody\x3e`);        newDocument.writeln(`\x3ctitulo\x3e${ciclo.title}\x3c/titulo\x3e`);        newDocument.writeln('\x3ctable\x3e');        let column = 0;        const maxColumns = 5;        for( let i = 0 ; i+1 != images.length ; i++ ){            let image = images[i];            let name = names[i];            if( column == 0 ){                newDocument.writeln('\x3ctr\x3e');            }                        let html = '\x3ctd\x3e\x3cimg src=\''+image.src+'\'\x3e\x3cbr\x3e'+name.innerText+'\x3c/td\x3e';            newDocument.writeln(html);            column += 1;            if( column == 5 ){                newDocument.writeln('\x3ctr\x3e');                column = 0;            }                    }        newDocument.writeln('\x3c/table\x3e');        newDocument.writeln('\x3c/body\x3e');        window.setTimeout( ()=\x3e newWindow.print(), 2000 );    }    catch(error){        console.log(error);        alert(            `Solo funciona en las páginas de:\n  'Faltas a día completo en una unidad en un periodo'\n  'Faltas de asistencia de una unidad en una fecha'\n\nTambién podría ser que la versión de raices es incompatible. Versiones nuevas en alvaro.gonzalezsotillo@educa.madrid.org`        );    }    })();" style="border-style:solid;background-color:yellow;">Página de fotografías de grupo</a></center>
+<ul class="org-ul">
+<li>Cuando se esté visualizando el listado de  <b>Faltas a día completo en una unidad en un periodo</b>, pulsar el botón creado usando el menú de <i>bookmarks</i></li>
+</ul>
+
+
+<div id="org0000004" class="figure">
+<p><img src="/assets/blog/listado-en-raices/menu-bookmarks.png" alt="/assets/blog/listado-en-raices/menu-bookmarks.png" />
+</p>
+<p><span class="figure-number">Figura 2: </span>Invocar el <i>bookmark</i> desde el menú en Firefox</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org0000008" class="outline-2">
+<h2 id="org0000008">Explicación técnica</h2>
+<div class="outline-text-2" id="text-org0000008">
+<p>
+Se puede acceder mediante javascript a la estructura de una página web cargada en el navegador, y copiarla en una nueva página. Puede ser un problema futuro si Raices cambia de versión y modifica la estructura de sus páginas.
+</p>
+
+<p>
+La ejecución del programa javascript se hace mediante un <a href="https://www.freecodecamp.org/news/what-are-bookmarklets/">bookmarklet</a>, que es un marcador que en vez de enviar el navegador a una página, ejecuta un programa sobre la página ya cargada.
+</p>
+
+<p>
+El programa que se ejecuta es el siguiente. Se puede observar que, en 2021, la Comunidad de Madrid aún usa <code>framesets</code> 😵
+</p>
+<div class="org-src-container">
+<pre class="src src-javascript">(function(){
+    try{
+        let inferior = window.frames['inferior'];
+
+        let principal = inferior.window.frames['principal'];
+
+        let cuerpo = principal.window.frames['cuerpo'];
+
+        let images = cuerpo.document.querySelectorAll('table.TableData &gt; tbody &gt; tr &gt; td &gt; img');
+        let names = cuerpo.document.querySelectorAll( 'table.TableData &gt; tbody &gt; tr &gt; td &gt; a');
+        let ciclo = cuerpo.document.querySelectorAll('select[name=X_OFERTAMATRIC] &gt; option[selected]')[0];
+        let title = ciclo.title;
+
+        
+        let newWindow = window.open();
+        let newDocument = newWindow.document;
+
+        let header = '&lt;head&gt;&lt;title&gt;' + ciclo.title + '&lt;/title&gt;' +
+             '&lt;style&gt;body{text-align: center;}'+
+                    'titulo{font-size: 20px;text-align: center;}'+
+                    'img{min-width: 70px;max-width: 70px;}' +
+                    'td{text-align: center;font-size: 12px;}' +
+             '&lt;/style&gt;&lt;/head&gt;';
+
+        newDocument.writeln(header);
+        newDocument.writeln(`&lt;body&gt;`);
+        newDocument.writeln(`&lt;titulo&gt;${ciclo.title}&lt;/titulo&gt;`);
+        newDocument.writeln('&lt;table&gt;');
+
+        let column = 0;
+        const maxColumns = 5;
+        for( let i = 0 ; i+1 != images.length ; i++ ){
+            let image = images[i];
+            let name = names[i];
+
+            if( column == 0 ){
+                newDocument.writeln('&lt;tr&gt;');
+            }
+            
+            let html = '&lt;td&gt;&lt;img src=\''+image.src+'\'&gt;&lt;br&gt;'+name.innerText+'&lt;/td&gt;';
+            newDocument.writeln(html);
+            column += 1;
+
+            if( column == 5 ){
+                newDocument.writeln('&lt;tr&gt;');
+                column = 0;
+            }
+            
+        }
+        newDocument.writeln('&lt;/table&gt;');
+        newDocument.writeln('&lt;/body&gt;');
+        window.setTimeout( ()=&gt; newWindow.print(), 2000 );
+
+    }
+    catch(error){
+        console.log(error);
+        alert(
+            `Solo funciona en las páginas de:\n  'Faltas a día completo en una unidad en un periodo'\n  'Faltas de asistencia de una unidad en una fecha'\n\nTambién podría ser que la versión de raices es incompatible. Versiones nuevas en alvaro.gonzalezsotillo@educa.madrid.org`
+        );
+    }
+    
+})();
+</pre>
+</div>
+
+<p>
+Para convertirlo en una sola línea, y poder crear el botón de más arriba, hay que escapar las comillas y los cierres de tag. Es necesario que el script no utilice, además, ninguna comilla doble ni <code>&lt;</code> ni <code>&gt;</code> fuera de literales de cadena.
+</p>
+
+<p>
+Utilizo el siguiente commando <i>bash</i> en emacs con <code>shell-command-on-region</code>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">sed -e 's/&lt;/\\x3c/g' -e 's/&gt;/\\x3e/g' | tr -d '\n'
+</pre>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2021-11-04</span>
+        <span title="last modification date" class="post-info">2021-11-05</span>
+        <span title="tags" class="post-info"><a href="/tags/javascript/">javascript</a>, <a href="/tags/raices/">raices</a></span>
+        <span title="author" class="post-info">Álvaro González Sotillo</span>
+      </div>
+      <section>
+        <!-- <h1>Comments</h1> -->
+      </section>
+      <!-- <script src="//code.jquery.com/jquery-latest.min.js"></script> -->
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->
+      <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>  -->
+      <!--<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>-->
+      <script src="/media/js/jquery-3.2.1.min.js"></script>
+      <script src="/media/js/main.js"></script>
+      <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="/media/js/code-prettify/loader/run_prettify.js"></script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 28.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:alvarogonzalezsotillo <at> gmail <dot> com">Álvaro González Sotillo</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>
