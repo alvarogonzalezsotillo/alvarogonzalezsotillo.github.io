@@ -4,10 +4,24 @@
     <title>Álvaro González Sotillo</title>
     <link>https://alvarogonzalezsotillo.github.io/</link>
     <description></description>
-    <pubDate>jue, 02 dic 2021 14:43:47 CET</pubDate>
-    <lastBuildDate>jue, 02 dic 2021 14:43:47 CET</lastBuildDate>
+    <pubDate>dom, 23 ene 2022 10:53:26 CET</pubDate>
+    <lastBuildDate>dom, 23 ene 2022 10:53:26 CET</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
+    <item>
+      <title>Mi propio hosting git</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/mi-propio-hosting-git</link>
+      <description><![CDATA[La nube es el ordenador de otro. Ya que utilizo git para mis archivos en línea, tiene sentido que mi nube sea mi ordenador]]></description>
+      <pubDate>2022-01-23</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/mi-propio-hosting-git</guid>
+    </item>
+    <item>
+      <title>Cómo publico materiales para clase</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/mi-publicacion-de-materiales-para-clase</link>
+      <description><![CDATA[Los materiales que preparamos los profesores se distribuyen entre los alumnos mediante plataformas de aprendizaje como Moodle. Lo interesante es cómo llegan esos materiales a la plataforma.]]></description>
+      <pubDate>2022-01-23</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/mi-publicacion-de-materiales-para-clase</guid>
+    </item>
     <item>
       <title>Configuración de mi nuevo ordenador</title>
       <link>https://alvarogonzalezsotillo.github.io/blog/configurar-laptop-con-kde</link>
@@ -63,20 +77,6 @@
       <description><![CDATA[He instalado /pihole/ en la red del instituto donde trabajo para intentar mejorar la velocidad de la red. y de forma imprevista, me ha ayudado a encontrar un intruso que pretendía hacer un ataque de denegación de servicio.]]></description>
       <pubDate>2020-10-21</pubDate>
       <guid>https://alvarogonzalezsotillo.github.io/blog/pihole-monitorizacion-red</guid>
-    </item>
-    <item>
-      <title>Folding inicial en Emacs</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/folding-inicial-en-emacs</link>
-      <description><![CDATA[Un paquete simple para ocultar secciones de código fuente al abrir un fichero, para Emacs]]></description>
-      <pubDate>2020-06-26</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/folding-inicial-en-emacs</guid>
-    </item>
-    <item>
-      <title>Juego tipo escape room virtual</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/juego-escape-room-virtual</link>
-      <description><![CDATA[Un juego simple tipo escape room implementado con baja tecnología]]></description>
-      <pubDate>2020-04-13</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/juego-escape-room-virtual</guid>
     </item>
   </channel>
 </rss>
