@@ -23,7 +23,10 @@ Hay muchos tutoriales de como conseguir un repositorio git a través de ssh, yo 
 2. El usuario =git= tendrá en su =$HOME= un directorio por repositorio. No será un repositorio corriente, ya que no interesa tener una copia de trabajo, sino uno del tipo [[http://www.saintsjd.com/2011/01/what-is-a-bare-git-repository/][bare]].
 
    #+begin_src sh
-
+   sudo usermod -s /usr/bin/git-shell git
+   sudo mkdir /home/git/git-shell-commands
+   sudo chmod 755 /home/git/git-shell-commands
+   sudo chown git /home/git/git-shell-commands
    sudo -u git bash # El usuario git no tiene shell
    cd $HOME
    mkdir repositorio.git
@@ -43,4 +46,4 @@ Hay muchos tutoriales de como conseguir un repositorio git a través de ssh, yo 
 [[file:mi-propio-hosting-git.svg]]
 
 # PARA QUE INCLUYA EL SVG, NO LO PILLA LA EXPRESIÓN REGULAR "<[a-zA-Z]+[^/>]+\\(src\\|href\\|data\\)=\"\\([^\"]+\\)\"[^>]*>" DE op-export.el
-#+html: <object data="mi-propio-hosting-git.svg" class="org-svg" style="display:none">A mano</object>
+#+html: <object data="./mi-propio-hosting-git.svg" class="org-svg" style="display:none">A mano</object>
