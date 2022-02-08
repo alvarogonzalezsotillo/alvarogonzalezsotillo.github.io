@@ -49,7 +49,8 @@ sudo apt install zsh texlive-full inkscape htop tmux git iftop \
                  iotop tcpdump curl silversearcher-ag graphviz \
                  virtualbox pandoc pdftk krita wxmaxima gdebi \
                  kmail korganizer obs-studio kdenlive xclip \
-                 gromit-mpx openssh-server qgit screenruler gitk
+                 gromit-mpx openssh-server qgit screenruler gitk \
+                 cifs-utils
 wget https://github.com/xournalpp/xournalpp/releases/download/1.1.0/xournalpp-1.1.0-Ubuntu-focal-x86_64.deb
 gdebi xournalpp-1.1.0-Ubuntu-focal-x86_64.deb
 git config --global user.email "alvaro@thinkpad"
@@ -146,6 +147,16 @@ alvaro ALL=(ALL) NOPASSWD: /usr/sbin/pm-hibernate
 alvaro ALL=(ALL) NOPASSWD: /usr/sbin/s2disk
 #+end_src
 
+* Integración con redes windows
+Para poder resolver nombres de Windows, además de instalar =winbind=, hay que añadir winbind a =nsswitch.conf=
+#+begin_src bash
+sudo apt install libnss-winbind
+#+end_src
+
+#+caption: Línea de fichero =nsswitch.conf=
+#+begin_src conf
+hosts:          files winbind mdns4_minimal [NOTFOUND=return] dns
+#+end_src
 
 * /Gestures/
 Envidio la facilidad para cambiar de /workspace/ con un simple gesto que tienen los Mac. Se puede conseguir algo muy parecido con [[https://github.com/bulletmark/libinput-gestures][=libinput-gestures=]]
