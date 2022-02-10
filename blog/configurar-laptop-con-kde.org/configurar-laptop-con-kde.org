@@ -50,11 +50,12 @@ sudo apt install zsh texlive-full inkscape htop tmux git iftop \
                  virtualbox pandoc pdftk krita wxmaxima gdebi \
                  kmail korganizer obs-studio kdenlive xclip \
                  gromit-mpx openssh-server qgit screenruler gitk \
-                 cifs-utils
+                 cifs-utils sshfs
 wget https://github.com/xournalpp/xournalpp/releases/download/1.1.0/xournalpp-1.1.0-Ubuntu-focal-x86_64.deb
 gdebi xournalpp-1.1.0-Ubuntu-focal-x86_64.deb
 git config --global user.email "alvaro@thinkpad"
 git config --global user.name "alvaro@thinkpad"
+git config --global status.showuntrackedfiles=all
   #+end_src  
 
 
@@ -76,12 +77,12 @@ sudo make install
 
   para que los ficheros de texto se abran con emacs:
 
+  #+begin_src bash
   xdg-mime default /usr/local/share/applications/emacsclient.desktop text/plain
+  #+end_src
 
-  si no funciona, fichero por fichero: mimeopen -d instalaciones.org 
-
-
-  
+  si no funciona, fichero por fichero: =mimeopen -d instalaciones.org=
+ 
   
 [[https://github.com/alvarogonzalezsotillo/.emacs.d][Mi configuración de ~emacs~]] la guardo en un repositorio de =Github=.
 
