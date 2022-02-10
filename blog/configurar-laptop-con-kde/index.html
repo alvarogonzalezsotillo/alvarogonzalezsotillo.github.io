@@ -103,11 +103,12 @@ Muchos de los programas que utilizo pueden instalarse mediante <code>apt</code>,
                  virtualbox pandoc pdftk krita wxmaxima gdebi \
                  kmail korganizer obs-studio kdenlive xclip \
                  gromit-mpx openssh-server qgit screenruler gitk \
-                 cifs-utils
+                 cifs-utils sshfs
 wget https://github.com/xournalpp/xournalpp/releases/download/1.1.0/xournalpp-1.1.0-Ubuntu-focal-x86_64.deb
 gdebi xournalpp-1.1.0-Ubuntu-focal-x86_64.deb
 git config --global user.email "alvaro@thinkpad"
 git config --global user.name "alvaro@thinkpad"
+git config --global status.showuntrackedfiles=all
 </pre>
 </div>
 </div>
@@ -138,15 +139,14 @@ sudo make install
 para que los ficheros de texto se abran con emacs:
 </p>
 
-<p>
-xdg-mime default /usr/local/share/applications/emacsclient.desktop text/plain
-</p>
+<div class="org-src-container">
+<pre class="src src-bash">  xdg-mime default /usr/local/share/applications/emacsclient.desktop text/plain
+</pre>
+</div>
 
 <p>
-si no funciona, fichero por fichero: mimeopen -d instalaciones.org 
+si no funciona, fichero por fichero: <code>mimeopen -d instalaciones.org</code>
 </p>
-
-
 
 
 <p>
@@ -422,7 +422,7 @@ El escáner solo funciona como administrador. Para tenerlo accesible por red:
     <div>
       <div class="post-meta">
         <span title="post date" class="post-info">2021-10-18</span>
-        <span title="last modification date" class="post-info">2022-02-08</span>
+        <span title="last modification date" class="post-info">2022-02-10</span>
         <span title="tags" class="post-info"><a href="/tags/kde/">kde</a>, <a href="/tags/emacs/">emacs</a>, <a href="/tags/linux/">linux</a></span>
         <span title="author" class="post-info">Álvaro González Sotillo</span>
       </div>
