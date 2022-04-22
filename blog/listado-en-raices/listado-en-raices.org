@@ -37,22 +37,22 @@ El programa que se ejecuta es el siguiente. Se puede observar que, en 2021, la C
 #+begin_src javascript
 (function(){
     try{
-        let inferior = window.frames['inferior'];
+        const inferior = window.frames['inferior'];
 
-        let principal = inferior.window.frames['principal'];
+        const principal = inferior.window.frames['principal'];
 
-        let cuerpo = principal.window.frames['cuerpo'];
+        const cuerpo = principal.window.frames['cuerpo'];
 
-        let images = cuerpo.document.querySelectorAll('table.TableData > tbody > tr > td > img');
-        let names = cuerpo.document.querySelectorAll( 'table.TableData > tbody > tr > td > a');
-        let ciclo = cuerpo.document.querySelectorAll('select[name=X_OFERTAMATRIC] > option[selected]')[0];
-        let title = ciclo.title;
+        const images = cuerpo.document.querySelectorAll('table.TableData > tbody > tr > td > img');
+        const names = cuerpo.document.querySelectorAll( 'table.TableData > tbody > tr > td > a');
+        const ciclo = cuerpo.document.querySelectorAll('select[name=X_OFERTAMATRIC] > option[selected]')[0];
+        const title = ciclo.title;
 
         
-        let newWindow = window.open();
-        let newDocument = newWindow.document;
+        const newWindow = window.open();
+        const newDocument = newWindow.document;
 
-        let header = '<head><title>' + ciclo.title + '</title>' +
+        const header = '<head><title>' + ciclo.title + '</title>' +
              '<style>body{text-align: center;}'+
                     'titulo{font-size: 20px;text-align: center;}'+
                     'img{min-width: 70px;max-width: 70px;}' +
@@ -67,14 +67,14 @@ El programa que se ejecuta es el siguiente. Se puede observar que, en 2021, la C
         let column = 0;
         const maxColumns = 5;
         for( let i = 0 ; i+1 != images.length ; i++ ){
-            let image = images[i];
-            let name = names[i];
+            const image = images[i];
+            const name = names[i];
 
             if( column == 0 ){
                 newDocument.writeln('<tr>');
             }
             
-            let html = '<td><img src=\''+image.src+'\'><br>'+name.innerText+'</td>';
+            const html = '<td><img src=\''+image.src+'\'><br>'+name.innerText+'</td>';
             newDocument.writeln(html);
             column += 1;
 
