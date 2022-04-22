@@ -86,7 +86,7 @@ El programa que se ejecuta es el siguiente. Se puede observar que, en 2021, la C
         }
         newDocument.writeln('</table>');
         newDocument.writeln('</body>');
-        window.setTimeout( ()=> newWindow.print(), 2000 );
+        window.setTimeout( newWindow.print.bind(newWindow), 2000 );
 
     }
     catch(error){
