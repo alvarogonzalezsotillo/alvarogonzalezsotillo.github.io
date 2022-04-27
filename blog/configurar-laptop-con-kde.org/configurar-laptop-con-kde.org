@@ -159,7 +159,7 @@ sudo apt install libnss-winbind
 hosts:          files winbind mdns4_minimal [NOTFOUND=return] dns
 #+end_src
 
-* /Gestures/
+* /Gestures/ e /input remap/
 Envidio la facilidad para cambiar de /workspace/ con un simple gesto que tienen los Mac. Se puede conseguir algo muy parecido con [[https://github.com/bulletmark/libinput-gestures][=libinput-gestures=]]
 
 #+begin_src bash
@@ -179,7 +179,7 @@ gesture swipe right	_internal ws_up
 gesture swipe left	_internal ws_down
 #+end_example
 
-  
+El teclado del ordenador viene sin la tecla de menú contextual. He remapeado la tecla =fn + PrintScr=  (=XF86WakeUp + Print=) a =Menu=, utilizando [[https://github.com/sezanzeb/input-remapper/releases][Input Remapper]].
 
 * SQLDeveloper y packettracer
   Son herramientas que utilizo en clase de redes y bases de datos. Basta con descargar, Descomprimir y gdebi. Para SQLDeveloper se necesita openjdk-11-jdk
