@@ -1,0 +1,27 @@
+#+title: Presentación FP informática a eso y bachillerato
+
+#+AUTHOR:      Álvaro González Sotillo
+#+EMAIL:       alvarogonzalezsotillo@gmail.com
+#+DATE:        2022-03-28
+#+URI:         /blog/presentacion-fp-informatica
+
+#+DESCRIPTION: Presentación FP informática a eso y bachillerato
+
+
+#+PROPERTY: header-arg :eval query
+#+LANGUAGE: es
+#+options: toc:nil
+#+latex_class_options: [a4paper]
+#+latex_header: \usepackage[margin=2cm]{geometry}
+#+latex_header: \usepackage{amsmath}
+#+latex_header: \usepackage{xcolor}
+#+latex_header: \usepackage[spanish]{babel}
+#+latex_header: \usepackage{caption}
+#+latex_header: \usepackage{listings}
+#+latex_header_extra: \lstset{frame=single,columns=fixed,basicstyle=\scriptsize\ttfamily,breaklines=true,postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}},keywordstyle=\color{blue}\ttfamily,stringstyle=\color{red}\ttfamily,commentstyle=\color{green}\ttfamily}
+#+latex_header_extra: \lstset{emph={function,let,len,import,translate,module,rotate,module,hull,sphere},emphstyle=\color{blue}\ttfamily}
+#+latex_header_extra: \hypersetup{colorlinks,citecolor=black,filecolor=black,linkcolor=black,urlcolor=blue}
+#+latex_header_extra: \renewcommand{\lstlistingname}{Listado}
+#+latex_header_extra: \captionsetup{font={scriptsize}}
+
+Voy a dar algunas charlas para promocionar la FP de informática entre los alumnos de ESO y Bachillerato. [[https://alvarogonzalezsotillo.github.io/apuntes-clase/charlas-motivacionales/informatica/1/charla-informatica-a-eso-bachillerato.html][Apoyaré esas charlas con estas transparencias]].
