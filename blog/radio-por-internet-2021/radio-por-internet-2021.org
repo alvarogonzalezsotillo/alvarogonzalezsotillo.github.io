@@ -1,0 +1,75 @@
+# -*- coding: utf-8-unix; -*-
+#+TITLE:       Emisoras de radio por Internet (2021)
+#+AUTHOR:      Álvaro González Sotillo
+#+EMAIL:       alvarogonzalezsotillo@gmail.com
+#+DATE:        2021-11-05
+#+URI:         /blog/radio-por-internet-2021
+
+#+TAGS: radio
+#+DESCRIPTION: Las emisoras de radio por Internet son muy interesantes, pero si se utilizan sus páginas web no son tan convenientes como podrían ser
+
+#+LANGUAGE:    es
+#+OPTIONS:     H:7 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+
+
+En encontrado en [[https://www.promods.net/viewtopic.php?t=19311][promods]] una lista de emisoras de radio por Internet no basadas en una página web: la URL es directamente la fuente de audio. Esto es perfecto para escuchar la radio sin anuncios adicionales a los que ya se emiten. Además, [[https://www.vlchelp.com/stream-online-videos-pc-vlc-media-player/][la URL puede utilizarse en reproductores como VLC]] para no depender del navegador web.
+
+| URL                                                                                 | Emisora                      | Temática          | Idioma |
+|-------------------------------------------------------------------------------------+------------------------------+-------------------+--------|
+| http://91.121.155.204:8022/stream/;mp3                                              | 1000 Hits Spain              | Exitos            | ES     |
+| http://7fm.jrsoftware.es/7fm.mp3                                                    | 7FM                          | Reggaeton         | ES     |
+| https://stream.mediasector.es/radio/8000/activafm.mp3                               | ActivaFM                     | Pop               | ES     |
+| http://91.121.45.224:8000/;                                                         | Andorra1 Flaixbac            | Exitos            | AND    |
+| http://94.75.227.133:8635/                                                          | Blue Marlin Ibiza            | Electronica       | ES     |
+| https://net1-cope-rrcast.flumotion.com/cope/net1.mp3                                | COPE                         | Variedad          | ES     |
+| https://cadena100-cope-rrcast.flumotion.com/cope/cadena100-low.mp3                  | Cadena 100                   | Pop               | ES     |
+| https://21313.live.streamtheworld.com/CADENADIAL_SC                                 | Cadena Dial                  | Pop               | ES     |
+| https://20853.live.streamtheworld.com/CADENASER_SC                                  | Cadena SER                   | Deportes          | ES     |
+| http://185.23.192.118:8006                                                          | CadenaDigital                | Top40             | ES     |
+| https://shoutcast.ccma.cat/ccma/catalunyainformacioHD.mp3                           | CatInformacion               | Noticias          | CAT    |
+| https://shoutcast.ccma.cat/ccma/catalunyaradioHD.mp3                                | Catalunya Radio              | Variedad          | CAT    |
+| http://185.23.192.118:8008/;stream.mp3                                              | ChanqueteFM (Malaga)         | Variedad          | ES     |
+| http://136.243.156.30:1541/stream/                                                  | ClassicVideoGames            | MusicaVideojuegos | NA     |
+| https://flucast-b03-02.flumotion.com/cope/rockfm.mp3                                | Rock FM                      | Rock              | ES     |
+| http://livestreaming.esradio.fm/stream64.mp3                                        | EsRadio                      | Variedad          | ES     |
+| http://radiogestion.com:7003/mount3                                                 | Espacio4                     | Variedad          | ES     |
+| https://livefastly-webs.europafm.com/europafm/audio/chunklist.m3u8                  | Europa FM                    | Exitos            | ES     |
+| http://flaixfmweb.streaming-pro.com:8000/;mp3                                       | FlaixFM                      | Exitos            | ES     |
+| http://flaixbacweb.streaming-pro.com:8004/;mp3                                      | Flaixbac                     | Exitos            | ES     |
+| https://server.spainbroadcast.net:10998/stream/1/                                   | Gozadera FM                  | Reggaeton         | ES     |
+| http://hitfm.kissfmradio.cires21.com/hitfm.mp3/mp3                                  | Hit FM                       | Exitos            | ES     |
+| http://streaming.enantena.com:8000/radiohospitalet128.mp3                           | HospitaletFM                 | Variedad          | ES     |
+| http://s1.sonicabroadcast.com:1025/stream/1/                                        | Ibiza Sonica                 | Electronica       | ES     |
+| http://kissfm.kissfmradio.cires21.com/kissfm.mp3                                    | KissFM                       | 80s               | ES     |
+| http://popov.eldialdigital.com:8056/stream/1/                                       | LaRadiodelMisterio           | Charla            | ES     |
+| https://locafm-live1.flumotion.com/locafm/live1.mp3                                 | LocaFM                       | Electronica       | ES     |
+| https://21223.live.streamtheworld.com/LOS40_CAT.mp3                                 | Los40 Catalunya              | Exitos            | CAT    |
+| http://playerservices.streamtheworld.com/api/livestream-redirect/M80RADIO.mp3       | Los40 Classic                | 80s               | ES     |
+| https://22533.live.streamtheworld.com/LOS40_DANCE_SC                                | Los40 Dance MaximaFM         | Dance             | ES     |
+| http://playerservices.streamtheworld.com/api/livestream-redirect/LOS40_SC           | Los40 Principales            | Exitos            | ES     |
+| https://23543.live.streamtheworld.com/LOS40_URBAN.mp3                               | Los40 Urban                  | Exitos            | ES     |
+| https://megastar-cope-rrcast.flumotion.com/cope/megastar.mp3                        | MegaStarFM                   | Exitos            | ES     |
+| http://icecast-streaming.nice264.com/melodiafm                                      | MelodiaFM                    | Exitos 80s        | ES     |
+| http://server6.20comunicacion.com:8044/;stream.mp3                                  | MortalFM                     | Dance             | ES     |
+| https://stream.mediasector.es/radio/8010/muybuena-valencia.mp3                      | MuyBuena Valencia            | Exitos            | ES     |
+| http://streaming.enantena.com:8000/onamar128.mp3                                    | OnaMarFM                     | Exitos            | CAT    |
+| https://wecast-b01-03.flumotion.com/promecal/radio1                                 | OndaCero                     | Variedad          | ES     |
+| https://22723.live.streamtheworld.com/OWR_INTERNATIONAL.mp3                         | One World Radio TomorrowLand | Dance             | ENG    |
+| http://streaming3.radiocat.net:80                                                   | RAC 1                        | Noticias y Futbol | CAT    |
+| http://streaming105.radiocat.net:80/                                                | RAC 105                      | Variedad          | CAT    |
+| http://streaming.enantena.com:8000/radiob128.mp3                                    | RCBadalona                   | Variedad          | CAT    |
+| https://stream.tunerplay.com/radio/8000/rocksateliteradio.mp3                       | RockSatelite ONE             | Rock              | ES     |
+| https://crtve-ice-edge-2001-fra-eco-cdn.cast.addradio.de/crtve/rne1/main/mp3/high   | RNE                          | Variedad          | ES     |
+| https://21233.live.streamtheworld.com/RADIOLE_SC                                    | RadiOLE                      | Flamenco          | ES     |
+| https://crtve-ice-edge-2001-fra-eco-cdn.cast.addradio.de/crtve/rner3/main/mp3/high  | Radio 3                      | Variedad          | ES     |
+| https://crtve-ice-edge-2002-fra-eco-cdn.cast.addradio.de/crtve/rner4/main/mp3/high  | Radio 4                      | Actualidad        | CAT    |
+| https://crtve-ice-edge-2001-fra-eco-cdn.cast.addradio.de/crtve/rne5/main/mp3/high   | Radio 5                      | Variedad          | ES     |
+| https://radio.martiproduccions.com/capitalhd                                        | Radio Capital (Girona)       | Variedad          | CAT    |
+| https://crtve-ice-edge-2002-fra-eco-cdn.cast.addradio.de/crtve/rnerc/main/mp3/high  | Radio Clasica                | Clasica           | ES     |
+| https://crtve-ice-edge-2002-fra-eco-cdn.cast.addradio.de/crtve/rneree/main/mp3/high | Radio Exterior               | Variedad          | ES     |
+| http://nodo08-cloud01.streaming-pro.com:8130/malagafmmobile                         | Radio Marca Malaga           | Deportes          | ES     |
+| http://91.187.93.115:8020/;stream/1/;752630071575199stream.nsv                      | Radio Valira                 | Informacion       | AND    |
+| https://broadcast.radioponiente.org:8034/stream/1/                                  | RadioLuz                     | Variedad          | ES     |
+| http://radioweb.radiomarcabarcelona.com:9000/stream                                 | RadioMarca                   | Deportes          | ES     |
+| http://streaming.enantena.com:8000/radiopomar128.mp3                                | RadioPomar Badalona          | Variedad          | ES     |
+| https://radiott-web.streaming-pro.com:6103/radiott.mp3                              | RadioTeleTaxi                | Flamenco          | CAT    |

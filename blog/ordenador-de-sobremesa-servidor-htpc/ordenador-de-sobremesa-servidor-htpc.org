@@ -216,7 +216,7 @@ La mejor parte de Emacs es la configuración que cada usuario realiza con él. L
 Al arrancar Emacs, automáticamente descargará [[https://github.com/alvarogonzalezsotillo/.emacs.d/blob/master/my/my-packages.el][mis paquetes]] y activará mi configuración.
 
 ** Materiales para clase
-Como cuento en [[../../../blog/mi-publicacion-de-materiales-para-clase][otra entrada]], utilizo básicamente Latex y org-mode para mis clases.
+Como cuento en [[../../../../blog/mi-publicacion-de-materiales-para-clase][otra entrada]], utilizo básicamente Latex y org-mode para mis clases.
 
 La instalación de Latex, y los paquetes que utilizo, se consigue fácilmente con:
 

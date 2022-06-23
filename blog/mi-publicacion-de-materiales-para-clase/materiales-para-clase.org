@@ -26,7 +26,7 @@ En esta entrada describo qué solución utilizo, que combina repositorios Git, t
 
 
 # PARA QUE INCLUYA EL SVG, NO LO PILLA LA EXPRESIÓN REGULAR "<[a-zA-Z]+[^/>]+\\(src\\|href\\|data\\)=\"\\([^\"]+\\)\"[^>]*>" DE op-export.el
-#+html: <object data="materiales-para-clase.svg" class="org-svg" style="display:none">A mano</object>
+#+html: <object data="./materiales-para-clase.svg" class="org-svg" style="display:none">A mano con el punto</object>
 
 * Copias de seguridad
 Utilizo tres sistemas de copias de seguridad para el directorio con los ficheros de clase:

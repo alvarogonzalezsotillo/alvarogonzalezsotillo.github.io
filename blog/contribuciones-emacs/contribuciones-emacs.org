@@ -53,3 +53,9 @@ En esta entrada de blog iré acumulando mis contribuciones a este proyecto.
    
 ** [[https://github.com/csrhodes/gift-mode][gift-mode]]
    El formato [[https://docs.moodle.org/310/en/GIFT_format][gift]] se utiliza para crear cuestionarios en Moodle a partir de ficheros de texto plano. Emacs tiene un modo para este formato, pero carecía de integración con [[https://github.com/bmag/imenu-list][imenu]], así que me decidí a implementarlo. 
+
+** [[https://github.com/Artawower/blamer.el][blamer.el]]
+   Imitando a [[https://gitlens.amod.io/][gitlens]], añade una anotación a la línea en curso con información del commit que introdujo dicha línea en el repositorio. [[https://github.com/Artawower/blamer.el/commits?author=alvarogonzalezsotillo][Mi contribución]] se centra en el toottip que muestra dicha información, y un ejemplo de acción al hacer click.
+
+   [[file:blamer-el.png]]
+   
