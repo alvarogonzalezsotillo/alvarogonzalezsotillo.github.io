@@ -50,7 +50,8 @@ sudo apt install zsh texlive-full inkscape htop tmux git iftop \
                  virtualbox pandoc pdftk krita wxmaxima gdebi \
                  kmail korganizer obs-studio kdenlive xclip \
                  gromit-mpx openssh-server qgit screenruler gitk \
-                 cifs-utils sshfs printer-driver-cups-pdf ripgrep
+                 cifs-utils sshfs printer-driver-cups-pdf ripgrep \
+                 unrar
 wget https://github.com/xournalpp/xournalpp/releases/download/1.1.0/xournalpp-1.1.0-Ubuntu-focal-x86_64.deb
 gdebi xournalpp-1.1.0-Ubuntu-focal-x86_64.deb
 git config --global user.email "alvaro@thinkpad"
@@ -193,8 +194,8 @@ gdebi CiscoPacketTracer_801_Ubuntu_64bit.deb
   #+end_src
 
 * Office 2010
-Tengo un /prefix/ de Wine con Office 2010 instalado, que llevo arrastrando ya varios años, y que suele funcionar sin más que descomprimirlo
-Es necesario instalar previamente winbind
+Tengo un /prefix/ de Wine con Office 2010 instalado, que llevo arrastrando ya varios años, y que suele funcionar sin más que descomprimirlo.
+Es necesario instalar previamente winbind.
 
   
   #+begin_src bash
