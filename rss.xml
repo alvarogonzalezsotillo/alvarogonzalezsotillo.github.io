@@ -4,23 +4,23 @@
     <title>Álvaro González Sotillo</title>
     <link>https://alvarogonzalezsotillo.github.io/</link>
     <description></description>
-    <pubDate>mié, 21 sep 2022 17:34:15 CEST</pubDate>
-    <lastBuildDate>mié, 21 sep 2022 17:34:15 CEST</lastBuildDate>
+    <pubDate>lun, 17 oct 2022 09:42:18 CEST</pubDate>
+    <lastBuildDate>lun, 17 oct 2022 09:42:18 CEST</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
+    <item>
+      <title>Listado de fotos de Raíces</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/listado-en-raices</link>
+      <description><![CDATA[El proyecto Raices es la herramienta de gestión integrada de centros educativos de la Comunidad de Madrid. En la versión actual, no permite crear una página imprimible con las fotografías y nombres de todos los alumnos de un grupo.]]></description>
+      <pubDate>2022-10-17</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/listado-en-raices</guid>
+    </item>
     <item>
       <title>Configuración de mi nuevo ordenador</title>
       <link>https://alvarogonzalezsotillo.github.io/blog/configurar-laptop-con-kde</link>
       <description><![CDATA[Lista de los pasos que he seguido para configurar un nuevo ordenador con mis gustos y preferencias.]]></description>
       <pubDate>2022-09-21</pubDate>
       <guid>https://alvarogonzalezsotillo.github.io/blog/configurar-laptop-con-kde</guid>
-    </item>
-    <item>
-      <title>Listado de fotos de Raíces</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/listado-en-raices</link>
-      <description><![CDATA[El proyecto Raices es la herramienta de gestión integrada de centros educativos de la Comunidad de Madrid. En la versión actual, no permite crear una página imprimible con las fotografías y nombres de todos los alumnos de un grupo.]]></description>
-      <pubDate>2022-09-21</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/listado-en-raices</guid>
     </item>
     <item>
       <title>Presentación FP informática a eso y bachillerato</title>
