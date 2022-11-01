@@ -34,6 +34,48 @@
 <div>
 <div class="post">
 <h1>Silabeador y rimador</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>&Iacute;ndice</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org0000015">1. Presentación del problema</a>
+<ul>
+<li><a href="#diptongos-hiatos-id">1.1. Diptongos e hiatos</a></li>
+<li><a href="#division-en-silabas-id">1.2. División en sílabas de una palabra</a>
+<ul>
+<li><a href="#division-en-silabas-sin-hiatos-id">1.2.1. División sin importar hiatos/diptongos</a></li>
+<li><a href="#hiatos-id">1.2.2. Hiatos</a></li>
+</ul>
+</li>
+<li><a href="#silaba-tonica-id">1.3. Localización de la sílaba tónica</a></li>
+<li><a href="#significado-palabra-id">1.4. Excepciones debidas al significado de la palabra</a></li>
+<li><a href="#rimas-id">1.5. Rimas</a>
+<ul>
+<li><a href="#org000000c">1.5.1. Rima Consonante</a></li>
+<li><a href="#org000000f">1.5.2. Rima asonante</a></li>
+</ul>
+</li>
+<li><a href="#org0000012">1.6. División de palabra</a></li>
+</ul>
+</li>
+<li><a href="#org000002c">2. Implementación</a>
+<ul>
+<li><a href="#org000001b">2.1. División en sílabas de una palabra</a>
+<ul>
+<li><a href="#org0000018">2.1.1. Normas no contempladas</a></li>
+</ul>
+</li>
+<li><a href="#org000001e">2.2. Sílaba tónica</a></li>
+<li><a href="#org0000023">2.3. Vocal tónica</a></li>
+<li><a href="#org0000026">2.4. Fachada para las funciones: clase <code>Palabra</code></a></li>
+<li><a href="#org0000029">2.5. Rimas</a></li>
+</ul>
+</li>
+<li><a href="#org000002f">3. Por hacer</a></li>
+<li><a href="#org0000032">4. Enlaces de interés</a></li>
+</ul>
+</div>
+</div>
 <style>
    .silabeo{
      border-radius: 3px;
@@ -66,39 +108,6 @@ Si no te interesa el algoritmo, puedes saltar a <a href="#org0000000">cómo usar
 <p>
 Este es un problema que parece simple a primera vista, pero con una complejidad, interdependencia y cantidad casos particulares que no esperaba encontrarme. El siguiende diagrama muestra la relación entre cada parte del problema. Por ejemplo, <a href="#org0000002">el significado de la palabra afecta a cuál es su sílaba tónica</a>.
 </p>
-
-<div class="org-src-container">
-<pre class="src src-dot">digraph {
-                compound=true
-                label=""
-                node [shape="ellipse",margin=0]
-
-                "Sílabas"[label=&lt;   &lt;U&gt;Sílabas&lt;/U&gt;&gt; URL="javascript:go('division-en-silabas-id')"]
-                "Diptongo/hiato"[label=&lt;   &lt;U&gt;Diptongo/hiato&lt;/U&gt;&gt; URL="javascript:go('diptongos-hiatos-id')"]
-                "Sílaba tónica"[label=&lt;   &lt;U&gt;Sílaba tónica&lt;/U&gt;&gt; URL="javascript:go('silaba-tonica-id')"]
-                "Sílabas (ignorando tildes e hiatos)"[label=&lt;   &lt;U&gt;Sílabas (ignorando tildes e hiatos)&lt;/U&gt;&gt; URL="javascript:go('division-en-silabas-sin-hiatos-id')"]
-                "Significado de la palabra"[label=&lt;   &lt;U&gt;Significado de la palabra&lt;/U&gt;&gt; URL="javascript:go('significado-palabra-id)'"]
-                "Hiatos"[label=&lt;  &lt;U&gt;Hiatos&lt;/U&gt;&gt; URL="javascript:go('hiatos-id')"]
-                "Rimas"[label=&lt;  &lt;U&gt;Rimas&lt;/U&gt;&gt; URL="javascript:go('rimas-id')"] 
-
-                "Palabra escrita" -&gt; "Sílabas (ignorando tildes e hiatos)"
-                "Normas de formación de sílabas" -&gt; "Sílabas (ignorando tildes e hiatos)"
-                "Sílabas (ignorando tildes e hiatos)" -&gt; "Sílabas"
-                "Sílabas" -&gt; "Sílaba tónica"
-                "Significado de la palabra" -&gt; "Sílaba tónica"
-                "Normas de acentuación" -&gt; "Sílaba tónica"
-                "Normas de acentuación" -&gt; "Sílabas"
-                "Normas de acentuación" -&gt; "Diptongo/hiato"
-                "Diptongo/hiato" -&gt; "Normas de acentuación"
-                "Diptongo/hiato" -&gt; "Hiatos"
-                "Hiatos" -&gt; "Sílabas" 
-                "Sílaba tónica" -&gt; "Vocal tónica"
-                "Vocal tónica" -&gt; Rimas
-                
-}
-</pre>
-</div>
-
 
 
 <object id="elsvg" data="/assets/blog/rimas/dependencias-entre-problemas.svg"></object>
