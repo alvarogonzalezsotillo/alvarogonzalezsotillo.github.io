@@ -2,7 +2,7 @@
 
 #+AUTHOR:      Álvaro González Sotillo
 #+EMAIL:       alvarogonzalezsotillo@gmail.com
-#+DATE:        2020-10-21
+#+DATE:        2022-10-01
 #+URI:         /blog/rimas
 
 #+TAGS: programación, 
@@ -73,8 +73,7 @@ digraph {
 }
 #+end_src
 
-#+RESULTS:
-[[file:./dependencias-entre-problemas.svg]]
+
 
 #+begin_export html
 <object id="elsvg" data="./dependencias-entre-problemas.svg"></object>
