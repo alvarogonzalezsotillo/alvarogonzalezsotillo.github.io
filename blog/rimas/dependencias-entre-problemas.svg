@@ -104,7 +104,7 @@
 <!-- Significado de la palabra -->
 <g id="node5" class="node">
 <title>Significado de la palabra</title>
-<g id="a_node5"><a xlink:href="javascript:go('significado-palabra-id)'" xlink:title=" &#160;&#160;&lt;U&gt;Significado de la palabra&lt;/U&gt;">
+<g id="a_node5"><a xlink:href="javascript:go('significado-palabra-id')" xlink:title=" &#160;&#160;&lt;U&gt;Significado de la palabra&lt;/U&gt;">
 <ellipse fill="none" stroke="black" cx="105.05" cy="-234" rx="105.11" ry="18"/>
 <text text-anchor="start" x="9.55" y="-231.3" font-family="Times,serif" font-size="14.00"> &#160;&#160;</text>
 <text text-anchor="start" x="23.55" y="-231.3" font-family="Times,serif" text-decoration="underline" font-size="14.00">Significado de la palabra</text>

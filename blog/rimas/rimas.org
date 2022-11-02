@@ -38,13 +38,13 @@ El castellano es un idioma transparente, lo que significa que hay una gran relac
 - Conocer la sílaba tónica de la palabra
 - Saber si la palabra rima con otra palabra
 
-Si no te interesa el algoritmo, puedes saltar a [[implementacion][cómo usar el códig]]o, al [[https://github.com/alvarogonzalezsotillo/rimas][repositorio en Github]] o a la [[https://alvarogonzalezsotillo.github.io/rimas/][página de ejemplo]]. 
+Si no te interesa el algoritmo, puedes saltar a [[implementacion][cómo usar el código]], al [[https://github.com/alvarogonzalezsotillo/rimas][repositorio en Github]] o a la [[https://alvarogonzalezsotillo.github.io/rimas/][página de ejemplo]] basada en el [[http://corpus.rae.es/lfrecuencias.html][corpus de la RAE]].
 
 Este es un problema que parece simple a primera vista, pero con una complejidad, interdependencia y cantidad casos particulares que no esperaba encontrarme. El siguiende diagrama muestra la relación entre cada parte del problema. Por ejemplo, [[significado-palabra-problemas][el significado de la palabra afecta a cuál es su sílaba tónica]].
 
 
 #+begin_export html
-<object id="elsvg" data="./dependencias-entre-problemas.svg"></object>
+<object width="100%"  id="elsvg" data="./dependencias-entre-problemas.svg"></object>
 
 <script>
 const elsvg = document.getElementById("elsvg");
@@ -89,7 +89,7 @@ Las sílabas en castellano tienen la siguiente estructura general: Posiblemente 
    - Dobles consonantes: *ch*, *rr*, *ll*, *dr*, *tr*, *ps*. No pueden darse otras como *dl* o *tl*.
    - Cualquier consonante simple
 2. Pueden ir varias vocales juntas. Según la RAE, una letra *h* no rompe el grupo vocálico.
-3. No todas las consonantes pueden darse al final de la sílaba. las que pueden darse son *b* , *c* , *d* , *f* , *g* , *l* , *m* , *n* , *ns* , *p* , *r* , *rs* , *s* , *t* , *x* , *y* , *z*
+3. No todas las consonantes pueden darse al final de la sílaba. Las que pueden darse son *b* , *c* , *d* , *f* , *g* , *l* , *m* , *n* , *ns* , *p* , *r* , *rs* , *s* , *t* , *x* , *y* , *z*
 
 Dada una palabra escrita, estas normas permiten dividirla de varias formas. Por ejemplo, la palabra *apeninos* podría dividirse como {{{INI}}} /ap . en . in . os/ {{{FIN}}} o como {{{INI}}} /a . pen . i . nos/ {{{FIN}}} . La forma correcta se consigue aplicando algunas prioridades al extraer las sílabas:
 1. Una sílaba solo con vocales
@@ -378,7 +378,3 @@ console.log( rimaAsonanteCon("maría", "arriba") ) // => true
 - https://github.com/mnater/hyphenator
 - https://www.ushuaia.pl/hyphen/?ln=en
 - https://dirae.es/palabras/%C3%A9xito
-
-
-
-
