@@ -150,7 +150,7 @@ In Sample Case #4, Cody-Jamal can finish his mural with all Js. Since that conta
 
 
 ** code
-#+INCLUDE: "02-moons-and-umbrellas.scala" src scala
+#+INCLUDE: ./02-moons-and-umbrellas.scala src scala
 
 * Reversort engineering
 
@@ -231,7 +231,7 @@ In Sample Case #4, Reversort will necessarily perform 6 iterations, each of whic
 
 
 ** code
-#+INCLUDE: "./03-reversort-engineering.scala" src scala
+#+INCLUDE: ./03-reversort-engineering.scala src scala
 
 * Median sort
 
