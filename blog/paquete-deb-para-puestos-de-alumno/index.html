@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Paquete debian para puestos de alumno - Álvaro González Sotillo</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Álvaro González Sotillo" />
+    <meta name="description" content="Todos los años preparamos una maqueta con Ubuntu para instalar en los ordenadores de profesores y alumnos. Quizás un paquete debian facilite la creación de la maqueta y su mantenimiento" />
+    <meta name="keywords" content="debian,deb,ubuntu" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <!-- <link rel="stylesheet" href="/media/css/prettify.css" type="text/css"> -->
+  </head>
+
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">Álvaro González Sotillo</a></h1>
+        <p></p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/hugo/">Hugo</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">Acerca de mí</a></li>
+          <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="//www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Buscar">
+          <input type="hidden" name="as_sitesearch" value="alvarogonzalezsotillo.github.io">
+        </form>
+        <img class="avatar" src="/media/img/octaedron.png" />
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>Paquete debian para puestos de alumno</h1>
+<p>
+Todos los años preparamos una maqueta con Ubuntu para instalar en los ordenadores de profesores y alumnos. Quizás un paquete debian facilite la creación de la maqueta y su mantenimiento. Además, esto me ha permitido probar los servicios de CI/CD de Github, por medio de sus <i>Action</i>.
+</p>
+
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org0000000">Creación de un paquete <code>deb</code></a></li>
+<li><a href="#org0000003">Primera utilidad: monitoreo de cuota</a></li>
+<li><a href="#org0000006">Despliegue continuo</a></li>
+</ul>
+</div>
+
+
+<div id="outline-container-org0000000" class="outline-2">
+<h2 id="org0000000">Creación de un paquete <code>deb</code></h2>
+<div class="outline-text-2" id="text-org0000000">
+<p>
+El comando <code>dpkg-deb</code> utiliza el fichero <code>DEBIAN/control</code> del directorio especificado para construir un paquete de debian. En este fichero se especifican, entre otras cosas, las dependiencias del paquete.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-conf">Package: iesavellaneda-tools
+Version: 2022.11.25.09.40-a33pcprofesor
+Section: base 
+Priority: optional 
+Architecture: all
+Homepage: https://github.com/alvarogonzalezsotillo/iesavellaneda-tools
+Depends: libnotify-bin
+Recommends: epoptes-client, tmux, tcpdump, git, htop, iftop, sshfs 
+Maintainer: alvaro.gonzalezsotillo@educa.madrid.org
+Description: Cosas que les ponemos a los ordenadores con linux en el IES Alonso de Avellaneda
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0000003" class="outline-2">
+<h2 id="org0000003">Primera utilidad: monitoreo de cuota</h2>
+<div class="outline-text-2" id="text-org0000003">
+<p>
+Me sorprendió bastante no encontrar ningún programa que avise del nivel de cuota utilizado por los usuarios, más allá del envío de un <i>email</i> interno (que nadie leerá). Al final, he incluido en el paquete un <i>script</i> para que se monitorice cada hora la cuota, y si se pasa del 80% avisar con un cuadro de diálogo. Para ello he utilizando algo de <code>bash</code>, <code>notify-send</code> y <code>zenity</code>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">#!/bin/bash
+
+dialogo(){
+    local MSG="$*"
+
+    if which kdialog
+    then
+        kdialog --title Aviso de cuota --msgbox "$MSG"
+        return 0
+    fi
+
+    if which zenity
+    then
+        zenity --info --title "Aviso de cuota" --text "$MSG"
+        return 0
+    fi
+
+    echo "No se encuentra ningún programa para mostrar un diálogo"
+
+    return 1
+}
+
+
+IFS="\n" quota | tail -n +3 | awk '{print $2 " " $4 " " $1}' | while read LINEA
+do
+    LINEA=$(echo "$LINEA" | tr -d '*')
+    read USADO MAXIMO DISCO &lt; &lt;(echo "$LINEA")
+
+    echo "Usado-maximo-disco:" $USADO $MAXIMO $DISCO
+
+    if [ $MAXIMO -gt 0 ]
+    then
+        PORCENTAJE=$((100*USADO/MAXIMO))
+
+        MSG="$PORCENTAJE del disco $DISCO ya utilizado ($USADO KB de un máximo de $MAXIMO $KB)"
+        notify-send --category=Aviso "$MSG"  &gt; /dev/null 2&gt; /dev/null
+
+        echo "$MSG"
+        if [ $PORCENTAJE -gt 80 ]
+        then
+            dialogo "$MSG" &gt; /dev/null 2&gt; /dev/null
+        fi
+    fi
+done 
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0000006" class="outline-2">
+<h2 id="org0000006">Despliegue continuo</h2>
+<div class="outline-text-2" id="text-org0000006">
+<p>
+He utilizado una <i>Action</i> de Github para crear el paquete <code>DEB</code> cada vez que se crea una etiqueta en la rama <code>master</code>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml">
+name: Makefile CI
+
+on:
+  push:
+    branches: [ "master" ]
+    tags:
+      - '*'
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Construir el paquete DEB
+      run: ./build.sh
+
+    - name: Subir el DEB a la acción de Github
+      uses: actions/upload-artifact@v3
+      with:
+          name: iesavellaneda-tools.deb
+          path: iesavellaneda-tools.deb
+
+    - name: Crear la release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+          files: iesavellaneda-tools.deb
+
+</pre>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2022-11-30</span>
+        <span title="last modification date" class="post-info">2023-02-20</span>
+        <span title="tags" class="post-info"><a href="/tags/debian/">debian</a>, <a href="/tags/deb/">deb</a>, <a href="/tags/ubuntu/">ubuntu</a></span>
+        <span title="author" class="post-info">Álvaro González Sotillo</span>
+      </div>
+      <section>
+        <!-- <h1>Comments</h1> -->
+      </section>
+      <!-- <script src="//code.jquery.com/jquery-latest.min.js"></script> -->
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->
+      <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>  -->
+      <!--<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>-->
+      <script src="/media/js/jquery-3.2.1.min.js"></script>
+      <script src="/media/js/main.js"></script>
+      <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="/media/js/code-prettify/loader/run_prettify.js"></script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 30.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:alvarogonzalezsotillo <at> gmail <dot> com">Álvaro González Sotillo</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>

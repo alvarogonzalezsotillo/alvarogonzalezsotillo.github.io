@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Insertar contactos en Android - Álvaro González Sotillo</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Álvaro González Sotillo" />
+    <meta name="description" content="Como insertar contactos en un teléfono Android, si no es posible sincronizar una cuenta." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <!-- <link rel="stylesheet" href="/media/css/prettify.css" type="text/css"> -->
+  </head>
+
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">Álvaro González Sotillo</a></h1>
+        <p></p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/hugo/">Hugo</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">Acerca de mí</a></li>
+          <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="//www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Buscar">
+          <input type="hidden" name="as_sitesearch" value="alvarogonzalezsotillo.github.io">
+        </form>
+        <img class="avatar" src="/media/img/octaedron.png" />
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>Insertar contactos en Android</h1>
+<p>
+En el instituto, estamos cambiando los teléfonos cableados por otros basados en una SIM. Los terminales son <a href="https://cocomm.es/en/devices/f720-en/">CoComm f720</a>, y funcionan con Android.
+</p>
+
+<p>
+El problema es que, al ser de la gama baja, no permite sincronizar contactos con ninguna cuenta. Para insertar los contactos en la agenda hemos usado <b>adb</b> para lanzar los <i>intent</i> de creación de un contacto, automatizado con un <i>script</i>.
+</p>
+<ul class="org-ul">
+<li>Primero, se deben habilitar las <a href="https://developer.android.com/studio/debug/dev-options?hl=es-419">funciones de desarrollador</a>.</li>
+<li>Después, se debe habilitar la depuración por USB.</li>
+<li>En ese momento ya puede autorizarse el portátil</li>
+<li>También es necesario configurar la agenda para que los contactos se añadan por defecto a la memoria interna del ordenador. En la tarjeta SIM los nombres de contacto son demasiado cortos.</li>
+</ul>
+
+
+<p>
+Cada contacto se crea de la siguiente forma:
+</p>
+<ul class="org-ul">
+<li>Se lanza el <i>intent</i> <code>android.intent.action.INSERT -t vnd.android.cursor.dir/contact</code></li>
+<li>Para guardar el contacto se debe hacer dos <i>click</i>: uno para mostrar el menú, y otro para pulsar en <b>guardar</b>. Esto se hace con un <code>input tap</code></li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-sh">#!/bin/bash -x
+ADB=/home/alvaro/Android/Sdk/platform-tools/adb
+
+#android.provider.Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS
+
+insertar_contacto(){
+    local NOMBRE="$1"
+    local TELEFONO="$2"
+    sleep 0.5
+    $ADB shell am start -a android.intent.action.INSERT -t vnd.android.cursor.dir/contact -e name "'Ext: $NOMBRE'" -e phone "'$TELEFONO'" | grep -i -e error -e warning
+    local ERROR=$?
+    if [ "$ERROR" = 0 ]
+    then
+        echo "Error $ERROR insertando $NOMBRE: $TELEFONO"
+        exit
+    fi
+    
+    sleep 0.5
+    $ADB shell input tap 766 63 # pinchar en el menú
+    sleep 0.5
+    $ADB shell input tap 596 146 # pinchar en guardar
+    sleep 0.5
+    $ADB shell input keyevent KEYCODE_BACK
+    #$ADB shell input keyevent KEYCODE_HOME # volver al home
+}
+
+echo "PRIMERO: Habilitar funciones de desarrollador (7 veces en buildnumber)"
+echo "SEGUNDO: Habilitar ADB"
+echo "TERCERO: Autorizar el ordenador portátil"
+echo "CUARTO: Poner el teléfono como sitio por defecto para los contactos, si no no caben los nombres"
+echo "QUINTO: Continuar..."
+
+
+insertar_contacto "ACE" "5xXxXxX"
+insertar_contacto "Casa conserje" "5xXxXxX"
+insertar_contacto "Conserjería Arcipreste" "5xXxXxX"
+insertar_contacto "Conserjería Avellaneda" "5xXxXxX"
+insertar_contacto "Conserjería Mengíbar" "5xXxXxX"
+insertar_contacto "Dirección" "5xXxXxX"
+insertar_contacto "Dpt. Administrativo" "5xXxXxX"
+insertar_contacto "Dpt. Comercio" "5xXxXxX"
+insertar_contacto "Dpt. Comunes" "5xXxXxX"
+insertar_contacto "Dpt. Electricidad" "5xXxXxX"
+insertar_contacto "Dpt. FOL" "5xXxXxX"
+insertar_contacto "Dpt. Idiomas" "5xXxXxX"
+insertar_contacto "Dpt. Informática" "5xXxXxX"
+insertar_contacto "Dpt. Orientación" "5xXxXxX"
+insertar_contacto "Dpt. Socioculturales" "5xXxXxX"
+insertar_contacto "Enfermería" "5xXxXxX"
+insertar_contacto "FCT Arcipreste" "5xXxXxX"
+insertar_contacto "FCT Avellaneda" "5xXxXxX"
+insertar_contacto "J. E. Arcipreste 1" "5xXxXxX"
+insertar_contacto "J. E. Arcipreste 2" "5xXxXxX"
+insertar_contacto "J. E. Diurno 1" "5xXxXxX"
+insertar_contacto "J. E. Diurno 2" "5xXxXxX"
+insertar_contacto "J.E. Vespertino 1" "5xXxXxX"
+insertar_contacto "J.E. Vespertino 2" "5xXxXxX"
+insertar_contacto "Sala P. Arcipreste" "5xXxXxX"
+insertar_contacto "Sala P. Avellaneda " "5xXxXxX"
+insertar_contacto "Sala P. Distancia" "5xXxXxX"
+insertar_contacto "Secretaria" "5xXxXxX"
+insertar_contacto "Secretaría 1" "5xXxXxX"
+insertar_contacto "Secretaría 2" "5xXxXxX"
+insertar_contacto "Secretaría 3" "5xXxXxX"
+insertar_contacto "Secretaría 4" "5xXxXxX"
+
+</pre>
+</div>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2023-02-20</span>
+        <span title="last modification date" class="post-info">2023-02-20</span>
+        <span title="tags" class="post-info"><a href="/tags/android/">android</a>, <a href="/tags/shell/">shell</a>, <a href="/tags/adb/">adb</a></span>
+        <span title="author" class="post-info">Álvaro González Sotillo</span>
+      </div>
+      <section>
+        <!-- <h1>Comments</h1> -->
+      </section>
+      <!-- <script src="//code.jquery.com/jquery-latest.min.js"></script> -->
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->
+      <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>  -->
+      <!--<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>-->
+      <script src="/media/js/jquery-3.2.1.min.js"></script>
+      <script src="/media/js/main.js"></script>
+      <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="/media/js/code-prettify/loader/run_prettify.js"></script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 30.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:alvarogonzalezsotillo <at> gmail <dot> com">Álvaro González Sotillo</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>

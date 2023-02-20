@@ -4,10 +4,24 @@
     <title>Álvaro González Sotillo</title>
     <link>https://alvarogonzalezsotillo.github.io/</link>
     <description></description>
-    <pubDate>mié, 02 nov 2022 10:11:36 CET</pubDate>
-    <lastBuildDate>mié, 02 nov 2022 10:11:36 CET</lastBuildDate>
+    <pubDate>lun, 20 feb 2023 17:24:24 CET</pubDate>
+    <lastBuildDate>lun, 20 feb 2023 17:24:24 CET</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
+    <item>
+      <title>Insertar contactos en Android</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/insertar-contactos-en-android</link>
+      <description><![CDATA[Como insertar contactos en un teléfono Android, si no es posible sincronizar una cuenta.]]></description>
+      <pubDate>2023-02-20</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/insertar-contactos-en-android</guid>
+    </item>
+    <item>
+      <title>Paquete debian para puestos de alumno</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/paquete-deb-para-puestos-de-alumno</link>
+      <description><![CDATA[Todos los años preparamos una maqueta con Ubuntu para instalar en los ordenadores de profesores y alumnos. Quizás un paquete debian facilite la creación de la maqueta y su mantenimiento]]></description>
+      <pubDate>2023-02-20</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/paquete-deb-para-puestos-de-alumno</guid>
+    </item>
     <item>
       <title>Silabeador y rimador</title>
       <link>https://alvarogonzalezsotillo.github.io/blog/rimas</link>
@@ -63,20 +77,6 @@
       <description><![CDATA[Problema de las n-queens]]></description>
       <pubDate>2021-11-22</pubDate>
       <guid>https://alvarogonzalezsotillo.github.io/blog/algunas-reinas</guid>
-    </item>
-    <item>
-      <title>Emisoras de radio por Internet (2021)</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/radio-por-internet-2021</link>
-      <description><![CDATA[Las emisoras de radio por Internet son muy interesantes, pero si se utilizan sus páginas web no son tan convenientes como podrían ser]]></description>
-      <pubDate>2021-11-05</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/radio-por-internet-2021</guid>
-    </item>
-    <item>
-      <title>Las 12 uvas 2020</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/las-doce-uvas-2020</link>
-      <description><![CDATA[Las 12 uvas es un concurso de programación. Este es especial para mí, porque es el primero en el que compito con mi hijo mayor.]]></description>
-      <pubDate>2021-01-03</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/las-doce-uvas-2020</guid>
     </item>
   </channel>
 </rss>
