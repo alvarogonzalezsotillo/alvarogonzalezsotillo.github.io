@@ -2,9 +2,9 @@
 
 ;;; Code:
 
+(defvar raiz-de-blog)
 (require 'org-page)
-(defvar raiz-de-blog "/data/data/com.termux/files/home/storage/external-1/alvarogonzalezsotillo.github.io")
-
+(defvar raiz-de-blog)
 (setq raiz-de-blog (file-name-directory buffer-file-name))
 (defvar branch-de-blog "nuevo-thinkpad")
 (setq branch-de-blog "source")

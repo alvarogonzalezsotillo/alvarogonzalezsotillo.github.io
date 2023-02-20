@@ -11,7 +11,7 @@
 
 #+PROPERTY: header-arg :eval query
 #+LANGUAGE: es
-#+options: toc:nil
+#+OPTIONS:     H:7 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 #+latex_class_options: [a4paper]
 #+latex_header: \usepackage[margin=2cm]{geometry}
 #+latex_header: \usepackage{amsmath}
