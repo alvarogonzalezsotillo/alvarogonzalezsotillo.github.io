@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Literate Programming y Google Code Jam 2020 - Álvaro González Sotillo</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Álvaro González Sotillo" />
+    <meta name="description" content="Nueva edición de Codejam con literate programming" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <!-- <link rel="stylesheet" href="/media/css/prettify.css" type="text/css"> -->
+  </head>
+
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">Álvaro González Sotillo</a></h1>
+        <p></p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/hugo/">Hugo</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">Acerca de mí</a></li>
+          <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="//www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Buscar">
+          <input type="hidden" name="as_sitesearch" value="alvarogonzalezsotillo.github.io">
+        </form>
+        <img class="avatar" src="/media/img/octaedron.png" />
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>Literate Programming y Google Code Jam 2020</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>&Iacute;ndice</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org0000000">1. CodeJam utilizando <i>emacs</i></a></li>
+<li><a href="#org0000018">2. Reverse sort</a>
+<ul>
+<li><a href="#org0000004">2.1. Enunciado</a></li>
+<li><a href="#org0000007">2.2. input</a></li>
+<li><a href="#org000000a">2.3. output</a></li>
+<li><a href="#org000000e">2.4. sample input</a></li>
+<li><a href="#org0000012">2.5. sample output</a></li>
+<li><a href="#org0000015">2.6. code</a></li>
+</ul>
+</li>
+<li><a href="#org0000032">3. Moons and umbrellas</a>
+<ul>
+<li><a href="#org000001b">3.1. Problem</a></li>
+<li><a href="#org000001e">3.2. Input</a></li>
+<li><a href="#org0000021">3.3. Output</a></li>
+<li><a href="#org0000024">3.4. Limits</a></li>
+<li><a href="#org0000028">3.5. Sample</a></li>
+<li><a href="#org000002c">3.6. Sample Output</a></li>
+<li><a href="#org000002f">3.7. code</a></li>
+</ul>
+</li>
+<li><a href="#org000004d">4. Reversort engineering</a>
+<ul>
+<li><a href="#org0000036">4.1. Problem</a></li>
+<li><a href="#org0000039">4.2. Input</a></li>
+<li><a href="#org000003c">4.3. Output</a></li>
+<li><a href="#org000003f">4.4. Limits</a></li>
+<li><a href="#org0000043">4.5. Sample</a></li>
+<li><a href="#org0000047">4.6. Sample Output</a></li>
+<li><a href="#org000004a">4.7. code</a></li>
+</ul>
+</li>
+<li><a href="#org0000059">5. Median sort</a>
+<ul>
+<li><a href="#org0000050">5.1. Problem</a></li>
+<li><a href="#org0000053">5.2. Input and output</a></li>
+<li><a href="#org0000056">5.3. Limits</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org0000000" class="outline-2">
+<h2 id="org0000000"><span class="section-number-2">1.</span> <a href="https://code.google.com/codejam/">CodeJam</a> utilizando <i>emacs</i></h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Estos son mis programas para la edición de 2021 de CodeJam. Como en mi anterior participación, están hechos con org-babel
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0000018" class="outline-2">
+<h2 id="org0000018"><span class="section-number-2">2.</span> Reverse sort</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+<a href="https://codingcompetitions.withgoogle.com/codejam/round/000000000043580a/00000000006d0a5c">https://codingcompetitions.withgoogle.com/codejam/round/000000000043580a/00000000006d0a5c</a>
+</p>
+</div>
+
+<div id="outline-container-org0000004" class="outline-3">
+<h3 id="org0000004"><span class="section-number-3">2.1.</span> Enunciado</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+Note: The main parts of the statements of the problems "Reversort" and "Reversort Engineering" are identical, except for the last paragraph. The problems can otherwise be solved independently.
+</p>
+
+<p>
+Reversort is an algorithm to sort a list of distinct integers in increasing order. The algorithm is based on the "Reverse" operation. Each application of this operation reverses the order of some contiguous part of the list.
+</p>
+
+<p>
+The pseudocode of the algorithm is the following:
+</p>
+
+<pre class="example" id="org0000003">
+Reversort(L):
+  for i := 1 to length(L) - 1
+    j := position with the minimum value in L between i and length(L), inclusive
+    Reverse(L[i..j])
+    
+</pre>
+
+<p>
+After i−1 iterations, the positions 1,2,…,i−1 of the list contain the i−1 smallest elements of L, in increasing order. During the i-th iteration, the process reverses the sublist going from the i-th position to the current position of the i-th minimum element. That makes the i-th minimum element end up in the i-th position.
+</p>
+
+<p>
+For example, for a list with 4
+elements, the algorithm would perform 3 iterations. Here is how it would process L=[4,2,1,3] :
+</p>
+
+<p>
+i=1, j=3⟶L=[1,2,4,3]
+i=2, j=2⟶L=[1,2,4,3]
+i=3, j=4⟶L=[1,2,3,4]
+</p>
+
+<p>
+The most expensive part of executing the algorithm on our architecture is the Reverse operation. Therefore, our measure for the cost of each iteration is simply the length of the sublist passed to Reverse, that is, the value j−i+1. The cost of the whole algorithm is the sum of the costs of each iteration.
+</p>
+
+<p>
+In the example above, the iterations cost 3, 1, and 2, in that order, for a total of 6.
+</p>
+
+<p>
+Given the initial list, compute the cost of executing Reversort on it.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org0000007" class="outline-3">
+<h3 id="org0000007"><span class="section-number-3">2.2.</span> input</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+The first line of the input gives the number of test cases, T. T test cases follow. Each test case consists of 2 lines. The first line contains a single integer N, representing the number of elements in the input list. The second line contains N distinct integers L1, L2, &#x2026;, LN, representing the elements of the input list L, in order.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org000000a" class="outline-3">
+<h3 id="org000000a"><span class="section-number-3">2.3.</span> output</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+For each test case, output one line containing Case #x: y, where x is the test case number (starting from 1) and y is the total cost of executing Reversort on the list given as input.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org000000e" class="outline-3">
+<h3 id="org000000e"><span class="section-number-3">2.4.</span> sample input</h3>
+<div class="outline-text-3" id="text-2-4">
+<pre class="example" id="org000000d">
+3
+4
+4 2 1 3
+2
+1 2
+7
+7 6 5 4 3 2 1
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org0000012" class="outline-3">
+<h3 id="org0000012"><span class="section-number-3">2.5.</span> sample output</h3>
+<div class="outline-text-3" id="text-2-5">
+<pre class="example" id="org0000011">
+Case #1: 6
+Case #2: 1
+Case #3: 12
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org0000015" class="outline-3">
+<h3 id="org0000015"><span class="section-number-3">2.6.</span> code</h3>
+<div class="outline-text-3" id="text-2-6">
+<div class="org-src-container">
+<pre class="src src-scala">object Solution extends App{
+
+  def log( msg : =&gt; String ) = {
+    // println(msg)
+  }
+
+  val in = {
+    var ret = new java.util.Scanner(System.in);
+
+    scala.util.Try{
+      // EN PRUEBAS LOCALES, LO HAGO CON UN FICHERO
+      ret = new java.util.Scanner( new java.io.FileInputStream("01-reverse-sort.in"))
+    }
+
+    ret
+  }
+
+
+
+  def reverse( list: Array[Int], i: Int, j: Int ) = {
+    for( x &lt;- 0 to (j-i)/2 ){
+      val temp = list(i+x)
+      list(i+x) = list(j-x)
+      list(j-x) = temp
+    }
+  }
+
+  def min( list: Array[Int], i: Int, j: Int ) = {
+    val slice = list.slice(i,j)
+    val minimum = slice.min
+    i + slice.indexWhere( _ == minimum )
+  }
+
+  def reverseSort( list: Array[Int] ) = {
+    var cost = 0
+    log( s"reverseSort:${list.mkString(",")}")
+    for( i &lt;- 0 until list.size-1 ){
+      val j = min(list,i,list.size);
+      val c = j-i+1
+      log( s" i:${i} j:${j} c:${c}")
+      cost += c
+      reverse(list,i,j)
+      log( s" after reverse:${list.mkString(",")}")
+    }
+    cost
+  }
+
+  val T = in.nextInt
+
+  for( t &lt;- 1 to T ){
+    val N = in.nextInt
+
+    val array = Array.fill(N){
+      in.nextInt
+    }
+
+    val cost = reverseSort(array)
+    println( s"Case #$t: $cost" )
+  }
+}
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org0000032" class="outline-2">
+<h2 id="org0000032"><span class="section-number-2">3.</span> Moons and umbrellas</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-org000001b" class="outline-3">
+<h3 id="org000001b"><span class="section-number-3">3.1.</span> Problem</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+Cody-Jamal is working on his latest piece of abstract art: a mural consisting of a row of waning moons and closed umbrellas. Unfortunately, greedy copyright trolls are claiming that waning moons look like an uppercase C and closed umbrellas look like a J, and they have a copyright on CJ and JC. Therefore, for each time CJ appears in the mural, Cody-Jamal must pay X
+, and for each time JC appears in the mural, he must pay Y.
+</p>
+
+<p>
+Cody-Jamal is unwilling to let them compromise his art, so he will not change anything already painted. He decided, however, that the empty spaces he still has could be filled strategically, to minimize the copyright expenses.
+</p>
+
+<p>
+For example, if CJ?CC? represents the current state of the mural, with C representing a waning moon, J representing a closed umbrella, and ? representing a space that still needs to be painted with either a waning moon or a closed umbrella, he could finish the mural as CJCCCC, CJCCCJ, CJJCCC, or CJJCCJ. The first and third options would require paying X+Y
+in copyrights, while the second and fourth would require paying 2⋅X+Y.
+</p>
+
+<p>
+Given the costs X and Y and a string representing the current state of the mural, how much does Cody-Jamal need to pay in copyrights if he finishes his mural in a way that minimizes that cost?
+</p>
+</div>
+</div>
+
+<div id="outline-container-org000001e" class="outline-3">
+<h3 id="org000001e"><span class="section-number-3">3.2.</span> Input</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+The first line of the input gives the number of test cases, T. T lines follow. Each line contains two integers X and Y and a string S representing the two costs and the current state of the mural, respectively.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0000021" class="outline-3">
+<h3 id="org0000021"><span class="section-number-3">3.3.</span> Output</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+For each test case, output one line containing Case #x: y, where x is the test case number (starting from 1) and y
+</p>
+
+<p>
+is the minimum cost that Cody-Jamal needs to pay in copyrights for a finished mural.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0000024" class="outline-3">
+<h3 id="org0000024"><span class="section-number-3">3.4.</span> Limits</h3>
+<div class="outline-text-3" id="text-3-4">
+<p>
+Time limit: 10 seconds.
+Memory limit: 1 GB.
+1≤T≤100.
+Each character of S is either C, J, or ?.
+</p>
+</div>
+</div>
+<div id="outline-container-org0000028" class="outline-3">
+<h3 id="org0000028"><span class="section-number-3">3.5.</span> Sample</h3>
+<div class="outline-text-3" id="text-3-5">
+<p>
+Note: there are additional samples that are not run on submissions down below.
+</p>
+
+<pre class="example" id="org0000027">
+4
+2 3 CJ?CC?
+4 2 CJCJ
+1 3 C?J
+2 5 ??J???
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org000002c" class="outline-3">
+<h3 id="org000002c"><span class="section-number-3">3.6.</span> Sample Output</h3>
+<div class="outline-text-3" id="text-3-6">
+<pre class="example" id="org000002b">
+Case #1: 5
+Case #2: 10
+Case #3: 1
+Case #4: 0
+</pre>
+<p>
+Sample Case #1 is the one explained in the problem statement. The minimum cost is X+Y=2+3=5.
+</p>
+
+<p>
+In Sample Case #2, Cody-Jamal is already finished, so he does not have a choice. There are two CJs and one JC in his mural.
+</p>
+
+<p>
+In Sample Case #3, substituting either C or J results in one CJ either from the second and third characters or the first and second characters, respectively.
+</p>
+
+<p>
+In Sample Case #4, Cody-Jamal can finish his mural with all Js. Since that contains no instance of CJ nor JC, it yields no copyright cost.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org000002f" class="outline-3">
+<h3 id="org000002f"><span class="section-number-3">3.7.</span> code</h3>
+<div class="outline-text-3" id="text-3-7">
+<div class="org-src-container">
+<pre class="src src-scala">object Solution extends App{
+
+  def log( msg : =&gt; String ) = {
+    // println(msg)
+  }
+
+  val in = {
+    var ret = new java.util.Scanner(System.in);
+
+    scala.util.Try{
+      // EN PRUEBAS LOCALES, LO HAGO CON UN FICHERO
+      ret = new java.util.Scanner( new java.io.FileInputStream("02-moons-and-umbrellas.in"))
+    }
+
+    ret
+  }
+
+  def doit( str: Array[Char], cj: Int, jc: Int ) = {
+
+    def get(index:Int) = if( index &lt; 0 || index &gt;= str.size ) '?' else str(index)
+
+    // TODO ?
+    if( str.indexWhere( _ != '?'  ) == -1 ){
+      for( i &lt;- 0 until str.size ){
+        str(i) = 'C'
+      }
+    }
+
+    // ALGUNOS NO SON ?
+    while( str.indexWhere( _ == '?' ) &gt;= 0 ){
+      for( from &lt;- 0 until str.size ){
+        val i = str.indexWhere( _ == '?', from )
+        if( i &gt;= 0 ){
+          log( s"antes: i:$i str:${str.mkString("-")}")
+          val prev = get(i-1)
+          val next = get(i+1)
+          (prev,next) match{
+            case ('?','?') =&gt; log( "No hago nada" )
+            case (a,'?') =&gt; str(i) = a
+            case ('?',a) =&gt; str(i) = a
+            case (a,b) =&gt; str(i) = a
+            case _ =&gt; ???
+          }
+          log( s"despues: i:$i str:${str.mkString("-")}")
+        }
+      }
+    }
+  }
+
+  @scala.annotation.tailrec
+  def cost( str: Array[Char], cj: Int, jc: Int, from: Int = 0, accum: Int = 0 ) : Int = {
+    if( str.size == from+1 )
+      accum
+    else{
+      if( str(from) == 'C' &amp;&amp; str(from+1) == 'J' )
+        cost( str, cj, jc, from+1, accum + cj)
+      else if( str(from) == 'J' &amp;&amp; str(from+1) == 'C' )
+        cost( str, cj, jc, from+1, accum + jc)
+      else
+        cost( str, cj, jc, from+1, accum)
+    }
+  }
+
+
+
+  val T = in.nextInt
+
+  for( t &lt;- 1 to T ){
+    val X = in.nextInt
+    val Y = in.nextInt
+    val str = in.nextLine.trim
+    val array = str.toArray
+    doit(array,X,Y)
+    val c = cost( array, X, Y )
+    println( s"Case #$t: $c")
+  }
+}
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org000004d" class="outline-2">
+<h2 id="org000004d"><span class="section-number-2">4.</span> Reversort engineering</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-org0000036" class="outline-3">
+<h3 id="org0000036"><span class="section-number-3">4.1.</span> Problem</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+Note: The main parts of the statements of the problems "Reversort" and "Reversort Engineering" are identical, except for the last paragraph. The problems can otherwise be solved independently.
+</p>
+
+<p>
+Reversort is an algorithm to sort a list of distinct integers in increasing order. The algorithm is based on the "Reverse" operation. Each application of this operation reverses the order of some contiguous part of the list.
+</p>
+
+<p>
+The pseudocode of the algorithm is the following:
+</p>
+
+<pre class="example" id="org0000035">
+Reversort(L):
+  for i := 1 to length(L) - 1
+    j := position with the minimum value in L between i and length(L), inclusive
+    Reverse(L[i..j])
+</pre>
+
+<p>
+After i−1
+iterations, the positions 1,2,…,i−1 of the list contain the i−1 smallest elements of L, in increasing order. During the i-th iteration, the process reverses the sublist going from the i-th position to the current position of the i-th minimum element. That makes the i-th minimum element end up in the i-th position.
+</p>
+
+<p>
+For example, for a list with 4
+elements, the algorithm would perform 3 iterations. Here is how it would process L=[4,2,1,3]:
+</p>
+
+<p>
+i=1, j=3⟶L=[1,2,4,3]
+i=2, j=2⟶L=[1,2,4,3]
+i=3, j=4⟶L=[1,2,3,4]
+</p>
+
+<p>
+The most expensive part of executing the algorithm on our architecture is the Reverse operation. Therefore, our measure for the cost of each iteration is simply the length of the sublist passed to Reverse, that is, the value j−i+1. The cost of the whole algorithm is the sum of the costs of each iteration.
+</p>
+
+<p>
+In the example above, the iterations cost 3, 1, and 2, in that order, for a total of 6.
+</p>
+
+<p>
+You are given a size N
+and a cost C. Find a list of N distinct integers between 1 and N such that the cost of applying Reversort to it is exactly C, or say that there is no such list.
+</p>
+</div>
+</div>
+<div id="outline-container-org0000039" class="outline-3">
+<h3 id="org0000039"><span class="section-number-3">4.2.</span> Input</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+The first line of the input gives the number of test cases, T. T lines follow. Each line describes a test case with two integers N and C, the size of the wanted list and the desired cost, respectively.
+</p>
+</div>
+</div>
+<div id="outline-container-org000003c" class="outline-3">
+<h3 id="org000003c"><span class="section-number-3">4.3.</span> Output</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+For each test case, if there is no list of size N such that applying Reversort to it costs exactly C, output one line containing Case #x: IMPOSSIBLE, where x is the test case number (starting from 1). Otherwise, output one line containing Case #x: y1 y2 &#x2026; yN, where x is the test case number (starting from 1) and each yi is a distinct integer between 1 and N, representing the i-th element of one such possible list.
+</p>
+
+<p>
+If there are multiple solutions, you may output any one of them. (See "What if a test case has multiple correct solutions?" in the Competing section of the FAQ.) This information about multiple solutions will not be explicitly stated in the remainder of the 2021 contest.
+</p>
+</div>
+</div>
+<div id="outline-container-org000003f" class="outline-3">
+<h3 id="org000003f"><span class="section-number-3">4.4.</span> Limits</h3>
+<div class="outline-text-3" id="text-4-4">
+<p>
+Time limit: 10 seconds.
+Memory limit: 1 GB.
+1≤T≤100.
+1≤C≤1000.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0000043" class="outline-3">
+<h3 id="org0000043"><span class="section-number-3">4.5.</span> Sample</h3>
+<div class="outline-text-3" id="text-4-5">
+<pre class="example" id="org0000042">
+
+
+5
+4 6
+2 1
+7 12
+7 2
+2 1000
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org0000047" class="outline-3">
+<h3 id="org0000047"><span class="section-number-3">4.6.</span> Sample Output</h3>
+<div class="outline-text-3" id="text-4-6">
+<pre class="example" id="org0000046">
+Case #1: 4 2 1 3
+Case #2: 1 2
+Case #3: 7 6 5 4 3 2 1
+Case #4: IMPOSSIBLE
+Case #5: IMPOSSIBLE
+</pre>
+
+<p>
+Sample Case #1 is described in the statement above.
+</p>
+
+<p>
+In Sample Case #2, the algorithm runs for only one iteration on the proposed output. In that iteration, reverse is applied to a sublist of size 1, therefore, its cost is 1.
+</p>
+
+<p>
+In Sample Case #3, the first iteration reverses the full list, for a cost of 7. After that, the list is already sorted, but there are 5 more iterations, each of which contributes a cost of 1. Another valid output would be 7 5 4 3 2 1 6. For that output, the first iteration has a cost of 6, the last one has a cost of 2, and all others have a cost of 1.
+</p>
+
+<p>
+In Sample Case #4, Reversort will necessarily perform 6 iterations, each of which will have a cost of at least 1, so there is no way the total cost can be as low as required.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org000004a" class="outline-3">
+<h3 id="org000004a"><span class="section-number-3">4.7.</span> code</h3>
+<div class="outline-text-3" id="text-4-7">
+<div class="org-src-container">
+<pre class="src src-scala">object Solution extends App{
+
+  def log( msg : =&gt; String ) = {
+    // println(msg)
+  }
+
+  val in = {
+    var ret = new java.util.Scanner(System.in);
+
+    scala.util.Try{
+      // EN PRUEBAS LOCALES, LO HAGO CON UN FICHERO
+      ret = new java.util.Scanner( new java.io.FileInputStream("./03-reversort-engineering.in"))
+    }
+
+    ret
+  }
+
+  def reverse( list: Array[Int], i: Int, j: Int ) = {
+    for( x &lt;- 0 to (j-i)/2 ){
+      val temp = list(i+x)
+      list(i+x) = list(j-x)
+      list(j-x) = temp
+    }
+  }
+
+  def min( list: Array[Int], i: Int, j: Int ) = {
+    val slice = list.slice(i,j)
+    val minimum = slice.min
+    i + slice.indexWhere( _ == minimum )
+  }
+
+  def reverseSort( list: Array[Int] ) = {
+    var cost = 0
+    log( s"reverseSort:${list.mkString(",")}")
+    for( i &lt;- 0 until list.size-1 ){
+      val j = min(list,i,list.size);
+      val c = j-i+1
+      log( s" i:${i} j:${j} c:${c}")
+      cost += c
+      reverse(list,i,j)
+      log( s" after reverse:${list.mkString(",")}")
+    }
+    cost
+  }
+
+
+  import scala.collection.mutable.{Map =&gt; MMap};
+  import scala.collection.mutable.{Set =&gt; MSet};
+
+  def insert(list: Array[Int], dest: Array[Int], i: Int, value: Int) = {
+    log( s"list:${list.size} dest:${dest.size} i:$i value:$value")
+    for( x &lt;- 0 until i ){
+      dest(x) = list(x)
+    }
+    dest(i) = value
+    for( x &lt;- i until list.size ){
+      dest(x+1) = list(x)
+    }
+  }
+
+  def applyReversions( reversions: Array[Int] ) = {
+    val array = Array.tabulate(reversions.size+1)( _+1 )
+    for( i &lt;- reversions.size-1 to 0 by -1 ){
+      val r = reversions(reversions.size-1-i)
+      log( s"i:$i r:$r size:${array.size}")
+      assert( r &gt;= 1 )
+      assert( i+r &lt;= array.size )
+      reverse( array, i, i+r-1 )
+      log( s"i:$i r:$r array:${array.mkString("-")}")
+    }
+    array
+  }
+
+  def reversionsUpTo( n: Int, c: Int ) = {
+    val ret = new Array[Int](n-1)
+    var cost = c
+    for( i &lt;- 0 until ret.size ){
+      val minRest = ret.size-i-1
+      val min = 1
+      val max = i+2
+      val newCost = (cost-minRest) min max max min
+      log( s"   cost:$cost minRest:$minRest min:$min max:$max newCost:$newCost")
+      ret(i) = newCost
+      cost -= newCost
+    }
+    ret
+  }
+
+  val T = in.nextInt
+
+  for( t &lt;- 1 to T ){
+    val N = in.nextInt
+    val C = in.nextInt
+
+    if( C &lt; N-1 || C &gt; (N*(N+1)/2-1) ){
+      println( s"Case #$t: IMPOSSIBLE")
+    }
+    else{
+
+      val r = reversionsUpTo(N,C)
+      val a = applyReversions( r )
+
+      println( s"Case #$t: ${a.mkString(" ")}")
+    }
+  }
+}
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0000059" class="outline-2">
+<h2 id="org0000059"><span class="section-number-2">5.</span> Median sort</h2>
+<div class="outline-text-2" id="text-5">
+</div>
+<div id="outline-container-org0000050" class="outline-3">
+<h3 id="org0000050"><span class="section-number-3">5.1.</span> Problem</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+You want to sort N
+distinct items, x1,x2,…,xN. Unfortunately, you do not have a way of comparing two of these items. You only have a way to, given three of them, find out which one is the median, that is, which one is neither the minimum nor the maximum among the three.
+</p>
+
+<p>
+For example, suppose N=5
+</p>
+
+<p>
+and you know that:
+</p>
+
+<p>
+x1 is the median of {x1,x2,x3}
+x2 is the median of {x2,x3,x4}
+x3 is the median of {x3,x4,x5}
+</p>
+
+<p>
+Then, it is guaranteed that the sorted order of the elements is either x4,x2,x1,x3,x5 or its reverse x5,x3,x1,x2,x4. Notice that by knowing only medians, it is impossible to distinguish the order of any list from its reverse, since the median question has the same result for any three elements in both cases.
+</p>
+
+<p>
+Your program will have to find the order of T lists of N elements using at most Q median questions in total (or Q/T queries per list on average). In each case, finding either the right order or its reverse is considered correct. The order for each case is generated uniformly at random from all possible orders, and independently of any other information.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0000053" class="outline-3">
+<h3 id="org0000053"><span class="section-number-3">5.2.</span> Input and output</h3>
+<div class="outline-text-3" id="text-5-2">
+<p>
+This is an interactive problem. You should make sure you have read the information in the Interactive Problems section of our FAQ.
+</p>
+
+<p>
+Initially, the judge will send you a single line containing three integers T , N, and Q: the number of test cases, the number of elements to sort within each test case, and the total number of questions you are allowed across all test cases, respectively. Then, you must process T 
+test cases. Each test case consists of a series of question exchanges plus an additional exchange to provide the answer.
+</p>
+
+<p>
+For a question exchange, your program must print a single line containing three distinct integers i,j,k all between 1 and N, inclusive, which corresponds to asking the judge "which element is the median of the set {xi,xj,xk}?" The judge will respond with a single line containing a single integer L, meaning that the median of that set is xL (L is always equal to one of i, j, or k). If you try to perform a (Q+1)-th question exchange, the judge will simply output -1.
+</p>
+
+<p>
+Once you are ready to state the result, print a line containing N
+integers representing the indices of the elements in sorted or reverse sorted order. The judge will respond with a single integer 1 if your answer is correct or -1 if it is not. After receiving the judge's answer for the T-th case, your program must finish in time in order to not receive a Time Limit Exceeded error. In addition, if you print additional information after receiving the result for the T-th case, you will get a Wrong Answer judgment.
+</p>
+
+<p>
+If the judge receives an invalidly formatted line or invalid values from your program at any moment, the judge will print a single number -1. After the judge prints -1 for any of the reasons explained above, it will not print any further output. If your program continues to wait for the judge after receiving a -1, your program will time out, resulting in a Time Limit Exceeded error. Notice that it is your responsibility to have your program exit in time to receive a Wrong Answer judgment instead of a Time Limit Exceeded error. As usual, if the memory limit is exceeded, or your program gets a runtime error, you will receive the appropriate judgment.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0000056" class="outline-3">
+<h3 id="org0000056"><span class="section-number-3">5.3.</span> Limits</h3>
+<div class="outline-text-3" id="text-5-3">
+<p>
+Time limit: 40 seconds.
+Memory limit: 1 GB.
+T=100
+</p>
+
+<p>
+.
+Testing Tool
+</p>
+
+<p>
+You can use this testing tool to test locally or on our platform. To test locally, you will need to run the tool in parallel with your code; you can use our interactive runner for that. For more information, read the instructions in comments in that file, and also check out the Interactive Problems section of the FAQ.
+</p>
+
+<p>
+Instructions for the testing tool are included in comments within the tool. We encourage you to add your own test cases. Please be advised that although the testing tool is intended to simulate the judging system, it is NOT the real judging system and might behave differently. If your code passes the testing tool but fails the real judge, please check the Coding section of the FAQ to make sure that you are using the same compiler as us.
+</p>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2021-03-26</span>
+        <span title="last modification date" class="post-info">2023-02-20</span>
+        <span title="tags" class="post-info"><a href="/tags/emacs/">emacs</a>, <a href="/tags/orgmode/">orgmode</a>, <a href="/tags/codejam/">codejam</a>, <a href="/tags/programación/">programación</a></span>
+        <span title="author" class="post-info">Álvaro González Sotillo</span>
+      </div>
+      <section>
+        <!-- <h1>Comments</h1> -->
+      </section>
+      <!-- <script src="//code.jquery.com/jquery-latest.min.js"></script> -->
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->
+      <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>  -->
+      <!--<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>-->
+      <script src="/media/js/jquery-3.2.1.min.js"></script>
+      <script src="/media/js/main.js"></script>
+      <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="/media/js/code-prettify/loader/run_prettify.js"></script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 30.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:alvarogonzalezsotillo <at> gmail <dot> com">Álvaro González Sotillo</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>

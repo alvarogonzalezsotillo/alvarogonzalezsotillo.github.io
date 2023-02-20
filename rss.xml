@@ -4,8 +4,8 @@
     <title>Álvaro González Sotillo</title>
     <link>https://alvarogonzalezsotillo.github.io/</link>
     <description></description>
-    <pubDate>lun, 20 feb 2023 17:24:24 CET</pubDate>
-    <lastBuildDate>lun, 20 feb 2023 17:24:24 CET</lastBuildDate>
+    <pubDate>lun, 20 feb 2023 18:07:56 CET</pubDate>
+    <lastBuildDate>lun, 20 feb 2023 18:07:56 CET</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
     <item>
@@ -14,6 +14,13 @@
       <description><![CDATA[Como insertar contactos en un teléfono Android, si no es posible sincronizar una cuenta.]]></description>
       <pubDate>2023-02-20</pubDate>
       <guid>https://alvarogonzalezsotillo.github.io/blog/insertar-contactos-en-android</guid>
+    </item>
+    <item>
+      <title>Literate Programming y Google Code Jam 2020</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/literate-codejam-2021</link>
+      <description><![CDATA[Nueva edición de Codejam con literate programming]]></description>
+      <pubDate>2023-02-20</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/literate-codejam-2021</guid>
     </item>
     <item>
       <title>Paquete debian para puestos de alumno</title>
@@ -44,6 +51,33 @@
       <guid>https://alvarogonzalezsotillo.github.io/blog/configurar-laptop-con-kde</guid>
     </item>
     <item>
+      <title>Contribuciones a paquetes Emacs</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/contribuciones-emacs</link>
+      <description><![CDATA[Mis contribuciones a paquetes Emacs]]></description>
+      <pubDate>2022-06-23</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/contribuciones-emacs</guid>
+    </item>
+    <item>
+      <title>Untitled</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/2023/02/20/untitled/</link>
+      <description><![CDATA[<div>
+<div class="post">
+<h1>Untitled</h1>
+<p>
+ospp.vbs no funciona
+</p>
+
+
+<p>
+<a href="https://www.codeweavers.com/compatibility/crossover/tips/microsoft-office-2010/activate-using-a-volume-license-kms-server">https://www.codeweavers.com/compatibility/crossover/tips/microsoft-office-2010/activate-using-a-volume-license-kms-server</a>
+</p>
+
+</div>
+</div>]]></description>
+      <pubDate>2022-06-23</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/2023/02/20/untitled/</guid>
+    </item>
+    <item>
       <title>Presentación FP informática a eso y bachillerato</title>
       <link>https://alvarogonzalezsotillo.github.io/blog/presentacion-fp-informatica</link>
       <description><![CDATA[Presentación FP informática a eso y bachillerato]]></description>
@@ -56,27 +90,6 @@
       <description><![CDATA[La nube es el ordenador de otro. Ya que utilizo git para mis archivos en línea, tiene sentido que mi nube sea mi ordenador]]></description>
       <pubDate>2022-01-23</pubDate>
       <guid>https://alvarogonzalezsotillo.github.io/blog/mi-propio-hosting-git</guid>
-    </item>
-    <item>
-      <title>Cómo publico materiales para clase</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/mi-publicacion-de-materiales-para-clase</link>
-      <description><![CDATA[Los materiales que preparamos los profesores se distribuyen entre los alumnos mediante plataformas de aprendizaje como Moodle. Lo interesante es cómo llegan esos materiales a la plataforma.]]></description>
-      <pubDate>2022-01-23</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/mi-publicacion-de-materiales-para-clase</guid>
-    </item>
-    <item>
-      <title>Contribuciones a paquetes Emacs</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/contribuciones-emacs</link>
-      <description><![CDATA[Mis contribuciones a paquetes Emacs]]></description>
-      <pubDate>2021-12-02</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/contribuciones-emacs</guid>
-    </item>
-    <item>
-      <title>Algunas reinas</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/algunas-reinas</link>
-      <description><![CDATA[Problema de las n-queens]]></description>
-      <pubDate>2021-11-22</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/algunas-reinas</guid>
     </item>
   </channel>
 </rss>
