@@ -1,0 +1,124 @@
+
+#+TITLE:       Paquete debian para puestos de alumno
+#+AUTHOR:      Álvaro González Sotillo
+#+EMAIL:       alvarogonzalezsotillo@gmail.com
+#+DATE:        2022-1130
+#+URI:         /blog/paquete-deb-para-puestos-de-alumno
+#+KEYWORDS:    debian,deb,ubuntu
+#+TAGS:        debian,deb,ubuntu
+#+LANGUAGE:    es
+#+OPTIONS:     H:3 num:t toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+# #+options:     toc:2
+#+options:     num:nil
+#+DESCRIPTION: Todos los años preparamos una maqueta con Ubuntu para instalar en los ordenadores de profesores y alumnos. Quizás un paquete debian facilite la creación de la maqueta y su mantenimiento
+
+Todos los años preparamos una maqueta con Ubuntu para instalar en los ordenadores de profesores y alumnos. Quizás un paquete debian facilite la creación de la maqueta y su mantenimiento. Además, esto me ha permitido probar los servicios de CI/CD de Github, por medio de sus /Action/.
+
+#+TOC: headlines 2 local
+
+
+* Creación de un paquete =deb=
+El comando =dpkg-deb= utiliza el fichero =DEBIAN/control= del directorio especificado para construir un paquete de debian. En este fichero se especifican, entre otras cosas, las dependiencias del paquete.
+
+#+begin_src conf
+Package: iesavellaneda-tools
+Version: 2022.11.25.09.40-a33pcprofesor
+Section: base 
+Priority: optional 
+Architecture: all
+Homepage: https://github.com/alvarogonzalezsotillo/iesavellaneda-tools
+Depends: libnotify-bin
+Recommends: epoptes-client, tmux, tcpdump, git, htop, iftop, sshfs 
+Maintainer: alvaro.gonzalezsotillo@educa.madrid.org
+Description: Cosas que les ponemos a los ordenadores con linux en el IES Alonso de Avellaneda
+#+end_src
+
+* Primera utilidad: monitoreo de cuota
+Me sorprendió bastante no encontrar ningún programa que avise del nivel de cuota utilizado por los usuarios, más allá del envío de un /email/ interno (que nadie leerá). Al final, he incluido en el paquete un /script/ para que se monitorice cada hora la cuota, y si se pasa del 80% avisar con un cuadro de diálogo. Para ello he utilizando algo de =bash=, =notify-send= y =zenity=
+
+#+begin_src sh
+#!/bin/bash
+
+dialogo(){
+    local MSG="$*"
+
+    if which kdialog
+    then
+        kdialog --title Aviso de cuota --msgbox "$MSG"
+        return 0
+    fi
+
+    if which zenity
+    then
+        zenity --info --title "Aviso de cuota" --text "$MSG"
+        return 0
+    fi
+
+    echo "No se encuentra ningún programa para mostrar un diálogo"
+
+    return 1
+}
+
+
+IFS="\n" quota | tail -n +3 | awk '{print $2 " " $4 " " $1}' | while read LINEA
+do
+    LINEA=$(echo "$LINEA" | tr -d '*')
+    read USADO MAXIMO DISCO < <(echo "$LINEA")
+
+    echo "Usado-maximo-disco:" $USADO $MAXIMO $DISCO
+
+    if [ $MAXIMO -gt 0 ]
+    then
+        PORCENTAJE=$((100*USADO/MAXIMO))
+
+        MSG="$PORCENTAJE del disco $DISCO ya utilizado ($USADO KB de un máximo de $MAXIMO $KB)"
+        notify-send --category=Aviso "$MSG"  > /dev/null 2> /dev/null
+
+        echo "$MSG"
+        if [ $PORCENTAJE -gt 80 ]
+        then
+            dialogo "$MSG" > /dev/null 2> /dev/null
+        fi
+    fi
+done 
+#+end_src
+
+* Despliegue continuo
+He utilizado una /Action/ de Github para crear el paquete =DEB= cada vez que se crea una etiqueta en la rama =master=
+
+#+begin_src yaml
+
+name: Makefile CI
+
+on:
+  push:
+    branches: [ "master" ]
+    tags:
+      - '*'
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Construir el paquete DEB
+      run: ./build.sh
+
+    - name: Subir el DEB a la acción de Github
+      uses: actions/upload-artifact@v3
+      with:
+          name: iesavellaneda-tools.deb
+          path: iesavellaneda-tools.deb
+
+    - name: Crear la release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+          files: iesavellaneda-tools.deb
+
+#+end_src

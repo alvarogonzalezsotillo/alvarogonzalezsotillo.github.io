@@ -1,0 +1,91 @@
+#+title: Insertar contactos en Android
+
+#+AUTHOR:      Álvaro González Sotillo
+#+EMAIL:       alvarogonzalezsotillo@gmail.com
+#+DATE:        2023-0220
+#+URI:         /blog/insertar-contactos-en-android
+
+#+TAGS: android, shell, adb
+#+DESCRIPTION: Como insertar contactos en un teléfono Android, si no es posible sincronizar una cuenta.
+
+En el instituto, estamos cambiando los teléfonos cableados por otros basados en una SIM. Los terminales son [[https://cocomm.es/en/devices/f720-en/][CoComm f720]], y funcionan con Android.
+
+El problema es que, al ser de la gama baja, no permite sincronizar contactos con ninguna cuenta. Para insertar los contactos en la agenda hemos usado *adb* para lanzar los /intent/ de creación de un contacto, automatizado con un /script/.
+- Primero, se deben habilitar las [[https://developer.android.com/studio/debug/dev-options?hl=es-419][funciones de desarrollador]].
+- Después, se debe habilitar la depuración por USB.
+- En ese momento ya puede autorizarse el portátil
+- También es necesario configurar la agenda para que los contactos se añadan por defecto a la memoria interna del ordenador. En la tarjeta SIM los nombres de contacto son demasiado cortos.     
+
+
+Cada contacto se crea de la siguiente forma:
+- Se lanza el /intent/ =android.intent.action.INSERT -t vnd.android.cursor.dir/contact=
+- Para guardar el contacto se debe hacer dos /click/: uno para mostrar el menú, y otro para pulsar en *guardar*. Esto se hace con un =input tap=
+
+#+begin_src sh
+#!/bin/bash -x
+ADB=/home/alvaro/Android/Sdk/platform-tools/adb
+
+#android.provider.Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS
+
+insertar_contacto(){
+    local NOMBRE="$1"
+    local TELEFONO="$2"
+    sleep 0.5
+    $ADB shell am start -a android.intent.action.INSERT -t vnd.android.cursor.dir/contact -e name "'Ext: $NOMBRE'" -e phone "'$TELEFONO'" | grep -i -e error -e warning
+    local ERROR=$?
+    if [ "$ERROR" = 0 ]
+    then
+        echo "Error $ERROR insertando $NOMBRE: $TELEFONO"
+        exit
+    fi
+    
+    sleep 0.5
+    $ADB shell input tap 766 63 # pinchar en el menú
+    sleep 0.5
+    $ADB shell input tap 596 146 # pinchar en guardar
+    sleep 0.5
+    $ADB shell input keyevent KEYCODE_BACK
+    #$ADB shell input keyevent KEYCODE_HOME # volver al home
+}
+
+echo "PRIMERO: Habilitar funciones de desarrollador (7 veces en buildnumber)"
+echo "SEGUNDO: Habilitar ADB"
+echo "TERCERO: Autorizar el ordenador portátil"
+echo "CUARTO: Poner el teléfono como sitio por defecto para los contactos, si no no caben los nombres"
+echo "QUINTO: Continuar..."
+
+
+insertar_contacto "ACE" "5xXxXxX"
+insertar_contacto "Casa conserje" "5xXxXxX"
+insertar_contacto "Conserjería Arcipreste" "5xXxXxX"
+insertar_contacto "Conserjería Avellaneda" "5xXxXxX"
+insertar_contacto "Conserjería Mengíbar" "5xXxXxX"
+insertar_contacto "Dirección" "5xXxXxX"
+insertar_contacto "Dpt. Administrativo" "5xXxXxX"
+insertar_contacto "Dpt. Comercio" "5xXxXxX"
+insertar_contacto "Dpt. Comunes" "5xXxXxX"
+insertar_contacto "Dpt. Electricidad" "5xXxXxX"
+insertar_contacto "Dpt. FOL" "5xXxXxX"
+insertar_contacto "Dpt. Idiomas" "5xXxXxX"
+insertar_contacto "Dpt. Informática" "5xXxXxX"
+insertar_contacto "Dpt. Orientación" "5xXxXxX"
+insertar_contacto "Dpt. Socioculturales" "5xXxXxX"
+insertar_contacto "Enfermería" "5xXxXxX"
+insertar_contacto "FCT Arcipreste" "5xXxXxX"
+insertar_contacto "FCT Avellaneda" "5xXxXxX"
+insertar_contacto "J. E. Arcipreste 1" "5xXxXxX"
+insertar_contacto "J. E. Arcipreste 2" "5xXxXxX"
+insertar_contacto "J. E. Diurno 1" "5xXxXxX"
+insertar_contacto "J. E. Diurno 2" "5xXxXxX"
+insertar_contacto "J.E. Vespertino 1" "5xXxXxX"
+insertar_contacto "J.E. Vespertino 2" "5xXxXxX"
+insertar_contacto "Sala P. Arcipreste" "5xXxXxX"
+insertar_contacto "Sala P. Avellaneda " "5xXxXxX"
+insertar_contacto "Sala P. Distancia" "5xXxXxX"
+insertar_contacto "Secretaria" "5xXxXxX"
+insertar_contacto "Secretaría 1" "5xXxXxX"
+insertar_contacto "Secretaría 2" "5xXxXxX"
+insertar_contacto "Secretaría 3" "5xXxXxX"
+insertar_contacto "Secretaría 4" "5xXxXxX"
+
+#+end_src
