@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
-    <title>Tag: programación - Álvaro González Sotillo</title>
+    <title>Untitled - Álvaro González Sotillo</title>
     <meta charset="utf-8" />
     <meta name="author" content="alvaro" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/media/css/main.css" type="text/css">
     <!-- <link rel="stylesheet" href="/media/css/prettify.css" type="text/css"> -->
   </head>
+
   <body class="container">
     <div>
       <header class="masthead">
@@ -28,31 +29,82 @@
         <img class="avatar" src="/media/img/octaedron.png" />
       </header>
     </div>
+
+<div>
+<div class="post">
+<h1>Untitled</h1>
+<div class="org-src-container">
+<pre class="src src-dot">digraph {
+        compound=true;
+        node[shape="Mrecord"];
+
+        intento[label="Intento de conexión SSH\ncon contraseña"];
+        permitroot[label="PermitRootLogin"];
+        passwordauthentication[label="PasswordAuthentication"];
+        invaliduser[label="Invalid user"]
+        NSShoneypot[label="Módulo libnss_honeypot \n (cualquier usuario existe)"]
+        NSSotros[label="Otras bases de datos\n de usuarios \n(/etc/passwd, LDAP...)"]
+        PAMhoneypot[label="Módulo PAM honeypot \n (no acepta ninguna \ncontraseña como válida)"]
+        PAMotros[label="Otros módulos PAM"]
+        FicherosLog[label="Fichero de traza de contraseñas",shape="cylinder"]
+
+
+        subgraph cluster_sshd_config{
+            label="Configuración SSHD (/etc/ssh/sshd_config)";
+            permitroot;
+            passwordauthentication;
+        }
+
+        subgraph cluster_nsswitch_conf{
+            label="Información del usuario (/etc/nsswitch.conf)";
+            NSShoneypot;
+            NSSotros;
+        }
+
+        subgraph cluster_pam_sshd{
+            label="Autenticación y autorización de usuario (/etc/pam.d/sshd)";
+            PAMhoneypot;
+            PAMotros;
+        }
+
+
+        NSSotros -&gt; invaliduser [label="Usuario no encontrado", ltail="cluster_nsswitch_conf"]
+        
+        intento -&gt;  permitroot [lhead="cluster_sshd_config"]
+        permitroot -&gt; invaliduser [label="no"]
+        passwordauthentication -&gt; invaliduser [label="no"]
+
+        permitroot -&gt; NSShoneypot [ltail="cluster_sshd_config", lhead="cluster_nsswitch_conf",label="Usuario validado por sshd"]
+
+        NSShoneypot -&gt; PAMhoneypot [ltail="cluster_nsswitch_conf", lhead="cluster_pam_sshd",label="Usuario validado por NSS"]
+
+        PAMhoneypot -&gt; FicherosLog
+
+
+        ////{rank = same; invaliduser; intento; }
+
+}
+</pre>
+</div>
+
+
+<div id="org0000000" class="figure">
+<p><img src="/assets/blog/2023/06/08/untitled/pam-nss-resumen.png" alt="pam-nss-resumen.png" />
+</p>
+</div>
+
+</div>
+</div>
     <div>
-      <div class="post">
-        <h1>Tag: programación</h1>
-        <ul class="org-ul">
-          <li><a href="/blog/test-de-bongard">Test de Bongard</a></li>
-          <li><a href="/blog/rimas">Silabeador y rimador</a></li>
-          <li><a href="/blog/resolver-molecube-en-prolog">Cómo resolver molecube en prolog</a></li>
-          <li><a href="/blog/reloj-de-sol">Controlando el universo: mi propio reloj de sol</a></li>
-          <li><a href="/blog/practicar-ortografia">Practicar ortografía desde el navegador</a></li>
-          <li><a href="/blog/palabras-anagramadas">Palabras anagramadas</a></li>
-          <li><a href="/blog/palabras-anagramadas-online">Palabras anagramadas online</a></li>
-          <li><a href="/blog/literate-codejam">Literate Programming y Google Code Jam</a></li>
-          <li><a href="/blog/literate-codejam-2021">Literate Programming y Google Code Jam 2020</a></li>
-          <li><a href="/blog/literate-codejam-2020">Literate Programming y Google Code Jam 2020</a></li>
-          <li><a href="/blog/honeypot-con-pam-y-nssh">Honeypot para mi raspberry</a></li>
-          <li><a href="/blog/electrostatic-polyedron">Poliedros basados en configuraciones de mínima energía entre vértices</a></li>
-          <li><a href="/blog/ajuste-de-ecuaciones-moleculares">Ajuste de ecuaciones moleculares</a></li>
-          <li><a href="/blog/contribuciones-emacs">Contribuciones a paquetes Emacs</a></li>
-          <li><a href="/blog/como-se-llama-este-libro-porcia">Problemas lógicos de cajas en ¿Cómo se llama este libro?</a></li>
-          <li><a href="/blog/el-cluedo-como-problema-de-logica">El Cluedo como problema de lógica de segundo orden</a></li>
-          <li><a href="/blog/algunas-reinas">Algunas reinas</a></li>
-        </ul>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2023-06-08</span>
+        <span title="last modification date" class="post-info">2023-06-08</span>
+        <span title="tags" class="post-info">N/A</span>
+        <span title="author" class="post-info">alvaro</span>
       </div>
-    </div>
-    <div>
+      <section>
+        <!-- <h1>Comments</h1> -->
+      </section>
       <!-- <script src="//code.jquery.com/jquery-latest.min.js"></script> -->
       <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->
       <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>  -->
@@ -71,5 +123,6 @@
         </p>
       </div>
     </div>
+
   </body>
 </html>

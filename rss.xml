@@ -4,10 +4,88 @@
     <title>Álvaro González Sotillo</title>
     <link>https://alvarogonzalezsotillo.github.io/</link>
     <description></description>
-    <pubDate>lun, 20 feb 2023 18:07:56 CET</pubDate>
-    <lastBuildDate>lun, 20 feb 2023 18:07:56 CET</lastBuildDate>
+    <pubDate>jue, 08 jun 2023 21:44:43 CEST</pubDate>
+    <lastBuildDate>jue, 08 jun 2023 21:44:43 CEST</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
+    <item>
+      <title>Untitled</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/2023/06/08/untitled/</link>
+      <description><![CDATA[<div>
+<div class="post">
+<h1>Untitled</h1>
+<div class="org-src-container">
+<pre class="src src-dot">digraph {
+        compound=true;
+        node[shape="Mrecord"];
+
+        intento[label="Intento de conexión SSH\ncon contraseña"];
+        permitroot[label="PermitRootLogin"];
+        passwordauthentication[label="PasswordAuthentication"];
+        invaliduser[label="Invalid user"]
+        NSShoneypot[label="Módulo libnss_honeypot \n (cualquier usuario existe)"]
+        NSSotros[label="Otras bases de datos\n de usuarios \n(/etc/passwd, LDAP...)"]
+        PAMhoneypot[label="Módulo PAM honeypot \n (no acepta ninguna \ncontraseña como válida)"]
+        PAMotros[label="Otros módulos PAM"]
+        FicherosLog[label="Fichero de traza de contraseñas",shape="cylinder"]
+
+
+        subgraph cluster_sshd_config{
+            label="Configuración SSHD (/etc/ssh/sshd_config)";
+            permitroot;
+            passwordauthentication;
+        }
+
+        subgraph cluster_nsswitch_conf{
+            label="Información del usuario (/etc/nsswitch.conf)";
+            NSShoneypot;
+            NSSotros;
+        }
+
+        subgraph cluster_pam_sshd{
+            label="Autenticación y autorización de usuario (/etc/pam.d/sshd)";
+            PAMhoneypot;
+            PAMotros;
+        }
+
+
+        NSSotros -&gt; invaliduser [label="Usuario no encontrado", ltail="cluster_nsswitch_conf"]
+        
+        intento -&gt;  permitroot [lhead="cluster_sshd_config"]
+        permitroot -&gt; invaliduser [label="no"]
+        passwordauthentication -&gt; invaliduser [label="no"]
+
+        permitroot -&gt; NSShoneypot [ltail="cluster_sshd_config", lhead="cluster_nsswitch_conf",label="Usuario validado por sshd"]
+
+        NSShoneypot -&gt; PAMhoneypot [ltail="cluster_nsswitch_conf", lhead="cluster_pam_sshd",label="Usuario validado por NSS"]
+
+        PAMhoneypot -&gt; FicherosLog
+
+
+        ////{rank = same; invaliduser; intento; }
+
+}
+</pre>
+</div>
+
+
+<div id="org0000000" class="figure">
+<p><img src="/assets/blog/2023/06/08/untitled/pam-nss-resumen.png" alt="pam-nss-resumen.png" />
+</p>
+</div>
+
+</div>
+</div>]]></description>
+      <pubDate>2023-06-08</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/2023/06/08/untitled/</guid>
+    </item>
+    <item>
+      <title>Honeypot para mi raspberry</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/honeypot-con-pam-y-nssh</link>
+      <description><![CDATA[Mi raspberry recibe muchos ataques por SSH. En el post investigo sus características para ver si estoy seguro.]]></description>
+      <pubDate>2023-06-08</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/honeypot-con-pam-y-nssh</guid>
+    </item>
     <item>
       <title>Insertar contactos en Android</title>
       <link>https://alvarogonzalezsotillo.github.io/blog/insertar-contactos-en-android</link>
@@ -58,38 +136,11 @@
       <guid>https://alvarogonzalezsotillo.github.io/blog/contribuciones-emacs</guid>
     </item>
     <item>
-      <title>Untitled</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/2023/02/20/untitled/</link>
-      <description><![CDATA[<div>
-<div class="post">
-<h1>Untitled</h1>
-<p>
-ospp.vbs no funciona
-</p>
-
-
-<p>
-<a href="https://www.codeweavers.com/compatibility/crossover/tips/microsoft-office-2010/activate-using-a-volume-license-kms-server">https://www.codeweavers.com/compatibility/crossover/tips/microsoft-office-2010/activate-using-a-volume-license-kms-server</a>
-</p>
-
-</div>
-</div>]]></description>
-      <pubDate>2022-06-23</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/2023/02/20/untitled/</guid>
-    </item>
-    <item>
       <title>Presentación FP informática a eso y bachillerato</title>
       <link>https://alvarogonzalezsotillo.github.io/blog/presentacion-fp-informatica</link>
       <description><![CDATA[Presentación FP informática a eso y bachillerato]]></description>
       <pubDate>2022-03-28</pubDate>
       <guid>https://alvarogonzalezsotillo.github.io/blog/presentacion-fp-informatica</guid>
-    </item>
-    <item>
-      <title>Mi propio hosting git</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/mi-propio-hosting-git</link>
-      <description><![CDATA[La nube es el ordenador de otro. Ya que utilizo git para mis archivos en línea, tiene sentido que mi nube sea mi ordenador]]></description>
-      <pubDate>2022-01-23</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/mi-propio-hosting-git</guid>
     </item>
   </channel>
 </rss>
