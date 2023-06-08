@@ -1,0 +1,55 @@
+#+BEGIN_SRC dot  :exports results :file ./pam-nss-resumen.png :cmd dot :cmdline -Tpng
+digraph {
+        compound=true;
+        node[shape="Mrecord"];
+
+        intento[label="Intento de conexión SSH\ncon contraseña"];
+        permitroot[label="PermitRootLogin"];
+        passwordauthentication[label="PasswordAuthentication"];
+        invaliduser[label="Invalid user"]
+        NSShoneypot[label="Módulo libnss_honeypot \n (cualquier usuario existe)"]
+        NSSotros[label="Otras bases de datos\n de usuarios \n(/etc/passwd, LDAP...)"]
+        PAMhoneypot[label="Módulo PAM honeypot \n (no acepta ninguna \ncontraseña como válida)"]
+        PAMotros[label="Otros módulos PAM"]
+        FicherosLog[label="Fichero de traza de contraseñas",shape="cylinder"]
+
+
+        subgraph cluster_sshd_config{
+            label="Configuración SSHD (/etc/ssh/sshd_config)";
+            permitroot;
+            passwordauthentication;
+        }
+
+        subgraph cluster_nsswitch_conf{
+            label="Información del usuario (/etc/nsswitch.conf)";
+            NSShoneypot;
+            NSSotros;
+        }
+
+        subgraph cluster_pam_sshd{
+            label="Autenticación y autorización de usuario (/etc/pam.d/sshd)";
+            PAMhoneypot;
+            PAMotros;
+        }
+
+
+        NSSotros -> invaliduser [label="Usuario no encontrado", ltail="cluster_nsswitch_conf"]
+        
+        intento ->  permitroot [lhead="cluster_sshd_config"]
+        permitroot -> invaliduser [label="no"]
+        passwordauthentication -> invaliduser [label="no"]
+
+        permitroot -> NSShoneypot [ltail="cluster_sshd_config", lhead="cluster_nsswitch_conf",label="Usuario validado por sshd"]
+
+        NSShoneypot -> PAMhoneypot [ltail="cluster_nsswitch_conf", lhead="cluster_pam_sshd",label="Usuario validado por NSS"]
+
+        PAMhoneypot -> FicherosLog
+
+
+        ////{rank = same; invaliduser; intento; }
+
+}
+#+END_SRC
+
+#+RESULTS:
+[[file:./pam-nss-resumen.png]]
