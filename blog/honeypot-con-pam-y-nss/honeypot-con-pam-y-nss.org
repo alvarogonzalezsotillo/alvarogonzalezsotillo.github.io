@@ -13,7 +13,7 @@
 
 #+begin_export html
         <div id="enlace-blog-outter">
-            <a href="https://alvarogonzalezsotillo.github.io/blog/rimas">¿Cómo funciona?</a>
+            <a href="https://github.com/alvarogonzalezsotillo/pam-nss-honeypot">¿Cómo funciona?</a>
         </div>
 
         <style>
@@ -49,6 +49,9 @@
 
 #+end_export 
 
+
+* TL;DR
+He implementado un [[https://en.wikipedia.org/wiki/Honeypot_(computing)][/honeypot/]] de SSH dockerizado con un módulo [[https://www.redhat.com/sysadmin/pluggable-authentication-modules-pam][PAM]] y un módulo [[https://en.wikipedia.org/wiki/Name_Service_Switch][NSS]]. El código está en [[https://github.com/alvarogonzalezsotillo/pam-nss-honeypot][https://github.com/alvarogonzalezsotillo/pam-nss-honeypot]].
 * Intentos de conexión a mi SSH
 
 Tengo instalado un servidor SSH en una raspberry pi. Lo utilizo de nodo bastión para acceder a los ordenadores de mi casa.
