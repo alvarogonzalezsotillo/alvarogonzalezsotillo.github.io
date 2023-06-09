@@ -11,6 +11,44 @@
 
 #+EXPORT_EXCLUDE_TAGS: noexport
 
+#+begin_export html
+        <div id="enlace-blog-outter">
+            <a href="https://alvarogonzalezsotillo.github.io/blog/rimas">¿Cómo funciona?</a>
+        </div>
+
+        <style>
+         #enlace-blog-outter{
+             position: fixed;
+             right: -9em;
+             transform: rotate(45deg);
+             padding-top: 12em;
+             background-color: blueviolet;
+             padding-left: 5em;
+             padding-right: 5em;
+             top: -7em;
+             padding-bottom: 1em;
+             z-index: 0;
+         }
+
+         #enlace-blog-outter a{
+             color: white;
+         }
+
+         @media (max-width: 600px) {
+             /* MOVILES AQUI */
+             
+             #parametros{
+                 width: 100%;
+             }
+
+             #enlace-blog-outter{
+                 font-size: 50%;
+             }
+         }
+         </style>
+
+#+end_export 
+
 * Intentos de conexión a mi SSH
 
 Tengo instalado un servidor SSH en una raspberry pi. Lo utilizo de nodo bastión para acceder a los ordenadores de mi casa.
