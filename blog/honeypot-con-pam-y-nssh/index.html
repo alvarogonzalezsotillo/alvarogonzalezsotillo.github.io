@@ -38,23 +38,67 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org0000001">1. Intentos de conexión a mi SSH</a></li>
-<li><a href="#org0000012">2. Conseguir las contraseñas</a>
+<li><a href="#org0000000">1. TL;DR</a></li>
+<li><a href="#org0000004">2. Intentos de conexión a mi SSH</a></li>
+<li><a href="#org0000015">3. Conseguir las contraseñas</a>
 <ul>
-<li><a href="#org0000005">2.1. Módulo PAM</a></li>
-<li><a href="#org0000009">2.2. &#x2026; pero el módulo PAM no funciona</a></li>
-<li><a href="#org000000c">2.3. Módulo NSS</a></li>
-<li><a href="#org000000f">2.4. &#x2026; pero no en mi sistema real</a></li>
+<li><a href="#org0000008">3.1. Módulo PAM</a></li>
+<li><a href="#org000000c">3.2. &#x2026; pero el módulo PAM no funciona</a></li>
+<li><a href="#org000000f">3.3. Módulo NSS</a></li>
+<li><a href="#org0000012">3.4. &#x2026; pero no en mi sistema real</a></li>
 </ul>
 </li>
-<li><a href="#org0000015">3. ¿Me atrevo contra un intruso?</a></li>
+<li><a href="#org0000018">4. ¿Me atrevo contra un intruso?</a></li>
 </ul>
 </div>
 </div>
+<div id="enlace-blog-outter">
+    <a href="https://github.com/alvarogonzalezsotillo/pam-nss-honeypot">¿Cómo funciona?</a>
+</div>
 
-<div id="outline-container-org0000001" class="outline-2">
-<h2 id="org0000001"><span class="section-number-2">1.</span> Intentos de conexión a mi SSH</h2>
+<style>
+ #enlace-blog-outter{
+     position: fixed;
+     right: -9em;
+     transform: rotate(45deg);
+     padding-top: 12em;
+     background-color: blueviolet;
+     padding-left: 5em;
+     padding-right: 5em;
+     top: -7em;
+     padding-bottom: 1em;
+     z-index: 0;
+ }
+
+ #enlace-blog-outter a{
+     color: white;
+ }
+
+ @media (max-width: 600px) {
+     /* MOVILES AQUI */
+
+     #parametros{
+         width: 100%;
+     }
+
+     #enlace-blog-outter{
+         font-size: 50%;
+     }
+ }
+ </style>
+
+
+<div id="outline-container-org0000000" class="outline-2">
+<h2 id="org0000000"><span class="section-number-2">1.</span> TL;DR</h2>
 <div class="outline-text-2" id="text-1">
+<p>
+He implementado un <a href="https://en.wikipedia.org/wiki/Honeypot_(computing)"><i>honeypot</i></a> de SSH dockerizado con un módulo <a href="https://www.redhat.com/sysadmin/pluggable-authentication-modules-pam">PAM</a> y un módulo <a href="https://en.wikipedia.org/wiki/Name_Service_Switch">NSS</a>. El código está en <a href="https://github.com/alvarogonzalezsotillo/pam-nss-honeypot">https://github.com/alvarogonzalezsotillo/pam-nss-honeypot</a>.
+</p>
+</div>
+</div>
+<div id="outline-container-org0000004" class="outline-2">
+<h2 id="org0000004"><span class="section-number-2">2.</span> Intentos de conexión a mi SSH</h2>
+<div class="outline-text-2" id="text-2">
 <p>
 Tengo instalado un servidor SSH en una raspberry pi. Lo utilizo de nodo bastión para acceder a los ordenadores de mi casa.
 </p>
@@ -74,7 +118,7 @@ Ejecutando el <i>script</i> anterior se pueden ver en tiempo real los intentos f
 </p>
 
 
-<pre class="example" id="org0000000">
+<pre class="example" id="org0000003">
 Mar 21 18:05:56 raspberrypi sshd[15727]: Failed password for invalid user root from 61.177.173.31 port 59272 ssh2
 Mar 21 18:07:56 raspberrypi sshd[15766]: Failed password for invalid user root from 179.60.147.143 port 38096 ssh2
 Mar 21 18:16:01 raspberrypi sshd[15926]: Failed password for invalid user sysop from 195.226.194.242 port 35010 ssh2
@@ -100,9 +144,9 @@ Aunque las trazas de <code>syslog</code> ofrecen bastante información, no es po
 </div>
 
 
-<div id="outline-container-org0000012" class="outline-2">
-<h2 id="org0000012"><span class="section-number-2">2.</span> Conseguir las contraseñas</h2>
-<div class="outline-text-2" id="text-2">
+<div id="outline-container-org0000015" class="outline-2">
+<h2 id="org0000015"><span class="section-number-2">3.</span> Conseguir las contraseñas</h2>
+<div class="outline-text-2" id="text-3">
 <p>
 Openssh-server no vuelca las contraseñas incorrectas al <code>log</code> por razones de seguridad (puede ser un usuario legítimo con un simple <i>typo</i>). Para conseguir estas contraseñas había varias opciones
 </p>
@@ -117,9 +161,9 @@ La opción más evidente para un <i>hobby project</i> es desarrollar algo en <co
 </p>
 </div>
 
-<div id="outline-container-org0000005" class="outline-3">
-<h3 id="org0000005"><span class="section-number-3">2.1.</span> Módulo PAM</h3>
-<div class="outline-text-3" id="text-2-1">
+<div id="outline-container-org0000008" class="outline-3">
+<h3 id="org0000008"><span class="section-number-3">3.1.</span> Módulo PAM</h3>
+<div class="outline-text-3" id="text-3-1">
 <p>
 Un <a href="https://www.redhat.com/sysadmin/pluggable-authentication-modules-pam">módulo PAM</a> es una librería de enlace dinámico (.so) con funciones especiales para autentificar un usuario. La función más interesante sería como la siguiente:
 </p>
@@ -146,7 +190,7 @@ Este módulo debe instalarse en el servicio PAM correspondiente. La idea es segu
 <p>
 Esto se consigue añadiendo la siguiente línea al principio del fichero <code>/etc/pam.d/sshd</code>:
 </p>
-<pre class="example" id="org0000004">
+<pre class="example" id="org0000007">
 auth sufficient pam_honeypot.so
 </pre>
 
@@ -156,9 +200,9 @@ La librería <code>pam_honeypot.so</code> debe localizarse en <code>/lib/$MULTIA
 </div>
 </div>
 
-<div id="outline-container-org0000009" class="outline-3">
-<h3 id="org0000009"><span class="section-number-3">2.2.</span> &#x2026; pero el módulo PAM no funciona</h3>
-<div class="outline-text-3" id="text-2-2">
+<div id="outline-container-org000000c" class="outline-3">
+<h3 id="org000000c"><span class="section-number-3">3.2.</span> &#x2026; pero el módulo PAM no funciona</h3>
+<div class="outline-text-3" id="text-3-2">
 <p>
 Si se instala el módulo PAM de la forma descrita, no se consegirán las contraseñas de todos los intentos de login ☹️. Si el usuario existe en el sistema, se conseguirá la contraseña, pero si no existe, la contraseña será algo parecido a <code>INVALID</code>. Además, si se configura sshd para que no permita el usuario <code>root</code>, tampoco se llega a llamar nunca al módulo PAM. Esto dejaría fuera del log de contraseñas a una gran catidad de intentos de login.
 </p>
@@ -174,7 +218,7 @@ La solución es convencer a Linux de que todos los usuarios existen, lo que pasa
 
 
 
-<div id="org0000008" class="figure">
+<div id="org000000b" class="figure">
 <p><img src="/assets/blog/honeypot-con-pam-y-nssh/pam-nss-resumen.png" alt="pam-nss-resumen.png" />
 </p>
 </div>
@@ -182,9 +226,9 @@ La solución es convencer a Linux de que todos los usuarios existen, lo que pasa
 </div>
 
 
-<div id="outline-container-org000000c" class="outline-3">
-<h3 id="org000000c"><span class="section-number-3">2.3.</span> Módulo NSS</h3>
-<div class="outline-text-3" id="text-2-3">
+<div id="outline-container-org000000f" class="outline-3">
+<h3 id="org000000f"><span class="section-number-3">3.3.</span> Módulo NSS</h3>
+<div class="outline-text-3" id="text-3-3">
 <p>
 <a href="https://en.wikipedia.org/wiki/Name_Service_Switch">Name Service Switch</a> es la forma en que Linux configura las bases de datos donde consulta usuarios, grupos de usuarios, nombres de hosts&#x2026; Por ejemplo, la forma tradicional de almacenar usuarios es el fichero <code>/etc/passwd</code>. En vez de basar los usuarios directamente en ese fichero, NSS puede utilizar el proveedor <code>files</code>, que lee ese fichero. Se pueden crear otros proveedores de usuarios, de forma que Linux reconozca los usuarios de, por ejemplo, un servicio LDAP. Todos los proveedores se configuran en el fichero <code>/etc/nsswitch.conf</code>.
 </p>
@@ -236,9 +280,9 @@ Las instrucciones concretas de compilación e instalación se encuentran en <a h
 </div>
 
 
-<div id="outline-container-org000000f" class="outline-3">
-<h3 id="org000000f"><span class="section-number-3">2.4.</span> &#x2026; pero no en mi sistema real</h3>
-<div class="outline-text-3" id="text-2-4">
+<div id="outline-container-org0000012" class="outline-3">
+<h3 id="org0000012"><span class="section-number-3">3.4.</span> &#x2026; pero no en mi sistema real</h3>
+<div class="outline-text-3" id="text-3-4">
 <p>
 Aunque el código no utiliza memoria dinámica, ni punteros, ni arrays, siempre puede haber alguna vulnerabilidad en alguna parte. Estas librerías no deberían usarse en un sistema real. Como medida de precaución, he creado un <a href="https://github.com/alvarogonzalezsotillo/pam-nss-honeypot/blob/master/Dockerfile">Dockerfile</a> para ejecutarlo en un entorno algo más controlado.
 </p>
@@ -256,9 +300,9 @@ Detalles en el <i>script</i> <a href="https://github.com/alvarogonzalezsotillo/p
 
 
 
-<div id="outline-container-org0000015" class="outline-2">
-<h2 id="org0000015"><span class="section-number-2">3.</span> ¿Me atrevo contra un intruso?</h2>
-<div class="outline-text-2" id="text-3">
+<div id="outline-container-org0000018" class="outline-2">
+<h2 id="org0000018"><span class="section-number-2">4.</span> ¿Me atrevo contra un intruso?</h2>
+<div class="outline-text-2" id="text-4">
 <p>
 Este es un <a href="https://www.akamai.com/blog/security/high-interaction-honeypot-versus-low-interaction-honeypot-comparison"><i>honeypot</i> de baja interacción</a>. En un futuro, mi intención es dejar que el atacante entre en el sistema y monitorizar sus acciones. El sistema debería ser lo más real posible, lo que implica que es una actividad arriesgada.
 </p>
@@ -285,7 +329,7 @@ Mi plan es separar la red principal de mi casa de la red a la que accedería el 
     <div>
       <div class="post-meta">
         <span title="post date" class="post-info">2023-06-08</span>
-        <span title="last modification date" class="post-info">2023-06-08</span>
+        <span title="last modification date" class="post-info">2023-06-09</span>
         <span title="tags" class="post-info"><a href="/tags/programación/">programación</a>, <a href="/tags/docker/">docker</a>, <a href="/tags/linux/">linux</a></span>
         <span title="author" class="post-info">Álvaro González Sotillo</span>
       </div>
