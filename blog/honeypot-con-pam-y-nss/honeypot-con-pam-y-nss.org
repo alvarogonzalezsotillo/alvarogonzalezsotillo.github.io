@@ -19,14 +19,14 @@
         <style>
          #enlace-blog-outter{
              position: fixed;
-             right: -9em;
+             left: -9em;
              transform: rotate(45deg);
-             padding-top: 12em;
+             padding-bottom: 12em;
              background-color: blueviolet;
              padding-left: 5em;
              padding-right: 5em;
-             top: -7em;
-             padding-bottom: 1em;
+             bottom: -8em;
+             padding-top: 1em;
              z-index: 0;
          }
 
@@ -52,6 +52,8 @@
 
 * TL;DR
 He implementado un [[https://en.wikipedia.org/wiki/Honeypot_(computing)][/honeypot/]] de SSH dockerizado con un módulo [[https://www.redhat.com/sysadmin/pluggable-authentication-modules-pam][PAM]] y un módulo [[https://en.wikipedia.org/wiki/Name_Service_Switch][NSS]]. El código está en [[https://github.com/alvarogonzalezsotillo/pam-nss-honeypot][https://github.com/alvarogonzalezsotillo/pam-nss-honeypot]].
+
+Las contraseñas capturadas están en [[https://github.com/frikismos/passwords-in-honeypot/commits/master][https://github.com/frikismos/passwords-in-honeypot/commits/master]]
 * Intentos de conexión a mi SSH
 
 Tengo instalado un servidor SSH en una raspberry pi. Lo utilizo de nodo bastión para acceder a los ordenadores de mi casa.
