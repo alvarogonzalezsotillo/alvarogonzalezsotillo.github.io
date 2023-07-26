@@ -34,7 +34,7 @@ Para conseguir que la unidad sea operativa desde el arranque del sistema, es nec
 
 El fichero /[[https://man7.org/linux/man-pages/man5/crypttab.5.html][crypttab]]/ es utilizado para configurar el módulo [[https://en.wikipedia.org/wiki/Dm-crypt][dm-crypt]] (posiblemente con el comando [[https://gitlab.com/cryptsetup/cryptsetup][cryptsetup]]). Cada línea indica:
 1. El nombre del dispositivo que tendrá el disco desencriptado. Aparecerá en =/dev/mapper=
-2. El disco encriptado. Puede utilizarse el nombre del dispositivo (por ejemplo, =/dev/nvme0n1p3/=), o su UUID
+2. El disco encriptado. Puede utilizarse el nombre del dispositivo (por ejemplo, =/dev/nvme0n1p3=), o su UUID
 3. La contraseña para desencriptar el disco. Si se usa =none=, la contraseña se pedirá desde la consola.
 4. Una lista de [[https://man7.org/linux/man-pages/man5/crypttab.5.html#SUPPORTED_OPTIONS][opciones]]   
 
