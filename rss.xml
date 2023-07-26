@@ -4,10 +4,17 @@
     <title>Álvaro González Sotillo</title>
     <link>https://alvarogonzalezsotillo.github.io/</link>
     <description></description>
-    <pubDate>sáb, 08 jul 2023 13:49:47 CEST</pubDate>
-    <lastBuildDate>sáb, 08 jul 2023 13:49:47 CEST</lastBuildDate>
+    <pubDate>mié, 26 jul 2023 13:15:47 CEST</pubDate>
+    <lastBuildDate>mié, 26 jul 2023 13:15:47 CEST</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
+    <item>
+      <title>Encriptación de partición de datos con LUKS</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/encriptar-particion-con-luks</link>
+      <description><![CDATA[Encriptación de partición de datos con LUKS]]></description>
+      <pubDate>2023-07-26</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/encriptar-particion-con-luks</guid>
+    </item>
     <item>
       <title>Honeypot para mi raspberry</title>
       <link>https://alvarogonzalezsotillo.github.io/blog/honeypot-con-pam-y-nssh</link>
@@ -70,13 +77,6 @@
       <description><![CDATA[Presentación FP informática a eso y bachillerato]]></description>
       <pubDate>2022-03-28</pubDate>
       <guid>https://alvarogonzalezsotillo.github.io/blog/presentacion-fp-informatica</guid>
-    </item>
-    <item>
-      <title>Mi propio hosting git</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/mi-propio-hosting-git</link>
-      <description><![CDATA[La nube es el ordenador de otro. Ya que utilizo git para mis archivos en línea, tiene sentido que mi nube sea mi ordenador]]></description>
-      <pubDate>2022-01-23</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/mi-propio-hosting-git</guid>
     </item>
   </channel>
 </rss>
