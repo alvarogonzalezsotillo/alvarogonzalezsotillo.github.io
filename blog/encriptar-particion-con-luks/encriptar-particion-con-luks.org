@@ -1,0 +1,62 @@
+#+TITLE:       Encriptación de partición de datos con LUKS
+#+AUTHOR:      Álvaro González Sotillo
+#+EMAIL:       alvarogonzalezsotillo@gmail.com
+#+DATE:        2023-07-23
+#+URI:         /blog/encriptar-particion-con-luks
+#+TAGS:        KDE,Linux,LUKS
+#+LANGUAGE:    es
+#+OPTIONS:     H:3 num:t toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: Encriptación de partición de datos con LUKS
+
+
+Entre otros servicios, Educamadrid nos ofrece a los profesores un espacio en un servidor [[https://en.wikipedia.org/wiki/OwnCloud][owncloud]] donde almacenar y compartir ficheros con seguridad, incluso con información sensible acerca de nuestros alumnos. Para facilitar su uso, tengo instalada la [[https://owncloud.com/desktop-app/][aplicación cliente]], que sincroniza los ficheros directamente con mi disco sin necesidad de usar la aplicación web.
+
+El problema es que, aunque el servidor cumple con las normas de protección de datos, necesito dar garantías de confidencialidad en mi disco duro. En linux, una opción es usar una partición encriptada mediante [[https://en.wikipedia.org/wiki/Linux_Unified_Key_Setup][LUKS]].
+
+Utilizando [[https://apps.kde.org/partitionmanager/][KDE Partition Manager]] he reducido mi partición de datos para hacer sitio a una nueva partición. Después, he creado la partición nueva con ext4 y LUKS. 
+
+#+caption: Creación de partición con ext4 y LUKS
+[[file:crear-particion-luks.png]]
+
+El resultado final es el siguiente: una partición de datos sin encriptar, una partición encriptada, y una partición de /swap/
+
+#+caption: Disposición final del disco
+[[file:una-particion-luks.png]]
+
+
+Esta partición puede utilizarse sin más desde el explorador de ficheros dolphin. Al hacer doble click sobre la unidad, se pide la contraseña para poder montar la partición como una unidad extraíble.
+
+#+caption: El explorador dolphin monta la unidad encriptada como si fuera extraíble
+[[file:dolphin-pide-password.png]]
+
+* /crypttab/
+Para conseguir que la unidad sea operativa desde el arranque del sistema, es necesario modificar los ficheros =/etc/fstab= y =/etc/crypttab=.
+
+El fichero /[[https://man7.org/linux/man-pages/man5/crypttab.5.html][crypttab]]/ es utilizado para configurar el módulo [[https://en.wikipedia.org/wiki/Dm-crypt][dm-crypt]] (posiblemente con el comando [[https://gitlab.com/cryptsetup/cryptsetup][cryptsetup]]). Cada línea indica:
+1. El nombre del dispositivo que tendrá el disco desencriptado. Aparecerá en =/dev/mapper=
+2. El disco encriptado. Puede utilizarse el nombre del dispositivo (por ejemplo, =/dev/nvme0n1p3/=), o su UUID
+3. La contraseña para desencriptar el disco. Si se usa =none=, la contraseña se pedirá desde la consola.
+4. Una lista de [[https://man7.org/linux/man-pages/man5/crypttab.5.html#SUPPORTED_OPTIONS][opciones]]   
+
+En mi caso, los contenidos de este fichero son:
+
+#+begin_src sh
+dm-luks-drive       UUID=f55416a8-8bf9-4aa6-b2d1-0a298e741196 none
+#+end_src
+
+* /fstab/
+Para tener un punto de montaje fijo en el directorio =/drive-encriptado=, añado el disco ya desencriptado a /fstab/:
+
+#+begin_src sh
+/dev/mapper/dm-luks-drive /drive-encriptado ext4	errors=remount-ro	0	1
+#+end_src
+
+* Resultado final
+Como resultado final, cuando el ordenador vuelve de hibernación o /stand-by/, está protegido por la contraseña de usuario. La contraseña del disco solo se pide al reiniciar el ordenador.
+
+En el caso de pérdida del equipo, los datos permanecerán encriptados aunque se intente extraer directamente del disco.
+
+#+caption: Arranque del sistema pidiendo contraseña LUKS
+[[file:boot.jpg]]
+
+
