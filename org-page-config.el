@@ -7,7 +7,7 @@
 (defvar raiz-de-blog)
 (setq raiz-de-blog (file-name-directory buffer-file-name))
 (defvar branch-de-blog "source")
-(setq branch-de-blog "autofirma")
+(setq branch-de-blog "source")
 
 (defun enable-babel ()
   (interactive)
