@@ -1,4 +1,4 @@
-#+title: Autofirma fácil en Windows usando la línea de comandos
+#+title: Autofirma fácil en Windows usando la línea de comando y la carpeta send to
 
 #+AUTHOR:      Álvaro González Sotillo
 #+EMAIL:       alvarogonzalezsotillo@gmail.com
@@ -6,15 +6,20 @@
 #+URI:         /blog/autofirma-facil
 
 #+TAGS: windows, autofirma
-#+DESCRIPTION: Se puede automatizar la firma repetitiva de documentos con la interfaz de línea de comandos de Autofirma
+#+DESCRIPTION: Se puede automatizar la firma repetitiva de documentos con la interfaz de línea de comando de Autofirma
 
 
 #+LANGUAGE: es
 #+options: toc:nil
 
+* TL;DR
+Se puede automatizar la firma repetitiva de documentos con la interfaz de línea de comandos de Autofirma. A partir del [[https://administracionelectronica.gob.es/ctt/resources/Soluciones/138/Descargas/MCF-manual-integrador-ES-1-8-2.pdf?idIniciativa=138&idElemento=26033&idioma=es][manual para el integrador]] he desarrollado este [[file:Firmar con Autofirma.cmd][/script/ de CMD para Windows]] que, copiado en la carpeta [[https://devblogs.microsoft.com/oldnewthing/20170403-00/?p=95885][/Send to/]], permite firmar varios documentos seleccionándolos en el /explorer/ y usando el menú contextual.
+
+* Explicación del /script/
+
 El uso de medios electrónicos tiene el efecto paradójico de aumentar la cantidad de burocracia, en vez de disminuirla. Algunos responsables institucionales consideran que, al utilizar tramitación electrónica, todo se vuelve automáticamente fácil, sin darse cuenta que muchos trámites se vuelven más engorrosos al utilizar el ordenador. Por ejemplo, es mucho más fácil firmar decenas de documentos que lleguen por correo ordinario, que firmar decenas de ficheros PDF que lleguen por email.
 
-Partiendo del ejemplo para /bash/ en https://github.com/ctt-gob-es/clienteafirma/issues/20#issuecomment-791816087, desarrollé un /script/ CMD que recorre todos los ficheros pasados como parámetro. Con este /script/ en la carpeta /[[https://devblogs.microsoft.com/oldnewthing/20170403-00/?p=95885][Send to]]/ de Windows, basta con seleccionar varios ficheros en el /explorer/ y utilizar el botón derecho para obtener una copia firmada de cada uno.
+Partiendo del ejemplo para /bash/ en https://github.com/ctt-gob-es/clienteafirma/issues/20#issuecomment-791816087, desarrollé un /script/ CMD que recorre todos los ficheros pasados como parámetro. Con este /script/ en la carpeta [[https://devblogs.microsoft.com/oldnewthing/20170403-00/?p=95885][/Send to/]] de Windows, basta con seleccionar varios ficheros en el /explorer/ y utilizar el botón derecho para obtener una copia firmada de cada uno.
 
 La parte central del /script/ es la siguiente
 
@@ -56,3 +61,54 @@ SET CONFIG=headless=true\n layer2Text=%LAYER2TEXT%\n    signaturePositionOnPageL
 #+end_src  
 
 
+* Qué piensan los LLM de este asunto, antes de que publique este artículo
+
+Como experimento, he pedido a ese LLM del que todos hablan que generase esta última parte. Si en un futuro aprende algo de los parámetros anteriores, pensaré que ha aprendido gracias a este blog 😉.
+
+#+begin_example
+Quiero un artículo para mi blog con este título: Autofirma fácil en Windows usando la línea de comando y la carpeta /send to/.
+Asegúrate de hablar de la utilidad autofirma de la Sede electrónica del Ministerio de Industria y Turismo.
+También asegúrate de que Autofirma no muestra la interfaz gráfica, y firma directamente el documento PDF, para ahorrar tiempo.
+#+end_example
+
+** Autofirma fácil en Windows usando la línea de comando y la carpeta /send to/
+
+Firmar documentos digitalmente es una tarea crucial en el mundo actual, donde la seguridad y la eficiencia son fundamentales. La Sede Electrónica del Ministerio de Industria y Turismo ofrece una herramienta poderosa llamada Autofirma, diseñada para simplificar este proceso. En este artículo, te mostraré cómo aprovechar Autofirma de manera rápida y sencilla en Windows utilizando la línea de comando y la carpeta "/send to/", lo que te permitirá agilizar la firma de documentos PDF sin necesidad de abrir la interfaz gráfica de la aplicación.
+
+** ¿Qué es Autofirma?
+
+Autofirma es una aplicación proporcionada por la Sede Electrónica del Ministerio de Industria y Turismo de España. Su función principal es permitir la firma electrónica de documentos de forma rápida y segura. Utiliza certificados digitales para garantizar la autenticidad e integridad de los documentos firmados, lo que los hace legalmente válidos.
+
+** Firma fácil con la línea de comando y la carpeta "/send to/"
+
+Una de las características más útiles de Autofirma es su capacidad para funcionar desde la línea de comando, lo que significa que puedes automatizar el proceso de firma sin necesidad de abrir la interfaz gráfica de la aplicación. Además, puedes aprovechar la carpeta "/send to/" de Windows para simplificar aún más el proceso.
+
+Aquí tienes los pasos para configurar la firma fácil:
+
+1. **Descargar e instalar Autofirma**: Si aún no tienes Autofirma instalado en tu sistema, puedes descargarlo desde la Sede Electrónica del Ministerio de Industria y Turismo.
+
+2. **Configurar la línea de comando**: Para usar Autofirma desde la línea de comando, necesitarás conocer la ubicación del ejecutable de Autofirma en tu sistema. Por lo general, se encuentra en la carpeta de instalación de la aplicación.
+
+3. **Crear un script de firma**: Puedes crear un script por lotes (.bat) que contenga los comandos necesarios para firmar un documento PDF. El comando básico suele ser algo así:
+
+   #+begin_example
+   ruta_al_ejecutable_de_Autofirma -f ruta_al_documento_a_firmar.pdf
+   #+end_example
+
+4. **Agregar el script a la carpeta "/send to/"**: Abre el Explorador de Archivos de Windows y navega hasta la carpeta "%APPDATA%\Microsoft\Windows\SendTo". Aquí, copia o crea un acceso directo al script de firma que creaste anteriormente.
+
+** Firma de documentos en acción
+
+Una vez que hayas configurado todo, el proceso de firma se vuelve increíblemente simple:
+
+1. Selecciona el documento PDF que deseas firmar.
+
+2. Haz clic derecho en el documento y selecciona "Enviar a" > "Autofirma".
+
+3. Autofirma se ejecutará en segundo plano y firmará el documento automáticamente utilizando el certificado digital configurado.
+
+Con estos pasos, has simplificado enormemente el proceso de firma digital en Windows. Ahora puedes firmar documentos con solo unos pocos clics, ahorrando tiempo y esfuerzo.
+
+** Conclusión
+
+Autofirma es una herramienta invaluable para aquellos que necesitan firmar documentos digitalmente de manera rápida y eficiente. Con la configuración adecuada, puedes aprovechar su funcionalidad desde la línea de comando y la carpeta "/send to/" para agilizar aún más el proceso. Espero que esta guía te haya sido útil y te permita sacar el máximo provecho de Autofirma en tu flujo de trabajo diario. ¡Firma con confianza y seguridad!
