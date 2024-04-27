@@ -1,0 +1,58 @@
+#+title: Autofirma fácil en Windows usando la línea de comandos
+
+#+AUTHOR:      Álvaro González Sotillo
+#+EMAIL:       alvarogonzalezsotillo@gmail.com
+#+DATE:        2024-04-27
+#+URI:         /blog/autofirma-facil
+
+#+TAGS: windows, autofirma
+#+DESCRIPTION: Se puede automatizar la firma repetitiva de documentos con la interfaz de línea de comandos de Autofirma
+
+
+#+LANGUAGE: es
+#+options: toc:nil
+
+El uso de medios electrónicos tiene el efecto paradójico de aumentar la cantidad de burocracia, en vez de disminuirla. Algunos responsables institucionales consideran que, al utilizar tramitación electrónica, todo se vuelve automáticamente fácil, sin darse cuenta que muchos trámites se vuelven más engorrosos al utilizar el ordenador. Por ejemplo, es mucho más fácil firmar decenas de documentos que lleguen por correo ordinario, que firmar decenas de ficheros PDF que lleguen por email.
+
+Partiendo del ejemplo para /bash/ en https://github.com/ctt-gob-es/clienteafirma/issues/20#issuecomment-791816087, desarrollé un /script/ CMD que recorre todos los ficheros pasados como parámetro. Con este /script/ en la carpeta /[[https://devblogs.microsoft.com/oldnewthing/20170403-00/?p=95885][Send to]]/ de Windows, basta con seleccionar varios ficheros en el /explorer/ y utilizar el botón derecho para obtener una copia firmada de cada uno.
+
+La parte central del /script/ es la siguiente
+
+#+begin_src bat
+set DNI=12345678
+set ARCHIVO=%~dpF1
+set ARCHIVOSINEXTENSION=%~dpn1
+autofirmacommandline sign -i "%ARCHIVO%" -o "%ARCHIVOSINEXTENSION% - firmado.pdf" -config "%CONFIG%" -filter subject.contains:%DNI%;nonexpired:
+#+end_src
+
+Estas opciones están documentadas en el [[https://administracionelectronica.gob.es/ctt/resources/Soluciones/138/Descargas/MCF-manual-integrador-ES-1-8-2.pdf?idIniciativa=138&idElemento=26033&idioma=es][manual para el integrador]] de Autofirma:
+- =-i=: Fichero a firmar.
+- =-o=: Fichero firmado.
+- =-config=: Cadena con la configuración de la firma, explicada más adelante.
+- =-filter=: Preselección de certificados con los que firmar. Si el filtro solo deja un certificado disponible, Autofirma no mostrará ninguna GUI, y firmará el fichero directamente.
+
+El parámetro =-config= es una cadena con parejas de clave-valor, separadas con la cadena =\n=. Uso las siguientes opciones:
+- =headless=true=: Para asegurar que Autofirma no muestre ninguna GUI.
+- =layer2Text=: Texto visible de la firma. Se pueden utilizar algunos /placeholder/ que Autofirma sustuirá por los valores concretos que dependen del certificado.
+- =signaturePositionOnPageXXXXX=: varios valores para indicar el rectángulo de la página donde se incrustará la firma.
+- =signaturePage=: número de página del documento donde firmar.
+- =signatureRubricImage=: imagen a incluir como firma visible. Debe ser un fichero JPG en base64. En mis pruebas, la firma no aparecía si el fichero demasiado grande, estando el límite en 6KB aproximadamente
+
+Para construir el parámetro =-config= utilizo varias variables intermedias, de forma que sea algo más cómodo:  
+#+begin_src bat
+SET PositionOnPageLowerLeftX=50  
+SET PositionOnPageLowerLeftY=135   
+SET PositionOnPageUpperRightX=250 
+SET PositionOnPageUpperRightY=245 
+SET l2FontColor=black             
+SET l2FontSize=7                  
+SET l2FontFamily=1                
+SET l2FontStyle=0                 
+SET LAYER2TEXT=Firmado por $$GIVENNAME$$ $$SURNAME$$ el $$SIGNDATE=dd/MM/YYYY$$ con un certificado emitido por $$ISSUERCN$$ con número de serie $$CERTSERIAL$$
+SET IMAGEN=/9j/4AAQSkZJRgABAQEAYABgAAD/4gJcSUNDX1BST0Z.........
+SET signaturePage=1
+
+SET CONFIG=headless=true\n layer2Text=%LAYER2TEXT%\n    signaturePositionOnPageLowerLeftX=%PositionOnPageLowerLeftX%\n    signaturePositionOnPageLowerLeftY=%PositionOnPageLowerLeftY%\n    signaturePositionOnPageUpperRightX=%PositionOnPageUpperRightX%\n    signaturePositionOnPageUpperRightY=%PositionOnPageUpperRightY%\n    layer2FontColor=%l2FontColor%\n    layer2FontSize=%l2FontSize%\n    layer2FontFamily=%l2FontFamily%\n    layer2FontStyle=%l2FontStyle%\n       signaturePage=%signaturePage% \n signatureRubricImage=%IMAGEN%
+#+end_src  
+
+
