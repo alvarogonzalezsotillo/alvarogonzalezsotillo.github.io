@@ -6,8 +6,8 @@
 (require 'org-page)
 (defvar raiz-de-blog)
 (setq raiz-de-blog (file-name-directory buffer-file-name))
-(defvar branch-de-blog "nuevo-thinkpad")
-(setq branch-de-blog "source")
+(defvar branch-de-blog "source")
+(setq branch-de-blog "autofirma")
 
 (defun enable-babel ()
   (interactive)
