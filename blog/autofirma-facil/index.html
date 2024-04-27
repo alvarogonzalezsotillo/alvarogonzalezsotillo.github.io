@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Autofirma fácil en Windows usando la línea de comando y la carpeta send to - Álvaro González Sotillo</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Álvaro González Sotillo" />
+    <meta name="description" content="Se puede automatizar la firma repetitiva de documentos con la interfaz de línea de comando de Autofirma" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <!-- <link rel="stylesheet" href="/media/css/prettify.css" type="text/css"> -->
+  </head>
+
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">Álvaro González Sotillo</a></h1>
+        <p></p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/hugo/">Hugo</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">Acerca de mí</a></li>
+          <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="//www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Buscar">
+          <input type="hidden" name="as_sitesearch" value="alvarogonzalezsotillo.github.io">
+        </form>
+        <img class="avatar" src="/media/img/octaedron.png" />
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>Autofirma fácil en Windows usando la línea de comando y la carpeta send to</h1>
+
+<div id="outline-container-org0000000" class="outline-2">
+<h2 id="org0000000"><span class="section-number-2">1.</span> TL;DR</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Se puede automatizar la firma repetitiva de documentos con la interfaz de línea de comandos de Autofirma. A partir del <a href="https://administracionelectronica.gob.es/ctt/resources/Soluciones/138/Descargas/MCF-manual-integrador-ES-1-8-2.pdf?idIniciativa=138&amp;idElemento=26033&amp;idioma=es">manual para el integrador</a> he desarrollado este <a href="/assets/blog/autofirma-facil/Firmar con Autofirma.cmd"><i>script</i> de CMD para Windows</a> que, copiado en la carpeta <a href="https://devblogs.microsoft.com/oldnewthing/20170403-00/?p=95885"><i>Send to</i></a>, permite firmar varios documentos seleccionándolos en el <i>explorer</i> y usando el menú contextual.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0000003" class="outline-2">
+<h2 id="org0000003"><span class="section-number-2">2.</span> Explicación del <i>script</i></h2>
+<div class="outline-text-2" id="text-2">
+<p>
+El uso de medios electrónicos tiene el efecto paradójico de aumentar la cantidad de burocracia, en vez de disminuirla. Algunos responsables institucionales consideran que, al utilizar tramitación electrónica, todo se vuelve automáticamente fácil, sin darse cuenta que muchos trámites se vuelven más engorrosos al utilizar el ordenador. Por ejemplo, es mucho más fácil firmar decenas de documentos que lleguen por correo ordinario, que firmar decenas de ficheros PDF que lleguen por email.
+</p>
+
+<p>
+Partiendo del ejemplo para <i>bash</i> en <a href="https://github.com/ctt-gob-es/clienteafirma/issues/20#issuecomment-791816087">https://github.com/ctt-gob-es/clienteafirma/issues/20#issuecomment-791816087</a>, desarrollé un <i>script</i> CMD que recorre todos los ficheros pasados como parámetro. Con este <i>script</i> en la carpeta <a href="https://devblogs.microsoft.com/oldnewthing/20170403-00/?p=95885"><i>Send to</i></a> de Windows, basta con seleccionar varios ficheros en el <i>explorer</i> y utilizar el botón derecho para obtener una copia firmada de cada uno.
+</p>
+
+<p>
+La parte central del <i>script</i> es la siguiente
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bat">set DNI=12345678
+set ARCHIVO=%~dpF1
+set ARCHIVOSINEXTENSION=%~dpn1
+autofirmacommandline sign -i "%ARCHIVO%" -o "%ARCHIVOSINEXTENSION% - firmado.pdf" -config "%CONFIG%" -filter subject.contains:%DNI%;nonexpired:
+</pre>
+</div>
+
+<p>
+Estas opciones están documentadas en el <a href="https://administracionelectronica.gob.es/ctt/resources/Soluciones/138/Descargas/MCF-manual-integrador-ES-1-8-2.pdf?idIniciativa=138&amp;idElemento=26033&amp;idioma=es">manual para el integrador</a> de Autofirma:
+</p>
+<ul class="org-ul">
+<li><code>-i</code>: Fichero a firmar.</li>
+<li><code>-o</code>: Fichero firmado.</li>
+<li><code>-config</code>: Cadena con la configuración de la firma, explicada más adelante.</li>
+<li><code>-filter</code>: Preselección de certificados con los que firmar. Si el filtro solo deja un certificado disponible, Autofirma no mostrará ninguna GUI, y firmará el fichero directamente.</li>
+</ul>
+
+<p>
+El parámetro <code>-config</code> es una cadena con parejas de clave-valor, separadas con la cadena <code>\n</code>. Uso las siguientes opciones:
+</p>
+<ul class="org-ul">
+<li><code>headless=true</code>: Para asegurar que Autofirma no muestre ninguna GUI.</li>
+<li><code>layer2Text</code>: Texto visible de la firma. Se pueden utilizar algunos <i>placeholder</i> que Autofirma sustuirá por los valores concretos que dependen del certificado.</li>
+<li><code>signaturePositionOnPageXXXXX</code>: varios valores para indicar el rectángulo de la página donde se incrustará la firma.</li>
+<li><code>signaturePage</code>: número de página del documento donde firmar.</li>
+<li><code>signatureRubricImage</code>: imagen a incluir como firma visible. Debe ser un fichero JPG en base64. En mis pruebas, la firma no aparecía si el fichero demasiado grande, estando el límite en 6KB aproximadamente</li>
+</ul>
+
+<p>
+Para construir el parámetro <code>-config</code> utilizo varias variables intermedias, de forma que sea algo más cómodo:  
+</p>
+<div class="org-src-container">
+<pre class="src src-bat">SET PositionOnPageLowerLeftX=50  
+SET PositionOnPageLowerLeftY=135   
+SET PositionOnPageUpperRightX=250 
+SET PositionOnPageUpperRightY=245 
+SET l2FontColor=black             
+SET l2FontSize=7                  
+SET l2FontFamily=1                
+SET l2FontStyle=0                 
+SET LAYER2TEXT=Firmado por $$GIVENNAME$$ $$SURNAME$$ el $$SIGNDATE=dd/MM/YYYY$$ con un certificado emitido por $$ISSUERCN$$ con número de serie $$CERTSERIAL$$
+SET IMAGEN=/9j/4AAQSkZJRgABAQEAYABgAAD/4gJcSUNDX1BST0Z.........
+SET signaturePage=1
+
+SET CONFIG=headless=true\n layer2Text=%LAYER2TEXT%\n    signaturePositionOnPageLowerLeftX=%PositionOnPageLowerLeftX%\n    signaturePositionOnPageLowerLeftY=%PositionOnPageLowerLeftY%\n    signaturePositionOnPageUpperRightX=%PositionOnPageUpperRightX%\n    signaturePositionOnPageUpperRightY=%PositionOnPageUpperRightY%\n    layer2FontColor=%l2FontColor%\n    layer2FontSize=%l2FontSize%\n    layer2FontFamily=%l2FontFamily%\n    layer2FontStyle=%l2FontStyle%\n       signaturePage=%signaturePage% \n signatureRubricImage=%IMAGEN%
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org0000017" class="outline-2">
+<h2 id="org0000017"><span class="section-number-2">3.</span> Qué piensan los LLM de este asunto, antes de que publique este artículo</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Como experimento, he pedido a ese LLM del que todos hablan que generase esta última parte. Si en un futuro aprende algo de los parámetros anteriores, pensaré que ha aprendido gracias a este blog 😉.
+</p>
+
+<pre class="example" id="org0000006">
+Quiero un artículo para mi blog con este título: Autofirma fácil en Windows usando la línea de comando y la carpeta /send to/.
+Asegúrate de hablar de la utilidad autofirma de la Sede electrónica del Ministerio de Industria y Turismo.
+También asegúrate de que Autofirma no muestra la interfaz gráfica, y firma directamente el documento PDF, para ahorrar tiempo.
+</pre>
+</div>
+
+<div id="outline-container-org0000007" class="outline-3">
+<h3 id="org0000007"><span class="section-number-3">3.1.</span> Autofirma fácil en Windows usando la línea de comando y la carpeta <i>send to</i></h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+Firmar documentos digitalmente es una tarea crucial en el mundo actual, donde la seguridad y la eficiencia son fundamentales. La Sede Electrónica del Ministerio de Industria y Turismo ofrece una herramienta poderosa llamada Autofirma, diseñada para simplificar este proceso. En este artículo, te mostraré cómo aprovechar Autofirma de manera rápida y sencilla en Windows utilizando la línea de comando y la carpeta "<i>send to</i>", lo que te permitirá agilizar la firma de documentos PDF sin necesidad de abrir la interfaz gráfica de la aplicación.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org000000a" class="outline-3">
+<h3 id="org000000a"><span class="section-number-3">3.2.</span> ¿Qué es Autofirma?</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+Autofirma es una aplicación proporcionada por la Sede Electrónica del Ministerio de Industria y Turismo de España. Su función principal es permitir la firma electrónica de documentos de forma rápida y segura. Utiliza certificados digitales para garantizar la autenticidad e integridad de los documentos firmados, lo que los hace legalmente válidos.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org000000e" class="outline-3">
+<h3 id="org000000e"><span class="section-number-3">3.3.</span> Firma fácil con la línea de comando y la carpeta "<i>send to</i>"</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+Una de las características más útiles de Autofirma es su capacidad para funcionar desde la línea de comando, lo que significa que puedes automatizar el proceso de firma sin necesidad de abrir la interfaz gráfica de la aplicación. Además, puedes aprovechar la carpeta "<i>send to</i>" de Windows para simplificar aún más el proceso.
+</p>
+
+<p>
+Aquí tienes los pasos para configurar la firma fácil:
+</p>
+
+<ol class="org-ol">
+<li><b><b>Descargar e instalar Autofirma</b></b>: Si aún no tienes Autofirma instalado en tu sistema, puedes descargarlo desde la Sede Electrónica del Ministerio de Industria y Turismo.</li>
+
+<li><b><b>Configurar la línea de comando</b></b>: Para usar Autofirma desde la línea de comando, necesitarás conocer la ubicación del ejecutable de Autofirma en tu sistema. Por lo general, se encuentra en la carpeta de instalación de la aplicación.</li>
+
+<li><p>
+<b><b>Crear un script de firma</b></b>: Puedes crear un script por lotes (.bat) que contenga los comandos necesarios para firmar un documento PDF. El comando básico suele ser algo así:
+</p>
+
+<pre class="example" id="org000000d">
+   ruta_al_ejecutable_de_Autofirma -f ruta_al_documento_a_firmar.pdf
+</pre></li>
+
+<li><b><b>Agregar el script a la carpeta "<i>send to</i>"</b></b>: Abre el Explorador de Archivos de Windows y navega hasta la carpeta "%APPDATA%\Microsoft\Windows\SendTo". Aquí, copia o crea un acceso directo al script de firma que creaste anteriormente.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org0000011" class="outline-3">
+<h3 id="org0000011"><span class="section-number-3">3.4.</span> Firma de documentos en acción</h3>
+<div class="outline-text-3" id="text-3-4">
+<p>
+Una vez que hayas configurado todo, el proceso de firma se vuelve increíblemente simple:
+</p>
+
+<ol class="org-ol">
+<li>Selecciona el documento PDF que deseas firmar.</li>
+
+<li>Haz clic derecho en el documento y selecciona "Enviar a" &gt; "Autofirma".</li>
+
+<li>Autofirma se ejecutará en segundo plano y firmará el documento automáticamente utilizando el certificado digital configurado.</li>
+</ol>
+
+<p>
+Con estos pasos, has simplificado enormemente el proceso de firma digital en Windows. Ahora puedes firmar documentos con solo unos pocos clics, ahorrando tiempo y esfuerzo.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0000014" class="outline-3">
+<h3 id="org0000014"><span class="section-number-3">3.5.</span> Conclusión</h3>
+<div class="outline-text-3" id="text-3-5">
+<p>
+Autofirma es una herramienta invaluable para aquellos que necesitan firmar documentos digitalmente de manera rápida y eficiente. Con la configuración adecuada, puedes aprovechar su funcionalidad desde la línea de comando y la carpeta "<i>send to</i>" para agilizar aún más el proceso. Espero que esta guía te haya sido útil y te permita sacar el máximo provecho de Autofirma en tu flujo de trabajo diario. ¡Firma con confianza y seguridad!
+</p>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2024-04-27</span>
+        <span title="last modification date" class="post-info">2024-04-27</span>
+        <span title="tags" class="post-info"><a href="/tags/windows/">windows</a>, <a href="/tags/autofirma/">autofirma</a></span>
+        <span title="author" class="post-info">Álvaro González Sotillo</span>
+      </div>
+      <section>
+        <!-- <h1>Comments</h1> -->
+      </section>
+      <!-- <script src="//code.jquery.com/jquery-latest.min.js"></script> -->
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->
+      <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>  -->
+      <!--<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>-->
+      <script src="/media/js/jquery-3.2.1.min.js"></script>
+      <script src="/media/js/main.js"></script>
+      <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="/media/js/code-prettify/loader/run_prettify.js"></script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 29.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:alvarogonzalezsotillo <at> gmail <dot> com">Álvaro González Sotillo</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>
