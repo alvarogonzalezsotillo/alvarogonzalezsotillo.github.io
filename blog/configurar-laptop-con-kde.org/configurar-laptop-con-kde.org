@@ -51,7 +51,8 @@ sudo apt install zsh texlive-full inkscape htop tmux git iftop \
                  kmail korganizer obs-studio kdenlive xclip \
                  gromit-mpx openssh-server qgit screenruler gitk \
                  cifs-utils sshfs printer-driver-cups-pdf ripgrep \
-                 unrar shellcheck
+                 unrar shellcheck \
+                 nextcloud-desktop dolphin-nextcloud 
 wget https://github.com/xournalpp/xournalpp/releases/download/1.1.0/xournalpp-1.1.0-Ubuntu-focal-x86_64.deb
 gdebi xournalpp-1.1.0-Ubuntu-focal-x86_64.deb
 git config --global user.email "alvaro@thinkpad"
