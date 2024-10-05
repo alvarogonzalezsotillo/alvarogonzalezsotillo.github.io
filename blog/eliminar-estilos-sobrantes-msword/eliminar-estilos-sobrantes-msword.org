@@ -1,0 +1,45 @@
+#+TITLE:       Eliminar estilos sobrantes en MSWord
+#+AUTHOR:      Álvaro González Sotillo
+#+EMAIL:       alvarogonzalezsotillo@gmail.com
+#+DATE:        2024-09-05
+#+URI:         /blog/eliminar-estilos-sobrantes-msword
+#+KEYWORDS:    MSWord, vba
+#+TAGS:        MSWord, vba
+#+LANGUAGE:    es
+#+OPTIONS:     H:3 num:t toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+# #+options:     toc:2
+#+options:     num:nil
+#+DESCRIPTION: Un documento DOCX creado con Libreoffice puede incluir demasiados estilos, que se pueden eliminar con una macro de VBA
+
+
+En algunas ocasiones recibo un documento DOCX creado con Libreoffice. En general no hay ningún problema, pero a veces el documento tiene demasiados estilos creados automáticamente en la conversión. Esto es un inconveniente puesto que las funcionalidades que se consiguen a través del panel de estilos (como seleccionar todos los párrafos con un estilo, o actualizar un estilo para que coincidan con la selección) se vuelven más difíciles de utilizar ante la enorme lista de estilos que se muestra.
+
+El problema surge cuando MSWord es incapaz de mostrar todas las entradas en su panel de estilos. En ese caso, es necesario borrar todos esos estilos.
+
+Borrar cientos de estilos puede ser realmente tedioso, pero al ser todos generados con nombres similares puede automatizarse la tarea con una macro de VBA
+
+
+#+begin_src javascript
+Sub DeleteListLabelStyles()
+    Dim style As style
+    Dim name As String
+    Dim prefix As String
+    
+    For Each style In ActiveDocument.Styles
+        name = style.NameLocal
+        prefix = Left(name, Len("ListLabel"))
+        If prefix = "ListLabel" Then
+            Debug.Print ("Borrando" & style.NameLocal)
+            style.Delete
+        End If
+    Next style
+End Sub
+#+end_src
+
+* Antes de esta entrada
+Hay [[https://www.techrepublic.com/article/delete-unused-styles-using-vba-word/][soluciones parecidas para borrar todos los estilos sin usar]]. El problema es que los estilos sí que se usan, pero solo una vez en una parte pequeña del documento, como por ejemplo un estilo por ítem de lista.
+
+Los /modelos enormes de lenguaje/ [[https://chatgpt.com/share/67012baf-0ee4-8006-b2ec-75d82b820f8f][opinaban esto]].
+
+
+
