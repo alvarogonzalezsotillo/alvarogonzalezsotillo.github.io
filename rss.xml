@@ -4,10 +4,24 @@
     <title>Álvaro González Sotillo</title>
     <link>https://alvarogonzalezsotillo.github.io/</link>
     <description></description>
-    <pubDate>sáb, 27 abr 2024 18:26:11 CEST</pubDate>
-    <lastBuildDate>sáb, 27 abr 2024 18:26:11 CEST</lastBuildDate>
+    <pubDate>sáb, 05 oct 2024 14:13:12 CEST</pubDate>
+    <lastBuildDate>sáb, 05 oct 2024 14:13:12 CEST</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
+    <item>
+      <title>Eliminar estilos sobrantes en MSWord</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/eliminar-estilos-sobrantes-msword</link>
+      <description><![CDATA[Un documento DOCX creado con Libreoffice puede incluir demasiados estilos, que se pueden eliminar con una macro de VBA]]></description>
+      <pubDate>2024-10-05</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/eliminar-estilos-sobrantes-msword</guid>
+    </item>
+    <item>
+      <title>Configuración de mi nuevo ordenador</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/configurar-laptop-con-kde</link>
+      <description><![CDATA[Lista de los pasos que he seguido para configurar un nuevo ordenador con mis gustos y preferencias.]]></description>
+      <pubDate>2024-05-24</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/configurar-laptop-con-kde</guid>
+    </item>
     <item>
       <title>Autofirma fácil en Windows usando la línea de comando y la carpeta send to</title>
       <link>https://alvarogonzalezsotillo.github.io/blog/autofirma-facil</link>
@@ -28,13 +42,6 @@
       <description><![CDATA[Mi raspberry recibe muchos ataques por SSH. En el post investigo sus características para ver si estoy seguro.]]></description>
       <pubDate>2023-07-08</pubDate>
       <guid>https://alvarogonzalezsotillo.github.io/blog/honeypot-con-pam-y-nssh</guid>
-    </item>
-    <item>
-      <title>Configuración de mi nuevo ordenador</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/configurar-laptop-con-kde</link>
-      <description><![CDATA[Lista de los pasos que he seguido para configurar un nuevo ordenador con mis gustos y preferencias.]]></description>
-      <pubDate>2023-04-13</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/configurar-laptop-con-kde</guid>
     </item>
     <item>
       <title>Insertar contactos en Android</title>
@@ -70,13 +77,6 @@
       <description><![CDATA[El proyecto Raices es la herramienta de gestión integrada de centros educativos de la Comunidad de Madrid. En la versión actual, no permite crear una página imprimible con las fotografías y nombres de todos los alumnos de un grupo.]]></description>
       <pubDate>2022-10-17</pubDate>
       <guid>https://alvarogonzalezsotillo.github.io/blog/listado-en-raices</guid>
-    </item>
-    <item>
-      <title>Contribuciones a paquetes Emacs</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/contribuciones-emacs</link>
-      <description><![CDATA[Mis contribuciones a paquetes Emacs]]></description>
-      <pubDate>2022-06-23</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/contribuciones-emacs</guid>
     </item>
   </channel>
 </rss>
