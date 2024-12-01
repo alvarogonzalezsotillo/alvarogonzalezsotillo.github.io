@@ -60,6 +60,16 @@ git config --global user.name "alvaro@thinkpad"
 git config --global status.showuntrackedfiles=all
   #+end_src  
 
+* Whisper
+No lo uso mucho, pero es interesante para audios que me envían por Whatsapp
+#+begin_src bash
+pip3 install git+https://github.com/openai/whisper.git
+
+# Ejemplo de uso
+whisper WhatsApp\ Ptt\ 2024-11-29\ at\ 13.22.57.ogg --model small --language spanish
+#+end_src
+
+
 
 * emacs
 
