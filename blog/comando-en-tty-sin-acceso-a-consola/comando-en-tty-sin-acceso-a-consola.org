@@ -1,0 +1,166 @@
+#+title: Lanzar comando en TTY sin acceso a la consola
+
+#+AUTHOR:      Álvaro González Sotillo
+#+EMAIL:       alvarogonzalezsotillo@gmail.com
+#+DATE:        2024-04-27
+#+URI:         /blog/comando-en-tty-sin-acceso-a-consola
+
+#+TAGS: raspberrypi linux
+#+DESCRIPTION: Cómo lanzar un comando en una TTY sin acceso a la consola
+
+
+#+LANGUAGE: es
+#+options: toc:nil
+
+
+* El problema
+Tengo una Raspberry Pi con [[file:~/repos/alvarogonzalezsotillo.github.io/blog/licencias-gvlk-de-microsoft-con-vlmcsd/licencias-gvlk-de-microsoft-con-vlmcsd.org][varios]] [[file:~/repos/alvarogonzalezsotillo.github.io/blog/mi-propio-hosting-git/mi-propio-hosting-git.org][servicios]] en casa. Está conectada por HDMI a la televisión, pero accedo a ella mediante SSH, y no tiene un teclado conectado (me sobran más cables HDMI que teclados inalámbricos 🤷).
+
+También tengo un [[file:~/repos/alvarogonzalezsotillo.github.io/blog/honeypot-con-pam-y-nss/][honeypot]] que me sirve como defensa ante ataques de SSH. Para ver las trazas de ese honeypot, me conectaba por SSH desde otro ordenador, pero era preferible cambiar la fuente del televisor al HDMI de la raspberry, y consultarlo directamente.
+
+El problema consistía en que tenía que conectar un teclado a la raspberry, hacer login, y lanzar los =tail -f= correspondientes. Cada vez que se reinicia la raspberry tenía que repetir el proceso.
+
+Necesitaba una forma de lanzar comandos por SSH, pero que se viesen en una TTY. La alternativa de conectarme por VNC no era deseable, puesto que no tengo instalado un entorno gráfico.
+
+* La solución
+La solución acabó siendo una combinación de [[https://github.com/tmux/tmux][=tmux=]] y  [[https://manpages.debian.org/buster/kbd/openvt.1.en.html][=openvt=]]
+1. Utilizo =tmux= para abrir una sesión con los paneles y comandos de monitorización necesarios. Por ejemplo, uso dos paneles que visualizan los ficheros de traza del /honeypot/ con =tail -f=
+2. Desconecto de la sesión de =tmux= y utlizo el comando
+   #+begin_src bash
+   openvt -s -- tmux attach
+   #+end_src   
+3. Este comando localiza la primera =tty= libre, ejecuta allí =tmux attach= y cambia la =tty= mostrada por el HDMI de la raspberry. De esta forma, los comandos de monitorización se ven en el televisor
+
+   
+
+* Y lo escribo porque los LLM no acertaban con este asunto antes de que publicase este artículo
+
+Como experimento, he pedido a ese LLM del que todos hablan que generase esta última parte. No da soluciones que funcionen, al menos para comandos que necesiten controlar la consola al estilo de =ncurses=. Eso sí, a veces menciona =conspy=, que sí que es útil para el problema.
+
+#+begin_example
+Quiero un artículo para mi blog con este título: Lanzar comando en TTY sin acceso a la consola.
+
+quiero que una raspberry conectada por hdmi muestre la ejecución de un comando, pero no tiene un teclado físico.
+#+end_example
+
+** Lanzar Comando en TTY sin Acceso a la Consola en una Raspberry Pi
+
+Imagina que tienes una Raspberry Pi conectada a un monitor a través de HDMI, pero sin un teclado físico conectado. A veces, puede ser útil ejecutar un comando en una terminal TTY para que su salida se muestre directamente en la pantalla, aunque no tengas acceso físico a la consola. Esto es útil, por ejemplo, para monitorear procesos, ejecutar scripts o depurar problemas en sistemas embebidos. En este artículo, veremos cómo lograrlo.
+
+
+
+** ¿Qué es TTY y por qué usarlo?
+
+El término TTY se refiere a las terminales virtuales o "consolas" que los sistemas Linux ofrecen. Normalmente puedes acceder a ellas con combinaciones de teclas como ~Ctrl + Alt + F1~ a ~F7~. Una vez dentro, puedes ejecutar comandos sin necesidad de un entorno gráfico (como un escritorio X o Wayland).
+
+Sin embargo, ¿qué sucede si no tienes acceso directo a un teclado? Necesitamos un método para redirigir comandos desde una sesión remota (como SSH) para que se muestren directamente en una de estas TTY.
+
+
+
+** Preparativos Previos
+
+Antes de empezar, asegúrate de:
+
+1. *Tener acceso a tu Raspberry Pi a través de SSH.* Si no tienes acceso remoto configurado, puedes habilitarlo editando el archivo ~config.txt~ de la tarjeta SD y creando un archivo vacío llamado ~ssh~ en la partición ~boot~.
+
+2. *Conocer el número de la TTY.* En la mayoría de las distribuciones, las TTY disponibles van de ~tty1~ a ~tty6~. Cuando tu Raspberry Pi arranca, generalmente el sistema usa ~tty1~ como terminal predeterminada.
+
+3. *Instalar herramientas necesarias.* Aunque no es obligatorio, instalar ~tmux~ o ~screen~ puede ayudarte a manejar sesiones de comandos más cómodamente.
+
+
+
+** Pasos para Ejecutar un Comando en una TTY sin Consola Física
+
+*** 1. Verifica qué TTY está activa
+Primero, identifica en qué terminal TTY está corriendo la sesión principal. Por defecto, ~tty1~ será el foco principal si tu Raspberry está conectada a un monitor.
+
+Puedes verificar qué consola está activa usando:
+#+begin_src bash
+who
+#+end_src
+Esto te mostrará las sesiones activas y las TTY asociadas.
+
+*** 2. Usa el Comando ~chvt~ para Cambiar de TTY
+El comando ~chvt~ permite cambiar el foco de pantalla a una TTY específica. Si, por ejemplo, quieres asegurarte de que el monitor muestre ~tty1~, puedes usar:
+#+begin_src bash
+sudo chvt 1
+#+end_src
+.
+ al menos para comandos que necesiten controlar la consola al estilo de =ncurses=.*Eso sí, edirige un Comando a una TTY
+El comando ~echo~ o la redirección estándar se pueden usar para enviar salidas a una TTY. Por ejemplo, para escribir "Hola, TTY1" en la terminal ~tty1~:
+#+begin_src bash
+echo "Hola, TTY1" | sudo tee /dev/tty1
+#+end_src
+
+Para ejecutar un comando y redirigir su salida, usa:
+#+begin_src bash
+sudo <comando> > /dev/tty1
+#+end_src.
+ al menos para comandos que necesiten controlar la consola al estilo de =ncurses=.
+Eso sí, mplo, para mostrar el resultado de ~ls~:
+#+begin_src bash
+sudo ls /home/pi > /dev/tty1
+#+end_src
+
+*** 4. Usa ~setsid~ para Comandos Interactivos
+Algunos comandos requieren una sesión activa para ejecutarse. En este caso, puedes usar ~setsid~ para lanzar una sesión independiente:
+#+begin_src bash
+sudo setsid <comando> > /dev/tty1 2>&1 < /dev/null
+#+end_src
+Esto es útil si el comando necesita permanecer activo o interactuar brevemente con la terminal.
+
+.
+ al menos para comandos que necesiten controlar la consola al estilo de =ncurses=.
+Eso sí,  Práctico: Mostrar el Estado del Sistema
+
+Si deseas que el monitor muestre continuamente información sobre el estado del sistema, puedes usar ~htop~ o ~top~. Por ejemplo:
+#+begin_src bash
+sudo setsid htop > /dev/tty1 < /dev/null
+#+end_src
+
+Si prefieres un monitoreo más específico, como mostrar la temperatura de la CPU, puedes hacer algo como:
+#+begin_src bash
+while true; do vcgencmd measure_temp | sudo tee /dev/tty1; sleep 1; done
+#+end_src
+
+
+
+** Automatización con ~rc.local~ o Servicios de Systemd
+
+Si deseas que un comando se ejecute automáticamente al arrancar la Raspberry Pi, puedes agregarlo al archivo ~/etc/rc.local~ antes de la línea ~exit 0~:
+#+begin_src bash
+sudo setsid <comando> > /dev/tty1 2>&1 < /dev/null &
+#+end_src
+
+Alternativamente, puedes crear un servicio de Systemd. Por ejemplo, crea un archivo de servicio:
+#+begin_src bash
+sudo nano /etc/systemd/system/mostrar-comando.service
+#+end_src
+
+Y agrega lo siguiente:
+#+begin_src conf
+[Unit]
+Description=Mostrar comando en TTY1
+After=multi-user.target
+
+[Service]
+ExecStart=/usr/bin/bash -c "sudo setsid <comando> > /dev/tty1 2>&1 < /dev/null"
+StandardInput=tty
+StandardOutput=tty
+TTYPath=/dev/tty1
+
+[Install]
+WantedBy=multi-user.target
+#+end_src
+
+Luego, habilita y activa el servicio:
+#+begin_src bash
+sudo systemctl enable mostrar-comando.service
+sudo systemctl start mostrar-comando.service
+#+end_src
+
+
+
+** Conclusión
+
+Lanzar comandos en una TTY sin acceso físico es completamente posible y puede ser muy práctico en sistemas embebidos como una Raspberry Pi. Con herramientas como ~chvt~, redirecciones a ~/dev/ttyX~, y configuraciones automáticas de servicios, puedes aprovechar al máximo la pantalla conectada a tu dispositivo, incluso sin teclado físico. ¡Pruébalo y descubre nuevas formas de interactuar con tu Raspberry Pi!
