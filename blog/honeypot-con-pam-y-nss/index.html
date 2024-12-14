@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Honeypot para mi raspberry - Álvaro González Sotillo</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Álvaro González Sotillo" />
+    <meta name="description" content="Mi raspberry recibe muchos ataques por SSH. En el post investigo sus características para ver si estoy seguro." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <!-- <link rel="stylesheet" href="/media/css/prettify.css" type="text/css"> -->
+  </head>
+
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">Álvaro González Sotillo</a></h1>
+        <p></p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/hugo/">Hugo</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">Acerca de mí</a></li>
+          <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="//www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Buscar">
+          <input type="hidden" name="as_sitesearch" value="alvarogonzalezsotillo.github.io">
+        </form>
+        <img class="avatar" src="/media/img/octaedron.png" />
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>Honeypot para mi raspberry</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org0000000">1. tl;dr</a></li>
+<li><a href="#org0000004">2. intentos de conexión a mi ssh</a></li>
+<li><a href="#org0000015">3. Conseguir las contraseñas</a>
+<ul>
+<li><a href="#org0000008">3.1. módulo pam</a></li>
+<li><a href="#org000000c">3.2. &#x2026; pero el módulo pam no funciona</a></li>
+<li><a href="#org000000f">3.3. Módulo nss</a></li>
+<li><a href="#org0000012">3.4. &#x2026; pero no en mi sistema real</a></li>
+</ul>
+</li>
+<li><a href="#org0000018">4. ¿Me atrevo contra un intruso?</a></li>
+</ul>
+</div>
+</div>
+<div id="enlace-blog-outter">
+    <a href="https://github.com/alvarogonzalezsotillo/pam-nss-honeypot">¿Cómo funciona?</a>
+</div>
+
+<style>
+ #enlace-blog-outter{
+     position: fixed;
+     left: -9em;
+     transform: rotate(45deg);
+     padding-bottom: 12em;
+     background-color: blueviolet;
+     padding-left: 5em;
+     padding-right: 5em;
+     bottom: -8em;
+     padding-top: 1em;
+     z-index: 0;
+ }
+
+ #enlace-blog-outter a{
+     color: white;
+ }
+
+ @media (max-width: 600px) {
+     /* moviles aqui */
+
+     #parametros{
+         width: 100%;
+     }
+
+     #enlace-blog-outter{
+         font-size: 50%;
+     }
+ }
+ </style>
+
+
+<div id="outline-container-org0000000" class="outline-2">
+<h2 id="org0000000"><span class="section-number-2">1.</span> tl;dr</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+He implementado un <a href="https://en.wikipedia.org/wiki/honeypot_(computing)"><i>honeypot</i></a> de ssh dockerizado con un módulo <a href="https://www.redhat.com/sysadmin/pluggable-authentication-modules-pam">pam</a> y un módulo <a href="https://en.wikipedia.org/wiki/name_service_switch">nss</a>. El código está en <a href="https://github.com/alvarogonzalezsotillo/pam-nss-honeypot">https://github.com/alvarogonzalezsotillo/pam-nss-honeypot</a>.
+</p>
+
+<p>
+Las contraseñas capturadas están en <a href="https://github.com/frikismos/passwords-in-honeypot/commits/master">https://github.com/frikismos/passwords-in-honeypot/commits/master</a>
+</p>
+</div>
+</div>
+<div id="outline-container-org0000004" class="outline-2">
+<h2 id="org0000004"><span class="section-number-2">2.</span> intentos de conexión a mi ssh</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Tengo instalado un servidor ssh en una raspberry pi. Lo utilizo de nodo bastión para acceder a los ordenadores de mi casa.
+</p>
+
+<p>
+Solo por curiosidad, revisé los ficheros de <i>syslog</i> para comprobar cómo se localizaban los accesos, tanto correctos como incorrectos. En mi caso, estos registros están en el fichero <code>/var/log/auth.log</code>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">#!/bin/bash
+tail -f /var/log/auth.log | grep "failed password"
+</pre>
+</div>
+
+<p>
+Ejecutando el <i>script</i> anterior se pueden ver en tiempo real los intentos fallidos. Depende del momento, pero ¡suele haber varios por minuto!  un enjambre de bots están patrullando todo internet buscando servidores ssh, y una vez localizados intentan acceder a ellos.
+</p>
+
+
+<pre class="example" id="org0000003">
+mar 21 18:05:56 raspberrypi sshd[15727]: failed password for invalid user root from 61.177.173.31 port 59272 ssh2
+mar 21 18:07:56 raspberrypi sshd[15766]: failed password for invalid user root from 179.60.147.143 port 38096 ssh2
+mar 21 18:16:01 raspberrypi sshd[15926]: failed password for invalid user sysop from 195.226.194.242 port 35010 ssh2
+mar 21 18:18:11 raspberrypi sshd[16039]: failed password for invalid user centos from 179.60.147.143 port 34830 ssh2
+mar 21 18:28:22 raspberrypi sshd[16190]: failed password for invalid user default from 179.60.147.143 port 36374 ssh2
+mar 21 18:29:49 raspberrypi sshd[16230]: failed password for invalid user admin from 221.165.87.21 port 41166 ssh2
+mar 21 18:29:52 raspberrypi sshd[16230]: failed password for invalid user admin from 221.165.87.21 port 41166 ssh2
+mar 21 18:33:06 raspberrypi sshd[16277]: failed password for invalid user server from 195.226.194.142 port 29648 ssh2
+mar 21 18:38:36 raspberrypi sshd[16339]: failed password for invalid user centos from 179.60.147.143 port 4016 ssh2
+mar 21 18:42:27 raspberrypi sshd[16439]: failed password for invalid user root from 61.177.173.31 port 26981 ssh2
+mar 21 18:42:30 raspberrypi sshd[16439]: failed password for invalid user root from 61.177.173.31 port 26981 ssh2
+mar 21 18:42:33 raspberrypi sshd[16439]: failed password for invalid user root from 61.177.173.31 port 26981 ssh2 
+mar 21 18:42:45 raspberrypi sshd[16457]: failed password for invalid user maria from 31.41.244.124 port 28964 ssh2
+mar 21 18:43:56 raspberrypi sshd[16467]: failed password for invalid user root from 61.177.173.31 port 22820 ssh2 
+mar 21 18:43:59 raspberrypi sshd[16467]: failed password for invalid user root from 61.177.173.31 port 22820 ssh2 
+</pre>
+
+
+<p>
+Aunque las trazas de <code>syslog</code> ofrecen bastante información, no es posible saber qué contraseña ha sido utilizada. Esto me parecía importante, ya que no estaba seguro de si las contraseñas que se utilizan se <i>parecen</i> a las mías. 
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org0000015" class="outline-2">
+<h2 id="org0000015"><span class="section-number-2">3.</span> Conseguir las contraseñas</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+<code>openssh-server</code> no vuelca las contraseñas incorrectas al <code>log</code> por razones de seguridad (puede ser un usuario legítimo con un simple <i>typo</i>). Para conseguir estas contraseñas había varias opciones
+</p>
+<ul class="org-ul">
+<li>Usar un <i>honeypot</i> de ssh: me parecía un problema que los clientes de ssh detectasen que se no se trataba de un servidor ssh real. <a href="https://github.com/desaster/kippo">hay</a> <a href="https://github.com/cowrie/cowrie">multitud</a> <a href="https://github.com/madirish/kojoney2">de</a> <a href="https://github.com/droberson/ssh-honeypot">honeypots</a> <a href="https://github.com/aabed/dockpot">entre</a> <a href="https://github.com/tnich/honssh">los</a> <a href="https://github.com/jaksi/sshesame">que</a> <a href="https://github.com/magisterquis/sshhipot">elegir</a></li>
+<li>Compilar <a href="https://metamorphant.de/blog/posts/2021-04-14-ssh-server-opensshd-logging-passwords/">mi propia versión de <code>openssh-server</code></a>: no quería estar pendiente de las actualizaciones de seguridad, volviendo a compilar el servidor</li>
+<li>Desarrollar mi propio módulo pam y añadírselo al servidor ssh. <a href="https://www.redhat.com/sysadmin/pluggable-authentication-modules-pam">pam (pluggable authentication module)</a> es el sistema utilizado por linux para autenticar a los usuarios. Si el código no era complicado, podía estar razonablemente confiado en no crear problemas de seguridad</li>
+</ul>
+
+<p>
+La opción más evidente para un <i>hobby project</i> es desarrollar algo en <code>c</code>. Aquí hemos venido a jugar 🤡.
+</p>
+</div>
+
+<div id="outline-container-org0000008" class="outline-3">
+<h3 id="org0000008"><span class="section-number-3">3.1.</span> módulo pam</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+Un <a href="https://www.redhat.com/sysadmin/pluggable-authentication-modules-pam">módulo pam</a> es una librería de enlace dinámico (.so) con funciones especiales para autentificar un usuario. La función más interesante sería como la siguiente:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-c++">pam_extern int pam_sm_authenticate( pam_handle_t *pamh, int flags,int argc, const char **argv ) {
+  const char* password = null;
+  pam_get_authtok(pamh, pam_authtok, (const char **)&amp;password, null);
+  // aquí tengo la contraseña en la variable password
+  log_somewhere(password);
+  return pam_perm_denied
+}
+</pre>
+</div>
+
+<p>
+Esta función se llamará con la información de login del usuario, y devolverá <code>pam_perm_denied</code> si dicha información no permite su autentificación.
+</p>
+
+<p>
+Este módulo debe instalarse en el servicio pam correspondiente. La idea es seguir utilizando el resto de la configuración pam, pero que se deba llamar a este módulo en todas las ocasiones. Según la documentación pam, este módulo es <i>suficiente</i>, lo que quiere decir que si no permite el login tampoco lo prohibe, y se consulta al resto de módulos.
+</p>
+
+<p>
+Esto se consigue añadiendo la siguiente línea al principio del fichero <code>/etc/pam.d/sshd</code>:
+</p>
+<pre class="example" id="org0000007">
+auth sufficient pam_honeypot.so
+</pre>
+
+<p>
+La librería <code>pam_honeypot.so</code> debe localizarse en <code>/lib/$multiarch/security</code>. por ejemplo, en un <code>x86_64</code> estará en <code>/lib/x86_64-linux-gnu/security</code>. el valor de <code>multiarch</code> se puede conseguir con el comando <code>gcc -print-multiarch</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org000000c" class="outline-3">
+<h3 id="org000000c"><span class="section-number-3">3.2.</span> &#x2026; pero el módulo pam no funciona</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+Si se instala el módulo pam de la forma descrita, no se consegirán las contraseñas de todos los intentos de login ☹️. Si el usuario existe en el sistema, se conseguirá la contraseña, pero si no existe, la contraseña será algo parecido a <code>invalid</code>. Además, si se configura sshd para que no permita el usuario <code>root</code>, tampoco se llega a llamar nunca al módulo pam. esto dejaría fuera del log de contraseñas a una gran catidad de intentos de login.
+</p>
+
+<p>
+Me costó un poco encontrar <a href="https://www.linuxquestions.org/questions/programming-9/can%27t-get-auth-token-for-non-local-users-with-pam-module-945164/">la respuesta</a>, pero cuando el sistema detecta que el usuario no existe, oculta la contraseña al módulo pam (imagino que para no propagar contraseñas de usuarios legítimos que se confunden de servidor). Este diagrama explica la relación entre ssh, nss y pam
+</p>
+
+<p>
+La solución es convencer a linux de que todos los usuarios existen, lo que pasa por desarrollar un módulo nss.
+</p>
+
+
+
+
+<div id="org000000b" class="figure">
+<p><img src="/assets/blog/honeypot-con-pam-y-nss/pam-nss-resumen.png" alt="pam-nss-resumen.png" />
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org000000f" class="outline-3">
+<h3 id="org000000f"><span class="section-number-3">3.3.</span> Módulo nss</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+<a href="https://en.wikipedia.org/wiki/name_service_switch">Name service switch</a> es la forma en que linux configura las bases de datos donde consulta usuarios, grupos de usuarios, nombres de hosts&#x2026; por ejemplo, la forma tradicional de almacenar usuarios es el fichero <code>/etc/passwd</code>. en vez de basar los usuarios directamente en ese fichero, nss puede utilizar el proveedor <code>files</code>, que lee ese fichero. se pueden crear otros proveedores de usuarios, de forma que linux reconozca los usuarios de, por ejemplo, un servicio ldap. todos los proveedores se configuran en el fichero <code>/etc/nsswitch.conf</code>.
+</p>
+
+<p>
+Un módulo de nss es una librería de enlace dinámico con funciones especiales. En el ejemplo siguiente, cualquier usuario se considera existente, y se le asignan unos valores ficticios a su contraseña, directorio inicial, <i>shell</i>, <i>uid</i> y <i>gid</i>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-c">const char* pw_passwd=;
+const char* pw_gecos=;
+const char* pw_dir="";
+const char* pw_shell="/bin/bash";
+
+enum nss_status _nss_honeypot_getpwnam_r(const char *name, struct passwd *result,
+                                         char *buffer, size_t buflen, int *errnop)
+{
+  result-&gt;pw_name =   name;
+  result-&gt;pw_passwd = "contraseña, posiblemente hasheada";
+  result-&gt;pw_gecos =  "nombre real del usuario";
+  result-&gt;pw_dir =    "/tmp";
+  result-&gt;pw_shell =  "/bin/bash";
+
+  result-&gt;pw_uid = 1000;
+  result-&gt;pw_gid = 1000;
+
+  return nss_status_success;
+} 
+</pre>
+</div>
+
+<p>
+Una vez compilada la librería e instalada en <code>/lib/$multiarch</code> debe añadirse al fichero <code>/etc/nsswitch.conf/</code>, de forma que se utilice la base de datos <code>honeypot</code> si no se encuentra el usuario en las bases de datos habituales del sistema:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-conf">....
+passwd:         files honeypot
+group:          files
+shadow:         files
+....
+</pre>
+</div>
+
+<p>
+Las instrucciones concretas de compilación e instalación se encuentran en <a href="https://github.com/alvarogonzalezsotillo/pam-nss-honeypot/blob/master/pam-nss-modules/build-install-nss-pam.sh">build-install-nss-pam.sh</a> .
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org0000012" class="outline-3">
+<h3 id="org0000012"><span class="section-number-3">3.4.</span> &#x2026; pero no en mi sistema real</h3>
+<div class="outline-text-3" id="text-3-4">
+<p>
+Aunque el código no utiliza memoria dinámica, ni punteros, ni arrays, siempre puede haber alguna vulnerabilidad en alguna parte. Estas librerías no deberían usarse en un sistema real. Como medida de precaución, he creado un <a href="https://github.com/alvarogonzalezsotillo/pam-nss-honeypot/blob/master/Dockerfile">Dockerfile</a> para ejecutarlo en un entorno algo más controlado.
+</p>
+
+<p>
+En una imagen basada en Debian, instalo las dependencias, compilo e instalo los módulos PAM y NSS, y creo el usuario con UID 1000. Este usuario se corresponde con el UID que el módulo NSS utilizará para todos los posibles nombres de usuario, y que acabará siendo el UID del usuario de la máquina host de docker.
+</p>
+
+<p>
+Detalles en el <i>script</i> <a href="https://github.com/alvarogonzalezsotillo/pam-nss-honeypot/blob/master/build-docker.sh">build-docker.sh</a> y en el <a href="https://github.com/alvarogonzalezsotillo/pam-nss-honeypot/blob/master/Dockerfile">Dockerfile</a>.
+</p>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-org0000018" class="outline-2">
+<h2 id="org0000018"><span class="section-number-2">4.</span> ¿Me atrevo contra un intruso?</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+Este es un <a href="https://www.akamai.com/blog/security/high-interaction-honeypot-versus-low-interaction-honeypot-comparison"><i>honeypot</i> de baja interacción</a>. En un futuro, mi intención es dejar que el atacante entre en el sistema y monitorizar sus acciones. El sistema debería ser lo más real posible, lo que implica que es una actividad arriesgada.
+</p>
+
+<p>
+Mi plan es separar la red principal de mi casa de la red a la que accedería el intruso, quizás mediante un NAT y otras reglas de <i>firewall</i>.
+</p>
+<ol class="org-ol">
+<li>El usuario reconocido por NSSWITCH será siempre el mismo, asociado al UID 10000
+<ul class="org-ul">
+<li>El UID 10000 se creará en el ordenador host de docker, con el mismo nombre</li>
+</ul></li>
+<li>Tras dejar entrar a un atacante, el módulo PAM dejará de autentificar usuarios
+<ul class="org-ul">
+<li>Con solo un atacante a la vez se podrá entender mejor qué es lo que hace</li>
+</ul></li>
+<li>La <i>shell</i> podría ser <a href="https://github.com/Scribery/tlog">tlog</a>.</li>
+</ol>
+</div>
+</div>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2023-06-08</span>
+        <span title="last modification date" class="post-info">2024-12-14</span>
+        <span title="tags" class="post-info"><a href="/tags/programación/">programación</a>, <a href="/tags/docker/">docker</a>, <a href="/tags/linux/">linux</a></span>
+        <span title="author" class="post-info">Álvaro González Sotillo</span>
+      </div>
+      <section>
+        <!-- <h1>Comments</h1> -->
+      </section>
+      <!-- <script src="//code.jquery.com/jquery-latest.min.js"></script> -->
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->
+      <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>  -->
+      <!--<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>-->
+      <script src="/media/js/jquery-3.2.1.min.js"></script>
+      <script src="/media/js/main.js"></script>
+      <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="/media/js/code-prettify/loader/run_prettify.js"></script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 29.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:alvarogonzalezsotillo <at> gmail <dot> com">Álvaro González Sotillo</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>

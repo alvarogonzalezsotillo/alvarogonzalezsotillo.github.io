@@ -116,10 +116,27 @@ git config --global status.showuntrackedfiles=all
 </div>
 </div>
 
-
 <div id="outline-container-org0000009" class="outline-2">
-<h2 id="org0000009">emacs</h2>
+<h2 id="org0000009">Whisper</h2>
 <div class="outline-text-2" id="text-org0000009">
+<p>
+No lo uso mucho, pero es interesante para audios que me envían por Whatsapp
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">pip3 install git+https://github.com/openai/whisper.git
+
+# Ejemplo de uso
+whisper WhatsApp\ Ptt\ 2024-11-29\ at\ 13.22.57.ogg --model small --language spanish
+</pre>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-org000000c" class="outline-2">
+<h2 id="org000000c">emacs</h2>
+<div class="outline-text-2" id="text-org000000c">
 <p>
 La versión de <code>emacs</code> incluida en <code>ubuntu</code> no está demasiado actualizada. La compilación de <code>lisp</code> a código nativo mejora bastante el (mediocre) rendimiento de <code>emacs</code>.
 </p>
@@ -164,9 +181,9 @@ git clone https://github.com/alvarogonzalezsotillo/.emacs.d.git
 </div>
 
 
-<div id="outline-container-org000000c" class="outline-2">
-<h2 id="org000000c">educamadrid y PIM</h2>
-<div class="outline-text-2" id="text-org000000c">
+<div id="outline-container-org000000f" class="outline-2">
+<h2 id="org000000f">educamadrid y PIM</h2>
+<div class="outline-text-2" id="text-org000000f">
 <p>
 Como profesor de secundaria, utilizo a diario los servicios de <code>educamadrid</code>.
 </p>
@@ -194,9 +211,9 @@ Los contactos y calendario están sincronizados con <code>Google</code> y <code>
 </div>
 </div>
 
-<div id="outline-container-org0000010" class="outline-2">
-<h2 id="org0000010">Autofirma</h2>
-<div class="outline-text-2" id="text-org0000010">
+<div id="outline-container-org0000013" class="outline-2">
+<h2 id="org0000013">Autofirma</h2>
+<div class="outline-text-2" id="text-org0000013">
 <p>
 Utilizo autofirma para firmar PDFs. No consigo que encuentre mis certificados, así que cada vez tengo que encontrar el fichero de claves. 
 </p>
@@ -212,7 +229,7 @@ Utilizo autofirma para firmar PDFs. No consigo que encuentre mis certificados, a
 He cambiado la plantilla de la firma visible, porque aunque la firma es igual de válida a veces se me quejan de que no tiene tantos <i>numeritos</i> como la que pone el Acrobat. Para saber qué variables se pueden utilizar, hay que recurrir al <a href="https://github.com/ctt-gob-es/clienteafirma/blob/master/afirma-crypto-pdf/src/main/java/es/gob/afirma/signers/pades/PdfExtraParams.java">código fuente de autofirma</a>.
 </p>
 
-<pre class="example" id="org000000f">
+<pre class="example" id="org0000012">
 Firmado por $$SUBJECTCN$$ el día $$SIGNDATE=dd/MM/yyyy$$ con un certificado emitido por $$ISSUERCN$$ con número de serie $$CERTSERIAL$$
 </pre>
 </div>
@@ -220,9 +237,9 @@ Firmado por $$SUBJECTCN$$ el día $$SIGNDATE=dd/MM/yyyy$$ con un certificado emi
 
 
 
-<div id="outline-container-org0000013" class="outline-2">
-<h2 id="org0000013">Ficheros personales</h2>
-<div class="outline-text-2" id="text-org0000013">
+<div id="outline-container-org0000016" class="outline-2">
+<h2 id="org0000016">Ficheros personales</h2>
+<div class="outline-text-2" id="text-org0000016">
 <p>
 Dispongo de varias cuentas de <code>office365</code> que me dan la posibilidad de usar 1TB de disco en la nube. Lamentablemente, la sincronización en <code>linux</code> no está demasiado bien resuelta. Tanto <code>rclone</code> como <code>onedrive</code> son demasiado lentos, y tienen múltiples problemas de <i>throthling</i>.
 </p>
@@ -233,9 +250,9 @@ He acabado contratando un hosting de ficheros. <a href="https://www.strato.es/al
 </div>
 </div>
 
-<div id="outline-container-org0000016" class="outline-2">
-<h2 id="org0000016">Hibernar</h2>
-<div class="outline-text-2" id="text-org0000016">
+<div id="outline-container-org0000019" class="outline-2">
+<h2 id="org0000019">Hibernar</h2>
+<div class="outline-text-2" id="text-org0000019">
 <p>
 Es una realidad incómoda que la hibernación en <code>linux</code> no está nada resuelta. Por suerte, tanto en mi antiguo ordenador como en el nuevo funciona bastante bien <code>uswsusp</code>.
 </p>
@@ -261,9 +278,9 @@ alvaro ALL=(ALL) NOPASSWD: /usr/sbin/s2disk
 </div>
 </div>
 
-<div id="outline-container-org0000019" class="outline-2">
-<h2 id="org0000019">Integración con redes windows</h2>
-<div class="outline-text-2" id="text-org0000019">
+<div id="outline-container-org000001c" class="outline-2">
+<h2 id="org000001c">Integración con redes windows</h2>
+<div class="outline-text-2" id="text-org000001c">
 <p>
 Para poder resolver nombres de Windows, además de instalar <code>winbind</code>, hay que añadir winbind a <code>nsswitch.conf</code>
 </p>
@@ -279,9 +296,9 @@ Para poder resolver nombres de Windows, además de instalar <code>winbind</code>
 </div>
 </div>
 
-<div id="outline-container-org000001d" class="outline-2">
-<h2 id="org000001d"><i>Gestures</i> e <i>input remap</i></h2>
-<div class="outline-text-2" id="text-org000001d">
+<div id="outline-container-org0000020" class="outline-2">
+<h2 id="org0000020"><i>Gestures</i> e <i>input remap</i></h2>
+<div class="outline-text-2" id="text-org0000020">
 <p>
 Envidio la facilidad para cambiar de <i>workspace</i> con un simple gesto que tienen los Mac. Se puede conseguir algo muy parecido con <a href="https://github.com/bulletmark/libinput-gestures"><code>libinput-gestures</code></a>
 </p>
@@ -299,7 +316,7 @@ sudo make install
 He cambiado los <i>gestures</i> por defecto para que los <i>workspaces</i> se cambien horizontalmente, y el pellizco se integre con KDE.
 </p>
 
-<pre class="example" id="org000001c">
+<pre class="example" id="org000001f">
 gesture pinch in	xdotool key ctrl+F9
 gesture pinch out	xdotool key ctrl+F9
 gesture swipe right	_internal ws_up
@@ -312,9 +329,9 @@ El teclado del ordenador viene sin la tecla de menú contextual. He remapeado la
 </div>
 </div>
 
-<div id="outline-container-org0000020" class="outline-2">
-<h2 id="org0000020">SQLDeveloper y packettracer</h2>
-<div class="outline-text-2" id="text-org0000020">
+<div id="outline-container-org0000023" class="outline-2">
+<h2 id="org0000023">SQLDeveloper y packettracer</h2>
+<div class="outline-text-2" id="text-org0000023">
 <p>
 Son herramientas que utilizo en clase de redes y bases de datos. Basta con descargar, Descomprimir y gdebi. Para SQLDeveloper se necesita openjdk-11-jdk
 </p>
@@ -330,9 +347,9 @@ gdebi CiscoPacketTracer_801_Ubuntu_64bit.deb
 </div>
 </div>
 
-<div id="outline-container-org0000023" class="outline-2">
-<h2 id="org0000023">Office 2010</h2>
-<div class="outline-text-2" id="text-org0000023">
+<div id="outline-container-org0000026" class="outline-2">
+<h2 id="org0000026">Office 2010</h2>
+<div class="outline-text-2" id="text-org0000026">
 <p>
 Tengo un <i>prefix</i> de Wine con Office 2010 instalado, que llevo arrastrando ya varios años, y que suele funcionar sin más que descomprimirlo.
 Es necesario instalar previamente winbind.
@@ -350,9 +367,9 @@ sudo apt install --install-recommends winehq-stable
 </div>
 
 
-<div id="outline-container-org0000026" class="outline-2">
-<h2 id="org0000026">Mensajería</h2>
-<div class="outline-text-2" id="text-org0000026">
+<div id="outline-container-org0000029" class="outline-2">
+<h2 id="org0000029">Mensajería</h2>
+<div class="outline-text-2" id="text-org0000029">
 <p>
 He instalado los clientes de <code>telegram</code> y <code>teams</code>
 </p>
@@ -364,13 +381,13 @@ He instalado los clientes de <code>telegram</code> y <code>teams</code>
 </div>
 </div>
 
-<div id="outline-container-org000002f" class="outline-2">
-<h2 id="org000002f">Lenguajes de programación</h2>
-<div class="outline-text-2" id="text-org000002f">
+<div id="outline-container-org0000032" class="outline-2">
+<h2 id="org0000032">Lenguajes de programación</h2>
+<div class="outline-text-2" id="text-org0000032">
 </div>
-<div id="outline-container-org0000029" class="outline-3">
-<h3 id="org0000029"><code>rust</code></h3>
-<div class="outline-text-3" id="text-org0000029">
+<div id="outline-container-org000002c" class="outline-3">
+<h3 id="org000002c"><code>rust</code></h3>
+<div class="outline-text-3" id="text-org000002c">
 <p>
 Instalado mediante <code>rustup</code>
 </p>
@@ -381,9 +398,9 @@ Instalado mediante <code>rustup</code>
 </div>
 </div>
 
-<div id="outline-container-org000002c" class="outline-3">
-<h3 id="org000002c"><code>scala</code></h3>
-<div class="outline-text-3" id="text-org000002c">
+<div id="outline-container-org000002f" class="outline-3">
+<h3 id="org000002f"><code>scala</code></h3>
+<div class="outline-text-3" id="text-org000002f">
 <p>
 Por alguna razón, me funciona ammonite pero scala con <code>sudo apt install --install-recommends scala</code> no 🤷‍♂️
 </p>
@@ -396,9 +413,9 @@ Por alguna razón, me funciona ammonite pero scala con <code>sudo apt install --
 </div>
 </div>
 
-<div id="outline-container-org0000032" class="outline-2">
-<h2 id="org0000032">Impresora</h2>
-<div class="outline-text-2" id="text-org0000032">
+<div id="outline-container-org0000035" class="outline-2">
+<h2 id="org0000035">Impresora</h2>
+<div class="outline-text-2" id="text-org0000035">
 <p>
 Imprimir en mi Brother DCP 1610w, tanto por USB como WiFi, no ha tenido problemas.
 </p>
@@ -426,7 +443,7 @@ El escáner solo funciona como administrador. Para tenerlo accesible por red:
     <div>
       <div class="post-meta">
         <span title="post date" class="post-info">2021-10-18</span>
-        <span title="last modification date" class="post-info">2024-05-24</span>
+        <span title="last modification date" class="post-info">2024-12-01</span>
         <span title="tags" class="post-info"><a href="/tags/kde/">kde</a>, <a href="/tags/emacs/">emacs</a>, <a href="/tags/linux/">linux</a></span>
         <span title="author" class="post-info">Álvaro González Sotillo</span>
       </div>

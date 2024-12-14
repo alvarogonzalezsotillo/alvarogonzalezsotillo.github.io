@@ -4,23 +4,37 @@
     <title>Álvaro González Sotillo</title>
     <link>https://alvarogonzalezsotillo.github.io/</link>
     <description></description>
-    <pubDate>sáb, 05 oct 2024 14:13:12 CEST</pubDate>
-    <lastBuildDate>sáb, 05 oct 2024 14:13:12 CEST</lastBuildDate>
+    <pubDate>sáb, 14 dic 2024 14:27:35 CET</pubDate>
+    <lastBuildDate>sáb, 14 dic 2024 14:27:35 CET</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
+    <item>
+      <title>Lanzar comando en TTY sin acceso a la consola</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/comando-en-tty-sin-acceso-a-consola</link>
+      <description><![CDATA[Cómo lanzar un comando en una TTY sin acceso a la consola]]></description>
+      <pubDate>2024-12-14</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/comando-en-tty-sin-acceso-a-consola</guid>
+    </item>
+    <item>
+      <title>Honeypot para mi raspberry</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/honeypot-con-pam-y-nss</link>
+      <description><![CDATA[Mi raspberry recibe muchos ataques por SSH. En el post investigo sus características para ver si estoy seguro.]]></description>
+      <pubDate>2024-12-14</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/honeypot-con-pam-y-nss</guid>
+    </item>
+    <item>
+      <title>Configuración de mi nuevo ordenador</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/configurar-laptop-con-kde</link>
+      <description><![CDATA[Lista de los pasos que he seguido para configurar un nuevo ordenador con mis gustos y preferencias.]]></description>
+      <pubDate>2024-12-01</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/configurar-laptop-con-kde</guid>
+    </item>
     <item>
       <title>Eliminar estilos sobrantes en MSWord</title>
       <link>https://alvarogonzalezsotillo.github.io/blog/eliminar-estilos-sobrantes-msword</link>
       <description><![CDATA[Un documento DOCX creado con Libreoffice puede incluir demasiados estilos, que se pueden eliminar con una macro de VBA]]></description>
       <pubDate>2024-10-05</pubDate>
       <guid>https://alvarogonzalezsotillo.github.io/blog/eliminar-estilos-sobrantes-msword</guid>
-    </item>
-    <item>
-      <title>Configuración de mi nuevo ordenador</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/configurar-laptop-con-kde</link>
-      <description><![CDATA[Lista de los pasos que he seguido para configurar un nuevo ordenador con mis gustos y preferencias.]]></description>
-      <pubDate>2024-05-24</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/configurar-laptop-con-kde</guid>
     </item>
     <item>
       <title>Autofirma fácil en Windows usando la línea de comando y la carpeta send to</title>
@@ -35,13 +49,6 @@
       <description><![CDATA[Encriptación de partición de datos con LUKS]]></description>
       <pubDate>2023-07-26</pubDate>
       <guid>https://alvarogonzalezsotillo.github.io/blog/encriptar-particion-con-luks</guid>
-    </item>
-    <item>
-      <title>Honeypot para mi raspberry</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/honeypot-con-pam-y-nssh</link>
-      <description><![CDATA[Mi raspberry recibe muchos ataques por SSH. En el post investigo sus características para ver si estoy seguro.]]></description>
-      <pubDate>2023-07-08</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/honeypot-con-pam-y-nssh</guid>
     </item>
     <item>
       <title>Insertar contactos en Android</title>
@@ -70,13 +77,6 @@
       <description><![CDATA[Silabeador y rimador automatizado]]></description>
       <pubDate>2022-11-02</pubDate>
       <guid>https://alvarogonzalezsotillo.github.io/blog/rimas</guid>
-    </item>
-    <item>
-      <title>Listado de fotos de Raíces</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/listado-en-raices</link>
-      <description><![CDATA[El proyecto Raices es la herramienta de gestión integrada de centros educativos de la Comunidad de Madrid. En la versión actual, no permite crear una página imprimible con las fotografías y nombres de todos los alumnos de un grupo.]]></description>
-      <pubDate>2022-10-17</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/listado-en-raices</guid>
     </item>
   </channel>
 </rss>

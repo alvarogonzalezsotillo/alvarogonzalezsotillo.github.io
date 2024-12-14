@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Lanzar comando en TTY sin acceso a la consola - Álvaro González Sotillo</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Álvaro González Sotillo" />
+    <meta name="description" content="Cómo lanzar un comando en una TTY sin acceso a la consola" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <!-- <link rel="stylesheet" href="/media/css/prettify.css" type="text/css"> -->
+  </head>
+
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">Álvaro González Sotillo</a></h1>
+        <p></p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/hugo/">Hugo</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">Acerca de mí</a></li>
+          <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="//www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Buscar">
+          <input type="hidden" name="as_sitesearch" value="alvarogonzalezsotillo.github.io">
+        </form>
+        <img class="avatar" src="/media/img/octaedron.png" />
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>Lanzar comando en TTY sin acceso a la consola</h1>
+
+
+<div id="outline-container-org0000000" class="outline-2">
+<h2 id="org0000000"><span class="section-number-2">1.</span> El problema</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Tengo una Raspberry Pi con <a href="../../../blog/licencias-gvlk-de-microsoft-con-vlmcsd">varios</a> <a href="../../../blog/mi-propio-hosting-git">servicios</a> en casa. Está conectada por HDMI a la televisión, pero accedo a ella mediante SSH, y no tiene un teclado conectado (me sobran más cables HDMI que teclados inalámbricos 🤷).
+</p>
+
+<p>
+También tengo un <a href="../../../blog/honeypot-con-pam-y-nss">honeypot</a> que me sirve como defensa ante ataques de SSH. Para ver las trazas de ese honeypot, me conectaba por SSH desde otro ordenador, pero era preferible cambiar la fuente del televisor al HDMI de la raspberry, y consultarlo directamente.
+</p>
+
+<p>
+El problema consistía en que tenía que conectar un teclado a la raspberry, hacer login, y lanzar los <code>tail -f</code> correspondientes. Cada vez que se reinicia la raspberry tenía que repetir el proceso.
+</p>
+
+<p>
+Necesitaba una forma de lanzar comandos por SSH, pero que se viesen en una TTY. La alternativa de conectarme por VNC no era deseable, puesto que no tengo instalado un entorno gráfico.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0000003" class="outline-2">
+<h2 id="org0000003"><span class="section-number-2">2.</span> La solución</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+La solución acabó siendo una combinación de <a href="https://github.com/tmux/tmux"><code>tmux</code></a> y  <a href="https://manpages.debian.org/buster/kbd/openvt.1.en.html"><code>openvt</code></a>
+</p>
+<ol class="org-ol">
+<li>Utilizo <code>tmux</code> para abrir una sesión con los paneles y comandos de monitorización necesarios. Por ejemplo, uso dos paneles que visualizan los ficheros de traza del <i>honeypot</i> con <code>tail -f</code></li>
+<li><p>
+Desconecto de la sesión de <code>tmux</code> y utlizo el comando
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">   openvt -s -- tmux attach
+</pre>
+</div></li>
+<li>Este comando localiza la primera <code>tty</code> libre, ejecuta allí <code>tmux attach</code> y cambia la <code>tty</code> mostrada por el HDMI de la raspberry. De esta forma, los comandos de monitorización se ven en el televisor</li>
+</ol>
+</div>
+</div>
+
+
+
+<div id="outline-container-org0000022" class="outline-2">
+<h2 id="org0000022"><span class="section-number-2">3.</span> Y lo escribo porque los LLM no acertaban con este asunto antes de que publicase este artículo</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Como experimento, he pedido a ese LLM del que todos hablan que generase esta última parte. No da soluciones que funcionen, al menos para comandos que necesiten controlar la consola al estilo de <code>ncurses</code>. Eso sí, a veces menciona <code>conspy</code>, que sí que es útil para el problema.
+</p>
+
+<pre class="example" id="org0000006">
+Quiero un artículo para mi blog con este título: Lanzar comando en TTY sin acceso a la consola.
+
+quiero que una raspberry conectada por hdmi muestre la ejecución de un comando, pero no tiene un teclado físico.
+</pre>
+</div>
+
+<div id="outline-container-org0000007" class="outline-3">
+<h3 id="org0000007"><span class="section-number-3">3.1.</span> Lanzar Comando en TTY sin Acceso a la Consola en una Raspberry Pi</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+Imagina que tienes una Raspberry Pi conectada a un monitor a través de HDMI, pero sin un teclado físico conectado. A veces, puede ser útil ejecutar un comando en una terminal TTY para que su salida se muestre directamente en la pantalla, aunque no tengas acceso físico a la consola. Esto es útil, por ejemplo, para monitorear procesos, ejecutar scripts o depurar problemas en sistemas embebidos. En este artículo, veremos cómo lograrlo.
+</p>
+</div>
+</div>
+
+
+
+<div id="outline-container-org000000a" class="outline-3">
+<h3 id="org000000a"><span class="section-number-3">3.2.</span> ¿Qué es TTY y por qué usarlo?</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+El término TTY se refiere a las terminales virtuales o "consolas" que los sistemas Linux ofrecen. Normalmente puedes acceder a ellas con combinaciones de teclas como <code>Ctrl + Alt + F1</code> a <code>F7</code>. Una vez dentro, puedes ejecutar comandos sin necesidad de un entorno gráfico (como un escritorio X o Wayland).
+</p>
+
+<p>
+Sin embargo, ¿qué sucede si no tienes acceso directo a un teclado? Necesitamos un método para redirigir comandos desde una sesión remota (como SSH) para que se muestren directamente en una de estas TTY.
+</p>
+</div>
+</div>
+
+
+
+<div id="outline-container-org000000d" class="outline-3">
+<h3 id="org000000d"><span class="section-number-3">3.3.</span> Preparativos Previos</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+Antes de empezar, asegúrate de:
+</p>
+
+<ol class="org-ol">
+<li><b>Tener acceso a tu Raspberry Pi a través de SSH.</b> Si no tienes acceso remoto configurado, puedes habilitarlo editando el archivo <code>config.txt</code> de la tarjeta SD y creando un archivo vacío llamado <code>ssh</code> en la partición <code>boot</code>.</li>
+
+<li><b>Conocer el número de la TTY.</b> En la mayoría de las distribuciones, las TTY disponibles van de <code>tty1</code> a <code>tty6</code>. Cuando tu Raspberry Pi arranca, generalmente el sistema usa <code>tty1</code> como terminal predeterminada.</li>
+
+<li><b>Instalar herramientas necesarias.</b> Aunque no es obligatorio, instalar <code>tmux</code> o <code>screen</code> puede ayudarte a manejar sesiones de comandos más cómodamente.</li>
+</ol>
+</div>
+</div>
+
+
+
+<div id="outline-container-org0000019" class="outline-3">
+<h3 id="org0000019"><span class="section-number-3">3.4.</span> Pasos para Ejecutar un Comando en una TTY sin Consola Física</h3>
+<div class="outline-text-3" id="text-3-4">
+</div>
+<div id="outline-container-org0000010" class="outline-4">
+<h4 id="org0000010"><span class="section-number-4">3.4.1.</span> 1. Verifica qué TTY está activa</h4>
+<div class="outline-text-4" id="text-3-4-1">
+<p>
+Primero, identifica en qué terminal TTY está corriendo la sesión principal. Por defecto, <code>tty1</code> será el foco principal si tu Raspberry está conectada a un monitor.
+</p>
+
+<p>
+Puedes verificar qué consola está activa usando:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">who
+</pre>
+</div>
+<p>
+Esto te mostrará las sesiones activas y las TTY asociadas.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0000013" class="outline-4">
+<h4 id="org0000013"><span class="section-number-4">3.4.2.</span> 2. Usa el Comando <code>chvt</code> para Cambiar de TTY</h4>
+<div class="outline-text-4" id="text-3-4-2">
+<p>
+El comando <code>chvt</code> permite cambiar el foco de pantalla a una TTY específica. Si, por ejemplo, quieres asegurarte de que el monitor muestre <code>tty1</code>, puedes usar:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">sudo chvt 1
+</pre>
+</div>
+<p>
+.
+ al menos para comandos que necesiten controlar la consola al estilo de <code>ncurses</code>.*Eso sí, edirige un Comando a una TTY
+El comando <code>echo</code> o la redirección estándar se pueden usar para enviar salidas a una TTY. Por ejemplo, para escribir "Hola, TTY1" en la terminal <code>tty1</code>:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">echo "Hola, TTY1" | sudo tee /dev/tty1
+</pre>
+</div>
+
+<p>
+Para ejecutar un comando y redirigir su salida, usa:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">sudo &lt;comando&gt; &gt; /dev/tty1
+#+end_src.
+ al menos para comandos que necesiten controlar la consola al estilo de =ncurses=.
+Eso sí, mplo, para mostrar el resultado de ~ls~:
+#+begin_src bash
+sudo ls /home/pi &gt; /dev/tty1
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0000016" class="outline-4">
+<h4 id="org0000016"><span class="section-number-4">3.4.3.</span> 4. Usa <code>setsid</code> para Comandos Interactivos</h4>
+<div class="outline-text-4" id="text-3-4-3">
+<p>
+Algunos comandos requieren una sesión activa para ejecutarse. En este caso, puedes usar <code>setsid</code> para lanzar una sesión independiente:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">sudo setsid &lt;comando&gt; &gt; /dev/tty1 2&gt;&amp;1 &lt; /dev/null
+</pre>
+</div>
+<p>
+Esto es útil si el comando necesita permanecer activo o interactuar brevemente con la terminal.
+</p>
+
+<p>
+.
+ al menos para comandos que necesiten controlar la consola al estilo de <code>ncurses</code>.
+Eso sí,  Práctico: Mostrar el Estado del Sistema
+</p>
+
+<p>
+Si deseas que el monitor muestre continuamente información sobre el estado del sistema, puedes usar <code>htop</code> o <code>top</code>. Por ejemplo:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">sudo setsid htop &gt; /dev/tty1 &lt; /dev/null
+</pre>
+</div>
+
+<p>
+Si prefieres un monitoreo más específico, como mostrar la temperatura de la CPU, puedes hacer algo como:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">while true; do vcgencmd measure_temp | sudo tee /dev/tty1; sleep 1; done
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-org000001c" class="outline-3">
+<h3 id="org000001c"><span class="section-number-3">3.5.</span> Automatización con <code>rc.local</code> o Servicios de Systemd</h3>
+<div class="outline-text-3" id="text-3-5">
+<p>
+Si deseas que un comando se ejecute automáticamente al arrancar la Raspberry Pi, puedes agregarlo al archivo <code>/etc/rc.local</code> antes de la línea <code>exit 0</code>:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">sudo setsid &lt;comando&gt; &gt; /dev/tty1 2&gt;&amp;1 &lt; /dev/null &amp;
+</pre>
+</div>
+
+<p>
+Alternativamente, puedes crear un servicio de Systemd. Por ejemplo, crea un archivo de servicio:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">sudo nano /etc/systemd/system/mostrar-comando.service
+</pre>
+</div>
+
+<p>
+Y agrega lo siguiente:
+</p>
+<div class="org-src-container">
+<pre class="src src-conf">[Unit]
+Description=Mostrar comando en TTY1
+After=multi-user.target
+
+[Service]
+ExecStart=/usr/bin/bash -c "sudo setsid &lt;comando&gt; &gt; /dev/tty1 2&gt;&amp;1 &lt; /dev/null"
+StandardInput=tty
+StandardOutput=tty
+TTYPath=/dev/tty1
+
+[Install]
+WantedBy=multi-user.target
+</pre>
+</div>
+
+<p>
+Luego, habilita y activa el servicio:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">sudo systemctl enable mostrar-comando.service
+sudo systemctl start mostrar-comando.service
+</pre>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-org000001f" class="outline-3">
+<h3 id="org000001f"><span class="section-number-3">3.6.</span> Conclusión</h3>
+<div class="outline-text-3" id="text-3-6">
+<p>
+Lanzar comandos en una TTY sin acceso físico es completamente posible y puede ser muy práctico en sistemas embebidos como una Raspberry Pi. Con herramientas como <code>chvt</code>, redirecciones a <code>/dev/ttyX</code>, y configuraciones automáticas de servicios, puedes aprovechar al máximo la pantalla conectada a tu dispositivo, incluso sin teclado físico. ¡Pruébalo y descubre nuevas formas de interactuar con tu Raspberry Pi!
+</p>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2024-12-14</span>
+        <span title="last modification date" class="post-info">2024-12-14</span>
+        <span title="tags" class="post-info"><a href="/tags/raspberrypi-linux/">raspberrypi linux</a></span>
+        <span title="author" class="post-info">Álvaro González Sotillo</span>
+      </div>
+      <section>
+        <!-- <h1>Comments</h1> -->
+      </section>
+      <!-- <script src="//code.jquery.com/jquery-latest.min.js"></script> -->
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script> -->
+      <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>  -->
+      <!--<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>-->
+      <script src="/media/js/jquery-3.2.1.min.js"></script>
+      <script src="/media/js/main.js"></script>
+      <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="/media/js/code-prettify/loader/run_prettify.js"></script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 29.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:alvarogonzalezsotillo <at> gmail <dot> com">Álvaro González Sotillo</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>
