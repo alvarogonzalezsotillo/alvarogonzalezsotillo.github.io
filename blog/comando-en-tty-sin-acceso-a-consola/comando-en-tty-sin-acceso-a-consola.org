@@ -2,7 +2,7 @@
 
 #+AUTHOR:      Álvaro González Sotillo
 #+EMAIL:       alvarogonzalezsotillo@gmail.com
-#+DATE:        2024-04-27
+#+DATE:        2024-12-14
 #+URI:         /blog/comando-en-tty-sin-acceso-a-consola
 
 #+TAGS: raspberrypi linux
@@ -14,9 +14,9 @@
 
 
 * El problema
-Tengo una Raspberry Pi con [[file:~/repos/alvarogonzalezsotillo.github.io/blog/licencias-gvlk-de-microsoft-con-vlmcsd/licencias-gvlk-de-microsoft-con-vlmcsd.org][varios]] [[file:~/repos/alvarogonzalezsotillo.github.io/blog/mi-propio-hosting-git/mi-propio-hosting-git.org][servicios]] en casa. Está conectada por HDMI a la televisión, pero accedo a ella mediante SSH, y no tiene un teclado conectado (me sobran más cables HDMI que teclados inalámbricos 🤷).
+Tengo una Raspberry Pi con [[../../../blog/licencias-gvlk-de-microsoft-con-vlmcsd][varios]] [[../../../blog/mi-propio-hosting-git][servicios]] en casa. Está conectada por HDMI a la televisión, pero accedo a ella mediante SSH, y no tiene un teclado conectado (me sobran más cables HDMI que teclados inalámbricos 🤷).
 
-También tengo un [[file:~/repos/alvarogonzalezsotillo.github.io/blog/honeypot-con-pam-y-nss/][honeypot]] que me sirve como defensa ante ataques de SSH. Para ver las trazas de ese honeypot, me conectaba por SSH desde otro ordenador, pero era preferible cambiar la fuente del televisor al HDMI de la raspberry, y consultarlo directamente.
+También tengo un [[../../../blog/honeypot-con-pam-y-nss][honeypot]] que me sirve como defensa ante ataques de SSH. Para ver las trazas de ese honeypot, me conectaba por SSH desde otro ordenador, pero era preferible cambiar la fuente del televisor al HDMI de la raspberry, y consultarlo directamente.
 
 El problema consistía en que tenía que conectar un teclado a la raspberry, hacer login, y lanzar los =tail -f= correspondientes. Cada vez que se reinicia la raspberry tenía que repetir el proceso.
 

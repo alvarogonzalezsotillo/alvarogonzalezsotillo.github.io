@@ -3,7 +3,7 @@
 #+AUTHOR:      Álvaro González Sotillo
 #+EMAIL:       alvarogonzalezsotillo@gmail.com
 #+DATE:        2023-06-08
-#+URI:         /blog/honeypot-con-pam-y-nssh
+#+URI:         /blog/honeypot-con-pam-y-nss
 
 #+TAGS: programación, docker, linux
 #+DESCRIPTION: Mi raspberry recibe muchos ataques por SSH. En el post investigo sus características para ver si estoy seguro.
@@ -51,21 +51,21 @@
 
 
 * tl;dr
-he implementado un [[https://en.wikipedia.org/wiki/honeypot_(computing)][/honeypot/]] de ssh dockerizado con un módulo [[https://www.redhat.com/sysadmin/pluggable-authentication-modules-pam][pam]] y un módulo [[https://en.wikipedia.org/wiki/name_service_switch][nss]]. el código está en [[https://github.com/alvarogonzalezsotillo/pam-nss-honeypot][https://github.com/alvarogonzalezsotillo/pam-nss-honeypot]].
+He implementado un [[https://en.wikipedia.org/wiki/honeypot_(computing)][/honeypot/]] de ssh dockerizado con un módulo [[https://www.redhat.com/sysadmin/pluggable-authentication-modules-pam][pam]] y un módulo [[https://en.wikipedia.org/wiki/name_service_switch][nss]]. El código está en [[https://github.com/alvarogonzalezsotillo/pam-nss-honeypot][https://github.com/alvarogonzalezsotillo/pam-nss-honeypot]].
 
-las contraseñas capturadas están en [[https://github.com/frikismos/passwords-in-honeypot/commits/master][https://github.com/frikismos/passwords-in-honeypot/commits/master]]
+Las contraseñas capturadas están en [[https://github.com/frikismos/passwords-in-honeypot/commits/master][https://github.com/frikismos/passwords-in-honeypot/commits/master]]
 * intentos de conexión a mi ssh
 
-tengo instalado un servidor ssh en una raspberry pi. lo utilizo de nodo bastión para acceder a los ordenadores de mi casa.
+Tengo instalado un servidor ssh en una raspberry pi. Lo utilizo de nodo bastión para acceder a los ordenadores de mi casa.
 
-solo por curiosidad, revisé los ficheros de /syslog/ para comprobar cómo se localizaban los accesos, tanto correctos como incorrectos. en mi caso, estos registros están en el fichero =/var/log/auth.log=
+Solo por curiosidad, revisé los ficheros de /syslog/ para comprobar cómo se localizaban los accesos, tanto correctos como incorrectos. En mi caso, estos registros están en el fichero =/var/log/auth.log=
 
 #+begin_src bash
 #!/bin/bash
 tail -f /var/log/auth.log | grep "failed password"
 #+end_src
 
-ejecutando el /script/ anterior se pueden ver en tiempo real los intentos fallidos. depende del momento, pero ¡suele haber varios por minuto!  un enjambre de bots están patrullando todo internet buscando servidores ssh, y una vez localizados intentan acceder a ellos.
+Ejecutando el /script/ anterior se pueden ver en tiempo real los intentos fallidos. Depende del momento, pero ¡suele haber varios por minuto!  un enjambre de bots están patrullando todo internet buscando servidores ssh, y una vez localizados intentan acceder a ellos.
 
 
 #+begin_example
@@ -87,19 +87,19 @@ mar 21 18:43:59 raspberrypi sshd[16467]: failed password for invalid user root f
 #+end_example
 
 
-aunque las trazas de =syslog= ofrecen bastante información, no es posible saber qué contraseña ha sido utilizada. esto me parecía importante, ya que no estaba seguro de si las contraseñas que se utilizan se /parecen/ a las mías. 
+Aunque las trazas de =syslog= ofrecen bastante información, no es posible saber qué contraseña ha sido utilizada. Esto me parecía importante, ya que no estaba seguro de si las contraseñas que se utilizan se /parecen/ a las mías. 
 
 
-* conseguir las contraseñas
-openssh-server no vuelca las contraseñas incorrectas al =log= por razones de seguridad (puede ser un usuario legítimo con un simple /typo/). para conseguir estas contraseñas había varias opciones
-- usar un /honeypot/ de ssh: me parecía un problema que los clientes de ssh detectasen que se no se trataba de un servidor ssh real. [[https://github.com/desaster/kippo][hay]] [[https://github.com/cowrie/cowrie][multitud]] [[https://github.com/madirish/kojoney2][de]] [[https://github.com/droberson/ssh-honeypot][honeypots]] [[https://github.com/aabed/dockpot][entre]] [[https://github.com/tnich/honssh][los]] [[https://github.com/jaksi/sshesame][que]] [[https://github.com/magisterquis/sshhipot][elegir]]
-- compilar [[https://metamorphant.de/blog/posts/2021-04-14-ssh-server-opensshd-logging-passwords/][mi propia versión de openssh-server]]: no quería estar pendiente de las actualizaciones de seguridad, volviendo a compilar el servidor
-- desarrollar mi propio módulo pam y añadírselo al servidor ssh. [[https://www.redhat.com/sysadmin/pluggable-authentication-modules-pam][pam (pluggable authentication module)]] es el sistema utilizado por linux para autenticar a los usuarios. si el código no era complicado, podía estar razonablemente confiado en no crear problemas de seguridad
+* Conseguir las contraseñas
+=openssh-server= no vuelca las contraseñas incorrectas al =log= por razones de seguridad (puede ser un usuario legítimo con un simple /typo/). Para conseguir estas contraseñas había varias opciones
+- Usar un /honeypot/ de ssh: me parecía un problema que los clientes de ssh detectasen que se no se trataba de un servidor ssh real. [[https://github.com/desaster/kippo][hay]] [[https://github.com/cowrie/cowrie][multitud]] [[https://github.com/madirish/kojoney2][de]] [[https://github.com/droberson/ssh-honeypot][honeypots]] [[https://github.com/aabed/dockpot][entre]] [[https://github.com/tnich/honssh][los]] [[https://github.com/jaksi/sshesame][que]] [[https://github.com/magisterquis/sshhipot][elegir]]
+- Compilar [[https://metamorphant.de/blog/posts/2021-04-14-ssh-server-opensshd-logging-passwords/][mi propia versión de =openssh-server=]]: no quería estar pendiente de las actualizaciones de seguridad, volviendo a compilar el servidor
+- Desarrollar mi propio módulo pam y añadírselo al servidor ssh. [[https://www.redhat.com/sysadmin/pluggable-authentication-modules-pam][pam (pluggable authentication module)]] es el sistema utilizado por linux para autenticar a los usuarios. Si el código no era complicado, podía estar razonablemente confiado en no crear problemas de seguridad
 
-la opción más evidente para un /hobby project/ es desarrollar algo en =c=. aquí hemos venido a jugar 🤡.
+La opción más evidente para un /hobby project/ es desarrollar algo en =c=. Aquí hemos venido a jugar 🤡.
 
 ** módulo pam
-un [[https://www.redhat.com/sysadmin/pluggable-authentication-modules-pam][módulo pam]] es una librería de enlace dinámico (.so) con funciones especiales para autentificar un usuario. la función más interesante sería como la siguiente:
+Un [[https://www.redhat.com/sysadmin/pluggable-authentication-modules-pam][módulo pam]] es una librería de enlace dinámico (.so) con funciones especiales para autentificar un usuario. La función más interesante sería como la siguiente:
 
 #+begin_src c++
 pam_extern int pam_sm_authenticate( pam_handle_t *pamh, int flags,int argc, const char **argv ) {
@@ -111,33 +111,33 @@ pam_extern int pam_sm_authenticate( pam_handle_t *pamh, int flags,int argc, cons
 }
 #+end_src
 
-esta función se llamará con la información de login del usuario, y devolverá =pam_perm_denied= si dicha información no permite su autentificación.
+Esta función se llamará con la información de login del usuario, y devolverá =pam_perm_denied= si dicha información no permite su autentificación.
 
-este módulo debe instalarse en el servicio pam correspondiente. la idea es seguir utilizando el resto de la configuración pam, pero que se deba llamar a este módulo en todas las ocasiones. según la documentación pam, este módulo es /suficiente/, lo que quiere decir que si no permite el login tampoco lo prohibe, y se consulta al resto de módulos.
+Este módulo debe instalarse en el servicio pam correspondiente. La idea es seguir utilizando el resto de la configuración pam, pero que se deba llamar a este módulo en todas las ocasiones. Según la documentación pam, este módulo es /suficiente/, lo que quiere decir que si no permite el login tampoco lo prohibe, y se consulta al resto de módulos.
 
-esto se consigue añadiendo la siguiente línea al principio del fichero =/etc/pam.d/sshd=:
+Esto se consigue añadiendo la siguiente línea al principio del fichero =/etc/pam.d/sshd=:
 #+begin_example
 auth sufficient pam_honeypot.so
 #+end_example
 
-la librería =pam_honeypot.so= debe localizarse en =/lib/$multiarch/security=. por ejemplo, en un =x86_64= estará en =/lib/x86_64-linux-gnu/security=. el valor de =multiarch= se puede conseguir con el comando =gcc -print-multiarch=.
+La librería =pam_honeypot.so= debe localizarse en =/lib/$multiarch/security=. por ejemplo, en un =x86_64= estará en =/lib/x86_64-linux-gnu/security=. el valor de =multiarch= se puede conseguir con el comando =gcc -print-multiarch=.
 
 ** ... pero el módulo pam no funciona
-si se instala el módulo pam de la forma descrita, no se consegirán las contraseñas de todos los intentos de login ☹️. si el usuario existe en el sistema, se conseguirá la contraseña, pero si no existe, la contraseña será algo parecido a =invalid=. además, si se configura sshd para que no permita el usuario =root=, tampoco se llega a llamar nunca al módulo pam. esto dejaría fuera del log de contraseñas a una gran catidad de intentos de login.
+Si se instala el módulo pam de la forma descrita, no se consegirán las contraseñas de todos los intentos de login ☹️. Si el usuario existe en el sistema, se conseguirá la contraseña, pero si no existe, la contraseña será algo parecido a =invalid=. Además, si se configura sshd para que no permita el usuario =root=, tampoco se llega a llamar nunca al módulo pam. esto dejaría fuera del log de contraseñas a una gran catidad de intentos de login.
 
-me costó un poco encontrar [[https://www.linuxquestions.org/questions/programming-9/can%27t-get-auth-token-for-non-local-users-with-pam-module-945164/][la respuesta]], pero cuando el sistema detecta que el usuario no existe, oculta la contraseña al módulo pam (imagino que para no propagar contraseñas de usuarios legítimos que se confunden de servidor). este diagrama explica la relación entre ssh, nss y pam
+Me costó un poco encontrar [[https://www.linuxquestions.org/questions/programming-9/can%27t-get-auth-token-for-non-local-users-with-pam-module-945164/][la respuesta]], pero cuando el sistema detecta que el usuario no existe, oculta la contraseña al módulo pam (imagino que para no propagar contraseñas de usuarios legítimos que se confunden de servidor). Este diagrama explica la relación entre ssh, nss y pam
 
-la solución es convencer a linux de que todos los usuarios existen, lo que pasa por desarrollar un módulo nss.
+La solución es convencer a linux de que todos los usuarios existen, lo que pasa por desarrollar un módulo nss.
 
 
 
 [[file:./pam-nss-resumen.png]]
 
 
-** módulo nss
-[[https://en.wikipedia.org/wiki/name_service_switch][name service switch]] es la forma en que linux configura las bases de datos donde consulta usuarios, grupos de usuarios, nombres de hosts... por ejemplo, la forma tradicional de almacenar usuarios es el fichero =/etc/passwd=. en vez de basar los usuarios directamente en ese fichero, nss puede utilizar el proveedor =files=, que lee ese fichero. se pueden crear otros proveedores de usuarios, de forma que linux reconozca los usuarios de, por ejemplo, un servicio ldap. todos los proveedores se configuran en el fichero =/etc/nsswitch.conf=.
+** Módulo nss
+[[https://en.wikipedia.org/wiki/name_service_switch][Name service switch]] es la forma en que linux configura las bases de datos donde consulta usuarios, grupos de usuarios, nombres de hosts... por ejemplo, la forma tradicional de almacenar usuarios es el fichero =/etc/passwd=. en vez de basar los usuarios directamente en ese fichero, nss puede utilizar el proveedor =files=, que lee ese fichero. se pueden crear otros proveedores de usuarios, de forma que linux reconozca los usuarios de, por ejemplo, un servicio ldap. todos los proveedores se configuran en el fichero =/etc/nsswitch.conf=.
 
-un módulo de nss es una librería de enlace dinámico con funciones especiales. en el ejemplo siguiente, cualquier usuario se considera existente, y se le asignan unos valores ficticios a su contraseña, directorio inicial, shell, uid y gid.
+Un módulo de nss es una librería de enlace dinámico con funciones especiales. En el ejemplo siguiente, cualquier usuario se considera existente, y se le asignan unos valores ficticios a su contraseña, directorio inicial, /shell/, /uid/ y /gid/.
 
 #+begin_src c
 const char* pw_passwd=;
@@ -161,7 +161,7 @@ enum nss_status _nss_honeypot_getpwnam_r(const char *name, struct passwd *result
 } 
 #+end_src
 
-una vez compilada la librería e instalada en =/lib/$multiarch= debe añadirse al fichero =/etc/nsswitch.conf/=, de forma que se utilice la base de datos =honeypot= si no se encuentra el usuario en las bases de datos habituales del sistema:
+Una vez compilada la librería e instalada en =/lib/$multiarch= debe añadirse al fichero =/etc/nsswitch.conf/=, de forma que se utilice la base de datos =honeypot= si no se encuentra el usuario en las bases de datos habituales del sistema:
 
 #+begin_src conf
 ....
@@ -171,7 +171,7 @@ shadow:         files
 ....
 #+end_src
 
-las instrucciones concretas de compilación e instalación se encuentran en [[https://github.com/alvarogonzalezsotillo/pam-nss-honeypot/blob/master/pam-nss-modules/build-install-nss-pam.sh][build-install-nss-pam.sh]] .
+Las instrucciones concretas de compilación e instalación se encuentran en [[https://github.com/alvarogonzalezsotillo/pam-nss-honeypot/blob/master/pam-nss-modules/build-install-nss-pam.sh][build-install-nss-pam.sh]] .
 
 
 ** ... pero no en mi sistema real
