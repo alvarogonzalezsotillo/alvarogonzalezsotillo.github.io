@@ -17,7 +17,6 @@
         <p></p>
         <ul>
           <li><a href="/blog/">Blog</a></li>
-          <li><a href="/hugo/">Hugo</a></li>
           <li><a href="/tags/">Tags</a></li>
           <li><a href="/about/">Acerca de mí</a></li>
           <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
@@ -34,8 +33,6 @@
 <div>
 <div class="post">
 <h1>Lanzar comando en TTY sin acceso a la consola</h1>
-
-
 <div id="outline-container-org0000000" class="outline-2">
 <h2 id="org0000000"><span class="section-number-2">1.</span> El problema</h2>
 <div class="outline-text-2" id="text-1">
@@ -56,7 +53,6 @@ Necesitaba una forma de lanzar comandos por SSH, pero que se viesen en una TTY. 
 </p>
 </div>
 </div>
-
 <div id="outline-container-org0000003" class="outline-2">
 <h2 id="org0000003"><span class="section-number-2">2.</span> La solución</h2>
 <div class="outline-text-2" id="text-2">
@@ -76,9 +72,6 @@ Desconecto de la sesión de <code>tmux</code> y utlizo el comando
 </ol>
 </div>
 </div>
-
-
-
 <div id="outline-container-org0000022" class="outline-2">
 <h2 id="org0000022"><span class="section-number-2">3.</span> Y lo escribo porque los LLM no acertaban con este asunto antes de que publicase este artículo</h2>
 <div class="outline-text-2" id="text-3">
@@ -92,7 +85,6 @@ Quiero un artículo para mi blog con este título: Lanzar comando en TTY sin acc
 quiero que una raspberry conectada por hdmi muestre la ejecución de un comando, pero no tiene un teclado físico.
 </pre>
 </div>
-
 <div id="outline-container-org0000007" class="outline-3">
 <h3 id="org0000007"><span class="section-number-3">3.1.</span> Lanzar Comando en TTY sin Acceso a la Consola en una Raspberry Pi</h3>
 <div class="outline-text-3" id="text-3-1">
@@ -101,9 +93,6 @@ Imagina que tienes una Raspberry Pi conectada a un monitor a través de HDMI, pe
 </p>
 </div>
 </div>
-
-
-
 <div id="outline-container-org000000a" class="outline-3">
 <h3 id="org000000a"><span class="section-number-3">3.2.</span> ¿Qué es TTY y por qué usarlo?</h3>
 <div class="outline-text-3" id="text-3-2">
@@ -116,9 +105,6 @@ Sin embargo, ¿qué sucede si no tienes acceso directo a un teclado? Necesitamos
 </p>
 </div>
 </div>
-
-
-
 <div id="outline-container-org000000d" class="outline-3">
 <h3 id="org000000d"><span class="section-number-3">3.3.</span> Preparativos Previos</h3>
 <div class="outline-text-3" id="text-3-3">
@@ -135,9 +121,6 @@ Antes de empezar, asegúrate de:
 </ol>
 </div>
 </div>
-
-
-
 <div id="outline-container-org0000019" class="outline-3">
 <h3 id="org0000019"><span class="section-number-3">3.4.</span> Pasos para Ejecutar un Comando en una TTY sin Consola Física</h3>
 <div class="outline-text-3" id="text-3-4">
@@ -161,7 +144,6 @@ Esto te mostrará las sesiones activas y las TTY asociadas.
 </p>
 </div>
 </div>
-
 <div id="outline-container-org0000013" class="outline-4">
 <h4 id="org0000013"><span class="section-number-4">3.4.2.</span> 2. Usa el Comando <code>chvt</code> para Cambiar de TTY</h4>
 <div class="outline-text-4" id="text-3-4-2">
@@ -187,16 +169,19 @@ Para ejecutar un comando y redirigir su salida, usa:
 </p>
 <div class="org-src-container">
 <pre class="src src-bash">sudo &lt;comando&gt; &gt; /dev/tty1
-#+end_src.
- al menos para comandos que necesiten controlar la consola al estilo de =ncurses=.
-Eso sí, mplo, para mostrar el resultado de ~ls~:
-#+begin_src bash
-sudo ls /home/pi &gt; /dev/tty1
+</pre>
+</div>
+
+<p>
+ al menos para comandos que necesiten controlar la consola al estilo de <code>ncurses</code>.
+Eso sí, mplo, para mostrar el resultado de <code>ls</code>:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">sudo ls /home/pi &gt; /dev/tty1
 </pre>
 </div>
 </div>
 </div>
-
 <div id="outline-container-org0000016" class="outline-4">
 <h4 id="org0000016"><span class="section-number-4">3.4.3.</span> 4. Usa <code>setsid</code> para Comandos Interactivos</h4>
 <div class="outline-text-4" id="text-3-4-3">
@@ -235,9 +220,6 @@ Si prefieres un monitoreo más específico, como mostrar la temperatura de la CP
 </div>
 </div>
 </div>
-
-
-
 <div id="outline-container-org000001c" class="outline-3">
 <h3 id="org000001c"><span class="section-number-3">3.5.</span> Automatización con <code>rc.local</code> o Servicios de Systemd</h3>
 <div class="outline-text-3" id="text-3-5">
@@ -286,9 +268,6 @@ sudo systemctl start mostrar-comando.service
 </div>
 </div>
 </div>
-
-
-
 <div id="outline-container-org000001f" class="outline-3">
 <h3 id="org000001f"><span class="section-number-3">3.6.</span> Conclusión</h3>
 <div class="outline-text-3" id="text-3-6">
@@ -304,7 +283,7 @@ Lanzar comandos en una TTY sin acceso físico es completamente posible y puede s
     <div>
       <div class="post-meta">
         <span title="post date" class="post-info">2024-12-14</span>
-        <span title="last modification date" class="post-info">2024-12-14</span>
+        <span title="last modification date" class="post-info">2025-05-12</span>
         <span title="tags" class="post-info"><a href="/tags/raspberrypi-linux/">raspberrypi linux</a></span>
         <span title="author" class="post-info">Álvaro González Sotillo</span>
       </div>
@@ -320,7 +299,7 @@ Lanzar comandos en una TTY sin acceso físico es completamente posible y puede s
       <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
       <script src="/media/js/code-prettify/loader/run_prettify.js"></script>
       <div class="footer">
-        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 29.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 30.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
         <p>
           Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:alvarogonzalezsotillo <at> gmail <dot> com">Álvaro González Sotillo</a>
           &nbsp;&nbsp;-&nbsp;&nbsp;

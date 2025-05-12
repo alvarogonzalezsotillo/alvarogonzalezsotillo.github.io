@@ -17,7 +17,6 @@
         <p></p>
         <ul>
           <li><a href="/blog/">Blog</a></li>
-          <li><a href="/hugo/">Hugo</a></li>
           <li><a href="/tags/">Tags</a></li>
           <li><a href="/about/">Acerca de mí</a></li>
           <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
@@ -85,10 +84,6 @@
      background-color: #f0f000;
    }
 </style>
-
-
-
-
 <div id="outline-container-org0000015" class="outline-2">
 <h2 id="org0000015"><span class="section-number-2">1.</span> Presentación del problema</h2>
 <div class="outline-text-2" id="text-1">
@@ -123,7 +118,6 @@ window.addEventListener("load", ()=> elsvg.contentWindow.window.go = go );
 
 </script>    
 </div>
-
 <div id="outline-container-diptongos-hiatos-id" class="outline-3">
 <h3 id="diptongos-hiatos-id"><span class="section-number-3">1.1.</span> <a id="org0000006"></a> Diptongos e hiatos</h3>
 <div class="outline-text-3" id="text-diptongos-hiatos-id">
@@ -141,8 +135,6 @@ Estas normas se ven afectadas, por tanto, por las normas de acentuación.
 </p>
 </div>
 </div>
-
-
 <div id="outline-container-division-en-silabas-id" class="outline-3">
 <h3 id="division-en-silabas-id"><span class="section-number-3">1.2.</span> <a id="org0000008"></a> División en sílabas de una palabra</h3>
 <div class="outline-text-3" id="text-division-en-silabas-id">
@@ -154,7 +146,6 @@ Una palabra se compone de sílabas. En castellano, una sílaba tiene solo un gru
 Al grupo vocálico pueden acompañar consonantes como sufijo o prefijo.
 </p>
 </div>
-
 <div id="outline-container-division-en-silabas-sin-hiatos-id" class="outline-4">
 <h4 id="division-en-silabas-sin-hiatos-id"><span class="section-number-4">1.2.1.</span> División sin importar hiatos/diptongos</h4>
 <div class="outline-text-4" id="text-division-en-silabas-sin-hiatos-id">
@@ -204,7 +195,6 @@ Estas normas generales no funcionan en algunos casos, para los que se utilizan n
 </ul>
 </div>
 </div>
-
 <div id="outline-container-hiatos-id" class="outline-4">
 <h4 id="hiatos-id"><span class="section-number-4">1.2.2.</span> Hiatos</h4>
 <div class="outline-text-4" id="text-hiatos-id">
@@ -406,8 +396,6 @@ En el caso de tres vocales o más, se va probando cada par de vocales. Por ejemp
 </div>
 </div>
 </div>
-
-
 <div id="outline-container-silaba-tonica-id" class="outline-3">
 <h3 id="silaba-tonica-id"><span class="section-number-3">1.3.</span> Localización de la <a id="org000000a"></a> sílaba tónica</h3>
 <div class="outline-text-3" id="text-silaba-tonica-id">
@@ -432,7 +420,6 @@ Este problema se ve afectado por la <a href="#org0000008">división en sílabas<
 </p>
 </div>
 </div>
-
 <div id="outline-container-significado-palabra-id" class="outline-3">
 <h3 id="significado-palabra-id"><span class="section-number-3">1.4.</span> <a id="org0000002"></a>Excepciones debidas al significado de la palabra</h3>
 <div class="outline-text-3" id="text-significado-palabra-id">
@@ -449,8 +436,6 @@ De estas dos últimas normas se deduce que no es posible localizar la sílaba t�
 </p>
 </div>
 </div>
-
-
 <div id="outline-container-rimas-id" class="outline-3">
 <h3 id="rimas-id"><span class="section-number-3">1.5.</span> Rimas</h3>
 <div class="outline-text-3" id="text-rimas-id">
@@ -470,7 +455,6 @@ Hay algunas <a href="https://lengualdia.blogspot.com/2012/02/excepciones-de-la-r
 <li>Las vocales no acentuadas de un diptongo (débiles) pueden ignorarse. Esto haría que <span class="silabeo"> <i>a. <b>cei</b> . te</i> </span>&nbsp; rimase con <span class="silabeo"> <i><b>pe</b>.ces</i>  </span>&nbsp;.</li>
 </ul>
 </div>
-
 <div id="outline-container-org000000c" class="outline-4">
 <h4 id="org000000c"><span class="section-number-4">1.5.1.</span> Rima Consonante</h4>
 <div class="outline-text-4" id="text-1-5-1">
@@ -679,7 +663,6 @@ Posteriormente, se sustituyen las vocales acentuadas por vocales sin acentuar
 </p>
 </div>
 </div>
-
 <div id="outline-container-org000000f" class="outline-4">
 <h4 id="org000000f"><span class="section-number-4">1.5.2.</span> Rima asonante</h4>
 <div class="outline-text-4" id="text-1-5-2">
@@ -693,7 +676,6 @@ Se parte del final de la palabra tenido en cuenta en la rima consonante, y se el
 </div>
 </div>
 </div>
-
 <div id="outline-container-org0000012" class="outline-3">
 <h3 id="org0000012"><span class="section-number-3">1.6.</span> División de palabra</h3>
 <div class="outline-text-3" id="text-1-6">
@@ -708,7 +690,6 @@ Al final del renglón, las palabras pueden dividirse con un guión. No todas las
 </div>
 </div>
 </div>
-
 <div id="outline-container-org000002c" class="outline-2">
 <h2 id="org000002c"><span class="section-number-2">2.</span> <a id="org0000000"></a> Implementación</h2>
 <div class="outline-text-2" id="text-2">
@@ -745,8 +726,6 @@ console.log( palabraConHiatos("constituía") ); // =&gt; [ 'cons', 'ti', 'tuí',
 </pre>
 </div>
 </div>
-
-
 <div id="outline-container-org0000018" class="outline-4">
 <h4 id="org0000018"><span class="section-number-4">2.1.1.</span> Normas no contempladas</h4>
 <div class="outline-text-4" id="text-2-1-1">
@@ -759,8 +738,6 @@ Hay algunas normas que no pueden aplicarse sin un corpus completo:
 </div>
 </div>
 </div>
-
-
 <div id="outline-container-org000001e" class="outline-3">
 <h3 id="org000001e"><span class="section-number-3">2.2.</span> Sílaba tónica</h3>
 <div class="outline-text-3" id="text-2-2">
@@ -791,9 +768,6 @@ console.log( silabaTonica(percheron) ); // =&gt; 2
 </div>
 </div>
 </div>
-
-
-
 <div id="outline-container-org0000023" class="outline-3">
 <h3 id="org0000023"><span class="section-number-3">2.3.</span> <a id="org0000021"></a>Vocal tónica</h3>
 <div class="outline-text-3" id="text-2-3">
@@ -815,8 +789,6 @@ console.log( letraTonica(percheron) ); // =&gt; 7
 </div>
 </div>
 </div>
-
-
 <div id="outline-container-org0000026" class="outline-3">
 <h3 id="org0000026"><span class="section-number-3">2.4.</span> Fachada para las funciones: clase <code>Palabra</code></h3>
 <div class="outline-text-3" id="text-2-4">
@@ -829,8 +801,6 @@ Las funciones anteriores pueden utilizarse por separado, pero para facilitar su 
 </ul>
 </div>
 </div>
-
-
 <div id="outline-container-org0000029" class="outline-3">
 <h3 id="org0000029"><span class="section-number-3">2.5.</span> Rimas</h3>
 <div class="outline-text-3" id="text-2-5">
@@ -876,8 +846,6 @@ console.log( rimaAsonanteCon("maría", "arriba") ) // =&gt; true
 </div>
 </div>
 </div>
-
-
 <div id="outline-container-org000002f" class="outline-2">
 <h2 id="org000002f"><span class="section-number-2">3.</span> Por hacer</h2>
 <div class="outline-text-2" id="text-3">
@@ -887,7 +855,6 @@ console.log( rimaAsonanteCon("maría", "arriba") ) // =&gt; true
 </ul>
 </div>
 </div>
-
 <div id="outline-container-org0000032" class="outline-2">
 <h2 id="org0000032"><span class="section-number-2">4.</span> Enlaces de interés</h2>
 <div class="outline-text-2" id="text-4">
@@ -925,7 +892,7 @@ console.log( rimaAsonanteCon("maría", "arriba") ) // =&gt; true
       <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
       <script src="/media/js/code-prettify/loader/run_prettify.js"></script>
       <div class="footer">
-        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 29.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 30.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
         <p>
           Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:alvarogonzalezsotillo <at> gmail <dot> com">Álvaro González Sotillo</a>
           &nbsp;&nbsp;-&nbsp;&nbsp;

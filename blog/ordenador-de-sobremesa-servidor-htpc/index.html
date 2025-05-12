@@ -17,7 +17,6 @@
         <p></p>
         <ul>
           <li><a href="/blog/">Blog</a></li>
-          <li><a href="/hugo/">Hugo</a></li>
           <li><a href="/tags/">Tags</a></li>
           <li><a href="/about/">Acerca de mí</a></li>
           <li><a href="https://github.com/alvarogonzalezsotillo">GitHub</a></li>
@@ -79,7 +78,6 @@
 Acabo de comprarme un <a href="https://www.asus.com/us/mini-pcs/vivomini-vc66/">asus vc-66</a>. Mi intención es utilizarlo como servidor accesible desde internet, pero también como <a href="https://es.wikipedia.org/wiki/htpc">htpc</a>. Estos son los pasos que he seguido para configurarlo.
 </p>
 <p style="clear:both"></p>
-
 <div id="outline-container-org0000001" class="outline-2">
 <h2 id="org0000001">Instalación del sistema operativo</h2>
 <div class="outline-text-2" id="text-org0000001">
@@ -91,7 +89,6 @@ El ordenador venía con windows 10 preinstalado. Aunque el <i><a href="https://e
 De todas formas, Windows sigue instalado, que tampoco es cuestión de despreciar una licencia.
 </p>
 </div>
-
 <div id="outline-container-org0000004" class="outline-3">
 <h3 id="org0000004">Haciendo sitio en el disco</h3>
 <div class="outline-text-3" id="text-org0000004">
@@ -254,7 +251,6 @@ Crear partición datos compartidos con windows (formato ntfs)
 </ol>
 </div>
 </div>
-
 <div id="outline-container-org0000008" class="outline-3">
 <h3 id="org0000008">Usuarios</h3>
 <div class="outline-text-3" id="text-org0000008">
@@ -296,7 +292,6 @@ uuid=9e1cf2601cf2333f /datos/datos-compartidos-200m ntfs gid=discos,dmask=002,fm
 </div>
 </div>
 </div>
-
 <div id="outline-container-org000000c" class="outline-2">
 <h2 id="org000000c">Home Theater Personal Computer</h2>
 <div class="outline-text-2" id="text-org000000c">
@@ -311,11 +306,11 @@ En la parte <i>hardware</i>, basta con conectar el ordenador al televisor por el
 </p>
 
 <p>
-En la parte <i>software</i> he optado por <a href="//KODI.TV/">Kodi</a> con el <a href="https://kodi.wiki/view/add-on:youtube">plugin de Youtube</a>, aunque al final resulta más cómodo utilizar directamente la web con firefox.
+En la parte <i>software</i> he optado por <a href="https://kodi.tv/">Kodi</a> con el <a href="https://kodi.wiki/view/add-on:youtube">plugin de Youtube</a>, aunque al final resulta más cómodo utilizar directamente la web con firefox.
 </p>
 
 <p>
-Para <i>esos</i> otros contenidos, utilizo <a href="//TRANSMISSIONBT.COM/">Transmission daemon</a>. He seguido los siguientes pasos:
+Para <i>esos</i> otros contenidos, utilizo <a href="https://transmissionbt.com/">Transmission daemon</a>. He seguido los siguientes pasos:
 </p>
 <ul class="org-ul">
 <li>Instalar con <code>apt install transmission-daemon</code></li>
@@ -341,7 +336,6 @@ Tras instalar transmission, he añadido el directorio de bajada a los directorio
 </p>
 </div>
 </div>
-
 <div id="outline-container-org000000f" class="outline-2">
 <h2 id="org000000f">Acceso remoto</h2>
 <div class="outline-text-2" id="text-org000000f">
@@ -364,7 +358,6 @@ Instalar <a href="https://www.openssh.com/">openssh server</a>, que nos permitir
 </ol></li>
 </ol>
 </div>
-
 <div id="outline-container-org0000012" class="outline-3">
 <h3 id="org0000012"><i>Always-on</i> vs <i>wake-on-lan</i></h3>
 <div class="outline-text-3" id="text-org0000012">
@@ -385,7 +378,6 @@ La solución es modificar la tabla arp del router, dejando como permanente la di
 </p>
 </div>
 </div>
-
 <div id="outline-container-org0000015" class="outline-3">
 <h3 id="org0000015">Nombre del servidor</h3>
 <div class="outline-text-3" id="text-org0000015">
@@ -400,7 +392,6 @@ La dirección IP asignada a mi router por el ISP es dinámica. Para poder locali
 </div>
 </div>
 </div>
-
 <div id="outline-container-org0000018" class="outline-2">
 <h2 id="org0000018">Servidor</h2>
 <div class="outline-text-2" id="text-org0000018">
@@ -408,7 +399,6 @@ La dirección IP asignada a mi router por el ISP es dinámica. Para poder locali
 En el ordenador he instalado los servicios e-mail y http.
 </p>
 </div>
-
 <div id="outline-container-org000001b" class="outline-3">
 <h3 id="org000001b">E-mail</h3>
 <div class="outline-text-3" id="text-org000001b">
@@ -425,7 +415,6 @@ A partir de aquí, ya puedo utilizar mi dirección <a href="mailto:spam@alvarogo
 </p>
 </div>
 </div>
-
 <div id="outline-container-org0000020" class="outline-3">
 <h3 id="org0000020">Servidor web</h3>
 <div class="outline-text-3" id="text-org0000020">
@@ -452,7 +441,6 @@ Para no dejar la página por defecto, he instalado un mirror de este blog:
 </pre>
 </div>
 </div>
-
 <div id="outline-container-org0000026" class="outline-3">
 <h3 id="org0000026">Owncloud</h3>
 <div class="outline-text-3" id="text-org0000026">
@@ -487,7 +475,6 @@ a2ensite owncloud
 </div>
 </div>
 </div>
-
 <div id="outline-container-org0000029" class="outline-2">
 <h2 id="org0000029">Configuración como <i>workstation</i></h2>
 <div class="outline-text-2" id="text-org0000029">
@@ -495,7 +482,6 @@ a2ensite owncloud
 El servidor también debería servirme de <i>backup</i> en el caso de que no tenga disponible mi portátil. lA siguiente configuración es la que utilizo para mi trabajo diario.
 </p>
 </div>
-
 <div id="outline-container-org000002c" class="outline-3">
 <h3 id="org000002c">Zsh</h3>
 <div class="outline-text-3" id="text-org000002c">
@@ -511,12 +497,11 @@ Zsh es una shell que puede sustituir a bash de forma casi transparente. Las razo
 </ul>
 </div>
 </div>
-
 <div id="outline-container-org000002f" class="outline-3">
 <h3 id="org000002f">Emacs</h3>
 <div class="outline-text-3" id="text-org000002f">
 <p>
-Cuando tienes un martillo, todo te parecen clavos. <a href="//WWW.GNU.ORG/SOFTWARE/EMACS/">Emacs</a> es el martillo más grande que he usado nunca.
+Cuando tienes un martillo, todo te parecen clavos. <a href="https://www.gnu.org/SOFTWARE/EMACS/">Emacs</a> es el martillo más grande que he usado nunca.
 </p>
 
 <p>
@@ -549,7 +534,6 @@ Al arrancar Emacs, automáticamente descargará <a href="https://github.com/alva
 </p>
 </div>
 </div>
-
 <div id="outline-container-org0000032" class="outline-3">
 <h3 id="org0000032">Materiales para clase</h3>
 <div class="outline-text-3" id="text-org0000032">
@@ -576,7 +560,6 @@ Además, utilizo otras herramientas como <a href="https://inkscape.org/en/">Inks
 </p>
 </div>
 </div>
-
 <div id="outline-container-org0000035" class="outline-3">
 <h3 id="org0000035">Ofimática</h3>
 <div class="outline-text-3" id="text-org0000035">
@@ -608,7 +591,7 @@ Aunque prácticamente ya no lo uso, de vez en cuando alguien de la familia neces
       <script src="/media/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
       <script src="/media/js/code-prettify/loader/run_prettify.js"></script>
       <div class="footer">
-        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 29.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 30.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
         <p>
           Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:alvarogonzalezsotillo <at> gmail <dot> com">Álvaro González Sotillo</a>
           &nbsp;&nbsp;-&nbsp;&nbsp;

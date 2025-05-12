@@ -4,16 +4,23 @@
     <title>Álvaro González Sotillo</title>
     <link>https://alvarogonzalezsotillo.github.io/</link>
     <description></description>
-    <pubDate>sáb, 14 dic 2024 14:27:35 CET</pubDate>
-    <lastBuildDate>sáb, 14 dic 2024 14:27:35 CET</lastBuildDate>
+    <pubDate>lun, 12 may 2025 11:42:15 CEST</pubDate>
+    <lastBuildDate>lun, 12 may 2025 11:42:15 CEST</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
     <item>
       <title>Lanzar comando en TTY sin acceso a la consola</title>
       <link>https://alvarogonzalezsotillo.github.io/blog/comando-en-tty-sin-acceso-a-consola</link>
       <description><![CDATA[Cómo lanzar un comando en una TTY sin acceso a la consola]]></description>
-      <pubDate>2024-12-14</pubDate>
+      <pubDate>2025-05-12</pubDate>
       <guid>https://alvarogonzalezsotillo.github.io/blog/comando-en-tty-sin-acceso-a-consola</guid>
+    </item>
+    <item>
+      <title>Radio por internet en el terminal, con ttyradio</title>
+      <link>https://alvarogonzalezsotillo.github.io/blog/radio-en-terminal-con-ttyradio</link>
+      <description><![CDATA[ttyradio permite escuchar radios españolas por internet en plataformas linux, android, y posiblemente otros *nix]]></description>
+      <pubDate>2025-05-12</pubDate>
+      <guid>https://alvarogonzalezsotillo.github.io/blog/radio-en-terminal-con-ttyradio</guid>
     </item>
     <item>
       <title>Honeypot para mi raspberry</title>
@@ -70,13 +77,6 @@
       <description><![CDATA[Todos los años preparamos una maqueta con Ubuntu para instalar en los ordenadores de profesores y alumnos. Quizás un paquete debian facilite la creación de la maqueta y su mantenimiento]]></description>
       <pubDate>2023-02-20</pubDate>
       <guid>https://alvarogonzalezsotillo.github.io/blog/paquete-deb-para-puestos-de-alumno</guid>
-    </item>
-    <item>
-      <title>Silabeador y rimador</title>
-      <link>https://alvarogonzalezsotillo.github.io/blog/rimas</link>
-      <description><![CDATA[Silabeador y rimador automatizado]]></description>
-      <pubDate>2022-11-02</pubDate>
-      <guid>https://alvarogonzalezsotillo.github.io/blog/rimas</guid>
     </item>
   </channel>
 </rss>
