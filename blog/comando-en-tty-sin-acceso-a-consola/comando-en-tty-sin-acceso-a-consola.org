@@ -95,7 +95,8 @@ echo "Hola, TTY1" | sudo tee /dev/tty1
 Para ejecutar un comando y redirigir su salida, usa:
 #+begin_src bash
 sudo <comando> > /dev/tty1
-#+end_src.
+#+end_src
+
  al menos para comandos que necesiten controlar la consola al estilo de =ncurses=.
 Eso sí, mplo, para mostrar el resultado de ~ls~:
 #+begin_src bash

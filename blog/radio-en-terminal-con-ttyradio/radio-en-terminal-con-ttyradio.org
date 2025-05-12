@@ -1,0 +1,44 @@
+# -*- coding: utf-8-unix; -*-
+#+TITLE:       Radio por internet en el terminal, con ttyradio
+#+AUTHOR:      Álvaro González Sotillo
+#+EMAIL:       alvarogonzalezsotillo@gmail.com
+#+DATE:        2025-05-12
+#+URI:         /blog/radio-en-terminal-con-ttyradio
+
+#+TAGS: radio, shell, bash
+#+DESCRIPTION: ttyradio permite escuchar radios españolas por internet en plataformas linux, android, y posiblemente otros *nix
+
+#+LANGUAGE:    es
+#+OPTIONS:     H:7 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+
+
+
+* Qué es =ttyradio=
+
+Soy oyente de radio desde hace tiempo, y prefiero utilizar aparatos de radio. Cuando tengo que recurrir a la radio por internet me encuentro con varias desventajas:
+- Algunas páginas web piden tener un usuario registrado
+- O bien, necesito tener una app en el móvil
+
+En su momento, utilizaba una [[../../../radio-por-internet-2021][lista de URLs a la fuente de audio]], y utilizada VLC para escucharlas. Pero las URL cambian cada poco tiempo. Por suerte, encontré el proyecto [[https://www.tdtchannels.com/listas/#radio][TDTChannels]], que mantiene una lista de URLs actualizadas. ttyradio es una interfaz simple que funciona en un terminal de linux/android para escuchar estas radios.
+
+
+[[file:screenshots/selecting.small.png]]
+
+
+El código fuente está en el [[https://codeberg.org/alvarogonzalezsotillo/ttyradio][repositorio codeberg]]. Para instalarlo hay que tener unas cuantas herramientas previas (=fzf=, =ffplay=, =dialog=, =jq=)
+
+#+begin_src bash
+curl https://codeberg.org/alvarogonzalezsotillo/ttyradio/raw/branch/master/ttyradio.sh > ttyradio.sh
+chmod +x ttyradio.sh
+#+end_src
+
+La radio seguirá sonando tras la terminación del /script/. El /script/ puede lanzarse de nuevo, incluso desde otros terminales, TTY o sesiones SSH, para cambiar la emisora o detener la reproducción.
+
+
+* ¿Por qué =ttyradio=?
+
+- *Privacidad*: Sin rastreos de terceros, sin anuncios adicionales, sin /cookies/, sin nuevas cuentas de usuario. Simplemente =ffplay= reproduciendo una URL de una fuente de audio.
+- *Ahorro de recursos*: solo necesita un proceso =ffplay= en segundo plano. Ni siquiera necesita un entorno gráfico (como X11 o Wayland)
+- *Portabilidad*: cualquier sistema *nix debería poder ejecutarlo. Se ha probado en Ubuntu, Fedora, Raspbian y en [[https://f-droid.org/en/packages/com.termux/][Termux]] (Android).
+- *Auditabilidad*: =ttyradio.sh= es un /script/ de pequeño tamaño, /open source/ y que solo utiliza herramientas estándar, también /open source/.  
+- *Control remoto*: controla la reproducción desde cualquier parte, conectándote mediante SSH o similar a tu r
