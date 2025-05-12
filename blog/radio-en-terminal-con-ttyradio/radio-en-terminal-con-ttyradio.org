@@ -19,10 +19,10 @@ Soy oyente de radio desde hace tiempo, y prefiero utilizar aparatos de radio. Cu
 - Algunas páginas web piden tener un usuario registrado
 - O bien, necesito tener una app en el móvil
 
-En su momento, utilizaba una [[../../../radio-por-internet-2021][lista de URLs a la fuente de audio]], y utilizada VLC para escucharlas. Pero las URL cambian cada poco tiempo. Por suerte, encontré el proyecto [[https://www.tdtchannels.com/listas/#radio][TDTChannels]], que mantiene una lista de URLs actualizadas. ttyradio es una interfaz simple que funciona en un terminal de linux/android para escuchar estas radios.
+En su momento, utilizaba una [[../../../blog/radio-por-internet-2021][lista de URLs a la fuente de audio]], y utilizada vlc para escucharlas. pero las url cambian cada poco tiempo. por suerte, encontré el proyecto [[https://www.tdtchannels.com/listas/#radio][tdtchannels]], que mantiene una lista de urls actualizadas. ttyradio es una interfaz simple que funciona en un terminal de linux/android para escuchar estas radios.
 
 
-[[file:screenshots/selecting.small.png]]
+[[file:selecting.small.png]]
 
 
 El código fuente está en el [[https://codeberg.org/alvarogonzalezsotillo/ttyradio][repositorio codeberg]]. Para instalarlo hay que tener unas cuantas herramientas previas (=fzf=, =ffplay=, =dialog=, =jq=)
