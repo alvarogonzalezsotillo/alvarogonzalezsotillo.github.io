@@ -41,4 +41,4 @@ La radio seguirá sonando tras la terminación del /script/. El /script/ puede l
 - *Ahorro de recursos*: solo necesita un proceso =ffplay= en segundo plano. Ni siquiera necesita un entorno gráfico (como X11 o Wayland)
 - *Portabilidad*: cualquier sistema *nix debería poder ejecutarlo. Se ha probado en Ubuntu, Fedora, Raspbian y en [[https://f-droid.org/en/packages/com.termux/][Termux]] (Android).
 - *Auditabilidad*: =ttyradio.sh= es un /script/ de pequeño tamaño, /open source/ y que solo utiliza herramientas estándar, también /open source/.  
-- *Control remoto*: controla la reproducción desde cualquier parte, conectándote mediante SSH o similar a tu r
+- *Control remoto*: controla la reproducción desde cualquier parte, conectándote mediante SSH o similar a tu reproductor.
